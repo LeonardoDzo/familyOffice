@@ -90,6 +90,10 @@ class HomeViewController: UIViewController,  UIGestureRecognizerDelegate {
         store.unsubscribe(self)
     }
     
+    @IBOutlet weak var selectItem: MIBadgeButton!
+    @IBAction func selectedItem(_ sender: UIButton) {
+        gotoModule(index: sender.tag)
+    }
     
     
     
@@ -111,7 +115,7 @@ extension HomeViewController : UICollectionViewDelegate, UICollectionViewDataSou
         cell.buttonicon.badgeString = "3"
         cell.buttonicon.badgeEdgeInsets = UIEdgeInsetsMake(10, 10, 0, 0)
         cell.buttonicon.badgeBackgroundColor = UIColor.red
-        
+        cell.buttonicon.tag = indexPath.item
         return cell
     }
     
@@ -144,6 +148,7 @@ extension HomeViewController {
     func handleMore(_ sender: Any) {
         settingLauncher.showSetting()
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         gotoModule(index: (indexPath.item))
     }

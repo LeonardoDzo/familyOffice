@@ -71,6 +71,7 @@ class GoalHistoryByUserViewController: UIViewController, GoalBindable {
         incompLbl.text = sdata[1].description
         completeLbl.text = sdata[0].description
         restLbl.text = sdata[2].description
+        pieChart.chartDescription?.text = ""
         pieChart.centerText = "Obj."
         pieChart.holeRadiusPercent = 0.5
         pieChart.animate(xAxisDuration: 2.0, yAxisDuration: 2.0, easingOption: .easeInCirc)
