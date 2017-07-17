@@ -31,7 +31,7 @@ class GoalTableViewController: UIViewController, UITableViewDelegate, UITableVie
     func setupNavBar(){
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.handleNew))
         addButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
-        let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "Home"), style: .plain, target: self, action: #selector(self.back))
+        let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "LeftChevron"), style: .plain, target: self, action: #selector(self.back))
         let moreButton = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_bar_more_button"), style: .plain, target: self, action:  #selector(self.handleMore))
         
         self.navigationItem.rightBarButtonItems = [moreButton, addButton]
@@ -179,6 +179,12 @@ extension GoalTableViewController: StoreSubscriber, Segue {
             let vc = segue.destination as! GoalViewController
             if sender is Goal {
                 vc.bind(goal: sender as! Goal)
+            }
+        }else if segue.identifier == "detailSegue" {
+            let vc = segue.destination as! GoalHistoryByUserViewController
+            if sender is Goal {
+                vc.bind(goal: sender as! Goal)
+                vc.user = user
             }
         }
     }

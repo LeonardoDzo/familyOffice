@@ -26,9 +26,14 @@ struct GoalReducer: Reducer {
             if action.goal == nil {
                 return state
             }
-            service.GOAL_SERVICE.update(action.goal)
+            service.GOAL_SERVICE.updateGoal(action.goal)
             state.status = .loading
             return state
+        case let action as UpdateFollowAction:
+            if action.follow != nil {
+                service.GOAL_SERVICE.updateFollow(action.follow, path: action.path)
+            }
+            break
         default: break
         }
         return state

@@ -9,10 +9,9 @@
 import Foundation
 import ReSwift
 import ReSwiftRouter
-struct AppState: StateType, HasNavigationState {
+struct AppState: StateType{
     var GoalsState : GoalState
     var FamilyState: FamilyState
-    var navigationState: NavigationState
     var UserState: UserState
     var GalleryState: GalleryState
     var ToDoListState: ToDoListState

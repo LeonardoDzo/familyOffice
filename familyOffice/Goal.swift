@@ -27,8 +27,10 @@ struct Goal {
     static let kdone = "done"
     static let knote = "note"
     static let kcreator = "creator"
-    static let kdateCreated = "dateCreated"
+    static let kdateCreated = "startDate"
     static let kMembers = "members"
+    static let kRepeat = "repeat"
+    static let kFollow = "follow"
     
     
     var id:String!
@@ -36,22 +38,23 @@ struct Goal {
     var type: Int! = 0
     var category: Int! = 0
     var photo: String! = ""
-    var endDate: String!
+    var endDate: Int!
     var done: Bool! = false
     var note: String! = ""
     var creator: String! = ""
-    var dateCreated : Int!
-    var members = [String:Bool]()
-    
+    var startDate : Int!
+    var members = [String:Int]()
+    var repeatGoalModel : repeatGoal!
+    var follow = [FollowGoal]()
     
     init() {
-        self.id = Constants.FirDatabase.REF.childByAutoId().key
+        
         self.title = ""
-        self.endDate = Date().addingTimeInterval(60 * 60 * 24).string(with: .InternationalFormat)
-        self.dateCreated =  NSDate().timeIntervalSince1970.exponent
+        self.endDate = Date().toMillis()
+        self.startDate =  Date().toMillis()
         self.creator = service.USER_SERVICE.users[0].id
         self.type = 0
-        
+        self.repeatGoalModel = repeatGoal()
     }
     
     
@@ -61,7 +64,7 @@ struct Goal {
         
         self.title = service.UTILITY_SERVICE.exist(field: Goal.ktitle, dictionary: snapshotValue)
         
-        self.dateCreated = service.UTILITY_SERVICE.exist(field: Goal.kdateCreated, dictionary: snapshotValue)
+        self.startDate = service.UTILITY_SERVICE.exist(field: Goal.kdateCreated, dictionary: snapshotValue)
         
         self.endDate = service.UTILITY_SERVICE.exist(field: Goal.kendDate, dictionary: snapshotValue )
         
@@ -76,21 +79,38 @@ struct Goal {
         self.done = service.UTILITY_SERVICE.exist(field: Goal.kdone, dictionary: snapshotValue)
         
         self.members = service.UTILITY_SERVICE.exist(field: Goal.kMembers, dictionary: snapshotValue)
+        
         self.category = service.UTILITY_SERVICE.exist(field: Goal.kcategory, dictionary: snapshotValue)
         
+        self.repeatGoalModel =  repeatGoal(service.UTILITY_SERVICE.exist(field: Goal.kRepeat, dictionary: snapshotValue))
+        
+        if let snap = snapshotValue[Goal.kFollow] as? NSDictionary {
+            for date in snap.allKeys as! [String] {
+                self.follow.append(FollowGoal(snapshot: snap[date] as! NSDictionary, date: date ))
+            }
+        }
+     
     }
     func toDictionary() -> NSDictionary! {
         return [
             Goal.kcreator : self.creator,
-            Goal.kdateCreated : self.dateCreated,
+            Goal.kdateCreated : self.startDate,
             Goal.kdone : self.done,
             Goal.kendDate : self.endDate,
             Goal.ktype : self.type,
             Goal.knote : self.note,
             Goal.ktitle : self.title,
             Goal.kcategory : self.category,
-            Goal.kMembers : self.members
+            Goal.kMembers : self.members,
+            Goal.kRepeat : self.repeatGoalModel.toDictionary(),
+            Goal.kFollow : NSDictionary(objects: self.follow.map({$0.members}), forKeys: self.follow.map({$0.date}) as! [NSCopying]),
+
+            
         ]
+    }
+    
+    mutating func setId() -> Void {
+       self.id = Constants.FirDatabase.REF.childByAutoId().key
     }
     
     
@@ -108,5 +128,6 @@ protocol GoalBindable: AnyObject {
     var creatorLbl: UILabel! {get}
     var noteLbl: UILabel! {get}
     var doneSwitch: UISwitch! {get}
+    var repeatSwitch: UISwitch! {get}
 }
 

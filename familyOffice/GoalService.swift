@@ -75,9 +75,9 @@ class GoalService: RequestService {
         if goal.type == 1 {
             goal.members = {
                 let fid = store.state.UserState.user?.familyActive
-                var members = [String:Bool]()
+                var members = [String:Int]()
                 store.state.FamilyState.families.first(where: {$0.id == fid})?.members.forEach({s in
-                    members[s] = true
+                    members[s] = -1
                 })
                 return members
             }()
@@ -89,19 +89,40 @@ class GoalService: RequestService {
         })
     }
     
-    func update(_ goal: Goal) -> Void {
+    func updateGoal(_ goal: Goal) -> Void {
         let id = getPath(type: goal.type)
         let path = "goals/\(id)/\(goal.id!)"
         service.GOAL_SERVICE.update(path, value: goal.toDictionary() as! [AnyHashable : Any], callback: { ref in
             if ref is FIRDatabaseReference {
                 if let index = store.state.GoalsState.goals[id]?.index(where: {$0.id == goal.id }){
                     store.state.GoalsState.goals[id]?[index] = goal
-                    store.state.GoalsState.status = .finished
+                    store.state.GoalsState.status = .Finished(goal)
                 }
                 
             }
             
         })
+    }
+
+    func updateFollow(_ follow: FollowGoal, path: String) -> Void {
+        self.update(path, value: follow.members , callback: {
+            ref in
+            if ref is FIRDatabaseReference {
+                let array = path.components(separatedBy: "/")
+                let fid = array[1]
+                let gid = array[2]
+                if let index = store.state.GoalsState.goals[fid]?.index(where: {$0.id == gid}) {
+                    if let indexF = store.state.GoalsState.goals[fid]?[index].follow.index(where: {$0.date == follow.date})  {
+                        store.state.GoalsState.goals[fid]?[index].follow[indexF].members = follow.members
+                        let goal = store.state.GoalsState.goals[fid]?[index]
+                        store.state.GoalsState.status = .Finished(goal!)
+                    }
+                }
+                
+                
+            }
+        })
+        
     }
     
     func delete(_ ref: String, callback: @escaping ((Any) -> Void)) {

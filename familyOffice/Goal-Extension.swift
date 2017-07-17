@@ -38,6 +38,9 @@ extension GoalBindable {
     var doneSwitch: UISwitch! {
         return nil
     }
+    var repeatSwitch: UISwitch! {
+        return nil
+    }
     
     func bind(goal: Goal) {
         self.goal = goal
@@ -59,15 +62,18 @@ extension GoalBindable {
         }
         
         if let endDateDP  = self.endDateDP {
-            endDateDP.date = Date(string: goal.endDate, formatter: .InternationalFormat)!
+            let date = Date(timeIntervalSince1970: TimeInterval(goal.endDate/1000))
+            endDateDP.date = date
         }
 
         if let endDateLbl  = self.endDateLbl {
-            endDateLbl.text = "  " + goal.endDate != "" ? Date(string: goal.endDate, formatter: .InternationalFormat)!.string(with: .MonthdayAndYear) : "Sin fecha"
+            let date = Date(timeIntervalSince1970: TimeInterval(goal.endDate/1000))
+            endDateLbl.text =  date.string(with: .dayMonthAndYear2)
         }
 
         if let dateCreatedLbl = self.dateCreatedLbl {
-            dateCreatedLbl.text = String(goal.dateCreated)
+            let date = Date(timeIntervalSince1970: TimeInterval(goal.startDate/1000))
+            dateCreatedLbl.text = date.string(with: .dayMonthAndYear2)
         }
         if let photo = self.photo, !goal.photo.isEmpty {
             photo.loadImage(urlString: goal.photo)
@@ -84,7 +90,14 @@ extension GoalBindable {
             if goal.type == 0 {
                 doneSwitch.isOn = goal.done
             }else{
-                doneSwitch.isOn = goal.members[(store.state.UserState.user?.id!)!]!
+                doneSwitch.isOn = goal.members[(store.state.UserState.user?.id!)!]! > 0
+            }
+        }
+        if let repeatSwitch = self.repeatSwitch {
+            if goal.repeatGoalModel != nil {
+                repeatSwitch.isOn = true
+            }else{
+                repeatSwitch.isOn = false
             }
         }
         

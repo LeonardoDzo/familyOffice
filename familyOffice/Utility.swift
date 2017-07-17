@@ -170,6 +170,13 @@ class Utility {
         return value as! [String : Bool]
     }
     
+    func exist(field: String, dictionary:NSDictionary) -> [String:Int] {
+        guard let value = dictionary[field] as? NSDictionary else {
+            return [:]
+        }
+        return value as! [String : Int]
+    }
+    
     func toDictionary(array: [String]!) -> NSDictionary {
         let dictionary: NSDictionary = {
             var d : [String: Bool] = [:]

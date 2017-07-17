@@ -13,13 +13,18 @@ struct GalleryReducer: Reducer {
         var stateAux = state ?? GalleryState(Gallery: [:], Album: Album(), status: .none)
         switch action {
         case let action as InsertGalleryAction:
+            if action.album != nil {
             insert(album: action.album)
             stateAux.status = .loading
+            }
             return stateAux
         case let action as InsertImagesAlbumAction:
-            addImage(image: action.image)
-            stateAux.status = .none
-            return stateAux
+            if action.image != nil {
+                addImage(image: action.image)
+                stateAux.status = .none
+                return stateAux
+            }
+
         default:
             break
         }

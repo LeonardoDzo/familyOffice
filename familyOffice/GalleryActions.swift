@@ -7,19 +7,55 @@
 //
 import Foundation
 import ReSwift
+import ReSwiftRecorder
+let galleryActionTypeMap: TypeMap = [InsertGalleryAction.type: InsertGalleryAction.self,
+                                  DeleteGalleryAction.type: DeleteGalleryAction.self,
+                                  InsertImagesAlbumAction.type: InsertImagesAlbumAction.self]
 
-struct InsertGalleryAction: Action {
-    let album: NSDictionary
+struct InsertGalleryAction: StandardActionConvertible {
+    static let type = "GALLERY_ACTION_INSERT"
+    var album: NSDictionary!
+    init(album: NSDictionary) {
+        self.album = album
+    }
+    init(_ standardAction: StandardAction) {
+    }
+    
+    func toStandardAction() -> StandardAction {
+        return StandardAction(type: InsertGalleryAction.type, payload: [:],isTypedAction: true)
+    }
 }
-struct DeleteGalleryAction: Action {
-    let album: Album
+struct DeleteGalleryAction: StandardActionConvertible {
+    static let type = "GALLERY_ACTION_DELETE"
+    var album: Album!
+    
+    init(album: Album) {
+        self.album = album
+    }
+    init(_ standardAction: StandardAction) {
+    }
+    
+    func toStandardAction() -> StandardAction {
+        return StandardAction(type: DeleteGalleryAction.type, payload: [:], isTypedAction: true)
+    }
 }
 
 struct GetGalleyAction: Action {
 }
-struct InsertImagesAlbumAction: Action {
-    let image: ImageAlbum
+
+struct InsertImagesAlbumAction: StandardActionConvertible {
+        static let type = "GALLERYIMAGE_ACTION_INSERT"
+    var image: ImageAlbum!
     init(image: ImageAlbum){
         self.image = image
     }
+
+
+    init(_ standardAction: StandardAction) {
+    }
+    
+    func toStandardAction() -> StandardAction {
+        return StandardAction(type: InsertImagesAlbumAction.type, payload: [:], isTypedAction: true)
+    }
+
 }
