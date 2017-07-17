@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -469,15 +469,32 @@
                                 <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <switch hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4RN-2C-d0N">
+                                <rect key="frame" x="310" y="352" width="51" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="handleChange:" destination="skM-D3-LaX" eventType="valueChanged" id="d4i-yj-s6w"/>
+                                </connections>
+                            </switch>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a5W-De-JhI">
+                                <rect key="frame" x="16" y="357" width="286" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="completeLbl" destination="WPJ-2Q-Pdd" id="efg-Fi-Ryb"/>
+                        <outlet property="dateForCompleate" destination="a5W-De-JhI" id="Jye-tM-zbp"/>
+                        <outlet property="doneSwitch" destination="4RN-2C-d0N" id="WF5-O3-QoU"/>
                         <outlet property="incompLbl" destination="4Kj-oE-FmT" id="Bdo-A2-3pm"/>
                         <outlet property="pieChart" destination="Dus-5P-Jg6" id="pGo-U9-hZl"/>
                         <outlet property="restLbl" destination="fAS-no-dHk" id="Fla-c9-my8"/>
                         <outlet property="starEndDate" destination="B7A-VF-KAP" id="oHm-Kf-ren"/>
+                        <outlet property="tableView" destination="XfU-12-bKS" id="05d-cN-qKf"/>
                         <outlet property="titleLbl" destination="1Je-Pr-F1D" id="qiv-zm-1Kj"/>
                     </connections>
                 </viewController>
@@ -717,7 +734,7 @@
         <image name="clock-gray" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="L9p-oN-Xvn"/>
-        <segue reference="UdG-rB-ilH"/>
+        <segue reference="3TS-LV-azF"/>
+        <segue reference="vna-Z8-jSn"/>
     </inferredMetricsTieBreakers>
 </document>
