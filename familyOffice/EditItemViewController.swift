@@ -115,6 +115,11 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
         return newImage!
     }
     
+    @IBAction func stateSwitchChanged(_ sender: UISwitch) {
+        item.status = item.status == "Pendiente" ? "Finalizada" : "Pendiente"
+        store.dispatch(UpdateToDoListItemAction(item:item))
+    }
+    
     func save(sender: UIBarButtonItem){
         
         let title: String! = textFieldTitle.text

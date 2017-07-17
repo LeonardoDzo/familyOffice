@@ -21,6 +21,8 @@ struct ToDoListReducer: Reducer{
                 return state
             }
             insertItem(action.item)
+            state.status = .loading
+            return state
         case let action as UpdateToDoListItemAction:
             if action.item == nil{
                 return state
@@ -67,17 +69,14 @@ struct ToDoListReducer: Reducer{
     }
     
     func deleteItem(_ item: ToDoList.ToDoItem) -> Void {
-        print("------DELETE------")
-        print(item)
         let id = service.USER_SERVICE.users[0].id!
         let path = "todolist/\(id)/\(item.id!)"
         service.TODO_SERVICE.delete(path) { (Any) in
             if let index = store.state.ToDoListState.items[id]?.index(where: {$0.id == item.id }){
-                print("-----Index \(index)-----")
                 store.state.ToDoListState.items[id]?.remove(at: index)
                 store.state.ToDoListState.status = .finished
             }else{
-                print("-----ELSE-----")
+                
             }
         }
     }

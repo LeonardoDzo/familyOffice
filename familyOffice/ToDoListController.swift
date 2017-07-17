@@ -12,15 +12,23 @@ import ReSwift
 import Firebase
 import M13Checkbox
 
-class ToDoListController: UITableViewController,UIViewControllerPreviewingDelegate {
+class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, UITableViewDelegate, UITableViewDataSource, UITabBarDelegate {
+    
+    
+    @IBOutlet var tableView: UITableView!
+    @IBOutlet var tabBar: UITabBar!
+    
     
     
     var items : [ToDoList.ToDoItem] = []
     var userId = service.USER_SERVICE.users[0].id!
     let searchController = UISearchController(searchResultsController: nil)
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tabBar.selectedItem = tabBar.items![0]
         
         searchController.searchResultsUpdater = self
         searchController.hidesNavigationBarDuringPresentation = false
@@ -41,6 +49,18 @@ class ToDoListController: UITableViewController,UIViewControllerPreviewingDelega
         }
     }
     
+    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        let user = store.state.UserState.user?.id!
+        if item.tag == 1 {
+            self.items = self.items.filter({ (item) -> Bool in
+                return item.status == "Finalizada"
+            })
+        }else{
+            self.items = store.state.ToDoListState.items[user!] ?? []
+        }
+        tableView.reloadData()
+    }
+    
     func back() -> Void {
         self.dismiss(animated: true, completion: nil)
     }
@@ -54,15 +74,15 @@ class ToDoListController: UITableViewController,UIViewControllerPreviewingDelega
         self.performSegue(withIdentifier: "showItemDetails", sender: "new")
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.items.count
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = self.items[indexPath.row]
         let cellID = "ToDoItemCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! ToDoItemCell
@@ -84,13 +104,18 @@ class ToDoListController: UITableViewController,UIViewControllerPreviewingDelega
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.performSegue(withIdentifier: "showItemDetails", sender: "List")
     }
     
-    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Eliminar") { (action, indexPath) in
-            store.dispatch(DeleteToDoListItemAction(item: self.items[indexPath.row]))
+            let alert = UIAlertController(title: "Eliminar tarea", message: "", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancelar", style: .default, handler: nil))
+            alert.addAction(UIAlertAction(title: "Aceptar", style: .destructive, handler: { (action) in
+              store.dispatch(DeleteToDoListItemAction(item: self.items[indexPath.row]))
+            }))
+            self.present(alert, animated: true, completion: nil)
         }
         
         return [deleteAction]
@@ -111,8 +136,8 @@ class ToDoListController: UITableViewController,UIViewControllerPreviewingDelega
         searchController.isActive = false
     }
     // MARK: - Checkbox
+    
     @IBAction func checkboxPressed(_ sender: M13Checkbox) {
-        
         let checkbox = sender.convert(CGPoint.zero, to: self.tableView)
         let indexPath = self.tableView.indexPathForRow(at: checkbox)
         var currentItem = self.items[(indexPath?.row)!]
