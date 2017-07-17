@@ -33,6 +33,13 @@ class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, U
         searchController.searchResultsUpdater = self
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.dimsBackgroundDuringPresentation = false
+        
+        let nav = self.navigationController?.navigationBar
+        
+        nav?.titleTextAttributes = [NSForegroundColorAttributeName:#colorLiteral(red: 0.2848778963, green: 0.2029544115, blue: 0.4734018445, alpha: 1)]
+        
+        self.navigationItem.title = "Lista de tareas"
+        
         tableView.tableHeaderView = searchController.searchBar
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.handleNew))

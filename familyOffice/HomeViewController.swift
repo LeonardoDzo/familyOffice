@@ -13,8 +13,8 @@ import ReSwift
 class HomeViewController: UIViewController,  UIGestureRecognizerDelegate {
     
     
-    let icons = ["chat", "calendar", "objetives", "gallery","safeBox", "contacts", "firstaid","property", "health","seguro-purple", "presupuesto", "presupuesto"]
-    let labels = ["Chat", "Calendario", "Objetivos", "Galería", "Caja Fuerte", "Contactos","Botiquín","Inmuebles", "Salud", "Seguros", "Presupuesto", "Lista ToDo"]
+    let icons = ["chat", "calendar", "objetives", "gallery","safeBox", "contacts", "firstaid","property", "health","seguro-purple", "presupuesto", "todolist", "faqs"]
+    let labels = ["Chat", "Calendario", "Objetivos", "Galería", "Caja Fuerte", "Contactos","Botiquín","Inmuebles", "Salud", "Seguros", "Presupuesto", "Lista ToDo","FAQs"]
 
     
     
@@ -35,6 +35,9 @@ class HomeViewController: UIViewController,  UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.scrollDirection = .vertical
+        }
         self.backgroundButton.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
         self.titleLabel.textColor = #colorLiteral(red: 0.934861362, green: 0.2710093558, blue: 0.2898308635, alpha: 1)
         self.titleLabel.textAlignment = .left
@@ -182,6 +185,8 @@ extension HomeViewController {
             self.performSegue(withIdentifier: "budgetSegue", sender: nil)
         case 11:
             self.performSegue(withIdentifier: "todolistSegue", sender: nil)
+        case 12:
+            self.performSegue(withIdentifier: "faqsSegue", sender: nil)
         default:
             break
         }

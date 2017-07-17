@@ -71,7 +71,7 @@ class ToDoListService: RequestService{
 
 extension ToDoListService: repository{
     func added(snapshot: FirebaseDatabase.FIRDataSnapshot) {
-        let id = snapshot.ref.description().components(separatedBy: "/")[4]
+        let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
         let item = ToDoList.ToDoItem(snapshot: snapshot)
         
         if (store.state.ToDoListState.items[id] == nil) {
@@ -84,7 +84,7 @@ extension ToDoListService: repository{
     }
     
     func updated(snapshot: FirebaseDatabase.FIRDataSnapshot, id: Any) {
-        let id = snapshot.ref.description().components(separatedBy: "/")[4]
+        let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
         let item = ToDoList.ToDoItem(snapshot: snapshot)
         if let index = store.state.ToDoListState.items[id]?.index(where: {$0.id == snapshot.key})  {
             store.state.ToDoListState.items[id]?[index] = item
@@ -92,7 +92,7 @@ extension ToDoListService: repository{
     }
     
     func removed(snapshot: FirebaseDatabase.FIRDataSnapshot) {
-        let id = snapshot.ref.description().components(separatedBy: "/")[4]
+        let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
         if let index = store.state.ToDoListState.items[id]?.index(where: {$0.id == snapshot.key})  {
             store.state.ToDoListState.items[id]?.remove(at: index)
         }

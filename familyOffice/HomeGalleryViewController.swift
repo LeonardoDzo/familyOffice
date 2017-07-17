@@ -46,8 +46,7 @@ class HomeGalleryViewController: UIViewController, UITabBarDelegate, HandleFamil
         self.collectionView.collectionViewLayout = layout
     }
     func back() -> Void {
-        _ = self.navigationController?.popViewController(animated: true)
-
+        self.dismiss(animated: true, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {

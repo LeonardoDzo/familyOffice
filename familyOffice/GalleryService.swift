@@ -86,7 +86,7 @@ public class GalleryService : RequestService {
 }
 extension GalleryService: repository {
     func added(snapshot: FirebaseDatabase.FIRDataSnapshot) {
-        let id = snapshot.ref.description().components(separatedBy: "/")[4]
+        let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
         var album = Album(snapshot: snapshot)
         
         if(store.state.GalleryState.Gallery[id] == nil){

@@ -141,7 +141,7 @@ class GoalService: RequestService {
 extension GoalService: repository {
     
     func added(snapshot: FirebaseDatabase.FIRDataSnapshot) {
-        let id = snapshot.ref.description().components(separatedBy: "/")[4]
+        let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
         let goal = Goal(snapshot: snapshot)
         
         if (store.state.GoalsState.goals[id] == nil) {
@@ -154,7 +154,7 @@ extension GoalService: repository {
     }
     
     func updated(snapshot: FirebaseDatabase.FIRDataSnapshot, id: Any) {
-        let id = snapshot.ref.description().components(separatedBy: "/")[4]
+        let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
         let goal = Goal(snapshot: snapshot)
         if let index = store.state.GoalsState.goals[id]?.index(where: {$0.id == snapshot.key})  {
             store.state.GoalsState.goals[id]?[index] = goal
@@ -162,7 +162,7 @@ extension GoalService: repository {
     }
     
     func removed(snapshot: FirebaseDatabase.FIRDataSnapshot) {
-        let id = snapshot.ref.description().components(separatedBy: "/")[4]
+        let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
         if let index = store.state.GoalsState.goals[id]?.index(where: {$0.id == snapshot.key})  {
             store.state.GoalsState.goals[id]?.remove(at: index)
         }

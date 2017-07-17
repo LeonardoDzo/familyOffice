@@ -46,6 +46,7 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
         self.navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         
         textFieldTitle.text = item.title
+        textFieldTitle.contentInset = UIEdgeInsetsMake(-60, 0, 0, 0)
         photo.loadImage(urlString: item.photoUrl!)
         
         self.textFieldTitle.layer.borderWidth = 1
@@ -136,7 +137,7 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
         var photoUrl:String = initialPhoto
         
         if tookPhoto {
-            photo?.image = resizeImage(image: (photo?.image!)!, scale: 20)
+            photo?.image = resizeImage(image: (photo?.image!)!, scale: 50)
             let uploadData = UIImagePNGRepresentation((photo?.image)!)
             Constants.FirStorage.STORAGEREF.child("users/\(service.USER_SERVICE.users[0].id!)").child("images/\(photoName).png").put(uploadData!, metadata: nil){ metadata, error in
                 if error != nil{
@@ -169,6 +170,16 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
         tookPhoto = true
     }
     
+    @IBAction func changeStatus(_ sender: Any) {
+        var currentItem = self.item
+        
+        if self.stateSwitch.isOn {
+            currentItem.status = "Finalizada"
+        } else {
+            currentItem.status = "Pendiente"
+        }
+        store.dispatch(UpdateToDoListItemAction(item:currentItem))
+    }
 
     @IBAction func takePhoto(_ sender: UIButton) {
         let alert = UIAlertController(title: "Imagen de la tarea", message: "¿Cómo quiere elegir la imagen?", preferredStyle: .actionSheet)
