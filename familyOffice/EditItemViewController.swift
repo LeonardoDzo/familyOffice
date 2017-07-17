@@ -40,6 +40,8 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
             self.stateLabel.isHidden = true
         }
         
+        
+        
         let saveButton = UIBarButtonItem(title:isNewItem ? "Guardar" : "Editar", style: .plain, target: self, action: #selector(save(sender:)))
         saveButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         self.navigationItem.rightBarButtonItem = saveButton

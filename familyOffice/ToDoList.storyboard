@@ -209,8 +209,8 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <items>
-                                    <tabBarItem title="Todas" id="GVb-gn-S0Y"/>
-                                    <tabBarItem tag="1" title="Finalizadas" id="1a5-02-j7s"/>
+                                    <tabBarItem title="Todas" image="todolist-30" id="GVb-gn-S0Y"/>
+                                    <tabBarItem tag="1" title="Finalizadas" image="all-checked" id="1a5-02-j7s"/>
                                 </items>
                                 <connections>
                                     <outlet property="delegate" destination="G5p-QX-sf8" id="Jed-Wc-Djt"/>
@@ -409,7 +409,9 @@
     </scenes>
     <resources>
         <image name="DownChevron" width="22" height="13"/>
+        <image name="all-checked" width="30" height="30"/>
         <image name="calendar" width="37" height="37"/>
+        <image name="todolist-30" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="N4h-fx-hYL"/>

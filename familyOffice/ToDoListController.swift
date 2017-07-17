@@ -29,6 +29,7 @@ class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, U
         super.viewDidLoad()
         
         tabBar.selectedItem = tabBar.items![0]
+        tabBar.tintColor = #colorLiteral(red: 0.8431372549, green: 0.1019607843, blue: 0.4, alpha: 1)
         
         searchController.searchResultsUpdater = self
         searchController.hidesNavigationBarDuringPresentation = false
@@ -45,7 +46,7 @@ class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, U
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.handleNew))
         addButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         self.navigationItem.rightBarButtonItem = addButton
-        let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "Home"), style: .plain, target: self, action: #selector(self.back))
+        let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "LeftChevron"), style: .plain, target: self, action: #selector(self.back))
         self.navigationItem.leftBarButtonItem = backButton
         
         // Do any additional setup after loading the view.
