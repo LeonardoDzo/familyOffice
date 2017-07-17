@@ -33,9 +33,13 @@ class HomeGalleryViewController: UIViewController, UITabBarDelegate, HandleFamil
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.AddAlbum))
         self.navigationItem.rightBarButtonItems = [moreButton,addButton]
         let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "LeftChevron"), style: .plain, target: self, action: #selector(self.back))
+        moreButton.tintColor = #colorLiteral(red: 1, green: 0.2940415765, blue: 0.02801861018, alpha: 1)
+        addButton.tintColor = #colorLiteral(red: 1, green: 0.2940415765, blue: 0.02801861018, alpha: 1)
+        backButton.tintColor = #colorLiteral(red: 1, green: 0.2940415765, blue: 0.02801861018, alpha: 1)
         self.navigationItem.leftBarButtonItem = backButton
         self.navigationItem.title = "Albums"
         self.tabBar.delegate = self
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:#colorLiteral(red: 0.2848778963, green: 0.2029544115, blue: 0.4734018445, alpha: 1)]
         // Do any additional setup after loading the view.
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -44,6 +48,10 @@ class HomeGalleryViewController: UIViewController, UITabBarDelegate, HandleFamil
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
         self.collectionView.collectionViewLayout = layout
+        
+        self.tabBar.tintColor = #colorLiteral(red: 1, green: 0.2940415765, blue: 0.02801861018, alpha: 1)
+        self.tabBar.selectedItem = self.tabBar.items?[0]
+        self.ChangeSelected()
     }
     func back() -> Void {
         self.dismiss(animated: true, completion: nil)
@@ -142,6 +150,7 @@ extension HomeGalleryViewController: StoreSubscriber{
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        self.ChangeSelected()
         self.InitObserver()
         store.subscribe(self){
             state in
@@ -158,11 +167,6 @@ extension HomeGalleryViewController: StoreSubscriber{
             break
         case .none:
             self.view.hideToastActivity()
-            self.key = store.state.UserState.user?.familyActive ?? ""
-            if let family: Family = store.state.FamilyState.families.first(where: {$0.id == self.key}) {
-                self.navigationItem.title = "Familia: \(family.name!)"
-                service.GALLERY_SERVICE.refUserFamily = self.key
-            }
             break
         case .finished:
             self.view.hideToastActivity()

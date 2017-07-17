@@ -16,10 +16,9 @@ class GalleryCollectionViewCell: UICollectionViewCell, AlbumBindable {
     @IBOutlet weak var Image: UIImageView!
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.Image.frame.size.width = self.bounds.size.width
-        self.Image.frame.size.height = self.bounds.size.height
-        self.Title.frame.size.width = self.bounds.size.width
-        //self.Image.loadImage(urlString: service.USER_SERVICE.users[0].photoURL)
+        //self.Image.frame.size.width = self.bounds.size.width
+        //self.Image.frame.size.height = self.bounds.size.height
+        //self.Title.frame.size.width = self.bounds.size.width
     }
 }
 class GalleryImageCollectionViewCell: UICollectionViewCell, ImageAlbumBindable {
@@ -32,7 +31,6 @@ class GalleryImageCollectionViewCell: UICollectionViewCell, ImageAlbumBindable {
         super.layoutSubviews()
         self.imageBackground.frame.size.width = self.bounds.size.width
         self.imageBackground.frame.size.height = self.bounds.size.height
-        //self.Image.loadImage(urlString: service.USER_SERVICE.users[0].photoURL)
     }
 }
 

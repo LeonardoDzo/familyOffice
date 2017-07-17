@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '7B71A8E183EF6A32F128021D34F191FD'
+               BlueprintIdentifier = '3610E3DE26E6D6BD389447B7F93898D6'
                BlueprintName = 'SmileLock'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'SmileLock.framework'>
