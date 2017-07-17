@@ -39,9 +39,12 @@ struct Constants {
         static let EVENT_SERVICE = EventService.Instance()
         static let GOAL_SERVICE = GoalService.Instance()
         static let GALLERY_SERVICE = GalleryService.Instance()
+        static let IMAGEALBUM_SERVICE = ImageAlbumService.Instance()
         static let USER_SVC = UserSvc.Instance()
         static let FAMILY_SVC = FamilySvc.Instance()
+        static let TODO_SERVICE = ToDoListService.Instance()
         static let CONTACT_SVC = ContactService.Instance()
+
     }
     
     struct NotificationCenter {

@@ -76,6 +76,7 @@ class SettingLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectio
         service.USER_SVC.selectFamily(family: store.state.FamilyState.families[indexPath.row])
         handleDismiss()
         if handleFamily != nil {
+            store.state.UserState.user?.familyActive = store.state.FamilyState.families[indexPath.row].id
             handleFamily.selectFamily()
         }
        

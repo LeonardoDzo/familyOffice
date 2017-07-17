@@ -39,6 +39,10 @@ class UserSvc {
     }
 }
 extension UserSvc : RequestService {
+    func notExistSnapshot() {
+        
+    }
+
     func addHandle(_ handle: UInt, ref: String, action: FIRDataEventType) {
         self.handles.append((ref,handle,action))
     }

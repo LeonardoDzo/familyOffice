@@ -15,13 +15,13 @@ protocol RequestStorageSvc {
 extension RequestStorageSvc {
 
     
-    func insert(_ ref: String, value: Any, callback: @escaping ((Any) -> Void)) {
+    func insert(_ ref: String, value: Any, callback: @escaping ((Any?) -> Void)) {
         
         if let uploadData = UIImagePNGRepresentation(value as! UIImage){
             _ = Constants.FirStorage.STORAGEREF.child(ref).put(uploadData, metadata: nil) { metadata, error in
                 if (error != nil) {
                     print(error.debugDescription)
-                    callback(error.debugDescription)
+                    callback(nil)
                 } else {
                     self.inserted(metadata: metadata!, data: uploadData)
                     DispatchQueue.main.async {

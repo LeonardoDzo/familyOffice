@@ -461,6 +461,9 @@
                                                     <state key="normal">
                                                         <color key="titleColor" red="0.29411764709999999" green="0.1764705882" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="selectedItem:" destination="vtu-qR-ECs" eventType="touchUpInside" id="Pjy-z6-9Ib"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </view>
@@ -485,13 +488,15 @@
                                 <connections>
                                     <outlet property="dataSource" destination="vtu-qR-ECs" id="gDM-of-UUg"/>
                                     <outlet property="delegate" destination="vtu-qR-ECs" id="7RA-58-wXT"/>
+                                    <outlet property="prefetchDataSource" destination="vtu-qR-ECs" id="Oye-c1-Jbf"/>
                                 </connections>
                             </collectionView>
                             <button opaque="NO" alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ujr-Q1-Eg8">
-                                <rect key="frame" x="0.0" y="20" width="375" height="618"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="638"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="handleCloseModal:" destination="vtu-qR-ECs" eventType="touchUpInside" id="aJS-8H-mKU"/>
+                                    <segue destination="k5g-5G-xnZ" kind="show" identifier="todolistSegue" id="OfC-C2-o0g"/>
                                 </connections>
                             </button>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ra7-Ei-Hgg">
@@ -553,9 +558,6 @@
                             <constraint firstItem="ra7-Ei-Hgg" firstAttribute="centerX" secondItem="0ik-yb-Voo" secondAttribute="centerX" constant="-370" id="ltJ-6x-Cp7"/>
                             <constraint firstAttribute="trailing" secondItem="wMk-Nw-1AJ" secondAttribute="trailing" id="yAm-qr-1y4"/>
                         </constraints>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="RlH-R9-vNB" appends="YES" id="xYc-5e-xbS"/>
-                        </connections>
                     </view>
                     <tabBarItem key="tabBarItem" title="Inicio" image="Home" id="u00-Wi-OtT"/>
                     <navigationItem key="navigationItem" id="7gy-uR-g5H">
@@ -578,10 +580,10 @@
                         <segue destination="0d3-uh-Jcd" kind="show" identifier="contactsSegue" id="sre-07-YkP"/>
                         <segue destination="pgj-Yi-X16" kind="show" identifier="gallerySegue" id="Lb5-eQ-s3P"/>
                         <segue destination="CZo-yQ-ole" kind="show" identifier="budgetSegue" id="3EG-pH-dkJ"/>
+                        <segue destination="wf3-9U-7ef" kind="show" identifier="faqsSegue" id="BxG-U2-FA9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gNJ-R1-TZ6" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="RlH-R9-vNB"/>
             </objects>
             <point key="canvasLocation" x="461.60000000000002" y="1734.7826086956522"/>
         </scene>
@@ -1252,6 +1254,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dok-TG-lsz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1349" y="2299"/>
+        </scene>
+        <!--ToDoList-->
+        <scene sceneID="vHv-rz-ua0">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="ToDoListController" storyboardName="ToDoList" id="k5g-5G-xnZ" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fae-fk-cVy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-61" y="2302"/>
+        </scene>
+        <!--mainFaqs-->
+        <scene sceneID="XZG-mk-DiZ">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="mainFaqs" storyboardName="Faqs" referencedIdentifier="mainFaqs" id="wf3-9U-7ef" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="E0a-a5-0Kg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1780" y="1918"/>
         </scene>
         <!--mainContacts-->
         <scene sceneID="kFJ-C8-Vep">

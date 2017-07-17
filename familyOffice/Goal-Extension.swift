@@ -90,7 +90,9 @@ extension GoalBindable {
             if goal.type == 0 {
                 doneSwitch.isOn = goal.done
             }else{
+                //print(store.state.UserState)
                 doneSwitch.isOn = goal.members[(store.state.UserState.user?.id!)!]! > 0
+                //print(goal.members[(store.state.UserState.user?.id!)!])
             }
         }
         if let repeatSwitch = self.repeatSwitch {

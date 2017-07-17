@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Ilg-PE-7uz">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Gotham-Book.ttf">
+            <string>GothamBook</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Add To Do Item Controller-->
+        <scene sceneID="KVw-wk-vLh">
+            <objects>
+                <viewController storyboardIdentifier="AddToDoItemController" id="GKy-2K-7gt" customClass="AddToDoItemController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WUw-70-3ia"/>
+                        <viewControllerLayoutGuide type="bottom" id="vmt-zY-94y"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="5Hk-6h-SIB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Tarea" borderStyle="roundedRect" placeholder="Tarea" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AiM-l4-GkX">
+                                <rect key="frame" x="26" y="30" width="323" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Ols-1Q-QlF"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="17"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gkY-CA-CpT">
+                                <rect key="frame" x="26" y="130" width="343" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="cih-qe-nAK"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DD/MM/YYYY" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K2H-fV-Qb1">
+                                <rect key="frame" x="26" y="70" width="298" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="oda-L8-QI4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="17"/>
+                                <color key="textColor" red="0.69416582579999997" green="0.6941505671" blue="0.69415360690000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oCc-Ia-rqr">
+                                <rect key="frame" x="26" y="100" width="323" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="OOh-T0-RbS"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="13"/>
+                                <state key="normal" title="SUBIR IMAGEN">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="addPhoto:" destination="GKy-2K-7gt" eventType="touchUpInside" id="QJl-ee-Fv4"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar" translatesAutoresizingMaskIntoConstraints="NO" id="Dsb-WN-2HI">
+                                <rect key="frame" x="329" y="70" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="aXS-98-X3J"/>
+                                    <constraint firstAttribute="height" constant="20" id="rvZ-py-2PR"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="gkY-CA-CpT" firstAttribute="trailing" secondItem="5Hk-6h-SIB" secondAttribute="trailingMargin" constant="10" id="4s4-nt-fFW"/>
+                            <constraint firstItem="Dsb-WN-2HI" firstAttribute="leading" secondItem="K2H-fV-Qb1" secondAttribute="trailing" constant="5" id="BS9-Qd-zpO"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="AiM-l4-GkX" secondAttribute="trailing" constant="10" id="CCp-Ch-w2g"/>
+                            <constraint firstItem="AiM-l4-GkX" firstAttribute="top" secondItem="WUw-70-3ia" secondAttribute="bottom" constant="10" id="FB7-vY-yz7"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="oCc-Ia-rqr" secondAttribute="trailing" constant="10" id="FFB-Aq-VY6"/>
+                            <constraint firstItem="oCc-Ia-rqr" firstAttribute="top" secondItem="Dsb-WN-2HI" secondAttribute="bottom" constant="10" id="FUz-Mx-55F"/>
+                            <constraint firstItem="gkY-CA-CpT" firstAttribute="leading" secondItem="5Hk-6h-SIB" secondAttribute="leadingMargin" constant="10" id="HQ7-GU-6Le"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Dsb-WN-2HI" secondAttribute="trailing" constant="10" id="IMZ-Lj-ocG"/>
+                            <constraint firstItem="gkY-CA-CpT" firstAttribute="top" secondItem="oCc-Ia-rqr" secondAttribute="bottom" constant="10" id="JA8-mb-bdj"/>
+                            <constraint firstItem="AiM-l4-GkX" firstAttribute="leading" secondItem="5Hk-6h-SIB" secondAttribute="leadingMargin" constant="10" id="VTc-9G-WKs"/>
+                            <constraint firstItem="K2H-fV-Qb1" firstAttribute="top" secondItem="AiM-l4-GkX" secondAttribute="bottom" constant="10" id="akW-EA-ALU"/>
+                            <constraint firstItem="gkY-CA-CpT" firstAttribute="top" secondItem="oCc-Ia-rqr" secondAttribute="bottom" constant="10" id="bmc-kC-cF2"/>
+                            <constraint firstItem="K2H-fV-Qb1" firstAttribute="leading" secondItem="5Hk-6h-SIB" secondAttribute="leadingMargin" constant="10" id="lPd-sn-uyn"/>
+                            <constraint firstItem="oCc-Ia-rqr" firstAttribute="leading" secondItem="5Hk-6h-SIB" secondAttribute="leadingMargin" constant="10" id="oFc-xp-njM"/>
+                            <constraint firstItem="oCc-Ia-rqr" firstAttribute="top" secondItem="K2H-fV-Qb1" secondAttribute="bottom" constant="10" id="vLP-MI-tLk"/>
+                            <constraint firstItem="Dsb-WN-2HI" firstAttribute="centerY" secondItem="K2H-fV-Qb1" secondAttribute="centerY" id="xDM-2b-5Vk"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="endDateLbl" destination="K2H-fV-Qb1" id="cld-49-wjR"/>
+                        <outlet property="photo" destination="gkY-CA-CpT" id="qAD-kh-X9y"/>
+                        <outlet property="titleTextField" destination="AiM-l4-GkX" id="jfq-Yu-RWe"/>
+                        <segue destination="N7f-fb-PJ8" kind="presentation" identifier="toDatePicker" id="N4h-fx-hYL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Osp-RA-sfP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="964" y="52.623688155922046"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="tP9-qB-Ljj">
+            <objects>
+                <navigationController id="Ilg-PE-7uz" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Y9s-ZM-Y6p">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="G5p-QX-sf8" kind="relationship" relationship="rootViewController" id="6A0-cU-EZL"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8ZL-te-ZmW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1156" y="833"/>
+        </scene>
+        <!--Lista de tareas-->
+        <scene sceneID="Kjd-XE-U5F">
+            <objects>
+                <viewController id="G5p-QX-sf8" customClass="ToDoListController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5zJ-ZO-K5d"/>
+                        <viewControllerLayoutGuide type="bottom" id="rm7-1c-iCm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="MaU-uj-qdu">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="69" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="w3n-en-Mu7">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="ToDoItemCell" rowHeight="69" id="mLm-zx-bwb" customClass="ToDoItemCell" customModule="familyOffice" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="69"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mLm-zx-bwb" id="9p1-c1-l60">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="68.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="esj-lh-s24">
+                                                    <rect key="frame" x="37" y="8" width="289" height="25"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="17"/>
+                                                    <color key="textColor" red="0.28487789630889893" green="0.20295441150665283" blue="0.47340184450149536" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qyn-rk-cy1">
+                                                    <rect key="frame" x="37" y="39" width="289" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="13"/>
+                                                    <color key="textColor" red="0.740092933177948" green="0.037759788334369659" blue="0.39628022909164429" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="czl-sL-4Xs" customClass="M13Checkbox" customModule="M13Checkbox">
+                                                    <rect key="frame" x="339" y="20" width="28" height="28"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="tintColor" red="0.17783832550048828" green="0.75598841905593872" blue="0.0016639763489365578" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="secondaryTintColor">
+                                                            <color key="value" red="0.82737809419631958" green="0.82749772071838379" blue="0.82735186815261841" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="checkmarkLineWidth">
+                                                            <real key="value" value="2"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="boxLineWidth">
+                                                            <real key="value" value="2"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="secondaryCheckmarkTintColor">
+                                                            <color key="value" red="0.17988499999046326" green="0.76365619897842407" blue="0.1626109778881073" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="checkboxPressed:" destination="G5p-QX-sf8" eventType="valueChanged" id="QWQ-2H-ial"/>
+                                                    </connections>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="10" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ek-9D-usX">
+                                                    <rect key="frame" x="14" y="27" width="15" height="15"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="checkFinished" destination="czl-sL-4Xs" id="u12-kA-xos"/>
+                                            <outlet property="countLabel" destination="1ek-9D-usX" id="BqB-QZ-xNS"/>
+                                            <outlet property="date" destination="Qyn-rk-cy1" id="GiF-Yo-aZw"/>
+                                            <outlet property="title" destination="esj-lh-s24" id="A1P-gv-IgE"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="G5p-QX-sf8" id="ldp-PS-sED"/>
+                                    <outlet property="delegate" destination="G5p-QX-sf8" id="HcO-K4-hE2"/>
+                                </connections>
+                            </tableView>
+                            <tabBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ITD-mL-nas">
+                                <rect key="frame" x="0.0" y="618" width="375" height="49"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <items>
+                                    <tabBarItem title="Todas" image="todolist-30" id="GVb-gn-S0Y"/>
+                                    <tabBarItem tag="1" title="Finalizadas" image="all-checked" id="1a5-02-j7s"/>
+                                </items>
+                                <connections>
+                                    <outlet property="delegate" destination="G5p-QX-sf8" id="Jed-Wc-Djt"/>
+                                </connections>
+                            </tabBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Lista de tareas" id="7G3-lg-gQL"/>
+                    <connections>
+                        <outlet property="tabBar" destination="ITD-mL-nas" id="CJP-rd-cCy"/>
+                        <outlet property="tableView" destination="w3n-en-Mu7" id="JKo-3e-gS5"/>
+                        <outlet property="view" destination="MaU-uj-qdu" id="etr-WH-gaA"/>
+                        <segue destination="Yis-qD-O2g" kind="show" identifier="showItemDetails" id="18x-EM-avy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EPA-VH-M8i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-236" y="832.53373313343332"/>
+        </scene>
+        <!--Edit Item View Controller-->
+        <scene sceneID="slu-c0-wax">
+            <objects>
+                <viewController storyboardIdentifier="EditItemViewController" id="Yis-qD-O2g" customClass="EditItemViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="HfO-f4-pf2"/>
+                        <viewControllerLayoutGuide type="bottom" id="kMY-QU-GIh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="AVJ-JV-bpb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" text="Tarea" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wKI-GK-p6z">
+                                <rect key="frame" x="10" y="74" width="355" height="100"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="t7Z-Bi-nL2"/>
+                                </constraints>
+                                <color key="textColor" red="0.0015902200248092413" green="0.077993489801883698" blue="0.37701237201690674" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ntN-ds-LNU">
+                                <rect key="frame" x="10" y="184" width="355" height="50"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Af9-IA-hiq">
+                                        <rect key="frame" x="10" y="14" width="268" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0015869472408667207" green="0.081229560077190399" blue="0.393342524766922" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="poh-Vd-iif">
+                                        <rect key="frame" x="286" y="9" width="51" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <action selector="stateSwitchChanged:" destination="Yis-qD-O2g" eventType="valueChanged" id="Nbi-qW-kTe"/>
+                                        </connections>
+                                    </switch>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="nDI-Em-e8Z"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DD/MM/YYYY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TPd-c3-7vD">
+                                <rect key="frame" x="10" y="244" width="324" height="30"/>
+                                <color key="backgroundColor" red="0.99991279840000002" green="1" blue="0.99988144639999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="17"/>
+                                <color key="textColor" red="0.69416582579999997" green="0.6941505671" blue="0.69415360690000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar" translatesAutoresizingMaskIntoConstraints="NO" id="JXl-qT-1SO">
+                                <rect key="frame" x="339" y="244" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="JAb-qF-Fbc"/>
+                                    <constraint firstAttribute="width" constant="30" id="kAc-nX-9wr"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lKb-MW-sMp">
+                                <rect key="frame" x="26" y="284" width="323" height="24"/>
+                                <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="13"/>
+                                <state key="normal" title="SUBIR IMAGEN">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="addPhoto:" destination="GKy-2K-7gt" eventType="touchUpInside" id="B5M-jd-xLZ"/>
+                                    <action selector="takePhoto:" destination="Yis-qD-O2g" eventType="touchUpInside" id="mNI-dm-5kA"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OUW-Ev-lfU">
+                                <rect key="frame" x="10" y="318" width="355" height="250"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="6Kw-yA-Ugy"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.96078431372549022" green="0.96862745098039216" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="lKb-MW-sMp" firstAttribute="leading" secondItem="AVJ-JV-bpb" secondAttribute="leadingMargin" constant="10" id="3Nd-vl-0Sd"/>
+                            <constraint firstAttribute="trailing" secondItem="wKI-GK-p6z" secondAttribute="trailing" constant="10" id="8kT-wL-Zg1"/>
+                            <constraint firstItem="JXl-qT-1SO" firstAttribute="leading" secondItem="TPd-c3-7vD" secondAttribute="trailing" constant="5" id="Bcg-3i-YA5"/>
+                            <constraint firstItem="lKb-MW-sMp" firstAttribute="top" secondItem="JXl-qT-1SO" secondAttribute="bottom" constant="10" id="EjH-P4-YPU"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="lKb-MW-sMp" secondAttribute="trailing" constant="10" id="FR6-Kp-gjv"/>
+                            <constraint firstItem="lKb-MW-sMp" firstAttribute="top" secondItem="TPd-c3-7vD" secondAttribute="bottom" constant="10" id="JNh-y3-4iZ"/>
+                            <constraint firstItem="OUW-Ev-lfU" firstAttribute="top" secondItem="lKb-MW-sMp" secondAttribute="bottom" constant="10" id="MlK-bA-A9S"/>
+                            <constraint firstItem="wKI-GK-p6z" firstAttribute="top" secondItem="HfO-f4-pf2" secondAttribute="bottom" constant="10" id="NZG-5f-CBk"/>
+                            <constraint firstItem="ntN-ds-LNU" firstAttribute="top" secondItem="wKI-GK-p6z" secondAttribute="bottom" constant="10" id="O57-3d-VZL"/>
+                            <constraint firstAttribute="trailing" secondItem="OUW-Ev-lfU" secondAttribute="trailing" constant="10" id="UJm-Dy-6p5"/>
+                            <constraint firstItem="ntN-ds-LNU" firstAttribute="leading" secondItem="AVJ-JV-bpb" secondAttribute="leading" constant="10" id="VRP-iv-53i"/>
+                            <constraint firstItem="JXl-qT-1SO" firstAttribute="top" secondItem="ntN-ds-LNU" secondAttribute="bottom" constant="10" id="WeN-l9-S2s"/>
+                            <constraint firstItem="OUW-Ev-lfU" firstAttribute="leading" secondItem="AVJ-JV-bpb" secondAttribute="leading" constant="10" id="chy-F4-MMA"/>
+                            <constraint firstAttribute="trailing" secondItem="ntN-ds-LNU" secondAttribute="trailing" constant="10" id="ebT-68-V0X"/>
+                            <constraint firstItem="JXl-qT-1SO" firstAttribute="trailing" secondItem="AVJ-JV-bpb" secondAttribute="trailingMargin" constant="10" id="f5e-NC-8Yz"/>
+                            <constraint firstItem="wKI-GK-p6z" firstAttribute="centerX" secondItem="AVJ-JV-bpb" secondAttribute="centerX" id="lsK-z7-Pbf"/>
+                            <constraint firstItem="TPd-c3-7vD" firstAttribute="top" secondItem="ntN-ds-LNU" secondAttribute="bottom" constant="10" id="ryu-kL-osK"/>
+                            <constraint firstItem="OUW-Ev-lfU" firstAttribute="top" secondItem="lKb-MW-sMp" secondAttribute="bottom" constant="10" id="vHk-jF-cK6"/>
+                            <constraint firstItem="TPd-c3-7vD" firstAttribute="leading" secondItem="AVJ-JV-bpb" secondAttribute="leading" constant="10" id="vqm-94-RaU"/>
+                            <constraint firstItem="wKI-GK-p6z" firstAttribute="leading" secondItem="AVJ-JV-bpb" secondAttribute="leading" constant="10" id="wLu-sD-w40"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="endDateLabel" destination="TPd-c3-7vD" id="U0T-Bt-cq5"/>
+                        <outlet property="photo" destination="OUW-Ev-lfU" id="go6-RQ-s7E"/>
+                        <outlet property="stateLabel" destination="Af9-IA-hiq" id="L97-ka-lEi"/>
+                        <outlet property="stateSwitch" destination="poh-Vd-iif" id="IuU-p6-Uhm"/>
+                        <outlet property="stateWrapper" destination="ntN-ds-LNU" id="djM-VF-CNO"/>
+                        <outlet property="takePhotoButton" destination="lKb-MW-sMp" id="nf0-wH-9xa"/>
+                        <outlet property="textFieldTitle" destination="wKI-GK-p6z" id="DzA-fx-Ne2"/>
+                        <segue destination="N7f-fb-PJ8" kind="presentation" identifier="toPickingDate" id="272-AJ-jGs"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L6A-7h-SUt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="964" y="968.36581709145435"/>
+        </scene>
+        <!--Calendar Open View Controller-->
+        <scene sceneID="bcV-EK-f7E">
+            <objects>
+                <viewController id="GaZ-Nh-ESL" customClass="CalendarOpenViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aH2-Aa-fFh"/>
+                        <viewControllerLayoutGuide type="bottom" id="9EQ-rn-C2o"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="GhV-vz-orh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oBr-FB-95r" customClass="JBDatePickerView" customModule="JBDatePicker">
+                                <rect key="frame" x="0.0" y="64" width="375" height="282"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="282" id="gWG-iT-O41"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="oBr-FB-95r" secondAttribute="trailing" id="5ni-zH-Zy4"/>
+                            <constraint firstItem="oBr-FB-95r" firstAttribute="bottom" secondItem="9EQ-rn-C2o" secondAttribute="top" constant="-321" id="T4m-Hv-wyV"/>
+                            <constraint firstItem="oBr-FB-95r" firstAttribute="leading" secondItem="GhV-vz-orh" secondAttribute="leading" id="o49-pl-NLf"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="llQ-Cv-9za">
+                        <barButtonItem key="leftBarButtonItem" image="DownChevron" id="xjO-Mm-JY3">
+                            <connections>
+                                <action selector="dismissDatePicker:" destination="GaZ-Nh-ESL" id="d1B-qA-BFz"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="datePickerView" destination="oBr-FB-95r" id="mYF-He-G99"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j8W-sT-Ep6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2512.8000000000002" y="52.623688155922046"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="0Hp-dX-yZD">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="N7f-fb-PJ8" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="GTL-jT-Plw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="GaZ-Nh-ESL" kind="relationship" relationship="rootViewController" id="30G-o0-Xev"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="thj-jK-3Pz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1804" y="52.623688155922046"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="DownChevron" width="22" height="13"/>
+        <image name="all-checked" width="30" height="30"/>
+        <image name="calendar" width="37" height="37"/>
+        <image name="todolist-30" width="30" height="30"/>
+    </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="272-AJ-jGs"/>
+    </inferredMetricsTieBreakers>
+</document>

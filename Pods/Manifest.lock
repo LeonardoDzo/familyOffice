@@ -6,6 +6,11 @@ PODS:
   - ChartsRealm (3.0.2):
     - Charts (~> 3.0.2)
     - RealmSwift (~> 2.4)
+  - DKImagePickerController (3.5.1):
+    - DKImagePickerController/Camera (= 3.5.1)
+    - DKImagePickerController/ImageManager (= 3.5.1)
+  - DKImagePickerController/Camera (3.5.1)
+  - DKImagePickerController/ImageManager (3.5.1)
   - Firebase (3.17.0):
     - Firebase/Core (= 3.17.0)
   - Firebase/Auth (3.17.0):
@@ -70,17 +75,21 @@ PODS:
   - GTMSessionFetcher/Core (1.1.9)
   - GTMSessionFetcher/Full (1.1.9):
     - GTMSessionFetcher/Core (= 1.1.9)
-  - JBDatePicker (1.2.3)
+  - Hue (2.0.1)
+  - JBDatePicker (1.2.2)
   - JVFloatLabeledTextField (1.1.1)
+  - Lightbox (1.0.0):
+    - Hue
+  - M13Checkbox (3.1.3)
   - MGSwipeTableCell (1.5.6)
   - MIBadgeButton-Swift (0.5)
   - MultiAutoCompleteTextSwift (0.1.1)
   - Protobuf (3.3.0)
-  - Realm (2.8.2):
-    - Realm/Headers (= 2.8.2)
-  - Realm/Headers (2.8.2)
-  - RealmSwift (2.8.2):
-    - Realm (= 2.8.2)
+  - Realm (2.7.0):
+    - Realm/Headers (= 2.7.0)
+  - Realm/Headers (2.7.0)
+  - RealmSwift (2.7.0):
+    - Realm (= 2.7.0)
   - ReSwift (3.0.0)
   - ReSwiftRecorder (0.4.0):
     - ReSwift (~> 3.0)
@@ -93,9 +102,9 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
-  - Charts
   - Charts (~> 3.0)
   - ChartsRealm
+  - DKImagePickerController
   - Firebase
   - Firebase/Auth
   - Firebase/Core
@@ -106,6 +115,8 @@ DEPENDENCIES:
   - GoogleSignIn
   - JBDatePicker
   - JVFloatLabeledTextField
+  - Lightbox
+  - M13Checkbox
   - MGSwipeTableCell
   - MIBadgeButton-Swift (from `https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git`, branch `master`)
   - MultiAutoCompleteTextSwift
@@ -131,6 +142,7 @@ SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   Charts: 236d6ccdd0ce6feae151d89e829a7397381a21fd
   ChartsRealm: ed0332fd409298188a2b71e9548604165c987d42
+  DKImagePickerController: 8db7e76a88a7a66a893ba30e935cc4c9bb7ed335
   Firebase: 4b66b5b59c43edac745b87f0c87e42cdd0279c13
   FirebaseAnalytics: e5fe8486efc01bec33f6bf82e2fa9fce4b124052
   FirebaseAuth: cc8a1824170adbd351edb7f994490a3fb5c18be6
@@ -144,14 +156,17 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
   GTMSessionFetcher: 5c046c76a1f859bc9c187e918f18e4fc7bb57b5e
-  JBDatePicker: 7130ca86cb2ba1e49d5050b311ba5a14968c18b9
+  Hue: 354caec055fdc9d38b5ef33ca2e7224721843baf
+  JBDatePicker: 4d4934ccb9dae7f0f636a44d0f4c03a159e8eb63
   JVFloatLabeledTextField: 0e5524b097f102036214dd8279edc8ecf08b5e18
+  Lightbox: 13f55a0a840f7945dc5ac87931564e7fe569fca9
+  M13Checkbox: c132a7e0eb964731855eff67b883a0b21b7c0977
   MGSwipeTableCell: 616700eb0ffd1c611ba909066cb7fd739790a0a7
   MIBadgeButton-Swift: 9e57309b00b168d75ca8fecb45bc75124a8ffddf
   MultiAutoCompleteTextSwift: d5631e77b48413af5795e14a1ae6d72054fe2d1e
   Protobuf: d582fecf68201eac3d79ed61369ef45734394b9c
-  Realm: 0e262abf087c7054013e00579274f7e070486d4a
-  RealmSwift: 73565e91bc403c1149e4acf31ff9de506b2f9459
+  Realm: 07e5d3a9e0e41d65fd5f9f05150ed6295d0f093b
+  RealmSwift: 6d06425d3900c86473c4f323bf6949b43fca22bc
   ReSwift: f0255f4b4f2dacd12c5d97d34d13fc5dad6d6371
   ReSwiftRecorder: f37a363425ad61c7ddc2172e14ab7799b6b27483
   ReSwiftRouter: c620138bf94b57c068f789d51c0bd23efc42bf68
@@ -160,6 +175,6 @@ SPEC CHECKSUMS:
   SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
   Toast-Swift: 5b2f8f720f7e78e48511f693df1f9c9a6e38a25a
 
-PODFILE CHECKSUM: 10511a85c7d1bdcabb0cbc26e3c37d782dee4833
+PODFILE CHECKSUM: 2ce3224d71ea3dd0dc2406fb8743e0e468399882
 
-COCOAPODS: 1.2.1.rc.1
+COCOAPODS: 1.2.1

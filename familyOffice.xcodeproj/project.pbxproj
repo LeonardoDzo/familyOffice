@@ -20,6 +20,7 @@
 		0215F4E81E3FBCCD00AC01D3 /* PasswordChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215F4E71E3FBCCD00AC01D3 /* PasswordChangeViewController.swift */; };
 		0215F4EA1E3FCDD400AC01D3 /* PersonalDataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215F4E91E3FCDD400AC01D3 /* PersonalDataTableViewCell.swift */; };
 		0218B5B31E66522A00025EBB /* ListenerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0218B5B21E66522A00025EBB /* ListenerService.swift */; };
+		0224341A1F1D41EB0057A0D0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022434191F1D41EB0057A0D0 /* ViewController.swift */; };
 		0226C8E21E3C217D007968BA /* ConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226C8E11E3C217D007968BA /* ConfigurationViewController.swift */; };
 		0226C8E61E3C267B007968BA /* ConfigurationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226C8E51E3C267B007968BA /* ConfigurationTableViewController.swift */; };
 		022CC44D1EF9C3F3009FA79C /* Objectives.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 022CC44C1EF9C3F3009FA79C /* Objectives.storyboard */; };
@@ -63,7 +64,6 @@
 		026AF3781F06F0FC00EF6DCD /* GoalReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026AF3771F06F0FC00EF6DCD /* GoalReducer.swift */; };
 		026AF37B1F071AFD00EF6DCD /* RootRoutable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026AF37A1F071AFD00EF6DCD /* RootRoutable.swift */; };
 		026AF37E1F071F6400EF6DCD /* GoalMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026AF37D1F071F6400EF6DCD /* GoalMiddleware.swift */; };
-		026AF3801F07299000EF6DCD /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026AF37F1F07299000EF6DCD /* AppReducer.swift */; };
 		0271DD4F1E2EB1FB002C101B /* FamilyMemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0271DD4E1E2EB1FB002C101B /* FamilyMemberTableViewCell.swift */; };
 		0272139F1E84478F001A144B /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0272139E1E84478F001A144B /* CalendarViewController.swift */; };
 		027213AB1E84865F001A144B /* testFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027213AA1E84865F001A144B /* testFile.swift */; };
@@ -146,7 +146,9 @@
 		02FA70781F1955F00027E8B5 /* TimeLineCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FA70771F1955F00027E8B5 /* TimeLineCellTableViewCell.swift */; };
 		02FA707A1F1957E10027E8B5 /* GoalHistoryByUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FA70791F1957E10027E8B5 /* GoalHistoryByUserViewController.swift */; };
 		02FD90031EDCA7C300F76BA1 /* addEventTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FD90021EDCA7C300F76BA1 /* addEventTableViewController.swift */; };
+		042230DB1F1961B0005CBAC7 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042230DA1F1961B0005CBAC7 /* GalleryCollectionViewCell.swift */; };
 		042567861EFC34B8001EAC50 /* Gallery.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 042567851EFC34B8001EAC50 /* Gallery.storyboard */; };
+		042693011F1448EB004356D6 /* ImageAlbumService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042693001F1448EB004356D6 /* ImageAlbumService.swift */; };
 		04475B4E1F0ECCA800F257EA /* GalleryReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04475B4D1F0ECCA800F257EA /* GalleryReducer.swift */; };
 		04475B521F0ED27200F257EA /* GalleryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04475B511F0ED27200F257EA /* GalleryState.swift */; };
 		04475B541F0ED55500F257EA /* GalleryActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04475B531F0ED55500F257EA /* GalleryActions.swift */; };
@@ -155,7 +157,7 @@
 		04AFE38B1F01DE1600D4ECA2 /* AlbumModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AFE38A1F01DE1600D4ECA2 /* AlbumModel.swift */; };
 		04AFE38D1F03246000D4ECA2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04AFE38C1F03246000D4ECA2 /* Assets.xcassets */; };
 		04AFE38F1F05A0F500D4ECA2 /* AddAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AFE38E1F05A0F500D4ECA2 /* AddAlbumViewController.swift */; };
-		04C4F3C91F017C7C0094CA2D /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C4F3C81F017C7C0094CA2D /* GalleryCollectionViewCell.swift */; };
+		04BDB2851F19A2F6006D3A62 /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BDB2841F19A2F6006D3A62 /* AppReducer.swift */; };
 		1A54F2C4CFA581E377445DB2 /* GalleryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A54FA2A44BB2FC5448DD081 /* GalleryService.swift */; };
 		1A54F905E042096F2DD39EF1 /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A54F16D92824170DA517ED5 /* ImageModel.swift */; };
 		2BC3C11ABAB0EF59C8FA8A68 /* Pods_familyOffice.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EEEDFF57BED2506FDDB9A23 /* Pods_familyOffice.framework */; };
@@ -177,12 +179,26 @@
 		84AEA8A41E3BE32C002B2D43 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AEA8A31E3BE32C002B2D43 /* Animations.swift */; };
 		84C721211ED7502700381FB7 /* AddHealthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C721201ED7502700381FB7 /* AddHealthViewController.swift */; };
 		84C721231ED7697200381FB7 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C721221ED7697200381FB7 /* AddViewController.swift */; };
+		84CCA3961F1AB76F00B1C9D0 /* UIString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CCA3951F1AB76F00B1C9D0 /* UIString.swift */; };
+		84CCA39B1F1B68EF00B1C9D0 /* FaqsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CCA39A1F1B68EF00B1C9D0 /* FaqsViewController.swift */; };
+		84CCA39D1F1B69D600B1C9D0 /* Faqs.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84CCA39C1F1B69D600B1C9D0 /* Faqs.storyboard */; };
 		84D51B1D1EA6ACE3006829F7 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D51B1C1EA6ACE3006829F7 /* Section.swift */; };
 		84E9C9B51E92B78E00905A10 /* addCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E9C9B41E92B78E00905A10 /* addCell.swift */; };
 		84E9C9B91E93269100905A10 /* SetPersonalDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E9C9B81E93269100905A10 /* SetPersonalDataViewController.swift */; };
 		84FFCB8D1F0192DB006EDFA1 /* Contacts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84FFCB8C1F0192DB006EDFA1 /* Contacts.storyboard */; };
 		84FFCB8F1F01A74C006EDFA1 /* contactTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FFCB8E1F01A74C006EDFA1 /* contactTableViewController.swift */; };
 		84FFCB911F02D533006EDFA1 /* addContactTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FFCB901F02D533006EDFA1 /* addContactTableViewController.swift */; };
+		94FF534F1F17E4F2001D9EE4 /* ToDoListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FF534E1F17E4F2001D9EE4 /* ToDoListService.swift */; };
+		94FF53511F17E4FF001D9EE4 /* ToDoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FF53501F17E4FF001D9EE4 /* ToDoList.swift */; };
+		94FF53531F17E516001D9EE4 /* ToDoList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94FF53521F17E516001D9EE4 /* ToDoList.storyboard */; };
+		94FF53561F17E52B001D9EE4 /* ToDoItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FF53551F17E52B001D9EE4 /* ToDoItemCell.swift */; };
+		94FF535B1F17E54E001D9EE4 /* ToDoListReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FF535A1F17E54E001D9EE4 /* ToDoListReducer.swift */; };
+		94FF535D1F17E555001D9EE4 /* ToDoListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FF535C1F17E555001D9EE4 /* ToDoListController.swift */; };
+		94FF535F1F17E55B001D9EE4 /* ToDoListState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FF535E1F17E55B001D9EE4 /* ToDoListState.swift */; };
+		94FF53611F17E562001D9EE4 /* ToDoListActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FF53601F17E562001D9EE4 /* ToDoListActions.swift */; };
+		94FF53631F17E578001D9EE4 /* addToDoItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FF53621F17E578001D9EE4 /* addToDoItemController.swift */; };
+		94FF53651F17E583001D9EE4 /* EditItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FF53641F17E583001D9EE4 /* EditItemViewController.swift */; };
+		94FF53671F17E58E001D9EE4 /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FF53661F17E58E001D9EE4 /* ItemDetailViewController.swift */; };
 		A44D4E5E1F0481CD00323B87 /* Budget.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A44D4E5D1F0481CD00323B87 /* Budget.storyboard */; };
 		A44D4E611F04824B00323B87 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		A44D91AF1E947F2700880D50 /* HealthOmniViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44D91AE1E947F2700880D50 /* HealthOmniViewController.swift */; };
@@ -234,6 +250,7 @@
 		0215F4E71E3FBCCD00AC01D3 /* PasswordChangeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PasswordChangeViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		0215F4E91E3FCDD400AC01D3 /* PersonalDataTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalDataTableViewCell.swift; sourceTree = "<group>"; };
 		0218B5B21E66522A00025EBB /* ListenerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenerService.swift; sourceTree = "<group>"; };
+		022434191F1D41EB0057A0D0 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0226C8E11E3C217D007968BA /* ConfigurationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ConfigurationViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		0226C8E51E3C267B007968BA /* ConfigurationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ConfigurationTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		022CC44C1EF9C3F3009FA79C /* Objectives.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Objectives.storyboard; sourceTree = "<group>"; };
@@ -285,7 +302,6 @@
 		026AF3771F06F0FC00EF6DCD /* GoalReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalReducer.swift; sourceTree = "<group>"; };
 		026AF37A1F071AFD00EF6DCD /* RootRoutable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootRoutable.swift; sourceTree = "<group>"; };
 		026AF37D1F071F6400EF6DCD /* GoalMiddleware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalMiddleware.swift; sourceTree = "<group>"; };
-		026AF37F1F07299000EF6DCD /* AppReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
 		0271DD4E1E2EB1FB002C101B /* FamilyMemberTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberTableViewCell.swift; sourceTree = "<group>"; };
 		0272139E1E84478F001A144B /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CalendarViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		027213A81E848509001A144B /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Event.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -369,7 +385,9 @@
 		02FA70771F1955F00027E8B5 /* TimeLineCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLineCellTableViewCell.swift; sourceTree = "<group>"; };
 		02FA70791F1957E10027E8B5 /* GoalHistoryByUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalHistoryByUserViewController.swift; sourceTree = "<group>"; };
 		02FD90021EDCA7C300F76BA1 /* addEventTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = addEventTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		042230DA1F1961B0005CBAC7 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		042567851EFC34B8001EAC50 /* Gallery.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Gallery.storyboard; sourceTree = "<group>"; };
+		042693001F1448EB004356D6 /* ImageAlbumService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageAlbumService.swift; sourceTree = "<group>"; };
 		04475B4D1F0ECCA800F257EA /* GalleryReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryReducer.swift; sourceTree = "<group>"; };
 		04475B511F0ED27200F257EA /* GalleryState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryState.swift; sourceTree = "<group>"; };
 		04475B531F0ED55500F257EA /* GalleryActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryActions.swift; sourceTree = "<group>"; };
@@ -378,7 +396,7 @@
 		04AFE38A1F01DE1600D4ECA2 /* AlbumModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumModel.swift; sourceTree = "<group>"; };
 		04AFE38C1F03246000D4ECA2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = familyOffice/Assets.xcassets; sourceTree = "<group>"; };
 		04AFE38E1F05A0F500D4ECA2 /* AddAlbumViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAlbumViewController.swift; sourceTree = "<group>"; };
-		04C4F3C81F017C7C0094CA2D /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
+		04BDB2841F19A2F6006D3A62 /* AppReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
 		1A54F16D92824170DA517ED5 /* ImageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
 		1A54FA2A44BB2FC5448DD081 /* GalleryService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryService.swift; sourceTree = "<group>"; };
 		4B3599B5B9EDF2A28C535E59 /* Pods-familyOfficeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-familyOfficeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-familyOfficeTests/Pods-familyOfficeTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -400,6 +418,9 @@
 		84B95C7D1E98124D00FFC672 /* Alamofire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Alamofire.swift; path = Pods/Alamofire/Source/Alamofire.swift; sourceTree = "<group>"; };
 		84C721201ED7502700381FB7 /* AddHealthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddHealthViewController.swift; sourceTree = "<group>"; };
 		84C721221ED7697200381FB7 /* AddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
+		84CCA3951F1AB76F00B1C9D0 /* UIString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIString.swift; sourceTree = "<group>"; };
+		84CCA39A1F1B68EF00B1C9D0 /* FaqsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaqsViewController.swift; sourceTree = "<group>"; };
+		84CCA39C1F1B69D600B1C9D0 /* Faqs.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Faqs.storyboard; sourceTree = "<group>"; };
 		84D51B1C1EA6ACE3006829F7 /* Section.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		84E9C9B41E92B78E00905A10 /* addCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addCell.swift; sourceTree = "<group>"; };
 		84E9C9B81E93269100905A10 /* SetPersonalDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetPersonalDataViewController.swift; sourceTree = "<group>"; };
@@ -408,6 +429,17 @@
 		84FFCB901F02D533006EDFA1 /* addContactTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addContactTableViewController.swift; sourceTree = "<group>"; };
 		932BFD75DD88755F0C9C439E /* Pods-familyOfficeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-familyOfficeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-familyOfficeUITests/Pods-familyOfficeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		93AB15EA5D7772845EA7763E /* Pods_familyOfficeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_familyOfficeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		94FF534E1F17E4F2001D9EE4 /* ToDoListService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoListService.swift; sourceTree = "<group>"; };
+		94FF53501F17E4FF001D9EE4 /* ToDoList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoList.swift; sourceTree = "<group>"; };
+		94FF53521F17E516001D9EE4 /* ToDoList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ToDoList.storyboard; sourceTree = "<group>"; };
+		94FF53551F17E52B001D9EE4 /* ToDoItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoItemCell.swift; sourceTree = "<group>"; };
+		94FF535A1F17E54E001D9EE4 /* ToDoListReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoListReducer.swift; sourceTree = "<group>"; };
+		94FF535C1F17E555001D9EE4 /* ToDoListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoListController.swift; sourceTree = "<group>"; };
+		94FF535E1F17E55B001D9EE4 /* ToDoListState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoListState.swift; sourceTree = "<group>"; };
+		94FF53601F17E562001D9EE4 /* ToDoListActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoListActions.swift; sourceTree = "<group>"; };
+		94FF53621F17E578001D9EE4 /* addToDoItemController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addToDoItemController.swift; sourceTree = "<group>"; };
+		94FF53641F17E583001D9EE4 /* EditItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditItemViewController.swift; sourceTree = "<group>"; };
+		94FF53661F17E58E001D9EE4 /* ItemDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
 		A44D4E5D1F0481CD00323B87 /* Budget.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Budget.storyboard; sourceTree = "<group>"; };
 		A44D91AE1E947F2700880D50 /* HealthOmniViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthOmniViewController.swift; sourceTree = "<group>"; };
 		A46316B11E78C69E00E3F72C /* Health.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Health.swift; sourceTree = "<group>"; };
@@ -520,8 +552,8 @@
 				02811B421F06E990004231BE /* State */,
 				027230AB1EFAE26F00831A1B /* cells */,
 				022CC44C1EF9C3F3009FA79C /* Objectives.storyboard */,
-				028CD3661EFAF98C00DEC001 /* AddGoalViewController.swift */,
 				02811B321F06AE9E004231BE /* GoalViewController.swift */,
+				028CD3661EFAF98C00DEC001 /* AddGoalViewController.swift */,
 				02441D991F16A3E500EA8202 /* CalendarOpenViewController.swift */,
 				02441D9B1F16BECD00EA8202 /* GoalTableViewController.swift */,
 				02FA70791F1957E10027E8B5 /* GoalHistoryByUserViewController.swift */,
@@ -591,6 +623,7 @@
 				02B82AC01E8AE4A100E41E32 /* Families.storyboard */,
 				02B82ABE1E8AE3CF00E41E32 /* Settings.storyboard */,
 				A47F14B01E8B27DB00285CA8 /* Health.storyboard */,
+				94FF53521F17E516001D9EE4 /* ToDoList.storyboard */,
 				02382F151E1C210C0036FFC9 /* LaunchScreen.storyboard */,
 				02382F181E1C210C0036FFC9 /* Info.plist */,
 				02382F3A1E1C2E1D0036FFC9 /* GoogleService-Info.plist */,
@@ -638,7 +671,9 @@
 				0233A4F81EFDA33600D01F5C /* GoalService.swift */,
 				029CD0601F13172C00A29CBA /* UserSvc.swift */,
 				029CD0641F1327BD00A29CBA /* FamilySvc.swift */,
+				042693001F1448EB004356D6 /* ImageAlbumService.swift */,
 				029F65921F15446100C3A0A7 /* ContactService.swift */,
+				94FF534E1F17E4F2001D9EE4 /* ToDoListService.swift */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -732,8 +767,8 @@
 		02668FA81F12B5DB0052617E /* Reducers */ = {
 			isa = PBXGroup;
 			children = (
-				026AF37F1F07299000EF6DCD /* AppReducer.swift */,
 				029CD0621F131EBC00A29CBA /* UserReducer.swift */,
+				04BDB2841F19A2F6006D3A62 /* AppReducer.swift */,
 			);
 			name = Reducers;
 			sourceTree = "<group>";
@@ -859,6 +894,8 @@
 		0290591F1E78B9AA005F760C /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				84CCA3971F1B688D00B1C9D0 /* Faqs */,
+				94FF53541F17E51E001D9EE4 /* todolist */,
 				A48DDA1E1F15409E0059D982 /* Budget */,
 				84FFCB8B1F01929F006EDFA1 /* Contacts */,
 				02BD2D161E1F0D8B00A61A84 /* HomeViewController.swift */,
@@ -929,6 +966,8 @@
 				02F5EDC11ED4B8A600BCDF84 /* UIColor.swift */,
 				02F5EDC31ED4B9F500BCDF84 /* CGFloat.swift */,
 				02BC16F41EE9E32900722689 /* UIBarbutton.swift */,
+				84CCA3951F1AB76F00B1C9D0 /* UIString.swift */,
+				022434191F1D41EB0057A0D0 /* ViewController.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -962,6 +1001,7 @@
 				84D51B1C1EA6ACE3006829F7 /* Section.swift */,
 				8460D6531EAE598A007767CE /* SectionNotification.swift */,
 				843956D41F0B1BF4009E95FE /* Contact.swift */,
+				94FF53501F17E4FF001D9EE4 /* ToDoList.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1049,7 +1089,7 @@
 		04C4F3C71F017C390094CA2D /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				04C4F3C81F017C7C0094CA2D /* GalleryCollectionViewCell.swift */,
+				042230DA1F1961B0005CBAC7 /* GalleryCollectionViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -1109,6 +1149,15 @@
 			name = Fonts;
 			sourceTree = "<group>";
 		};
+		84CCA3971F1B688D00B1C9D0 /* Faqs */ = {
+			isa = PBXGroup;
+			children = (
+				84CCA39A1F1B68EF00B1C9D0 /* FaqsViewController.swift */,
+				84CCA39C1F1B69D600B1C9D0 /* Faqs.storyboard */,
+			);
+			name = Faqs;
+			sourceTree = "<group>";
+		};
 		84FFCB8B1F01929F006EDFA1 /* Contacts */ = {
 			isa = PBXGroup;
 			children = (
@@ -1121,6 +1170,45 @@
 				029F65961F15A95700C3A0A7 /* InfoContactViewController.swift */,
 			);
 			name = Contacts;
+			sourceTree = "<group>";
+		};
+		94FF53541F17E51E001D9EE4 /* todolist */ = {
+			isa = PBXGroup;
+			children = (
+				94FF53591F17E546001D9EE4 /* State */,
+				94FF53581F17E540001D9EE4 /* Actions */,
+				94FF53571F17E53A001D9EE4 /* Reducer */,
+				94FF53551F17E52B001D9EE4 /* ToDoItemCell.swift */,
+				94FF535C1F17E555001D9EE4 /* ToDoListController.swift */,
+				94FF53621F17E578001D9EE4 /* addToDoItemController.swift */,
+				94FF53641F17E583001D9EE4 /* EditItemViewController.swift */,
+				94FF53661F17E58E001D9EE4 /* ItemDetailViewController.swift */,
+			);
+			name = todolist;
+			sourceTree = "<group>";
+		};
+		94FF53571F17E53A001D9EE4 /* Reducer */ = {
+			isa = PBXGroup;
+			children = (
+				94FF535A1F17E54E001D9EE4 /* ToDoListReducer.swift */,
+			);
+			name = Reducer;
+			sourceTree = "<group>";
+		};
+		94FF53581F17E540001D9EE4 /* Actions */ = {
+			isa = PBXGroup;
+			children = (
+				94FF53601F17E562001D9EE4 /* ToDoListActions.swift */,
+			);
+			name = Actions;
+			sourceTree = "<group>";
+		};
+		94FF53591F17E546001D9EE4 /* State */ = {
+			isa = PBXGroup;
+			children = (
+				94FF535E1F17E55B001D9EE4 /* ToDoListState.swift */,
+			);
+			name = State;
 			sourceTree = "<group>";
 		};
 		A48DDA1E1F15409E0059D982 /* Budget */ = {
@@ -1313,10 +1401,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94FF53531F17E516001D9EE4 /* ToDoList.storyboard in Resources */,
 				02B82AC71E8AE52600E41E32 /* Chat.storyboard in Resources */,
 				02E7E5EC1E78806D00D8360B /* Main.storyboard in Resources */,
 				02B82AC11E8AE4A100E41E32 /* Families.storyboard in Resources */,
 				02382F171E1C210C0036FFC9 /* LaunchScreen.storyboard in Resources */,
+				84CCA39D1F1B69D600B1C9D0 /* Faqs.storyboard in Resources */,
 				028E0E351EDF4DFE00D5205B /* MemberInviteCollectionViewCell.xib in Resources */,
 				02F15BBB1E85F37A008C26F8 /* chatCellTableViewCell.xib in Resources */,
 				042567861EFC34B8001EAC50 /* Gallery.storyboard in Resources */,
@@ -1500,6 +1590,7 @@
 				02C17D2B1E42796700EE7CFA /* recordTableViewCell.swift in Sources */,
 				04AFE38F1F05A0F500D4ECA2 /* AddAlbumViewController.swift in Sources */,
 				84E9C9B91E93269100905A10 /* SetPersonalDataViewController.swift in Sources */,
+				94FF534F1F17E4F2001D9EE4 /* ToDoListService.swift in Sources */,
 				0266454C1EFC50920034D434 /* RequestStorageSvc.swift in Sources */,
 				8450EFC61E64A1E500A51C09 /* AlertService.swift in Sources */,
 				02AD814B1E4B87520030B3DD /* AddMembersTableViewController.swift in Sources */,
@@ -1516,6 +1607,8 @@
 				A48FD6DD1F143D2200832559 /* Budget.swift in Sources */,
 				02E33A641EBA71D0003BF787 /* ShowEventViewController.swift in Sources */,
 				A44D4E611F04824B00323B87 /* (null) in Sources */,
+				042693011F1448EB004356D6 /* ImageAlbumService.swift in Sources */,
+				A44D4E611F04824B00323B87 /* (null) in Sources */,
 				02B46A341E52908200CC7511 /* NotificationService.swift in Sources */,
 				A46316B21E78C69E00E3F72C /* Health.swift in Sources */,
 				A48FD6D31F141BD000832559 /* BudgetCollectionHeaderView.swift in Sources */,
@@ -1523,6 +1616,7 @@
 				02A4375C1F18043D003F10A1 /* dayCollectionViewCell.swift in Sources */,
 				02BC16F51EE9E32900722689 /* UIBarbutton.swift in Sources */,
 				02B7E7FA1E7C614A0082BAE7 /* settingLauncher.swift in Sources */,
+				0224341A1F1D41EB0057A0D0 /* ViewController.swift in Sources */,
 				A4D585B81E8C8468005B8F1F /* HealthService.swift in Sources */,
 				02ABAC421E6E02B5003780AB /* Device.swift in Sources */,
 				025C70FE1E38229D004A4A5B /* Constants.swift in Sources */,
@@ -1532,8 +1626,8 @@
 				02BD2D191E1F130900A61A84 /* UserService.swift in Sources */,
 				02B7E7FC1E7C7A0E0082BAE7 /* UIView.swift in Sources */,
 				029CD0651F1327BD00A29CBA /* FamilySvc.swift in Sources */,
-				026AF3801F07299000EF6DCD /* AppReducer.swift in Sources */,
 				026AF37E1F071F6400EF6DCD /* GoalMiddleware.swift in Sources */,
+				94FF53671F17E58E001D9EE4 /* ItemDetailViewController.swift in Sources */,
 				027FC2491E8DCF3E00450EFB /* MemberCollectionViewCell.swift in Sources */,
 				8471A2521E2D8C5100EC9FD7 /* ConfigProfile.swift in Sources */,
 				84FFCB8F1F01A74C006EDFA1 /* contactTableViewController.swift in Sources */,
@@ -1547,6 +1641,7 @@
 				A4EABA2C1E95626500D0D54E /* HealthMemberCollectionViewCell.swift in Sources */,
 				024BCA831E6F237900736F1A /* Proccess.swift in Sources */,
 				0271DD4F1E2EB1FB002C101B /* FamilyMemberTableViewCell.swift in Sources */,
+				84CCA3961F1AB76F00B1C9D0 /* UIString.swift in Sources */,
 				84C721211ED7502700381FB7 /* AddHealthViewController.swift in Sources */,
 				02BC16EF1EE9C8C100722689 /* memberEvent.swift in Sources */,
 				02C414BF1E95C70A00045459 /* DateFormatter.swift in Sources */,
@@ -1566,27 +1661,35 @@
 				028CD36B1EFB447600DEC001 /* typeiconCollectionViewCell.swift in Sources */,
 				02FA707A1F1957E10027E8B5 /* GoalHistoryByUserViewController.swift in Sources */,
 				A44D91AF1E947F2700880D50 /* HealthOmniViewController.swift in Sources */,
+				94FF535F1F17E55B001D9EE4 /* ToDoListState.swift in Sources */,
 				0215F4E81E3FBCCD00AC01D3 /* PasswordChangeViewController.swift in Sources */,
 				04475B521F0ED27200F257EA /* GalleryState.swift in Sources */,
 				020A30951E2DA4440024B1FB /* FamilyViewController.swift in Sources */,
 				04475B4E1F0ECCA800F257EA /* GalleryReducer.swift in Sources */,
 				02668FAB1F12B5FF0052617E /* UserState.swift in Sources */,
 				024EF9A71E83412700F5B4DF /* SafeBoxViewController.swift in Sources */,
+				042230DB1F1961B0005CBAC7 /* GalleryCollectionViewCell.swift in Sources */,
 				02FA70641E707BAB0080AAEB /* ToastService.swift in Sources */,
+				94FF535B1F17E54E001D9EE4 /* ToDoListReducer.swift in Sources */,
 				02F15BB71E85ECE2008C26F8 /* chatModel.swift in Sources */,
 				02BC16F11EE9D80700722689 /* MapViewController.swift in Sources */,
+				94FF53561F17E52B001D9EE4 /* ToDoItemCell.swift in Sources */,
 				A48FD6D71F141D2100832559 /* RadarChartViewCell.swift in Sources */,
+				94FF53611F17E562001D9EE4 /* ToDoListActions.swift in Sources */,
 				023D2B501EC22A5100CA19FE /* Value.swift in Sources */,
 				027FC2451E8D830500450EFB /* EventTableViewCell.swift in Sources */,
 				A4F0C0EE1E96FC8D00395F20 /* HealthCollectionViewCell.swift in Sources */,
 				04AFE38B1F01DE1600D4ECA2 /* AlbumModel.swift in Sources */,
+				94FF53511F17E4FF001D9EE4 /* ToDoList.swift in Sources */,
 				02002BFE1E8208C2007191CC /* sectionChatCollectionViewController.swift in Sources */,
 				02002BF91E820631007191CC /* MemberTableViewCell.swift in Sources */,
 				025A89961E7A04AF0032C3C0 /* FamiliesPreCollectionViewCell.swift in Sources */,
 				02D956331E41220A007BAC66 /* DatePickerTableViewCell.swift in Sources */,
+				94FF535D1F17E555001D9EE4 /* ToDoListController.swift in Sources */,
 				84E9C9B51E92B78E00905A10 /* addCell.swift in Sources */,
 				0272139F1E84478F001A144B /* CalendarViewController.swift in Sources */,
 				020540971E552A13000741CC /* Notification.swift in Sources */,
+				94FF53631F17E578001D9EE4 /* addToDoItemController.swift in Sources */,
 				02DB30731E26A44F00A8FF1C /* FamilyService.swift in Sources */,
 				027213B11E84B38C001A144B /* HomeBussinessViewController.swift in Sources */,
 				026AF3781F06F0FC00EF6DCD /* GoalReducer.swift in Sources */,
@@ -1605,11 +1708,13 @@
 				02802DFF1EFC36A900E12A84 /* HandleMenuBar.swift in Sources */,
 				A48FD6D51F141C2C00832559 /* LineChartViewCell.swift in Sources */,
 				84AEA8A41E3BE32C002B2D43 /* Animations.swift in Sources */,
+				94FF53651F17E583001D9EE4 /* EditItemViewController.swift in Sources */,
 				029F658D1F153E8000C3A0A7 /* ContactState.swift in Sources */,
 				027FC2471E8D89C000450EFB /* MemberCollection-CalendarExtension.swift in Sources */,
 				02441DA01F16E7EF00EA8202 /* GoalDataofSectionTableViewCell.swift in Sources */,
 				02FA70661E7092ED0080AAEB /* ImageViewController.swift in Sources */,
 				02668FAD1F12B6690052617E /* AppState.swift in Sources */,
+				84CCA39B1F1B68EF00B1C9D0 /* FaqsViewController.swift in Sources */,
 				024CA7921E871A6700E2B7FC /* RegisterExtension.swift in Sources */,
 				0266454E1EFC86DD0034D434 /* Goal.swift in Sources */,
 				024EF9AA1E834B6A00F5B4DF /* IndexViewController.swift in Sources */,
@@ -1626,6 +1731,7 @@
 				02A4375E1F183F74003F10A1 /* repeatGoalModel.swift in Sources */,
 				02BD2D171E1F0D8B00A61A84 /* HomeViewController.swift in Sources */,
 				0233A4F71EFD8A5A00D01F5C /* Goal-Extension.swift in Sources */,
+				04BDB2851F19A2F6006D3A62 /* AppReducer.swift in Sources */,
 				029CD0631F131EBC00A29CBA /* UserReducer.swift in Sources */,
 				02C808801ED76979005BB8B1 /* ConfigurationEventTableViewController.swift in Sources */,
 				843956D51F0B1BF4009E95FE /* Contact.swift in Sources */,
@@ -1635,7 +1741,6 @@
 				0226C8E21E3C217D007968BA /* ConfigurationViewController.swift in Sources */,
 				0233A4F91EFDA33600D01F5C /* GoalService.swift in Sources */,
 				02382F0D1E1C210C0036FFC9 /* AppDelegate.swift in Sources */,
-				04C4F3C91F017C7C0094CA2D /* GalleryCollectionViewCell.swift in Sources */,
 				02A437601F183FCB003F10A1 /* FollowGoal.swift in Sources */,
 				A4F65A2B1E985A4E00831BFD /* HealthOmniViewController_Categories.swift in Sources */,
 				02EABF571E312AE8008A7CA9 /* FamilyCollectionViewController.swift in Sources */,

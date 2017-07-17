@@ -10,6 +10,11 @@ import Foundation
 import FirebaseDatabase
 let defaults = UserDefaults.standard
 class GoalService: RequestService {
+    func notExistSnapshot() {
+        
+    }
+
+    var goals: [Goal] = []
     var handles: [(String,UInt,FIRDataEventType)] = []
     let basePath = "goals/\(service.USER_SERVICE.users[0].id!)"
     private init() {}
@@ -76,6 +81,8 @@ class GoalService: RequestService {
                 })
                 return members
             }()
+        }else{
+            goal.members[(store.state.UserState.user?.id)!] = -1
         }
         service.GOAL_SERVICE.insert(path, value: goal.toDictionary(), callback: {ref in
             if ref is FIRDatabaseReference {
@@ -136,7 +143,7 @@ class GoalService: RequestService {
 extension GoalService: repository {
     
     func added(snapshot: FirebaseDatabase.FIRDataSnapshot) {
-        let id = snapshot.ref.description().components(separatedBy: "/")[4]
+        let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
         let goal = Goal(snapshot: snapshot)
         
         if (store.state.GoalsState.goals[id] == nil) {
@@ -149,7 +156,7 @@ extension GoalService: repository {
     }
     
     func updated(snapshot: FirebaseDatabase.FIRDataSnapshot, id: Any) {
-        let id = snapshot.ref.description().components(separatedBy: "/")[4]
+        let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
         let goal = Goal(snapshot: snapshot)
         if let index = store.state.GoalsState.goals[id]?.index(where: {$0.id == snapshot.key})  {
             store.state.GoalsState.goals[id]?[index] = goal
@@ -157,7 +164,7 @@ extension GoalService: repository {
     }
     
     func removed(snapshot: FirebaseDatabase.FIRDataSnapshot) {
-        let id = snapshot.ref.description().components(separatedBy: "/")[4]
+        let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
         if let index = store.state.GoalsState.goals[id]?.index(where: {$0.id == snapshot.key})  {
             store.state.GoalsState.goals[id]?.remove(at: index)
         }

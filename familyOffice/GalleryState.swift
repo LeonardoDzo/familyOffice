@@ -10,5 +10,6 @@ import Foundation
 import ReSwift
 struct GalleryState: StateType {
     var Gallery: [String:[Album]] = [:]
+    var Album: Album
     var status: Result<Any> 
 }

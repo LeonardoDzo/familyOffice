@@ -12,6 +12,10 @@ import FirebaseDatabase
 import UIKit
 
 class FamilyService: repository, RequestService {
+    func notExistSnapshot() {
+        
+    }
+
     
     func addHandle(_ handle: UInt, ref: String, action: FIRDataEventType) {
         

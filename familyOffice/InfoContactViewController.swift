@@ -17,6 +17,10 @@ class InfoContactViewController: UIViewController, ContactBindible, UITabBarDele
     @IBOutlet weak var phoneLbl: UILabel!
     @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var tabbar: UITabBar!
+    @IBOutlet weak var addressLbl: UILabel!
+    @IBOutlet weak var address: UILabel!
+    @IBOutlet weak var webpage: UILabel!
+    @IBOutlet weak var dataView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +30,7 @@ class InfoContactViewController: UIViewController, ContactBindible, UITabBarDele
         tabbar.delegate = self
         tabbar.layer.cornerRadius = 12
         headerView.layer.cornerRadius = 12
+        dataView.layer.cornerRadius = 12
         // Do any additional setup after loading the view.
     }
 

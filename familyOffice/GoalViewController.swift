@@ -149,8 +149,8 @@ class GoalViewController: UIViewController, StoreSubscriber, UITabBarDelegate, G
         pieChart.noDataText = "No existen objetivos"
         // user interaction
         pieChart.isUserInteractionEnabled = true
-        let d = Description()
-        pieChart.chartDescription = d
+
+        pieChart.chartDescription?.text = ""
         pieChart.centerText = "Obj."
         pieChart.holeRadiusPercent = 0.5
         pieChart.animate(xAxisDuration: 2.0, yAxisDuration: 2.0, easingOption: .easeInCirc)

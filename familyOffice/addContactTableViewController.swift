@@ -14,6 +14,9 @@ class addContactTableViewController: UITableViewController, ContactBindible {
     @IBOutlet weak var nameTxt: UITextField!
     @IBOutlet weak var phoneTxt: UITextField!
     @IBOutlet weak var jobTxt: UITextField!
+    @IBOutlet weak var addressTxt: textFieldStyleController!
+    @IBOutlet weak var webpageTxt: textFieldStyleController!
+    @IBOutlet weak var emailTxt: textFieldStyleController!
     
     var isEdit = false
     override func viewDidLoad() {
@@ -46,6 +49,9 @@ class addContactTableViewController: UITableViewController, ContactBindible {
         contact.name = nameTxt.text
         contact.phone = phoneTxt.text
         contact.job = jobTxt.text
+        contact.address = addressTxt.text
+        contact.webpage = webpageTxt.text
+        contact.email = emailTxt.text
         if isEdit {
             store.dispatch(UpdateContactAction(contact: contact))
         }else{
@@ -62,6 +68,18 @@ class addContactTableViewController: UITableViewController, ContactBindible {
             return false
         }
         guard let job = self.jobTxt.text, !job.isEmpty else {
+            return false
+        }
+        
+        guard let address = self.addressTxt.text, !address.isEmpty else {
+            return false
+        }
+        
+        guard let webpage = self.webpageTxt.text, !webpage.isEmpty else {
+            return false
+        }
+        
+        guard let email = self.emailTxt.text, !email.isEmpty else {
             return false
         }
         
