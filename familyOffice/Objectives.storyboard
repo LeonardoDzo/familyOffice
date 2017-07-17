@@ -676,7 +676,7 @@
                 <navigationController storyboardIdentifier="mainobjective" automaticallyAdjustsScrollViewInsets="NO" id="1Af-WX-zIQ" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Graficas" image="Home" id="XlL-DR-Mkw"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="vO1-Tr-bWf">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="vO1-Tr-bWf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -694,7 +694,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dtf-Lv-brQ" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="udP-h6-A3X">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="udP-h6-A3X">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
