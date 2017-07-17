@@ -81,20 +81,19 @@ class GoalHistoryByUserViewController: UIViewController, GoalBindable {
         var count = 0
         var incomplete = 0
         var rest = 0
-        var isAlive = true
         let date = Date().toMillis()
         for item in goal.follow {
             let comp = Date(string: item.date, formatter: .ShortInternationalFormat)?.toMillis()
-            if (date! <= comp! || date! >= comp!) && isAlive {
-                if item.members[user.id]! > 0 {
-                    count+=1
-                }else{
+            if item.members[user.id]! > 0 {
+                count+=1
+            }else{
+                if date! >= comp! {
                     incomplete+=1
+                }else {
+                    rest+=1
                 }
-                isAlive = false
-            }else {
-                rest+=1
             }
+            
         }
         return [count, incomplete, rest]
     }
@@ -117,6 +116,7 @@ extension GoalHistoryByUserViewController : UITableViewDelegate, UITableViewData
         if indexPath.row == goal.follow.count {
             cell.lineLbl.isHidden = true
         }
+        cell.dateLbl.text = follow.date
         cell.doneLbl.text = follow.members[user.id!]! > 0 ? getDate(follow.members[user.id!]!, with: .dayMonthAndYear2) : "Incompleta"
         if follow.members[user.id!]! > 0  {
             cell.doneLbl.backgroundColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
