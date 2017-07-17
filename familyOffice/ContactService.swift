@@ -103,7 +103,7 @@ extension ContactService : RequestService {
 }
 extension ContactService: repository {
     func added(snapshot: FirebaseDatabase.FIRDataSnapshot) {
-        let id = snapshot.ref.description().components(separatedBy: "/")[4]
+        let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
         let contact = Contact(snapshot: snapshot)
         
         if (store.state.ContactState.contacts[id] == nil) {
@@ -124,7 +124,7 @@ extension ContactService: repository {
     }
     
     func removed(snapshot: FirebaseDatabase.FIRDataSnapshot) {
-        let id = snapshot.ref.description().components(separatedBy: "/")[4]
+        let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
         if let index = store.state.ContactState.contacts[id]?.index(where: {$0.id == snapshot.key})  {
             store.state.GoalsState.goals[id]?.remove(at: index)
         }
