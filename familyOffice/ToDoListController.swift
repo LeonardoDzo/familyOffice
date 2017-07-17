@@ -27,6 +27,7 @@ class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, U
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround() 
         
         tabBar.selectedItem = tabBar.items![0]
         tabBar.tintColor = #colorLiteral(red: 0.8431372549, green: 0.1019607843, blue: 0.4, alpha: 1)
@@ -45,16 +46,25 @@ class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, U
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.handleNew))
         addButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
-        self.navigationItem.rightBarButtonItem = addButton
         let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "LeftChevron"), style: .plain, target: self, action: #selector(self.back))
         self.navigationItem.leftBarButtonItem = backButton
+        backButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
+        let moreButton = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_bar_more_button"), style: .plain, target: self, action:  #selector(self.handleMore(_:)))
+        moreButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         
+        self.navigationItem.rightBarButtonItems = [moreButton,addButton]
         // Do any additional setup after loading the view.
     
         
         if( traitCollection.forceTouchCapability == .available){
             registerForPreviewing(with: self, sourceView: view)
         }
+    }
+    
+    let settingLauncher = SettingLauncher()
+    
+    func handleMore(_ sender: Any) {
+        settingLauncher.showSetting()
     }
     
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
@@ -225,6 +235,18 @@ extension ToDoListController: UISearchResultsUpdating {
             self.items = store.state.ToDoListState.items[user!] ?? []
         }
         tableView.reloadData()
+    }
+}
+
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
 
