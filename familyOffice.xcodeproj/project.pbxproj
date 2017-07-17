@@ -178,6 +178,9 @@
 		84AEA8A41E3BE32C002B2D43 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AEA8A31E3BE32C002B2D43 /* Animations.swift */; };
 		84C721211ED7502700381FB7 /* AddHealthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C721201ED7502700381FB7 /* AddHealthViewController.swift */; };
 		84C721231ED7697200381FB7 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C721221ED7697200381FB7 /* AddViewController.swift */; };
+		84CCA3961F1AB76F00B1C9D0 /* UIString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CCA3951F1AB76F00B1C9D0 /* UIString.swift */; };
+		84CCA39B1F1B68EF00B1C9D0 /* FaqsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CCA39A1F1B68EF00B1C9D0 /* FaqsViewController.swift */; };
+		84CCA39D1F1B69D600B1C9D0 /* Faqs.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84CCA39C1F1B69D600B1C9D0 /* Faqs.storyboard */; };
 		84D51B1D1EA6ACE3006829F7 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D51B1C1EA6ACE3006829F7 /* Section.swift */; };
 		84E9C9B51E92B78E00905A10 /* addCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E9C9B41E92B78E00905A10 /* addCell.swift */; };
 		84E9C9B91E93269100905A10 /* SetPersonalDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E9C9B81E93269100905A10 /* SetPersonalDataViewController.swift */; };
@@ -413,6 +416,9 @@
 		84B95C7D1E98124D00FFC672 /* Alamofire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Alamofire.swift; path = Pods/Alamofire/Source/Alamofire.swift; sourceTree = "<group>"; };
 		84C721201ED7502700381FB7 /* AddHealthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddHealthViewController.swift; sourceTree = "<group>"; };
 		84C721221ED7697200381FB7 /* AddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
+		84CCA3951F1AB76F00B1C9D0 /* UIString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIString.swift; sourceTree = "<group>"; };
+		84CCA39A1F1B68EF00B1C9D0 /* FaqsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaqsViewController.swift; sourceTree = "<group>"; };
+		84CCA39C1F1B69D600B1C9D0 /* Faqs.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Faqs.storyboard; sourceTree = "<group>"; };
 		84D51B1C1EA6ACE3006829F7 /* Section.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		84E9C9B41E92B78E00905A10 /* addCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addCell.swift; sourceTree = "<group>"; };
 		84E9C9B81E93269100905A10 /* SetPersonalDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetPersonalDataViewController.swift; sourceTree = "<group>"; };
@@ -544,8 +550,8 @@
 				02811B421F06E990004231BE /* State */,
 				027230AB1EFAE26F00831A1B /* cells */,
 				022CC44C1EF9C3F3009FA79C /* Objectives.storyboard */,
-				028CD3661EFAF98C00DEC001 /* AddGoalViewController.swift */,
 				02811B321F06AE9E004231BE /* GoalViewController.swift */,
+				028CD3661EFAF98C00DEC001 /* AddGoalViewController.swift */,
 				02441D991F16A3E500EA8202 /* CalendarOpenViewController.swift */,
 				02441D9B1F16BECD00EA8202 /* GoalTableViewController.swift */,
 				02FA70791F1957E10027E8B5 /* GoalHistoryByUserViewController.swift */,
@@ -886,6 +892,7 @@
 		0290591F1E78B9AA005F760C /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				84CCA3971F1B688D00B1C9D0 /* Faqs */,
 				94FF53541F17E51E001D9EE4 /* todolist */,
 				A48DDA1E1F15409E0059D982 /* Budget */,
 				84FFCB8B1F01929F006EDFA1 /* Contacts */,
@@ -957,6 +964,7 @@
 				02F5EDC11ED4B8A600BCDF84 /* UIColor.swift */,
 				02F5EDC31ED4B9F500BCDF84 /* CGFloat.swift */,
 				02BC16F41EE9E32900722689 /* UIBarbutton.swift */,
+				84CCA3951F1AB76F00B1C9D0 /* UIString.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -1136,6 +1144,15 @@
 				8488E1671E41728700045646 /* Gotham-Book.ttf */,
 			);
 			name = Fonts;
+			sourceTree = "<group>";
+		};
+		84CCA3971F1B688D00B1C9D0 /* Faqs */ = {
+			isa = PBXGroup;
+			children = (
+				84CCA39A1F1B68EF00B1C9D0 /* FaqsViewController.swift */,
+				84CCA39C1F1B69D600B1C9D0 /* Faqs.storyboard */,
+			);
+			name = Faqs;
 			sourceTree = "<group>";
 		};
 		84FFCB8B1F01929F006EDFA1 /* Contacts */ = {
@@ -1386,6 +1403,7 @@
 				02E7E5EC1E78806D00D8360B /* Main.storyboard in Resources */,
 				02B82AC11E8AE4A100E41E32 /* Families.storyboard in Resources */,
 				02382F171E1C210C0036FFC9 /* LaunchScreen.storyboard in Resources */,
+				84CCA39D1F1B69D600B1C9D0 /* Faqs.storyboard in Resources */,
 				028E0E351EDF4DFE00D5205B /* MemberInviteCollectionViewCell.xib in Resources */,
 				02F15BBB1E85F37A008C26F8 /* chatCellTableViewCell.xib in Resources */,
 				042567861EFC34B8001EAC50 /* Gallery.storyboard in Resources */,
@@ -1619,6 +1637,7 @@
 				A4EABA2C1E95626500D0D54E /* HealthMemberCollectionViewCell.swift in Sources */,
 				024BCA831E6F237900736F1A /* Proccess.swift in Sources */,
 				0271DD4F1E2EB1FB002C101B /* FamilyMemberTableViewCell.swift in Sources */,
+				84CCA3961F1AB76F00B1C9D0 /* UIString.swift in Sources */,
 				84C721211ED7502700381FB7 /* AddHealthViewController.swift in Sources */,
 				02BC16EF1EE9C8C100722689 /* memberEvent.swift in Sources */,
 				02C414BF1E95C70A00045459 /* DateFormatter.swift in Sources */,
@@ -1691,6 +1710,7 @@
 				02441DA01F16E7EF00EA8202 /* GoalDataofSectionTableViewCell.swift in Sources */,
 				02FA70661E7092ED0080AAEB /* ImageViewController.swift in Sources */,
 				02668FAD1F12B6690052617E /* AppState.swift in Sources */,
+				84CCA39B1F1B68EF00B1C9D0 /* FaqsViewController.swift in Sources */,
 				024CA7921E871A6700E2B7FC /* RegisterExtension.swift in Sources */,
 				0266454E1EFC86DD0034D434 /* Goal.swift in Sources */,
 				024EF9AA1E834B6A00F5B4DF /* IndexViewController.swift in Sources */,
@@ -1717,7 +1737,6 @@
 				0226C8E21E3C217D007968BA /* ConfigurationViewController.swift in Sources */,
 				0233A4F91EFDA33600D01F5C /* GoalService.swift in Sources */,
 				02382F0D1E1C210C0036FFC9 /* AppDelegate.swift in Sources */,
-				04C4F3C91F017C7C0094CA2D /* GalleryCollectionViewCell.swift in Sources */,
 				02A437601F183FCB003F10A1 /* FollowGoal.swift in Sources */,
 				A4F65A2B1E985A4E00831BFD /* HealthOmniViewController_Categories.swift in Sources */,
 				02EABF571E312AE8008A7CA9 /* FamilyCollectionViewController.swift in Sources */,

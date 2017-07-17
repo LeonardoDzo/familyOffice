@@ -46,6 +46,7 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
         self.navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         
         textFieldTitle.text = item.title
+        textFieldTitle.contentInset = UIEdgeInsetsMake(-60, 0, 0, 0)
         photo.loadImage(urlString: item.photoUrl!)
         
         self.textFieldTitle.layer.borderWidth = 1
@@ -164,6 +165,16 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
         tookPhoto = true
     }
     
+    @IBAction func changeStatus(_ sender: Any) {
+        var currentItem = self.item
+        
+        if self.stateSwitch.isOn {
+            currentItem.status = "Finalizada"
+        } else {
+            currentItem.status = "Pendiente"
+        }
+        store.dispatch(UpdateToDoListItemAction(item:currentItem))
+    }
 
     @IBAction func takePhoto(_ sender: UIButton) {
         let alert = UIAlertController(title: "Imagen de la tarea", message: "¿Cómo quiere elegir la imagen?", preferredStyle: .actionSheet)
