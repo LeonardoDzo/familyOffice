@@ -88,6 +88,7 @@ class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, U
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! ToDoItemCell
         
         cell.title.text = item.title
+        cell.date.text = item.endDate
         
         cell.countLabel.text = "\(indexPath.row + 1)"
         cell.countLabel.layer.cornerRadius = 0.5 * cell.countLabel.bounds.size.width
