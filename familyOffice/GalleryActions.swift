@@ -42,6 +42,7 @@ struct DeleteGalleryAction: StandardActionConvertible {
 
 struct GetGalleyAction: Action {
 }
+
 struct InsertImagesAlbumAction: StandardActionConvertible {
         static let type = "GALLERYIMAGE_ACTION_INSERT"
     var image: ImageAlbum!
@@ -56,4 +57,5 @@ struct InsertImagesAlbumAction: StandardActionConvertible {
     func toStandardAction() -> StandardAction {
         return StandardAction(type: InsertImagesAlbumAction.type, payload: [:], isTypedAction: true)
     }
+
 }

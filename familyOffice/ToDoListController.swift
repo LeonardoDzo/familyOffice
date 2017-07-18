@@ -12,33 +12,71 @@ import ReSwift
 import Firebase
 import M13Checkbox
 
-class ToDoListController: UITableViewController,UIViewControllerPreviewingDelegate {
+class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, UITableViewDelegate, UITableViewDataSource, UITabBarDelegate {
+    
+    
+    @IBOutlet var tableView: UITableView!
+    @IBOutlet var tabBar: UITabBar!
+    
     
     
     var items : [ToDoList.ToDoItem] = []
     var userId = service.USER_SERVICE.users[0].id!
     let searchController = UISearchController(searchResultsController: nil)
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround() 
+        
+        tabBar.selectedItem = tabBar.items![0]
+        tabBar.tintColor = #colorLiteral(red: 0.8431372549, green: 0.1019607843, blue: 0.4, alpha: 1)
         
         searchController.searchResultsUpdater = self
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.dimsBackgroundDuringPresentation = false
+        
+        let nav = self.navigationController?.navigationBar
+        
+        nav?.titleTextAttributes = [NSForegroundColorAttributeName:#colorLiteral(red: 0.2848778963, green: 0.2029544115, blue: 0.4734018445, alpha: 1)]
+        
+        self.navigationItem.title = "Lista de tareas"
+        
         tableView.tableHeaderView = searchController.searchBar
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.handleNew))
         addButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
-        self.navigationItem.rightBarButtonItem = addButton
-        let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "Home"), style: .plain, target: self, action: #selector(self.back))
+        let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "LeftChevron"), style: .plain, target: self, action: #selector(self.back))
         self.navigationItem.leftBarButtonItem = backButton
+        backButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
+        let moreButton = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_bar_more_button"), style: .plain, target: self, action:  #selector(self.handleMore(_:)))
+        moreButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         
+        self.navigationItem.rightBarButtonItems = [moreButton,addButton]
         // Do any additional setup after loading the view.
     
         
         if( traitCollection.forceTouchCapability == .available){
             registerForPreviewing(with: self, sourceView: view)
         }
+    }
+    
+    let settingLauncher = SettingLauncher()
+    
+    func handleMore(_ sender: Any) {
+        settingLauncher.showSetting()
+    }
+    
+    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        let user = store.state.UserState.user?.id!
+        if item.tag == 1 {
+            self.items = self.items.filter({ (item) -> Bool in
+                return item.status == "Finalizada"
+            })
+        }else{
+            self.items = store.state.ToDoListState.items[user!] ?? []
+        }
+        tableView.reloadData()
     }
     
     func back() -> Void {
@@ -54,15 +92,15 @@ class ToDoListController: UITableViewController,UIViewControllerPreviewingDelega
         self.performSegue(withIdentifier: "showItemDetails", sender: "new")
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.items.count
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = self.items[indexPath.row]
         let cellID = "ToDoItemCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! ToDoItemCell
@@ -85,13 +123,18 @@ class ToDoListController: UITableViewController,UIViewControllerPreviewingDelega
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.performSegue(withIdentifier: "showItemDetails", sender: "List")
     }
     
-    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Eliminar") { (action, indexPath) in
-            store.dispatch(DeleteToDoListItemAction(item: self.items[indexPath.row]))
+            let alert = UIAlertController(title: "Eliminar tarea", message: "", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancelar", style: .default, handler: nil))
+            alert.addAction(UIAlertAction(title: "Aceptar", style: .destructive, handler: { (action) in
+              store.dispatch(DeleteToDoListItemAction(item: self.items[indexPath.row]))
+            }))
+            self.present(alert, animated: true, completion: nil)
         }
         
         return [deleteAction]
@@ -112,8 +155,8 @@ class ToDoListController: UITableViewController,UIViewControllerPreviewingDelega
         searchController.isActive = false
     }
     // MARK: - Checkbox
+    
     @IBAction func checkboxPressed(_ sender: M13Checkbox) {
-        
         let checkbox = sender.convert(CGPoint.zero, to: self.tableView)
         let indexPath = self.tableView.indexPathForRow(at: checkbox)
         var currentItem = self.items[(indexPath?.row)!]
@@ -194,4 +237,5 @@ extension ToDoListController: UISearchResultsUpdating {
         tableView.reloadData()
     }
 }
+
 

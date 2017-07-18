@@ -11,7 +11,7 @@ import Firebase
 import ReSwift
 import ReSwiftRouter
 
-class EditItemViewController: UIViewController,UINavigationControllerDelegate,UIGestureRecognizerDelegate,DateProtocol {
+class EditItemViewController: UIViewController,UINavigationControllerDelegate,UIGestureRecognizerDelegate,DateProtocol,UITextViewDelegate {
     var item:ToDoList.ToDoItem = ToDoList.ToDoItem(title: "", photoUrl: "", status: "Pendiente", endDate: "")
     var imagePicker: UIImagePickerController!
     var endDate: String?
@@ -30,8 +30,11 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
     @IBOutlet var textFieldTitle: UITextView!
     @IBOutlet var photo: UIImageView!
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround() 
         
         if item.title == "" {
             isNewItem = true
@@ -40,10 +43,14 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
             self.stateLabel.isHidden = true
         }
         
+        
+        
         let saveButton = UIBarButtonItem(title:isNewItem ? "Guardar" : "Editar", style: .plain, target: self, action: #selector(save(sender:)))
         saveButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         self.navigationItem.rightBarButtonItem = saveButton
         self.navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
+        
+        self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         
         textFieldTitle.text = item.title
         textFieldTitle.contentInset = UIEdgeInsetsMake(-60, 0, 0, 0)
@@ -68,10 +75,16 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
         self.endDateLabel.isUserInteractionEnabled = true
         self.endDateLabel.addGestureRecognizer(tap)
         
-        self.endDateLabel.text = item.endDate
+        if item.endDate != "" {
+            self.endDateLabel.text = item.endDate
+        }
         
         
         initialPhoto = item.photoUrl!
+        
+        textFieldTitle.delegate = self
+        textFieldTitle.text = "Titulo"
+        textFieldTitle.textColor = UIColor.lightGray
         // Do any additional setup after loading the view.
     }
     
@@ -116,6 +129,11 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
         return newImage!
     }
     
+    @IBAction func stateSwitchChanged(_ sender: UISwitch) {
+        item.status = item.status == "Pendiente" ? "Finalizada" : "Pendiente"
+        store.dispatch(UpdateToDoListItemAction(item:item))
+    }
+    
     func save(sender: UIBarButtonItem){
         
         let title: String! = textFieldTitle.text
@@ -132,7 +150,7 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
         var photoUrl:String = initialPhoto
         
         if tookPhoto {
-            photo?.image = resizeImage(image: (photo?.image!)!, scale: 20)
+            photo?.image = resizeImage(image: (photo?.image!)!, scale: 50)
             let uploadData = UIImagePNGRepresentation((photo?.image)!)
             Constants.FirStorage.STORAGEREF.child("users/\(service.USER_SERVICE.users[0].id!)").child("images/\(photoName).png").put(uploadData!, metadata: nil){ metadata, error in
                 if error != nil{
@@ -260,6 +278,22 @@ extension EditItemViewController: StoreSubscriber{
             toggleToDoState(message: "Tarea añadida")
             break
         default: break
+        }
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
+    }
+    
+    
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "Titulo"
+            textView.textColor = UIColor.lightGray
         }
     }
 }

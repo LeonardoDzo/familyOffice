@@ -17,8 +17,11 @@ class GoalHistoryByUserViewController: UIViewController, GoalBindable {
     @IBOutlet weak var completeLbl: UILabel!
     @IBOutlet weak var restLbl: UILabel!
     @IBOutlet weak var incompLbl: UILabel!
-    
+    var follow : FollowGoal!
     @IBOutlet weak var pieChart: PieChartView!
+    @IBOutlet weak var dateForCompleate: UILabel!
+    @IBOutlet weak var doneSwitch: UISwitch!
+    @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -33,6 +36,7 @@ class GoalHistoryByUserViewController: UIViewController, GoalBindable {
         }
         self.navigationItem.title = user.name
         updatePieChartData()
+        verifyFollow()
     }
 
     override func didReceiveMemoryWarning() {
@@ -67,6 +71,7 @@ class GoalHistoryByUserViewController: UIViewController, GoalBindable {
         incompLbl.text = sdata[1].description
         completeLbl.text = sdata[0].description
         restLbl.text = sdata[2].description
+        pieChart.chartDescription?.text = ""
         pieChart.centerText = "Obj."
         pieChart.holeRadiusPercent = 0.5
         pieChart.animate(xAxisDuration: 2.0, yAxisDuration: 2.0, easingOption: .easeInCirc)
@@ -81,20 +86,19 @@ class GoalHistoryByUserViewController: UIViewController, GoalBindable {
         var count = 0
         var incomplete = 0
         var rest = 0
-        var isAlive = true
         let date = Date().toMillis()
         for item in goal.follow {
             let comp = Date(string: item.date, formatter: .ShortInternationalFormat)?.toMillis()
-            if (date! <= comp! || date! >= comp!) && isAlive {
-                if item.members[user.id]! > 0 {
-                    count+=1
-                }else{
+            if item.members[user.id]! > 0 {
+                count+=1
+            }else{
+                if date! >= comp! {
                     incomplete+=1
+                }else {
+                    rest+=1
                 }
-                isAlive = false
-            }else {
-                rest+=1
             }
+            
         }
         return [count, incomplete, rest]
     }
@@ -117,13 +121,50 @@ extension GoalHistoryByUserViewController : UITableViewDelegate, UITableViewData
         if indexPath.row == goal.follow.count {
             cell.lineLbl.isHidden = true
         }
+        cell.dateLbl.text = follow.date
         cell.doneLbl.text = follow.members[user.id!]! > 0 ? getDate(follow.members[user.id!]!, with: .dayMonthAndYear2) : "Incompleta"
         if follow.members[user.id!]! > 0  {
             cell.doneLbl.backgroundColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
             cell.doneLbl.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            cell.doneLbl.layer.borderColor = UIColor.clear.cgColor
         }else{
             cell.doneLbl.backgroundColor = UIColor.clear
+            cell.doneLbl.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+            cell.doneLbl.layer.borderColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1).cgColor
         }
         return cell
+    }
+    
+    func verifyFollow() -> Void {
+        
+        let date = Date().toMillis()
+        let follows = goal.follow.sorted(by: {$0.date < $1.date})
+        for item in follows {
+            let comp = Date(string: item.date, formatter: .ShortInternationalFormat)?.toMillis()
+            if date! <= comp! {
+                follow = item
+                let string = "Fecha: "
+                self.dateForCompleate.text = string + item.date
+                if user.id == store.state.UserState.user?.id {
+                    self.doneSwitch.isOn = follow.members[(user?.id!)!]! > 0 ? true : false
+                    self.dateForCompleate.isHidden = false
+                    self.doneSwitch.isHidden = false
+                }
+                break
+            }
+        }
+        
+    }
+    @IBAction func handleChange(_ sender: UISwitch) {
+        
+        if follow != nil, let index = goal.follow.index(where: {$0.date == follow.date}), let uid = store.state.UserState.user?.id
+        {
+            goal.follow[index].members[uid] = sender.isOn ? Date().toMillis() : -1
+            
+        }
+        store.dispatch(UpdateGoalAction(goal: goal))
+        updatePieChartData()
+        self.tableView.reloadData()
+
     }
 }

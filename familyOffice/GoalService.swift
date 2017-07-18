@@ -81,6 +81,8 @@ class GoalService: RequestService {
                 })
                 return members
             }()
+        }else{
+            goal.members[(store.state.UserState.user?.id)!] = -1
         }
         service.GOAL_SERVICE.insert(path, value: goal.toDictionary(), callback: {ref in
             if ref is FIRDatabaseReference {

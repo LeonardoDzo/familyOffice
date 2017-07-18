@@ -24,6 +24,7 @@ struct GalleryReducer: Reducer {
                 stateAux.status = .none
                 return stateAux
             }
+
         default:
             break
         }
