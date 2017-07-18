@@ -795,7 +795,7 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics">
                         <color key="tintColor" red="0.93333333333333335" green="0.27058823529411763" blue="0.29019607843137252" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </simulatedTabBarMetrics>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iZF-Nj-8Uu">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="iZF-Nj-8Uu">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.93333333333333335" green="0.27058823529411763" blue="0.29019607843137252" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
