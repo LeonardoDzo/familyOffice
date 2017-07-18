@@ -28,9 +28,21 @@ class UserSvc {
     
     func selectFamily(family: Family) -> Void {
         Constants.FirDatabase.REF_USERS.child((FIRAuth.auth()?.currentUser?.uid)!).updateChildValues(["familyActive" : family.id])
+        getUsersByFamilyActive()
+    }
+    func getUsersByFamilyActive() -> Void {
+        let user = store.state.UserState.user
+        let family = store.state.FamilyState.families.first(where: {$0.id == user?.familyActive})
+        for item in (family?.members)! {
+            store.dispatch(GetUserAction(uid: item))
+        }
     }
 }
 extension UserSvc : RequestService {
+    func notExistSnapshot() {
+        
+    }
+
     func addHandle(_ handle: UInt, ref: String, action: FIRDataEventType) {
         self.handles.append((ref,handle,action))
     }
@@ -109,7 +121,6 @@ extension UserSvc : repository {
             store.state.UserState.user?.update(snapshot: snapshot)
         }else if let index = store.state.UserState.users.index(where: {$0.id == id})  {
             store.state.UserState.users[index].update(snapshot: snapshot)
-            
         }
     }
     func removed(snapshot: FIRDataSnapshot) {

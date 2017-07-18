@@ -23,6 +23,7 @@ struct ImageAlbum {
     var comments: [String] = []
     var reacts: [String] = []
     var album: String!
+    var uiimage: UIImage?
 
     init(){
         self.id = ""
@@ -30,13 +31,15 @@ struct ImageAlbum {
         self.comments = []
         self.reacts = []
         self.album = ""
+        self.uiimage = nil
     }
-    init(id: String!,path: String!,album: String!,comments: [String],reacts: [String]){
+    init(id: String!,path: String!,album: String!,comments: [String],reacts: [String],uiimage: UIImage){
         self.id = id
         self.path = path
         self.comments = comments
         self.reacts = reacts
         self.album = album
+        self.uiimage = uiimage
     }
     init(snap: FIRDataSnapshot){
         self.id = snap.key
@@ -74,7 +77,7 @@ extension ImageAlbumBindable{
         }
         if let imageBackground = self.imageBackground{
             if imageAlbum.path != nil{
-                if(imageAlbum.path.isEmpty){
+                if(!imageAlbum.path.isEmpty){
                     imageBackground.loadImage(urlString: imageAlbum.path)
                 }
                 else{

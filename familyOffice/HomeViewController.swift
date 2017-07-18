@@ -5,7 +5,6 @@
 //  Created by Leonardo Durazo on 05/01/17.
 //  Copyright © 2017 Leonardo Durazo. All rights reserved.
 //
-
 import UIKit
 import FirebaseDatabase
 import FirebaseAuth
@@ -13,9 +12,10 @@ import MIBadgeButton_Swift
 import ReSwift
 class HomeViewController: UIViewController,  UIGestureRecognizerDelegate {
     
+    
+    let icons = ["chat", "calendar", "objetives", "gallery","safeBox", "contacts", "firstaid","property", "health","seguro-purple", "presupuesto", "todolist", "faqs"]
+    let labels = ["Chat", "Calendario", "Objetivos", "Galería", "Caja Fuerte", "Contactos","Botiquín","Inmuebles", "Salud", "Seguros", "Presupuesto", "Lista de Tareas","FAQs"]
 
-    let icons = ["chat", "calendar", "objetives", "gallery","safeBox", "contacts", "firstaid","property", "health","seguro-purple", "presupuesto"]
-    let labels = ["Chat", "Calendario", "Objetivos", "Galería", "Caja Fuerte", "Contactos","Botiquín","Inmuebles", "Salud", "Seguros", "Presupuesto"]
     
     
     private var family : Family?
@@ -35,10 +35,15 @@ class HomeViewController: UIViewController,  UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.scrollDirection = .vertical
+        }
         self.backgroundButton.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
         self.titleLabel.textColor = #colorLiteral(red: 0.934861362, green: 0.2710093558, blue: 0.2898308635, alpha: 1)
         self.titleLabel.textAlignment = .left
         descriptionLabel.textColor = #colorLiteral(red: 0.2941176471, green: 0.1764705882, blue: 0.5019607843, alpha: 1)
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         setupConfigurationNavBar()
     }
     
@@ -46,20 +51,20 @@ class HomeViewController: UIViewController,  UIGestureRecognizerDelegate {
     
     @IBAction func handleCloseModal(_ sender: UIButton) {
         //UIView.animate(withDuration: 0.1, animations: {
-            self.view.layoutIfNeeded()
-            UIView.animate(withDuration: 0.4,delay: 0.1, animations: {
-                self.modalAlert.layer.position.x = 0 - self.modalAlert.frame.width/2
-            })
-            UIView.animate(withDuration: 0.4, delay: 0.4, animations: {
-                //self.modalAlert.layer.position.x = self.modalAlert.layer.position.x * (-2)
-                self.backgroundButton.alpha = 0
-            })
+        self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.4,delay: 0.1, animations: {
+            self.modalAlert.layer.position.x = 0 - self.modalAlert.frame.width/2
+        })
+        UIView.animate(withDuration: 0.4, delay: 0.4, animations: {
+            //self.modalAlert.layer.position.x = self.modalAlert.layer.position.x * (-2)
+            self.backgroundButton.alpha = 0
+        })
         //})
         
     }
     
     func handleBack()  {
-        service.UTILITY_SERVICE.gotoView(view: "mainView", context: self)
+        self.dismiss(animated: true, completion: nil)
     }
     
     /** ESTA FUNCION NOMAS PONE OBSERVERS */
@@ -85,18 +90,15 @@ class HomeViewController: UIViewController,  UIGestureRecognizerDelegate {
         store.unsubscribe(self)
     }
     
+    @IBOutlet weak var selectItem: MIBadgeButton!
+    @IBAction func selectedItem(_ sender: UIButton) {
+        gotoModule(index: sender.tag)
+    }
     
     
     
 }
 extension HomeViewController : UICollectionViewDelegate, UICollectionViewDataSource{
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        cell.alpha = 0
-        UIView.animate(withDuration: 0.5, delay: 0.2, options: UIViewAnimationOptions.curveEaseInOut,animations: {
-            cell.alpha = 1
-        })
-    }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -113,7 +115,7 @@ extension HomeViewController : UICollectionViewDelegate, UICollectionViewDataSou
         cell.buttonicon.badgeString = "3"
         cell.buttonicon.badgeEdgeInsets = UIEdgeInsetsMake(10, 10, 0, 0)
         cell.buttonicon.badgeBackgroundColor = UIColor.red
-        
+        cell.buttonicon.tag = indexPath.item
         return cell
     }
     
@@ -126,7 +128,7 @@ extension HomeViewController : UICollectionViewDelegate, UICollectionViewDataSou
     
 }
 extension HomeViewController {
-
+    
     func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
         let point: CGPoint = gestureReconizer.location(in: self.collectionView)
         let indexPath = self.collectionView?.indexPathForItem(at: point)
@@ -145,6 +147,10 @@ extension HomeViewController {
     }
     func handleMore(_ sender: Any) {
         settingLauncher.showSetting()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        gotoModule(index: (indexPath.item))
     }
     func handleShowModal(_ sender: Any) -> Void {
         self.backgroundButton.backgroundColor = UIColor.black
@@ -180,6 +186,10 @@ extension HomeViewController {
             break
         case 10:
             self.performSegue(withIdentifier: "budgetSegue", sender: nil)
+        case 11:
+            self.performSegue(withIdentifier: "todolistSegue", sender: nil)
+        case 12:
+            self.performSegue(withIdentifier: "faqsSegue", sender: nil)
         default:
             break
         }
@@ -190,7 +200,7 @@ extension HomeViewController {
         let lpgr = UILongPressGestureRecognizer(target: self, action:#selector(handleLongPress(gestureReconizer:)))
         lpgr.minimumPressDuration = 0
         lpgr.delaysTouchesBegan = true
-        self.collectionView.addGestureRecognizer(lpgr)
+        //self.collectionView.addGestureRecognizer(lpgr)
         let moreButton = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_bar_more_button"), style: .plain, target: self, action:  #selector(self.handleMore(_:)))
         let valueButton = UIBarButtonItem(image: #imageLiteral(resourceName: "value"), style: .plain, target: self, action:  #selector(self.handleShowModal(_:)))
         

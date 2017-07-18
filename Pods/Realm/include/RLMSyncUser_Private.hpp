@@ -21,36 +21,16 @@
 #import "RLMSyncConfiguration.h"
 #import "RLMSyncUtil_Private.h"
 
-#import "sync/sync_config.hpp"
-#import "sync/sync_user.hpp"
-#import "sync/impl/sync_metadata.hpp"
+#include "sync/sync_config.hpp"
+#include "sync/impl/sync_metadata.hpp"
 
-@class RLMSyncConfiguration, RLMSyncSessionRefreshHandle;
+@class RLMSyncConfiguration;
 
 using namespace realm;
 
 typedef void(^RLMFetchedRealmCompletionBlock)(NSError * _Nullable, RLMRealm * _Nullable, BOOL * _Nonnull);
 
 NS_ASSUME_NONNULL_BEGIN
-
-class CocoaSyncUserContext : public SyncUserContext {
-public:
-    void register_refresh_handle(const std::string& path, RLMSyncSessionRefreshHandle *handle);
-    void unregister_refresh_handle(const std::string& path);
-    void invalidate_all_handles();
-
-private:
-    /**
-     A map of paths to 'refresh handles'.
-
-     A refresh handle is an object that encapsulates the concept of periodically
-     refreshing the Realm's access token before it expires. Tokens are indexed by their
-     paths (e.g. `/~/path/to/realm`).
-     */
-    std::unordered_map<std::string, RLMSyncSessionRefreshHandle *> m_refresh_handles;
-
-    std::mutex m_mutex;
-};
 
 @interface RLMSyncUser ()
 
@@ -61,7 +41,8 @@ private:
 - (instancetype)initWithSyncUser:(std::shared_ptr<SyncUser>)user;
 - (std::shared_ptr<SyncUser>)_syncUser;
 - (nullable NSString *)_refreshToken;
-+ (void)_setUpBindingContextFactory;
+
+- (void)_unregisterRefreshHandleForURLPath:(NSString *)path;
 
 @end
 

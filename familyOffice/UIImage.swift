@@ -65,7 +65,6 @@ extension UIImageView {
             self.image = processedImage
             imageBWCache.setObject(processedImage, forKey: urlString as AnyObject)
         }
-        
     }
     
 }

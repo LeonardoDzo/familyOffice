@@ -12,6 +12,7 @@
 
 *.m
 
+Pods/
 
 *.md
 .idea/

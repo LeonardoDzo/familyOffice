@@ -20,7 +20,7 @@ struct Album {
     var id: String!
     var cover: String!
     var title: String!
-    var images: [String] = []
+    var images = [String]()
     var ObjImages: [ImageAlbum] = []
 
     init(){
@@ -55,10 +55,14 @@ struct Album {
 protocol AlbumBindable: AnyObject {
     var album: Album! {get set}
     var Title: UIKit.UILabel! {get}
+    var Total: UIKit.UILabel! {get}
     var Image: UIKit.UIImageView! {get}
 }
 extension AlbumBindable{
     var Title: UIKit.UILabel!{
+        return nil
+    }
+    var Total: UIKit.UILabel!{
         return nil
     }
     var Image: UIKit.UIImageView!{
@@ -75,9 +79,16 @@ extension AlbumBindable{
         }
         if let titleLabel = self.Title{
             if album.title != nil{
-                titleLabel.text = (album.title?.isEmpty)! ? "Sin título" : album.title
+                titleLabel.text = (album.title?.isEmpty)! ? "Sin título" : "\(album.title!)"
             }else{
                 titleLabel.text = "Sin título"
+            }
+        }
+        if let totalLabel = self.Total{
+            if album.images.count > 0{
+                totalLabel.text = "(\(album.images.count)) fotos"
+            }else{
+                totalLabel.text = "(0) fotos"
             }
         }
         if let imageBackground = self.Image{

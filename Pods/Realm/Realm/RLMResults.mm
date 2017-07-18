@@ -18,7 +18,6 @@
 
 #import "RLMResults_Private.h"
 
-#import "RLMAccessor.hpp"
 #import "RLMArray_Private.hpp"
 #import "RLMCollection_Private.hpp"
 #import "RLMObjectSchema_Private.hpp"
@@ -185,45 +184,66 @@ static inline void RLMResultsValidateInWriteTransaction(__unsafe_unretained RLMR
         return NSNotFound;
     }
 
-    return translateErrors([&] {
-        return RLMConvertNotFound(_results.index_of(RLMPredicateToQuery(predicate, _info->rlmObjectSchema, _realm.schema, _realm.group)));
-    });
+    Query query = translateErrors([&] { return _results.get_query(); });
+    query.and_query(RLMPredicateToQuery(predicate, _info->rlmObjectSchema, _realm.schema, _realm.group));
+    query.sync_view_if_needed();
+
+#if REALM_VER_MAJOR >= 2
+    size_t indexInTable;
+    if (const auto& sort = _results.get_sort()) {
+        // A sort order is specified so we need to return the first match given that ordering.
+        TableView table_view = query.find_all();
+        table_view.sort(sort);
+        if (!table_view.size()) {
+            return NSNotFound;
+        }
+        indexInTable = table_view.get_source_ndx(0);
+    } else {
+        indexInTable = query.find();
+    }
+    if (indexInTable == realm::not_found) {
+        return NSNotFound;
+    }
+    return RLMConvertNotFound(_results.index_of(indexInTable));
+#else
+    TableView table_view;
+    if (const auto& sort = _results.get_sort()) {
+        // A sort order is specified so we need to return the first match given that ordering.
+        table_view = query.find_all();
+        table_view.sort(sort);
+    } else {
+        table_view = query.find_all(0, -1, 1);
+    }
+    if (!table_view.size()) {
+        return NSNotFound;
+    }
+    return _results.index_of(table_view.get_source_ndx(0));
+#endif
 }
 
 - (id)objectAtIndex:(NSUInteger)index {
-    RLMAccessorContext ctx(_realm, *_info);
     return translateErrors([&] {
-        return _results.get(ctx, index);
+        return RLMCreateObjectAccessor(_realm, *_info, _results.get(index));
     });
 }
 
 - (id)firstObject {
-    if (!_info) {
-        return nil;
-    }
-    RLMAccessorContext ctx(_realm, *_info);
-    return translateErrors([&] {
-        return _results.first(ctx);
-    });
+    auto row = translateErrors([&] { return _results.first(); });
+    return row ? RLMCreateObjectAccessor(_realm, *_info, *row) : nil;
 }
 
 - (id)lastObject {
-    if (!_info) {
-        return nil;
-    }
-    RLMAccessorContext ctx(_realm, *_info);
-    return translateErrors([&] {
-        return _results.last(ctx);
-    });
+    auto row = translateErrors([&] { return _results.last(); });
+    return row ? RLMCreateObjectAccessor(_realm, *_info, *row) : nil;
 }
 
 - (NSUInteger)indexOfObject:(RLMObject *)object {
-    if (!_info || !object || (!object->_realm && !object.invalidated)) {
+    if (!object || (!object->_realm && !object.invalidated)) {
         return NSNotFound;
     }
-    RLMAccessorContext ctx(_realm, *_info);
+
     return translateErrors([&] {
-        return RLMConvertNotFound(_results.index_of(ctx, object));
+        return RLMConvertNotFound(_results.index_of(object->_row));
     });
 }
 

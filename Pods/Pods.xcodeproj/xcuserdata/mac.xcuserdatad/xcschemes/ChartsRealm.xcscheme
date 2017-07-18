@@ -1,29 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-<<<<<<< HEAD
-   LastUpgradeVersion = "0830"
-=======
    LastUpgradeVersion = "0700"
->>>>>>> Enrique
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
       <BuildActionEntries>
          <BuildActionEntry
-<<<<<<< HEAD
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C10186F643AC0BD52AAE6B758E796AA7"
-               BuildableName = "ChartsRealm.framework"
-               BlueprintName = "ChartsRealm"
-               ReferencedContainer = "container:Pods.xcodeproj">
-=======
             buildForAnalyzing = "YES"
             buildForTesting = "YES"
             buildForRunning = "YES"
@@ -35,33 +18,19 @@
                BlueprintName = 'ChartsRealm'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'ChartsRealm.framework'>
->>>>>>> Enrique
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-<<<<<<< HEAD
-      buildConfiguration = "Debug"
-      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
-      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
-      <Testables>
-      </Testables>
-=======
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
->>>>>>> Enrique
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
    <LaunchAction
-<<<<<<< HEAD
-      buildConfiguration = "Debug"
-=======
->>>>>>> Enrique
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -69,47 +38,17 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
-<<<<<<< HEAD
-      allowLocationSimulation = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C10186F643AC0BD52AAE6B758E796AA7"
-            BuildableName = "ChartsRealm.framework"
-            BlueprintName = "ChartsRealm"
-            ReferencedContainer = "container:Pods.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-=======
       buildConfiguration = "Debug"
       allowLocationSimulation = "YES">
->>>>>>> Enrique
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
-<<<<<<< HEAD
-      buildConfiguration = "Release"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      savedToolIdentifier = ""
-      useCustomWorkingDirectory = "NO"
-      debugDocumentVersioning = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C10186F643AC0BD52AAE6B758E796AA7"
-            BuildableName = "ChartsRealm.framework"
-            BlueprintName = "ChartsRealm"
-            ReferencedContainer = "container:Pods.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-=======
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES"
       buildConfiguration = "Release"
       shouldUseLaunchSchemeArgsEnv = "YES">
->>>>>>> Enrique
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

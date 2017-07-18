@@ -14,7 +14,7 @@ import ReSwift
 class AddAlbumViewController: UIViewController, UIImagePickerControllerDelegate,UINavigationControllerDelegate,StoreSubscriber {
     
     let picker = UIImagePickerController()
-    let path: String = "album/" + service.USER_SERVICE.users[0].id
+    let path: String = "album/" + service.GALLERY_SERVICE.refUserFamily!
     var reference: FIRDatabaseReference = FIRDatabaseReference()
     var chosenImage: UIImage? = nil
     var albums: [Album] = []
@@ -34,7 +34,14 @@ class AddAlbumViewController: UIViewController, UIImagePickerControllerDelegate,
         self.picker.delegate = self
         self.picker.allowsEditing = true
         
+        let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "LeftChevron"), style: .plain, target: self, action: #selector(self.back))
+        self.navigationItem.leftBarButtonItem = backButton
+        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Guardar", style: .done, target: self, action: #selector(createAlbum))
+    }
+    
+    func back() -> Void {
+        _ = self.navigationController?.popViewController(animated: true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -93,7 +100,7 @@ extension AddAlbumViewController{
             state in
             state.GalleryState
         }
-       
+        store.state.GalleryState.status = .none
     }
     override func viewWillDisappear(_ animated: Bool) {
         store.state.GalleryState.status = .none
@@ -117,7 +124,9 @@ extension AddAlbumViewController{
             self.view.hideToastActivity()
             self.toggleGalleryState(message: messsage)
             break
-        default: break;
+        default:
+            self.view.hideToastActivity()
+            break;
             
         }
     }

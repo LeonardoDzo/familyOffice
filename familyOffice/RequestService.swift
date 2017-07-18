@@ -13,6 +13,7 @@ protocol RequestService {
     var handles: [(String,UInt,FIRDataEventType)] {get set}
     func addHandle(_ handle: UInt, ref: String, action: FIRDataEventType) -> Void
     func removeHandles() -> Void
+    func notExistSnapshot() -> Void
     func inserted(ref: FIRDatabaseReference) -> Void
     func routing(snapshot: FIRDataSnapshot, action: FIRDataEventType, ref: String) -> Void
     func delete(_ ref: String, callback: @escaping ((_ results: Any) -> Void))
@@ -28,6 +29,13 @@ extension RequestService {
                     self.inserted(ref: ref)
                     callback(ref as FIRDatabaseReference)
                 }
+            }
+        })
+    }
+    func delete(_ ref: String, callback: @escaping ((Any) -> Void)) {
+        Constants.FirDatabase.REF.child(ref).removeValue(completionBlock: { error, ref in
+            if error != nil {
+                print(error.debugDescription)
             }
         })
     }
@@ -47,6 +55,8 @@ extension RequestService {
         let handle = Constants.FirDatabase.REF.child(ref).observe(action, with: {(snapshot) in
             if(snapshot.exists()){
                 self.routing(snapshot: snapshot, action: action, ref: ref)
+            }else{
+                self.notExistSnapshot()
             }
         }, withCancel: {(error) in
             print(error.localizedDescription)
@@ -58,6 +68,8 @@ extension RequestService {
         Constants.FirDatabase.REF.child(ref).observeSingleEvent(of: .value, with: {(snapshot) in
             if snapshot.exists(){
                 self.routing(snapshot: snapshot, action: .value, ref: ref)
+            }else{
+                self.notExistSnapshot()
             }
         }, withCancel: {(error) in
             print(error.localizedDescription)

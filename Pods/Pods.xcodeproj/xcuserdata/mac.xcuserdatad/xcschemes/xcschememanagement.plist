@@ -6,267 +6,151 @@
 	<dict>
 		<key>Alamofire.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>0</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>Charts.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>20</integer>
-		</dict>
-		<key>ChartsRealm 2.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>21</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>ChartsRealm.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>1</integer>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>DKImagePickerController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>FSCalendar.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>3</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>GTMOAuth2.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>6</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>GTMSessionFetcher.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>7</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>GoogleToolboxForMac-615f275e.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>4</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>GoogleToolboxForMac-Defines-NSData+zlib.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>5</integer>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Hue.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>JBDatePicker.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>JVFloatLabeledTextField.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>8</integer>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Lightbox.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>MGSwipeTableCell.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>9</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>MIBadgeButton-Swift.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>10</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>MultiAutoCompleteTextSwift.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>11</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>Pods-familyOffice.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>12</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>Pods-familyOfficeTests.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>13</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>Pods-familyOfficeUITests.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>14</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>Protobuf.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>22</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>ReSwift.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>16</integer>
-		</dict>
-		<key>ReSwiftRecorder 2.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>25</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>ReSwiftRecorder.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>17</integer>
-		</dict>
-		<key>ReSwiftRouter 2.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>26</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>ReSwiftRouter.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>18</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>Realm.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>23</integer>
-		</dict>
-		<key>RealmSwift 2.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>24</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>RealmSwift.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>15</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>SearchTextField.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>27</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>SmileLock.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>28</integer>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SnapKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>Toast-Swift.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>19</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
-	<dict>
-		<key>13A24A8D222384EFDEF6FBFC18BC8E7A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>1CD80321715FDB12A3A31B7BCB09EA28</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>24741339EAF4AA5A8D7CFEA1D1B76CF2</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>26DEEB63BE1F83D2FCB17EE5182D0F6B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>2A4448146C785C426971111F117D773C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>30387F22A417CC74DF48F0C8C2A71F82</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>319AC158D3CE1022A1548C354133ECE3</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>34E1BEE5B9151B6FF42B51C88D1AF746</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>350207A53699143E0F9EF4F12BB07585</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>433E90BF6136E433A0FEA61CD4159E56</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>4A90C418ED6F413FD671174E3B5984D7</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>5AEFE9B147CC6E879DDEE5C36CB80E4C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>681BE6E3D02A43F9BA63777AC435C8FD</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>683FA93B40B2E388EB44CBEFF725ED29</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>79649BE8CABD34457CC61783FEB3D0E4</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>9ABFCDF7C418030647EE23DEBE11D45D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>B1C4AAFAF49036C7007633DAA3C806AD</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C10186F643AC0BD52AAE6B758E796AA7</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C5A2DB7A84B7B78E359870D2E1B24AA7</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D154D325FD6035943F0C9CDD4414C655</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D22C00168BC1808948FA41A73A744303</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E709B05D923C5674858322C334B1A7E6</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F307B842FF76B2DE6C55DB67C0885325</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-	</dict>
+	<dict/>
 </dict>
 </plist>

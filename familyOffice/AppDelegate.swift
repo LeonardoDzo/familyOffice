@@ -18,7 +18,11 @@ import ReSwiftRouter
 let store = RecordingMainStore<AppState>(
         reducer: AppReducer(),
         state: nil,
-        typeMaps: [userActionTypeMap,goalActionTypeMap,ReSwiftRouter.typeMap],
+        typeMaps: [goalActionTypeMap,
+                   userActionTypeMap,
+                   contactActionTypeMap,
+                   todolistActionTypeMap,
+                   galleryActionTypeMap],
         recording: "recording.json")
 
 @UIApplicationMain
