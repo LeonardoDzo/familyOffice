@@ -111,6 +111,7 @@ protocol ContactBindible: AnyObject {
     var addressTxt: UITextField! {get}
     var webpageLbl: UILabel! {get}
     var webpageTxt: UITextField! {get}
+    var webpageBtn: UIButton! {get}
     var emailLbl: UILabel! {get}
     var emailTxt: UITextField! {get}
 }
@@ -126,6 +127,7 @@ extension ContactBindible {
     var addressTxt: UITextField! {return nil}
     var webpageLbl: UILabel! {return nil}
     var webpageTxt: UITextField! {return nil}
+    var webpageBtn: UIButton! {return nil}
     var emailLbl: UILabel! {return nil}
     var emailTxt: UITextField! {return nil}
     
@@ -169,6 +171,9 @@ extension ContactBindible {
         }
         if let webpageTxt = self.webpageTxt {
             webpageTxt.text = contact.webpage
+        }
+        if let webpageBtn = self.webpageBtn {
+            webpageBtn.setTitle(contact.webpage, for: .normal)
         }
         if let emailLbl = self.emailLbl {
             emailLbl.text = contact.email

@@ -19,7 +19,7 @@ class InfoContactViewController: UIViewController, ContactBindible, UITabBarDele
     @IBOutlet weak var tabbar: UITabBar!
     @IBOutlet weak var addressLbl: UILabel!
     @IBOutlet weak var address: UILabel!
-    @IBOutlet weak var webpage: UILabel!
+    @IBOutlet weak var webpage: UIButton!
     @IBOutlet weak var dataView: UIView!
     
     override func viewDidLoad() {
@@ -32,6 +32,7 @@ class InfoContactViewController: UIViewController, ContactBindible, UITabBarDele
         headerView.layer.cornerRadius = 12
         dataView.layer.cornerRadius = 12
         // Do any additional setup after loading the view.
+        //webpageBtn.setTitle(contact.webpage, for: .normal)
     }
 
     override func didReceiveMemoryWarning() {
@@ -60,11 +61,25 @@ class InfoContactViewController: UIViewController, ContactBindible, UITabBarDele
         case 1:
             sendSMSText(phoneNumber: contact.phone!)
             break
+        case 2:
+            guard let url = URL(string: "mailto:" + contact.email!) else { return }
+            UIApplication.shared.open(url)
+            break
         default:
             break
         }
     
     }
+    
+    @IBAction func openPage(_ sender: Any) {
+        guard let url:URL = URL(fileURLWithPath: contact.webpage!) else { return }
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
+    }
+    
     
     func edit() -> Void {
         performSegue(withIdentifier: "editSegue", sender: contact)

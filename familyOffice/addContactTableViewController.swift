@@ -14,9 +14,9 @@ class addContactTableViewController: UITableViewController, ContactBindible {
     @IBOutlet weak var nameTxt: UITextField!
     @IBOutlet weak var phoneTxt: UITextField!
     @IBOutlet weak var jobTxt: UITextField!
-    @IBOutlet weak var addressTxt: textFieldStyleController!
-    @IBOutlet weak var webpageTxt: textFieldStyleController!
-    @IBOutlet weak var emailTxt: textFieldStyleController!
+    @IBOutlet weak var addressTxt: UITextField!
+    @IBOutlet weak var webpageTxt: UITextField!
+    @IBOutlet weak var emailTxt: UITextField!
     
     var isEdit = false
     override func viewDidLoad() {
@@ -61,25 +61,16 @@ class addContactTableViewController: UITableViewController, ContactBindible {
     }
     
     func validation() -> Bool {
-        guard let name = self.nameTxt.text, !name.isEmpty, name.characters.count >= 4 else {
+        guard let name = self.nameTxt.text, !name.isEmpty, name.characters.count >= 3 else {
+            self.view.makeToast("Escriba un nombre válido", duration: 1.0, position: .top)
             return false
         }
         guard let phone = self.phoneTxt.text, !phone.isEmpty, phone.characters.count >= 10 else {
+            self.view.makeToast("Escriba un teléfono válido", duration: 1.0, position: .top)
             return false
         }
         guard let job = self.jobTxt.text, !job.isEmpty else {
-            return false
-        }
-        
-        guard let address = self.addressTxt.text, !address.isEmpty else {
-            return false
-        }
-        
-        guard let webpage = self.webpageTxt.text, !webpage.isEmpty else {
-            return false
-        }
-        
-        guard let email = self.emailTxt.text, !email.isEmpty else {
+            self.view.makeToast("Escriba un oficion válido", duration: 1.0, position: .top)
             return false
         }
         
