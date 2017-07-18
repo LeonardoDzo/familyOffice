@@ -10,14 +10,20 @@ import UIKit
 import Firebase
 import ReSwift
 import ReSwiftRouter
+import Lightbox
 
-class EditItemViewController: UIViewController,UINavigationControllerDelegate,UIGestureRecognizerDelegate,DateProtocol,UITextViewDelegate {
+class EditItemViewController: UIViewController,UINavigationControllerDelegate,UIGestureRecognizerDelegate,DateProtocol,UITextViewDelegate,LightboxControllerPageDelegate,LightboxControllerDismissalDelegate {
+    
+    
     var item:ToDoList.ToDoItem = ToDoList.ToDoItem(title: "", photoUrl: "", status: "Pendiente", endDate: "")
     var imagePicker: UIImagePickerController!
     var endDate: String?
     var initialPhoto: String!
     var tookPhoto:Bool = false
     var isNewItem:Bool = false
+    var canSave:Bool = false
+    
+    var lightboxController = LightboxController()
     
     @IBOutlet var stateWrapper: UIView!
     
@@ -43,8 +49,6 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
             self.stateLabel.isHidden = true
         }
         
-        
-        
         let saveButton = UIBarButtonItem(title:isNewItem ? "Guardar" : "Editar", style: .plain, target: self, action: #selector(save(sender:)))
         saveButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         self.navigationItem.rightBarButtonItem = saveButton
@@ -54,7 +58,14 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
         
         textFieldTitle.text = item.title
         textFieldTitle.contentInset = UIEdgeInsetsMake(-60, 0, 0, 0)
+        
         photo.loadImage(urlString: item.photoUrl!)
+        if item.photoUrl != "" || photo.image != nil{
+            let photoTap = UITapGestureRecognizer(target: self, action: #selector(self.photoTapped(_:)))
+            photoTap.delegate = self
+            photo.isUserInteractionEnabled = true
+            photo.addGestureRecognizer(photoTap)
+        }
         
         self.textFieldTitle.layer.borderWidth = 1
         self.textFieldTitle.layer.borderColor = UIColor( red: 204/255, green: 204/255, blue:204.0/255, alpha: 1.0 ).cgColor
@@ -70,6 +81,7 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
         self.endDateLabel.layer.borderWidth = 1
         self.endDateLabel.layer.borderColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1).cgColor
         self.endDateLabel.layer.cornerRadius = 5
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.tap(_:)))
         tap.delegate = self
         self.endDateLabel.isUserInteractionEnabled = true
@@ -85,11 +97,24 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
         textFieldTitle.delegate = self
         textFieldTitle.text = "Titulo"
         textFieldTitle.textColor = UIColor.lightGray
+        
         // Do any additional setup after loading the view.
     }
     
     func tap(_ gestureRecognizer: UITapGestureRecognizer) -> Void {
         self.performSegue(withIdentifier: "toPickingDate", sender: nil)
+    }
+    
+    func photoTapped(_ gestureRecognizer: UITapGestureRecognizer) -> Void {
+        lightboxController = LightboxController(images: [LightboxImage(image: photo.image!)], startIndex: 0)
+        
+        lightboxController.pageDelegate = self
+        lightboxController.dismissalDelegate = self
+        
+        lightboxController.dynamicBackground = false
+        LightboxConfig.CloseButton.text = "Cerrar"
+        
+        present(lightboxController, animated: true, completion: nil)
     }
     
     func selectedDate(date: Date) {
@@ -137,7 +162,7 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
     func save(sender: UIBarButtonItem){
         
         let title: String! = textFieldTitle.text
-        if title == nil || title.isEmpty{
+        if title == nil || title.isEmpty || !canSave{
             service.ANIMATIONS.shakeTextField(txt: textFieldTitle)
             self.view.makeToast("Agrega un título", duration: 1.0, position: CGPoint(x: 200, y: 150))
             return
@@ -224,6 +249,14 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func lightboxControllerWillDismiss(_ controller: LightboxController) {
+        print("dismis")
+    }
+    
+    func lightboxController(_ controller: LightboxController, didMoveToPage page: Int) {
+        //        self.selectedImage = page
+    }
 
 }
 
@@ -284,6 +317,7 @@ extension EditItemViewController: StoreSubscriber{
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.lightGray {
             textView.text = nil
+            canSave = true
             textView.textColor = UIColor.black
         }
     }
@@ -294,7 +328,7 @@ extension EditItemViewController: StoreSubscriber{
         if textView.text.isEmpty {
             textView.text = "Titulo"
             textView.textColor = UIColor.lightGray
+            canSave = false
         }
     }
 }
-
