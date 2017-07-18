@@ -47,7 +47,14 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
             self.stateWrapper.isHidden = true
             self.stateSwitch.isHidden = true
             self.stateLabel.isHidden = true
+            textFieldTitle.text = "Titulo"
+            textFieldTitle.textColor = UIColor.lightGray
+        }else{
+            textFieldTitle.text = item.title
         }
+        
+        textFieldTitle.delegate = self
+        
         
         let saveButton = UIBarButtonItem(title:isNewItem ? "Guardar" : "Editar", style: .plain, target: self, action: #selector(save(sender:)))
         saveButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
@@ -56,7 +63,7 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
         
         self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         
-        textFieldTitle.text = item.title
+        
         textFieldTitle.contentInset = UIEdgeInsetsMake(-60, 0, 0, 0)
         
         photo.loadImage(urlString: item.photoUrl!)
@@ -93,10 +100,6 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
         
         
         initialPhoto = item.photoUrl!
-        
-        textFieldTitle.delegate = self
-        textFieldTitle.text = "Titulo"
-        textFieldTitle.textColor = UIColor.lightGray
         
         // Do any additional setup after loading the view.
     }
@@ -221,6 +224,7 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
 
     @IBAction func takePhoto(_ sender: UIButton) {
         let alert = UIAlertController(title: "Imagen de la tarea", message: "¿Cómo quiere elegir la imagen?", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Cancelar", style: .default, handler: nil))
         alert.addAction(UIAlertAction(title: "Camara", style: .default , handler: { (action) in
             self.imagePicker =  UIImagePickerController()
             self.imagePicker.delegate = self
@@ -234,6 +238,8 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
             self.imagePicker.sourceType = .photoLibrary
             self.present(self.imagePicker, animated: true, completion: nil)
         }))
+        
+        
         alert.modalPresentationStyle = UIModalPresentationStyle.currentContext
         
         present(alert, animated: true) {
