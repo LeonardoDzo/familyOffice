@@ -163,9 +163,8 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
     }
     
     func save(sender: UIBarButtonItem){
-        
         let title: String! = textFieldTitle.text
-        if title == nil || title.isEmpty || !canSave{
+        if title == nil || title.isEmpty || textFieldTitle.textColor == UIColor.lightGray{
             service.ANIMATIONS.shakeTextField(txt: textFieldTitle)
             self.view.makeToast("Agrega un título", duration: 1.0, position: CGPoint(x: 200, y: 150))
             return
