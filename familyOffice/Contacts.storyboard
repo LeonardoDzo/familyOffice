@@ -184,7 +184,7 @@
                                             <constraint firstAttribute="width" constant="30" id="Tcj-7m-U9m"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Blvd. Hidalgo #23" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kbv-AR-SIi">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dirección" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kbv-AR-SIi">
                                         <rect key="frame" x="70" y="24.5" width="253" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.77429378032684326" green="0.21738614141941071" blue="0.40008452534675598" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -197,23 +197,29 @@
                                             <constraint firstAttribute="width" constant="20" id="Jmz-kL-CuP"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="www.cotecnologias.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fs1-na-1ju">
-                                        <rect key="frame" x="65" y="69.5" width="258" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.77429378029999996" green="0.21738614140000001" blue="0.40008452529999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="geg-gc-6FE">
+                                        <rect key="frame" x="65" y="65" width="268" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="L4u-1x-s9z"/>
+                                        </constraints>
+                                        <state key="normal" title="Sin página">
+                                            <color key="titleColor" red="0.77429378032684326" green="0.21738614141941071" blue="0.40008452534675598" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="openPage:" destination="0We-Ml-vmo" eventType="touchUpInside" id="Zo2-Fi-HeZ"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="MOP-FY-yFc" firstAttribute="top" secondItem="KVc-as-88h" secondAttribute="top" constant="20" id="08b-Hr-Mh0"/>
+                                    <constraint firstAttribute="trailing" secondItem="geg-gc-6FE" secondAttribute="trailing" constant="10" id="2cN-XV-PDd"/>
                                     <constraint firstItem="Kbv-AR-SIi" firstAttribute="centerY" secondItem="MOP-FY-yFc" secondAttribute="centerY" id="3UF-am-6Gz"/>
                                     <constraint firstItem="1hp-8K-TAM" firstAttribute="centerX" secondItem="MOP-FY-yFc" secondAttribute="centerX" id="8nD-XM-7oT"/>
-                                    <constraint firstItem="Fs1-na-1ju" firstAttribute="leading" secondItem="1hp-8K-TAM" secondAttribute="trailing" constant="20" id="Cxd-wX-9La"/>
+                                    <constraint firstItem="geg-gc-6FE" firstAttribute="centerY" secondItem="1hp-8K-TAM" secondAttribute="centerY" id="9pt-xv-P9L"/>
                                     <constraint firstItem="MOP-FY-yFc" firstAttribute="leading" secondItem="KVc-as-88h" secondAttribute="leading" constant="20" id="HxC-Nf-3OD"/>
                                     <constraint firstAttribute="trailing" secondItem="Kbv-AR-SIi" secondAttribute="trailing" constant="20" id="NoG-Ga-jnE"/>
-                                    <constraint firstAttribute="trailing" secondItem="Fs1-na-1ju" secondAttribute="trailing" constant="20" id="XH4-v2-4AC"/>
-                                    <constraint firstItem="Fs1-na-1ju" firstAttribute="centerY" secondItem="1hp-8K-TAM" secondAttribute="centerY" id="edS-B6-wnd"/>
+                                    <constraint firstItem="geg-gc-6FE" firstAttribute="leading" secondItem="1hp-8K-TAM" secondAttribute="trailing" constant="20" id="Ucb-Ed-QXF"/>
                                     <constraint firstAttribute="height" constant="120" id="q37-xf-JCE"/>
                                     <constraint firstItem="Kbv-AR-SIi" firstAttribute="leading" secondItem="MOP-FY-yFc" secondAttribute="trailing" constant="20" id="tp3-d3-Ab9"/>
                                     <constraint firstItem="1hp-8K-TAM" firstAttribute="top" secondItem="MOP-FY-yFc" secondAttribute="bottom" constant="20" id="wSi-iO-t9f"/>
@@ -240,7 +246,7 @@
                         <outlet property="nameLbl" destination="kyG-lL-HxH" id="yGt-Z6-Lyb"/>
                         <outlet property="phoneLbl" destination="3L3-eJ-yTf" id="5vA-uj-8I3"/>
                         <outlet property="tabbar" destination="kGk-kO-kEs" id="X8u-sw-SGI"/>
-                        <outlet property="webpage" destination="Fs1-na-1ju" id="v6X-6s-XZF"/>
+                        <outlet property="webpage" destination="geg-gc-6FE" id="B4s-a9-jbj"/>
                         <segue destination="8QC-vA-AuL" kind="show" identifier="editSegue" id="jkn-4R-D5y"/>
                     </connections>
                 </viewController>
@@ -388,7 +394,7 @@
                                                     </constraints>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="17"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="URL"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -416,7 +422,7 @@
                                                     </constraints>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="17"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -477,7 +483,7 @@
         <image name="web-address-red" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="pqy-r8-Gm9"/>
+        <segue reference="jkn-4R-D5y"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
