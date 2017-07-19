@@ -1,36 +1,44 @@
 //
-//  RadarChartViewCell.swift
+//  RadarChartViewController.swift
 //  familyOffice
 //
-//  Created by Nan Montaño on 10/jul/17.
+//  Created by Nan Montaño on 17/jul/17.
 //  Copyright © 2017 Leonardo Durazo. All rights reserved.
 //
 
 import UIKit
 import Charts
 
-class RadarChartViewCell: UICollectionViewCell, ChartViewDelegate, IAxisValueFormatter, IValueFormatter {
+class RadarChartViewController: UIViewController, ChartViewDelegate, IAxisValueFormatter, IValueFormatter {
     
     var selectedEntry : ChartDataEntry?
     var radarXAxisValues: [String] = []
+    var data = [RadarChartDataEntry]()
+    let formatter = NumberFormatter()
     
-    @IBOutlet weak var radarChart: RadarChartView!
-    
-    
-    func config(){
+    override func viewDidLoad(){
+        super.viewDidLoad()
+        guard let radarChart = view as? RadarChartView else { return }
+        
         radarChart.delegate = self
         radarChart.rotationEnabled = false
-        radarChart.yAxis.drawLabelsEnabled = false
+//        radarChart.yAxis.valueFormatter = self
         radarChart.yAxis.axisMinimum = 0
         radarChart.chartDescription?.enabled = false
         radarChart.xAxis.valueFormatter = self
         radarChart.legend.enabled = false
         
+        
+        formatter.numberStyle = .currency
+        formatter.locale = Locale(identifier: "es_MX")
+
     }
     
     func setData(concepts: [BudgetConcept]){
         
-        var data : [RadarChartDataEntry] = []
+        guard let radarChart = view as? RadarChartView else { return }
+        
+        data = []
         radarXAxisValues = []
         
         concepts.forEach({
@@ -66,7 +74,8 @@ class RadarChartViewCell: UICollectionViewCell, ChartViewDelegate, IAxisValueFor
     // MARK: IAxisValueFormatter
     
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
-        return radarXAxisValues[Int(value) % radarXAxisValues.count]
+        let index = Int(value) % radarXAxisValues.count
+        return radarXAxisValues[index]
     }
     
     // MARK: IValueFormatter
@@ -76,12 +85,9 @@ class RadarChartViewCell: UICollectionViewCell, ChartViewDelegate, IAxisValueFor
             return ""
         }
         let money = value as NSNumber
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.locale = Locale(identifier: "es_MX")
         return formatter.string(from: money)!
     }
     
-
+    
     
 }
