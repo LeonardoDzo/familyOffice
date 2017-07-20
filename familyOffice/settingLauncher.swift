@@ -54,12 +54,12 @@ class SettingLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return store.state.FamilyState.families.count
+        return store.state.FamilyState.families.items.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! familySettingCell
-        let family = store.state.FamilyState.families[indexPath.row]
+        let family = store.state.FamilyState.families.items[indexPath.row]
         cell.image.layer.cornerRadius = cell.image.frame.size.width/2
         cell.image.clipsToBounds = true
         if !(family.photoURL?.isEmpty)! {
@@ -73,10 +73,10 @@ class SettingLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectio
         return CGSize(width: collectionView.frame.width, height: 80)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        service.USER_SVC.selectFamily(family: store.state.FamilyState.families[indexPath.row])
+        service.USER_SVC.selectFamily(family: store.state.FamilyState.families.items[indexPath.row])
         handleDismiss()
         if handleFamily != nil {
-            store.state.UserState.user?.familyActive = store.state.FamilyState.families[indexPath.row].id
+            store.state.UserState.user?.familyActive = store.state.FamilyState.families.items[indexPath.row].id
             handleFamily.selectFamily()
         }
        

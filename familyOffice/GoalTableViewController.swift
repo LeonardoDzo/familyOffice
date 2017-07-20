@@ -111,7 +111,7 @@ extension GoalTableViewController: StoreSubscriber, Segue {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         addObservers()
-        if let family = store.state.FamilyState.families.first(where: {$0.id == store.state.UserState.user?.familyActive}){
+        if let family = store.state.FamilyState.families.family(fid: (store.state.UserState.user?.familyActive)!){
             service.USER_SVC.selectFamily(family: family)
         }
         
@@ -136,7 +136,7 @@ extension GoalTableViewController: StoreSubscriber, Segue {
     func addObservers() -> Void {
         
         if tabBar.selectedItem?.tag == 0 {
-            service.GOAL_SERVICE.initObserves(ref: service.GOAL_SERVICE.basePath, actions: [.childAdded, .childRemoved, .childChanged])
+            service.GOAL_SERVICE.initObserves(ref: "goals/\(String(describing: user?.id!))", actions: [.childAdded, .childRemoved, .childChanged])
         }else{
             service.GOAL_SERVICE.initObserves(ref: "goals/\((user?.familyActive!)!)", actions: [.childAdded, .childRemoved, .childChanged])
         }
@@ -154,8 +154,7 @@ extension GoalTableViewController: StoreSubscriber, Segue {
         tableView.reloadData()
     }
     func selectFamily() -> Void {
-        if let index = store.state.FamilyState.families.index(where: {$0.id == store.state.UserState.user?.familyActive}){
-            let family = store.state.FamilyState.families[index]
+        if let family = store.state.FamilyState.families.family(fid: (store.state.UserState.user?.familyActive)!){
             self.navigationItem.title = family.name
         }
     }

@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 
 class StorageService  {
+    
     public var storage : NSMutableDictionary = [:]
     
     private init() {

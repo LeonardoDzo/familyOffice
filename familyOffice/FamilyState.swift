@@ -1,20 +1,15 @@
 //
-//  GoalState.swift
+//  FamilyState.swift
 //  familyOffice
 //
-//  Created by Leonardo Durazo on 30/06/17.
+//  Created by Leonardo Durazo on 18/07/17.
 //  Copyright © 2017 Leonardo Durazo. All rights reserved.
 //
 
 import Foundation
 import ReSwift
-import ReSwiftRouter
 
-
-
-struct GoalState: StateType {
-    var goals: [String:[Goal]] = [:]
+struct FamilyState: StateType {
+    var families : FamilyList
     var status: Result<Any> = .none
 }
-
-

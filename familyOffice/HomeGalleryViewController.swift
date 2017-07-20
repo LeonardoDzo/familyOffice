@@ -69,7 +69,7 @@ class HomeGalleryViewController: UIViewController, UITabBarDelegate, HandleFamil
             self.InitObserver()
         }else{
             self.key = store.state.UserState.user?.familyActive ?? ""
-            if let family: Family = store.state.FamilyState.families.first(where: {$0.id == self.key}) {
+            if let family: Family = store.state.FamilyState.families.family(fid: self.key) {
                 self.navigationItem.title = "Familia: \(family.name!)"
                 service.GALLERY_SERVICE.refUserFamily = self.key
                 self.InitObserver()
@@ -159,7 +159,7 @@ extension HomeGalleryViewController: StoreSubscriber{
         case .none:
             self.view.hideToastActivity()
             self.key = store.state.UserState.user?.familyActive ?? ""
-            if let family: Family = store.state.FamilyState.families.first(where: {$0.id == self.key}) {
+            if let family: Family = store.state.FamilyState.families.family(fid: self.key) {
                 self.navigationItem.title = "Familia: \(family.name!)"
                 service.GALLERY_SERVICE.refUserFamily = self.key
             }
