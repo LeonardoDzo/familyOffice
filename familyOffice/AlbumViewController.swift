@@ -59,9 +59,10 @@ class AlbumViewController: UIViewController, StoreSubscriber {
                         item.fetchOriginalImageWithCompleteBlock({(image, data) in
                             if let img : UIImage = image{
                                 if image is UIImage{
-                                    let imageData = self.resizeImage(image: image!, scale: CGFloat.init(20))
+                                    //let imageData = self.resizeImage(image: image!, scale: CGFloat.init(20))
+                                    let imageData = image?.resizeImage()
                                     let key = Constants.FirDatabase.REF.childByAutoId().key as String
-                                    let imgAlbum: ImageAlbum = ImageAlbum(id: key, path: "", album: self.currentAlbum?.id, comments: [], reacts: [], uiimage: imageData)
+                                    let imgAlbum: ImageAlbum = ImageAlbum(id: key, path: "", album: self.currentAlbum?.id, comments: [], reacts: [], uiimage: imageData!)
                                     store.dispatch(InsertImagesAlbumAction(image: imgAlbum))
                                 }
                             }
@@ -202,6 +203,12 @@ extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSou
         LightboxConfig.InfoLabel.enabled = false
         LightboxConfig.CloseButton.text = "Cerrar"
         LightboxConfig.DeleteButton.text = "Eliminar"
+        LightboxConfig.loadImage = {
+            imageView, URL, completion in
+            // Custom image loading
+            imageView.loadImage(urlString: URL.absoluteString)
+            completion!(nil,imageView.image!)
+        }
         controller.headerView.deleteButton.addTarget(self, action: #selector(deleteImage), for: .touchDown)
         
         // Present your controller.

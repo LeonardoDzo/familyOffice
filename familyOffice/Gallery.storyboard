@@ -79,6 +79,7 @@
                                             <constraint firstAttribute="bottomMargin" secondItem="Tf5-Wz-QxW" secondAttribute="bottom" constant="-9" id="RT5-Ok-JhZ"/>
                                             <constraint firstItem="Tf5-Wz-QxW" firstAttribute="centerX" secondItem="AUG-EZ-CE3" secondAttribute="centerX" id="az3-tz-nzC"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="jUx-gL-RgB" secondAttribute="bottom" constant="-8" id="dZO-85-ccB"/>
+                                            <constraint firstItem="AUG-EZ-CE3" firstAttribute="width" secondItem="kUo-zh-xhm" secondAttribute="width" id="fvx-AM-LVK"/>
                                             <constraint firstItem="jUx-gL-RgB" firstAttribute="trailing" secondItem="AUG-EZ-CE3" secondAttribute="trailing" id="tfv-ru-sPW"/>
                                         </constraints>
                                         <connections>
@@ -261,7 +262,7 @@
             <objects>
                 <navigationController storyboardIdentifier="MainGallery" automaticallyAdjustsScrollViewInsets="NO" id="cy9-1s-NMj" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Acz-VU-ype">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Acz-VU-ype">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
