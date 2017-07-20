@@ -14,12 +14,6 @@ class GalleryCollectionViewCell: UICollectionViewCell, AlbumBindable {
     @IBOutlet weak var Title: UILabel!
     @IBOutlet weak var Total: UILabel!
     @IBOutlet weak var Image: UIImageView!
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        //self.Image.frame.size.width = self.bounds.size.width
-        //self.Image.frame.size.height = self.bounds.size.height
-        //self.Title.frame.size.width = self.bounds.size.width
-    }
 }
 class GalleryImageCollectionViewCell: UICollectionViewCell, ImageAlbumBindable {
     

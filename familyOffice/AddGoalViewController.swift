@@ -47,6 +47,7 @@ class AddGoalViewController: UIViewController, GoalBindable, StoreSubscriber, UI
         endDateLbl.isUserInteractionEnabled = true
         endDateLbl.addGestureRecognizer(tap)
         // Do any additional setup after loading the view.
+        self.hideKeyboardWhenTappedAround()
     }
     
     func tap(_ gestureRecognizer: UITapGestureRecognizer) -> Void {
@@ -260,6 +261,7 @@ extension AddGoalViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         }
         collectionDays.reloadData()
     }
+    
 }
 
 

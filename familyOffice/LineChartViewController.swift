@@ -1,22 +1,24 @@
 //
-//  LineChartViewCell.swift
+//  LineChartViewController.swift
 //  familyOffice
 //
-//  Created by Nan Montaño on 10/jul/17.
+//  Created by Nan Montaño on 17/jul/17.
 //  Copyright © 2017 Leonardo Durazo. All rights reserved.
 //
 
 import UIKit
 import Charts
 
-class LineChartViewCell: UICollectionViewCell, ChartViewDelegate, IAxisValueFormatter, IValueFormatter {
+class LineChartViewController: UIViewController, ChartViewDelegate, IAxisValueFormatter, IValueFormatter {
     
-    @IBOutlet weak var lineChart: LineChartView!
+    var values = [BudgetConcept]()
     var selectedEntry : ChartDataEntry?
-    
-    // MARK: Chart
-    
-    func config(){
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        guard let lineChart = view as? LineChartView else { return }
+        // Do any additional setup after loading the view.
         lineChart.delegate = self
         lineChart.dragEnabled = true
         lineChart.pinchZoomEnabled = true
@@ -26,8 +28,10 @@ class LineChartViewCell: UICollectionViewCell, ChartViewDelegate, IAxisValueForm
         lineChart.doubleTapToZoomEnabled = false
         lineChart.xAxis.valueFormatter = self
         lineChart.xAxis.granularity = 1
+        lineChart.zoom(scaleX: 2, scaleY: 1, x: 0, y: 0)
         lineChart.leftAxis.valueFormatter = self
-        lineChart.rightAxis.enabled = false
+        lineChart.rightAxis.valueFormatter = self
+        //lineChart.rightAxis.enabled = false
     }
     
     func setData(concepts: [BudgetConcept], initialBudget: Double = 0){
@@ -83,6 +87,7 @@ class LineChartViewCell: UICollectionViewCell, ChartViewDelegate, IAxisValueForm
         dischargesSet.valueFormatter = self
         dischargesSet.valueFont = font
         
+        guard let lineChart = view as? LineChartView else { return }
         lineChart.data = LineChartData(dataSets: [budgetSet, incomeSet, dischargesSet])
     }
     
@@ -99,6 +104,8 @@ class LineChartViewCell: UICollectionViewCell, ChartViewDelegate, IAxisValueForm
     // MARK: IAxisValueFormatter
     
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+        guard value >= 0 else { return "" }
+        guard let lineChart = view as? LineChartView else { return "wut"}
         if(lineChart.xAxis == axis){
             return ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago",
                     "Sep", "Oct", "Nov", "Dic"][Int(value) % 12]
@@ -110,7 +117,8 @@ class LineChartViewCell: UICollectionViewCell, ChartViewDelegate, IAxisValueForm
             formatter.locale = Locale(identifier: "es_MX")
             return formatter.string(from: money)!
         }
-        return "wut"
+        // right margin simulator
+        return "        "
     }
     
     // MARK: IValueFormatter
@@ -127,5 +135,20 @@ class LineChartViewCell: UICollectionViewCell, ChartViewDelegate, IAxisValueForm
     }
 
 
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
     
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
 }

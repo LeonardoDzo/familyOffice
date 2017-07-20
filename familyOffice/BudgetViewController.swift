@@ -10,24 +10,13 @@ import UIKit
 import Charts
 
 class BudgetViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    
+    let settingLauncher = SettingLauncher()
     var values: [BudgetConcept] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
-        // datos inventados
-        let conceptNames = ["Comida", "Transporte", "Alojamiento", "Entretenimiento", "Hogar", "Otros"]
-        let year2017 = Date(string: "01 01 2017", formatter: DateFormatter.dayMonthAndYear)!
-        let almostAYear : UInt32 = 60*60*24*364
-        for _ in 0..<100 {
-            values.append(BudgetConcept(
-                name: conceptNames[Int(arc4random_uniform(UInt32(conceptNames.count)))],
-                amount: Double(arc4random_uniform(10000)) - 5000,
-                date: Date(timeInterval: TimeInterval(arc4random_uniform(almostAYear)), since: year2017)
-            ))
-        }
-        values.sort(by: {(a, b) in a.date < b.date})
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,63 +32,21 @@ class BudgetViewController: UICollectionViewController, UICollectionViewDelegate
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 3+values.count // lineChart + radarChart + tableHeaders + values
+        return values.count // lineChart + radarChart + tableHeaders + values
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch(section){
-        case 0, 1: return 1
-        default: return 3
-        }
-    }
-
-    
-    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath) as! BudgetCollectionHeaderView
-        switch(indexPath.section){
-        case 0: header.label.text = "Gráfica de tendencias"; break
-        case 1: header.label.text = "Egresos por concepto"; break
-        case 2: header.label.text = "Tabla de conceptos"; break
-        default: break
-        }
-        header.label.layer.borderWidth = 1
-        header.label.layer.cornerRadius = 5
-        header.label.layer.masksToBounds = true
-        header.label.layer.borderColor = UIColor.lightGray.cgColor
-        return header
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: 0, height: section < 3 ? 50 : 0)
+        return 3
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        switch(indexPath.section){
-        case 0: return CGSize(width: 343, height: 309)
-        case 1: return CGSize(width: 343, height: 309)
-        default: return CGSize(width: 125, height: 32)
-        }
+        return CGSize(width: 125, height: 32)
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         switch(indexPath.section){
-        case 0: /* lineChart */
-            let lineChartCell = collectionView
-                .dequeueReusableCell(withReuseIdentifier: "lineChartCell", for: indexPath) as! LineChartViewCell
-            lineChartCell.config()
-            lineChartCell.setData(concepts: values, initialBudget: Double(arc4random_uniform(30000)))
-            return lineChartCell
-            
-        case 1: /* radarChart */
-            let radarChartCell = collectionView
-                .dequeueReusableCell(withReuseIdentifier: "radarChartCell", for: indexPath) as! RadarChartViewCell
-            radarChartCell.config()
-            radarChartCell.setData(concepts: values)
-            return radarChartCell
-            
-        case 2: /* tableHeaders */
+        case 0: /* tableHeaders */
             let tableHeader = collectionView
                 .dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! BudgetCollectionViewCell
             tableHeader.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.1)
@@ -112,7 +59,7 @@ class BudgetViewController: UICollectionViewController, UICollectionViewDelegate
             return tableHeader
             
         default: /* values */
-            let index = indexPath.section - 3
+            let index = indexPath.section
             let cell = collectionView
                 .dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! BudgetCollectionViewCell
             cell.backgroundColor = values[index].amount > 0

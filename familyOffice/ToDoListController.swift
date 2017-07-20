@@ -18,8 +18,6 @@ class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, U
     @IBOutlet var tableView: UITableView!
     @IBOutlet var tabBar: UITabBar!
     
-    
-    
     var items : [ToDoList.ToDoItem] = []
     var userId = service.USER_SERVICE.users[0].id!
     let searchController = UISearchController(searchResultsController: nil)
@@ -27,6 +25,7 @@ class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, U
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         
         tabBar.selectedItem = tabBar.items![0]
         tabBar.tintColor = #colorLiteral(red: 0.8431372549, green: 0.1019607843, blue: 0.4, alpha: 1)
@@ -45,16 +44,25 @@ class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, U
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.handleNew))
         addButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
-        self.navigationItem.rightBarButtonItem = addButton
         let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "LeftChevron"), style: .plain, target: self, action: #selector(self.back))
         self.navigationItem.leftBarButtonItem = backButton
+        backButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
+        let moreButton = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_bar_more_button"), style: .plain, target: self, action:  #selector(self.handleMore(_:)))
+        moreButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         
+        self.navigationItem.rightBarButtonItems = [moreButton,addButton]
         // Do any additional setup after loading the view.
     
         
         if( traitCollection.forceTouchCapability == .available){
             registerForPreviewing(with: self, sourceView: view)
         }
+    }
+    
+    let settingLauncher = SettingLauncher()
+    
+    func handleMore(_ sender: Any) {
+        settingLauncher.showSetting()
     }
     
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
@@ -96,7 +104,7 @@ class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, U
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! ToDoItemCell
         
         cell.title.text = item.title
-        cell.date.text = item.endDate
+        cell.date.text = item.endDate == "" ? "Fecha indefinida" : item.endDate
         
         cell.countLabel.text = "\(indexPath.row + 1)"
         cell.countLabel.layer.cornerRadius = 0.5 * cell.countLabel.bounds.size.width
@@ -122,7 +130,8 @@ class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, U
             let alert = UIAlertController(title: "Eliminar tarea", message: "", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Cancelar", style: .default, handler: nil))
             alert.addAction(UIAlertAction(title: "Aceptar", style: .destructive, handler: { (action) in
-              store.dispatch(DeleteToDoListItemAction(item: self.items[indexPath.row]))
+                self.tabBar.selectedItem = self.tabBar.items![0]
+                store.dispatch(DeleteToDoListItemAction(item: self.items[indexPath.row]))
             }))
             self.present(alert, animated: true, completion: nil)
         }
@@ -156,6 +165,7 @@ class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, U
         } else {
             currentItem.status = "Pendiente"
         }
+        tabBar.selectedItem = tabBar.items![0]
         store.dispatch(UpdateToDoListItemAction(item:currentItem))
     }
     
@@ -222,9 +232,18 @@ extension ToDoListController: UISearchResultsUpdating {
         if let searchText = searchController.searchBar.text, !searchText.isEmpty{
             self.items = self.items.filter({$0.title.lowercased().contains(searchText.lowercased())})
         }else{
-            self.items = store.state.ToDoListState.items[user!] ?? []
+            if self.tabBar.selectedItem?.tag == 0 {
+                self.items = store.state.ToDoListState.items[user!] ?? []
+            }
+            else{
+                self.items = store.state.ToDoListState.items[user!] ?? []
+                self.items = self.items.filter({ (item) -> Bool in
+                    return item.status == "Finalizada"
+                })
+            }
         }
         tableView.reloadData()
     }
 }
+
 

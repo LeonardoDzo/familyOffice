@@ -1,122 +1,147 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="KcS-Kn-neL">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AIz-p1-JLK">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Budget View Controller-->
-        <scene sceneID="Db7-TI-5AK">
+        <!--Conceptos-->
+        <scene sceneID="ILj-Wt-L8m">
             <objects>
-                <collectionViewController id="KcS-Kn-neL" customClass="BudgetViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="C9K-D7-Q29">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                <viewController id="aUe-EF-8Ml" customClass="RadarChartViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bN4-17-5G7"/>
+                        <viewControllerLayoutGuide type="bottom" id="dPa-bm-5FC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="uIf-EZ-9od" customClass="RadarChartView" customModule="Charts">
+                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="0.0" id="171-Mm-lSZ">
-                            <size key="itemSize" width="124" height="32"/>
-                            <size key="headerReferenceSize" width="50" height="50"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Conceptos" id="s2g-4I-QCI"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fjY-MM-NVf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1846" y="472"/>
+        </scene>
+        <!--Tabla-->
+        <scene sceneID="BF2-Z1-7Pu">
+            <objects>
+                <collectionViewController id="cqV-vS-nLC" customClass="BudgetViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="L6c-ji-3WI">
+                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="zMH-IL-sEo">
+                            <size key="itemSize" width="151" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="lineChartCell" id="nfE-xV-mEx" customClass="LineChartViewCell" customModule="familyOffice" customModuleProvider="target">
-                                <rect key="frame" x="16" y="50" width="343" height="309"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="de7-Ss-lsB" customClass="BudgetCollectionViewCell" customModule="familyOffice" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="151" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="343" height="309"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="151" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tOe-fC-g2u" customClass="LineChartView" customModule="Charts">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="309"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </subviews>
-                                </view>
-                                <size key="customSize" width="343" height="309"/>
-                                <connections>
-                                    <outlet property="lineChart" destination="tOe-fC-g2u" id="HTp-Ym-t60"/>
-                                </connections>
-                            </collectionViewCell>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="radarChartCell" id="BU1-Dr-OJE" customClass="RadarChartViewCell" customModule="familyOffice" customModuleProvider="target">
-                                <rect key="frame" x="16" y="364" width="343" height="309"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="343" height="309"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r91-dA-f8p" customClass="RadarChartView" customModule="Charts">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="309"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </subviews>
-                                </view>
-                                <size key="customSize" width="343" height="309"/>
-                                <connections>
-                                    <outlet property="radarChart" destination="r91-dA-f8p" id="REv-4O-nCU"/>
-                                </connections>
-                            </collectionViewCell>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="NqJ-sn-oV9" customClass="BudgetCollectionViewCell" customModule="familyOffice" customModuleProvider="target">
-                                <rect key="frame" x="125.5" y="678" width="124" height="32"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="124" height="32"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L9e-rT-dud">
-                                            <rect key="frame" x="0.0" y="0.0" width="125" height="32"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qKS-MI-mvw">
+                                            <rect key="frame" x="0.0" y="0.0" width="151" height="50"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                 </view>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="qKS-MI-mvw" secondAttribute="bottom" id="L3e-dl-nLa"/>
+                                    <constraint firstItem="qKS-MI-mvw" firstAttribute="top" secondItem="de7-Ss-lsB" secondAttribute="top" id="U8W-oL-y9T"/>
+                                    <constraint firstAttribute="trailing" secondItem="qKS-MI-mvw" secondAttribute="trailing" id="UzI-SX-01Z"/>
+                                    <constraint firstItem="qKS-MI-mvw" firstAttribute="leading" secondItem="de7-Ss-lsB" secondAttribute="leading" id="nxD-Lc-CY7"/>
+                                </constraints>
                                 <connections>
-                                    <outlet property="label" destination="L9e-rT-dud" id="PdH-HM-00M"/>
+                                    <outlet property="label" destination="qKS-MI-mvw" id="VUh-S2-2Nw"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
-                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="header" id="SLd-cE-Gvt" customClass="BudgetCollectionHeaderView" customModule="familyOffice" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RCb-yy-z4X">
-                                    <rect key="frame" x="18" y="9" width="339" height="32"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="32" id="3J0-p4-1VJ"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                            <constraints>
-                                <constraint firstItem="RCb-yy-z4X" firstAttribute="centerY" secondItem="SLd-cE-Gvt" secondAttribute="centerY" id="bkX-SP-3rL"/>
-                                <constraint firstAttribute="trailingMargin" secondItem="RCb-yy-z4X" secondAttribute="trailing" constant="10" id="f9b-xd-xMz"/>
-                                <constraint firstItem="RCb-yy-z4X" firstAttribute="leading" secondItem="SLd-cE-Gvt" secondAttribute="leadingMargin" constant="10" id="j2H-1E-WoX"/>
-                            </constraints>
-                            <connections>
-                                <outlet property="label" destination="RCb-yy-z4X" id="aLh-GS-Itv"/>
-                            </connections>
-                        </collectionReusableView>
                         <connections>
-                            <outlet property="dataSource" destination="KcS-Kn-neL" id="qwI-Su-KWV"/>
-                            <outlet property="delegate" destination="KcS-Kn-neL" id="rI3-dk-jgC"/>
+                            <outlet property="dataSource" destination="cqV-vS-nLC" id="ftr-h0-gv0"/>
+                            <outlet property="delegate" destination="cqV-vS-nLC" id="jI7-oW-oBh"/>
                         </connections>
                     </collectionView>
+                    <tabBarItem key="tabBarItem" title="Tabla" id="sUM-wH-bV3"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                 </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="YnP-nQ-1A8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4ry-2z-eGU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1370.4000000000001" y="145.27736131934034"/>
+            <point key="canvasLocation" x="1844" y="1158.1709145427287"/>
+        </scene>
+        <!--Gráfica-->
+        <scene sceneID="BdU-dd-pEf">
+            <objects>
+                <viewController id="Ecy-Pv-e9D" customClass="LineChartViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="KeF-mt-BTv"/>
+                        <viewControllerLayoutGuide type="bottom" id="Udk-n3-KHz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Dha-1m-YZv" customClass="LineChartView" customModule="Charts">
+                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Gráfica" id="O5m-hD-tkV"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="V1k-YY-UnG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1846" y="-184"/>
+        </scene>
+        <!--Presupuesto-->
+        <scene sceneID="OFi-Md-J8h">
+            <objects>
+                <navigationController title="Presupuesto" id="AIz-p1-JLK" sceneMemberID="viewController">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="ETy-iB-nGV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="bwO-8z-Y10" kind="relationship" relationship="rootViewController" id="02M-Hw-D1w"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HeW-rx-nkW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-311" y="472"/>
+        </scene>
+        <!--Budget Tab Bar Controller-->
+        <scene sceneID="drg-5j-0TN">
+            <objects>
+                <tabBarController id="bwO-8z-Y10" customClass="BudgetTabBarController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="k4h-NC-Pn7"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="4ol-Uo-R67">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="Ecy-Pv-e9D" kind="relationship" relationship="viewControllers" id="NAd-aJ-98L"/>
+                        <segue destination="aUe-EF-8Ml" kind="relationship" relationship="viewControllers" id="ibv-Ks-gc6"/>
+                        <segue destination="cqV-vS-nLC" kind="relationship" relationship="viewControllers" id="3po-At-88V"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PuI-lg-SFG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="874" y="472"/>
         </scene>
     </scenes>
 </document>
