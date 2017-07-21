@@ -13,11 +13,11 @@ class GalleryCollectionViewCell: UICollectionViewCell, AlbumBindable {
     var album: Album!
     @IBOutlet weak var Title: UILabel!
     @IBOutlet weak var Total: UILabel!
-    @IBOutlet weak var Image: UIImageView!
+    @IBOutlet weak var Image: CustomUIImageView!
 }
 class GalleryImageCollectionViewCell: UICollectionViewCell, ImageAlbumBindable {
     
-    @IBOutlet weak var imageBackground: UIImageView!
+    @IBOutlet weak var imageBackground: CustomUIImageView!
     
     var imageAlbum: ImageAlbum?
     

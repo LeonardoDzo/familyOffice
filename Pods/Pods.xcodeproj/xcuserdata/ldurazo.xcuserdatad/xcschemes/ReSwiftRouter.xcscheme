@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0830"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
       <BuildActionEntries>
          <BuildActionEntry
-            buildForAnalyzing = "YES"
             buildForTesting = "YES"
             buildForRunning = "YES"
             buildForProfiling = "YES"
-            buildForArchiving = "YES">
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
                BlueprintIdentifier = '894E6841A12DD2D0ED7A7A03A0AD96E6'
@@ -23,14 +23,17 @@
       </BuildActionEntries>
    </BuildAction>
    <TestAction
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      buildConfiguration = "Debug">
+      shouldUseLaunchSchemeArgsEnv = "YES">
+      <Testables>
+      </Testables>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
    <LaunchAction
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -38,17 +41,25 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
-      buildConfiguration = "Debug"
       allowLocationSimulation = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "5C774659A744B0A77CB6E5E5D590C391"
+            BuildableName = "ReSwiftRouter.framework"
+            BlueprintName = "ReSwiftRouter"
+            ReferencedContainer = "container:Pods.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
+      buildConfiguration = "Release"
+      shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
-      debugDocumentVersioning = "YES"
-      buildConfiguration = "Release"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      debugDocumentVersioning = "YES">
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

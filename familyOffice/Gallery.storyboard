@@ -44,7 +44,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="323" height="129"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" image="album_default" translatesAutoresizingMaskIntoConstraints="NO" id="AUG-EZ-CE3">
+                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" image="album_default" translatesAutoresizingMaskIntoConstraints="NO" id="AUG-EZ-CE3" customClass="CustomUIImageView" customModule="familyOffice" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="-236" width="323" height="600"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tf5-Wz-QxW">
@@ -217,7 +217,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ONd-Ep-WdB">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ONd-Ep-WdB" customClass="CustomUIImageView" customModule="familyOffice" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
                                                 </imageView>
                                             </subviews>
@@ -262,7 +262,7 @@
             <objects>
                 <navigationController storyboardIdentifier="MainGallery" automaticallyAdjustsScrollViewInsets="NO" id="cy9-1s-NMj" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Acz-VU-ype">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Acz-VU-ype">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

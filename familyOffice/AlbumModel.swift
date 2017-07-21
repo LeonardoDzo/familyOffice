@@ -56,7 +56,7 @@ protocol AlbumBindable: AnyObject {
     var album: Album! {get set}
     var Title: UIKit.UILabel! {get}
     var Total: UIKit.UILabel! {get}
-    var Image: UIKit.UIImageView! {get}
+    var Image: CustomUIImageView! {get}
 }
 extension AlbumBindable{
     var Title: UIKit.UILabel!{
@@ -65,7 +65,7 @@ extension AlbumBindable{
     var Total: UIKit.UILabel!{
         return nil
     }
-    var Image: UIKit.UIImageView!{
+    var Image: CustomUIImageView!{
         return nil
     }
     //Bind Ninja
