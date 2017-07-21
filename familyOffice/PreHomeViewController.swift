@@ -62,6 +62,7 @@ class SelectCategoryViewController: UIViewController {
             state in
             state
         }
+        
     }
     override func viewWillDisappear(_ animated: Bool) {
         store.unsubscribe(self)
@@ -76,10 +77,7 @@ class SelectCategoryViewController: UIViewController {
             image.image = #imageLiteral(resourceName: "profile_default")
         }
         self.name.text = user?.name
-        self.image.layer.cornerRadius = self.image.frame.size.width/2
-        self.image.clipsToBounds = true
-        self.image.layer.borderWidth = 4.0
-        self.image.layer.borderColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1).cgColor
+        self.image.profileUser()
         //self.image.layer.backgroundColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1).cgColor
     }
     
@@ -98,7 +96,7 @@ class SelectCategoryViewController: UIViewController {
     
     func logout(){
         service.AUTH_SERVICE.logOut()
-        Utility.Instance().gotoView(view: "StartView", context: self)
+        service.UTILITY_SERVICE.gotoView(view: "StartView", context: self)
     }
     
     
@@ -108,15 +106,16 @@ extension SelectCategoryViewController : StoreSubscriber {
     
     func newState(state: AppState) {
         user = state.UserState.user
-        loadImage()
-        verifyUser(status: state.UserState.status)
-        verifyFamilies(state: state.FamilyState)
-        
+        if user != nil {
+            loadImage()
+            verifyUser(status: state.UserState.status)
+            verifyFamilies(state: state.FamilyState)
+        }
     }
     func verifyFamilies(state: FamilyState) -> Void {
-        if families.count != state.families.count {
-            families = state.families
-            addFamily(family: state.families.last!)
+        if families.count != state.families.items.count {
+            families = state.families.items
+            addFamily(family: families.last!)
         }else{
             self.familiesCollection.reloadData()
         }

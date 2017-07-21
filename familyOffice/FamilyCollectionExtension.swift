@@ -9,63 +9,46 @@
 import Foundation
 import Toast_Swift
 import FirebaseAuth
-
-extension FamilyCollectionViewController {
+import ReSwift
+extension FamilyCollectionViewController: StoreSubscriber {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        createListeners()
-        
-        if (service.FAMILY_SERVICE.families.count == 0){
-            self.performSegue(withIdentifier: "registerSegue", sender: nil)
+        store.subscribe(self) {
+            state in
+            state.FamilyState
         }
-        NotificationCenter.default.addObserver(forName: notCenter.FAMILYADDED_NOTIFICATION, object: nil, queue: nil){ notification in
-            if modelName == "iPhone 5s" {
-                self.familyCollection?.reloadData()
-            }else{
-                if (self.familyCollection?.numberOfItems(inSection: 0))! <= service.FAMILY_SERVICE.families.count {
-                    self.familyCollection?.insertItems(at: [IndexPath(item: service.FAMILY_SERVICE.families.count-1, section: 0)])
-                    
-                }
-            }
-        }
-        NotificationCenter.default.addObserver(forName: notCenter.FAMILYREMOVED_NOTIFICATION, object: nil, queue: nil){index in
-            if modelName == "iPhone 5s" {
-                self.familyCollection?.reloadData()
-            }else{
-                
-                if (self.familyCollection?.numberOfItems(inSection: 0))! - 1 > service.FAMILY_SERVICE.families.count {
-                    self.familyCollection?.deleteItems(at: [IndexPath(item: index.object as! Int, section: 0)])
-                    self.familyCollection?.reloadData()
-                }
-            }
-            if (service.FAMILY_SERVICE.families.count == 0){
-                self.performSegue(withIdentifier: "registerSegue", sender: nil)
-            }
-        }
-        NotificationCenter.default.addObserver(forName: notCenter.FAMILYUPDATED_NOTIFICATION, object: nil, queue: nil){index in
-            if (self.familyCollection?.numberOfItems(inSection: 0))! > 0, let index = index.object as? Int {
-                self.familyCollection?.reloadItems(at: [IndexPath(item: index, section: 0)])
-            }
+        if (store.state.UserState.user?.families?.count == 0){
+            self.performSegue(withIdentifier: "editSegue", sender: nil)
         }
         
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        deleteListeners()
-        NotificationCenter.default.removeObserver(notCenter.FAMILYUPDATED_NOTIFICATION)
-        NotificationCenter.default.removeObserver(notCenter.FAMILYREMOVED_NOTIFICATION)
-        NotificationCenter.default.removeObserver(notCenter.FAMILYADDED_NOTIFICATION)
+       store.unsubscribe(self)
+    }
+    
+    func newState(state: FamilyState) {
+        self.view.hideToastActivity()
+        switch state.status {
+        case .loading:
+            self.view.makeToastActivity(.center)
+            break
+        default:
+            break
+        }
+        families = state.families.items
+        self.familyCollection.reloadData()
     }
     
     func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
         let point: CGPoint = gestureReconizer.location(in: self.familyCollection)
         let indexPath = self.familyCollection?.indexPathForItem(at: point)
         
-        if (indexPath != nil && (indexPath?.row)! < service.FAMILY_SERVICE.families.count) {
+        if (indexPath != nil && (indexPath?.row)! < families.count) {
             switch gestureReconizer.state {
             case .began:
-                let family = service.FAMILY_SERVICE.families[(indexPath?.row)!]
+                let family = families[(indexPath?.row)!]
                 
                 // create the alert
                 let alert = UIAlertController(title: family.name, message: "¿Qué deseas hacer?", preferredStyle: UIAlertControllerStyle.alert)
@@ -99,24 +82,12 @@ extension FamilyCollectionViewController {
     }
     
     func toggleSelect(family: Family){
-        service.FAMILY_SERVICE.selectFamily(family: family)
-       self.familyCollection.reloadData()
+       service.USER_SVC.selectFamily(family: family)
     }
     
     func togglePendingDelete(family: Family) -> Void
     {
-        service.FAMILY_SERVICE.delete(family: family)
-        
-    }
-    func createListeners() -> Void {
-        for item in service.FAMILY_SERVICE.families {
-            service.REF_SERVICE.childChanged(ref: "families/\((item.id)!)")
-        }
-    }
-    func deleteListeners() -> Void {
-        for item in service.FAMILY_SERVICE.families {
-            service.REF_SERVICE.remove(ref: "families/\((item.id)!)")
-        }
+        store.dispatch(DeleteFamilyAction(fid: family.id))
     }
     
 

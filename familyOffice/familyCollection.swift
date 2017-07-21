@@ -22,24 +22,7 @@ extension SelectCategoryViewController: UICollectionViewDelegate, UICollectionVi
         if indexPath.row < families.count {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! FamiliesPreCollectionViewCell
             let family = families[indexPath.item]
-            cell.name.text = family.name
-            cell.check.layer.cornerRadius = 15
-            cell.check.layer.borderWidth = 3
-            cell.check.layer.borderColor = UIColor(red: 255.0/255, green: 255.0/255, blue: 255.0/255, alpha: 1).cgColor
-            // Bounce back to the main thread to update the UI
-            if !(family.photoURL?.isEmpty)! {
-                cell.image.loadImage(urlString: (family.photoURL)!)
-            }
-            cell.check.isHidden = true
-            cell.name.textColor = #colorLiteral(red: 0.6941176471, green: 0.6941176471, blue: 0.6941176471, alpha: 1)
-
-            cell.image.layer.borderWidth = 1
-            cell.image.layer.borderColor = UIColor( red: 204/255, green: 204/255, blue:204.0/255, alpha: 1.0 ).cgColor
-            cell.image.layer.cornerRadius = 5
-            if family.id == store.state.UserState.user?.familyActive {
-                cell.check.isHidden = false
-                cell.name.textColor = #colorLiteral(red: 0.3137395978, green: 0.1694342792, blue: 0.5204931498, alpha: 1)
-            }
+            cell.bind(fam: family)
             return cell
         }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "addCell", for: indexPath)
@@ -48,7 +31,7 @@ extension SelectCategoryViewController: UICollectionViewDelegate, UICollectionVi
         
     }
     func addFamily(family: Family) -> Void {
-        self.familiesCollection.insertItems(at: [IndexPath(item: store.state.FamilyState.families.count-1, section: 0)])
+        self.familiesCollection.reloadData()
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         

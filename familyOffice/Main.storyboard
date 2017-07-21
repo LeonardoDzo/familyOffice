@@ -991,9 +991,9 @@
                                                 </constraints>
                                                 <size key="customSize" width="160" height="160"/>
                                                 <connections>
+                                                    <outlet property="Image" destination="3kZ-Bf-Z0P" id="NhF-yb-uGk"/>
+                                                    <outlet property="Title" destination="2yY-xM-ENH" id="VGB-g9-O14"/>
                                                     <outlet property="check" destination="Fpj-HA-gkh" id="Wm5-Kq-x7L"/>
-                                                    <outlet property="image" destination="3kZ-Bf-Z0P" id="bYs-UT-yxR"/>
-                                                    <outlet property="name" destination="2yY-xM-ENH" id="hGr-iN-X48"/>
                                                 </connections>
                                             </collectionViewCell>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="addCell" id="Q5r-lj-hHH">
@@ -1205,7 +1205,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="RegisterFamilyView" storyboardName="Families" referencedIdentifier="RegisterFamilyView" id="NjH-Lo-PVM" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uuH-Fb-llY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5401" y="1881"/>
+            <point key="canvasLocation" x="-2603" y="1121"/>
         </scene>
         <!--safeBox-->
         <scene sceneID="eBO-gK-U8H">
@@ -1213,7 +1213,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="safeBox" storyboardName="SafeBox" referencedIdentifier="safeBox" id="ASy-U0-j3b" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DHx-7U-HkL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-397" y="2306"/>
+            <point key="canvasLocation" x="-573" y="2227"/>
         </scene>
         <!--MainGallery-->
         <scene sceneID="PLU-vO-g1m">
@@ -1221,7 +1221,7 @@
                 <viewControllerPlaceholder storyboardName="Gallery" referencedIdentifier="MainGallery" id="pgj-Yi-X16" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AY8-wI-cBY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="988" y="2279"/>
+            <point key="canvasLocation" x="1066" y="2227"/>
         </scene>
         <!--Storyboard Reference-->
         <scene sceneID="awj-ST-AWP">
@@ -1229,7 +1229,7 @@
                 <viewControllerPlaceholder id="b01-wc-1ql" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wGG-aD-niw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="474" y="2316"/>
+            <point key="canvasLocation" x="502" y="2227"/>
         </scene>
         <!--calendarView-->
         <scene sceneID="NTC-YU-Ym1">
@@ -1237,7 +1237,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="calendarView" storyboardName="Calendar" referencedIdentifier="calendarView" id="c5f-M5-x9f" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Bd-do-QyZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="743" y="2306"/>
+            <point key="canvasLocation" x="801" y="2227"/>
         </scene>
         <!--mainobjective-->
         <scene sceneID="bYd-t6-vnC">
@@ -1245,7 +1245,7 @@
                 <viewControllerPlaceholder storyboardName="Objectives" referencedIdentifier="mainobjective" id="wrq-DB-nSA" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k6Y-2k-GqR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1736" y="2227"/>
+            <point key="canvasLocation" x="1589" y="2227"/>
         </scene>
         <!--Health-->
         <scene sceneID="8Ib-Do-6Vh">
@@ -1253,7 +1253,7 @@
                 <viewControllerPlaceholder storyboardName="Health" id="Xe7-NB-MEv" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dok-TG-lsz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1349" y="2299"/>
+            <point key="canvasLocation" x="1350" y="2227"/>
         </scene>
         <!--ToDoList-->
         <scene sceneID="vHv-rz-ua0">
@@ -1261,7 +1261,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="ToDoListController" storyboardName="ToDoList" id="k5g-5G-xnZ" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fae-fk-cVy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-61" y="2302"/>
+            <point key="canvasLocation" x="-10" y="2227"/>
         </scene>
         <!--mainFaqs-->
         <scene sceneID="XZG-mk-DiZ">
@@ -1269,7 +1269,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="mainFaqs" storyboardName="Faqs" referencedIdentifier="mainFaqs" id="wf3-9U-7ef" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E0a-a5-0Kg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1780" y="1918"/>
+            <point key="canvasLocation" x="-908" y="2227"/>
         </scene>
         <!--mainContacts-->
         <scene sceneID="kFJ-C8-Vep">
@@ -1277,7 +1277,7 @@
                 <viewControllerPlaceholder storyboardName="Contacts" referencedIdentifier="mainContacts" id="0d3-uh-Jcd" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zDh-33-1QG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1968" y="2093"/>
+            <point key="canvasLocation" x="1828" y="2227"/>
         </scene>
         <!--Budget-->
         <scene sceneID="xTq-es-99M">
@@ -1285,7 +1285,7 @@
                 <viewControllerPlaceholder storyboardName="Budget" id="CZo-yQ-ole" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9df-oV-85V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-69" y="2308"/>
+            <point key="canvasLocation" x="-266" y="2227"/>
         </scene>
         <!--Chat-->
         <scene sceneID="Uct-Yn-twt">
@@ -1293,7 +1293,7 @@
                 <viewControllerPlaceholder storyboardName="Chat" id="FyI-zj-JMa" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="byN-qn-xw5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="211" y="2306"/>
+            <point key="canvasLocation" x="238" y="2227"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ydb-xL-gA7">
