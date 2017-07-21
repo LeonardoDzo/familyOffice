@@ -40,6 +40,11 @@ class FamilyCollectionViewController: UIViewController, UICollectionViewDelegate
             if sender is Family {
                 viewController.bind(fam: sender as! Family)
             }
+        }else if segue.identifier == "registerSegue"  {
+            let viewController = segue.destination as! RegisterFamilyViewController
+            let family = Family()
+            viewController.bind(fam: family)
+            
         }
     }
     

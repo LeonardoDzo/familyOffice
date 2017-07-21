@@ -15,10 +15,10 @@ struct FamilyReducer: Reducer {
         switch action {
         case let action as InsertFamilyAction:
             if action.family != nil {
-                if action.family.id != nil {
-                    service.FAMILY_SVC.update(family: action.family, with: action.famImage)
+                if action.family.id.isEmpty {
+                   service.FAMILY_SVC.create(family: action.family, with: action.famImage)
                 }else{
-                    service.FAMILY_SVC.create(family: action.family, with: action.famImage)
+                   service.FAMILY_SVC.update(family: action.family, with: action.famImage)
                 }
                 state.status = .loading
             }

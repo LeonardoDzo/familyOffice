@@ -10,7 +10,7 @@ import UIKit
 
 class FamiliesPreCollectionViewCell: UICollectionViewCell, FamilyBindable {
     var family: Family!
-    @IBOutlet weak var Image: UIImageView!
+    @IBOutlet weak var Image: CustomUIImageView!
     @IBOutlet weak var check: UIImageView!
     @IBOutlet weak var Title: UILabel!
     

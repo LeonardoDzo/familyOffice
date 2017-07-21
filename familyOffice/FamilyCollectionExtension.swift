@@ -19,7 +19,7 @@ extension FamilyCollectionViewController: StoreSubscriber {
             state.FamilyState
         }
         if (store.state.UserState.user?.families?.count == 0){
-            self.performSegue(withIdentifier: "editSegue", sender: nil)
+            self.performSegue(withIdentifier: "registerSegue", sender: nil)
         }
         
     }

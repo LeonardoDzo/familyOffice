@@ -11,7 +11,7 @@ import UIKit
 class memberSelectedCollectionViewCell: UICollectionViewCell, UserModelBindable {
     var userModel: User?
     var filter: String!
-    @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var profileImage: CustomUIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()

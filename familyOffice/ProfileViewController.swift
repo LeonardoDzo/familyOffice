@@ -13,7 +13,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     let center = NotificationCenter.default
     var localeChangeObserver : NSObjectProtocol!
     
-    @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var profileImage: CustomUIImageView!
     @IBOutlet var userName: UILabel!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!

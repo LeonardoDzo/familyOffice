@@ -117,7 +117,7 @@ class familySettingCell: BaseCell {
     }()
     
     var image: UIImageView = {
-        let image = UIImageView()
+        let image = CustomUIImageView()
         image.image = #imageLiteral(resourceName: "familyImage")
        
         return image
