@@ -49,6 +49,7 @@ struct ToDoListReducer: Reducer{
         service.TODO_SERVICE.insert(path, value: item.toDictionary(), callback: {ref in
             if ref is FIRDatabaseReference{
                 store.state.ToDoListState.items[id]?.append(item)
+                store.state.ToDoListState.status = .finished
             }
         })
     }
@@ -75,8 +76,6 @@ struct ToDoListReducer: Reducer{
             if let index = store.state.ToDoListState.items[id]?.index(where: {$0.id == item.id }){
                 store.state.ToDoListState.items[id]?.remove(at: index)
                 store.state.ToDoListState.status = .finished
-            }else{
-                
             }
         }
     }

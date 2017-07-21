@@ -75,6 +75,7 @@ PODS:
   - GTMSessionFetcher/Core (1.1.9)
   - GTMSessionFetcher/Full (1.1.9):
     - GTMSessionFetcher/Core (= 1.1.9)
+  - GzipSwift (3.1.4)
   - Hue (2.0.1)
   - JBDatePicker (1.2.2)
   - JVFloatLabeledTextField (1.1.1)
@@ -113,6 +114,7 @@ DEPENDENCIES:
   - Firebase/Storage
   - FSCalendar
   - GoogleSignIn
+  - GzipSwift
   - JBDatePicker
   - JVFloatLabeledTextField
   - Lightbox
@@ -156,6 +158,7 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
   GTMSessionFetcher: 5c046c76a1f859bc9c187e918f18e4fc7bb57b5e
+  GzipSwift: 11ddb2bf253b1cd7b60bb169da20f62ac4348769
   Hue: 354caec055fdc9d38b5ef33ca2e7224721843baf
   JBDatePicker: 4d4934ccb9dae7f0f636a44d0f4c03a159e8eb63
   JVFloatLabeledTextField: 0e5524b097f102036214dd8279edc8ecf08b5e18
@@ -175,6 +178,6 @@ SPEC CHECKSUMS:
   SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
   Toast-Swift: 5b2f8f720f7e78e48511f693df1f9c9a6e38a25a
 
-PODFILE CHECKSUM: 2ce3224d71ea3dd0dc2406fb8743e0e468399882
+PODFILE CHECKSUM: b85d8e767d55e74056fcaeb63ec75237ddeaae03
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.2.0

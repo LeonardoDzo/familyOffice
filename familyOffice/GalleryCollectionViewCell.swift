@@ -25,7 +25,6 @@ class GalleryImageCollectionViewCell: UICollectionViewCell, ImageAlbumBindable {
         super.layoutSubviews()
         self.imageBackground.frame.size.width = self.bounds.size.width
         self.imageBackground.frame.size.height = self.bounds.size.height
-        //self.Image.loadImage(urlString: service.USER_SERVICE.users[0].photoURL)
     }
 }
 

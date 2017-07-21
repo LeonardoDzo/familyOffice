@@ -31,13 +31,19 @@ extension UIImageView {
                 return
             }
             DispatchQueue.main.async {
-                if let downloadImage = UIImage(data: data!) {
-                    imageCache.setObject(downloadImage, forKey: urlString as AnyObject)
-                    self.image = nil
-                    self.image = downloadImage
-                    
-                    self.verifyFilter(filter: filter, urlString: urlString)
-                }
+                    let decompressedData: Data
+                    if (data?.isGzipped)! {
+                        decompressedData = try! data?.gunzipped() ?? Data()
+                    } else {
+                        decompressedData = data!
+                    }
+                    if let downloadImage = UIImage.init(data: decompressedData) {
+                        imageCache.setObject(downloadImage, forKey: urlString as AnyObject)
+                        self.image = nil
+                        self.image = downloadImage
+                        
+                        self.verifyFilter(filter: filter, urlString: urlString)
+                    }
             }
         }).resume()
         

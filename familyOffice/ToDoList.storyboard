@@ -107,7 +107,7 @@
         <scene sceneID="tP9-qB-Ljj">
             <objects>
                 <navigationController id="Ilg-PE-7uz" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Y9s-ZM-Y6p">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Y9s-ZM-Y6p">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -183,7 +183,7 @@
                                                     </connections>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="10" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ek-9D-usX">
-                                                    <rect key="frame" x="14" y="27" width="15" height="15"/>
+                                                    <rect key="frame" x="10" y="24" width="21" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="13"/>
                                                     <nil key="textColor"/>
@@ -393,7 +393,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="N7f-fb-PJ8" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="GTL-jT-Plw">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="GTL-jT-Plw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

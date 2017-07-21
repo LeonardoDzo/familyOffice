@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -44,7 +44,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="323" height="129"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" image="album_default" translatesAutoresizingMaskIntoConstraints="NO" id="AUG-EZ-CE3">
+                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" image="album_default" translatesAutoresizingMaskIntoConstraints="NO" id="AUG-EZ-CE3">
                                                     <rect key="frame" x="0.0" y="-236" width="323" height="600"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tf5-Wz-QxW">
@@ -74,9 +74,12 @@
                                             <constraint firstItem="AUG-EZ-CE3" firstAttribute="centerY" secondItem="kUo-zh-xhm" secondAttribute="centerY" id="B1y-nH-pLl"/>
                                             <constraint firstItem="AUG-EZ-CE3" firstAttribute="centerX" secondItem="kUo-zh-xhm" secondAttribute="centerX" id="BXN-Zk-skk"/>
                                             <constraint firstItem="jUx-gL-RgB" firstAttribute="width" secondItem="kUo-zh-xhm" secondAttribute="width" id="CN4-gu-xui"/>
+                                            <constraint firstItem="AUG-EZ-CE3" firstAttribute="centerX" secondItem="kUo-zh-xhm" secondAttribute="centerX" id="O0d-XA-trI"/>
+                                            <constraint firstItem="AUG-EZ-CE3" firstAttribute="centerY" secondItem="kUo-zh-xhm" secondAttribute="centerY" id="QAm-1h-Nwd"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="Tf5-Wz-QxW" secondAttribute="bottom" constant="-9" id="RT5-Ok-JhZ"/>
                                             <constraint firstItem="Tf5-Wz-QxW" firstAttribute="centerX" secondItem="AUG-EZ-CE3" secondAttribute="centerX" id="az3-tz-nzC"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="jUx-gL-RgB" secondAttribute="bottom" constant="-8" id="dZO-85-ccB"/>
+                                            <constraint firstItem="AUG-EZ-CE3" firstAttribute="width" secondItem="kUo-zh-xhm" secondAttribute="width" id="fvx-AM-LVK"/>
                                             <constraint firstItem="jUx-gL-RgB" firstAttribute="trailing" secondItem="AUG-EZ-CE3" secondAttribute="trailing" id="tfv-ru-sPW"/>
                                         </constraints>
                                         <connections>
@@ -259,7 +262,7 @@
             <objects>
                 <navigationController storyboardIdentifier="MainGallery" automaticallyAdjustsScrollViewInsets="NO" id="cy9-1s-NMj" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Acz-VU-ype">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Acz-VU-ype">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

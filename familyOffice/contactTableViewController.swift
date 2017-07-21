@@ -39,7 +39,7 @@ class contactTableViewController: UITableViewController, StoreSubscriber{
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.add))
         addButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         let moreButton = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_bar_more_button"), style: .plain, target: self, action:  #selector(self.handleMore))
-        let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "Home"), style: .plain, target: self, action: #selector(self.back))
+        let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "LeftChevron"), style: .plain, target: self, action: #selector(self.back))
         self.navigationItem.rightBarButtonItems = [moreButton, addButton]
         self.navigationItem.leftBarButtonItem = backButton
         

@@ -36,8 +36,10 @@ class AddAlbumViewController: UIViewController, UIImagePickerControllerDelegate,
         
         let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "LeftChevron"), style: .plain, target: self, action: #selector(self.back))
         self.navigationItem.leftBarButtonItem = backButton
-        
+        backButton.tintColor = #colorLiteral(red: 1, green: 0.2940415765, blue: 0.02801861018, alpha: 1)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Guardar", style: .done, target: self, action: #selector(createAlbum))
+        self.navigationItem.rightBarButtonItem?.tintColor = #colorLiteral(red: 1, green: 0.2940415765, blue: 0.02801861018, alpha: 1)
+        self.navigationItem.title = "Crear Album"
     }
     
     func back() -> Void {
