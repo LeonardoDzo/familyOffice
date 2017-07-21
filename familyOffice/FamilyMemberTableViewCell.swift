@@ -12,7 +12,7 @@ class FamilyMemberTableViewCell: UITableViewCell, UserModelBindable {
     var userModel: User?
     var filter: String!
     @IBOutlet weak var adminlabel: UILabel!
-    @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var profileImage: CustomUIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var phoneLbl: UILabel!
     

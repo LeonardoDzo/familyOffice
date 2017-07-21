@@ -50,7 +50,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="140" height="160"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bUw-w4-tRX">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bUw-w4-tRX" customClass="CustomUIImageView" customModule="familyOffice" customModuleProvider="target">
                                                             <rect key="frame" x="10" y="15" width="120" height="120"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="120" id="3OJ-hM-1gL"/>
@@ -204,7 +204,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="k1D-vM-1hc">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="k1D-vM-1hc" customClass="CustomUIImageView" customModule="familyOffice" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="64" width="375" height="269"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="k1D-vM-1hc" secondAttribute="height" multiplier="375:269" id="OIx-ZS-qki"/>
@@ -230,7 +230,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="83.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="K8z-zN-hbz">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="K8z-zN-hbz" customClass="CustomUIImageView" customModule="familyOffice" customModuleProvider="target">
                                                     <rect key="frame" x="10" y="10" width="70" height="70"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="70" id="bwV-kI-pXc"/>
@@ -385,7 +385,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="60" height="70"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JfJ-Zg-Wh7">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JfJ-Zg-Wh7" customClass="CustomUIImageView" customModule="familyOffice" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PaR-fb-Uaf">
@@ -628,7 +628,7 @@
                                     <constraint firstAttribute="height" constant="75" id="cdP-tm-FlA"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PuY-a2-lbI">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PuY-a2-lbI" customClass="CustomUIImageView" customModule="familyOffice" customModuleProvider="target">
                                 <rect key="frame" x="130" y="81" width="115" height="115"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="115" id="n8H-pb-Cp9"/>
@@ -822,6 +822,6 @@
         <image name="check-1" width="114" height="114"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="2fK-Bg-ilS"/>
+        <segue reference="WZE-jV-roy"/>
     </inferredMetricsTieBreakers>
 </document>

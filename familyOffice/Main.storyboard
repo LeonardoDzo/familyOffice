@@ -94,16 +94,16 @@
                                 </connections>
                             </textField>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FFS-gR-T0q">
-                                <rect key="frame" x="47" y="629" width="281" height="28"/>
+                                <rect key="frame" x="61.5" y="625" width="252" height="32"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No tienes cuenta, regístrate  " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fa0-9j-XHn">
-                                        <rect key="frame" x="0.0" y="0.0" width="244" height="28"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="219" height="32"/>
                                         <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="17"/>
                                         <color key="textColor" red="0.97927886659999996" green="1" blue="0.99371440200000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <color key="highlightedColor" red="0.97927886659999996" green="1" blue="0.99371440200000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8rB-XC-zD2">
-                                        <rect key="frame" x="244" y="0.0" width="37" height="28"/>
+                                        <rect key="frame" x="219" y="0.0" width="33" height="32"/>
                                         <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="17"/>
                                         <state key="normal" title="aquí">
                                             <color key="titleColor" red="0.93333333333333335" green="0.27058823529411763" blue="0.29019607843137252" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -397,7 +397,7 @@
             <objects>
                 <navigationController id="xBb-2B-CJp" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Inicio" image="Home" id="rI5-tj-9Ev"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="r7p-lP-FCi">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="r7p-lP-FCi">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.93333333333333335" green="0.27058823529411763" blue="0.29019607843137252" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -449,7 +449,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="zxczxczx" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="In8-Hp-FA4">
-                                                    <rect key="frame" x="33.5" y="120" width="54.5" height="11"/>
+                                                    <rect key="frame" x="33" y="120" width="54.5" height="11"/>
                                                     <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="12"/>
                                                     <color key="textColor" red="0.52156862745098043" green="0.52156862745098043" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -779,7 +779,7 @@
             <objects>
                 <navigationController id="vo7-HH-trf" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Inicio" image="Home" selectedImage="Home" id="qNc-2W-dbA"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="ajE-bd-LBM">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ajE-bd-LBM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.93333333333333335" green="0.27058823529411763" blue="0.29019607843137252" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -890,7 +890,7 @@
         <scene sceneID="9Am-e1-fmx">
             <objects>
                 <navigationController storyboardIdentifier="mainView" id="kMC-B3-l3W" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="RyQ-kR-bXX">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="RyQ-kR-bXX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -948,7 +948,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3kZ-Bf-Z0P">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3kZ-Bf-Z0P" customClass="CustomUIImageView" customModule="familyOffice" customModuleProvider="target">
                                                             <rect key="frame" x="20" y="13" width="120" height="120"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="120" id="VuC-9H-yLZ"/>
@@ -1122,7 +1122,7 @@
                                     <constraint firstItem="oOP-c2-rNG" firstAttribute="centerY" secondItem="Yul-Wm-qA6" secondAttribute="centerY" id="z6w-Ai-phU"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="L7v-Dz-Fbd">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="L7v-Dz-Fbd" customClass="CustomUIImageView" customModule="familyOffice" customModuleProvider="target">
                                 <rect key="frame" x="130" y="80" width="115" height="115"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="115" id="NbD-oo-Ajf"/>
@@ -1300,7 +1300,7 @@
             <objects>
                 <navigationController storyboardIdentifier="StartView" automaticallyAdjustsScrollViewInsets="NO" id="Kip-84-qVL" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="xTp-qL-h7S">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="xTp-qL-h7S">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

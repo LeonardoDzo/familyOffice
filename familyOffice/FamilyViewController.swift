@@ -12,7 +12,7 @@ import ReSwift
 class FamilyViewController: UIViewController, UIGestureRecognizerDelegate, FamilyBindable  {
     var family: Family!
     
-    @IBOutlet weak var Image: UIImageView!
+    @IBOutlet weak var Image: CustomUIImageView!
     @IBOutlet weak var membersTable: UITableView!
     
     override func viewDidLoad() {
@@ -138,7 +138,6 @@ extension FamilyViewController : StoreSubscriber {
         }
         let ref = "families/\(family.id!)"
         service.FAMILY_SVC.valueSingleton(ref: ref)
-        service.FAMILY_SVC.initObserves(ref: ref, actions: [.childChanged])
     }
     
     func addMemberScreen(sender: UIBarButtonItem) -> Void {

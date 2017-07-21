@@ -10,7 +10,7 @@ import UIKit
 
 class FamilyCollectionViewCell: UICollectionViewCell, FamilyBindable {
     var family: Family!
-    @IBOutlet weak var Image: UIImageView!
+    @IBOutlet weak var Image: CustomUIImageView!
     @IBOutlet weak var Title: UILabel!
     @IBOutlet weak var deleteButton: UIButton!
     override func awakeFromNib() {

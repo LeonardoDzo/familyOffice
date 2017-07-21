@@ -148,7 +148,7 @@ protocol UserModelBindable: AnyObject {
     var userModel: User? { get set }
     var filter: String! { get set}
     var nameLabel: UILabel! {get}
-    var profileImage: UIImageView! {get}
+    var profileImage: CustomUIImageView! {get}
     var phoneLbl: UILabel! {get}
 }
 
@@ -159,7 +159,7 @@ extension UserModelBindable {
         return nil
     }
     
-    var profileImage: UIImageView! {
+    var profileImage: CustomUIImageView! {
         return nil
     }
     

@@ -14,7 +14,7 @@ class ProfileUserViewController: UIViewController, UserModelBindable {
     var userModel: User?
     var filter: String!
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var profileImage: CustomUIImageView!
     @IBOutlet weak var familiesCollection: UICollectionView!
     @IBOutlet weak var infoTable: UITableView!
     

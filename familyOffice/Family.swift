@@ -29,13 +29,14 @@ struct Family {
     var goals: [Goal]! = []
     /* Initializer for instantiating a new object in code.
      */
-    init(name: String, photo: Data){
-        self.name = name
+    init(){
+        self.id = ""
+        self.name = ""
         self.photoURL = nil
         self.admin = ""
         self.totalMembers = 0
         self.firebaseReference = nil
-        self.members = nil
+        self.members = []
     }
     
     init(name: String, photoURL: String, members: [String], admin: String,  imageProfilePath: String? ){
@@ -118,7 +119,7 @@ func ==(lhs: Family, rhs: Family) -> Bool {
 protocol FamilyBindable: AnyObject {
     var family: Family! {get set}
     var Title: UIKit.UILabel! {get}
-    var Image: UIKit.UIImageView! {get}
+    var Image: CustomUIImageView! {get}
     var check: UIImageView! { get }
     var nameTxt: textFieldStyleController! {get}
 }
@@ -126,7 +127,7 @@ extension FamilyBindable{
     var Title: UIKit.UILabel!{
         return nil
     }
-    var Image: UIKit.UIImageView!{
+    var Image: CustomUIImageView!{
         return nil
     }
     var check: UIKit.UIImageView!{

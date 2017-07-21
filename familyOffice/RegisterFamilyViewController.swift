@@ -13,7 +13,7 @@ import ReSwift
 class RegisterFamilyViewController: UIViewController, FamilyBindable, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate, ContactsProtocol {
     var family: Family!
     var users: [User]! = []
-   
+    
     /// Variable para saber si cambio la foto o no para editar
     var change = false
     
@@ -47,12 +47,10 @@ class RegisterFamilyViewController: UIViewController, FamilyBindable, UIImagePic
     
     func loadImage(_ recognizer: UITapGestureRecognizer){
         let imagePicker = UIImagePickerController()
-        
         self.Image.image = nil
         imagePicker.delegate = self
         imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
         self.present(imagePicker, animated: true, completion: nil)
-        
     }
     
     @IBAction func handleClickContact(_ sender: UIButton) {
@@ -141,11 +139,12 @@ class RegisterFamilyViewController: UIViewController, FamilyBindable, UIImagePic
         self.family.members = self.users.map({ $0.id})
         self.family.admin = (FIRAuth.auth()?.currentUser?.uid)!
         service.UTILITY_SERVICE.disabledView()
-        if family.id != nil{
-            edit()
+        if family.id.isEmpty{
+            save()
             return
         }
-        save()
+        
+        edit()
     }
     func edit() -> Void {
         if(!(nameTxt.text?.isEmpty)!){
@@ -234,7 +233,9 @@ extension RegisterFamilyViewController: UICollectionViewDataSource, UICollection
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        family.name = nameTxt.text
         if segue.identifier ==  "contactsSegue" {
+            
             if let destinationNavController = (segue.destination as? UINavigationController){
                 if let vc = destinationNavController.viewControllers.first as? ContactsViewController{
                     vc.contactDelegate = self
@@ -250,21 +251,22 @@ extension RegisterFamilyViewController : StoreSubscriber {
             state in
             state.FamilyState
         }
-        if family != nil {
-            self.bind()
-            store.state.FamilyState.families.family(fid: family.id)?.members.forEach({uid in
+        
+        self.bind()
+        if let family =  store.state.FamilyState.families.family(fid: self.family.id) {
+            
+            family.members.forEach({uid in
                 if let user = service.USER_SVC.getUser(byId: uid) {
-                    if !users.contains(user) {
-                        users.append(user)
+                    if !self.users.contains(user) {
+                        self.users.append(user)
                     }
                 }
                 
             })
-            setupNavBar()
-            self.collectionView.reloadData()
-            centerScrollViewContents()
         }
-        
+        self.setupNavBar()
+        self.collectionView.reloadData()
+        self.centerScrollViewContents()
         
     }
     
@@ -293,7 +295,7 @@ extension RegisterFamilyViewController : StoreSubscriber {
     }
     
     func setupNavBar() -> Void {
-        if family.id == nil {
+        if family.id.isEmpty {
             let saveButton = UIBarButtonItem(title: "Crear", style: .plain, target: self, action: #selector(self.cropAndSave(_:)))
             navigationItem.rightBarButtonItems = [saveButton]
             navigationItem.title = "Crear Familia"

@@ -82,7 +82,7 @@ extension FamilySvc: RequestService {
         var family = family
         let imageName = NSUUID().uuidString
         family.setId()
-        service.STORAGE_SERVICE.insert("families/\(family.id)/images/\(imageName).png", value: data , callback: {(response) in
+        service.STORAGE_SERVICE.insert("families/\(family.id!)/images/\(imageName).png", value: data , callback: {(response) in
             if let metadata = response as? FIRStorageMetadata {
                 family.photoURL = metadata.downloadURL()?.absoluteString
                 family.imageProfilePath = metadata.path
@@ -107,7 +107,7 @@ extension FamilySvc: RequestService {
         
         if data != nil {
             let imageName = NSUUID().uuidString
-            service.STORAGE_SERVICE.insert("families/\(family.id)/images/\(imageName).png", value: data! , callback: {(response) in
+            service.STORAGE_SERVICE.insert("families/\(family.id!)/images/\(imageName).png", value: data! , callback: {(response) in
                 if let metadata = response as? FIRStorageMetadata {
                     family.photoURL = metadata.downloadURL()?.absoluteString
                     family.imageProfilePath = metadata.path
