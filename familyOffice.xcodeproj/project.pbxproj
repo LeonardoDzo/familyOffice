@@ -59,7 +59,6 @@
 		02668FAF1F12B6B80052617E /* UserActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02668FAE1F12B6B80052617E /* UserActions.swift */; };
 		026AE1061E3A93A9003B75BD /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026AE1051E3A93A9003B75BD /* User.swift */; };
 		026AF3781F06F0FC00EF6DCD /* GoalReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026AF3771F06F0FC00EF6DCD /* GoalReducer.swift */; };
-		026AF37B1F071AFD00EF6DCD /* RootRoutable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026AF37A1F071AFD00EF6DCD /* RootRoutable.swift */; };
 		026AF37E1F071F6400EF6DCD /* GoalMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026AF37D1F071F6400EF6DCD /* GoalMiddleware.swift */; };
 		0271DD4F1E2EB1FB002C101B /* FamilyMemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0271DD4E1E2EB1FB002C101B /* FamilyMemberTableViewCell.swift */; };
 		0272139F1E84478F001A144B /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0272139E1E84478F001A144B /* CalendarViewController.swift */; };
@@ -201,7 +200,7 @@
 		94FF53651F17E583001D9EE4 /* EditItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FF53641F17E583001D9EE4 /* EditItemViewController.swift */; };
 		94FF53671F17E58E001D9EE4 /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FF53661F17E58E001D9EE4 /* ItemDetailViewController.swift */; };
 		A44D4E5E1F0481CD00323B87 /* Budget.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A44D4E5D1F0481CD00323B87 /* Budget.storyboard */; };
-		A44D4E611F04824B00323B87 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
+		A44D4E611F04824B00323B87 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		A44D91AF1E947F2700880D50 /* HealthOmniViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44D91AE1E947F2700880D50 /* HealthOmniViewController.swift */; };
 		A44F5BE71F1D421100B840F3 /* LineChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44F5BE61F1D421100B840F3 /* LineChartViewController.swift */; };
 		A44F5BE91F1D42D300B840F3 /* BudgetTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44F5BE81F1D42D300B840F3 /* BudgetTabBarController.swift */; };
@@ -298,7 +297,6 @@
 		02668FAE1F12B6B80052617E /* UserActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserActions.swift; sourceTree = "<group>"; };
 		026AE1051E3A93A9003B75BD /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		026AF3771F06F0FC00EF6DCD /* GoalReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalReducer.swift; sourceTree = "<group>"; };
-		026AF37A1F071AFD00EF6DCD /* RootRoutable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootRoutable.swift; sourceTree = "<group>"; };
 		026AF37D1F071F6400EF6DCD /* GoalMiddleware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalMiddleware.swift; sourceTree = "<group>"; };
 		0271DD4E1E2EB1FB002C101B /* FamilyMemberTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberTableViewCell.swift; sourceTree = "<group>"; };
 		0272139E1E84478F001A144B /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CalendarViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -629,7 +627,6 @@
 				02382F151E1C210C0036FFC9 /* LaunchScreen.storyboard */,
 				02382F181E1C210C0036FFC9 /* Info.plist */,
 				02382F3A1E1C2E1D0036FFC9 /* GoogleService-Info.plist */,
-				026AF37A1F071AFD00EF6DCD /* RootRoutable.swift */,
 			);
 			path = familyOffice;
 			sourceTree = "<group>";
@@ -1505,7 +1502,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		C244A8E3599E321EEBD3E4FC /* [CP] Embed Pods Frameworks */ = {
@@ -1550,7 +1547,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		E4F354F3B8A555A29E55F6BC /* [CP] Copy Pods Resources */ = {
@@ -1595,7 +1592,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1625,13 +1622,11 @@
 				029F65971F15A95700C3A0A7 /* InfoContactViewController.swift in Sources */,
 				A48FD6DD1F143D2200832559 /* Budget.swift in Sources */,
 				02E33A641EBA71D0003BF787 /* ShowEventViewController.swift in Sources */,
-				A44D4E611F04824B00323B87 /* BuildFile in Sources */,
+				A44D4E611F04824B00323B87 /* (null) in Sources */,
 				042693011F1448EB004356D6 /* ImageAlbumService.swift in Sources */,
-				A44D4E611F04824B00323B87 /* BuildFile in Sources */,
+				A44D4E611F04824B00323B87 /* (null) in Sources */,
 				02B46A341E52908200CC7511 /* NotificationService.swift in Sources */,
 				A46316B21E78C69E00E3F72C /* Health.swift in Sources */,
-				A48FD6D31F141BD000832559 /* BudgetCollectionHeaderView.swift in Sources */,
-				023DE7451E7720FE002F6A4E /* familiesExtension.swift in Sources */,
 				02A4375C1F18043D003F10A1 /* dayCollectionViewCell.swift in Sources */,
 				02BC16F51EE9E32900722689 /* UIBarbutton.swift in Sources */,
 				02B7E7FA1E7C614A0082BAE7 /* settingLauncher.swift in Sources */,
@@ -1694,7 +1689,6 @@
 				02F15BB71E85ECE2008C26F8 /* chatModel.swift in Sources */,
 				02BC16F11EE9D80700722689 /* MapViewController.swift in Sources */,
 				94FF53561F17E52B001D9EE4 /* ToDoItemCell.swift in Sources */,
-				A48FD6D71F141D2100832559 /* RadarChartViewCell.swift in Sources */,
 				02CE93261F1FDADB00D3B96E /* ContactsViewController.swift in Sources */,
 				94FF53611F17E562001D9EE4 /* ToDoListActions.swift in Sources */,
 				023D2B501EC22A5100CA19FE /* Value.swift in Sources */,
@@ -1725,11 +1719,8 @@
 				045B648F1EFDD1F600F57BBD /* HomeGalleryViewController.swift in Sources */,
 				02FD90031EDCA7C300F76BA1 /* addEventTableViewController.swift in Sources */,
 				02981B6D1EEB3CA400BA1BF4 /* EndRepeatEventTableViewController.swift in Sources */,
-				026AF37B1F071AFD00EF6DCD /* RootRoutable.swift in Sources */,
 				02B876451E1C677C005E5473 /* SingUpViewController.swift in Sources */,
 				02802DFF1EFC36A900E12A84 /* FamilyProtocols.swift in Sources */,
-				A48FD6D51F141C2C00832559 /* LineChartViewCell.swift in Sources */,
-				02802DFF1EFC36A900E12A84 /* HandleMenuBar.swift in Sources */,
 				84AEA8A41E3BE32C002B2D43 /* Animations.swift in Sources */,
 				94FF53651F17E583001D9EE4 /* EditItemViewController.swift in Sources */,
 				029F658D1F153E8000C3A0A7 /* ContactState.swift in Sources */,
@@ -1753,8 +1744,8 @@
 				02A4375E1F183F74003F10A1 /* repeatGoalModel.swift in Sources */,
 				02BD2D171E1F0D8B00A61A84 /* HomeViewController.swift in Sources */,
 				0233A4F71EFD8A5A00D01F5C /* Goal-Extension.swift in Sources */,
-				02C71A4E1F1E9CCD0017BB4C /* FamilyState.swift in Sources */,
 				A44F5BE91F1D42D300B840F3 /* BudgetTabBarController.swift in Sources */,
+				02C71A4E1F1E9CCD0017BB4C /* FamilyState.swift in Sources */,
 				04BDB2851F19A2F6006D3A62 /* AppReducer.swift in Sources */,
 				029CD0631F131EBC00A29CBA /* UserReducer.swift in Sources */,
 				02C808801ED76979005BB8B1 /* ConfigurationEventTableViewController.swift in Sources */,

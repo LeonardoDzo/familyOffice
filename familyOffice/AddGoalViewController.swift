@@ -13,8 +13,6 @@ import ReSwift
 import ReSwiftRouter
 
 
-
-
 class AddGoalViewController: UIViewController, GoalBindable, StoreSubscriber, UIGestureRecognizerDelegate, DateProtocol{
     static let identifier = "AddGoalViewController"
     var types = [("Deportivo","sport"),("Religión","religion"),("Escolar","school"),("Negocios","business-1"),("Alimentación","eat"),("Salud","health-1")]
