@@ -54,7 +54,6 @@ class AlbumViewController: UIViewController, StoreSubscriber {
             if assets.count > 0{
                 for (index,item) in assets.enumerated(){
                     if item.isVideo{
-                        
                     }else{
                         item.fetchOriginalImageWithCompleteBlock({(image, data) in
                             if let img : UIImage = image{
@@ -64,6 +63,8 @@ class AlbumViewController: UIViewController, StoreSubscriber {
                                     let key = Constants.FirDatabase.REF.childByAutoId().key as String
                                     let imgAlbum: ImageAlbum = ImageAlbum(id: key, path: "", album: self.currentAlbum?.id, comments: [], reacts: [], uiimage: imageData!)
                                     store.dispatch(InsertImagesAlbumAction(image: imgAlbum))
+                                    self.imgesAlbum.append(ImageAlbum())
+                                    self.collectionImages.reloadData()
                                 }
                             }
                         })
