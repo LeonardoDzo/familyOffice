@@ -29,7 +29,7 @@ class RegisterFamilyViewController: UIViewController, FamilyBindable, UIImagePic
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.hideKeyboardWhenTappedAround()
         scrollView.delegate = self
         Image = UIImageView()
         blurImageView.contentMode = UIViewContentMode.scaleAspectFill
