@@ -87,6 +87,7 @@
 		029CD0611F13172C00A29CBA /* UserSvc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029CD0601F13172C00A29CBA /* UserSvc.swift */; };
 		029CD0631F131EBC00A29CBA /* UserReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029CD0621F131EBC00A29CBA /* UserReducer.swift */; };
 		029CD0651F1327BD00A29CBA /* FamilySvc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029CD0641F1327BD00A29CBA /* FamilySvc.swift */; };
+		029DE84E1F22841600AC8474 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		029F658D1F153E8000C3A0A7 /* ContactState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029F658C1F153E8000C3A0A7 /* ContactState.swift */; };
 		029F658F1F15406F00C3A0A7 /* ContactActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029F658E1F15406F00C3A0A7 /* ContactActions.swift */; };
 		029F65911F1541B300C3A0A7 /* ContactReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029F65901F1541B300C3A0A7 /* ContactReducer.swift */; };
@@ -200,7 +201,6 @@
 		94FF53651F17E583001D9EE4 /* EditItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FF53641F17E583001D9EE4 /* EditItemViewController.swift */; };
 		94FF53671F17E58E001D9EE4 /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FF53661F17E58E001D9EE4 /* ItemDetailViewController.swift */; };
 		A44D4E5E1F0481CD00323B87 /* Budget.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A44D4E5D1F0481CD00323B87 /* Budget.storyboard */; };
-		A44D4E611F04824B00323B87 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
 		A44D91AF1E947F2700880D50 /* HealthOmniViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44D91AE1E947F2700880D50 /* HealthOmniViewController.swift */; };
 		A44F5BE71F1D421100B840F3 /* LineChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44F5BE61F1D421100B840F3 /* LineChartViewController.swift */; };
 		A44F5BE91F1D42D300B840F3 /* BudgetTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44F5BE81F1D42D300B840F3 /* BudgetTabBarController.swift */; };
@@ -1606,9 +1606,8 @@
 				029F65971F15A95700C3A0A7 /* InfoContactViewController.swift in Sources */,
 				A48FD6DD1F143D2200832559 /* Budget.swift in Sources */,
 				02E33A641EBA71D0003BF787 /* ShowEventViewController.swift in Sources */,
-				A44D4E611F04824B00323B87 /* BuildFile in Sources */,
+				029DE84E1F22841600AC8474 /* (null) in Sources */,
 				042693011F1448EB004356D6 /* ImageAlbumService.swift in Sources */,
-				A44D4E611F04824B00323B87 /* BuildFile in Sources */,
 				02B46A341E52908200CC7511 /* NotificationService.swift in Sources */,
 				A46316B21E78C69E00E3F72C /* Health.swift in Sources */,
 				023DE7451E7720FE002F6A4E /* familiesExtension.swift in Sources */,
