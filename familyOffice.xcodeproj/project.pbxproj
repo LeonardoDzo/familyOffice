@@ -1626,8 +1626,6 @@
 				A44D4E611F04824B00323B87 /* (null) in Sources */,
 				042693011F1448EB004356D6 /* ImageAlbumService.swift in Sources */,
 				A44D4E611F04824B00323B87 /* (null) in Sources */,
-				029DE84E1F22841600AC8474 /* (null) in Sources */,
-				042693011F1448EB004356D6 /* ImageAlbumService.swift in Sources */,
 				02B46A341E52908200CC7511 /* NotificationService.swift in Sources */,
 				A46316B21E78C69E00E3F72C /* Health.swift in Sources */,
 				02A4375C1F18043D003F10A1 /* dayCollectionViewCell.swift in Sources */,
