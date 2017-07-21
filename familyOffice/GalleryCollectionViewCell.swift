@@ -13,11 +13,11 @@ class GalleryCollectionViewCell: UICollectionViewCell, AlbumBindable {
     var album: Album!
     @IBOutlet weak var Title: UILabel!
     @IBOutlet weak var Total: UILabel!
-    @IBOutlet weak var Image: UIImageView!
+    @IBOutlet weak var Image: CustomUIImageView!
 }
 class GalleryImageCollectionViewCell: UICollectionViewCell, ImageAlbumBindable {
     
-    @IBOutlet weak var imageBackground: UIImageView!
+    @IBOutlet weak var imageBackground: CustomUIImageView!
     
     var imageAlbum: ImageAlbum?
     
@@ -25,7 +25,6 @@ class GalleryImageCollectionViewCell: UICollectionViewCell, ImageAlbumBindable {
         super.layoutSubviews()
         self.imageBackground.frame.size.width = self.bounds.size.width
         self.imageBackground.frame.size.height = self.bounds.size.height
-        //self.Image.loadImage(urlString: service.USER_SERVICE.users[0].photoURL)
     }
 }
 

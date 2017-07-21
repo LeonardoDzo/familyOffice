@@ -9,7 +9,9 @@
 import UIKit
 import ReSwift
 import Toast_Swift
-class addContactTableViewController: UITableViewController, ContactBindible {
+import ContactsUI
+
+class addContactTableViewController: UITableViewController, ContactBindible, CNContactPickerDelegate {
     var contact: Contact!
     @IBOutlet weak var nameTxt: UITextField!
     @IBOutlet weak var phoneTxt: UITextField!
@@ -17,11 +19,11 @@ class addContactTableViewController: UITableViewController, ContactBindible {
     @IBOutlet weak var addressTxt: UITextField!
     @IBOutlet weak var webpageTxt: UITextField!
     @IBOutlet weak var emailTxt: UITextField!
+    @IBOutlet var importButton: UIButton!
     
     var isEdit = false
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         let doneButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save(sender:)))
         self.navigationItem.rightBarButtonItem = doneButton
         
@@ -33,9 +35,12 @@ class addContactTableViewController: UITableViewController, ContactBindible {
             state in
             state.ContactState
         }
-        
         self.bind(contact: contact)
         isEdit = !contact.name.isEmpty
+        if isEdit{
+            importButton.setTitle("Importar datos", for: .normal)
+        }
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -77,6 +82,34 @@ class addContactTableViewController: UITableViewController, ContactBindible {
         return true
     }
     
+    @IBAction func importButtonPressed(_ sender: UIButton) {
+        let cnPicker = CNContactPickerViewController()
+        cnPicker.delegate = self
+        self.present(cnPicker, animated: true, completion: nil)
+    }
+    
+    // MARK:- Método de ContactPickerDelegate
+    func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
+        var addressStr:String = ""
+        
+        if contact.postalAddresses.count > 0 {
+            let address = contact.postalAddresses[0]
+            let street = address.value.street
+            let postalCode = address.value.postalCode
+            let city = address.value.city
+            let state = address.value.state
+            addressStr = "\(street), \(postalCode), \(city), \(state)"
+        }
+        
+        
+        self.contact.name = "\(contact.givenName) \(contact.familyName)"
+        self.contact.phone = contact.phoneNumbers[0].value.stringValue
+        self.contact.address = addressStr
+        self.contact.webpage = contact.urlAddresses.count > 0 ? contact.urlAddresses[0].value as String : ""
+        self.contact.email = contact.emailAddresses.count > 0 ? contact.emailAddresses[0].value as String : ""
+        
+    }
+    
 }
 extension addContactTableViewController : StoreSubscriber {
     typealias StoreSubscriberStateType = ContactState
@@ -89,6 +122,7 @@ extension addContactTableViewController : StoreSubscriber {
         case .finished:
             self.view.hideToastActivity()
             _ = self.navigationController?.popViewController(animated: true)
+            store.state.ContactState.status = .none //hotfix
             break
         default:
             break

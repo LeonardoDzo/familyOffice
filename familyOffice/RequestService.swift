@@ -16,7 +16,6 @@ protocol RequestService {
     func notExistSnapshot() -> Void
     func inserted(ref: FIRDatabaseReference) -> Void
     func routing(snapshot: FIRDataSnapshot, action: FIRDataEventType, ref: String) -> Void
-    func delete(_ ref: String, callback: @escaping ((_ results: Any) -> Void))
     
 }
 extension RequestService {
@@ -32,10 +31,13 @@ extension RequestService {
             }
         })
     }
-    func delete(_ ref: String, callback: @escaping ((Any) -> Void)) {
+    func delete(_ ref: String, callback: @escaping ((Bool) -> Void)) {
         Constants.FirDatabase.REF.child(ref).removeValue(completionBlock: { error, ref in
             if error != nil {
                 print(error.debugDescription)
+                callback(false)
+            }else{
+                callback(true)
             }
         })
     }

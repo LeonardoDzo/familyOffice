@@ -173,7 +173,7 @@ extension ContactBindible {
             webpageTxt.text = contact.webpage
         }
         if let webpageBtn = self.webpageBtn {
-            webpageBtn.setTitle(contact.webpage, for: .normal)
+            webpageBtn.setTitle(contact.webpage != "" ? contact.webpage : "Sin página", for: .normal)
         }
         if let emailLbl = self.emailLbl {
             emailLbl.text = contact.email

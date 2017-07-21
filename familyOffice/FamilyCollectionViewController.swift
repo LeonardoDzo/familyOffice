@@ -13,27 +13,18 @@ private let reuseIdentifier = "cell"
 
 class FamilyCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate  {
     @IBOutlet weak var mainView: UIView!
+    typealias StoreSubscriberStateType = FamilyState
     //Internal var
     var indexP : IndexPath? = nil
-    var family : Family?
+    var families = [Family]()
     var longPressTarget: (cell: UICollectionViewCell, indexPath: IndexPath)?
     //UI
     @IBOutlet var familyCollection: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let lpgr = UILongPressGestureRecognizer(target: self, action:#selector(handleLongPress(gestureReconizer:)))
-        lpgr.minimumPressDuration = 0.5
-        lpgr.delaysTouchesBegan = true
-        self.familyCollection.addGestureRecognizer(lpgr)
-        let nav = self.navigationController?.navigationBar
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.3137395978, green: 0.1694342792, blue: 0.5204931498, alpha: 1)]
-
-        self.familyCollection.layer.cornerRadius = 8
-        self.familyCollection.clipsToBounds = true
-        self.mainView.layer.cornerRadius = 5
-        self.mainView.layer.borderWidth = 1
-        self.mainView.layer.borderColor = UIColor( red: 204/255, green: 204/255, blue:204.0/255, alpha: 1.0 ).cgColor
+        initialConf()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -46,8 +37,31 @@ class FamilyCollectionViewController: UIViewController, UICollectionViewDelegate
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier=="changeScreen" {
             let viewController = segue.destination as! FamilyViewController
-            viewController.family = family!
+            if sender is Family {
+                viewController.bind(fam: sender as! Family)
+            }
+        }else if segue.identifier == "registerSegue"  {
+            let viewController = segue.destination as! RegisterFamilyViewController
+            let family = Family()
+            viewController.bind(fam: family)
+            
         }
+    }
+    
+    func initialConf() -> Void {
+        let lpgr = UILongPressGestureRecognizer(target: self, action:#selector(handleLongPress(gestureReconizer:)))
+        lpgr.minimumPressDuration = 0.5
+        lpgr.delaysTouchesBegan = true
+        self.familyCollection.addGestureRecognizer(lpgr)
+        
+        let nav = self.navigationController?.navigationBar
+        nav?.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.3137395978, green: 0.1694342792, blue: 0.5204931498, alpha: 1)]
+        
+        self.familyCollection.layer.cornerRadius = 8
+        self.familyCollection.clipsToBounds = true
+        
+        self.mainView.formatView()
+        
     }
        
 }
@@ -62,57 +76,31 @@ extension FamilyCollectionViewController {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if(indexPath.row == service.FAMILY_SERVICE.families.count){
+        if(indexPath.row == families.count){
             self.performSegue(withIdentifier: "registerSegue", sender: nil)
         }else{
-            self.family = service.FAMILY_SERVICE.families[indexPath.row]
-            self.performSegue(withIdentifier: "changeScreen", sender: nil)
+            self.performSegue(withIdentifier: "changeScreen", sender: families[indexPath.row])
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        for item in service.FAMILY_SERVICE.families {
-            if !item.members.contains(where: {$0 == FIRAuth.auth()?.currentUser?.uid}) {
-                service.FAMILY_SERVICE.families.remove(at:  service.FAMILY_SERVICE.families.index(where: {$0.id == item.id})!)
-            }
-        }
-        
-        return service.FAMILY_SERVICE.families.count + 1
+        return families.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //Family Cell
-        if ( indexPath.row < service.FAMILY_SERVICE.families.count){
-            
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! FamiliesPreCollectionViewCell
-
-            cell.layer.position.y = cell.layer.position.y-60
-            let family = service.FAMILY_SERVICE.families[indexPath.row]
-            cell.check.layer.cornerRadius = 15
-            cell.check.layer.borderWidth = 2
-            cell.check.layer.borderColor = UIColor(red: 255.0/255, green: 255.0/255, blue: 255.0/255, alpha: 1).cgColor
-            // Bounce back to the main thread to update the UI
-            if !(family.photoURL?.isEmpty)! {
-                cell.image.loadImage(urlString: (family.photoURL)!)
-                cell.image.layer.borderWidth = 1.0
-                cell.image.layer.borderColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1).cgColor
-                
-            }
-            cell.name.text = family.name
-            cell.check.isHidden = true
-            cell.name.textColor = #colorLiteral(red: 0.6941176471, green: 0.6941176471, blue: 0.6941176471, alpha: 1)
-            if family.id == service.USER_SERVICE.users[0].familyActive {
-                cell.check.isHidden = false
-                cell.name.textColor = #colorLiteral(red: 0.3137395978, green: 0.1694342792, blue: 0.5204931498, alpha: 1)
-            }
+        if indexPath.row < families.count {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! FamiliesPreCollectionViewCell
+            let family = families[indexPath.item]
+            cell.bind(fam: family)
             return cell
         }
         //Add Cell
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "addCell", for: indexPath) as! addCell
-        cell.layer.position.y = cell.layer.position.y-60
         return cell
     }
     
    
 }
+
+

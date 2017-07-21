@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -206,7 +206,7 @@
                                             <color key="titleColor" red="0.77429378032684326" green="0.21738614141941071" blue="0.40008452534675598" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
                                         <connections>
-                                            <action selector="openPage:" destination="0We-Ml-vmo" eventType="touchUpInside" id="Zo2-Fi-HeZ"/>
+                                            <action selector="openPage:" destination="0We-Ml-vmo" eventType="touchUpInside" id="E51-l9-GUW"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -225,6 +225,16 @@
                                     <constraint firstItem="1hp-8K-TAM" firstAttribute="top" secondItem="MOP-FY-yFc" secondAttribute="bottom" constant="20" id="wSi-iO-t9f"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="45V-jl-yO3">
+                                <rect key="frame" x="125" y="424" width="124" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Exportar contacto">
+                                    <color key="titleColor" red="0.22978240251541138" green="0.106345035135746" blue="0.49486315250396729" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="exportButtonPressed:" destination="0We-Ml-vmo" eventType="touchUpInside" id="Udt-JM-g2B"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                         <constraints>
@@ -246,7 +256,7 @@
                         <outlet property="nameLbl" destination="kyG-lL-HxH" id="yGt-Z6-Lyb"/>
                         <outlet property="phoneLbl" destination="3L3-eJ-yTf" id="5vA-uj-8I3"/>
                         <outlet property="tabbar" destination="kGk-kO-kEs" id="X8u-sw-SGI"/>
-                        <outlet property="webpage" destination="geg-gc-6FE" id="B4s-a9-jbj"/>
+                        <outlet property="webpageBtn" destination="geg-gc-6FE" id="bYl-B9-ehL"/>
                         <segue destination="8QC-vA-AuL" kind="show" identifier="editSegue" id="jkn-4R-D5y"/>
                     </connections>
                 </viewController>
@@ -264,6 +274,16 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="scrollIndicatorInsets" minX="10" minY="10" maxX="10" maxY="10"/>
                         <color key="sectionIndexColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6dF-bl-AQQ">
+                            <rect key="frame" x="0.0" y="300" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Importar contacto">
+                                <color key="titleColor" red="0.22978240251541138" green="0.106345035135746" blue="0.49486315250396729" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="importButtonPressed:" destination="8QC-vA-AuL" eventType="touchUpInside" id="0SP-C7-fk9"/>
+                            </connections>
+                        </button>
                         <sections>
                             <tableViewSection id="mjQ-uP-8sQ">
                                 <cells>
@@ -446,6 +466,7 @@
                     <connections>
                         <outlet property="addressTxt" destination="EGn-IY-NiO" id="auD-hV-fqh"/>
                         <outlet property="emailTxt" destination="NR4-HB-xrH" id="hXK-hx-nNO"/>
+                        <outlet property="importButton" destination="6dF-bl-AQQ" id="djb-cQ-dx2"/>
                         <outlet property="jobTxt" destination="cmZ-C4-8A9" id="57z-O4-GUH"/>
                         <outlet property="nameTxt" destination="Qoz-rR-ziA" id="Xyk-Mb-8zR"/>
                         <outlet property="phoneTxt" destination="4ng-aA-yfv" id="Glm-Q1-eA1"/>
@@ -461,7 +482,7 @@
             <objects>
                 <navigationController storyboardIdentifier="mainContacts" automaticallyAdjustsScrollViewInsets="NO" id="IFi-lB-jQP" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="tud-l3-3RG">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="tud-l3-3RG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

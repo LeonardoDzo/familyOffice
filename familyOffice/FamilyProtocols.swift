@@ -14,3 +14,10 @@ protocol HandleMenuBar : class {
 protocol HandleFamilySelected : class {
     func selectFamily() -> Void
 }
+protocol DateProtocol: class {
+    func selectedDate(date: Date) -> Void
+}
+protocol ContactsProtocol: class {
+    var users : [User]! {get set}
+    func selected(users: [User]) -> Void
+}

@@ -43,6 +43,7 @@ class ContactService {
         self.insert(path, value: contact.toDictionary(), callback: {ref in
             if ref is FIRDatabaseReference {
                 store.state.ContactState.contacts[fid]?.append(contact)
+                store.state.ContactState.status = .finished
             }
         })
     }

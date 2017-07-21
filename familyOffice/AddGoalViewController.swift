@@ -12,10 +12,6 @@ import Firebase
 import ReSwift
 import ReSwiftRouter
 
-protocol DateProtocol: class {
-    func selectedDate(date: Date) -> Void
-}
-
 
 class AddGoalViewController: UIViewController, GoalBindable, StoreSubscriber, UIGestureRecognizerDelegate, DateProtocol{
     static let identifier = "AddGoalViewController"

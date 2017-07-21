@@ -18,8 +18,6 @@ class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, U
     @IBOutlet var tableView: UITableView!
     @IBOutlet var tabBar: UITabBar!
     
-    
-    
     var items : [ToDoList.ToDoItem] = []
     var userId = service.USER_SERVICE.users[0].id!
     let searchController = UISearchController(searchResultsController: nil)
@@ -27,7 +25,7 @@ class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, U
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.hideKeyboardWhenTappedAround() 
+        self.hideKeyboardWhenTappedAround()
         
         tabBar.selectedItem = tabBar.items![0]
         tabBar.tintColor = #colorLiteral(red: 0.8431372549, green: 0.1019607843, blue: 0.4, alpha: 1)
@@ -106,7 +104,7 @@ class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, U
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! ToDoItemCell
         
         cell.title.text = item.title
-        cell.date.text = item.endDate
+        cell.date.text = item.endDate == "" ? "Fecha indefinida" : item.endDate
         
         cell.countLabel.text = "\(indexPath.row + 1)"
         cell.countLabel.layer.cornerRadius = 0.5 * cell.countLabel.bounds.size.width
@@ -132,7 +130,8 @@ class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, U
             let alert = UIAlertController(title: "Eliminar tarea", message: "", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Cancelar", style: .default, handler: nil))
             alert.addAction(UIAlertAction(title: "Aceptar", style: .destructive, handler: { (action) in
-              store.dispatch(DeleteToDoListItemAction(item: self.items[indexPath.row]))
+                self.tabBar.selectedItem = self.tabBar.items![0]
+                store.dispatch(DeleteToDoListItemAction(item: self.items[indexPath.row]))
             }))
             self.present(alert, animated: true, completion: nil)
         }
@@ -166,6 +165,7 @@ class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, U
         } else {
             currentItem.status = "Pendiente"
         }
+        tabBar.selectedItem = tabBar.items![0]
         store.dispatch(UpdateToDoListItemAction(item:currentItem))
     }
     
@@ -232,7 +232,15 @@ extension ToDoListController: UISearchResultsUpdating {
         if let searchText = searchController.searchBar.text, !searchText.isEmpty{
             self.items = self.items.filter({$0.title.lowercased().contains(searchText.lowercased())})
         }else{
-            self.items = store.state.ToDoListState.items[user!] ?? []
+            if self.tabBar.selectedItem?.tag == 0 {
+                self.items = store.state.ToDoListState.items[user!] ?? []
+            }
+            else{
+                self.items = store.state.ToDoListState.items[user!] ?? []
+                self.items = self.items.filter({ (item) -> Bool in
+                    return item.status == "Finalizada"
+                })
+            }
         }
         tableView.reloadData()
     }

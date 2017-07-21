@@ -16,7 +16,6 @@ class GoalService: RequestService {
 
     var goals: [Goal] = []
     var handles: [(String,UInt,FIRDataEventType)] = []
-    let basePath = "goals/\(service.USER_SERVICE.users[0].id!)"
     private init() {}
     
     static private let instance = GoalService()
@@ -76,7 +75,7 @@ class GoalService: RequestService {
             goal.members = {
                 let fid = store.state.UserState.user?.familyActive
                 var members = [String:Int]()
-                store.state.FamilyState.families.first(where: {$0.id == fid})?.members.forEach({s in
+                store.state.FamilyState.families.family(fid: fid!)?.members.forEach({s in
                     members[s] = -1
                 })
                 return members

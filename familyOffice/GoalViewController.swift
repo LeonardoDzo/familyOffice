@@ -24,7 +24,6 @@ class GoalViewController: UIViewController, StoreSubscriber, UITabBarDelegate, G
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavBar()
-        axisFormatDelegate = self
         pieChart.noDataText = "No hay objetivos"
     }
     @IBOutlet var dateForCompleate: UILabel!
@@ -105,8 +104,7 @@ class GoalViewController: UIViewController, StoreSubscriber, UITabBarDelegate, G
         
     }
     func selectFamily() -> Void {
-        if let index = store.state.FamilyState.families.index(where: {$0.id == store.state.UserState.user?.familyActive}){
-            let family = store.state.FamilyState.families[index]
+        if let family = store.state.FamilyState.families.family(fid: (store.state.UserState.user?.familyActive)!){
             self.navigationItem.title = family.name
         }
     }
@@ -145,6 +143,11 @@ class GoalViewController: UIViewController, StoreSubscriber, UITabBarDelegate, G
         
         set.colors = colors
         let data = PieChartData(dataSet: set)
+        //Set Formatter
+        let format = NumberFormatter()
+        format.numberStyle = .none
+        let formatter = DefaultValueFormatter(formatter: format)
+        data.setValueFormatter(formatter)
         pieChart.data = data
         pieChart.noDataText = "No existen objetivos"
         // user interaction
@@ -176,7 +179,7 @@ class GoalViewController: UIViewController, StoreSubscriber, UITabBarDelegate, G
     }
 }
 
-extension GoalViewController: UITableViewDelegate, UITableViewDataSource, IAxisValueFormatter {
+extension GoalViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -207,8 +210,6 @@ extension GoalViewController: UITableViewDelegate, UITableViewDataSource, IAxisV
         
     }
     
-    
-    
     func getUser(id: String) -> User? {
         if let user =  store.state.UserState.users.first(where: {$0.id == id}) {
             return user
@@ -219,19 +220,6 @@ extension GoalViewController: UITableViewDelegate, UITableViewDataSource, IAxisV
         }
         return nil
         
-    }
-    
-    func stringForValue(_ value: Double, axis: AxisBase?) -> String {
-        if let family = store.state.FamilyState.families.first(where: {$0.id == user?.familyActive}) {
-            let id = family.members[Int(value)]
-            if let user = getUser(id: id){
-                if user.id == store.state.UserState.user?.id {
-                    return "Yo"
-                }
-                return user.name.components(separatedBy: " ")[0]
-            }
-        }
-        return "none"
     }
 }
 extension GoalViewController {

@@ -28,8 +28,10 @@ class AlbumViewController: UIViewController, StoreSubscriber {
         // Do any additional setup after loading the view.
         self.navigationItem.title = "Albums"
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.addImage))
+        addButton.tintColor = #colorLiteral(red: 1, green: 0.2940415765, blue: 0.02801861018, alpha: 1)
         self.navigationItem.rightBarButtonItem = addButton
         let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "LeftChevron"), style: .plain, target: self, action: #selector(self.back))
+        backButton.tintColor = #colorLiteral(red: 1, green: 0.2940415765, blue: 0.02801861018, alpha: 1)
         self.navigationItem.leftBarButtonItem = backButton
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 10, left: 2, bottom: 10, right: 2)
@@ -52,15 +54,17 @@ class AlbumViewController: UIViewController, StoreSubscriber {
             if assets.count > 0{
                 for (index,item) in assets.enumerated(){
                     if item.isVideo{
-                        
                     }else{
                         item.fetchOriginalImageWithCompleteBlock({(image, data) in
                             if let img : UIImage = image{
                                 if image is UIImage{
-                                    let imageData = self.resizeImage(image: image!, scale: CGFloat.init(20))
+                                    //let imageData = self.resizeImage(image: image!, scale: CGFloat.init(20))
+                                    let imageData = image?.resizeImage()
                                     let key = Constants.FirDatabase.REF.childByAutoId().key as String
-                                    let imgAlbum: ImageAlbum = ImageAlbum(id: key, path: "", album: self.currentAlbum?.id, comments: [], reacts: [], uiimage: imageData)
+                                    let imgAlbum: ImageAlbum = ImageAlbum(id: key, path: "", album: self.currentAlbum?.id, comments: [], reacts: [], uiimage: imageData!)
                                     store.dispatch(InsertImagesAlbumAction(image: imgAlbum))
+                                    self.imgesAlbum.append(ImageAlbum())
+                                    self.collectionImages.reloadData()
                                 }
                             }
                         })
@@ -111,6 +115,7 @@ extension AlbumViewController{
         }else{
             _ = navigationController?.popViewController(animated: true)
         }
+        self.collectionImages.reloadData()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
@@ -199,6 +204,12 @@ extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSou
         LightboxConfig.InfoLabel.enabled = false
         LightboxConfig.CloseButton.text = "Cerrar"
         LightboxConfig.DeleteButton.text = "Eliminar"
+        LightboxConfig.loadImage = {
+            imageView, URL, completion in
+            // Custom image loading
+            imageView.loadImage(urlString: URL.absoluteString)
+            completion!(nil,imageView.image!)
+        }
         controller.headerView.deleteButton.addTarget(self, action: #selector(deleteImage), for: .touchDown)
         
         // Present your controller.
