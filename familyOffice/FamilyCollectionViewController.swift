@@ -24,6 +24,7 @@ class FamilyCollectionViewController: UIViewController, UICollectionViewDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         initialConf()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,9 +54,9 @@ class FamilyCollectionViewController: UIViewController, UICollectionViewDelegate
         
         self.familyCollection.layer.cornerRadius = 8
         self.familyCollection.clipsToBounds = true
-        self.mainView.layer.cornerRadius = 5
-        self.mainView.layer.borderWidth = 1
-        self.mainView.layer.borderColor = UIColor( red: 204/255, green: 204/255, blue:204.0/255, alpha: 1.0 ).cgColor
+        
+        self.mainView.formatView()
+        
     }
        
 }

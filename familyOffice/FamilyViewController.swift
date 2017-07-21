@@ -86,9 +86,11 @@ class FamilyViewController: UIViewController, UIGestureRecognizerDelegate, Famil
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier == "addMembersScreen"){
-            let viewController = segue.destination as! AddMembersTableViewController
-            viewController.family = family!
+        if segue.identifier=="editSegue"{
+            let vc = segue.destination as! RegisterFamilyViewController
+            if sender is Family {
+                vc.bind(fam: sender as! Family)
+            }
         }else if segue.identifier == "ProfileSegue" {
             let viewController = segue.destination as! ProfileUserViewController
             if sender is User {
@@ -134,9 +136,13 @@ extension FamilyViewController : StoreSubscriber {
             state in
             state
         }
+        let ref = "families/\(family.id!)"
+        service.FAMILY_SVC.valueSingleton(ref: ref)
+        service.FAMILY_SVC.initObserves(ref: ref, actions: [.childChanged])
     }
     
     func addMemberScreen(sender: UIBarButtonItem) -> Void {
+        self.performSegue(withIdentifier: "editSegue", sender: family)
     }
     func newState(state: AppState) {
         family = state.FamilyState.families.family(fid: family.id)
@@ -144,5 +150,6 @@ extension FamilyViewController : StoreSubscriber {
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        service.FAMILY_SVC.removeHandles()
     }
 }

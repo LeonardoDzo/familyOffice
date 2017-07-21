@@ -94,7 +94,8 @@ extension ProfileUserViewController : UICollectionViewDelegate, UICollectionView
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! FamilyCollectionViewCell
-        _ = families[indexPath.row]
+        let family = families[indexPath.row]
+        cell.bind(fam: family)
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

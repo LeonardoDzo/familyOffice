@@ -25,6 +25,8 @@ class ContactsViewController: UIViewController {
         let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.add))
         self.navigationItem.leftBarButtonItem = back
         self.navigationItem.rightBarButtonItem = add
+        self.tableView.formatView()
+        self.collectionView.formatView()
     }
 
     override func didReceiveMemoryWarning() {

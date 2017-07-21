@@ -90,6 +90,7 @@ extension FamilySvc: RequestService {
                 self.insert(ref, value: family.toDictionary(), callback: { (response) in
                     if response is String {
                         store.state.FamilyState.status = .finished
+                        store.state.FamilyState.status = .none
                     }else{
                         store.state.FamilyState.status = .failed
                     }
@@ -100,7 +101,35 @@ extension FamilySvc: RequestService {
             
         })
     }
-
+    func update(family: Family, with data: UIImage?) -> Void {
+        var family = family
+        let ref = "families/\(family.id!)"
+        
+        if data != nil {
+            let imageName = NSUUID().uuidString
+            service.STORAGE_SERVICE.insert("families/\(family.id)/images/\(imageName).png", value: data! , callback: {(response) in
+                if let metadata = response as? FIRStorageMetadata {
+                    family.photoURL = metadata.downloadURL()?.absoluteString
+                    family.imageProfilePath = metadata.path
+                    self.update(ref, value: family.toDictionary() as! [AnyHashable: Any], callback: { ref in
+                        if ref is FIRDatabaseReference {
+                            store.state.FamilyState.status = .finished
+                            store.state.FamilyState.status = .none
+                        }
+                    })
+                }else{
+                    store.state.FamilyState.status = .failed
+                }
+            })
+        }else{
+            self.update(ref, value: family.toDictionary() as! [AnyHashable: Any], callback: { ref in
+                if ref is FIRDatabaseReference {
+                    store.state.FamilyState.status = .finished
+                    store.state.FamilyState.status = .none
+                }
+            })
+        }
+    }
 }
 
 extension FamilySvc: repository {
@@ -108,6 +137,10 @@ extension FamilySvc: repository {
         let family : Family = Family(snapshot: snapshot)
         if !store.state.FamilyState.families.hasEqualContent(family){
             store.state.FamilyState.families.appendItem(family)
+        }else{
+            if let index = store.state.FamilyState.families.indexOf(fid: family.id!){
+                store.state.FamilyState.families.items[index] = family
+            }
         }
     }
     func removed(snapshot: FIRDataSnapshot) {

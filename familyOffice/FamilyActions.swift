@@ -26,7 +26,7 @@ struct InsertFamilyAction: StandardActionConvertible {
     static let type = "FAMILY_ACTION_INSERT"
     var family: Family!
     var famImage: UIImage!
-    init(family: Family, img: UIImage) {
+    init(family: Family, img: UIImage? = nil) {
         self.family = family
         self.famImage = img
     }
@@ -37,6 +37,7 @@ struct InsertFamilyAction: StandardActionConvertible {
         return StandardAction(type: InsertFamilyAction.type, payload: [:], isTypedAction: true)
     }
 }
+
 struct DeleteFamilyAction: StandardActionConvertible {
     static let type = "FAMILY_ACTION_DELETE"
     var fid: String!

@@ -120,6 +120,7 @@ protocol FamilyBindable: AnyObject {
     var Title: UIKit.UILabel! {get}
     var Image: UIKit.UIImageView! {get}
     var check: UIImageView! { get }
+    var nameTxt: textFieldStyleController! {get}
 }
 extension FamilyBindable{
     var Title: UIKit.UILabel!{
@@ -129,6 +130,9 @@ extension FamilyBindable{
         return nil
     }
     var check: UIKit.UIImageView!{
+        return nil
+    }
+    var nameTxt: textFieldStyleController! {
         return nil
     }
     //Bind Ninja
@@ -145,6 +149,11 @@ extension FamilyBindable{
                 titleLabel.text = (family.name?.isEmpty)! ? "Sin título" : family.name
             }else{
                 titleLabel.text = "Sin título"
+            }
+        }
+        if let nameTxt = self.nameTxt{
+            if family.name != nil{
+                nameTxt.text = (family.name?.isEmpty)! ? "" : family.name
             }
         }
         if let imageBackground = self.Image{
