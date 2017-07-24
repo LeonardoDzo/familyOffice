@@ -61,7 +61,7 @@ class GoalService: RequestService {
     }
     
     func inserted(ref: FIRDatabaseReference) {
-        Constants.FirDatabase.REF_USERS.child(service.USER_SERVICE.users[0].id!).child("goals").updateChildValues([ref.key:true])
+        Constants.FirDatabase.REF_USERS.child((store.state.UserState.user?.id!)!).child("goals").updateChildValues([ref.key:true])
         
         store.state.GoalsState.status = .finished
         
