@@ -52,7 +52,7 @@ struct Goal {
         self.title = ""
         self.endDate = Date().toMillis()
         self.startDate =  Date().toMillis()
-        self.creator = service.USER_SERVICE.users[0].id
+        self.creator = store.state.UserState.user?.id!
         self.type = 0
         self.repeatGoalModel = repeatGoal()
     }

@@ -136,7 +136,8 @@ extension GoalTableViewController: StoreSubscriber, Segue {
     func addObservers() -> Void {
         
         if tabBar.selectedItem?.tag == 0 {
-            service.GOAL_SERVICE.initObserves(ref: "goals/\(String(describing: user?.id!))", actions: [.childAdded, .childRemoved, .childChanged])
+            let id = store.state.UserState.user?.id!
+            service.GOAL_SERVICE.initObserves(ref: "goals/\(id!)", actions: [.childAdded, .childRemoved, .childChanged])
         }else{
             service.GOAL_SERVICE.initObserves(ref: "goals/\((user?.familyActive!)!)", actions: [.childAdded, .childRemoved, .childChanged])
         }
