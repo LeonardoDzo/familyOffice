@@ -77,7 +77,6 @@ class GoalViewController: UIViewController, StoreSubscriber, UITabBarDelegate, G
     
     func addObservers() -> Void {
         service.GOAL_SERVICE.initObserves(ref: "goals/\((user?.familyActive!)!)", actions: [ .childChanged])
-        
     }
     
     func handleEdit() -> Void {

@@ -16,6 +16,8 @@ struct AppState: StateType{
     var GalleryState: GalleryState
     var ToDoListState: ToDoListState
     var ContactState: ContactState
+    var MedicineState: MedicineState
+    var IllnessState: IllnessState
 
 }
 enum Result<T> {
