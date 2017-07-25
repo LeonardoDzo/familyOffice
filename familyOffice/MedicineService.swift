@@ -61,7 +61,7 @@ class MedicineService: RequestService {
     }
     
     func inserted(ref: FIRDatabaseReference) {
-        Constants.FirDatabase.REF_FAMILIES.child(service.USER_SERVICE.users[0].familyActive!)
+        Constants.FirDatabase.REF_FAMILIES.child((store.state.UserState.user?.familyActive)!)
             .child("medicines").updateChildValues([ref.key:true])
         
         store.state.MedicineState.status = .none
