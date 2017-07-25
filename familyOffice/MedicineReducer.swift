@@ -43,23 +43,23 @@ struct MedicineReducer: Reducer {
     }
     
     func insertMedicine(_ medicine: Medicine) -> Void {
-        let id = service.USER_SERVICE.users[0].familyActive!
-        let path = "medicines/\(id)/\(medicine.id!)"
+        let id = store.state.UserState.user?.familyActive!
+        let path = "medicines/\(id!)/\(medicine.id!)"
         service.MEDICINE_SERVICE.insert(path, value: medicine.toDictionary(), callback: {ref in
             if ref is FIRDatabaseReference {
-                store.state.MedicineState.medicines[id]?.append(medicine)
+                store.state.MedicineState.medicines[id!]?.append(medicine)
                 store.state.MedicineState.status = .finished
             }
         })
     }
     
     func updateMedicine(_ medicine: Medicine) -> Void {
-        let id = service.USER_SERVICE.users[0].familyActive!
-        let path = "medicines/\(id)/\(medicine.id!)"
+        let id = store.state.UserState.user?.familyActive!
+        let path = "medicines/\(id!)/\(medicine.id!)"
         service.MEDICINE_SERVICE.update(path, value: medicine.toDictionary() as! [AnyHashable:Any]) { ref in
             if ref is FIRDatabaseReference {
-                if let index = store.state.MedicineState.medicines[id]?.index(where: {$0.id == medicine.id}){
-                    store.state.MedicineState.medicines[id]?[index] = medicine
+                if let index = store.state.MedicineState.medicines[id!]?.index(where: {$0.id! == medicine.id!}){
+                    store.state.MedicineState.medicines[id!]?[index] = medicine
                     store.state.MedicineState.status = .finished
                 }
             }
@@ -67,11 +67,11 @@ struct MedicineReducer: Reducer {
     }
     
     func deleteMedicine(_ medicine: Medicine) -> Void {
-        let id = service.USER_SERVICE.users[0].familyActive!
-        let path = "medicines/\(id)/\(medicine.id!)"
+        let id = store.state.UserState.user?.familyActive!
+        let path = "medicines/\(id!)/\(medicine.id!)"
         service.MEDICINE_SERVICE.delete(path) { (Any) in
-            if let index = store.state.MedicineState.medicines[id]?.index(where: {$0.id == medicine.id}){
-                store.state.MedicineState.medicines[id]?.remove(at: index)
+            if let index = store.state.MedicineState.medicines[id!]?.index(where: {$0.id! == medicine.id!}){
+                store.state.MedicineState.medicines[id!]?.remove(at: index)
                 store.state.MedicineState.status = .finished
             }
         }

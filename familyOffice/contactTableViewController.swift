@@ -81,7 +81,7 @@ class contactTableViewController: UITableViewController, StoreSubscriber{
         }
     }
     func selectfamily(fid:String){
-        if let family = store.state.FamilyState.families.first(where: {$0.id == fid}){
+        if let family = store.state.FamilyState.families.family(fid: fid){
              self.navigationItem.title = "Contactos de \(family.name!)"
         }
     }

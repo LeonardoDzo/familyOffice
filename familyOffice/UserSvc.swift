@@ -32,10 +32,41 @@ class UserSvc {
     }
     func getUsersByFamilyActive() -> Void {
         let user = store.state.UserState.user
-        let family = store.state.FamilyState.families.first(where: {$0.id == user?.familyActive})
-        for item in (family?.members)! {
-            store.dispatch(GetUserAction(uid: item))
+        if let family = store.state.FamilyState.families.family(fid: (user?.familyActive)!) {
+            for item in (family.members)! {
+                store.dispatch(GetUserAction(uid: item))
+            }
         }
+        
+    }
+    
+    func getUser(byphone phone: String) -> Void {
+        Constants.FirDatabase.REF_USERS.queryOrdered(byChild: "phone").queryEqual(toValue: phone).observeSingleEvent(of: .childAdded, with: {snapshot in
+            if(snapshot.exists()){
+                let user = User(snapshot: snapshot)
+                store.state.UserState.users.append(user)
+                store.state.UserState.status = .Finished(user)
+                store.state.UserState.status = .none
+            }
+        })
+    }
+    func getUser(byId uid: String) -> User?{
+        if let user = store.state.UserState.users.first(where: {$0.id == uid }) {
+            return user
+        }else if store.state.UserState.user?.id == uid {
+            return store.state.UserState.user
+        }else{
+            store.dispatch(GetUserAction(uid: uid))
+        }
+        return nil
+    }
+    
+    func create(user: User) -> Void {
+        self.insert("users/\(user.id)", value: user.toDictionary(), callback: { ref in
+            if ref is FIRDatabaseReference {
+                store.state.UserState.status = .finished
+            }
+        })
     }
 }
 extension UserSvc : RequestService {
@@ -92,6 +123,7 @@ extension UserSvc : RequestService {
         }
         self.handles.removeAll()
     }
+    
     
     func delete(_ ref: String, callback: @escaping ((Any) -> Void)) {
     }

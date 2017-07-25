@@ -15,7 +15,7 @@ class MedicineDetailsViewController: UIViewController, UITableViewDelegate, UITa
     
     var fields = [("Indicaciones", ""), ("Dósis", ""), ("Restricciones", ""), ("Más información", "")]
     var cellSelected = -1
-    let user = service.USER_SERVICE.users[0]
+    let user = store.state.UserState.user
     
     @IBOutlet var tableView: UITableView!
 
@@ -114,7 +114,7 @@ class MedicineDetailsViewController: UIViewController, UITableViewDelegate, UITa
     }
     */
     func addObservers() -> Void {
-        service.MEDICINE_SERVICE.initObservers(ref: "medicines/\((user.familyActive!))", actions: [ .childChanged])
+        service.MEDICINE_SERVICE.initObservers(ref: "medicines/\((user?.familyActive!))", actions: [ .childChanged])
     }
 
 }

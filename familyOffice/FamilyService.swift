@@ -63,7 +63,7 @@ class FamilyService: repository, RequestService {
         
         if !self.families.contains(where: { $0.id == family.id }) {
             self.families.append(family)
-            store.state.FamilyState.families.append(family)
+            store.state.FamilyState.families.appendItem(family)
             NotificationCenter.default.post(name: notCenter.FAMILYADDED_NOTIFICATION, object: family)
             ToastService.getTopViewControllerAndShowToast(text: "Fam. agregada: \(family.name!)")
         }else{
@@ -111,9 +111,6 @@ class FamilyService: repository, RequestService {
     func exitFamily(family: Family, uid:String) -> Void {
         Constants.FirDatabase.REF_USERS.child("/\(uid)/families/\((family.id)!)").removeValue()
         Constants.FirDatabase.REF_FAMILIES.child("/\((family.id)!)/members/\(uid)").removeValue()
-        if(family.admin == service.USER_SERVICE.users[0].id){
-            self.addAdmin(index: self.families.index(where: {$0.id == family.id})!, uid: nil)
-        }
     }
     
     func addAdmin(index: Int, uid: String?) -> Void {

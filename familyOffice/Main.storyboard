@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Kip-84-qVL">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Kip-84-qVL">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -94,16 +94,16 @@
                                 </connections>
                             </textField>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FFS-gR-T0q">
-                                <rect key="frame" x="47" y="629" width="281" height="28"/>
+                                <rect key="frame" x="61.5" y="625" width="252" height="32"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No tienes cuenta, regístrate  " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fa0-9j-XHn">
-                                        <rect key="frame" x="0.0" y="0.0" width="244" height="28"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="219" height="32"/>
                                         <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="17"/>
                                         <color key="textColor" red="0.97927886659999996" green="1" blue="0.99371440200000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <color key="highlightedColor" red="0.97927886659999996" green="1" blue="0.99371440200000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8rB-XC-zD2">
-                                        <rect key="frame" x="244" y="0.0" width="37" height="28"/>
+                                        <rect key="frame" x="219" y="0.0" width="33" height="32"/>
                                         <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="17"/>
                                         <state key="normal" title="aquí">
                                             <color key="titleColor" red="0.93333333333333335" green="0.27058823529411763" blue="0.29019607843137252" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -397,7 +397,7 @@
             <objects>
                 <navigationController id="xBb-2B-CJp" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Inicio" image="Home" id="rI5-tj-9Ev"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="r7p-lP-FCi">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="r7p-lP-FCi">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.93333333333333335" green="0.27058823529411763" blue="0.29019607843137252" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -449,7 +449,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="zxczxczx" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="In8-Hp-FA4">
-                                                    <rect key="frame" x="36" y="120" width="49" height="14"/>
+                                                    <rect key="frame" x="33" y="120" width="54.5" height="11"/>
                                                     <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="12"/>
                                                     <color key="textColor" red="0.52156862745098043" green="0.52156862745098043" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -780,7 +780,7 @@
             <objects>
                 <navigationController id="vo7-HH-trf" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Inicio" image="Home" selectedImage="Home" id="qNc-2W-dbA"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="ajE-bd-LBM">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ajE-bd-LBM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.93333333333333335" green="0.27058823529411763" blue="0.29019607843137252" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -891,7 +891,7 @@
         <scene sceneID="9Am-e1-fmx">
             <objects>
                 <navigationController storyboardIdentifier="mainView" id="kMC-B3-l3W" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="RyQ-kR-bXX">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="RyQ-kR-bXX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -949,7 +949,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3kZ-Bf-Z0P">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3kZ-Bf-Z0P" customClass="CustomUIImageView" customModule="familyOffice" customModuleProvider="target">
                                                             <rect key="frame" x="20" y="13" width="120" height="120"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="120" id="VuC-9H-yLZ"/>
@@ -992,9 +992,9 @@
                                                 </constraints>
                                                 <size key="customSize" width="160" height="160"/>
                                                 <connections>
+                                                    <outlet property="Image" destination="3kZ-Bf-Z0P" id="NhF-yb-uGk"/>
+                                                    <outlet property="Title" destination="2yY-xM-ENH" id="VGB-g9-O14"/>
                                                     <outlet property="check" destination="Fpj-HA-gkh" id="Wm5-Kq-x7L"/>
-                                                    <outlet property="image" destination="3kZ-Bf-Z0P" id="bYs-UT-yxR"/>
-                                                    <outlet property="name" destination="2yY-xM-ENH" id="hGr-iN-X48"/>
                                                 </connections>
                                             </collectionViewCell>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="addCell" id="Q5r-lj-hHH">
@@ -1123,7 +1123,7 @@
                                     <constraint firstItem="oOP-c2-rNG" firstAttribute="centerY" secondItem="Yul-Wm-qA6" secondAttribute="centerY" id="z6w-Ai-phU"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="L7v-Dz-Fbd">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="L7v-Dz-Fbd" customClass="CustomUIImageView" customModule="familyOffice" customModuleProvider="target">
                                 <rect key="frame" x="130" y="80" width="115" height="115"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="115" id="NbD-oo-Ajf"/>
@@ -1206,7 +1206,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="RegisterFamilyView" storyboardName="Families" referencedIdentifier="RegisterFamilyView" id="NjH-Lo-PVM" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uuH-Fb-llY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5401" y="1881"/>
+            <point key="canvasLocation" x="-2603" y="1121"/>
         </scene>
         <!--safeBox-->
         <scene sceneID="eBO-gK-U8H">
@@ -1214,7 +1214,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="safeBox" storyboardName="SafeBox" referencedIdentifier="safeBox" id="ASy-U0-j3b" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DHx-7U-HkL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-397" y="2306"/>
+            <point key="canvasLocation" x="-573" y="2227"/>
         </scene>
         <!--MainGallery-->
         <scene sceneID="PLU-vO-g1m">
@@ -1222,7 +1222,7 @@
                 <viewControllerPlaceholder storyboardName="Gallery" referencedIdentifier="MainGallery" id="pgj-Yi-X16" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AY8-wI-cBY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="988" y="2279"/>
+            <point key="canvasLocation" x="1066" y="2227"/>
         </scene>
         <!--Storyboard Reference-->
         <scene sceneID="awj-ST-AWP">
@@ -1230,7 +1230,7 @@
                 <viewControllerPlaceholder id="b01-wc-1ql" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wGG-aD-niw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="474" y="2316"/>
+            <point key="canvasLocation" x="502" y="2227"/>
         </scene>
         <!--FirstAidKit-->
         <scene sceneID="0yq-N9-ZGV">
@@ -1246,7 +1246,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="calendarView" storyboardName="Calendar" referencedIdentifier="calendarView" id="c5f-M5-x9f" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Bd-do-QyZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="743" y="2306"/>
+            <point key="canvasLocation" x="801" y="2227"/>
         </scene>
         <!--mainobjective-->
         <scene sceneID="bYd-t6-vnC">
@@ -1254,7 +1254,7 @@
                 <viewControllerPlaceholder storyboardName="Objectives" referencedIdentifier="mainobjective" id="wrq-DB-nSA" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k6Y-2k-GqR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1736" y="2227"/>
+            <point key="canvasLocation" x="1589" y="2227"/>
         </scene>
         <!--Health-->
         <scene sceneID="8Ib-Do-6Vh">
@@ -1262,7 +1262,7 @@
                 <viewControllerPlaceholder storyboardName="Health" id="Xe7-NB-MEv" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dok-TG-lsz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1349" y="2299"/>
+            <point key="canvasLocation" x="1350" y="2227"/>
         </scene>
         <!--ToDoList-->
         <scene sceneID="vHv-rz-ua0">
@@ -1270,7 +1270,8 @@
                 <viewControllerPlaceholder storyboardIdentifier="ToDoListController" storyboardName="ToDoList" id="k5g-5G-xnZ" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fae-fk-cVy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="62" y="2337"/>
+            <point key="canvasLocation" x="-10" y="2227"/>
+
         </scene>
         <!--mainFaqs-->
         <scene sceneID="XZG-mk-DiZ">
@@ -1278,7 +1279,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="mainFaqs" storyboardName="Faqs" referencedIdentifier="mainFaqs" id="wf3-9U-7ef" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E0a-a5-0Kg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1780" y="1918"/>
+            <point key="canvasLocation" x="-908" y="2227"/>
         </scene>
         <!--mainContacts-->
         <scene sceneID="kFJ-C8-Vep">
@@ -1286,7 +1287,7 @@
                 <viewControllerPlaceholder storyboardName="Contacts" referencedIdentifier="mainContacts" id="0d3-uh-Jcd" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zDh-33-1QG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1968" y="2093"/>
+            <point key="canvasLocation" x="1828" y="2227"/>
         </scene>
         <!--Budget-->
         <scene sceneID="xTq-es-99M">
@@ -1294,7 +1295,7 @@
                 <viewControllerPlaceholder storyboardName="Budget" id="CZo-yQ-ole" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9df-oV-85V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-69" y="2308"/>
+            <point key="canvasLocation" x="-266" y="2227"/>
         </scene>
         <!--Chat-->
         <scene sceneID="Uct-Yn-twt">
@@ -1302,14 +1303,14 @@
                 <viewControllerPlaceholder storyboardName="Chat" id="FyI-zj-JMa" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="byN-qn-xw5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="211" y="2306"/>
+            <point key="canvasLocation" x="238" y="2227"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ydb-xL-gA7">
             <objects>
                 <navigationController storyboardIdentifier="StartView" automaticallyAdjustsScrollViewInsets="NO" id="Kip-84-qVL" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="xTp-qL-h7S">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="xTp-qL-h7S">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

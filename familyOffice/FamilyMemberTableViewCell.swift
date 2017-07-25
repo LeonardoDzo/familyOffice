@@ -8,19 +8,20 @@
 
 import UIKit
 
-class FamilyMemberTableViewCell: UITableViewCell {
-
+class FamilyMemberTableViewCell: UITableViewCell, UserModelBindable {
+    var userModel: User?
+    var filter: String!
     @IBOutlet weak var adminlabel: UILabel!
-    @IBOutlet weak var memberImage: UIImageView!
-    @IBOutlet weak var name: UILabel!
-    @IBOutlet weak var phone: UILabel!
+    @IBOutlet weak var profileImage: CustomUIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var phoneLbl: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.memberImage.image = #imageLiteral(resourceName: "profile_default")
-        self.memberImage.layer.cornerRadius = self.memberImage.frame.size.width/2
-        self.memberImage.clipsToBounds = true
+        self.profileImage.image = #imageLiteral(resourceName: "profile_default")
+        
+        self.profileImage.profileUser()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

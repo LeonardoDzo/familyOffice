@@ -43,23 +43,23 @@ struct IllnessReducer: Reducer {
     }
     
     func insertIllness(_ illness: Illness) -> Void {
-        let id = service.USER_SERVICE.users[0].familyActive!
-        let path = "illnesses/\(id)/\(illness.id!)"
+        let id = store.state.UserState.user?.familyActive!
+        let path = "illnesses/\(id!)/\(illness.id!)"
         service.ILLNESS_SERVICE.insert(path, value: illness.toDictionary(), callback: {ref in
             if ref is FIRDatabaseReference {
-                store.state.IllnessState.illnesses[id]?.append(illness)
+                store.state.IllnessState.illnesses[id!]?.append(illness)
                 store.state.IllnessState.status = .finished
             }
         })
     }
     
     func updateIllness(_ illness: Illness) -> Void {
-        let id = service.USER_SERVICE.users[0].familyActive!
-        let path = "illnesses/\(id)/\(illness.id!)"
+        let id = store.state.UserState.user?.familyActive!
+        let path = "illnesses/\(id!)/\(illness.id!)"
         service.ILLNESS_SERVICE.update(path, value: illness.toDictionary() as! [AnyHashable:Any]) { ref in
             if ref is FIRDatabaseReference {
-                if let index = store.state.IllnessState.illnesses[id]?.index(where: {$0.id == illness.id}){
-                    store.state.IllnessState.illnesses[id]?[index] = illness
+                if let index = store.state.IllnessState.illnesses[id!]?.index(where: {$0.id == illness.id}){
+                    store.state.IllnessState.illnesses[id!]?[index] = illness
                     store.state.IllnessState.status = .finished
                 }
             }
@@ -67,11 +67,11 @@ struct IllnessReducer: Reducer {
     }
     
     func deleteIllness(_ illness: Illness) -> Void {
-        let id = service.USER_SERVICE.users[0].familyActive!
-        let path = "illnesses/\(id)/\(illness.id!)"
+        let id = store.state.UserState.user?.familyActive!
+        let path = "illnesses/\(id!)/\(illness.id!)"
         service.ILLNESS_SERVICE.delete(path) { (Any) in
-            if let index = store.state.IllnessState.illnesses[id]?.index(where: {$0.id == illness.id}){
-                store.state.IllnessState.illnesses[id]?.remove(at: index)
+            if let index = store.state.IllnessState.illnesses[id!]?.index(where: {$0.id! == illness.id!}){
+                store.state.IllnessState.illnesses[id!]?.remove(at: index)
                 store.state.IllnessState.status = .finished
             }
         }

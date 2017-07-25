@@ -18,3 +18,5 @@ Pods/
 .idea/
 
 Pods/
+*.xcscheme
+*.xcscheme

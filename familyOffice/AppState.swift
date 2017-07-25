@@ -26,5 +26,6 @@ enum Result<T> {
     case Failed(T)
     case finished
     case Finished(T)
+    case noFamilies
     case none
 }

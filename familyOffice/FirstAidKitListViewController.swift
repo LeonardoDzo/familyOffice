@@ -12,7 +12,7 @@ import Firebase
 
 class FirstAidKitListViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
     var medicines:[Medicine] = []
-    let familyID = service.USER_SERVICE.users[0].familyActive!
+    let familyID = store.state.UserState.user?.familyActive!
     let settingLauncher = SettingLauncher()
     let searchController = UISearchController(searchResultsController: nil)
 
@@ -106,7 +106,7 @@ class FirstAidKitListViewController: UIViewController,UITableViewDelegate, UITab
 extension FirstAidKitListViewController: StoreSubscriber{
     
     override func viewWillAppear(_ animated: Bool) {
-        service.MEDICINE_SERVICE.initObservers(ref: "medicines/\(familyID)", actions: [.childAdded, .childChanged, .childRemoved])
+        service.MEDICINE_SERVICE.initObservers(ref: "medicines/\(familyID!)", actions: [.childAdded, .childChanged, .childRemoved])
         
         store.subscribe(self){
             state in state.MedicineState
@@ -114,7 +114,7 @@ extension FirstAidKitListViewController: StoreSubscriber{
     }
     
     func newState(state: MedicineState){
-        medicines = state.medicines[familyID] ?? []
+        medicines = state.medicines[familyID!] ?? []
         print("---MEDICINAS---")
         print(medicines)
         print("---------------")
@@ -135,7 +135,7 @@ extension FirstAidKitListViewController: UISearchResultsUpdating {
         if let searchText = searchController.searchBar.text, !searchText.isEmpty{
             self.medicines = self.medicines.filter({$0.name.lowercased().contains(searchText.lowercased())})
         }else {
-            self.medicines = store.state.MedicineState.medicines[familyID] ?? []
+            self.medicines = store.state.MedicineState.medicines[familyID!] ?? []
         }
         tableView.reloadData()
     }

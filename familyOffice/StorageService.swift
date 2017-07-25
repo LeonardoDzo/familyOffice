@@ -8,8 +8,9 @@
 
 import UIKit
 import Firebase
-
+import Gzip
 class StorageService  {
+    
     public var storage : NSMutableDictionary = [:]
     
     private init() {

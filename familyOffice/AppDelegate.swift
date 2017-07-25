@@ -24,7 +24,9 @@ let store = RecordingMainStore<AppState>(
                    todolistActionTypeMap,
                    galleryActionTypeMap,
                    medicineActionTypeMap,
-                   illnessActionTypeMap],
+                   illnessActionTypeMap,
+                   familyActionTypeMap],
+
         recording: "recording.json")
 
 @UIApplicationMain
@@ -45,8 +47,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
             application.registerForRemoteNotifications()
             connectToFcm()
         }
-        
-
         
         FIRApp.configure()
         GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
@@ -98,7 +98,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
         let authentication = user.authentication
         let credential = FIRGoogleAuthProvider.credential(withIDToken: (authentication?.idToken)!,
                                                           accessToken: (authentication?.accessToken)!)
-        service.AUTH_SERVICE.login(credential: credential)
+        store.dispatch(LoginAction(with: credential))
     }
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
         
@@ -164,27 +164,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
 
 }
 
-class RootRoutable: Routable {
+protocol Routable {
     
-    var routable: Routable
+    func changeRouteSegment(from: RouteElementIdentifier,
+                            to: RouteElementIdentifier,
+                            completionHandler: RoutingCompletionHandler) -> Routable
     
-    init(routable: Routable) {
-        self.routable = routable
-    }
+    func pushRouteSegment(routeElementIdentifier: RouteElementIdentifier,
+                          completionHandler: RoutingCompletionHandler) -> Routable
     
-    public func pushRouteSegment(
-        _ routeElementIdentifier: RouteElementIdentifier,
-        animated: Bool,
-        completionHandler: @escaping RoutingCompletionHandler
-        ) -> Routable {
-        completionHandler()
-        return self.routable
-    }
+    func popRouteSegment(routeElementIdentifier: RouteElementIdentifier,
+                         completionHandler: RoutingCompletionHandler)
     
-    public func popRouteSegment(
-        _ routeElementIdentifier: RouteElementIdentifier,
-        animated: Bool,
-        completionHandler: @escaping RoutingCompletionHandler) {
-        completionHandler()
-    }   
 }

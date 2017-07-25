@@ -60,10 +60,10 @@ struct ImageAlbum {
 }
 protocol ImageAlbumBindable: AnyObject {
     var imageAlbum: ImageAlbum? {get set}
-    var imageBackground: UIKit.UIImageView! {get}
+    var imageBackground: CustomUIImageView! {get}
 }
 extension ImageAlbumBindable{
-    var imageBackground: UIKit.UIImageView!{
+    var imageBackground: CustomUIImageView!{
         return nil
     }
     //Bind Ninja

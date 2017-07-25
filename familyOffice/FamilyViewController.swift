@@ -8,158 +8,32 @@
 
 import UIKit
 import FirebaseAuth
-
-class FamilyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate  {
-    let center = NotificationCenter.default
-    var members : [User] = []
-    var family : Family?
-    var index: Int? = nil
-    var localeChangeObserver : [NSObjectProtocol] = []
-    @IBOutlet weak var imageFamily: UIImageView!
+import ReSwift
+class FamilyViewController: UIViewController, UIGestureRecognizerDelegate, FamilyBindable  {
+    var family: Family!
+    
+    @IBOutlet weak var Image: CustomUIImageView!
     @IBOutlet weak var membersTable: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if !(self.family?.photoURL?.isEmpty)! {
-            self.imageFamily.loadImage(urlString: (self.family?.photoURL!)!)
-        }
-        
         let lpgr = UILongPressGestureRecognizer(target: self, action:#selector(handleLongPress(gestureReconizer:)))
-        membersTable.addGestureRecognizer(lpgr)
+        membersTable.addGestureRecognizer(lpgr )
         membersTable.contentInset = UIEdgeInsetsMake(20, 0, 0, 0)
         
         let addButton : UIBarButtonItem = UIBarButtonItem(title: "Agregar", style: UIBarButtonItemStyle.plain, target: self, action:#selector(addMemberScreen(sender:)))
         self.navigationItem.rightBarButtonItem = addButton
-        self.navigationItem.title = family?.name
+        
         let nav = self.navigationController?.navigationBar
         nav?.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.3137395978, green: 0.1694342792, blue: 0.5204931498, alpha: 1)]
         // Do any additional setup after loading the view.
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        members = []
-        self.membersTable.reloadData()
-        verifyMembersOffLine()
-        
-        service.REF_SERVICE.valueSingleton(ref: "families/\((family?.id)!)")
-        service.REF_SERVICE.chilRemoved(ref: "families/\((family?.id)!)/members")
-        service.REF_SERVICE.chilAdded(ref: "families/\((family?.id)!)/members")
-        
-        
-        localeChangeObserver.append( center.addObserver(forName: notCenter.USERS_NOTIFICATION, object: nil, queue: nil){ obj in
-            if let user : User = obj.object as? User {
-                self.addMember(id: user.id)
-            }
-        })
-         localeChangeObserver.append(center.addObserver(forName: notCenter.USERUPDATED_NOTIFICATION, object: nil, queue: nil){ obj in
-            if let id : String = obj.object as? String {
-                if let index = self.members.index(where: {$0.id == id }) {
-                    self.members[index] = service.USER_SERVICE.users.first(where: {$0.id == id})!
-                    self.membersTable.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
-                }
-            }
-        })
-        localeChangeObserver.append(center.addObserver(forName: notCenter.FAMILYREMOVED_NOTIFICATION, object: nil, queue: nil){index in
-            _ = self.navigationController?.popViewController(animated: true)
-        })
-        
-         localeChangeObserver.append(center.addObserver(forName: notCenter.SUCCESS_NOTIFICATION, object: nil, queue: nil){ obj in
-            if let user : [String:String] = obj.object as? [String:String] {
-                if user.first?.value == "removed"{
-                    
-                    self.removeMembers(key: (user.first?.key)!)
-                }else if user.first?.value == "added" {
-                    self.addMember(id: (user.first?.key)!)
-                }
-            }
-        })
-         localeChangeObserver.append(center.addObserver(forName: notCenter.FAMILYUPDATED_NOTIFICATION, object: nil, queue: nil){ notification in
-            if let index : Int = notification.object as? Int {
-                self.family = service.FAMILY_SERVICE.families[index]
-                self.imageFamily.loadImage(urlString: (self.family?.photoURL)!)
-                self.navigationItem.title = self.family?.name
-            
-            }
-        })
-    }
-
-    func removeMembers(key: String) -> Void {
-        if let index = self.members.index(where: {$0.id == key}) {
-            self.members.remove(at: index)
-            service.REF_SERVICE.remove(ref: "users/\(key)")
-            self.membersTable.deleteRows(at: [IndexPath(row: index, section: 0)], with: UITableViewRowAnimation.top)
-        }
-    }
-    func verifyMembersOffLine() -> Void {
-        let family = (service.FAMILY_SERVICE.families.first(where: {$0.id == self.family?.id})?.members)!
-        for item in family{
-            addMember(id: item )
-        }
-    }
     
-    func addMember(id: String) -> Void {
-        if let user = service.USER_SERVICE.users.filter({$0.id == id}).first {
-           if !self.members.contains(where: {$0.id == user.id}){
-                self.members.append(user)
-                service.REF_SERVICE.childChanged(ref: "users/\(id)")
-                self.membersTable.insertRows(at: [NSIndexPath(row: self.members.count-1, section: 0) as IndexPath], with: .fade)
-            }
-            //self.addMembers(user: user)
-        }else{
-            service.REF_SERVICE.valueSingleton(ref: "users/\(id)")
-        }
-    }
-    
-    func addMemberScreen(sender: UIBarButtonItem) -> Void {
-        self.performSegue(withIdentifier: "addMembersScreen", sender: nil)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        for item in self.members {
-            service.REF_SERVICE.remove(ref: "users/\((item.id)!)")
-        }
-        members = []
-        service.REF_SERVICE.remove(ref: "families/\((family?.id)!)/members")
-        for observer in localeChangeObserver {
-            center.removeObserver(observer)
-        }
-        self.localeChangeObserver.removeAll()
-    }
     
     override func didReceiveMemoryWarning(){
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return members.count
-    }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! FamilyMemberTableViewCell
-        let member = self.members[indexPath.row]
-        cell.name.text = member.name
-        cell.memberImage.image = #imageLiteral(resourceName: "profile_default")
-        if !member.photoURL.isEmpty {
-            cell.memberImage.loadImage(urlString: member.photoURL)
-        }
-        
-        cell.phone.text = member.phone
-        
-        if(service.FAMILY_SERVICE.families.filter({$0.id == family?.id}).first?.admin == member.id){
-            cell.adminlabel.isHidden = false
-        }else{
-            cell.adminlabel.isHidden = true
-        }
-        
-        return cell
     }
     
     //Long press
@@ -167,38 +41,34 @@ class FamilyViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let point: CGPoint = gestureReconizer.location(in: self.membersTable)
         let indexPath = self.membersTable?.indexPathForRow(at: point)
         
-        if (indexPath != nil && (indexPath?.row)! < members.count) {
+        if (indexPath != nil && (indexPath?.row)! < family.members.count) {
             switch gestureReconizer.state {
             case .began:
                 
-                let user = members[(indexPath?.row)!]
-                if(user.id == FIRAuth.auth()?.currentUser?.uid){
-                    break
-                }
-                // create the alert
-                let alert = UIAlertController(title: user.name, message: "¿Qué deseas hacer?", preferredStyle: UIAlertControllerStyle.alert)
-                
-                // add the actions (buttons)
-                alert.addAction(UIAlertAction(title: "Ver Perfil", style: UIAlertActionStyle.default, handler: {action in
-                    
-                    if let index = service.USER_SERVICE.users.index(where: {$0.id == user.id}) {
-                        self.index = index
-                        self.performSegue(withIdentifier: "ProfileSegue", sender: nil)
-
+                let uid = family.members[(indexPath?.row)!]
+                if let user = service.USER_SVC.getUser(byId: uid) {
+                    if(user.id == FIRAuth.auth()?.currentUser?.uid){
+                        break
                     }
-                    
-                }))
-                alert.addAction(UIAlertAction(title: "Cancelar", style: UIAlertActionStyle.cancel, handler: nil))
-                if(family?.admin == FIRAuth.auth()?.currentUser?.uid){
-                    alert.addAction(UIAlertAction(title: "Remover de la familia", style: UIAlertActionStyle.destructive, handler:  { action in
-                        DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
-                            //ELiminar usuario de la familia
-                            service.FAMILY_SERVICE.remove(snapshot: user.id, id: (self.family?.id!)!)
-                        }
+                    // create the alert
+                    let alert = UIAlertController(title: user.name, message: "¿Qué deseas hacer?", preferredStyle: UIAlertControllerStyle.alert)
+                    // add the actions (buttons)
+                    alert.addAction(UIAlertAction(title: "Ver Perfil", style: UIAlertActionStyle.default, handler: {action in
+                        self.performSegue(withIdentifier: "ProfileSegue", sender: user)
                     }))
+                    alert.addAction(UIAlertAction(title: "Cancelar", style: UIAlertActionStyle.cancel, handler: nil))
+                    if(family?.admin == FIRAuth.auth()?.currentUser?.uid){
+                        alert.addAction(UIAlertAction(title: "Remover de la familia", style: UIAlertActionStyle.destructive, handler:  { action in
+                            DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
+                                //ELiminar usuario de la familia
+                                service.FAMILY_SERVICE.remove(snapshot: user.id, id: (self.family?.id!)!)
+                            }
+                        }))
+                    }
+                    // show the alert
+                    self.present(alert, animated: true, completion: nil)
+
                 }
-                // show the alert
-                self.present(alert, animated: true, completion: nil)
                 break
             case .ended:
                 print("termine")
@@ -209,22 +79,76 @@ class FamilyViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     @IBAction func handleExitFamily(_ sender: UIButton) {
-        service.FAMILY_SERVICE.exitFamily(family: family!, uid: (FIRAuth.auth()?.currentUser?.uid)!)
-        service.UTILITY_SERVICE.gotoView(view: "TabBarControllerView", context: self)
-       
+        //Exit family
     }
  
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier == "addMembersScreen"){
-            let viewController = segue.destination as! AddMembersTableViewController
-            viewController.family = family!
+        if segue.identifier=="editSegue"{
+            let vc = segue.destination as! RegisterFamilyViewController
+            if sender is Family {
+                vc.bind(fam: sender as! Family)
+            }
         }else if segue.identifier == "ProfileSegue" {
             let viewController = segue.destination as! ProfileUserViewController
-            viewController.index  = index!
+            if sender is User {
+                viewController.bind(userModel: sender as! User)
+            }
         }
     }
     
+}
+extension FamilyViewController : UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return family.members.count
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! FamilyMemberTableViewCell
+        let uid = family.members[indexPath.row]
+        if let member = service.USER_SVC.getUser(byId: uid) {
+            cell.bind(userModel: member)
+            cell.adminlabel.isHidden = family.admin == member.familyActive ?
+                true : false
+        }else{
+            let user = User()
+            cell.bind(userModel: user)
+        }
+        
+        return cell
+    }
+    
+
+}
+extension FamilyViewController : StoreSubscriber {
+    typealias StoreSubscriberStateType = AppState
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.navigationItem.title = family?.name
+        self.bind()
+        store.subscribe(self) {
+            state in
+            state
+        }
+        let ref = "families/\(family.id!)"
+        service.FAMILY_SVC.valueSingleton(ref: ref)
+    }
+    
+    func addMemberScreen(sender: UIBarButtonItem) -> Void {
+        self.performSegue(withIdentifier: "editSegue", sender: family)
+    }
+    func newState(state: AppState) {
+        family = state.FamilyState.families.family(fid: family.id)
+        self.membersTable.reloadData()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        service.FAMILY_SVC.removeHandles()
+    }
 }
