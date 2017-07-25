@@ -24,6 +24,7 @@ class NewMedicineViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         
         if isEdit{
             medNameTextField.text = medicine.name

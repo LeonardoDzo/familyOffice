@@ -24,6 +24,7 @@ class NewIllnessViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         
         if isEdit{
             illName.text = illness.name
