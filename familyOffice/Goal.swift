@@ -62,27 +62,27 @@ struct Goal {
         let snapshotValue = snapshot.value as! NSDictionary
         self.id = snapshot.key
         
-        self.title = service.UTILITY_SERVICE.exist(field: Goal.ktitle, dictionary: snapshotValue)
+        self.title = snapshotValue.exist(field: Goal.ktitle)
         
-        self.startDate = service.UTILITY_SERVICE.exist(field: Goal.kdateCreated, dictionary: snapshotValue)
+        self.startDate = snapshotValue.exist(field: Goal.kdateCreated)
         
-        self.endDate = service.UTILITY_SERVICE.exist(field: Goal.kendDate, dictionary: snapshotValue )
+        self.endDate = snapshotValue.exist(field: Goal.kendDate)
         
-        self.type = GoalType(rawValue: service.UTILITY_SERVICE.exist(field: Goal.ktype, dictionary: snapshotValue )).map { $0.rawValue }
+        self.type = snapshotValue.exist(field: Goal.ktype)
         
-        self.note = service.UTILITY_SERVICE.exist(field: Goal.knote, dictionary: snapshotValue)
+        self.note = snapshotValue.exist(field: Goal.knote)
         
-        self.creator = service.UTILITY_SERVICE.exist(field: Goal.kcreator, dictionary: snapshotValue)
+        self.creator = snapshotValue.exist(field: Goal.kcreator)
         
-        self.photo = service.UTILITY_SERVICE.exist(field: Goal.kphoto, dictionary: snapshotValue)
+        self.photo = snapshotValue.exist(field: Goal.kphoto)
         
-        self.done = service.UTILITY_SERVICE.exist(field: Goal.kdone, dictionary: snapshotValue)
+        self.done = snapshotValue.exist(field: Goal.kdone)
         
-        self.members = service.UTILITY_SERVICE.exist(field: Goal.kMembers, dictionary: snapshotValue)
+        self.members = snapshotValue.exist(strInt: Goal.kMembers)
         
-        self.category = service.UTILITY_SERVICE.exist(field: Goal.kcategory, dictionary: snapshotValue)
+        self.category = snapshotValue.exist(field: Goal.kcategory)
         
-        self.repeatGoalModel =  repeatGoal(service.UTILITY_SERVICE.exist(field: Goal.kRepeat, dictionary: snapshotValue))
+        self.repeatGoalModel =  repeatGoal(snapshotValue.exist(dic: Goal.kRepeat))
         
         if let snap = snapshotValue[Goal.kFollow] as? NSDictionary {
             for date in snap.allKeys as! [String] {

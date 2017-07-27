@@ -146,6 +146,8 @@ extension StartViewController : StoreSubscriber {
     
     func newState(state: UserState) {
         self.view.hideToastActivity()
+        service.UTILITY_SERVICE.enabledView()
+
         switch state.status {
         case .failed:
             alert()

@@ -23,6 +23,12 @@ struct FamilyReducer: Reducer {
                 state.status = .loading
             }
             break
+        case let action as UpdateFamilyAction:
+            if action.family != nil {
+                service.FAMILY_SVC.update(family: action.family, with: action.famImage)
+                state.status = .loading
+            }
+            break
         case let action as DeleteFamilyAction:
             if action.fid != nil {
                 service.FAMILY_SVC.delete(family: action.fid)

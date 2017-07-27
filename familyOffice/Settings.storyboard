@@ -162,11 +162,11 @@
                                         <rect key="frame" x="0.0" y="88" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xEQ-Bo-le7" id="aKn-mM-GQN">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Activar Notificaciones" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y5E-54-BW0">
-                                                    <rect key="frame" x="18" y="8" width="186.5" height="15.5"/>
+                                                    <rect key="frame" x="18" y="8" width="165.5" height="20"/>
                                                     <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="17"/>
                                                     <color key="textColor" red="0.69411764705882351" green="0.69411764705882351" blue="0.69411764705882351" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
@@ -189,7 +189,7 @@
                                         <rect key="frame" x="0.0" y="132" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="S8b-AT-GwE" id="J2f-Pf-i82">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Cerrar Sesión" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qnK-Md-o77">
@@ -252,7 +252,7 @@
                                                 <rect key="frame" x="0.0" y="1" width="325" height="25"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="24S-KY-IY0" id="9Tc-bD-Gc1">
-                                                    <rect key="frame" x="0.0" y="0.0" width="325" height="24.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="325" height="25"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="62r-0E-K7S" customClass="textFieldStyleController" customModule="familyOffice" customModuleProvider="target">
@@ -290,7 +290,7 @@
                                                 <rect key="frame" x="0.0" y="26" width="325" height="165"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tRA-4v-DOt" id="eie-ZP-EI8">
-                                                    <rect key="frame" x="0.0" y="0.0" width="325" height="164.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="325" height="165"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="QHS-k7-SVq">
@@ -364,13 +364,13 @@
                                 <rect key="frame" x="16" y="20" width="343" height="627"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Contraseña actual" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YWY-6m-XQe" customClass="textFieldStyleController" customModule="familyOffice" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="109.5" width="323" height="35"/>
+                                        <rect key="frame" x="10" y="69" width="323" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="Hbc-cp-X5X"/>
                                         </constraints>
                                         <color key="textColor" red="0.52156862745098043" green="0.52156862745098043" blue="0.52156862745098043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="titleTextColour">
                                                 <color key="value" red="0.52156862749999999" green="0.52156862749999999" blue="0.52156862749999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -380,14 +380,38 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Contraseña nueva" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qMU-hI-DVI" customClass="textFieldStyleController" customModule="familyOffice" customModuleProvider="target">
+                                        <rect key="frame" x="10" y="112" width="323" height="35"/>
+                                        <color key="tintColor" red="0.52156862745098043" green="0.52156862745098043" blue="0.52156862745098043" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="mpG-Pt-C6B"/>
+                                        </constraints>
+                                        <color key="textColor" red="0.52156862745098043" green="0.52156862745098043" blue="0.52156862745098043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="17"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="titleTextColor">
+                                                <color key="value" red="0.52156862745098043" green="0.52156862745098043" blue="0.52156862745098043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="titleActiveTextColour">
+                                                <color key="value" red="0.52156862745098043" green="0.52156862745098043" blue="0.52156862745098043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cambiar contraseña" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xBu-nL-GBf">
+                                        <rect key="frame" x="0.0" y="20.5" width="343" height="14.5"/>
+                                        <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="16"/>
+                                        <color key="textColor" red="0.29411764709999999" green="0.1764705882" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirmar contraseña" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qIT-bn-N4J" customClass="textFieldStyleController" customModule="familyOffice" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="164.5" width="323" height="35"/>
+                                        <rect key="frame" x="10" y="155" width="323" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="PUo-DD-mXL"/>
                                         </constraints>
                                         <color key="textColor" red="0.52156862745098043" green="0.52156862745098043" blue="0.52156862745098043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
+                                        <textInputTraits key="textInputTraits" keyboardAppearance="light" secureTextEntry="YES"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="titleActiveTextColour">
                                                 <color key="value" red="0.52156862745098043" green="0.52156862745098043" blue="0.52156862745098043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -400,45 +424,21 @@
                                             <action selector="savePassword:" destination="qD1-Rx-XDA" eventType="editingDidEnd" id="ERB-pv-rKk"/>
                                         </connections>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Contraseña nueva" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qMU-hI-DVI" customClass="textFieldStyleController" customModule="familyOffice" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="54.5" width="323" height="35"/>
-                                        <color key="tintColor" red="0.52156862745098043" green="0.52156862745098043" blue="0.52156862745098043" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="mpG-Pt-C6B"/>
-                                        </constraints>
-                                        <color key="textColor" red="0.52156862745098043" green="0.52156862745098043" blue="0.52156862745098043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="titleTextColor">
-                                                <color key="value" red="0.52156862745098043" green="0.52156862745098043" blue="0.52156862745098043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="titleActiveTextColour">
-                                                <color key="value" red="0.52156862745098043" green="0.52156862745098043" blue="0.52156862745098043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cambiar contraseña" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xBu-nL-GBf">
-                                        <rect key="frame" x="0.0" y="20" width="343" height="14.5"/>
-                                        <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="16"/>
-                                        <color key="textColor" red="0.29411764709999999" green="0.1764705882" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="qIT-bn-N4J" firstAttribute="leading" secondItem="JKe-t2-RmO" secondAttribute="leading" constant="10" id="6ji-27-tGl"/>
-                                    <constraint firstItem="xBu-nL-GBf" firstAttribute="top" secondItem="JKe-t2-RmO" secondAttribute="top" constant="20" id="HKD-bf-6QY"/>
-                                    <constraint firstItem="YWY-6m-XQe" firstAttribute="top" secondItem="qMU-hI-DVI" secondAttribute="bottom" constant="20" id="P42-ps-et2"/>
-                                    <constraint firstItem="qIT-bn-N4J" firstAttribute="top" secondItem="YWY-6m-XQe" secondAttribute="bottom" constant="20" id="Qwt-9G-uRL"/>
-                                    <constraint firstAttribute="trailing" secondItem="qMU-hI-DVI" secondAttribute="trailing" constant="10" id="UKu-6E-nOj"/>
-                                    <constraint firstItem="qMU-hI-DVI" firstAttribute="leading" secondItem="JKe-t2-RmO" secondAttribute="leading" constant="10" id="W04-XJ-8tk"/>
-                                    <constraint firstAttribute="trailing" secondItem="qIT-bn-N4J" secondAttribute="trailing" constant="10" id="cYC-V7-fr7"/>
-                                    <constraint firstAttribute="trailing" secondItem="xBu-nL-GBf" secondAttribute="trailing" id="cnM-ZE-TJ2"/>
-                                    <constraint firstItem="qMU-hI-DVI" firstAttribute="top" secondItem="xBu-nL-GBf" secondAttribute="bottom" constant="20" id="dsy-aa-CTF"/>
-                                    <constraint firstItem="xBu-nL-GBf" firstAttribute="leading" secondItem="JKe-t2-RmO" secondAttribute="leading" id="qnf-ya-dWq"/>
-                                    <constraint firstItem="YWY-6m-XQe" firstAttribute="leading" secondItem="JKe-t2-RmO" secondAttribute="leading" constant="10" id="uik-Li-hDS"/>
-                                    <constraint firstAttribute="trailing" secondItem="YWY-6m-XQe" secondAttribute="trailing" constant="10" id="vH8-6R-gyf"/>
+                                    <constraint firstItem="xBu-nL-GBf" firstAttribute="leading" secondItem="JKe-t2-RmO" secondAttribute="leading" id="6lY-3c-IHb"/>
+                                    <constraint firstItem="qMU-hI-DVI" firstAttribute="leading" secondItem="YWY-6m-XQe" secondAttribute="leading" id="CX5-bY-AJf"/>
+                                    <constraint firstItem="qMU-hI-DVI" firstAttribute="top" secondItem="JKe-t2-RmO" secondAttribute="top" constant="112" id="KcI-Cc-3eG"/>
+                                    <constraint firstItem="qMU-hI-DVI" firstAttribute="centerX" secondItem="JKe-t2-RmO" secondAttribute="centerX" id="N2N-ZI-xhz"/>
+                                    <constraint firstItem="qMU-hI-DVI" firstAttribute="top" secondItem="YWY-6m-XQe" secondAttribute="bottom" constant="8" symbolic="YES" id="PPF-aC-uGd"/>
+                                    <constraint firstItem="qMU-hI-DVI" firstAttribute="trailing" secondItem="qIT-bn-N4J" secondAttribute="trailing" id="Qms-V1-FZv"/>
+                                    <constraint firstItem="qIT-bn-N4J" firstAttribute="top" secondItem="qMU-hI-DVI" secondAttribute="bottom" constant="8" symbolic="YES" id="brY-02-n7z"/>
+                                    <constraint firstItem="qMU-hI-DVI" firstAttribute="centerX" secondItem="xBu-nL-GBf" secondAttribute="centerX" id="eMx-im-GN4"/>
+                                    <constraint firstItem="qMU-hI-DVI" firstAttribute="leading" secondItem="qIT-bn-N4J" secondAttribute="leading" id="goT-8H-Eyn"/>
+                                    <constraint firstItem="qMU-hI-DVI" firstAttribute="leading" secondItem="JKe-t2-RmO" secondAttribute="leading" constant="10" id="lH7-mB-xGY"/>
+                                    <constraint firstItem="YWY-6m-XQe" firstAttribute="top" secondItem="xBu-nL-GBf" secondAttribute="bottom" constant="34" id="y3t-uh-Bhm"/>
+                                    <constraint firstItem="qMU-hI-DVI" firstAttribute="trailing" secondItem="YWY-6m-XQe" secondAttribute="trailing" id="zWb-f2-L0D"/>
                                 </constraints>
                             </view>
                         </subviews>

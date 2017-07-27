@@ -112,9 +112,13 @@ extension HomeViewController : UICollectionViewDelegate, UICollectionViewDataSou
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellModule", for: indexPath) as! ModuleCollectionViewCell
         cell.buttonicon.setBackgroundImage(UIImage(named: icons[indexPath.item])!, for: .normal)
         cell.name.text = labels[indexPath.row]
-        cell.buttonicon.badgeString = "3"
-        cell.buttonicon.badgeEdgeInsets = UIEdgeInsetsMake(10, 10, 0, 0)
-        cell.buttonicon.badgeBackgroundColor = UIColor.red
+        let value = store.state.notifications.filter({$0.type == Notification_Type(rawValue: indexPath.item)}).count
+        if value > 0 {
+            cell.buttonicon.badgeString = String(value)
+            cell.buttonicon.badgeEdgeInsets = UIEdgeInsetsMake(10, 10, 0, 0)
+            cell.buttonicon.badgeBackgroundColor = UIColor.red
+        }
+        
         cell.buttonicon.tag = indexPath.item
         return cell
     }

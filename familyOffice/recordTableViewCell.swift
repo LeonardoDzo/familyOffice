@@ -8,32 +8,21 @@
 
 import UIKit
 
-class recordTableViewCell: UITableViewCell {
-
-    @IBOutlet weak var iconImage: UIImageView!
-    @IBOutlet weak var activity: UILabel!
-    @IBOutlet weak var date: UILabel!
-    @IBOutlet weak var photo: UIImageView!
+class recordTableViewCell: UITableViewCell, NotificationBindible {
+    var notification: NotificationModel!
+    
+    @IBOutlet weak var titleLbl: UILabel!
+    @IBOutlet weak var dateLbl: UILabel!
+    @IBOutlet weak var img: CustomUIImageView!
+    @IBOutlet weak var typeImg: CustomUIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        self.photo.layer.cornerRadius = self.photo.frame.size.width/2
-        self.photo.clipsToBounds = true
-        self.iconImage.layer.cornerRadius = self.iconImage.frame.size.width/2
-        self.iconImage.clipsToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
-    }
-    
-    func config(title: String, date: String) -> Void {
-      
-        activity.text = title
-        self.date.text = date
-       
     }
 
 }

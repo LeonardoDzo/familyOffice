@@ -19,7 +19,8 @@ struct AppReducer: Reducer {
             UserState: UserReducer().handleAction(action: action, state: state?.UserState),
             GalleryState: GalleryReducer().handleAction(action: action, state: state?.GalleryState),
             ToDoListState: ToDoListReducer().handleAction(action: action, state: state?.ToDoListState),
-            ContactState: ContactReducer().handleAction(action: action, state: state?.ContactState)
+            ContactState: ContactReducer().handleAction(action: action, state: state?.ContactState),
+            notifications: state?.notifications ?? []
         )
     }
     

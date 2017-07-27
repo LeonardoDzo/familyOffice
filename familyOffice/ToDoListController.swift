@@ -6,7 +6,6 @@
 //  Copyright © 2017 Leonardo Durazo. All rights reserved.
 //
 
-
 import UIKit
 import ReSwift
 import Firebase

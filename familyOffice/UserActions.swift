@@ -11,7 +11,8 @@ import ReSwift
 import ReSwiftRecorder
 import FirebaseAuth
 let userActionTypeMap: TypeMap = [GetUserAction.type: GetUserAction.self,
-                                  LoginAction.type: LoginAction.self]
+                                  LoginAction.type: LoginAction.self,
+                                  ChangePassUserAction.type: ChangePassUserAction.self]
 
 struct GetUserAction: StandardActionConvertible {
     static let type = "USER_ACTION_GET"
@@ -41,6 +42,36 @@ struct CreateUserAction: StandardActionConvertible {
     
     func toStandardAction() -> StandardAction {
         return StandardAction(type: InsertGoalAction.type, payload: [:], isTypedAction: true)
+    }
+}
+struct UpdateUserAction: StandardActionConvertible {
+    static let type = "USER_ACTION_UPDATE"
+    var img: UIImage?
+    var user: User!
+    init(user: User, img: UIImage? = nil) {
+        self.user = user
+        self.img = img
+    }
+    init(_ standardAction: StandardAction) {
+    }
+    
+    func toStandardAction() -> StandardAction {
+        return StandardAction(type: InsertGoalAction.type, payload: [:], isTypedAction: true)
+    }
+}
+struct ChangePassUserAction: StandardActionConvertible {
+    static let type = "USER_ACTION_PASS"
+    var pass: String!
+    var oldPass: String!
+    init(pass: String, oldPass: String) {
+        self.pass = pass
+        self.oldPass = oldPass
+    }
+    init(_ standardAction: StandardAction) {
+    }
+    
+    func toStandardAction() -> StandardAction {
+        return StandardAction(type: ChangePassUserAction.type, payload: [:], isTypedAction: true)
     }
 }
 

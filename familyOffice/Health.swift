@@ -11,10 +11,13 @@ import Firebase
 
 struct Health {
     
-    var elements: [Element]
+    var elements = [Element]()
     
     init(array: NSArray){
         elements = array.map({ Element(dic: $0 as! NSDictionary) })
+    }
+    
+    init() {
     }
     
     init(elements: [Element]){
