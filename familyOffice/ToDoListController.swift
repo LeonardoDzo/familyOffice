@@ -18,7 +18,7 @@ class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, U
     @IBOutlet var tabBar: UITabBar!
     
     var items : [ToDoList.ToDoItem] = []
-    var userId = service.USER_SERVICE.users[0].id!
+    var userId = store.state.UserState.user?.id
     let searchController = UISearchController(searchResultsController: nil)
     
     
@@ -201,7 +201,7 @@ extension ToDoListController: StoreSubscriber{
     typealias StoreSubscriberStateType = ToDoListState
     
     override func viewWillAppear(_ animated: Bool) {
-        service.TODO_SERVICE.initObserves(ref: "todolist/\(userId)", actions: [.childAdded, .childChanged, .childRemoved])
+        service.TODO_SERVICE.initObserves(ref: "todolist/\((store.state.UserState.user?.id)!)", actions: [.childAdded, .childChanged, .childRemoved])
         
         store.subscribe(self){
             state in state.ToDoListState
@@ -211,7 +211,7 @@ extension ToDoListController: StoreSubscriber{
     
     
     func newState(state: ToDoListState) {
-        items = state.items[userId] ?? []
+        items = state.items[userId!] ?? []
         self.tableView.reloadData()
     }
     

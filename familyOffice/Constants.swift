@@ -44,6 +44,8 @@ struct Constants {
         static let FAMILY_SVC = FamilySvc.Instance()
         static let TODO_SERVICE = ToDoListService.Instance()
         static let CONTACT_SVC = ContactService.Instance()
+        static let MEDICINE_SERVICE = MedicineService.Instance()
+        static let ILLNESS_SERVICE = IllnessService.Instance()
 
     }
     

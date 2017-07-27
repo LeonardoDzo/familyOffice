@@ -455,7 +455,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button autoresizesSubviews="NO" opaque="NO" contentMode="scaleAspectFit" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Au8-WY-2gK" customClass="MIBadgeButton" customModule="MIBadgeButton_Swift">
-                                                    <rect key="frame" x="45" y="46" width="30" height="28"/>
+                                                    <rect key="frame" x="45" y="44" width="30" height="32"/>
                                                     <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="17"/>
                                                     <color key="tintColor" red="0.29411764709999999" green="0.1764705882" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <state key="normal">
@@ -581,6 +581,7 @@
                         <segue destination="pgj-Yi-X16" kind="show" identifier="gallerySegue" id="Lb5-eQ-s3P"/>
                         <segue destination="CZo-yQ-ole" kind="show" identifier="budgetSegue" id="3EG-pH-dkJ"/>
                         <segue destination="wf3-9U-7ef" kind="show" identifier="faqsSegue" id="BxG-U2-FA9"/>
+                        <segue destination="N9s-zB-AeD" kind="show" identifier="showFirstAidKit" id="why-Ok-ije"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gNJ-R1-TZ6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1167,6 +1168,14 @@
             </objects>
             <point key="canvasLocation" x="502" y="2227"/>
         </scene>
+        <!--FirstAidKit-->
+        <scene sceneID="0yq-N9-ZGV">
+            <objects>
+                <viewControllerPlaceholder storyboardName="FirstAidKit" id="N9s-zB-AeD" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d4K-mV-WT0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="347" y="2376"/>
+        </scene>
         <!--calendarView-->
         <scene sceneID="NTC-YU-Ym1">
             <objects>
@@ -1198,6 +1207,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fae-fk-cVy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-10" y="2227"/>
+
         </scene>
         <!--mainFaqs-->
         <scene sceneID="XZG-mk-DiZ">
