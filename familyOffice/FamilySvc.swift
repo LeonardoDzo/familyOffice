@@ -111,12 +111,7 @@ extension FamilySvc: RequestService {
                 if let metadata = response as? FIRStorageMetadata {
                     family.photoURL = metadata.downloadURL()?.absoluteString
                     family.imageProfilePath = metadata.path
-                    self.update(ref, value: family.toDictionary() as! [AnyHashable: Any], callback: { ref in
-                        if ref is FIRDatabaseReference {
-                            store.state.FamilyState.status = .finished
-                            store.state.FamilyState.status = .none
-                        }
-                    })
+                    store.dispatch(UpdateFamilyAction(family: family, img: nil))
                 }else{
                     store.state.FamilyState.status = .failed
                 }

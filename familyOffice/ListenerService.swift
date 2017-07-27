@@ -145,9 +145,7 @@ class RefHandle {
             }
             break
         case "notifications/\(reference[1])":
-            if action == "added" {
-                service.NOTIFICATION_SERVICE.add(notification: NotificationModel(snapshot: snapshot))
-            }
+           
             break
         case "activityLog/\(reference[1])":
             if action == "added" {

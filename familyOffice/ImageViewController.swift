@@ -8,9 +8,11 @@
 
 import UIKit
 import Firebase
+import ReSwift
 class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UIScrollViewDelegate {
     var imageView = UIImageView()
     var tempImage : UIImage! = nil
+    var user: User!
     @IBOutlet weak var scrollView: UIScrollView!
     
     override func viewDidLoad() {
@@ -25,7 +27,15 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     }
    
     override func viewWillAppear(_ animated: Bool) {
+        store.subscribe(self){
+            state in
+            state.UserState
+        }
+        user = store.state.UserState.user
        crop()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        store.unsubscribe(self)
     }
     func crop() -> Void {
         scrollView.zoomScale = 1
@@ -56,43 +66,23 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         
         UIGraphicsGetCurrentContext()?.translateBy(x: -offset.x, y: -offset.y)
         scrollView.layer.render(in: UIGraphicsGetCurrentContext()!)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
+        let _ = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         //Add validations
         if(imageView.image != nil){
-            self.view.makeToastActivity(.center)
             service.UTILITY_SERVICE.disabledView()
-            let imageName = NSUUID().uuidString
-            if let uploadData = UIImagePNGRepresentation(image!){
-                _ = Constants.FirStorage.STORAGEREF.child("users/\(service.USER_SERVICE.users[0].id!)").child("images/\(imageName).png").put(uploadData, metadata: nil) { metadata, error in
-                    if (error != nil) {
-                        // Uh-oh, an error occurred!
-                        print(error.debugDescription)
-                    } else {
-                        // Metadata contains file metadata such as size, content-type, and download URL.
-                        if let downloadURL = metadata?.downloadURL()?.absoluteURL {
-                            StorageService.Instance().save(url: downloadURL.absoluteString, data: uploadData)
-                            service.USER_SERVICE.users[0].photoURL = downloadURL.absoluteString
-                            Constants.FirDatabase.REF.child( "users/\(service.USER_SERVICE.users[0].id!)").updateChildValues(["photoUrl": downloadURL.absoluteString])
-                            self.imageView.image = nil
-                            service.UTILITY_SERVICE.enabledView()
-                            _ = self.navigationController?.popViewController(animated: true)
-                        }
-                        
-                    }
-                }
-            }
-            
-            //service.UTILITY_SERVICE.loading(view: self.view)
-            
+            store.dispatch(UpdateUserAction(user: user, img: imageView.image))
         }else{
-            let alert = UIAlertController(title: "Error", message: "Agregue una imagen y un nombre", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alert.addAction(okAction)
-            self.present(alert, animated: true, completion: nil)
+            alert()
         }
 
         
+    }
+    func alert() -> Void {
+        let alert = UIAlertController(title: "Error", message: "Agregue una imagen y un nombre", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
     }
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
         centerScrollViewContents()
@@ -120,18 +110,26 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         imageView.frame = contentsFrame
     }
 
+
+}
+extension ImageViewController : StoreSubscriber {
+    typealias StoreSubscriberStateType = UserState
     
-   
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func newState(state: UserState) {
+        self.view.hideToastActivity()
+        switch state.status {
+        case .loading:
+            self.view.makeToastActivity(.center)
+            break
+        case .finished:
+            service.UTILITY_SERVICE.enabledView()
+            self.navigationController?.popViewController(animated: true)
+            break
+        case .failed:
+            alert()
+            break
+        default:
+            break
+        }
     }
-    */
-
 }

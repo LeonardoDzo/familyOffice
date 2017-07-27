@@ -16,7 +16,11 @@ struct AppState: StateType{
     var GalleryState: GalleryState
     var ToDoListState: ToDoListState
     var ContactState: ContactState
+    var MedicineState: MedicineState
+    var IllnessState: IllnessState
 
+    
+    var notifications = [NotificationModel]()
 }
 enum Result<T> {
     case loading

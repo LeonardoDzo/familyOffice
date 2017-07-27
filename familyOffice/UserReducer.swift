@@ -38,6 +38,18 @@ struct UserReducer: Reducer {
                 state.status = .loading
             }
             break
+        case let action as UpdateUserAction:
+            if action.user != nil {
+                service.USER_SVC.update(user: action.user, image: action.img)
+                state.status = .loading
+            }
+            break
+        case let action as ChangePassUserAction:
+            if action.pass != nil  {
+                service.USER_SVC.changePassword(newPass: action.pass, oldPass: action.oldPass)
+                state.status = .loading
+            }
+            break
         default:
             break
         }

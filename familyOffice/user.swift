@@ -79,10 +79,16 @@ struct User {
     
     init(snapshot: FIRDataSnapshot) {
         let snapshotValue = snapshot.value as! NSDictionary
-        self.name = service.UTILITY_SERVICE.exist(field: User.kUserNameKey, dictionary: snapshotValue)
         self.id = snapshot.key
-        self.photoURL = service.UTILITY_SERVICE.exist(field: User.kUserPhotoUrlKey, dictionary: snapshotValue)
         self.familyActive = service.UTILITY_SERVICE.exist(field: User.kUserFamilyActiveKey, dictionary: snapshotValue)
+        self.health = Health(snapshot: snapshot.childSnapshot(forPath: "health"))
+        self.fromDictionary(snapshotValue: snapshotValue) 
+        
+    }
+    
+    mutating func fromDictionary(snapshotValue: NSDictionary) -> Void {
+        self.name = service.UTILITY_SERVICE.exist(field: User.kUserNameKey, dictionary: snapshotValue)
+        self.photoURL = service.UTILITY_SERVICE.exist(field: User.kUserPhotoUrlKey, dictionary: snapshotValue)
         self.address = service.UTILITY_SERVICE.exist(field: User.kUserAddressKey, dictionary: snapshotValue )
         self.birthday = service.UTILITY_SERVICE.exist(field: User.kUserBirthdayKey, dictionary: snapshotValue )
         self.curp = service.UTILITY_SERVICE.exist(field: User.kUserCurpKey, dictionary: snapshotValue)
@@ -93,10 +99,7 @@ struct User {
         self.phone = service.UTILITY_SERVICE.exist(field: User.kUserPhoneKey, dictionary: snapshotValue)
         self.tokens = service.UTILITY_SERVICE.exist(field: User.kUserTokensFCMeKey, dictionary: snapshotValue)
         self.events = service.UTILITY_SERVICE.exist(field: User.kEventKey, dictionary: snapshotValue)
-        self.health = Health(snapshot: snapshot.childSnapshot(forPath: "health"))
-        
     }
-    
     func toDictionary() -> NSDictionary {
         return [
             User.kUserNameKey : self.name!,

@@ -177,14 +177,10 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
         var photoUrl:String = initialPhoto
         
         if tookPhoto {
-            photo?.image = resizeImage(image: (photo?.image!)!, scale: 50)
-            let uploadData = UIImagePNGRepresentation((photo?.image)!)
-            Constants.FirStorage.STORAGEREF.child("users/\(service.USER_SERVICE.users[0].id!)").child("images/\(photoName).png").put(uploadData!, metadata: nil){ metadata, error in
-                if error != nil{
-                    print(error.debugDescription)
-                }else{
-                    if let downloadUrl = metadata?.downloadURL()?.absoluteString{
-                        StorageService.Instance().save(url: downloadUrl, data: uploadData)
+            let path = "users/\((store.state.UserState.user?.id)!)/images/\(photoName).png"
+            service.STORAGE_SERVICE.insert(path, value: (photo?.image)!, callback: { metadata in
+                if let metadata: FIRStorageMetadata = metadata as? FIRStorageMetadata{
+                    if let downloadUrl = metadata.downloadURL()?.absoluteString{
                         photoUrl = downloadUrl
                         self.item.photoUrl = photoUrl
                         if self.isNewItem {
@@ -194,7 +190,7 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
                         }
                     }
                 }
-            }
+            })
         }else{
             if self.isNewItem {
                 store.dispatch(InsertToDoListItemAction(item:self.item))

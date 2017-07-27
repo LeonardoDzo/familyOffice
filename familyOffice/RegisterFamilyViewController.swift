@@ -29,7 +29,7 @@ class RegisterFamilyViewController: UIViewController, FamilyBindable, UIImagePic
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.hideKeyboardWhenTappedAround()
         scrollView.delegate = self
         Image = UIImageView()
         blurImageView.contentMode = UIViewContentMode.scaleAspectFill
@@ -149,10 +149,10 @@ class RegisterFamilyViewController: UIViewController, FamilyBindable, UIImagePic
     func edit() -> Void {
         if(!(nameTxt.text?.isEmpty)!){
             if change {
-                store.dispatch(InsertFamilyAction(family: family, img: Image.image!))
+                store.dispatch(UpdateFamilyAction(family: family, img: Image.image!))
                 return
             }
-            store.dispatch(InsertFamilyAction(family: family))
+            store.dispatch(UpdateFamilyAction(family: family))
         }else{
             error()
         }
@@ -253,17 +253,16 @@ extension RegisterFamilyViewController : StoreSubscriber {
         }
         
         self.bind()
-        if let family =  store.state.FamilyState.families.family(fid: self.family.id) {
-            
-            family.members.forEach({uid in
-                if let user = service.USER_SVC.getUser(byId: uid) {
-                    if !self.users.contains(user) {
-                        self.users.append(user)
-                    }
+        
+        family.members.forEach({uid in
+            if let user = service.USER_SVC.getUser(byId: uid) {
+                if !self.users.contains(user) {
+                    self.users.append(user)
                 }
-                
-            })
-        }
+            }
+            
+        })
+        
         self.setupNavBar()
         self.collectionView.reloadData()
         self.centerScrollViewContents()
@@ -273,6 +272,7 @@ extension RegisterFamilyViewController : StoreSubscriber {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         store.unsubscribe(self)
+        store.state.FamilyState.status = .none
     }
     
     func newState(state: FamilyState) {

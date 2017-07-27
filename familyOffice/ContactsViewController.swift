@@ -147,6 +147,7 @@ extension ContactsViewController: StoreSubscriber {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         store.unsubscribe(self)
+        store.state.UserState.status = .none
     }
     func newState(state: UserState) {
         self.view.hideToastActivity()

@@ -23,7 +23,10 @@ let store = RecordingMainStore<AppState>(
                    contactActionTypeMap,
                    todolistActionTypeMap,
                    galleryActionTypeMap,
+                   medicineActionTypeMap,
+                   illnessActionTypeMap,
                    familyActionTypeMap],
+
         recording: "recording.json")
 
 @UIApplicationMain

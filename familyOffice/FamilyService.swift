@@ -180,7 +180,6 @@ extension FamilyService {
             Constants.FirDatabase.REF_FAMILIES.child("\(fid)/members").updateChildValues([uid : true])
             Constants.FirDatabase.REF_USERS.child("\(uid)/families").updateChildValues([fid:true])
             service.NOTIFICATION_SERVICE.send(title: "Agregado a: ", message: self.families[index].name!, to: uid)
-            service.NOTIFICATION_SERVICE.saveNotification(id: uid, title: "Agregado a: \(self.families[index].name!)", photo: self.families[index].photoURL!)
             ToastService.getTopViewControllerAndShowToast(text: "Miembro \((service.USER_SERVICE.users.first(where: {$0.id == uid})?.name).unsafelyUnwrapped) Agregado")
             //NotificationCenter.default.post(name: SUCCESS_NOTIFICATION, object: [uid:"added"])
         }

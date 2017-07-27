@@ -119,7 +119,6 @@ class AddGoalViewController: UIViewController, GoalBindable, StoreSubscriber, UI
         goal.setId()
         if goal.repeatGoalModel.mode.isEmpty {
             goal.repeatGoalModel.days.removeAll()
-            goal.repeatGoalModel = nil
         }
         goal.title = title
         store.dispatch(InsertGoalAction(goal: goal))

@@ -24,7 +24,7 @@ class GoalHistoryByUserViewController: UIViewController, GoalBindable {
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -38,13 +38,13 @@ class GoalHistoryByUserViewController: UIViewController, GoalBindable {
         updatePieChartData()
         verifyFollow()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     func updatePieChartData()  {
         self.pieChart.clear()
         let sdata = values()
@@ -58,7 +58,11 @@ class GoalHistoryByUserViewController: UIViewController, GoalBindable {
             if value > 0 {
                 set.values.append(entry)
             }else{
-                colors.remove(at: i)
+                if i < colors.count {
+                    colors.remove(at: i)
+                }
+                
+                
             }
         }
         set.colors = colors
@@ -109,7 +113,7 @@ class GoalHistoryByUserViewController: UIViewController, GoalBindable {
         }
         return [count, incomplete, rest]
     }
-
+    
 }
 
 extension GoalHistoryByUserViewController : UITableViewDelegate, UITableViewDataSource {
@@ -172,6 +176,6 @@ extension GoalHistoryByUserViewController : UITableViewDelegate, UITableViewData
         store.dispatch(UpdateGoalAction(goal: goal))
         updatePieChartData()
         self.tableView.reloadData()
-
+        
     }
 }

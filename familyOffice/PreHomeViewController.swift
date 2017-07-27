@@ -93,7 +93,7 @@ class SelectCategoryViewController: UIViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "registerSegue" {
+        if segue.identifier == "registerFamilySegue" {
             let vc = segue.destination as! RegisterFamilyViewController
             let family = Family()
             vc.bind(fam: family)
