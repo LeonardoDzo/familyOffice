@@ -20,6 +20,8 @@ struct AppReducer: Reducer {
             GalleryState: GalleryReducer().handleAction(action: action, state: state?.GalleryState),
             ToDoListState: ToDoListReducer().handleAction(action: action, state: state?.ToDoListState),
             ContactState: ContactReducer().handleAction(action: action, state: state?.ContactState),
+            MedicineState: MedicineReducer().handleAction(action: action, state: state?.MedicineState),
+            IllnessState: IllnessReducer().handleAction(action: action, state: state?.IllnessState),
             notifications: state?.notifications ?? []
         )
     }
