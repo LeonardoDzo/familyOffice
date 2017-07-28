@@ -7,17 +7,16 @@
 //
 
 import UIKit
-
-class SetPersonalDataViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
-    var userDictionary : NSDictionary!
-    
+import ReSwift
+class SetPersonalDataViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, StoreSubscriber {
+ 
     var date : String!
-    var placeholders = ["Nombre", "Teléfono", "Dirección", "Fecha de Cumpleaños","", "RFC", "CURP", "NSS", "Tipo de sangre"]
-    var aboutkeys = ["name", "phone",  "address","birthday","", "rfc", "curp", "nss", "bloodType"]
+    var phKeys = [("Nombre","name"), ("Teléfono","phone"), ("Dirección","address"), ("Fecha de Cumpleaños","birthday"),("",""), ("RFC","rfc"), ("CURP","curp"), ("NSS","nss"), ("Tipo de sangre","bloodType")]
     var pickerVisible = false
-    
+    var user: User!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var mainView: UIView!
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,17 +27,20 @@ class SetPersonalDataViewController: UIViewController, UITableViewDelegate, UITa
         self.navigationItem.backBarButtonItem = homeButton
         self.navigationItem.rightBarButtonItem = doneButton
         tableView.tableFooterView = UIView()
-        self.mainView.layer.borderWidth = 1
-        self.mainView.layer.borderColor = UIColor( red: 204/255, green: 204/255, blue:204.0/255, alpha: 1.0 ).cgColor
-        self.mainView.layer.cornerRadius = 5
+        self.mainView.formatView()
         //loadInfo()
     }
     override func viewWillAppear(_ animated: Bool) {
-        userDictionary =  service.USER_SERVICE.users[0].toDictionary()
+        user = store.state.UserState.user
         
+        store.subscribe(self){
+            state in
+            state.UserState
+        }
     }
     override func viewWillDisappear(_ animated: Bool) {
-        userDictionary = [:]
+        store.unsubscribe(self)
+        store.state.UserState.status = .none
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -56,109 +58,111 @@ class SetPersonalDataViewController: UIViewController, UITableViewDelegate, UITa
     
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return aboutkeys.count
+        return phKeys.count
     }
     
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 3 {
             pickerVisible = !pickerVisible
-            tableView.reloadData()
         }else{
             pickerVisible = false
         }
+        tableView.reloadRows(at: [indexPath], with: .automatic)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
      func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+       
         if indexPath.row == 4 {
+            
             if pickerVisible == false {
+               
                 return 0.0
             }
+            
             return 165.0
         }
         return 44.0
     }
     
     @IBAction func dateChanged(_ sender: UIDatePicker) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = DateFormatter.Style.medium
-        date = dateFormatter.string(from: sender.date)
-        setDate()
+        print(sender.date)
     }
     
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if(indexPath.row == 4){
             let cell = tableView.dequeueReusableCell(withIdentifier: "datepickerCell", for: indexPath) as! DatePickerTableViewCell
+            if !pickerVisible {
+               // cell.datepicker.date = Date(string: user.birthday, formatter: .InternationalFormat)!
+            }
             return cell
         }
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! PersonalDataTableViewCell
         if(indexPath.row == 3){
             cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
             cell.myTextField.isEnabled = false
         }
-        cell.configure(text:  userDictionary.object(forKey: aboutkeys[indexPath.row]) as! String!, placeholder: placeholders[indexPath.row])
+        
+        let obj = phKeys[indexPath.row]
+        cell.configure(text: user?.toDictionary().object(forKey: obj.1) as! String!, placeholder: obj.0)
         return cell
     }
     
     //Private methods
     func setDate() -> Void {
-        service.USER_SERVICE.users[0].birthday = date
-        userDictionary = service.USER_SERVICE.users[0].toDictionary()
         self.tableView.reloadData()
     }
     func save(sender: UINavigationBar) -> Void {
         var index = 0
-        while index < aboutkeys.count {
+        var userdictionary : [String: Any] = {
+            return (user.toDictionary() as! [String : Any])
+        }()
+        while index < phKeys.count {
             let indexPath = NSIndexPath(row: index, section: 0)
             if(index != 4){
                 let cell: PersonalDataTableViewCell? = self.tableView.cellForRow(at: indexPath as IndexPath) as? PersonalDataTableViewCell
                 let value = cell?.myTextField.text
-                
-                switch  aboutkeys[indexPath.row] {
-                case "name":
-                    if(value?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)==""){
+                let key = phKeys[index].1
+                if key == "name" && value?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)=="" {
                         service.ALERT_SERVICE.alertMessage(context: self, title: "Campo Vacío", msg: "El campo Nombre no puede quedar vacío")
                         service.ANIMATIONS.shakeTextField(txt: (cell?.myTextField)!)
-                    }else{
-                        service.USER_SERVICE.users[0].name = value
-                    }
-                    break
-                case "phone":
-                    if(value?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)==""){
+                        return
+                    
+                }
+                if key == "phone" && value?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)=="" {
                         service.ALERT_SERVICE.alertMessage(context: self, title: "Campo Vacío", msg: "El campo Teléfono no puede quedar vacío")
                         service.ANIMATIONS.shakeTextField(txt: (cell?.myTextField)!)
-                    }else{
-                        service.USER_SERVICE.users[0].phone = value
-                    }
-                    break
-                case "address":
-                    service.USER_SERVICE.users[0].address = value
-                    break
-                case "rfc":
-                    service.USER_SERVICE.users[0].rfc = value
-                    break
-                case "curp":
-                    service.USER_SERVICE.users[0].curp = value
-                    break
-                case "birthday":
-                    service.USER_SERVICE.users[0].birthday = value
-                    break
-                case "nss":
-                    service.USER_SERVICE.users[0].nss = value
-                    break
-                case "bloodType":
-                    service.USER_SERVICE.users[0].bloodtype = value
-                    break
-                default:
-                    break
+                        return
                 }
+                
+                userdictionary[key] = value
+                
             }
             index += 1
         }
-        service.USER_SERVICE.updateUser(user: service.USER_SERVICE.users[0])
+        user.fromDictionary(snapshotValue: userdictionary as NSDictionary)
+        //Update
+        store.dispatch(UpdateUserAction(user: user))
         _ =  navigationController?.popViewController(animated: true)
         //UTILITY_SERVICE.gotoView(view: "ConfiguracionScene", context: self)
+    }
+    
+    func newState(state: UserState) {
+        self.view.hideToastActivity()
+        switch state.status {
+        case .loading:
+            self.view.makeToastActivity(.center)
+            break
+        case .finished:
+            self.view.makeToast("Datos Actualizados", duration: 2.0, position: .bottom)
+            self.navigationController?.popViewController(animated: true)
+            break
+        case .failed:
+            self.view.makeToast("Sucedio un error", duration: 2.0, position: .bottom)
+            break
+        default:
+            break
+        }
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {

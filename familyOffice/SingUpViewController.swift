@@ -10,15 +10,17 @@ import UIKit
 import FirebaseAuth
 import FirebaseDatabase
 import GoogleSignIn
-
+import ReSwift
 class SingUpViewController: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate {
-
+    
+    typealias StoreSubscriberStateType = UserState
+    
     @IBOutlet weak var nameTxtfield: UITextField!
     @IBOutlet weak var emailTxtfield: UITextField!
     @IBOutlet weak var phoneTxtfield: UITextField!
     @IBOutlet weak var passwordTxtfield: UITextField!
     @IBOutlet weak var confirmPassTxtfield: UITextField!
-  
+    
     
     override func viewDidLoad() {
         //AUTH_SERVICE.isAuth(view: self.self, name:"TabBarControllerView")
@@ -39,73 +41,79 @@ class SingUpViewController: UIViewController, UITextFieldDelegate, GIDSignInUIDe
         STYLES.borderbottom(textField: self.phoneTxtfield, color: UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1), width: 1.0)
         STYLES.borderbottom(textField: self.passwordTxtfield, color: UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1), width: 1.0)
         STYLES.borderbottom(textField: self.confirmPassTxtfield, color: UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1), width: 1.0)
+        store.subscribe(self) {
+            state in
+            state.UserState
+        }
     }
-
+    override func viewWillDisappear(_ animated: Bool) {
+        store.unsubscribe(self)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     @IBAction func handleSingUp(_ sender: UIButton) {
         var er: String?
         
-        guard (!(nameTxtfield.text?.isEmpty)!) else {
+        guard let name = nameTxtfield.text, !name.isEmpty else {
+            er = "Nombre debe ser capturado"
             service.ANIMATIONS.shakeTextField(txt: nameTxtfield)
             return
         }
         
         guard let pass :String = passwordTxtfield.text, !pass.isEmpty,  pass == confirmPassTxtfield.text, (passwordTxtfield.text?.characters.count)! > 5 else{
+            er = "La contraseña y confirmación de contraseña deben ser capturadas"
+            service.ANIMATIONS.shakeTextField(txt: passwordTxtfield)
+            service.ANIMATIONS.shakeTextField(txt: confirmPassTxtfield)
             service.ANIMATIONS.shakeTextField(txt: passwordTxtfield)
             return
         }
         
-        if(nameTxtfield.text==""){
-            er = "Nombre debe ser capturado"
-            service.ANIMATIONS.shakeTextField(txt: nameTxtfield)
-        }else{
-            if(emailTxtfield.text==""){
-                er = "Correo electrónico debe ser capturado"
-                service.ANIMATIONS.shakeTextField(txt: emailTxtfield)
-            }else{
-                if(phoneTxtfield.text==""){
-                    er = "Celular debe ser capturado"
-                    service.ANIMATIONS.shakeTextField(txt: phoneTxtfield)
-                }else{
-                    if(passwordTxtfield.text=="" || confirmPassTxtfield.text==""){
-                        er = "La contraseña y confirmación de contraseña deben ser capturadas"
-                        service.ANIMATIONS.shakeTextField(txt: passwordTxtfield)
-                        service.ANIMATIONS.shakeTextField(txt: confirmPassTxtfield)
-                    }else{
-                        if(passwordTxtfield.text! == confirmPassTxtfield.text!){
-                            FIRAuth.auth()?.createUser(withEmail: emailTxtfield.text!, password: passwordTxtfield.text!) { (user, error) in
-                                if(error == nil){
-                                    self.createAccount(uid: (user?.uid)!)
-                                }
-                                else{
-                                    let errCode : FIRAuthErrorCode = FIRAuthErrorCode(rawValue: error!._code)!
-                                        switch errCode {
-                                        case .errorCodeInvalidEmail:
-                                            er = "Correo electrónico incorrecto"
-                                        case .errorCodeWrongPassword:
-                                            er = "Contraseña incorrecta"
-                                        case .errorCodeWeakPassword:
-                                            er = "La contraseña debe de contener al menos 6 caracteres"
-                                        default:
-                                            er = "Algo salio mal, intente más tarde"
-                                        }
-                                }
-                               
-                            }
-                        }else{
-                            er = "Las contraseñas deben de coincidir"
-                            service.ANIMATIONS.shakeTextField(txt: passwordTxtfield)
-                            service.ANIMATIONS.shakeTextField(txt: confirmPassTxtfield)
-                        }
-                    }
+        guard let email = emailTxtfield.text, !email.isEmpty else {
+            er = "Correo electrónico debe ser capturado"
+            service.ANIMATIONS.shakeTextField(txt: emailTxtfield)
+            return
+        }
+        
+        guard let phone = phoneTxtfield.text, !phone.isEmpty else {
+            er = "Celular debe ser capturado"
+            service.ANIMATIONS.shakeTextField(txt: phoneTxtfield)
+            return
+        }
+        
+        guard pass == confirmPassTxtfield.text else {
+            er = "Contraseñas no coinciden"
+            service.ANIMATIONS.shakeTextField(txt: passwordTxtfield)
+            service.ANIMATIONS.shakeTextField(txt: confirmPassTxtfield)
+            return
+        }
+        
+        FIRAuth.auth()?.createUser(withEmail: email, password: pass) { (user, error) in
+            if(error == nil){
+                let userModel = User(id: (user?.uid)!, name: name, phone: phone, photoURL: "", families: [:], familyActive: "", rfc: "", nss: "", curp: "", birth: "", address: "", bloodtype: "", health: [])
+                store.dispatch(CreateUserAction(user: userModel))
+                Constants.FirDatabase.REF_USERS.child(userModel.id).setValue(userModel)
+            }
+            else{
+                let errCode : FIRAuthErrorCode = FIRAuthErrorCode(rawValue: error!._code)!
+                switch errCode {
+                case .errorCodeInvalidEmail:
+                    er = "Correo electrónico incorrecto"
+                case .errorCodeWrongPassword:
+                    er = "Contraseña incorrecta"
+                case .errorCodeWeakPassword:
+                    er = "La contraseña debe de contener al menos 6 caracteres"
+                default:
+                    er = "Algo salio mal, intente más tarde"
                 }
             }
+            
         }
+        
         if(er != nil ){
             let alert = UIAlertController(title: "Verifica tus datos", message: er, preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -115,14 +123,7 @@ class SingUpViewController: UIViewController, UITextFieldDelegate, GIDSignInUIDe
     }
     @IBAction func handleBack(_ sender: UIButton) {
         service.UTILITY_SERVICE.gotoView(view: "StartView", context: self)
-
-    }
-  
-    func createAccount(uid: String){
-        let userModel = ["name" : self.nameTxtfield.text!,
-                         "phone": self.phoneTxtfield.text!]
-        Constants.FirDatabase.REF_USERS.child(uid).setValue(userModel)
-        service.UTILITY_SERVICE.gotoView(view: "StartView", context: self)
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -156,4 +157,19 @@ class SingUpViewController: UIViewController, UITextFieldDelegate, GIDSignInUIDe
         UIView.commitAnimations()
     }
     
+}
+extension SingUpViewController : StoreSubscriber {
+    func newState(state: UserState) {
+        self.view.hideToastActivity()
+        switch state.status {
+        case .loading:
+            self.view.makeToastActivity(.center)
+            break
+        case .finished:
+            _ = self.navigationController?.popViewController(animated: true)
+            break
+        default:
+            break
+        }
+    }
 }

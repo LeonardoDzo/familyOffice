@@ -11,5 +11,5 @@ import ReSwift
 
 struct ContactState : StateType {
     var contacts = [String:[Contact]]()
-    var status : Result<Any> = .loading
+    var status : Result<Any> = .none
 }

@@ -10,7 +10,7 @@ import UIKit
 
 class DatePickerTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var datepicker: UIView!
+    @IBOutlet weak var datepicker: UIDatePicker!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -18,7 +18,6 @@ class DatePickerTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
 

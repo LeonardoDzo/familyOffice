@@ -17,7 +17,4 @@ struct GoalState: StateType {
     var status: Result<Any> = .none
 }
 
-struct FamilyState: StateType {
-    var families = [Family]()
-    var status: Result<Any> = .none
-}
+

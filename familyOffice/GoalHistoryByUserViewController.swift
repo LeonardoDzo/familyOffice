@@ -24,7 +24,7 @@ class GoalHistoryByUserViewController: UIViewController, GoalBindable {
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -38,31 +38,42 @@ class GoalHistoryByUserViewController: UIViewController, GoalBindable {
         updatePieChartData()
         verifyFollow()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     func updatePieChartData()  {
         self.pieChart.clear()
-        //let track = ["Comp.", "Incom.","Resto"]
-        var entries = [PieChartDataEntry]()
         let sdata = values()
-        for value in sdata {
+        // 3. chart setup
+        let set = PieChartDataSet( values: [], label: "")
+        var colors: [UIColor] = [#colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1),#colorLiteral(red: 0.4392156899, green: 0.01176470611, blue: 0.1921568662, alpha: 1),#colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)]
+        
+        for (i,value) in sdata.enumerated() {
             let entry = PieChartDataEntry()
             entry.y = Double(value)
-            entries.append( entry)
+            if value > 0 {
+                set.values.append(entry)
+            }else{
+                if i < colors.count {
+                    colors.remove(at: i)
+                }
+                
+                
+            }
         }
-        
-        // 3. chart setup
-        let set = PieChartDataSet( values: entries, label: "")
-        // this is custom extension method. Download the code for more details.
-        let colors: [UIColor] = [#colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1),#colorLiteral(red: 0.4392156899, green: 0.01176470611, blue: 0.1921568662, alpha: 1),#colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)]
-        
         set.colors = colors
         let data = PieChartData(dataSet: set)
+        
+        //Set Formatter
+        let format = NumberFormatter()
+        format.numberStyle = .none
+        let formatter = DefaultValueFormatter(formatter: format)
+        data.setValueFormatter(formatter)
+        
         pieChart.data = data
         pieChart.noDataText = "No existen objetivos"
         // user interaction
@@ -102,7 +113,7 @@ class GoalHistoryByUserViewController: UIViewController, GoalBindable {
         }
         return [count, incomplete, rest]
     }
-
+    
 }
 
 extension GoalHistoryByUserViewController : UITableViewDelegate, UITableViewDataSource {
@@ -165,6 +176,6 @@ extension GoalHistoryByUserViewController : UITableViewDelegate, UITableViewData
         store.dispatch(UpdateGoalAction(goal: goal))
         updatePieChartData()
         self.tableView.reloadData()
-
+        
     }
 }

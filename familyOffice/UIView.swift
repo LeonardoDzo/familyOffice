@@ -28,6 +28,12 @@ extension UIView {
         })
         return container
     }
+    
+    func formatView() -> Void {
+        self.layer.cornerRadius = 5
+        self.layer.borderWidth = 1
+        self.layer.borderColor = UIColor( red: 204/255, green: 204/255, blue:204.0/255, alpha: 1.0 ).cgColor
+    }
 }
 extension UILabel {
     convenience init(text: String) {

@@ -112,9 +112,13 @@ extension HomeViewController : UICollectionViewDelegate, UICollectionViewDataSou
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellModule", for: indexPath) as! ModuleCollectionViewCell
         cell.buttonicon.setBackgroundImage(UIImage(named: icons[indexPath.item])!, for: .normal)
         cell.name.text = labels[indexPath.row]
-        cell.buttonicon.badgeString = "3"
-        cell.buttonicon.badgeEdgeInsets = UIEdgeInsetsMake(10, 10, 0, 0)
-        cell.buttonicon.badgeBackgroundColor = UIColor.red
+        let value = store.state.notifications.filter({$0.type == Notification_Type(rawValue: indexPath.item)}).count
+        if value > 0 {
+            cell.buttonicon.badgeString = String(value)
+            cell.buttonicon.badgeEdgeInsets = UIEdgeInsetsMake(10, 10, 0, 0)
+            cell.buttonicon.badgeBackgroundColor = UIColor.red
+        }
+        
         cell.buttonicon.tag = indexPath.item
         return cell
     }
@@ -128,23 +132,7 @@ extension HomeViewController : UICollectionViewDelegate, UICollectionViewDataSou
     
 }
 extension HomeViewController {
-    
-    func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
-        let point: CGPoint = gestureReconizer.location(in: self.collectionView)
-        let indexPath = self.collectionView?.indexPathForItem(at: point)
-        
-        if (indexPath != nil ){
-            switch gestureReconizer.state {
-            case .began:
-                gotoModule(index: (indexPath?.item)!)
-                break
-            case .ended:
-                break
-            default:
-                break
-            }
-        }
-    }
+
     func handleMore(_ sender: Any) {
         settingLauncher.showSetting()
     }
@@ -167,7 +155,6 @@ extension HomeViewController {
         switch index {
         case 0:
             self.performSegue(withIdentifier: "chatSegue", sender: nil)
-            
         case 1:
             self.performSegue(withIdentifier: "calendarSegue", sender: nil)
         case 2:
@@ -180,7 +167,8 @@ extension HomeViewController {
             self.performSegue(withIdentifier: "safeBoxSegue", sender: nil)
         case 5:
             self.performSegue(withIdentifier: "contactsSegue", sender: nil)
-            
+        case 6:
+            self.performSegue(withIdentifier: "showFirstAidKit", sender: nil)
         case 8:
             self.performSegue(withIdentifier: "healthSegue", sender: nil)
             break
@@ -196,11 +184,7 @@ extension HomeViewController {
         
     }
     func setupConfigurationNavBar() -> Void {
-        //USER_SERVICE.observers()
-        let lpgr = UILongPressGestureRecognizer(target: self, action:#selector(handleLongPress(gestureReconizer:)))
-        lpgr.minimumPressDuration = 0
-        lpgr.delaysTouchesBegan = true
-        //self.collectionView.addGestureRecognizer(lpgr)
+     
         let moreButton = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_bar_more_button"), style: .plain, target: self, action:  #selector(self.handleMore(_:)))
         let valueButton = UIBarButtonItem(image: #imageLiteral(resourceName: "value"), style: .plain, target: self, action:  #selector(self.handleShowModal(_:)))
         
@@ -219,8 +203,14 @@ extension HomeViewController : StoreSubscriber {
     typealias StoreSubscriberStateType = FamilyState
     
     func newState(state: FamilyState) {
-        families = state.families
         user = store.state.UserState.user
-        reloadFamily()
+        if user?.families?.count == 0 {
+            self.handleBack()
+        }else{
+            families = state.families.items
+            reloadFamily()
+        }
+        
     }
+
 }

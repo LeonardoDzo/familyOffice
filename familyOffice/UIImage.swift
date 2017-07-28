@@ -73,6 +73,14 @@ extension UIImageView {
         }
     }
     
+    func profileUser() -> Void {
+        self.layer.cornerRadius = self.frame.size.width/2
+        self.clipsToBounds = true
+        self.layer.borderWidth = 4.0
+        self.layer.borderColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1).cgColor
+    }
+    
+
 }
 class CustomUIImageView: UIImageView {
     var urlString: String?

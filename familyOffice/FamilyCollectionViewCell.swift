@@ -8,16 +8,16 @@
 
 import UIKit
 
-class FamilyCollectionViewCell: UICollectionViewCell {
-    
-    @IBOutlet weak var imageFamily: UIImageView!
-    @IBOutlet weak var name: UILabel!
+class FamilyCollectionViewCell: UICollectionViewCell, FamilyBindable {
+    var family: Family!
+    @IBOutlet weak var Image: CustomUIImageView!
+    @IBOutlet weak var Title: UILabel!
     @IBOutlet weak var deleteButton: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.imageFamily.image = #imageLiteral(resourceName: "familyImage")
-        self.imageFamily.layer.cornerRadius = self.imageFamily.frame.size.width/16
-        self.imageFamily.clipsToBounds = true
+        self.Image.image = #imageLiteral(resourceName: "familyImage")
+        self.Image.layer.cornerRadius = self.Image.frame.size.width/16
+        self.Image.clipsToBounds = true
     }
     
 
