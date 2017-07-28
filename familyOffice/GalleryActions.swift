@@ -8,9 +8,12 @@
 import Foundation
 import ReSwift
 import ReSwiftRecorder
-let galleryActionTypeMap: TypeMap = [InsertGalleryAction.type: InsertGalleryAction.self,
-                                  DeleteGalleryAction.type: DeleteGalleryAction.self,
-                                  InsertImagesAlbumAction.type: InsertImagesAlbumAction.self]
+let galleryActionTypeMap: TypeMap = [
+    InsertGalleryAction.type: InsertGalleryAction.self,
+    DeleteGalleryAction.type: DeleteGalleryAction.self,
+    InsertImagesAlbumAction.type: InsertImagesAlbumAction.self,
+    InsertVideoAlbumAction.type: InsertVideoAlbumAction.self
+]
 
 struct InsertGalleryAction: StandardActionConvertible {
     static let type = "GALLERY_ACTION_INSERT"
@@ -58,4 +61,20 @@ struct InsertImagesAlbumAction: StandardActionConvertible {
         return StandardAction(type: InsertImagesAlbumAction.type, payload: [:], isTypedAction: true)
     }
 
+}
+struct InsertVideoAlbumAction: StandardActionConvertible {
+    static let type = "GALLERYVIDEO_ACTION_INSERT"
+    var image: ImageAlbum!
+    init(image: ImageAlbum){
+        self.image = image
+    }
+    
+    
+    init(_ standardAction: StandardAction) {
+    }
+    
+    func toStandardAction() -> StandardAction {
+        return StandardAction(type: InsertVideoAlbumAction.type, payload: [:], isTypedAction: true)
+    }
+    
 }

@@ -8,15 +8,14 @@ import Firebase
 import FirebaseDatabase
 struct ImageAlbum {
 
-    //Ninja Statics
 
     static let kId = "Id"
     static let kPath = "path"
     static let kComments = "comments"
     static let kReacts = "reacts"
     static let kAlbum = "album"
+    static let kVideo = "video"
 
-    //Samurai Variables
 
     var id: String!
     var path: String!
@@ -24,6 +23,8 @@ struct ImageAlbum {
     var reacts: [String] = []
     var album: String!
     var uiimage: UIImage?
+    var video: String?
+    var DataVideo: Data?
 
     init(){
         self.id = ""
@@ -32,14 +33,17 @@ struct ImageAlbum {
         self.reacts = []
         self.album = ""
         self.uiimage = nil
+        self.video = nil
     }
-    init(id: String!,path: String!,album: String!,comments: [String],reacts: [String],uiimage: UIImage){
+    init(id: String!,path: String!,album: String!,comments: [String],reacts: [String],uiimage: UIImage, video: Data?){
         self.id = id
         self.path = path
         self.comments = comments
         self.reacts = reacts
         self.album = album
         self.uiimage = uiimage
+        self.video = ""
+        self.DataVideo = video
     }
     init(snap: FIRDataSnapshot){
         self.id = snap.key
@@ -48,13 +52,15 @@ struct ImageAlbum {
         self.comments = service.UTILITY_SERVICE.exist(field: ImageAlbum.kComments, dictionary: snapValue)
         self.reacts = service.UTILITY_SERVICE.exist(field: ImageAlbum.kReacts, dictionary: snapValue)
         self.album = service.UTILITY_SERVICE.exist(field: ImageAlbum.kAlbum, dictionary: snapValue)
+        self.video = service.UTILITY_SERVICE.exist(field: ImageAlbum.kVideo, dictionary: snapValue) == "" ? nil : service.UTILITY_SERVICE.exist(field: ImageAlbum.kVideo, dictionary: snapValue)
     }
     func toDictionary() -> NSDictionary {
         return [
             ImageAlbum.kPath: self.path,
             ImageAlbum.kComments: self.comments,
             ImageAlbum.kReacts: self.reacts,
-            ImageAlbum.kAlbum: self.album
+            ImageAlbum.kAlbum: self.album,
+            ImageAlbum.kVideo: self.video!
         ]
     }
 }
@@ -66,7 +72,6 @@ extension ImageAlbumBindable{
     var imageBackground: CustomUIImageView!{
         return nil
     }
-    //Bind Ninja
     func bind(data: ImageAlbum){
         self.imageAlbum = data
         bind()
@@ -76,12 +81,21 @@ extension ImageAlbumBindable{
             return
         }
         if let imageBackground = self.imageBackground{
-            if imageAlbum.path != nil{
-                if(!imageAlbum.path.isEmpty){
-                    imageBackground.loadImage(urlString: imageAlbum.path)
+            if imageAlbum.video != nil{
+                if(!(imageAlbum.video?.isEmpty)!){
+                    imageBackground.loadImage(urlString: imageAlbum.video!)
                 }
                 else{
                     imageBackground.image = #imageLiteral(resourceName: "notfound")
+                }
+            }else{
+                if imageAlbum.path != nil{
+                    if(!imageAlbum.path.isEmpty){
+                        imageBackground.loadImage(urlString: imageAlbum.path)
+                    }
+                    else{
+                        imageBackground.image = #imageLiteral(resourceName: "notfound")
+                    }
                 }
             }
         }

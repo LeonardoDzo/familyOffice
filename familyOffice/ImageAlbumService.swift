@@ -136,4 +136,35 @@ class ImageAlbumService: RequestService{
             }
         })
     }
+    
+    func InsertVideo(image: ImageAlbum) {
+        var image: ImageAlbum! = image
+        let reference: String = "images/\(image.id!)"
+        service.STORAGE_SERVICE.insert("\(reference)\(".jpg")", value: image.uiimage, callback: {metadata in
+            if let metadata: FIRStorageMetadata = metadata as? FIRStorageMetadata{
+                image.video = metadata.downloadURL()?.absoluteString
+                service.STORAGE_SERVICE.insert("\(reference)\(".m4v")", value: image.DataVideo, callback: {metadata in
+                    if let metadata: FIRStorageMetadata = metadata as? FIRStorageMetadata{
+                        image.path = metadata.downloadURL()?.absoluteString
+                        service.IMAGEALBUM_SERVICE.insert(reference, value: image.toDictionary(), callback: {ref in
+                            if ref is FIRDatabaseReference{
+                                let path: String! = "album/\(service.GALLERY_SERVICE.refUserFamily!)/\(image.album!)/images"
+                                service.GALLERY_SERVICE.update(path!, value: [image.id as AnyHashable : true], callback: {response in
+                                    if response is FIRDatabaseReference{
+                                        store.state.GalleryState.status = .Finished(image)
+                                    }
+                                })
+                            }else{
+                                store.state.GalleryState.status = .Failed(image)
+                            }
+                        })
+                    }else{
+                        store.state.GalleryState.status = .Failed(image)
+                    }
+                })
+            }else{
+                store.state.GalleryState.status = .Failed(image)
+            }
+        })
+    }
 }

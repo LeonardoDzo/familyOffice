@@ -18,12 +18,19 @@ extension RequestStorageSvc {
     
     func insert(_ ref: String, value: Any, callback: @escaping ((Any?) -> Void)) {
         var uploadData: Data = Data()
+        var metadata = FIRStorageMetadata()
         if value is UIImage{
+            metadata.contentType = "image/jpeg"
             let aux: Data = (value as! UIImage).resizeImage().jpeg(.high)!
             uploadData = try! aux.gzipped(level: .bestCompression)
         }
-        
-        Constants.FirStorage.STORAGEREF.child(ref).put(uploadData, metadata: nil) { metadata, error in
+        if value is Data{
+            if ref.contains("m4v"){
+                metadata.contentType = "video/mp4"
+            }
+            uploadData = value as! Data
+        }
+        Constants.FirStorage.STORAGEREF.child(ref).put(uploadData, metadata: metadata) { metadata, error in
             if (error != nil) {
                 print(error.debugDescription)
                 callback(nil)
@@ -43,8 +50,9 @@ extension RequestStorageSvc {
             let aux: Data = (value as! UIImage).resizeImage().jpeg(.high)!
             uploadData = try! aux.gzipped(level: .bestCompression)
         }
-        
-        Constants.FirStorage.STORAGEREF.child(ref).put(uploadData, metadata: nil) { metadata, error in
+        var metadata = FIRStorageMetadata()
+        metadata.contentType = "image/jpeg"
+        Constants.FirStorage.STORAGEREF.child(ref).put(uploadData, metadata: metadata) { metadata, error in
             if (error != nil) {
                 print(error.debugDescription)
                 callback(nil)

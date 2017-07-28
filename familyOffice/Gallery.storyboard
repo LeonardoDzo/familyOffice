@@ -220,16 +220,22 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ONd-Ep-WdB" customClass="CustomUIImageView" customModule="familyOffice" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
                                                 </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="play-button-32" translatesAutoresizingMaskIntoConstraints="NO" id="fvM-05-aBj">
+                                                    <rect key="frame" x="14" y="22" width="46" height="31"/>
+                                                </imageView>
                                             </subviews>
                                         </view>
                                         <constraints>
+                                            <constraint firstItem="fvM-05-aBj" firstAttribute="centerY" secondItem="VTt-DO-FB7" secondAttribute="centerY" id="8OB-L1-mnc"/>
                                             <constraint firstAttribute="trailing" secondItem="ONd-Ep-WdB" secondAttribute="trailing" id="KID-Pa-8rS"/>
                                             <constraint firstItem="ONd-Ep-WdB" firstAttribute="leading" secondItem="VTt-DO-FB7" secondAttribute="leading" id="dRt-QJ-Nv7"/>
                                             <constraint firstAttribute="bottom" secondItem="ONd-Ep-WdB" secondAttribute="bottom" id="dzd-i6-RaH"/>
                                             <constraint firstItem="ONd-Ep-WdB" firstAttribute="top" secondItem="VTt-DO-FB7" secondAttribute="top" id="hbr-iL-Hda"/>
+                                            <constraint firstItem="fvM-05-aBj" firstAttribute="centerX" secondItem="VTt-DO-FB7" secondAttribute="centerX" id="qJW-8g-b4d"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="imageBackground" destination="ONd-Ep-WdB" id="7yi-eu-Vsn"/>
+                                            <outlet property="playImage" destination="fvM-05-aBj" id="5Uj-6r-X4B"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -262,7 +268,7 @@
             <objects>
                 <navigationController storyboardIdentifier="MainGallery" automaticallyAdjustsScrollViewInsets="NO" id="cy9-1s-NMj" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Acz-VU-ype">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Acz-VU-ype">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -280,5 +286,6 @@
         <image name="Family" width="37" height="37"/>
         <image name="User" width="37" height="37"/>
         <image name="album_default" width="800" height="600"/>
+        <image name="play-button-32" width="32" height="32"/>
     </resources>
 </document>

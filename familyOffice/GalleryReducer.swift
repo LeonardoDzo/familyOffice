@@ -16,15 +16,22 @@ struct GalleryReducer: Reducer {
             if action.album != nil {
             insert(album: action.album)
             stateAux.status = .loading
+                return stateAux
             }
-            return stateAux
+            break
         case let action as InsertImagesAlbumAction:
             if action.image != nil {
                 addImage(image: action.image)
                 stateAux.status = .none
                 return stateAux
             }
-
+            break
+        case let action as InsertVideoAlbumAction:
+            if action.image != nil{
+                addVideo(image: action.image)
+                stateAux.status = .none
+                return stateAux
+            }
         default:
             break
         }
@@ -32,6 +39,10 @@ struct GalleryReducer: Reducer {
     }
     func addImage(image: ImageAlbum) {
         service.IMAGEALBUM_SERVICE.InsertImage(image: image)
+        return
+    }
+    func addVideo(image: ImageAlbum) {
+        service.IMAGEALBUM_SERVICE.InsertVideo(image: image)
         return
     }
     func insert(album: NSDictionary){
