@@ -839,7 +839,7 @@
 			name = Middlaware;
 			sourceTree = "<group>";
 		};
-		027213991E84457A001A144B /* calendar */ = {
+		027213991E84457A001A144B /* Events */ = {
 			isa = PBXGroup;
 			children = (
 				027391701E946CA100426331 /* cell */,
@@ -849,7 +849,7 @@
 				02E33A631EBA71D0003BF787 /* ShowEventViewController.swift */,
 				02C8087F1ED76979005BB8B1 /* ConfigurationEventTableViewController.swift */,
 			);
-			name = calendar;
+			name = Events;
 			sourceTree = "<group>";
 		};
 		027213AE1E84B364001A144B /* Bussiness */ = {
@@ -952,7 +952,7 @@
 				02BD2D161E1F0D8B00A61A84 /* HomeViewController.swift */,
 				022CC44E1EF9EDB0009FA79C /* goals */,
 				A4FA7DE01E7A0CE400C10B1D /* Health */,
-				027213991E84457A001A144B /* calendar */,
+				027213991E84457A001A144B /* Events */,
 				024EF9A81E83413200F5B4DF /* safeBox */,
 				020A64F41E81A77E00F473A0 /* chat */,
 				029059211E78B9D8005F760C /* Cells */,
@@ -1741,7 +1741,6 @@
 				02B46A341E52908200CC7511 /* NotificationService.swift in Sources */,
 				941B59F41F211C730078EF9C /* MedicineReducer.swift in Sources */,
 				A46316B21E78C69E00E3F72C /* Health.swift in Sources */,
-				023DE7451E7720FE002F6A4E /* familiesExtension.swift in Sources */,
 				941B59FF1F214A4E0078EF9C /* IllnessesListViewController.swift in Sources */,
 				941B5A011F2178470078EF9C /* IllnessService.swift in Sources */,
 				02A4375C1F18043D003F10A1 /* dayCollectionViewCell.swift in Sources */,

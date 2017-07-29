@@ -10,7 +10,7 @@ import FirebaseDatabase
 import FirebaseAuth
 import MIBadgeButton_Swift
 import ReSwift
-class HomeViewController: UIViewController,  UIGestureRecognizerDelegate {
+class HomeViewController: UIViewController,UIGestureRecognizerDelegate {
     
     
     let icons = ["chat", "calendar", "objetives", "gallery","safeBox", "contacts", "firstaid","property", "health","seguro-purple", "presupuesto", "todolist", "faqs"]
@@ -46,8 +46,10 @@ class HomeViewController: UIViewController,  UIGestureRecognizerDelegate {
         collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         setupConfigurationNavBar()
     }
-    
-    let settingLauncher = SettingLauncher()
+    lazy var settingLauncher : SettingLauncher = {
+        let launcher = SettingLauncher()
+        return launcher
+    }()
     
     @IBAction func handleCloseModal(_ sender: UIButton) {
         //UIView.animate(withDuration: 0.1, animations: {
@@ -190,8 +192,7 @@ extension HomeViewController {
         
         self.navigationItem.rightBarButtonItems = [ moreButton,valueButton]
         let barButton = UIBarButtonItem(title: "Regresar", style: .plain, target: self, action: #selector(self.handleBack))
-        
-        barButton.tintColor = #colorLiteral(red: 1, green: 0.1757333279, blue: 0.2568904757, alpha: 1)
+        self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         self.navigationItem.leftBarButtonItem = barButton
         let nav = self.navigationController?.navigationBar
         nav?.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.3137395978, green: 0.1694342792, blue: 0.5204931498, alpha: 1)]

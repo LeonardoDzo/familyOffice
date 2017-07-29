@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import ReSwift
 class MembersTableViewController: UITableViewController,UISearchResultsUpdating {
     var users : [User]! = []
     var membersSelected: [memberEvent]! = []
@@ -21,18 +21,7 @@ class MembersTableViewController: UITableViewController,UISearchResultsUpdating 
         searchController.dimsBackgroundDuringPresentation = false
         tableView.tableHeaderView = searchController.searchBar
     }
-    override func viewWillAppear(_ animated: Bool) {
-        NotificationCenter.default.addObserver(forName: notCenter.USER_NOTIFICATION, object: nil, queue: nil){ obj in
-            self.users = service.USER_SERVICE.users
-            self.users.remove(at: 0)
-            self.tableView.reloadData()
-        }
-        
-        service.USER_SERVICE.getAllUsers()
-        membersSelected = shareEvent?.event.members
-        users = service.USER_SERVICE.users
-        users.remove(at: 0)
-    }
+    
     @IBAction func handleDone(_ sender: UIBarButtonItem) {
         shareEvent?.event.members = membersSelected
         dismissPopover()
@@ -45,9 +34,7 @@ class MembersTableViewController: UITableViewController,UISearchResultsUpdating 
     func dismissPopover() {
         self.dismiss(animated: true, completion: nil)
     }
-    override func viewWillDisappear(_ animated: Bool) {
-        membersSelected = []
-    }
+  
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -67,12 +54,13 @@ class MembersTableViewController: UITableViewController,UISearchResultsUpdating 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let user = self.getUserByIndexPath(indexPath)
         if !contains((user?.id)!) {
-                membersSelected.append(memberEvent(id: (user?.id)!, reminder: "none", status: "Pendiente"))
+            membersSelected.append(memberEvent(id: (user?.id)!, reminder: "none", status: "Pending"))
         }else if let index = membersSelected.index(where: {$0.id == user?.id}){
             membersSelected.remove(at: index)
         }
         tableView.reloadRows(at: [indexPath], with: .fade)
     }
+    
     func updateSearchResults(for searchController: UISearchController) {
         if let searchText = searchController.searchBar.text, !searchText.isEmpty {
             filtered = self.users.filter { user in
@@ -119,5 +107,20 @@ class MembersTableViewController: UITableViewController,UISearchResultsUpdating 
         }
     }
    
-
+}
+extension MembersTableViewController : StoreSubscriber {
+    typealias StoreSubscriberStateType = UserState
+    override func viewWillAppear(_ animated: Bool) {
+        store.subscribe(self){
+            state in
+            state.UserState
+        }
+        
+       
+    }
+    func newState(state: UserState) {
+        self.users = state.users
+        self.tableView.reloadData()
+    }
+    
 }

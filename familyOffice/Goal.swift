@@ -82,7 +82,7 @@ struct Goal {
         
         self.category = snapshotValue.exist(field: Goal.kcategory)
         
-        self.repeatGoalModel =  repeatGoal(snapshotValue.exist(dic: Goal.kRepeat))
+        self.repeatGoalModel =  repeatGoal(snapshotValue.exist(dic: Goal.kRepeat)!)
         
         if let snap = snapshotValue[Goal.kFollow] as? NSDictionary {
             for date in snap.allKeys as! [String] {

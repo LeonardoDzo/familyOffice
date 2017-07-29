@@ -7,27 +7,39 @@
 //
 import Foundation
 
-struct repeatModel {
-    static let kEach = "each"
+
+struct repeatEvent: repeatTypeEvent {
+    static let kFrequency = "frequency"
+    static let kDays = "days"
     static let kEnd = "endRepeat"
-    var each: String!
-    var end: String!
+    static let keach = "each"
     
-    init(each: String, end: String) {
-        self.end = end
-        self.each = each
+    var frequency: String!
+    var each: Int!
+    var days: [String]!
+    var end: Int!
+    
+    init() {
+        self.end = 0
+        self.days = []
+        self.frequency = ""
+        self.each = 1
     }
     
     init(snapshot: NSDictionary) {
-        self.each = service.UTILITY_SERVICE.exist(field: repeatModel.kEach, dictionary: snapshot)
-        self.each = service.UTILITY_SERVICE.exist(field: repeatModel.kEnd, dictionary: snapshot)
+        self.frequency = snapshot.exist(field: repeatEvent.kFrequency)
+        if let string : String = snapshot.exist(field: repeatEvent.kDays) {
+            self.days = string.components(separatedBy: ",")
+        }
+        self.end = snapshot.exist(field: repeatEvent.kEnd)
     }
     
     func toDictionary() -> NSDictionary {
         
         return [
-            repeatModel.kEach : self.each,
-            repeatModel.kEnd: self.end
+            repeatEvent.kFrequency : self.frequency,
+            repeatEvent.kEnd: self.end,
+            repeatEvent.kDays : self.days.joined(separator: ",")
         ]
     }
 }
