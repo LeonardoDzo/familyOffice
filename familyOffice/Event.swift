@@ -23,55 +23,42 @@ struct Event {
     static let klocation = "location"
     static let kcreator = "creator"
     static let ktype = "type"
+    static let kDates = "dates"
     static let kRepeat = "repeat"
     
     var id: String!
     var title: String!
     var description: String!
-    var date: String!
-    var endDate: String!
+    var date: Int!
+    var endDate: Int!
     var priority: Int!
-    var reminder: String?
-    var members: [memberEvent]! = []
+    var members = [memberEvent]()
     var location: Location? = nil
     var creator: String!
-    var type: String! = "Home"
-    var repeatmodel : repeatModel! = nil
+    var dates : NSDictionary!
+    //var type: String! = "Home"
+    var repeatmodel: repeatEvent!
     
     init() {
         self.id = ""
         self.title = ""
         self.description = ""
-        self.date = Date().string(with: .InternationalFormat)
-        self.endDate = Date().addingTimeInterval(60 * 60).string(with: .InternationalFormat)
+        self.date = Date().toMillis()
+        self.endDate = Date().addingTimeInterval(60 * 60).toMillis()
         self.priority = 0
         self.members = []
-        self.reminder = Date().addingTimeInterval(60*60*(-1)).string(with: .InternationalFormat)
-        self.creator = service.USER_SERVICE.users[0].id
-        self.repeatmodel = repeatModel(each: "Nunca", end:"Nunca")
-    }
-    
-    init(id: String, title: String, description: String, date: String, endDate: String, priority: Int, members: [memberEvent], reminder: String = "") {
-        self.id = id
-        self.title = title
-        self.description = description
-        self.date = date
-        self.endDate = endDate
-        self.priority = priority
-        self.members = members
-        self.reminder = reminder
-        self.creator = service.USER_SERVICE.users[0].id
+        self.creator = store.state.UserState.user?.id!
+        self.repeatmodel = repeatEvent()
     }
     
     init(snapshot: FIRDataSnapshot) {
         let snapshotValue = snapshot.value as! NSDictionary
-        self.title = service.UTILITY_SERVICE.exist(field: Event.kTitle, dictionary: snapshotValue)
+        self.title = snapshotValue.exist(field: Event.kTitle)
         self.id = snapshot.key
-        self.description = service.UTILITY_SERVICE.exist(field: Event.kDescription, dictionary: snapshotValue)
-        self.date = service.UTILITY_SERVICE.exist(field: Event.kDate, dictionary: snapshotValue)
-        self.endDate = service.UTILITY_SERVICE.exist(field: Event.kEndDate, dictionary: snapshotValue )
-        self.priority = service.UTILITY_SERVICE.exist(field: Event.kPriority, dictionary: snapshotValue )
-        self.reminder = service.UTILITY_SERVICE.exist(field: Event.kreminder, dictionary: snapshotValue)
+        self.description = snapshotValue.exist(field: Event.kDescription)
+        self.date = snapshotValue.exist(field: Event.kDate)
+        self.endDate = snapshotValue.exist(field: Event.kEndDate)
+        self.priority = snapshotValue.exist(field: Event.kPriority)
         
         if let members = snapshotValue[Event.kMembers] as? NSDictionary {
             for item in members {
@@ -83,7 +70,11 @@ struct Event {
             self.location = Location(snapshot:xlocation)
         }
         
-        self.creator = service.UTILITY_SERVICE.exist(field: Event.kcreator, dictionary: snapshotValue)
+        if let model = snapshotValue.exist(dic: Event.kRepeat) {
+            self.repeatmodel = repeatEvent(snapshot: model)
+        }
+        self.dates = snapshotValue.exist(dic: Event.kDates)
+        self.creator = snapshotValue.exist(field: Event.kcreator)
     }
     
     func toDictionary() -> NSDictionary {
@@ -95,10 +86,8 @@ struct Event {
             Event.kDate : self.date,
             Event.kPriority : self.priority,
             Event.kMembers : NSDictionary(objects: self.members.map({$0.toDictionary()}), forKeys: self.members.map({$0.id}) as! [NSCopying]),
-            Event.kreminder : self.reminder ?? "",
             Event.klocation : self.location?.toDictionary() ?? "",
             Event.kcreator : self.creator,
-            Event.ktype : self.type,
             Event.kRepeat : self.repeatmodel.toDictionary(),
             
         ]
@@ -106,15 +95,20 @@ struct Event {
 }
 
 protocol EventBindable: AnyObject {
-    var event: Event? { get set }
+    var event: Event! { get set }
     var descriptionLabel: UILabel! {get}
     var dateLabel: UILabel! {get}
     var endDateLabel: UILabel! {get}
     var locationLabel: UILabel! {get}
     var titleLabel: UILabel! {get}
-    var remimberLabel: UILabel! {get}
+    var titleTxtField: UITextField! {get}
     var imageTime : UIImageView! {get}
-    
+    var endateTxtField: UITextField! {get}
+    var ubicationLabel: UITextField! {get}
+    var repeatLabel: UILabel! {get}
+    var endRepeat: UILabel! {get}
+    var descriptionTxtField: UITextField! {get}
+    var startDateTxtfield: UITextField! {get}
 }
 
 extension EventBindable {
@@ -123,6 +117,7 @@ extension EventBindable {
     var dateLabel: UILabel! {
         return nil
     }
+    var startDateTxtfield: UITextField! {return nil}
     
     var endDateLabel: UILabel! {
         return nil
@@ -137,13 +132,15 @@ extension EventBindable {
     var descriptionLabel: UILabel! {
         return nil
     }
-    
-    var reminderLabel: UILabel! {
-        return nil
-    }
+    var descriptionTxtField: UITextField! {return nil}
     var imageTime: UIImageView! {
         return nil
     }
+    var endateTxtField: UITextField! {return nil}
+    var ubicationLabel: UITextField! {return nil}
+    var repeatLabel: UILabel! {return nil}
+    var endRepeat: UILabel! {return nil}
+    var titleTxtField: UITextField! {return nil}
     
     // Bind
     
@@ -166,37 +163,39 @@ extension EventBindable {
             }
             
         }
-        
-        if let endDateLabel = self.endDateLabel {
-            endDateLabel.text = Date(string: event.endDate, formatter: .InternationalFormat)?.string(with: .hourAndMin)
+        if let ubicationLabel = self.ubicationLabel {
+            if event.location != nil {
+                ubicationLabel.text =  (event.location?.title.isEmpty)! ?  "Sin ubicación" : "\(event.location?.title ?? ""), \(event.location?.subtitle ?? "")"
+            }else{
+                ubicationLabel.text =   "Sin ubicación"
+            }
+            
         }
-       
+        if let endDateLabel = self.endDateLabel {
+            endDateLabel.text = Date(timeIntervalSince1970: TimeInterval(event.endDate)).string(with: .dayMonthYearHourMinute)
+        }
+        if let endateTxtField = self.endateTxtField {
+            endateTxtField.text = Date(timeIntervalSince1970: TimeInterval(event.endDate)).string(with: .dayMonthYearHourMinute)
+        }
         
+        if let titleTxtField = self.titleTxtField {
+            titleTxtField.text = event.title
+        }
         if let titleLabel = self.titleLabel {
             titleLabel.text = event.title
+        }
+        if let descriptionTxtField = self.descriptionTxtField {
+            descriptionTxtField.text = event.description
         }
         if let descriptionLabel = self.descriptionLabel {
             descriptionLabel.text = event.description
         }
         
         if let dateLabel = self.dateLabel {
-            dateLabel.text =  Date(string: event.date, formatter: .InternationalFormat)?.string(with: .hourAndMin)
+            dateLabel.text =  Date(timeIntervalSince1970: TimeInterval(event.date)).string(with: .dayMonthYearHourMinute)
         }
-        if let reminderLabel = self.remimberLabel {
-            reminderLabel.text = event.reminder
-        }
-
- 
-        if let imageTime2 = self.imageTime {
-            let hour : Int! = Int((Date(string: (self.event?.date)!, formatter: .InternationalFormat)?.string(with: .hourAndDate).components(separatedBy: ":")[0])!)!
-            
-            if hour <= 13 {
-                imageTime2.image = #imageLiteral(resourceName: "day")
-            }else if hour <= 17 {
-                imageTime2.image = #imageLiteral(resourceName: "afternoon")
-            }else{
-                imageTime2.image = #imageLiteral(resourceName: "night")
-            }
+        if let startDateTxtfield = self.startDateTxtfield {
+            startDateTxtfield.text =  Date(timeIntervalSince1970: TimeInterval(event.date)).string(with: .dayMonthYearHourMinute)
         }
         
     }

@@ -16,7 +16,7 @@ import ReSwiftRouter
 class AddGoalViewController: UIViewController, GoalBindable, StoreSubscriber, UIGestureRecognizerDelegate, DateProtocol{
     static let identifier = "AddGoalViewController"
     var types = [("Deportivo","sport"),("Religión","religion"),("Escolar","school"),("Negocios","business-1"),("Alimentación","eat"),("Salud","health-1")]
-    var mode = [("Diario","day"),("Semanal","week"),("Mensual","month")]
+    var frequency = [("Diario","day"),("Semanal","week"),("Mensual","month")]
     var goal: Goal!
     var type = 0
     let padding = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 0)
@@ -67,7 +67,7 @@ class AddGoalViewController: UIViewController, GoalBindable, StoreSubscriber, UI
             state.GoalsState
         }
         
-        if let index = mode.index(where: {$0.1 == goal.repeatGoalModel.mode}){
+        if let index = frequency.index(where: {$0.1 == goal.repeatGoalModel.frequency}){
             repeatSwitch.isOn = true
             pickerSelect.isHidden = false
             pickerSelect.selectRow(index, inComponent: 0, animated: true)
@@ -86,7 +86,7 @@ class AddGoalViewController: UIViewController, GoalBindable, StoreSubscriber, UI
         if sender.isOn {
             pickerSelect.isHidden = false
             collectionDays.isHidden = false
-            goal.repeatGoalModel.mode = "day"
+            goal.repeatGoalModel.frequency = "day"
             return
         }
         collectionDays.isHidden = true
@@ -117,7 +117,7 @@ class AddGoalViewController: UIViewController, GoalBindable, StoreSubscriber, UI
             return
         }
         goal.setId()
-        if goal.repeatGoalModel.mode.isEmpty {
+        if goal.repeatGoalModel.frequency.isEmpty {
             goal.repeatGoalModel.days.removeAll()
         }
         goal.title = title
@@ -212,7 +212,7 @@ extension AddGoalViewController: UICollectionViewDataSource, UICollectionViewDel
             collectionView.reloadData()
             return
         }
-        if goal.repeatGoalModel.mode == "month" {
+        if goal.repeatGoalModel.frequency == "month" {
             goal.repeatGoalModel.days.removeAll()
         }
         if let index = goal.repeatGoalModel.days.index(where: {$0 == String(indexPath.row)}) {
@@ -231,14 +231,14 @@ extension AddGoalViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         return 1
     }
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return mode.count
+        return frequency.count
     }
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return mode[row].0
+        return frequency[row].0
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         days.removeAll()
-        self.goal.repeatGoalModel.mode = mode[row].1
+        self.goal.repeatGoalModel.frequency = frequency[row].1
         self.goal.repeatGoalModel.days.removeAll()
         reloadDataREpeat(row: row)
     }

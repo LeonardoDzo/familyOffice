@@ -57,7 +57,10 @@ extension UIImageView {
             break
         }
     }
-    
+    func circleImage() -> Void {
+        self.clipsToBounds = true
+        self.layer.cornerRadius = self.frame.size.width/2
+    }
     func blackwhite(urlString: String) {
         if let cacheImage = imageBWCache.object(forKey: urlString as AnyObject) {
             self.image = cacheImage as? UIImage

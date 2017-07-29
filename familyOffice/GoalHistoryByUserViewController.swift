@@ -22,9 +22,13 @@ class GoalHistoryByUserViewController: UIViewController, GoalBindable {
     @IBOutlet weak var dateForCompleate: UILabel!
     @IBOutlet weak var doneSwitch: UISwitch!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var secondView: UIView!
+    @IBOutlet weak var firstView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        firstView.formatView()
+        secondView.formatView()
+        pieChart.formatView()
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {

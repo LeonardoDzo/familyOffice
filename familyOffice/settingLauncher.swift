@@ -9,7 +9,7 @@
 import UIKit
 
 class SettingLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate {
-    
+    var fid = ""
     let blackView = UIView()
     weak var handleFamily : HandleFamilySelected!
     let collectionView = { () -> UICollectionView in
@@ -20,13 +20,14 @@ class SettingLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectio
     }()
     
     func showSetting() {
+        fid = store.state.UserState.user?.familyActive ?? ""
         if let window = UIApplication.shared.keyWindow {
             blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
             blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
             window.addSubview(blackView)
             window.addSubview(collectionView)
             
-            let height : CGFloat = 200.0
+            let height : CGFloat = CGFloat(store.state.FamilyState.families.items.count * 80)
             let y = window.frame.height - height
             collectionView.frame = CGRect(x: 0, y: y, width: window.frame.width, height: height)
             
@@ -38,6 +39,7 @@ class SettingLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectio
                 self.collectionView.frame = CGRect(x: 0, y: y, width: self.collectionView.frame.width, height: self.collectionView.frame.height)
             }, completion: nil)
         }
+        self.collectionView.reloadData()
     }
     func handleDismiss() {
         UIView.animate(withDuration: 0.5, animations: {
@@ -60,13 +62,16 @@ class SettingLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectio
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! familySettingCell
         let family = store.state.FamilyState.families.items[indexPath.row]
-        cell.image.layer.cornerRadius = cell.image.frame.size.width/2
-        cell.image.clipsToBounds = true
         if !(family.photoURL?.isEmpty)! {
             cell.image.loadImage(urlString: family.photoURL!)
         }
+        if fid == family.id{
+            cell.isHighlighted = true
+        }else{
+            cell.isHighlighted = false
+        }
         cell.nameLabel.text = family.name
-        
+        cell.image.circleImage()
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -106,33 +111,42 @@ class BaseCell: UICollectionViewCell {
     
     func setupViews()  {
     }
+    override func awakeFromNib() {
+    }
     
 }
 
 class familySettingCell: BaseCell {
+    override var isHighlighted: Bool {
+        didSet{
+            backgroundColor = isHighlighted ? UIColor.lightGray : UIColor.clear
+        }
+    }
     var nameLabel : UILabel = {
         let label = UILabel()
         label.text = "name"
+        label.font = UIFont.systemFont(ofSize: 13)
         return label
     }()
     
-    var image: UIImageView = {
+    lazy var image: CustomUIImageView = {
         let image = CustomUIImageView()
         image.image = #imageLiteral(resourceName: "familyImage")
-       
         return image
     }()
     override func awakeFromNib() {
         super.awakeFromNib()
-        
     }
     override func setupViews() {
         super.setupViews()
+        
         addSubview(nameLabel)
         addSubview(image)
+        
         addContraintWithFormat(format: "H:|-8-[v0(60)]-8-[v1]|", views: image, nameLabel)
         addContraintWithFormat(format: "V:|[v0]|", views: nameLabel)
         addContraintWithFormat(format: "V:[v0(60)]", views: image)
+        awakeFromNib()
         addConstraint(NSLayoutConstraint(item: image, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
     }
 }

@@ -8,27 +8,30 @@
 
 import Foundation
 
-struct repeatGoal {
-    static let kmode = "mode"
+struct repeatGoal: repeatProtocol {
+    static let kFrequency = "frequency"
     static let kdays = "days"
-    
-    var mode = ""
-    var days = [String]()
-    
+    static let keach = "each"
+    var frequency: String!
+    var days : [String]! = []
+    var each: Int!
     init() {
-        self.mode = ""
+        self.frequency = ""
+        self.each = 1
     }
     
     init(_ snapvalue: NSDictionary) {
-        let string : String! = service.UTILITY_SERVICE.exist(field: repeatGoal.kdays, dictionary: snapvalue)
+        let string : String! = snapvalue.exist(field: repeatGoal.kdays)
         self.days = string.components(separatedBy: ",")
-        self.mode = service.UTILITY_SERVICE.exist(field: repeatGoal.kmode, dictionary: snapvalue)
+        self.frequency = snapvalue.exist(field: repeatGoal.kFrequency)
+        self.each = snapvalue.exist(field: repeatGoal.keach)
     }
     
     func toDictionary() -> NSDictionary {
         return [
             repeatGoal.kdays : self.days.joined(separator: ","),
-            repeatGoal.kmode : self.mode
+            repeatGoal.kFrequency : self.frequency,
+            repeatGoal.keach : self.each
         ]
     }
 }

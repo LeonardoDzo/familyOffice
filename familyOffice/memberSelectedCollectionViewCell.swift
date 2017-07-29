@@ -16,8 +16,7 @@ class memberSelectedCollectionViewCell: UICollectionViewCell, UserModelBindable 
     override func awakeFromNib() {
         super.awakeFromNib()
         self.profileImage.image = #imageLiteral(resourceName: "profile_default")
-        self.profileImage.layer.cornerRadius = self.profileImage.frame.size.width/2
-        self.profileImage.clipsToBounds = true
+        self.profileImage.circleImage()
     }
    
 }

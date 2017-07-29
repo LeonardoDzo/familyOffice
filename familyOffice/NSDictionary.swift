@@ -53,9 +53,9 @@ extension NSDictionary {
             return []
         }
     }
-    func exist(dic field: String) -> NSDictionary {
+    func exist(dic field: String) -> NSDictionary? {
         guard let value = self[field] as? NSDictionary else {
-            return [:]
+            return nil
         }
         return value
     }

@@ -10,8 +10,7 @@ import UIKit
 import MapKit
 class ShowEventViewController: UIViewController, EventBindable {
 
-
-    var event: Event?
+    var event: Event!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var endDateLabel: UILabel!
