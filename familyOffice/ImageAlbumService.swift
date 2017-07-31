@@ -74,9 +74,9 @@ class ImageAlbumService: RequestService{
     func delete(_ ref: String, callback: @escaping ((Any) -> Void)) {
         Constants.FirDatabase.REF.child(ref).removeValue(completionBlock: {(error,snap) in
             if error != nil{
-                callback(true)
-            }else{
                 callback(false)
+            }else{
+                callback(true)
             }
         })
     }
@@ -107,6 +107,13 @@ class ImageAlbumService: RequestService{
                     store.state.GalleryState.status = .Failed("Error al borrar archivo de almacenamiento remoto, contacte al soporte.")
                 }
             })
+            if image.video != nil{
+                Constants.FirStorage.STORAGEREF.child("images/\(image.id!).m4v").delete(completion: {error in
+                    if error != nil{
+                        store.state.GalleryState.status = .Failed("Error al borrar archivo de almacenamiento remoto, contacte al soporte.")
+                    }
+                })
+            }
             store.state.GalleryState.status = .finished
         }
     }

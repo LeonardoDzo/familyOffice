@@ -12,7 +12,8 @@ let galleryActionTypeMap: TypeMap = [
     InsertGalleryAction.type: InsertGalleryAction.self,
     DeleteGalleryAction.type: DeleteGalleryAction.self,
     InsertImagesAlbumAction.type: InsertImagesAlbumAction.self,
-    InsertVideoAlbumAction.type: InsertVideoAlbumAction.self
+    InsertVideoAlbumAction.type: InsertVideoAlbumAction.self,
+    DeleteImagesGalleryAction.type: DeleteImagesGalleryAction.self
 ]
 
 struct InsertGalleryAction: StandardActionConvertible {
@@ -42,7 +43,20 @@ struct DeleteGalleryAction: StandardActionConvertible {
         return StandardAction(type: DeleteGalleryAction.type, payload: [:], isTypedAction: true)
     }
 }
-
+struct DeleteImagesGalleryAction: StandardActionConvertible {
+    static let type = "GALLERYIMAGE_ACTION_DELETE"
+    var images: [ImageAlbum]!
+    
+    init(album: [ImageAlbum]) {
+        self.images = album
+    }
+    init(_ standardAction: StandardAction) {
+    }
+    
+    func toStandardAction() -> StandardAction {
+        return StandardAction(type: DeleteImagesGalleryAction.type, payload: [:], isTypedAction: true)
+    }
+}
 struct GetGalleyAction: Action {
 }
 

@@ -164,18 +164,19 @@ extension AlbumViewController{
     }
     func newState(state: GalleryState) {
         switch state.status {
+        
         case .failed:
+            self.collectionImages.reloadData()
             break
         case .finished:
             self.currentAlbum = store.state.GalleryState.Album
             self.imgesAlbum = (self.currentAlbum?.ObjImages)!
-            
+            self.collectionImages.reloadData()
             store.state.GalleryState.status = .none
             break
         case .Failed(let data):
             if data is ImageAlbum{
-                let image: ImageAlbum = data as! ImageAlbum
-                print(image.id)
+                self.collectionImages.reloadData()
                 store.state.GalleryState.status = .none
             }
             if data is String{
@@ -183,10 +184,28 @@ extension AlbumViewController{
                 self.view.makeToast(msg, duration: 1.0, position: .center)
                 store.state.FamilyState.status = .finished
             }
+            if data is (Int,ImageAlbum){
+                let value: (Int,ImageAlbum) = data as! (Int, ImageAlbum)
+                let index = value.0 + 1
+                self.view.makeToast("No se pudo eliminar la selección: \(index)", duration: 1.0, position: .bottom)
+            }
             break
         case .Finished(let data):
-            if let image: ImageAlbum = data as! ImageAlbum{
+            if data is ImageAlbum{
                 store.state.GalleryState.status = .none
+            }
+            if data is (Int,ImageAlbum){
+                let value: (Int,ImageAlbum) = data as! (Int, ImageAlbum)
+                let index = value.0 + 1
+                self.view.makeToast("Se elimino la selección: \(index)", duration: 1.0, position: .bottom)
+                if self.selectedItems.count == 1{
+                    self.cancelSelection()
+                    store.state.GalleryState.status = .none
+                }else{
+                    let data: (Int,ImageAlbum) = data as! (Int,ImageAlbum)
+                    self.selectedItems.removeValue(forKey: data.1.id)
+                    self.navigationItem.title = "Seleccionados: \(self.selectedItems.count)"
+                }
             }
             break
         case .none:
@@ -194,7 +213,6 @@ extension AlbumViewController{
         default:
             break
         }
-        self.collectionImages.reloadData()
     }
 }
 extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSource ,UICollectionViewDelegateFlowLayout,LightboxControllerPageDelegate,LightboxControllerDismissalDelegate{
@@ -225,7 +243,7 @@ extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSou
                 let cell = self.collectionImages.cellForItem(at: indexPath) as! GalleryImageCollectionViewCell
                 self.selectedItems[(cell.imageAlbum?.id)!] = cell
                 self.collectionView(self.collectionImages, didSelectItemAt: indexPath)
-                let deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: nil)
+                let deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(self.deleteImages))
                 deleteButton.tintColor = #colorLiteral(red: 1, green: 0.2940415765, blue: 0.02801861018, alpha: 1)
                 let share = UIBarButtonItem(barButtonSystemItem: .action, target: self, action:#selector(self.ShareData))
                 share.tintColor = #colorLiteral(red: 1, green: 0.2940415765, blue: 0.02801861018, alpha: 1)
@@ -266,7 +284,7 @@ extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSou
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if self.selectedItems.count > 0{
             let cell = self.collectionImages.cellForItem(at: indexPath) as! GalleryImageCollectionViewCell
-            if let Created = self.selectedItems[(cell.imageAlbum?.id)!]{
+            if self.selectedItems.keys.contains(where: {$0 == cell.imageAlbum?.id}){
                 cell.playImage.image = #imageLiteral(resourceName: "success")
                 cell.layer.borderWidth = 3.0
                 cell.layer.borderColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1).cgColor
@@ -337,7 +355,7 @@ extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSou
         var imageToShare = [Any]()
         for item in self.selectedItems{
             if item.value.imageAlbum?.video == nil{
-                imageToShare.append(item.value.imageBackground.image)
+                imageToShare.append(item.value.imageBackground.image!)
             }else{
                 let video =  URL(string: (item.value.imageAlbum?.path)!)!
                 imageToShare.append(video)
@@ -352,19 +370,18 @@ extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSou
         
     }
     func deleteImage() {
-        print("delete",self.controller.currentPage,self.controller.images[self.controller.currentPage].text)
         let key: String! = self.controller.images[self.controller.currentPage].text
-        service.IMAGEALBUM_SERVICE.delete("images/\(key!)", callback: {response in
-            if let resp: Bool = response as! Bool{
-                if resp == true{
-                    self.controller.dismiss(animated: true, completion: nil)
-                    self.view.makeToast("Error al eliminar archivo.", duration: 1.0, position: .center)
-                }
-            }else{
-                self.controller.dismiss(animated: true, completion: nil)
-                self.view.makeToast("Error al eliminar archivo.", duration: 1.0, position: .center)
-            }
-        })
+        if let image = self.imgesAlbum.first(where: {$0.id == key}){
+            let action = DeleteImagesGalleryAction.init(album: [image])
+            store.dispatch(action)
+        }
+    }
+    func deleteImages() {
+        if self.selectedItems.count > 0 {
+            let album = self.selectedItems.map({$0.value.imageAlbum!})
+            let action = DeleteImagesGalleryAction.init(album: album)
+            store.dispatch(action)
+        }
     }
     public func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let cell = self.collectionImages.cellForItem(at: indexPath) as! GalleryImageCollectionViewCell

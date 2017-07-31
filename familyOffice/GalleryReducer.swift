@@ -32,10 +32,35 @@ struct GalleryReducer: Reducer {
                 stateAux.status = .none
                 return stateAux
             }
+            break
+        case let action as DeleteImagesGalleryAction:
+            if action.images != nil{
+                deleteImages(images: action.images)
+                stateAux.status = .loading
+                return stateAux
+            }
+            break
         default:
             break
         }
         return stateAux
+    }
+    func deleteImages(images: [ImageAlbum]){
+        for (index,item) in images.enumerated(){
+            let key: String! = item.id!
+            service.IMAGEALBUM_SERVICE.delete("images/\(key!)", callback: {response in
+                if let resp: Bool = response as? Bool{
+                    if resp == true{
+                        store.state.GalleryState.status = .Finished((index,item))
+                    }else{
+                        store.state.GalleryState.status = .Failed((index,item))
+                    }
+                }else{
+                    store.state.GalleryState.status = .Failed((index,item))
+                }
+            })
+        }
+        return
     }
     func addImage(image: ImageAlbum) {
         service.IMAGEALBUM_SERVICE.InsertImage(image: image)
