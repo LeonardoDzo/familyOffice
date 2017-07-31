@@ -11,7 +11,7 @@ import ReSwift
 import Firebase
 import M13Checkbox
 
-class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, UITableViewDelegate, UITableViewDataSource, UITabBarDelegate {
+class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, UITableViewDelegate, UITableViewDataSource, UITabBarDelegate, UIGestureRecognizerDelegate {
     
     
     @IBOutlet var tableView: UITableView!
