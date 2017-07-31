@@ -8,9 +8,13 @@
 import Foundation
 import ReSwift
 import ReSwiftRecorder
-let galleryActionTypeMap: TypeMap = [InsertGalleryAction.type: InsertGalleryAction.self,
-                                  DeleteGalleryAction.type: DeleteGalleryAction.self,
-                                  InsertImagesAlbumAction.type: InsertImagesAlbumAction.self]
+let galleryActionTypeMap: TypeMap = [
+    InsertGalleryAction.type: InsertGalleryAction.self,
+    DeleteGalleryAction.type: DeleteGalleryAction.self,
+    InsertImagesAlbumAction.type: InsertImagesAlbumAction.self,
+    InsertVideoAlbumAction.type: InsertVideoAlbumAction.self,
+    DeleteImagesGalleryAction.type: DeleteImagesGalleryAction.self
+]
 
 struct InsertGalleryAction: StandardActionConvertible {
     static let type = "GALLERY_ACTION_INSERT"
@@ -39,7 +43,20 @@ struct DeleteGalleryAction: StandardActionConvertible {
         return StandardAction(type: DeleteGalleryAction.type, payload: [:], isTypedAction: true)
     }
 }
-
+struct DeleteImagesGalleryAction: StandardActionConvertible {
+    static let type = "GALLERYIMAGE_ACTION_DELETE"
+    var images: [ImageAlbum]!
+    
+    init(album: [ImageAlbum]) {
+        self.images = album
+    }
+    init(_ standardAction: StandardAction) {
+    }
+    
+    func toStandardAction() -> StandardAction {
+        return StandardAction(type: DeleteImagesGalleryAction.type, payload: [:], isTypedAction: true)
+    }
+}
 struct GetGalleyAction: Action {
 }
 
@@ -58,4 +75,20 @@ struct InsertImagesAlbumAction: StandardActionConvertible {
         return StandardAction(type: InsertImagesAlbumAction.type, payload: [:], isTypedAction: true)
     }
 
+}
+struct InsertVideoAlbumAction: StandardActionConvertible {
+    static let type = "GALLERYVIDEO_ACTION_INSERT"
+    var image: ImageAlbum!
+    init(image: ImageAlbum){
+        self.image = image
+    }
+    
+    
+    init(_ standardAction: StandardAction) {
+    }
+    
+    func toStandardAction() -> StandardAction {
+        return StandardAction(type: InsertVideoAlbumAction.type, payload: [:], isTypedAction: true)
+    }
+    
 }
