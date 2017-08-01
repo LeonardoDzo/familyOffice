@@ -22,6 +22,7 @@ struct AppReducer: Reducer {
             ContactState: ContactReducer().handleAction(action: action, state: state?.ContactState),
             MedicineState: MedicineReducer().handleAction(action: action, state: state?.MedicineState),
             IllnessState: IllnessReducer().handleAction(action: action, state: state?.IllnessState),
+            FaqState: FaqReducer().handleAction(action: action, state: state?.FaqState),
             notifications: state?.notifications ?? []
         )
     }

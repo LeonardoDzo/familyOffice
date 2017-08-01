@@ -25,7 +25,10 @@ let store = RecordingMainStore<AppState>(
                    galleryActionTypeMap,
                    medicineActionTypeMap,
                    illnessActionTypeMap,
-                   familyActionTypeMap])
+                   familyActionTypeMap,
+                   faqActionTypeMap],
+
+        recording: "recording.json")
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUserNotificationCenterDelegate {
