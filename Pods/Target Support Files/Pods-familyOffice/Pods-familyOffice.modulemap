@@ -1,6 +1,0 @@
-framework module Pods_familyOffice {
-  umbrella header "Pods-familyOffice-umbrella.h"
-
-  export *
-  module * { export * }
-}
