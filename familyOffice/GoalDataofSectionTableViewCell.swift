@@ -49,8 +49,7 @@ extension GoalDataofSectionTableViewCell: UITableViewDataSource,UITableViewDeleg
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! GoalDataForCategoryTableViewCell
         let goal = data[indexPath.row]
         cell.bind(goal:goal)
-        if  goal.follow.count == 0 {
-            
+        if goal.follow.count == 0 {
             cell.doneSwitch.isHidden = false
             if goal.type == 0 {
                  cell.accessoryType = .none

@@ -5,6 +5,7 @@
 //  Created by Leonardo Durazo on 23/06/17.
 //  Copyright © 2017 Leonardo Durazo. All rights reserved.
 //
+import Foundation
 import UIKit
 extension GoalBindable {
     
@@ -66,7 +67,7 @@ extension GoalBindable {
             endDateDP.date = date
         }
 
-        if let endDateLbl  = self.endDateLbl {
+        if let endDateLbl = self.endDateLbl {
             let date = Date(timeIntervalSince1970: TimeInterval(goal.endDate/1000))
             endDateLbl.text =  date.string(with: .dayMonthAndYear2)
         }
@@ -90,9 +91,7 @@ extension GoalBindable {
             if goal.type == 0 {
                 doneSwitch.isOn = goal.done
             }else{
-                //print(store.state.UserState)
                 doneSwitch.isOn = goal.members[(store.state.UserState.user?.id!)!]! > 0
-                //print(goal.members[(store.state.UserState.user?.id!)!])
             }
         }
         if let repeatSwitch = self.repeatSwitch {

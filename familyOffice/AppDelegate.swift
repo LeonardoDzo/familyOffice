@@ -25,10 +25,13 @@ let store = RecordingMainStore<AppState>(
                    galleryActionTypeMap,
                    medicineActionTypeMap,
                    illnessActionTypeMap,
-                   familyActionTypeMap])
+                   familyActionTypeMap,
+                   faqActionTypeMap],
+
+        recording: "recording.json")
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
+class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUserNotificationCenterDelegate {
     var router: Router<AppState>!
     var window: UIWindow?
     var rootViewController: Routable!
@@ -47,6 +50,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
         }
         
         FIRApp.configure()
+        
+        if #available(iOS 10.0, *) {
+            // For iOS 10 display notification (sent via APNS)
+            UNUserNotificationCenter.current().delegate = self
+            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+            UNUserNotificationCenter.current().requestAuthorization(
+                options: authOptions,
+                completionHandler: {_, _ in })
+        } else {
+            let settings: UIUserNotificationSettings =
+                UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+
+            application.registerUserNotificationSettings(settings)
+        }
+        
+        application.registerForRemoteNotifications()
         GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
         NotificationCenter.default.addObserver(self,
@@ -124,7 +143,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        NotificationCenter.default.post(name: notCenter.BACKGROUND_NOTIFICATION, object: nil)
         FIRMessaging.messaging().disconnect()
         print("Disconnected from FCM.")
     }

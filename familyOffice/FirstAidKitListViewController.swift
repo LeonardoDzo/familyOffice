@@ -10,7 +10,7 @@ import UIKit
 import ReSwift
 import Firebase
 
-class FirstAidKitListViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
+class FirstAidKitListViewController: UIViewController,UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
     var medicines:[Medicine] = []
     let familyID = store.state.UserState.user?.familyActive!
     let settingLauncher = SettingLauncher()

@@ -18,6 +18,7 @@ struct AppState: StateType{
     var ContactState: ContactState
     var MedicineState: MedicineState
     var IllnessState: IllnessState
+    var FaqState: FaqState
 
     
     var notifications = [NotificationModel]()

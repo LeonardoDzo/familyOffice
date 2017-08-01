@@ -18,6 +18,7 @@ enum GoalType: Int {
     case personal, familiar
 }
 
+
 struct Goal {
     static let ktitle = "title"
     static let ktype = "type"

@@ -205,12 +205,13 @@ extension HomeViewController : StoreSubscriber {
     
     func newState(state: FamilyState) {
         user = store.state.UserState.user
-        if user?.families?.count == 0 {
+        
+        families = state.families.items
+        if families.count == 0 {
             self.handleBack()
-        }else{
-            families = state.families.items
-            reloadFamily()
         }
+        reloadFamily()
+        
         
     }
 

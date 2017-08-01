@@ -18,6 +18,7 @@ class GalleryCollectionViewCell: UICollectionViewCell, AlbumBindable {
 class GalleryImageCollectionViewCell: UICollectionViewCell, ImageAlbumBindable {
     
     @IBOutlet weak var imageBackground: CustomUIImageView!
+    @IBOutlet weak var playImage: UIImageView!
     
     var imageAlbum: ImageAlbum?
     
@@ -26,6 +27,7 @@ class GalleryImageCollectionViewCell: UICollectionViewCell, ImageAlbumBindable {
         self.imageBackground.frame.size.width = self.bounds.size.width
         self.imageBackground.frame.size.height = self.bounds.size.height
     }
+    
 }
 
 

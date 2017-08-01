@@ -240,7 +240,7 @@ extension GoalViewController {
             doneSwitch.isOn = follow.members[(user?.id!)!]! > 0 ? true : false
         }else{
             doneSwitch.isOn = goal.members[(user?.id!)!]! > 0 ? true : false
-            let string = "Finalizar objetivo de fecha: "
+            let string = "Complete la obj. de: : "
             dateForCompleate.text = string + Date(timeIntervalSince1970: TimeInterval(goal.endDate/1000)).string(with: .dayMonthAndYear2)
         }
         updatePieChartData()

@@ -155,6 +155,7 @@ class CustomUIImageView: UIImageView {
         }
     }
     
+    
     func showLoading() {
         
         if (activityIndicator == nil) {

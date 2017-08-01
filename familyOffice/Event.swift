@@ -197,6 +197,9 @@ extension EventBindable {
         if let startDateTxtfield = self.startDateTxtfield {
             startDateTxtfield.text =  Date(timeIntervalSince1970: TimeInterval(event.date)).string(with: .dayMonthYearHourMinute)
         }
+        if let repeatLabel = self.repeatLabel {
+            repeatLabel.text = event.repeatmodel.frequency
+        }
         
     }
 }

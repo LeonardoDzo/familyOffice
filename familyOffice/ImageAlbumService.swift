@@ -74,9 +74,9 @@ class ImageAlbumService: RequestService{
     func delete(_ ref: String, callback: @escaping ((Any) -> Void)) {
         Constants.FirDatabase.REF.child(ref).removeValue(completionBlock: {(error,snap) in
             if error != nil{
-                callback(true)
-            }else{
                 callback(false)
+            }else{
+                callback(true)
             }
         })
     }
@@ -107,6 +107,13 @@ class ImageAlbumService: RequestService{
                     store.state.GalleryState.status = .Failed("Error al borrar archivo de almacenamiento remoto, contacte al soporte.")
                 }
             })
+            if image.video != nil{
+                Constants.FirStorage.STORAGEREF.child("images/\(image.id!).m4v").delete(completion: {error in
+                    if error != nil{
+                        store.state.GalleryState.status = .Failed("Error al borrar archivo de almacenamiento remoto, contacte al soporte.")
+                    }
+                })
+            }
             store.state.GalleryState.status = .finished
         }
     }
@@ -125,6 +132,37 @@ class ImageAlbumService: RequestService{
                         service.GALLERY_SERVICE.update(path!, value: [image.id as AnyHashable : true], callback: {response in
                             if response is FIRDatabaseReference{
                                 store.state.GalleryState.status = .Finished(image)
+                            }
+                        })
+                    }else{
+                        store.state.GalleryState.status = .Failed(image)
+                    }
+                })
+            }else{
+                store.state.GalleryState.status = .Failed(image)
+            }
+        })
+    }
+    
+    func InsertVideo(image: ImageAlbum) {
+        var image: ImageAlbum! = image
+        let reference: String = "images/\(image.id!)"
+        service.STORAGE_SERVICE.insert("\(reference)\(".jpg")", value: image.uiimage, callback: {metadata in
+            if let metadata: FIRStorageMetadata = metadata as? FIRStorageMetadata{
+                image.video = metadata.downloadURL()?.absoluteString
+                service.STORAGE_SERVICE.insert("\(reference)\(".m4v")", value: image.DataVideo, callback: {metadata in
+                    if let metadata: FIRStorageMetadata = metadata as? FIRStorageMetadata{
+                        image.path = metadata.downloadURL()?.absoluteString
+                        service.IMAGEALBUM_SERVICE.insert(reference, value: image.toDictionary(), callback: {ref in
+                            if ref is FIRDatabaseReference{
+                                let path: String! = "album/\(service.GALLERY_SERVICE.refUserFamily!)/\(image.album!)/images"
+                                service.GALLERY_SERVICE.update(path!, value: [image.id as AnyHashable : true], callback: {response in
+                                    if response is FIRDatabaseReference{
+                                        store.state.GalleryState.status = .Finished(image)
+                                    }
+                                })
+                            }else{
+                                store.state.GalleryState.status = .Failed(image)
                             }
                         })
                     }else{
