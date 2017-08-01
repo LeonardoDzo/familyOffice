@@ -9,7 +9,7 @@
 import UIKit
 
 class EventTableViewCell: UITableViewCell, EventBindable {
-    var event: Event?
+    var event: Event!
     weak var delegate : CalendarViewController!
     override func awakeFromNib() {
         super.awakeFromNib()

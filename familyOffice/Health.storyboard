@@ -1,428 +1,428 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="RtR-jT-w72">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
-    <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
-    </dependencies>
-    <customFonts key="customFonts">
-        <array key="Gotham-Book.ttf">
-            <string>GothamBook</string>
-        </array>
-    </customFonts>
-    <scenes>
-        <!--Nuevo-->
-        <scene sceneID="xaZ-or-7XW">
-            <objects>
-                <tableViewController title="Nuevo" id="bFh-vO-OhA" customClass="EditHealthTableViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="eLg-xy-Sf1">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <sections>
-                            <tableViewSection id="KqH-SB-cd3">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="12O-bg-TV1" style="IBUITableViewCellStyleDefault" id="3qK-3m-mQj">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3qK-3m-mQj" id="g9v-Yh-E8P">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Medicamento" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="12O-bg-TV1">
-                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="kxH-tf-uX7" style="IBUITableViewCellStyleDefault" id="gE6-JV-wez">
-                                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gE6-JV-wez" id="m2w-3F-qVJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Enfermedad" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kxH-tf-uX7">
-                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="zpF-uQ-OwB" style="IBUITableViewCellStyleDefault" id="12o-61-D98">
-                                        <rect key="frame" x="0.0" y="88" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="12o-61-D98" id="V0Z-hn-a8h">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Doctor" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zpF-uQ-OwB">
-                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="UMJ-m4-CTW" style="IBUITableViewCellStyleDefault" id="YJo-fR-8pO">
-                                        <rect key="frame" x="0.0" y="132" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YJo-fR-8pO" id="dIk-vs-mZJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Operación" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UMJ-m4-CTW">
-                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
-                        <connections>
-                            <outlet property="dataSource" destination="bFh-vO-OhA" id="yqw-gp-YAz"/>
-                            <outlet property="delegate" destination="bFh-vO-OhA" id="bWq-B7-AnE"/>
-                        </connections>
-                    </tableView>
-                    <connections>
-                        <segue destination="Hdj-Sw-dSa" kind="show" identifier="segueNew" id="TuP-vH-pOg"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="If7-3V-a5O" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="7087" y="-1136"/>
-        </scene>
-        <!--New Health Element View Controller-->
-        <scene sceneID="6bG-ZJ-Yhc">
-            <objects>
-                <tableViewController id="Hdj-Sw-dSa" customClass="NewHealthElementViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="uPe-G4-CFj">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <sections>
-                            <tableViewSection headerTitle="Nombre" id="mdh-qi-Py1">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="bTt-Az-sNY">
-                                        <rect key="frame" x="0.0" y="56" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bTt-Az-sNY" id="5bv-nG-6Xq">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NjO-ge-jYB">
-                                                    <rect key="frame" x="8" y="6" width="359" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection headerTitle="Descripción" id="hJd-wt-Zl5">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="150" id="1KN-y0-S8f">
-                                        <rect key="frame" x="0.0" y="156" width="375" height="150"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1KN-y0-S8f" id="J4X-Lm-JWt">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="fRN-tA-XPh">
-                                                    <rect key="frame" x="8" y="10" width="359" height="128"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                </textView>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
-                        <connections>
-                            <outlet property="dataSource" destination="Hdj-Sw-dSa" id="J74-QB-KxY"/>
-                            <outlet property="delegate" destination="Hdj-Sw-dSa" id="jAt-I4-Gim"/>
-                        </connections>
-                    </tableView>
-                    <connections>
-                        <outlet property="descriptionField" destination="fRN-tA-XPh" id="hB6-82-gbU"/>
-                        <outlet property="nameField" destination="NjO-ge-jYB" id="ok9-OP-F8O"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hLT-FG-Tqi" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="6415" y="-278"/>
-        </scene>
-        <!--Salud-->
-        <scene sceneID="25i-Yt-nGx">
-            <objects>
-                <viewController title="Salud" id="RtR-jT-w72" customClass="HealthOmniViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="9v3-SA-oWs"/>
-                        <viewControllerLayoutGuide type="bottom" id="WIM-73-23T"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="K6M-Lx-KNy">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <segmentedControl opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="JET-MF-ZfL">
-                                <rect key="frame" x="10" y="118" width="355" height="29"/>
-                                <segments>
-                                    <segment title="Medicamentos"/>
-                                    <segment title="Padecimientos"/>
-                                    <segment title="Doctores"/>
-                                    <segment title="Operaciones"/>
-                                </segments>
-                                <color key="tintColor" red="0.29529786109924316" green="0.16227084398269653" blue="0.50965744256973267" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <action selector="categoryChanged:" destination="RtR-jT-w72" eventType="valueChanged" id="VlA-hV-s2R"/>
-                                </connections>
-                            </segmentedControl>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="OsG-Eb-55f">
-                                <rect key="frame" x="10" y="30" width="355" height="78"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="78" id="UKZ-pL-0fL"/>
-                                </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="LFn-DK-uzX">
-                                    <size key="itemSize" width="65" height="65"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="10" minY="5" maxX="10" maxY="5"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="memberCell" id="0uv-k5-djr" customClass="HealthMemberCollectionViewCell" customModule="familyOffice" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="6.5" width="65" height="65"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="65" height="65"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bAe-Uc-q5h">
-                                                    <rect key="frame" x="0.0" y="0.0" width="65" height="65"/>
-                                                </imageView>
-                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="check-1" translatesAutoresizingMaskIntoConstraints="NO" id="7jJ-sq-rlv">
-                                                    <rect key="frame" x="41" y="41" width="24" height="24"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </imageView>
-                                            </subviews>
-                                        </view>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="bAe-Uc-q5h" secondAttribute="trailing" id="57H-k3-4hJ"/>
-                                            <constraint firstItem="bAe-Uc-q5h" firstAttribute="top" secondItem="0uv-k5-djr" secondAttribute="top" id="6Xp-A4-0nM"/>
-                                            <constraint firstItem="bAe-Uc-q5h" firstAttribute="leading" secondItem="0uv-k5-djr" secondAttribute="leading" id="JlA-Ox-3OR"/>
-                                            <constraint firstAttribute="bottom" secondItem="bAe-Uc-q5h" secondAttribute="bottom" id="oVm-nV-C6f"/>
-                                        </constraints>
-                                        <connections>
-                                            <outlet property="profileImage" destination="bAe-Uc-q5h" id="JZJ-OK-CXQ"/>
-                                            <outlet property="selectedMember" destination="7jJ-sq-rlv" id="SIs-Dy-VpJ"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                </cells>
-                            </collectionView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="78" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="UCK-ST-O8u">
-                                <rect key="frame" x="10" y="118" width="355" height="539"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <view key="tableHeaderView" contentMode="scaleToFill" id="b8i-ai-cXU">
-                                    <rect key="frame" x="0.0" y="0.0" width="355" height="85"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ulg-Rj-8g4">
-                                            <rect key="frame" x="30" y="24" width="37" height="37"/>
-                                            <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="18"/>
-                                            <state key="normal" image="medicamentos-red">
-                                                <color key="titleColor" red="0.2952978611" green="0.162270844" blue="0.50965744260000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="categoryClick:" destination="RtR-jT-w72" eventType="touchUpInside" id="bYe-Uu-UpC"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wlN-oM-UF6">
-                                            <rect key="frame" x="117" y="24" width="37" height="37"/>
-                                            <state key="normal" image="enfermedades">
-                                                <color key="titleColor" red="0.2952978611" green="0.162270844" blue="0.50965744260000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="categoryClick:" destination="RtR-jT-w72" eventType="touchUpInside" id="fG0-hc-Hoa"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Af2-a2-HNv">
-                                            <rect key="frame" x="201" y="24" width="37" height="37"/>
-                                            <state key="normal" image="doctores-red">
-                                                <color key="titleColor" red="0.2952978611" green="0.162270844" blue="0.50965744260000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="categoryClick:" destination="RtR-jT-w72" eventType="touchUpInside" id="FFR-Ou-o5k"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kam-UH-Cgc">
-                                            <rect key="frame" x="288" y="24" width="37" height="37"/>
-                                            <state key="normal" image="operaciones-red">
-                                                <color key="titleColor" red="0.2952978611" green="0.162270844" blue="0.50965744260000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="categoryClick:" destination="RtR-jT-w72" eventType="touchUpInside" id="Ms2-gb-qGe"/>
-                                            </connections>
-                                        </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Medicamentos" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cqh-1S-y4v">
-                                            <rect key="frame" x="8.5" y="66" width="80" height="10"/>
-                                            <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="11"/>
-                                            <color key="textColor" red="0.93486136198043823" green="0.27100935578346252" blue="0.28983086347579956" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enfermedades" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zXk-TZ-qbU">
-                                            <rect key="frame" x="96" y="66" width="79.5" height="10"/>
-                                            <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="11"/>
-                                            <color key="textColor" red="0.93486136200000003" green="0.27100935580000002" blue="0.28983086349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Doctores" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U3d-AH-rWi">
-                                            <rect key="frame" x="194" y="66" width="50" height="10"/>
-                                            <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="11"/>
-                                            <color key="textColor" red="0.93486136200000003" green="0.27100935580000002" blue="0.28983086349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Operaciones" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dmH-uo-lsg">
-                                            <rect key="frame" x="272.5" y="66" width="69.5" height="10"/>
-                                            <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="11"/>
-                                            <color key="textColor" red="0.93486136200000003" green="0.27100935580000002" blue="0.28983086349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <constraints>
-                                        <constraint firstItem="zXk-TZ-qbU" firstAttribute="top" secondItem="wlN-oM-UF6" secondAttribute="bottom" constant="5" id="2BJ-Tc-JBB"/>
-                                        <constraint firstItem="U3d-AH-rWi" firstAttribute="centerX" secondItem="Af2-a2-HNv" secondAttribute="centerX" id="4KF-FA-c1q"/>
-                                        <constraint firstItem="dmH-uo-lsg" firstAttribute="centerX" secondItem="Kam-UH-Cgc" secondAttribute="centerX" id="87o-dX-hjy"/>
-                                        <constraint firstItem="Cqh-1S-y4v" firstAttribute="top" secondItem="Ulg-Rj-8g4" secondAttribute="bottom" constant="5" id="EKd-5R-MrB"/>
-                                        <constraint firstItem="Kam-UH-Cgc" firstAttribute="centerY" secondItem="b8i-ai-cXU" secondAttribute="centerY" id="RNs-bU-zvK"/>
-                                        <constraint firstItem="wlN-oM-UF6" firstAttribute="centerY" secondItem="b8i-ai-cXU" secondAttribute="centerY" id="SFl-D2-E1N"/>
-                                        <constraint firstItem="Ulg-Rj-8g4" firstAttribute="leading" secondItem="b8i-ai-cXU" secondAttribute="leading" constant="30" id="SI0-AD-plN"/>
-                                        <constraint firstItem="U3d-AH-rWi" firstAttribute="top" secondItem="Af2-a2-HNv" secondAttribute="bottom" constant="5" id="WAW-pm-7AP"/>
-                                        <constraint firstItem="Cqh-1S-y4v" firstAttribute="centerX" secondItem="Ulg-Rj-8g4" secondAttribute="centerX" id="WeK-VF-MSG"/>
-                                        <constraint firstAttribute="trailing" secondItem="Kam-UH-Cgc" secondAttribute="trailing" constant="30" id="ZfM-Mb-TxS"/>
-                                        <constraint firstItem="dmH-uo-lsg" firstAttribute="top" secondItem="Kam-UH-Cgc" secondAttribute="bottom" constant="5" id="aQX-nZ-YpQ"/>
-                                        <constraint firstItem="Af2-a2-HNv" firstAttribute="centerY" secondItem="b8i-ai-cXU" secondAttribute="centerY" id="haF-m2-5Rt"/>
-                                        <constraint firstItem="Ulg-Rj-8g4" firstAttribute="centerY" secondItem="b8i-ai-cXU" secondAttribute="centerY" id="jp0-77-3l6"/>
-                                        <constraint firstItem="wlN-oM-UF6" firstAttribute="leading" secondItem="Ulg-Rj-8g4" secondAttribute="trailing" constant="50" id="kKw-mc-s1A"/>
-                                        <constraint firstItem="Kam-UH-Cgc" firstAttribute="leading" secondItem="Af2-a2-HNv" secondAttribute="trailing" constant="50" id="u4y-DX-hik"/>
-                                        <constraint firstItem="zXk-TZ-qbU" firstAttribute="centerX" secondItem="wlN-oM-UF6" secondAttribute="centerX" id="uG9-LM-oTO"/>
-                                    </constraints>
-                                </view>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="78" id="k7j-Ia-HDW" customClass="HealthTableViewCell" customModule="familyOffice" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="113" width="355" height="78"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="k7j-Ia-HDW" id="bwS-q7-zkr">
-                                            <rect key="frame" x="0.0" y="0.0" width="355" height="78"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OJi-CM-xL5">
-                                                    <rect key="frame" x="8" y="25" width="28" height="28"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" secondItem="OJi-CM-xL5" secondAttribute="height" multiplier="1:1" id="4nq-Wj-GqS"/>
-                                                        <constraint firstAttribute="height" constant="28" id="pmJ-m0-fWL"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PBI-M1-4fO">
-                                                    <rect key="frame" x="56" y="17" width="285" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="iEp-VS-MqT"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.2952978611" green="0.162270844" blue="0.50965744260000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Dk-bI-bBw">
-                                                    <rect key="frame" x="56" y="43" width="285" height="15"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <color key="highlightedColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="PBI-M1-4fO" firstAttribute="leading" secondItem="OJi-CM-xL5" secondAttribute="trailing" constant="20" id="IMc-XT-v2f"/>
-                                                <constraint firstItem="PBI-M1-4fO" firstAttribute="leading" secondItem="3Dk-bI-bBw" secondAttribute="leading" id="QaL-Ux-pJi"/>
-                                                <constraint firstItem="OJi-CM-xL5" firstAttribute="centerY" secondItem="bwS-q7-zkr" secondAttribute="centerY" id="WA7-9x-dnq"/>
-                                                <constraint firstItem="OJi-CM-xL5" firstAttribute="leading" secondItem="bwS-q7-zkr" secondAttribute="leadingMargin" id="h3u-C7-HH1"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="PBI-M1-4fO" secondAttribute="trailing" constant="6" id="hqm-v3-nV0"/>
-                                                <constraint firstItem="PBI-M1-4fO" firstAttribute="top" secondItem="bwS-q7-zkr" secondAttribute="topMargin" constant="9" id="qby-4y-VER"/>
-                                                <constraint firstItem="PBI-M1-4fO" firstAttribute="trailing" secondItem="3Dk-bI-bBw" secondAttribute="trailing" id="rkM-Pf-FRz"/>
-                                                <constraint firstItem="3Dk-bI-bBw" firstAttribute="top" secondItem="PBI-M1-4fO" secondAttribute="bottom" constant="5" id="umj-OZ-lkQ"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="descriptionLabel" destination="3Dk-bI-bBw" id="SAd-mu-LLd"/>
-                                            <outlet property="iconImageView" destination="OJi-CM-xL5" id="Szb-5m-u9b"/>
-                                            <outlet property="nameLabel" destination="PBI-M1-4fO" id="lEh-Zb-OGy"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" red="0.93323183060000003" green="0.93339174989999996" blue="0.93322181699999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="JET-MF-ZfL" firstAttribute="top" secondItem="OsG-Eb-55f" secondAttribute="bottom" constant="10" id="3es-S5-QGM"/>
-                            <constraint firstItem="UCK-ST-O8u" firstAttribute="top" secondItem="OsG-Eb-55f" secondAttribute="bottom" constant="10" id="L02-cV-u7N"/>
-                            <constraint firstAttribute="trailing" secondItem="UCK-ST-O8u" secondAttribute="trailing" constant="10" id="O2j-1e-c5t"/>
-                            <constraint firstAttribute="trailing" secondItem="OsG-Eb-55f" secondAttribute="trailing" constant="10" id="OnF-ZX-2In"/>
-                            <constraint firstItem="JET-MF-ZfL" firstAttribute="leading" secondItem="K6M-Lx-KNy" secondAttribute="leading" constant="10" id="VWq-PF-zJ5"/>
-                            <constraint firstItem="UCK-ST-O8u" firstAttribute="leading" secondItem="K6M-Lx-KNy" secondAttribute="leading" constant="10" id="Z5U-kQ-SpF"/>
-                            <constraint firstItem="OsG-Eb-55f" firstAttribute="leading" secondItem="K6M-Lx-KNy" secondAttribute="leading" constant="10" id="dd9-xz-GvO"/>
-                            <constraint firstAttribute="trailing" secondItem="JET-MF-ZfL" secondAttribute="trailing" constant="10" id="g1e-BN-bjI"/>
-                            <constraint firstItem="WIM-73-23T" firstAttribute="top" secondItem="UCK-ST-O8u" secondAttribute="bottom" constant="10" id="lsS-ng-GS8"/>
-                            <constraint firstItem="OsG-Eb-55f" firstAttribute="top" secondItem="9v3-SA-oWs" secondAttribute="bottom" constant="10" id="tWK-yh-KLT"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="categoryTableView" destination="UCK-ST-O8u" id="3qw-q4-Rp7"/>
-                        <outlet property="membersCollectionView" destination="OsG-Eb-55f" id="ihX-jf-uhD"/>
-                        <outletCollection property="categoryButtons" destination="Ulg-Rj-8g4" collectionClass="NSMutableArray" id="6dj-xq-4nf"/>
-                        <outletCollection property="categoryButtons" destination="wlN-oM-UF6" collectionClass="NSMutableArray" id="Sff-Jl-6iW"/>
-                        <outletCollection property="categoryButtons" destination="Af2-a2-HNv" collectionClass="NSMutableArray" id="GqA-sz-5F1"/>
-                        <outletCollection property="categoryButtons" destination="Kam-UH-Cgc" collectionClass="NSMutableArray" id="j1i-wU-Oro"/>
-                        <segue destination="bFh-vO-OhA" kind="show" identifier="editSegue" id="1pT-a3-uJQ"/>
-                        <segue destination="Hdj-Sw-dSa" kind="show" identifier="segueEdit" id="7qV-DD-00o"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="QwD-uh-Td4" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="5765.6000000000004" y="-1135.6821589205399"/>
-        </scene>
-    </scenes>
-    <resources>
-        <image name="check-1" width="114" height="114"/>
-        <image name="doctores-red" width="37" height="37"/>
-        <image name="enfermedades" width="37" height="37"/>
-        <image name="medicamentos-red" width="37" height="37"/>
-        <image name="operaciones-red" width="37" height="37"/>
-    </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="7qV-DD-00o"/>
-    </inferredMetricsTieBreakers>
+<device id="retina4_7" orientation="portrait">
+<adaptation id="fullscreen"/>
+</device>
+<dependencies>
+<deployment identifier="iOS"/>
+<plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+<capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+<capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+<capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+</dependencies>
+<customFonts key="customFonts">
+<array key="Gotham-Book.ttf">
+<string>GothamBook</string>
+</array>
+</customFonts>
+<scenes>
+<!--Nuevo-->
+<scene sceneID="xaZ-or-7XW">
+<objects>
+<tableViewController title="Nuevo" id="bFh-vO-OhA" customClass="EditHealthTableViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
+<tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="eLg-xy-Sf1">
+<rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+<autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+<sections>
+<tableViewSection id="KqH-SB-cd3">
+<cells>
+<tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="12O-bg-TV1" style="IBUITableViewCellStyleDefault" id="3qK-3m-mQj">
+<rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+<autoresizingMask key="autoresizingMask"/>
+<tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3qK-3m-mQj" id="g9v-Yh-E8P">
+<rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+<autoresizingMask key="autoresizingMask"/>
+<subviews>
+<label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Medicamento" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="12O-bg-TV1">
+<rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+<autoresizingMask key="autoresizingMask"/>
+<fontDescription key="fontDescription" type="system" pointSize="17"/>
+<nil key="textColor"/>
+<nil key="highlightedColor"/>
+</label>
+</subviews>
+</tableViewCellContentView>
+</tableViewCell>
+<tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="kxH-tf-uX7" style="IBUITableViewCellStyleDefault" id="gE6-JV-wez">
+<rect key="frame" x="0.0" y="44" width="375" height="44"/>
+<autoresizingMask key="autoresizingMask"/>
+<tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gE6-JV-wez" id="m2w-3F-qVJ">
+<rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+<autoresizingMask key="autoresizingMask"/>
+<subviews>
+<label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Enfermedad" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kxH-tf-uX7">
+<rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+<autoresizingMask key="autoresizingMask"/>
+<fontDescription key="fontDescription" type="system" pointSize="17"/>
+<nil key="textColor"/>
+<nil key="highlightedColor"/>
+</label>
+</subviews>
+</tableViewCellContentView>
+</tableViewCell>
+<tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="zpF-uQ-OwB" style="IBUITableViewCellStyleDefault" id="12o-61-D98">
+<rect key="frame" x="0.0" y="88" width="375" height="44"/>
+<autoresizingMask key="autoresizingMask"/>
+<tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="12o-61-D98" id="V0Z-hn-a8h">
+<rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+<autoresizingMask key="autoresizingMask"/>
+<subviews>
+<label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Doctor" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zpF-uQ-OwB">
+<rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+<autoresizingMask key="autoresizingMask"/>
+<fontDescription key="fontDescription" type="system" pointSize="17"/>
+<nil key="textColor"/>
+<nil key="highlightedColor"/>
+</label>
+</subviews>
+</tableViewCellContentView>
+</tableViewCell>
+<tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="UMJ-m4-CTW" style="IBUITableViewCellStyleDefault" id="YJo-fR-8pO">
+<rect key="frame" x="0.0" y="132" width="375" height="44"/>
+<autoresizingMask key="autoresizingMask"/>
+<tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YJo-fR-8pO" id="dIk-vs-mZJ">
+<rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+<autoresizingMask key="autoresizingMask"/>
+<subviews>
+<label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Operación" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UMJ-m4-CTW">
+<rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+<autoresizingMask key="autoresizingMask"/>
+<fontDescription key="fontDescription" type="system" pointSize="17"/>
+<nil key="textColor"/>
+<nil key="highlightedColor"/>
+</label>
+</subviews>
+</tableViewCellContentView>
+</tableViewCell>
+</cells>
+</tableViewSection>
+</sections>
+<connections>
+<outlet property="dataSource" destination="bFh-vO-OhA" id="yqw-gp-YAz"/>
+<outlet property="delegate" destination="bFh-vO-OhA" id="bWq-B7-AnE"/>
+</connections>
+</tableView>
+<connections>
+<segue destination="Hdj-Sw-dSa" kind="show" identifier="segueNew" id="TuP-vH-pOg"/>
+</connections>
+</tableViewController>
+<placeholder placeholderIdentifier="IBFirstResponder" id="If7-3V-a5O" userLabel="First Responder" sceneMemberID="firstResponder"/>
+</objects>
+<point key="canvasLocation" x="7087" y="-1136"/>
+</scene>
+<!--New Health Element View Controller-->
+<scene sceneID="6bG-ZJ-Yhc">
+<objects>
+<tableViewController id="Hdj-Sw-dSa" customClass="NewHealthElementViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
+<tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="uPe-G4-CFj">
+<rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+<autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+<color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+<sections>
+<tableViewSection headerTitle="Nombre" id="mdh-qi-Py1">
+<cells>
+<tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="bTt-Az-sNY">
+<rect key="frame" x="0.0" y="56" width="375" height="44"/>
+<autoresizingMask key="autoresizingMask"/>
+<tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bTt-Az-sNY" id="5bv-nG-6Xq">
+<rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+<autoresizingMask key="autoresizingMask"/>
+<subviews>
+<textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NjO-ge-jYB">
+<rect key="frame" x="8" y="6" width="359" height="30"/>
+<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+<nil key="textColor"/>
+<fontDescription key="fontDescription" type="system" pointSize="14"/>
+<textInputTraits key="textInputTraits"/>
+</textField>
+</subviews>
+</tableViewCellContentView>
+</tableViewCell>
+</cells>
+</tableViewSection>
+<tableViewSection headerTitle="Descripción" id="hJd-wt-Zl5">
+<cells>
+<tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="150" id="1KN-y0-S8f">
+<rect key="frame" x="0.0" y="156" width="375" height="150"/>
+<autoresizingMask key="autoresizingMask"/>
+<tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1KN-y0-S8f" id="J4X-Lm-JWt">
+<rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
+<autoresizingMask key="autoresizingMask"/>
+<subviews>
+<textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="fRN-tA-XPh">
+<rect key="frame" x="8" y="10" width="359" height="128"/>
+<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+<fontDescription key="fontDescription" type="system" pointSize="14"/>
+<textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+</textView>
+</subviews>
+</tableViewCellContentView>
+</tableViewCell>
+</cells>
+</tableViewSection>
+</sections>
+<connections>
+<outlet property="dataSource" destination="Hdj-Sw-dSa" id="J74-QB-KxY"/>
+<outlet property="delegate" destination="Hdj-Sw-dSa" id="jAt-I4-Gim"/>
+</connections>
+</tableView>
+<connections>
+<outlet property="descriptionField" destination="fRN-tA-XPh" id="hB6-82-gbU"/>
+<outlet property="nameField" destination="NjO-ge-jYB" id="ok9-OP-F8O"/>
+</connections>
+</tableViewController>
+<placeholder placeholderIdentifier="IBFirstResponder" id="hLT-FG-Tqi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+</objects>
+<point key="canvasLocation" x="6415" y="-278"/>
+</scene>
+<!--Salud-->
+<scene sceneID="25i-Yt-nGx">
+<objects>
+<viewController title="Salud" id="RtR-jT-w72" customClass="HealthOmniViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
+<layoutGuides>
+<viewControllerLayoutGuide type="top" id="9v3-SA-oWs"/>
+<viewControllerLayoutGuide type="bottom" id="WIM-73-23T"/>
+</layoutGuides>
+<view key="view" contentMode="scaleToFill" id="K6M-Lx-KNy">
+<rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+<autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+<subviews>
+<segmentedControl opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="JET-MF-ZfL">
+<rect key="frame" x="10" y="118" width="355" height="29"/>
+<segments>
+<segment title="Medicamentos"/>
+<segment title="Padecimientos"/>
+<segment title="Doctores"/>
+<segment title="Operaciones"/>
+</segments>
+<color key="tintColor" red="0.29529786109924316" green="0.16227084398269653" blue="0.50965744256973267" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+<connections>
+<action selector="categoryChanged:" destination="RtR-jT-w72" eventType="valueChanged" id="VlA-hV-s2R"/>
+</connections>
+</segmentedControl>
+<collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="OsG-Eb-55f">
+<rect key="frame" x="10" y="30" width="355" height="78"/>
+<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+<constraints>
+<constraint firstAttribute="height" constant="78" id="UKZ-pL-0fL"/>
+</constraints>
+<collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="LFn-DK-uzX">
+<size key="itemSize" width="65" height="65"/>
+<size key="headerReferenceSize" width="0.0" height="0.0"/>
+<size key="footerReferenceSize" width="0.0" height="0.0"/>
+<inset key="sectionInset" minX="10" minY="5" maxX="10" maxY="5"/>
+</collectionViewFlowLayout>
+<cells>
+<collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="memberCell" id="0uv-k5-djr" customClass="HealthMemberCollectionViewCell" customModule="familyOffice" customModuleProvider="target">
+<rect key="frame" x="10" y="6.5" width="65" height="65"/>
+<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+<view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+<rect key="frame" x="0.0" y="0.0" width="65" height="65"/>
+<autoresizingMask key="autoresizingMask"/>
+<subviews>
+<imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bAe-Uc-q5h">
+<rect key="frame" x="0.0" y="0.0" width="65" height="65"/>
+</imageView>
+<imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="check-1" translatesAutoresizingMaskIntoConstraints="NO" id="7jJ-sq-rlv">
+<rect key="frame" x="41" y="41" width="24" height="24"/>
+<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</imageView>
+</subviews>
+</view>
+<constraints>
+<constraint firstAttribute="trailing" secondItem="bAe-Uc-q5h" secondAttribute="trailing" id="57H-k3-4hJ"/>
+<constraint firstItem="bAe-Uc-q5h" firstAttribute="top" secondItem="0uv-k5-djr" secondAttribute="top" id="6Xp-A4-0nM"/>
+<constraint firstItem="bAe-Uc-q5h" firstAttribute="leading" secondItem="0uv-k5-djr" secondAttribute="leading" id="JlA-Ox-3OR"/>
+<constraint firstAttribute="bottom" secondItem="bAe-Uc-q5h" secondAttribute="bottom" id="oVm-nV-C6f"/>
+</constraints>
+<connections>
+<outlet property="profileImage" destination="bAe-Uc-q5h" id="JZJ-OK-CXQ"/>
+<outlet property="selectedMember" destination="7jJ-sq-rlv" id="SIs-Dy-VpJ"/>
+</connections>
+</collectionViewCell>
+</cells>
+</collectionView>
+<tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="78" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="UCK-ST-O8u">
+<rect key="frame" x="10" y="118" width="355" height="539"/>
+<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+<view key="tableHeaderView" contentMode="scaleToFill" id="b8i-ai-cXU">
+<rect key="frame" x="0.0" y="0.0" width="355" height="85"/>
+<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+<subviews>
+<button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ulg-Rj-8g4">
+<rect key="frame" x="30" y="24" width="37" height="37"/>
+<fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="18"/>
+<state key="normal" image="medicamentos-red">
+<color key="titleColor" red="0.2952978611" green="0.162270844" blue="0.50965744260000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+</state>
+<connections>
+<action selector="categoryClick:" destination="RtR-jT-w72" eventType="touchUpInside" id="bYe-Uu-UpC"/>
+</connections>
+</button>
+<button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wlN-oM-UF6">
+<rect key="frame" x="117" y="24" width="37" height="37"/>
+<state key="normal" image="enfermedades">
+<color key="titleColor" red="0.2952978611" green="0.162270844" blue="0.50965744260000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+</state>
+<connections>
+<action selector="categoryClick:" destination="RtR-jT-w72" eventType="touchUpInside" id="fG0-hc-Hoa"/>
+</connections>
+</button>
+<button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Af2-a2-HNv">
+<rect key="frame" x="201" y="24" width="37" height="37"/>
+<state key="normal" image="doctores-red">
+<color key="titleColor" red="0.2952978611" green="0.162270844" blue="0.50965744260000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+</state>
+<connections>
+<action selector="categoryClick:" destination="RtR-jT-w72" eventType="touchUpInside" id="FFR-Ou-o5k"/>
+</connections>
+</button>
+<button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kam-UH-Cgc">
+<rect key="frame" x="288" y="24" width="37" height="37"/>
+<state key="normal" image="operaciones-red">
+<color key="titleColor" red="0.2952978611" green="0.162270844" blue="0.50965744260000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+</state>
+<connections>
+<action selector="categoryClick:" destination="RtR-jT-w72" eventType="touchUpInside" id="Ms2-gb-qGe"/>
+</connections>
+</button>
+<label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Medicamentos" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cqh-1S-y4v">
+<rect key="frame" x="8.5" y="66" width="80" height="10"/>
+<fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="11"/>
+<color key="textColor" red="0.93486136198043823" green="0.27100935578346252" blue="0.28983086347579956" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+<nil key="highlightedColor"/>
+</label>
+<label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enfermedades" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zXk-TZ-qbU">
+<rect key="frame" x="96" y="66" width="79.5" height="10"/>
+<fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="11"/>
+<color key="textColor" red="0.93486136200000003" green="0.27100935580000002" blue="0.28983086349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+<nil key="highlightedColor"/>
+</label>
+<label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Doctores" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U3d-AH-rWi">
+<rect key="frame" x="194" y="66" width="50" height="10"/>
+<fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="11"/>
+<color key="textColor" red="0.93486136200000003" green="0.27100935580000002" blue="0.28983086349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+<nil key="highlightedColor"/>
+</label>
+<label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Operaciones" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dmH-uo-lsg">
+<rect key="frame" x="272.5" y="66" width="69.5" height="10"/>
+<fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="11"/>
+<color key="textColor" red="0.93486136200000003" green="0.27100935580000002" blue="0.28983086349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+<nil key="highlightedColor"/>
+</label>
+</subviews>
+<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+<constraints>
+<constraint firstItem="zXk-TZ-qbU" firstAttribute="top" secondItem="wlN-oM-UF6" secondAttribute="bottom" constant="5" id="2BJ-Tc-JBB"/>
+<constraint firstItem="U3d-AH-rWi" firstAttribute="centerX" secondItem="Af2-a2-HNv" secondAttribute="centerX" id="4KF-FA-c1q"/>
+<constraint firstItem="dmH-uo-lsg" firstAttribute="centerX" secondItem="Kam-UH-Cgc" secondAttribute="centerX" id="87o-dX-hjy"/>
+<constraint firstItem="Cqh-1S-y4v" firstAttribute="top" secondItem="Ulg-Rj-8g4" secondAttribute="bottom" constant="5" id="EKd-5R-MrB"/>
+<constraint firstItem="Kam-UH-Cgc" firstAttribute="centerY" secondItem="b8i-ai-cXU" secondAttribute="centerY" id="RNs-bU-zvK"/>
+<constraint firstItem="wlN-oM-UF6" firstAttribute="centerY" secondItem="b8i-ai-cXU" secondAttribute="centerY" id="SFl-D2-E1N"/>
+<constraint firstItem="Ulg-Rj-8g4" firstAttribute="leading" secondItem="b8i-ai-cXU" secondAttribute="leading" constant="30" id="SI0-AD-plN"/>
+<constraint firstItem="U3d-AH-rWi" firstAttribute="top" secondItem="Af2-a2-HNv" secondAttribute="bottom" constant="5" id="WAW-pm-7AP"/>
+<constraint firstItem="Cqh-1S-y4v" firstAttribute="centerX" secondItem="Ulg-Rj-8g4" secondAttribute="centerX" id="WeK-VF-MSG"/>
+<constraint firstAttribute="trailing" secondItem="Kam-UH-Cgc" secondAttribute="trailing" constant="30" id="ZfM-Mb-TxS"/>
+<constraint firstItem="dmH-uo-lsg" firstAttribute="top" secondItem="Kam-UH-Cgc" secondAttribute="bottom" constant="5" id="aQX-nZ-YpQ"/>
+<constraint firstItem="Af2-a2-HNv" firstAttribute="centerY" secondItem="b8i-ai-cXU" secondAttribute="centerY" id="haF-m2-5Rt"/>
+<constraint firstItem="Ulg-Rj-8g4" firstAttribute="centerY" secondItem="b8i-ai-cXU" secondAttribute="centerY" id="jp0-77-3l6"/>
+<constraint firstItem="wlN-oM-UF6" firstAttribute="leading" secondItem="Ulg-Rj-8g4" secondAttribute="trailing" constant="50" id="kKw-mc-s1A"/>
+<constraint firstItem="Kam-UH-Cgc" firstAttribute="leading" secondItem="Af2-a2-HNv" secondAttribute="trailing" constant="50" id="u4y-DX-hik"/>
+<constraint firstItem="zXk-TZ-qbU" firstAttribute="centerX" secondItem="wlN-oM-UF6" secondAttribute="centerX" id="uG9-LM-oTO"/>
+</constraints>
+</view>
+<prototypes>
+<tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="78" id="k7j-Ia-HDW" customClass="HealthTableViewCell" customModule="familyOffice" customModuleProvider="target">
+<rect key="frame" x="0.0" y="113" width="355" height="78"/>
+<autoresizingMask key="autoresizingMask"/>
+<tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="k7j-Ia-HDW" id="bwS-q7-zkr">
+<rect key="frame" x="0.0" y="0.0" width="355" height="78"/>
+<autoresizingMask key="autoresizingMask"/>
+<subviews>
+<imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OJi-CM-xL5">
+<rect key="frame" x="8" y="25" width="28" height="28"/>
+<constraints>
+<constraint firstAttribute="width" secondItem="OJi-CM-xL5" secondAttribute="height" multiplier="1:1" id="4nq-Wj-GqS"/>
+<constraint firstAttribute="height" constant="28" id="pmJ-m0-fWL"/>
+</constraints>
+</imageView>
+<label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PBI-M1-4fO">
+<rect key="frame" x="56" y="17" width="285" height="21"/>
+<constraints>
+<constraint firstAttribute="height" constant="21" id="iEp-VS-MqT"/>
+</constraints>
+<fontDescription key="fontDescription" type="system" pointSize="17"/>
+<color key="textColor" red="0.2952978611" green="0.162270844" blue="0.50965744260000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+<nil key="highlightedColor"/>
+</label>
+<label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Dk-bI-bBw">
+<rect key="frame" x="56" y="43" width="285" height="15"/>
+<fontDescription key="fontDescription" type="system" pointSize="12"/>
+<color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+<color key="highlightedColor" cocoaTouchSystemColor="darkTextColor"/>
+</label>
+</subviews>
+<constraints>
+<constraint firstItem="PBI-M1-4fO" firstAttribute="leading" secondItem="OJi-CM-xL5" secondAttribute="trailing" constant="20" id="IMc-XT-v2f"/>
+<constraint firstItem="PBI-M1-4fO" firstAttribute="leading" secondItem="3Dk-bI-bBw" secondAttribute="leading" id="QaL-Ux-pJi"/>
+<constraint firstItem="OJi-CM-xL5" firstAttribute="centerY" secondItem="bwS-q7-zkr" secondAttribute="centerY" id="WA7-9x-dnq"/>
+<constraint firstItem="OJi-CM-xL5" firstAttribute="leading" secondItem="bwS-q7-zkr" secondAttribute="leadingMargin" id="h3u-C7-HH1"/>
+<constraint firstAttribute="trailingMargin" secondItem="PBI-M1-4fO" secondAttribute="trailing" constant="6" id="hqm-v3-nV0"/>
+<constraint firstItem="PBI-M1-4fO" firstAttribute="top" secondItem="bwS-q7-zkr" secondAttribute="topMargin" constant="9" id="qby-4y-VER"/>
+<constraint firstItem="PBI-M1-4fO" firstAttribute="trailing" secondItem="3Dk-bI-bBw" secondAttribute="trailing" id="rkM-Pf-FRz"/>
+<constraint firstItem="3Dk-bI-bBw" firstAttribute="top" secondItem="PBI-M1-4fO" secondAttribute="bottom" constant="5" id="umj-OZ-lkQ"/>
+</constraints>
+</tableViewCellContentView>
+<connections>
+<outlet property="descriptionLabel" destination="3Dk-bI-bBw" id="SAd-mu-LLd"/>
+<outlet property="iconImageView" destination="OJi-CM-xL5" id="Szb-5m-u9b"/>
+<outlet property="nameLabel" destination="PBI-M1-4fO" id="lEh-Zb-OGy"/>
+</connections>
+</tableViewCell>
+</prototypes>
+</tableView>
+</subviews>
+<color key="backgroundColor" red="0.93323183060000003" green="0.93339174989999996" blue="0.93322181699999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+<constraints>
+<constraint firstItem="JET-MF-ZfL" firstAttribute="top" secondItem="OsG-Eb-55f" secondAttribute="bottom" constant="10" id="3es-S5-QGM"/>
+<constraint firstItem="UCK-ST-O8u" firstAttribute="top" secondItem="OsG-Eb-55f" secondAttribute="bottom" constant="10" id="L02-cV-u7N"/>
+<constraint firstAttribute="trailing" secondItem="UCK-ST-O8u" secondAttribute="trailing" constant="10" id="O2j-1e-c5t"/>
+<constraint firstAttribute="trailing" secondItem="OsG-Eb-55f" secondAttribute="trailing" constant="10" id="OnF-ZX-2In"/>
+<constraint firstItem="JET-MF-ZfL" firstAttribute="leading" secondItem="K6M-Lx-KNy" secondAttribute="leading" constant="10" id="VWq-PF-zJ5"/>
+<constraint firstItem="UCK-ST-O8u" firstAttribute="leading" secondItem="K6M-Lx-KNy" secondAttribute="leading" constant="10" id="Z5U-kQ-SpF"/>
+<constraint firstItem="OsG-Eb-55f" firstAttribute="leading" secondItem="K6M-Lx-KNy" secondAttribute="leading" constant="10" id="dd9-xz-GvO"/>
+<constraint firstAttribute="trailing" secondItem="JET-MF-ZfL" secondAttribute="trailing" constant="10" id="g1e-BN-bjI"/>
+<constraint firstItem="WIM-73-23T" firstAttribute="top" secondItem="UCK-ST-O8u" secondAttribute="bottom" constant="10" id="lsS-ng-GS8"/>
+<constraint firstItem="OsG-Eb-55f" firstAttribute="top" secondItem="9v3-SA-oWs" secondAttribute="bottom" constant="10" id="tWK-yh-KLT"/>
+</constraints>
+</view>
+<connections>
+<outlet property="categoryTableView" destination="UCK-ST-O8u" id="3qw-q4-Rp7"/>
+<outlet property="membersCollectionView" destination="OsG-Eb-55f" id="ihX-jf-uhD"/>
+<outletCollection property="categoryButtons" destination="Ulg-Rj-8g4" collectionClass="NSMutableArray" id="6dj-xq-4nf"/>
+<outletCollection property="categoryButtons" destination="wlN-oM-UF6" collectionClass="NSMutableArray" id="Sff-Jl-6iW"/>
+<outletCollection property="categoryButtons" destination="Af2-a2-HNv" collectionClass="NSMutableArray" id="GqA-sz-5F1"/>
+<outletCollection property="categoryButtons" destination="Kam-UH-Cgc" collectionClass="NSMutableArray" id="j1i-wU-Oro"/>
+<segue destination="bFh-vO-OhA" kind="show" identifier="editSegue" id="1pT-a3-uJQ"/>
+<segue destination="Hdj-Sw-dSa" kind="show" identifier="segueEdit" id="7qV-DD-00o"/>
+</connections>
+</viewController>
+<placeholder placeholderIdentifier="IBFirstResponder" id="QwD-uh-Td4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+</objects>
+<point key="canvasLocation" x="5765.6000000000004" y="-1135.6821589205399"/>
+</scene>
+</scenes>
+<resources>
+<image name="check-1" width="114" height="114"/>
+<image name="doctores-red" width="37" height="37"/>
+<image name="enfermedades" width="37" height="37"/>
+<image name="medicamentos-red" width="37" height="37"/>
+<image name="operaciones-red" width="37" height="37"/>
+</resources>
+<inferredMetricsTieBreakers>
+<segue reference="7qV-DD-00o"/>
+</inferredMetricsTieBreakers>
 </document>

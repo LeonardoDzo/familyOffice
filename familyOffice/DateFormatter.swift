@@ -49,6 +49,12 @@ extension DateFormatter {
         return formatter
     }()
     
+    @nonobjc static let ShortInternationalFormat: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM dd yyyy"
+        return formatter
+    }()
+    
     @nonobjc static let dayMonthAndYear: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd MM yyyy"
@@ -98,5 +104,8 @@ extension Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM yyyy"
         return dateFormatter.string(from: self)
+    }
+    func toMillis() -> Int! {
+        return Int(self.timeIntervalSince1970 * 1000)
     }
 }

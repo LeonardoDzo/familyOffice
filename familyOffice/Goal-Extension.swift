@@ -5,6 +5,7 @@
 //  Created by Leonardo Durazo on 23/06/17.
 //  Copyright © 2017 Leonardo Durazo. All rights reserved.
 //
+import Foundation
 import UIKit
 extension GoalBindable {
     
@@ -32,6 +33,15 @@ extension GoalBindable {
     var noteLbl: UILabel! {
         return nil
     }
+    var titleTxt: UITextField! {
+        return nil
+    }
+    var doneSwitch: UISwitch! {
+        return nil
+    }
+    var repeatSwitch: UISwitch! {
+        return nil
+    }
     
     func bind(goal: Goal) {
         self.goal = goal
@@ -47,17 +57,24 @@ extension GoalBindable {
         if let titleLbl = self.titleLbl {
             titleLbl.text = goal.title
         }
+    
+        if let titleTxt = self.titleTxt {
+            titleTxt.text = goal.title
+        }
         
         if let endDateDP  = self.endDateDP {
-            endDateDP.date = Date(string: goal.endDate, formatter: .InternationalFormat)!
+            let date = Date(timeIntervalSince1970: TimeInterval(goal.endDate/1000))
+            endDateDP.date = date
         }
 
-        if let endDateLbl  = self.endDateLbl {
-            endDateLbl.text = Date(string: goal.endDate, formatter: .InternationalFormat)!.string(with: .MonthdayAndYear)
+        if let endDateLbl = self.endDateLbl {
+            let date = Date(timeIntervalSince1970: TimeInterval(goal.endDate/1000))
+            endDateLbl.text =  date.string(with: .dayMonthAndYear2)
         }
 
         if let dateCreatedLbl = self.dateCreatedLbl {
-            dateCreatedLbl.text = String(goal.dateCreated)
+            let date = Date(timeIntervalSince1970: TimeInterval(goal.startDate/1000))
+            dateCreatedLbl.text = date.string(with: .dayMonthAndYear2)
         }
         if let photo = self.photo, !goal.photo.isEmpty {
             photo.loadImage(urlString: goal.photo)
@@ -70,10 +87,25 @@ extension GoalBindable {
             noteLbl.text = goal.note
         }
         
+        if let doneSwitch = self.doneSwitch {
+            if goal.type == 0 {
+                doneSwitch.isOn = goal.done
+            }else{
+                doneSwitch.isOn = goal.members[(store.state.UserState.user?.id!)!]! > 0
+            }
+        }
+        if let repeatSwitch = self.repeatSwitch {
+            if goal.repeatGoalModel != nil {
+                repeatSwitch.isOn = true
+            }else{
+                repeatSwitch.isOn = false
+            }
+        }
+        
         
         if let typeicon = self.typeicon {
             var ximage :UIImage!
-            if let value = GoalType(rawValue: goal.type){
+            if let value = GoalCategory(rawValue: goal.category){
                 switch value {
                 case .sport:
                     ximage = #imageLiteral(resourceName: "sport")

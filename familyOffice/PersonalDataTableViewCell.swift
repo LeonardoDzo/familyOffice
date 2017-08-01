@@ -25,7 +25,6 @@ class PersonalDataTableViewCell: UITableViewCell {
     }
     
     func configure(text: String?, placeholder: String ) -> Void {
-        
         myTextField.text = text
         myTextField.placeholder = placeholder
     }

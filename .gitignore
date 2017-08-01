@@ -1,9 +1,22 @@
 
 *.xcuserstate
-.DS_Store
+
+
 
 .DS_Store
 
-.DS_Store
+
+*.modulemap
+
+*.h
+
+*.m
 
 Pods/
+
+*.md
+.idea/
+
+Pods/
+*.xcscheme
+*.xcscheme

@@ -93,7 +93,7 @@ class EditHealthTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        guard let ctrl = segue.destination as? NewHealthElementViewController else { return }
+        guard let ctrl = segue.destination as? AddViewController else { return }
         guard let indexPath =  sender as? IndexPath else { return }
         ctrl.healthType = indexPath.row
     }

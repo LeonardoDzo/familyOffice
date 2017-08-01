@@ -12,12 +12,16 @@ import FirebaseDatabase
 import UIKit
 
 class FamilyService: repository, RequestService {
-    
-    func addHandle(_ handle: UInt, ref: String) {
+    func notExistSnapshot() {
         
     }
 
-    var handles: [(String, UInt)] = []
+    
+    func addHandle(_ handle: UInt, ref: String, action: FIRDataEventType) {
+        
+    }
+
+    var handles: [(String, UInt, FIRDataEventType)] = []
 
     var families: [Family] = []
 
@@ -59,6 +63,7 @@ class FamilyService: repository, RequestService {
         
         if !self.families.contains(where: { $0.id == family.id }) {
             self.families.append(family)
+            store.state.FamilyState.families.appendItem(family)
             NotificationCenter.default.post(name: notCenter.FAMILYADDED_NOTIFICATION, object: family)
             ToastService.getTopViewControllerAndShowToast(text: "Fam. agregada: \(family.name!)")
         }else{
@@ -106,9 +111,6 @@ class FamilyService: repository, RequestService {
     func exitFamily(family: Family, uid:String) -> Void {
         Constants.FirDatabase.REF_USERS.child("/\(uid)/families/\((family.id)!)").removeValue()
         Constants.FirDatabase.REF_FAMILIES.child("/\((family.id)!)/members/\(uid)").removeValue()
-        if(family.admin == service.USER_SERVICE.users[0].id){
-            self.addAdmin(index: self.families.index(where: {$0.id == family.id})!, uid: nil)
-        }
     }
     
     func addAdmin(index: Int, uid: String?) -> Void {
@@ -178,7 +180,6 @@ extension FamilyService {
             Constants.FirDatabase.REF_FAMILIES.child("\(fid)/members").updateChildValues([uid : true])
             Constants.FirDatabase.REF_USERS.child("\(uid)/families").updateChildValues([fid:true])
             service.NOTIFICATION_SERVICE.send(title: "Agregado a: ", message: self.families[index].name!, to: uid)
-            service.NOTIFICATION_SERVICE.saveNotification(id: uid, title: "Agregado a: \(self.families[index].name!)", photo: self.families[index].photoURL!)
             ToastService.getTopViewControllerAndShowToast(text: "Miembro \((service.USER_SERVICE.users.first(where: {$0.id == uid})?.name).unsafelyUnwrapped) Agregado")
             //NotificationCenter.default.post(name: SUCCESS_NOTIFICATION, object: [uid:"added"])
         }

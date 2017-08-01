@@ -14,7 +14,7 @@ struct Events {
 
 class EventService {
     public var events: [Event]
-    var handles: [(String,UInt)] = []
+    var handles: [(String,UInt,FIRDataEventType)] = []
     private init(events: [Event]){
         self.events = events
     }
@@ -42,10 +42,13 @@ class EventService {
 }
 
 extension EventService : RequestService  {
-    func addHandle(_ handle: UInt, ref: String) {
+    func notExistSnapshot() {
         
     }
 
+    func addHandle(_ handle: UInt, ref: String, action: FIRDataEventType) {
+        
+    }
     func removeHandles() {
     }
 

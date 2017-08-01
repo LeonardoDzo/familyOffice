@@ -9,7 +9,7 @@
 import Foundation
 import Firebase
 
-struct Family  {
+struct Family {
     
     static let kFamilyIdKey = "id"
     static let kFamilyNameKey = "name"
@@ -18,7 +18,7 @@ struct Family  {
     static let kFamilyAdminKey = "admin"
     static let kFamilyImagePathKey = "imageProfilePath"
     
-    let id: String!
+    var id: String!
     var name: String!
     var photoURL: String?
     var imageProfilePath : String?
@@ -26,28 +26,30 @@ struct Family  {
     var admin : String? = ""
     var members : [String]!
     let firebaseReference: FIRDatabaseReference?
-
+    var goals: [Goal]! = []
     /* Initializer for instantiating a new object in code.
      */
-    init(name: String, photo: Data, id: String){
-        self.name = name
+    init(){
+        self.id = ""
+        self.name = ""
         self.photoURL = nil
         self.admin = ""
         self.totalMembers = 0
         self.firebaseReference = nil
-        self.id = id
-        self.members = nil
+        self.members = []
     }
     
-    init(name: String, photoURL: String, members: [String], admin: String, id: String, imageProfilePath: String? ){
+    init(name: String, photoURL: String, members: [String], admin: String,  imageProfilePath: String? ){
         self.name = name
         self.photoURL = photoURL
         self.admin = admin
         self.totalMembers = 0
         self.firebaseReference = nil
-        self.id = id
         self.members = members
         self.imageProfilePath = imageProfilePath
+    }
+    mutating func setId() -> Void {
+       self.id =  Constants.FirDatabase.REF.child("families").childByAutoId().key
     }
     
     /* Initializer for instantiating an object received from Firebase.
@@ -81,20 +83,96 @@ struct Family  {
         guard let value = snapshot.value! as? NSDictionary else {
             return
         }
-
+        
+        
         switch snapshot.key {
         case  Family.kFamilyNameKey:
-            self.name =  snapshot.value! as! String
+            self.name = snapshot.value! as! String
             break
         case Family.kFamilyMembersKey:
-                        self.members = service.UTILITY_SERVICE.exist(field: Family.kFamilyMembersKey, dictionary: value)
+            self.members = service.UTILITY_SERVICE.exist(field: Family.kFamilyMembersKey, dictionary: value)
             break
         case Family.kFamilyPhotoUrlKey:
             self.photoURL = snapshot.value as? String
             break
+        case Family.kFamilyAdminKey:
+            self.admin = snapshot.value as? String
         default:
             break
         }
     }
     
 }
+extension Family: Equatable {
+    /// Equality check ignoring the `familyId`.
+    func hasEqualContent(_ other: Family) -> Bool {
+        return other.id == id
+    }
+}
+
+func ==(lhs: Family, rhs: Family) -> Bool {
+    return lhs.id == rhs.id
+}
+
+//Bind Galleries
+
+protocol FamilyBindable: AnyObject {
+    var family: Family! {get set}
+    var Title: UIKit.UILabel! {get}
+    var Image: CustomUIImageView! {get}
+    var check: UIImageView! { get }
+    var nameTxt: textFieldStyleController! {get}
+}
+extension FamilyBindable{
+    var Title: UIKit.UILabel!{
+        return nil
+    }
+    var Image: CustomUIImageView!{
+        return nil
+    }
+    var check: UIKit.UIImageView!{
+        return nil
+    }
+    var nameTxt: textFieldStyleController! {
+        return nil
+    }
+    //Bind Ninja
+    func bind(fam: Family){
+        self.family = fam
+        bind()
+    }
+    func bind() {
+        guard let family = self.family else{
+            return
+        }
+        if let titleLabel = self.Title{
+            if family.name != nil{
+                titleLabel.text = (family.name?.isEmpty)! ? "Sin título" : family.name
+            }else{
+                titleLabel.text = "Sin título"
+            }
+        }
+        if let nameTxt = self.nameTxt{
+            if family.name != nil{
+                nameTxt.text = (family.name?.isEmpty)! ? "" : family.name
+            }
+        }
+        if let imageBackground = self.Image{
+            if family.photoURL != nil{
+                if(!(family.photoURL?.isEmpty)!){
+                    imageBackground.loadImage(urlString: family.photoURL!)
+                }else{
+                    imageBackground.image = #imageLiteral(resourceName: "familyImage")
+                }
+            }
+        }
+        if let check = self.check{
+            if family.id == store.state.UserState.user?.familyActive {
+                check.isHidden = false
+            }else{
+                check.isHidden = true
+            }
+        }
+    }
+}
+

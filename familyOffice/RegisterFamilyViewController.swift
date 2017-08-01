@@ -9,68 +9,62 @@
 import UIKit
 import Firebase
 import FirebaseStorage
-import Toast_Swift
-import Contacts
-import ContactsUI
-
-class RegisterFamilyViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate {
+import ReSwift
+class RegisterFamilyViewController: UIViewController, FamilyBindable, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate, ContactsProtocol {
+    var family: Family!
+    var users: [User]! = []
     
-    let center = NotificationCenter.default
-    var contacts : [CNContact] = []
-    var selected : [User] = []
-    var users : [User] = []
-    var itemCount = 0
-    var localeChangeObserver : NSObjectProtocol!
-    let IndexPathOfFirstRow = NSIndexPath(row: 0, section: 0)
-    var firstCell : SelectedTableViewCell!
-    @IBOutlet weak var tableView: UITableView!
+    /// Variable para saber si cambio la foto o no para editar
+    var change = false
+    
+    typealias StoreSubscriberStateType = FamilyState
     @IBOutlet weak var collectionView: UICollectionView!
-    
-    @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var schearButton: UIButton!
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet var nameTxtField: textFieldStyleController!
+    @IBOutlet weak var nameTxt: textFieldStyleController!
+    @IBOutlet weak var contentview: UIView!
     
-    var imageView = UIImageView()
+    var Image: UIImageView!
     var blurImageView = UIImageView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let saveButton = UIBarButtonItem(title: "Crear", style: .plain, target: self, action: #selector(self.cropAndSave(_:)))
-        navigationItem.rightBarButtonItems = [saveButton]
-        navigationItem.title = "Crear Familia"
+        self.hideKeyboardWhenTappedAround()
         scrollView.delegate = self
+        Image = UIImageView()
         blurImageView.contentMode = UIViewContentMode.scaleAspectFill
-        imageView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height)
+        Image.frame = CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height)
         blurImageView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height)
-        imageView.isUserInteractionEnabled = true
+        Image.isUserInteractionEnabled = true
         scrollView.addSubview(blurImageView)
-        scrollView.addSubview(imageView)
+        scrollView.addSubview(Image)
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.loadImage(_:)))
-        
         tapGestureRecognizer.numberOfTapsRequired = 1
-        imageView.addGestureRecognizer(tapGestureRecognizer)
+        Image.addGestureRecognizer(tapGestureRecognizer)
+        contentview.formatView()
+        scrollView.formatView()
     }
     
     func loadImage(_ recognizer: UITapGestureRecognizer){
         let imagePicker = UIImagePickerController()
+        self.Image.image = nil
         imagePicker.delegate = self
         imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
-        
         self.present(imagePicker, animated: true, completion: nil)
-        
     }
     
-    @IBAction func handleAdd(_ sender: Any) {
-        save()
+    @IBAction func handleClickContact(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "contactsSegue", sender: nil)
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        self.Image.image = nil
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
         scrollView.zoomScale = 1
-        self.imageView.image = image
-        
-        blurImageView.image = imageView.image
-        imageView.contentMode = UIViewContentMode.center
-        imageView.frame = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
+        self.Image.image = image
+        change = true
+        blurImageView.image = image
+        Image.contentMode = UIViewContentMode.center
+        Image.frame = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
         scrollView.contentSize = CGSize(width: self.view.frame.size.width, height: scrollView.frame.size.height)
         scrollView.contentSize = image.size
         
@@ -97,7 +91,7 @@ class RegisterFamilyViewController: UIViewController, UIImagePickerControllerDel
     
     func centerScrollViewContents(){
         let boundsSize = scrollView.bounds.size
-        var contentsFrame = imageView.frame
+        var contentsFrame = Image.frame
         
         if contentsFrame.size.width < boundsSize.width {
             contentsFrame.origin.x = (boundsSize.width - contentsFrame.size.width) / 2
@@ -110,7 +104,7 @@ class RegisterFamilyViewController: UIViewController, UIImagePickerControllerDel
         }else{
             contentsFrame.origin.y = 0
         }
-        imageView.frame = contentsFrame
+        Image.frame = contentsFrame
     }
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
@@ -118,80 +112,63 @@ class RegisterFamilyViewController: UIViewController, UIImagePickerControllerDel
     }
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return imageView
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        service.UTILITY_SERVICE.enabledView()
-        selected = []
-        center.removeObserver(self.localeChangeObserver)
-        Constants.FirDatabase.REF_USERS.removeAllObservers()
-        super.viewDidDisappear(animated)
+        return Image
     }
     
+    
     func cropAndSave(_ sender: Any) {
-        save()
-    }
-    func save() -> Void {
-       
-        let imageName = NSUUID().uuidString
-        let key = Constants.FirDatabase.REF.child("families").childByAutoId().key
         UIGraphicsBeginImageContextWithOptions(scrollView.bounds.size, true, UIScreen.main.scale)
         let offset = scrollView.contentOffset
-        
         UIGraphicsGetCurrentContext()?.translateBy(x: -offset.x, y: -offset.y)
-        
         scrollView.layer.render(in: UIGraphicsGetCurrentContext()!)
-        
         UIGraphicsEndImageContext()
         
-        //Add validations
-        if(imageView.image != nil && !(nameTxtField.text?.isEmpty)!){
-            self.view.makeToastActivity(.center)
-            service.UTILITY_SERVICE.disabledView()
-            
-            selected.append(service.USER_SERVICE.users[0])
-            
-            service.STORAGE_SERVICE.insert("families/\(nameTxtField.text ?? "")\(key)images/\(imageName).png", value: imageView.image ?? "", callback: {(response) in
-                
-                if let metadata = response as? FIRStorageMetadata {
-                    let family: Family! = Family(name: self.nameTxtField.text!, photoURL: (metadata.downloadURL()?.absoluteString)!, members: [], admin: (FIRAuth.auth()?.currentUser?.uid)! ,id: self.nameTxtField.text!+key, imageProfilePath: metadata.name)
-                    self.insertFamily(family: family, key: key)
-                }else{
-                    self.error()
-                }
-                
-                
-            })
-            
+        if !users.contains((store.state.UserState.user)!){
+            users.append((store.state.UserState.user)!)
+        }
+        
+        guard let name = nameTxt.text, !name.isEmpty else {
+            error()
+            return
+        }
+        guard let image = Image, image.image != nil else {
+            error()
+            return
+        }
+        self.family.name = name
+        self.family.members = self.users.map({ $0.id})
+        self.family.admin = (FIRAuth.auth()?.currentUser?.uid)!
+        service.UTILITY_SERVICE.disabledView()
+        if family.id.isEmpty{
+            save()
+            return
+        }
+        
+        edit()
+    }
+    func edit() -> Void {
+        if(!(nameTxt.text?.isEmpty)!){
+            if change {
+                store.dispatch(UpdateFamilyAction(family: family, img: Image.image!))
+                return
+            }
+            store.dispatch(UpdateFamilyAction(family: family))
         }else{
-          error()
+            error()
         }
     }
-    func insertFamily(family: Family, key: String) {
-        let ref = "families/\(nameTxtField.text!)\(key)"
-        service.FAMILY_SERVICE.insert(ref, value: family.toDictionary(), callback: { (response) in
+    func save() -> Void {
+        
+        if(Image.image != nil && !(nameTxt.text?.isEmpty)!){
+            self.family.name = self.nameTxt.text!
+            self.family.members = self.users.map({ $0.id})
+            self.family.admin = (FIRAuth.auth()?.currentUser?.uid)!
             
-            if response is String {
-                self.view.hideToastActivity()
-                Constants.FirDatabase.REF_USERS.child((FIRAuth.auth()?.currentUser?.uid)!).child("families").updateChildValues([family.id : true])
-                
-                service.FAMILY_SERVICE.families.append(family)
-                
-                service.FAMILY_SERVICE.selectFamily(family: family)
-                
-                service.ACTIVITYLOG_SERVICE.create(id: (service.USER_SERVICE.users[0].id)!,
-                                                              activity: "Se creo la familia  \((family.name)!)", photo: family.photoURL!, type: "addFamily")
-                for uid in self.selected {
-                    service.FAMILY_SERVICE.addMember(uid: uid.id, fid: family.id)
-                }
-                
-                service.UTILITY_SERVICE.enabledView()
-                 _ = self.navigationController?.popViewController(animated: true)
-            }else{
-                self.error()
-            }
-            
-        })
+            service.UTILITY_SERVICE.disabledView()
+            store.dispatch(InsertFamilyAction(family: family, img: Image.image!))
+        }else{
+            error()
+        }
     }
     func error() -> Void {
         service.UTILITY_SERVICE.enabledView()
@@ -227,8 +204,106 @@ class RegisterFamilyViewController: UIViewController, UIImagePickerControllerDel
         super.didReceiveMemoryWarning()
     }
     
-    func logout(_ sender: Any){
-        service.AUTH_SERVICE.logOut()
-        Utility.Instance().gotoView(view: "StartView", context: self)
+    func selected(users: [User]) {
+        self.users = users
+        self.collectionView.reloadData()
+    }
+    
+}
+extension RegisterFamilyViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
+        return self.users.count
+    }
+    
+    internal func collectionView(_ collectionView: UICollectionView,
+                                 cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellMember", for: indexPath) as! memberSelectedCollectionViewCell
+        let user = users[indexPath.row]
+        cell.bind(userModel: user)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        users.remove(at: indexPath.row)
+        collectionView.deleteItems(at: [indexPath])
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        family.name = nameTxt.text
+        if segue.identifier ==  "contactsSegue" {
+            
+            if let destinationNavController = (segue.destination as? UINavigationController){
+                if let vc = destinationNavController.viewControllers.first as? ContactsViewController{
+                    vc.contactDelegate = self
+                }
+            }
+        }
+    }
+    
+}
+extension RegisterFamilyViewController : StoreSubscriber {
+    override func viewWillAppear(_ animated: Bool) {
+        store.subscribe(self) {
+            state in
+            state.FamilyState
+        }
+        
+        self.bind()
+        
+        family.members.forEach({uid in
+            if let user = service.USER_SVC.getUser(byId: uid) {
+                if !self.users.contains(user) {
+                    self.users.append(user)
+                }
+            }
+            
+        })
+        
+        self.setupNavBar()
+        self.collectionView.reloadData()
+        self.centerScrollViewContents()
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        store.unsubscribe(self)
+        store.state.FamilyState.status = .none
+    }
+    
+    func newState(state: FamilyState) {
+        self.view.hideToastActivity()
+        
+        switch state.status {
+        case .failed:
+            error()
+            break
+        case .loading:
+            self.view.makeToastActivity(.center)
+            break
+        case .finished:
+            service.UTILITY_SERVICE.enabledView()
+            _ = self.navigationController?.popViewController(animated: true)
+            break
+        default:
+            break
+        }
+    }
+    
+    func setupNavBar() -> Void {
+        if family.id.isEmpty {
+            let saveButton = UIBarButtonItem(title: "Crear", style: .plain, target: self, action: #selector(self.cropAndSave(_:)))
+            navigationItem.rightBarButtonItems = [saveButton]
+            navigationItem.title = "Crear Familia"
+        }else{
+            let update = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(self.cropAndSave(_:)))
+            navigationItem.rightBarButtonItems = [update]
+            navigationItem.title = "Actualizar Familia"
+        }
+        
     }
 }

@@ -9,6 +9,7 @@
 import Foundation
 import FirebaseAuth
 import UIKit
+import ReSwift
 class AuthService {
     var uid = FIRAuth.auth()?.currentUser?.uid
     
@@ -27,38 +28,33 @@ class AuthService {
         FIRAuth.auth()?.signIn(withEmail: email, password: password) { (user, error) in
             if((error) != nil){
                 print(error.debugDescription)
-                NotificationCenter.default.post(name: notCenter.LOGINERROR, object: nil)
+                store.state.UserState.status = .failed
             }else{
                 service.ACTIVITYLOG_SERVICE.create(id: user!.uid, activity: "Se inicio sesión", photo: "", type: "sesion")
             }
         }
     }
-    func userStatus(state: String) -> Void {
-        Constants.FirDatabase.REF_USERS.child(self.uid!).updateChildValues(["online": state])
-    }
     func login(credential:FIRAuthCredential){
         FIRAuth.auth()?.signIn(with: credential ) { (user, error) in
-            print("Usuario autentificado con google")
             service.ACTIVITYLOG_SERVICE.create(id: user!.uid, activity: "Se inicio sesión", photo: "", type: "sesion")
         }
+    }
+    func userStatus(state: String) -> Void {
+        Constants.FirDatabase.REF_USERS.child(self.uid!).updateChildValues(["online": state])
     }
     func logOut(){
         if let uid = FIRAuth.auth()?.currentUser?.uid {
             service.NOTIFICATION_SERVICE.deleteToken(token: service.NOTIFICATION_SERVICE.token, id: uid)
             self.userStatus(state: "Offline")
         }
-        service.USER_SERVICE.users.removeAll()
-        service.UTILITY_SERVICE.clearObservers()
-        service.NOTIFICATION_SERVICE.notifications.removeAll()
-        service.ACTIVITYLOG_SERVICE.activityLog.removeAll()
-        service.FAMILY_SERVICE.families.removeAll()
-        imageCache.removeAllObjects()
+        store.state.ContactState.contacts.removeAll()
+        store.state.UserState.users.removeAll()
+        store.state.UserState.user = nil
+        store.state.FamilyState.families.items.removeAll()
+        store.state.GalleryState.Gallery.removeAll()
+        store.state.ToDoListState.items.removeAll()
+        store.state.UserState.status = .none
         try! FIRAuth.auth()!.signOut()
-      
-      
-          
-        
-
     }
 
     //Create account with federate entiies like Facebook Twitter Google  etc
@@ -67,7 +63,6 @@ class AuthService {
         let url = user.photoURL
         let data = NSData(contentsOf:url!! as URL)
         if let uploadData = UIImagePNGRepresentation(UIImage(data: data! as Data)!){
-
             Constants.FirStorage.STORAGEREF.child("users").child(user.uid).child("images").child("\(imageName).jpg").put(uploadData, metadata: nil) { metadata, error in
                 if (error != nil) {
                     // Uh-oh, an error occurred!
@@ -96,15 +91,12 @@ class AuthService {
             }
         }
     }
-    func isAuth(view: UIViewController, name: String)  {
+    func isAuth()  {
         FIRAuth.auth()?.addStateDidChangeListener { auth, user in
-            
-            self.uid = user?.uid
             if (user != nil) {
                 self.checkUserAgainstDatabase(completion: {(success, error ) in
                     if success {
-                        service.REF_SERVICE.value(ref: ref_users(uid: (user?.uid)!))
-                        service.UTILITY_SERVICE.gotoView(view: name, context: view)
+                        store.dispatch(GetUserAction(uid: (user?.uid)!))
                     }else{
                        self.logOut()
                     }

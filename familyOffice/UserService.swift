@@ -22,7 +22,6 @@ class UserService {
     private static let instance : UserService = UserService()
     
     func setFamily(family: Family) -> Void {
-        //user?.family = family
         users[0].familyActive = family.id
     }
     

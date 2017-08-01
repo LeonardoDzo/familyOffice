@@ -10,7 +10,7 @@ import UIKit
 
 class EndRepeatEventTableViewController: UITableViewController {
     var active = false
-    var value = "Nunca"
+    var value = 0
     weak var shareEvent : ShareEvent!
     @IBOutlet weak var datePicker: UIDatePicker!
     override func viewDidLoad() {
@@ -28,7 +28,7 @@ class EndRepeatEventTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         var indexpath : IndexPath!
         value = shareEvent.event.repeatmodel.end
-        if shareEvent.event.repeatmodel.end == "Nunca" {
+        if shareEvent.event.repeatmodel.end == 0  {
            indexpath = IndexPath(row: 0,section:0)
             active = false
         }else{
@@ -67,9 +67,8 @@ class EndRepeatEventTableViewController: UITableViewController {
      
             active = !active
             if active {
-                value = datePicker.date.string(with: .InternationalFormat)
-            }else{
-                value = "Nunca"
+                value = datePicker.date.toMillis()
+                value = 0
             }
             
             
@@ -96,7 +95,7 @@ class EndRepeatEventTableViewController: UITableViewController {
         self.tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
     }
     @IBAction func handleChangeDpicker(_ sender: UIDatePicker) {
-        value = sender.date.string(with: .InternationalFormat)
+        value = sender.date.toMillis()
     }
  
     

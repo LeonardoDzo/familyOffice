@@ -28,7 +28,6 @@ class RefHandle {
             print(error.localizedDescription)
         })
         listeners[String(NSDate().timeIntervalSince1970)+"+"+ref] = handle
-        print(ref , handle)
     }
     func chilAdded(ref: String, byChild: String) -> Void {
         let handle = Constants.FirDatabase.REF.child(ref).queryOrdered(byChild: byChild).observe(.childAdded, with: {(snapshot) in
@@ -146,9 +145,7 @@ class RefHandle {
             }
             break
         case "notifications/\(reference[1])":
-            if action == "added" {
-                service.NOTIFICATION_SERVICE.add(notification: NotificationModel(snapshot: snapshot))
-            }
+           
             break
         case "activityLog/\(reference[1])":
             if action == "added" {

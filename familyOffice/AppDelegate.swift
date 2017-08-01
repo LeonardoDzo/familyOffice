@@ -11,11 +11,32 @@ import Firebase
 import FirebaseMessaging
 import GoogleSignIn
 import UserNotifications
+import ReSwift
+import ReSwiftRecorder
+import ReSwiftRouter
+
+let store = RecordingMainStore<AppState>(
+        reducer: AppReducer(),
+        state: nil,
+        typeMaps: [goalActionTypeMap,
+                   userActionTypeMap,
+                   contactActionTypeMap,
+                   todolistActionTypeMap,
+                   galleryActionTypeMap,
+                   medicineActionTypeMap,
+                   illnessActionTypeMap,
+                   familyActionTypeMap,
+                   faqActionTypeMap],
+
+        recording: "recording.json")
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
-    
+    var router: Router<AppState>!
     var window: UIWindow?
+    var rootViewController: Routable!
+    var AddGoalViewController: UIViewController!
+    var GoalViewController: UIViewController!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -35,6 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
                                                selector: #selector(tokenRefreshNotification),
                                                name: NSNotification.Name.firInstanceIDTokenRefresh,
                                                object: nil)
+    
         
         return true
     }
@@ -77,7 +99,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
         let authentication = user.authentication
         let credential = FIRGoogleAuthProvider.credential(withIDToken: (authentication?.idToken)!,
                                                           accessToken: (authentication?.accessToken)!)
-        service.AUTH_SERVICE.login(credential: credential)
+        store.dispatch(LoginAction(with: credential))
     }
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
         
@@ -140,8 +162,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
             }
         }
     }
-    
-    
-    
+
 }
 
+protocol Routable {
+    
+    func changeRouteSegment(from: RouteElementIdentifier,
+                            to: RouteElementIdentifier,
+                            completionHandler: RoutingCompletionHandler) -> Routable
+    
+    func pushRouteSegment(routeElementIdentifier: RouteElementIdentifier,
+                          completionHandler: RoutingCompletionHandler) -> Routable
+    
+    func popRouteSegment(routeElementIdentifier: RouteElementIdentifier,
+                         completionHandler: RoutingCompletionHandler)
+    
+}
