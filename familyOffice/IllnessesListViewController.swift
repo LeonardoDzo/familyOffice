@@ -10,7 +10,7 @@ import UIKit
 import ReSwift
 import Firebase
 
-class IllnessesListViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
+class IllnessesListViewController: UIViewController,UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
     var illnesses:[Illness] = []
     let familyID = store.state.UserState.user?.familyActive!
     
