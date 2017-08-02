@@ -24,10 +24,7 @@ class MainTabBarController: UITabBarController {
 
     
     override func viewWillAppear(_ animated: Bool) {
-        guard let value : Int = store.state.notifications.count, value > 0 else{
-            return
-        }
-        self.tabBarController?.tabBar.items?[3].badgeValue = String(value)
+     
     }
 
 }
