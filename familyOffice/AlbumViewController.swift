@@ -39,11 +39,13 @@ class AlbumViewController: UIViewController,UIGestureRecognizerDelegate, StoreSu
         let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "LeftChevron"), style: .plain, target: self, action: #selector(self.back))
         backButton.tintColor = #colorLiteral(red: 1, green: 0.2940415765, blue: 0.02801861018, alpha: 1)
         self.navigationItem.leftBarButtonItem = backButton
-        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 10, left: 2, bottom: 10, right: 2)
-        layout.itemSize = CGSize(width: (self.collectionImages.contentSize.width/4)-2, height: (self.collectionImages.contentSize.width/4)-2)
-        layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 0
+        let layout = GalleryLayout()
+        layout.delegate = self
+//        layout.scrollDirection = .vertical
+//        layout.sectionInset = UIEdgeInsets(top: 10, left: 2, bottom: 10, right: 2)
+//        layout.itemSize = CGSize(width: (self.collectionImages.contentSize.width/3)-2, height: (self.collectionImages.contentSize.width/3)-2)
+//        layout.minimumInteritemSpacing = 0
+//        layout.minimumLineSpacing = 0
         self.collectionImages.collectionViewLayout = layout
         self.collectionImages.allowsMultipleSelection = true
         let lpgr : UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress(gestureRecognizer:)))
@@ -84,7 +86,7 @@ class AlbumViewController: UIViewController,UIGestureRecognizerDelegate, StoreSu
                                         let key = Constants.FirDatabase.REF.childByAutoId().key as String
                                         let imgAlbum: ImageAlbum = ImageAlbum(id: key, path: "", album: self.currentAlbum?.id, comments: [], reacts: [], uiimage: image,video: data)
                                         store.dispatch(InsertVideoAlbumAction(image: imgAlbum))
-                                    }catch let error as NSError
+                                    }catch _ as NSError
                                     {
                                         self.view.makeToast("Error al subir video al album.", duration: 1.0, position: .center)
                                     }
@@ -116,7 +118,7 @@ class AlbumViewController: UIViewController,UIGestureRecognizerDelegate, StoreSu
                                     //let imageData = self.resizeImage(image: image!, scale: CGFloat.init(20))
                                     let imageData = image?.resizeImage()
                                     let key = Constants.FirDatabase.REF.childByAutoId().key as String
-                                    let imgAlbum: ImageAlbum = ImageAlbum(id: key, path: "", album: self.currentAlbum?.id, comments: [], reacts: [], uiimage: imageData!,video: nil)
+                                    let imgAlbum: ImageAlbum = ImageAlbum(id: key, path: "", album: self.currentAlbum?.id, comments: [], reacts: [], uiimage: imageData!,video: nil, width: Double(img.size.width*img.scale), height: Double(img.size.height*img.scale))
                                     store.dispatch(InsertImagesAlbumAction(image: imgAlbum))
                                     self.imgesAlbum.append(ImageAlbum())
                                     self.collectionImages.reloadData()
@@ -207,6 +209,7 @@ extension AlbumViewController{
                     self.navigationItem.title = "Seleccionados: \(self.selectedItems.count)"
                 }
             }
+            self.collectionImages.reloadData()
             break
         case .none:
             break
@@ -274,6 +277,11 @@ extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSou
             cell.playImage.isHidden = true
             return cell
         }
+//         let height = cell.imageBackground.frame.size.height * 50 / cell.imageBackground.frame.size.width
+//        cell.bounds = CGRect(x: cell.frame.origin.x,
+//                            y: cell.frame.origin.y,
+//                            width: 50,
+//                            height: height)
         currentAlbum?.ObjImages[indexPath[1]].uiimage = cell.imageBackground.image
         return cell
     }
@@ -338,6 +346,21 @@ extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSou
             present(controller, animated: true, completion: nil)
         }
     }
+    
+    
+    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
+//        var height : Double = Double(flowLayout.itemSize.height)
+//        let width = Double(flowLayout.itemSize.width)
+//        let img = imgesAlbum[indexPath[1]]
+//        if img.width != 0 {
+//            height = img.height * width / img.width
+//        }
+//        
+//      	return CGSize(width: width, height: height)
+//    }
+    
     func cancelSelection(){
         self.selectedItems.removeAll()
         self.collectionImages.reloadData()
@@ -413,6 +436,18 @@ extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSou
         }
     }
 
+}
+extension AlbumViewController : GalleryLayoutDelegate {
+    func collectionView(collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: NSIndexPath, withWidth width: CGFloat) -> CGFloat {
+        let photo = imgesAlbum[indexPath.item]
+        var height = photo.height
+        if(height < photo.width/2) { height = photo.width/2 }
+        else if(height > photo.width*2) { height = photo.width*2 }
+        let size = CGSize(width: photo.width, height: height)
+        let boundingRect =  CGRect(x: 0, y: 0, width: width, height: CGFloat(MAXFLOAT))
+        let rect  = AVMakeRect(aspectRatio: size, insideRect: boundingRect)
+        return rect.size.height
+    }
 }
 
 
