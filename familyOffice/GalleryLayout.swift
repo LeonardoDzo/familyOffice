@@ -20,7 +20,7 @@ class GalleryLayout: UICollectionViewLayout {
     
     // These are two public properties for configuring the layout: the number of columns and the cell padding.
     var numberOfColumns = 3
-    var cellPadding: CGFloat = 5.0
+    var cellPadding: CGFloat = 1.0
     
     // This is an array to cache the calculated attributes. When you call prepareLayout(), you’ll calculate the attributes for all
     // items and add them to the cache. When the collection view later requests the layout attributes, you can be efficient and
@@ -41,6 +41,7 @@ class GalleryLayout: UICollectionViewLayout {
     
     override func prepare() {
         // You only calculate the layout attributes if cache is empty.
+        cache = []
         if cache.isEmpty {
             // This declares and fills the xOffset array with the x-coordinate for every column based on the column widths. 
             // The yOffset array tracks the y-position for every column. You initialize each value in yOffset to 0, since 
@@ -81,7 +82,9 @@ class GalleryLayout: UICollectionViewLayout {
                 contentHeight = max(contentHeight, frame.maxY)
                 yOffset[column] = yOffset[column] + height
                 
-                column = column >= (numberOfColumns - 1) ? 0 : (column+1)
+                column = 0
+                if(yOffset[1] < yOffset[column]) { column = 1 }
+                if(yOffset[2] < yOffset[column]) { column = 2 }
             }
         }
     }

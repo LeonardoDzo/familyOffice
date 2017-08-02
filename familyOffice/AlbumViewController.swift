@@ -209,6 +209,7 @@ extension AlbumViewController{
                     self.navigationItem.title = "Seleccionados: \(self.selectedItems.count)"
                 }
             }
+            self.collectionImages.reloadData()
             break
         case .none:
             break
@@ -348,17 +349,17 @@ extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSou
     
     
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
-        var height : Double = Double(flowLayout.itemSize.height)
-        let width = Double(flowLayout.itemSize.width)
-        let img = imgesAlbum[indexPath[1]]
-        if img.width != 0 {
-            height = img.height * width / img.width
-        }
-        
-      	return CGSize(width: width, height: height)
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
+//        var height : Double = Double(flowLayout.itemSize.height)
+//        let width = Double(flowLayout.itemSize.width)
+//        let img = imgesAlbum[indexPath[1]]
+//        if img.width != 0 {
+//            height = img.height * width / img.width
+//        }
+//        
+//      	return CGSize(width: width, height: height)
+//    }
     
     func cancelSelection(){
         self.selectedItems.removeAll()
@@ -439,7 +440,10 @@ extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSou
 extension AlbumViewController : GalleryLayoutDelegate {
     func collectionView(collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: NSIndexPath, withWidth width: CGFloat) -> CGFloat {
         let photo = imgesAlbum[indexPath.item]
-        let size = CGSize(width: photo.width, height: photo.height)
+        var height = photo.height
+        if(height < photo.width/2) { height = photo.width/2 }
+        else if(height > photo.width*2) { height = photo.width*2 }
+        let size = CGSize(width: photo.width, height: height)
         let boundingRect =  CGRect(x: 0, y: 0, width: width, height: CGFloat(MAXFLOAT))
         let rect  = AVMakeRect(aspectRatio: size, insideRect: boundingRect)
         return rect.size.height
