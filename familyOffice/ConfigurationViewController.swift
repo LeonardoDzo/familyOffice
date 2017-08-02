@@ -29,10 +29,7 @@ UINavigationControllerDelegate  {
     }
     override func viewWillAppear(_ animated: Bool) {
         user = store.state.UserState.user!
-       
         profileImage.loadImage(urlString: user.photoURL)
-        
-        
     }
     override func viewWillDisappear(_ animated: Bool) {
         
@@ -42,13 +39,11 @@ UINavigationControllerDelegate  {
         // Dispose of any resources that can be recreated.
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage //2
-        //profileImage.contentMode = .scaleAspectFit //3
-        //profileImage.image = chosenImage.image //4
-        self.performSegue(withIdentifier: "updateImageSegue", sender: nil)
-        
-        
-        dismiss(animated:true, completion: nil) //5
+        chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+
+        dismiss(animated:true, completion: { _ in
+            self.performSegue(withIdentifier: "updateImageSegue", sender: nil)
+        })
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -106,8 +101,7 @@ UINavigationControllerDelegate  {
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier=="updateImageSegue" {
             let viewController = segue.destination as! ImageViewController
-            store.state.UserState.status = .none
-            viewController.imageView.image = chosenImage
+            viewController.chooseImg = chosenImage
         }
      }
      

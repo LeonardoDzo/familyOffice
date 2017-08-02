@@ -25,11 +25,13 @@ struct Event {
     static let ktype = "type"
     static let kDates = "dates"
     static let kRepeat = "repeat"
+    static let kisAllDay = "isAllDay"
     
     var id: String!
     var title: String!
     var description: String!
     var date: Int!
+    var isAllDay: Bool = false
     var endDate: Int!
     var priority: Int!
     var members = [memberEvent]()
@@ -59,7 +61,7 @@ struct Event {
         self.date = snapshotValue.exist(field: Event.kDate)
         self.endDate = snapshotValue.exist(field: Event.kEndDate)
         self.priority = snapshotValue.exist(field: Event.kPriority)
-        
+        self.isAllDay = snapshotValue.exist(field: Event.kisAllDay)
         if let members = snapshotValue[Event.kMembers] as? NSDictionary {
             for item in members {
                 let member = memberEvent(snapshot: item.value as! NSDictionary, id: item.key as! String)
@@ -89,6 +91,7 @@ struct Event {
             Event.klocation : self.location?.toDictionary() ?? "",
             Event.kcreator : self.creator,
             Event.kRepeat : self.repeatmodel.toDictionary(),
+            Event.kisAllDay : self.isAllDay,
             
         ]
     }
@@ -97,29 +100,24 @@ struct Event {
 protocol EventBindable: AnyObject {
     var event: Event! { get set }
     var descriptionLabel: UILabel! {get}
-    var dateLabel: UILabel! {get}
-    var endDateLabel: UILabel! {get}
+    var startDateLbl: UILabel! {get}
+    var endDateLbl: UILabel! {get}
     var locationLabel: UILabel! {get}
     var titleLabel: UILabel! {get}
     var titleTxtField: UITextField! {get}
     var imageTime : UIImageView! {get}
-    var endateTxtField: UITextField! {get}
     var ubicationLabel: UITextField! {get}
     var repeatLabel: UILabel! {get}
     var endRepeat: UILabel! {get}
     var descriptionTxtField: UITextField! {get}
-    var startDateTxtfield: UITextField! {get}
 }
 
 extension EventBindable {
     // Make the views optionals
     
-    var dateLabel: UILabel! {
-        return nil
-    }
-    var startDateTxtfield: UITextField! {return nil}
+    var startDateLbl: UILabel! {return nil}
     
-    var endDateLabel: UILabel! {
+    var endDateLbl: UILabel! {
         return nil
     }
     
@@ -136,7 +134,6 @@ extension EventBindable {
     var imageTime: UIImageView! {
         return nil
     }
-    var endateTxtField: UITextField! {return nil}
     var ubicationLabel: UITextField! {return nil}
     var repeatLabel: UILabel! {return nil}
     var endRepeat: UILabel! {return nil}
@@ -159,7 +156,7 @@ extension EventBindable {
             if event.location != nil {
                 locationLabel.text =  (event.location?.title.isEmpty)! ?  "Sin ubicación" : "\(event.location?.title ?? ""), \(event.location?.subtitle ?? "")"
             }else{
-                locationLabel.text =   "Sin ubicación" 
+                locationLabel.text =   "Sin ubicación"
             }
             
         }
@@ -171,13 +168,19 @@ extension EventBindable {
             }
             
         }
-        if let endDateLabel = self.endDateLabel {
-            endDateLabel.text = Date(timeIntervalSince1970: TimeInterval(event.endDate)).string(with: .dayMonthYearHourMinute)
+        if let endDateLbl = self.endDateLbl {
+            var formatter: DateFormatter!
+            if event.isAllDay {
+                formatter = .dayMonthAndYear
+            }else{
+                formatter = .dayMonthYearHourMinute
+            }
+            
+            let date = Date(timeIntervalSince1970: TimeInterval(event.endDate/1000))
+           
+            endDateLbl.text = date.string(with: formatter)
+            
         }
-        if let endateTxtField = self.endateTxtField {
-            endateTxtField.text = Date(timeIntervalSince1970: TimeInterval(event.endDate)).string(with: .dayMonthYearHourMinute)
-        }
-        
         if let titleTxtField = self.titleTxtField {
             titleTxtField.text = event.title
         }
@@ -191,14 +194,26 @@ extension EventBindable {
             descriptionLabel.text = event.description
         }
         
-        if let dateLabel = self.dateLabel {
-            dateLabel.text =  Date(timeIntervalSince1970: TimeInterval(event.date)).string(with: .dayMonthYearHourMinute)
+        if let startDateLbl = self.startDateLbl {
+            var formatter: DateFormatter!
+            if event.isAllDay {
+                formatter = .dayMonthAndYear
+            }else{
+                formatter = .dayMonthYearHourMinute
+            }
+            let date = Date(timeIntervalSince1970: TimeInterval(event.date/1000))
+          
+            startDateLbl.text = date.string(with: formatter)
+            
         }
-        if let startDateTxtfield = self.startDateTxtfield {
-            startDateTxtfield.text =  Date(timeIntervalSince1970: TimeInterval(event.date)).string(with: .dayMonthYearHourMinute)
-        }
+        
         if let repeatLabel = self.repeatLabel {
             repeatLabel.text = event.repeatmodel.frequency
+        }
+        if let endRepeat = self.endRepeat {
+            if event.repeatmodel.end > 0 {
+                endRepeat.text = Date(timeIntervalSince1970: TimeInterval(event.repeatmodel.end/1000)).string(with: .dayMonthAndYear)
+            }
         }
         
     }
