@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension UITextField {
+extension UILabel {
     
     func strikeText() -> Void {
         if !(self.text?.isEmpty)!{
@@ -24,4 +24,9 @@ extension UITextField {
             self.attributedText = attrString
         }
     }
+    func setFormatter(_ formatter: DateFormatter, _ date: Int) -> Void {
+        let xdate = Date(timeIntervalSince1970: TimeInterval(date/1000))
+        self.text = xdate.string(with: formatter)
+    }
+    
 }

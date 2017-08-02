@@ -111,6 +111,7 @@ class MembersTableViewController: UITableViewController,UISearchResultsUpdating 
 extension MembersTableViewController : StoreSubscriber {
     typealias StoreSubscriberStateType = UserState
     override func viewWillAppear(_ animated: Bool) {
+    
         store.subscribe(self){
             state in
             state.UserState

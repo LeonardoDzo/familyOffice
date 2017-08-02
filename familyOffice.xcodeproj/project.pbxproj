@@ -119,6 +119,7 @@
 		02BD2D171E1F0D8B00A61A84 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BD2D161E1F0D8B00A61A84 /* HomeViewController.swift */; };
 		02BD2D191E1F130900A61A84 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BD2D181E1F130900A61A84 /* UserService.swift */; };
 		02BD2D1C1E1F16A700A61A84 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BD2D1B1E1F16A700A61A84 /* Utility.swift */; };
+		02C06B431F3245F400FFF52B /* (null) in Sources */ = {isa = PBXBuildFile; };
 		02C17D271E424AD400EE7CFA /* ActivityLogService .swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C17D261E424AD400EE7CFA /* ActivityLogService .swift */; };
 		02C17D291E424F6A00EE7CFA /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C17D281E424F6A00EE7CFA /* Record.swift */; };
 		02C17D2B1E42796700EE7CFA /* recordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C17D2A1E42796700EE7CFA /* recordTableViewCell.swift */; };
@@ -235,7 +236,6 @@
 		94FF53651F17E583001D9EE4 /* EditItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FF53641F17E583001D9EE4 /* EditItemViewController.swift */; };
 		94FF53671F17E58E001D9EE4 /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FF53661F17E58E001D9EE4 /* ItemDetailViewController.swift */; };
 		A44D4E5E1F0481CD00323B87 /* Budget.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A44D4E5D1F0481CD00323B87 /* Budget.storyboard */; };
-		A44D4E611F04824B00323B87 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		A44D91AF1E947F2700880D50 /* HealthOmniViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44D91AE1E947F2700880D50 /* HealthOmniViewController.swift */; };
 		A44F5BE71F1D421100B840F3 /* LineChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44F5BE61F1D421100B840F3 /* LineChartViewController.swift */; };
 		A44F5BE91F1D42D300B840F3 /* BudgetTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44F5BE81F1D42D300B840F3 /* BudgetTabBarController.swift */; };
@@ -982,17 +982,9 @@
 				027213991E84457A001A144B /* Events */,
 				024EF9A81E83413200F5B4DF /* safeBox */,
 				020A64F41E81A77E00F473A0 /* chat */,
-				029059211E78B9D8005F760C /* Cells */,
 				1A54F54BA1C4542CA24ED232 /* Gallery */,
 			);
 			name = Home;
-			sourceTree = "<group>";
-		};
-		029059211E78B9D8005F760C /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Cells;
 			sourceTree = "<group>";
 		};
 		029059221E78B9EC005F760C /* Cells */ = {
@@ -1808,9 +1800,8 @@
 				029F65971F15A95700C3A0A7 /* InfoContactViewController.swift in Sources */,
 				A48FD6DD1F143D2200832559 /* Budget.swift in Sources */,
 				02E33A641EBA71D0003BF787 /* ShowEventViewController.swift in Sources */,
-				A44D4E611F04824B00323B87 /* (null) in Sources */,
+				02C06B431F3245F400FFF52B /* (null) in Sources */,
 				042693011F1448EB004356D6 /* ImageAlbumService.swift in Sources */,
-				A44D4E611F04824B00323B87 /* (null) in Sources */,
 				02B46A341E52908200CC7511 /* NotificationService.swift in Sources */,
 				940964261F296E1A00FB1F3A /* CQuestionCell.swift in Sources */,
 				941B59F41F211C730078EF9C /* MedicineReducer.swift in Sources */,

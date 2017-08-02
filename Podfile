@@ -24,12 +24,10 @@ target 'familyOffice' do
   pod 'ReSwiftRouter'
   pod 'ReSwiftRecorder'
   pod 'Charts', '~> 3.0'
-  pod 'ChartsRealm'
   pod 'DKImagePickerController'
   pod 'Lightbox'
   pod 'JBDatePicker'
   pod 'SnapKit', '~> 3.0'
-  pod 'M13Checkbox'
   pod 'GzipSwift'
   pod "MIBadgeButton-Swift", :git => 'https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git', :branch => 'master'
   target 'familyOfficeTests' do

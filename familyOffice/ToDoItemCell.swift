@@ -7,13 +7,12 @@
 //
 
 import UIKit
-import M13Checkbox
 
 class ToDoItemCell: UITableViewCell {
     
     @IBOutlet var title: UILabel!
     @IBOutlet var date: UILabel!
-    @IBOutlet var checkFinished: M13Checkbox!
+    @IBOutlet var checkFinished: UISwitch!
     @IBOutlet var countLabel: UILabel!
     
     override func awakeFromNib() {

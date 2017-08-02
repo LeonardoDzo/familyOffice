@@ -8,7 +8,7 @@
 
 import UIKit
 import ReSwift
-class PasswordChangeViewController: UIViewController {
+class PasswordChangeViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var oldPassword: UITextField!
     @IBOutlet weak var newPassword: UITextField!
     @IBOutlet weak var repeatPass: UITextField!

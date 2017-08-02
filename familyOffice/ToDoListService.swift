@@ -16,7 +16,7 @@ class ToDoListService: RequestService{
 
     var items: [ToDoList.ToDoItem] = []
     var handles: [(String, UInt, FIRDataEventType)] = []
-    let basePath = "todolist/\(store.state.UserState.user?.id!)"
+    let basePath = "todolist/\((store.state.UserState.user?.id)!)"
     
     private init(){}
     

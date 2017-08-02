@@ -76,7 +76,7 @@
                                         <rect key="frame" x="0.0" y="28" width="343" height="113"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mEc-Yq-s56" id="Sz2-Op-ikR">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="113"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="112.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="247" text="1:00 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oJX-f3-qJo">
@@ -1162,13 +1162,14 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="allDaySwitch" destination="99Q-zD-rR4" id="VaQ-yp-1YV"/>
                         <outlet property="descriptionTxtField" destination="yJb-iK-F3l" id="eZd-IN-soH"/>
+                        <outlet property="endDateLbl" destination="YRF-Yw-znZ" id="sWI-ns-7gF"/>
                         <outlet property="endDatepicker" destination="2A8-4g-4zQ" id="11u-5L-sA9"/>
                         <outlet property="endRepeat" destination="yn8-l8-WWt" id="vDn-VW-Rm2"/>
-                        <outlet property="endateTxtField" destination="YRF-Yw-znZ" id="JNz-wN-FZ8"/>
                         <outlet property="numberSelected" destination="m5K-N4-ZAq" id="Lse-yL-7iQ"/>
                         <outlet property="repeatLabel" destination="AcP-XY-ha1" id="cwD-JX-np2"/>
-                        <outlet property="startDateTxtfield" destination="WNV-n3-7cs" id="RaJ-Hl-0bg"/>
+                        <outlet property="startDateLbl" destination="WNV-n3-7cs" id="vvC-JO-YZZ"/>
                         <outlet property="startDatepicker" destination="ALm-fF-Ws2" id="Gui-fp-OUG"/>
                         <outlet property="titleTxtField" destination="Cbd-qf-Ulp" id="oZz-Ec-EeW"/>
                         <outlet property="ubicationLabel" destination="LpD-yF-kJI" id="4fr-95-tam"/>
@@ -1230,12 +1231,13 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="199.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="gyN-nR-cf7">
+                                                <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="gyN-nR-cf7">
                                                     <rect key="frame" x="-7" y="0.0" width="374" height="200"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <date key="date" timeIntervalSinceReferenceDate="517799385.03348702">
                                                         <!--2017-05-30 01:09:45 +0000-->
                                                     </date>
+                                                    <locale key="locale" localeIdentifier="es_MX"/>
                                                     <connections>
                                                         <action selector="handleChangeDpicker:" destination="9BH-5a-f74" eventType="valueChanged" id="Sco-4M-Yqx"/>
                                                     </connections>
@@ -1475,7 +1477,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vIv-OO-BIT" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ogs-AB-9Tk">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="ogs-AB-9Tk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
