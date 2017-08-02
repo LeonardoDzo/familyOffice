@@ -9,7 +9,6 @@
 import UIKit
 import ReSwift
 import Firebase
-import M13Checkbox
 
 class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, UITableViewDelegate, UITableViewDataSource, UITabBarDelegate, UIGestureRecognizerDelegate {
     
@@ -108,14 +107,8 @@ class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, U
         cell.countLabel.text = "\(indexPath.row + 1)"
         cell.countLabel.layer.cornerRadius = 0.5 * cell.countLabel.bounds.size.width
         
-        cell.checkFinished.boxType = .square
-        cell.checkFinished.markType = .checkmark
         
-        if item.status == "Pendiente" {
-            cell.checkFinished.checkState = .unchecked
-        } else {
-            cell.checkFinished.checkState = .checked
-        }
+        cell.checkFinished.isOn = item.status == "Pendiente" ? false : true
         
         return cell
     }
@@ -154,12 +147,12 @@ class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, U
     }
     // MARK: - Checkbox
     
-    @IBAction func checkboxPressed(_ sender: M13Checkbox) {
+    @IBAction func checkboxPressed(_ sender: UISwitch) {
         let checkbox = sender.convert(CGPoint.zero, to: self.tableView)
         let indexPath = self.tableView.indexPathForRow(at: checkbox)
         var currentItem = self.items[(indexPath?.row)!]
         print(currentItem)
-        if sender.checkState == .checked{
+        if sender.isOn {
             currentItem.status = "Finalizada"
         } else {
             currentItem.status = "Pendiente"

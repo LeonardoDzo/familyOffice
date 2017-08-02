@@ -100,7 +100,6 @@ class repeatEventTableViewController: UITableViewController {
         }else{
             shareEvent.event.repeatmodel.each = 1
         }
-        
     }
     
     

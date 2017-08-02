@@ -24,13 +24,14 @@ class addEventTableViewController: UITableViewController, EventBindable, ShareEv
     var endActivate = false
     @IBOutlet weak var titleTxtField: UITextField!
     @IBOutlet weak var endDatepicker: UIDatePicker!
-    @IBOutlet weak var startDateTxtfield: UILabel!
-    @IBOutlet weak var endateTxtField: UILabel!
+    @IBOutlet weak var startDateLbl: UILabel!
+    @IBOutlet weak var endDateLbl: UILabel!
     @IBOutlet weak var startDatepicker: UIDatePicker!
     @IBOutlet weak var ubicationLabel: UITextField!
     @IBOutlet weak var repeatLabel: UILabel!
     @IBOutlet weak var endRepeat: UILabel!
     @IBOutlet weak var descriptionTxtField: UITextField!
+    @IBOutlet weak var allDaySwitch: UISwitch!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.clearsSelectionOnViewWillAppear = false
@@ -38,31 +39,55 @@ class addEventTableViewController: UITableViewController, EventBindable, ShareEv
         navigationItem.rightBarButtonItems = [addButton]
     }
     override func viewWillAppear(_ animated: Bool) {
-        self.bind(event!)
-        configuration()
+        self.bind()
+        let date = Date(timeIntervalSince1970: TimeInterval(event.date/1000))
+        endDatepicker.minimumDate = date
         tableView.reloadData()
     }
     
-    func configuration() -> Void {
-      
-    }
-    
     @IBAction func handleChangeAllDay(_ sender: UISwitch) {
- 
+        event.isAllDay = sender.isOn
+        if sender.isOn {
+            endDatepicker.datePickerMode = .date
+            startDatepicker.datePickerMode = .date
+        }else{
+            endDatepicker.datePickerMode = .dateAndTime
+            startDatepicker.datePickerMode = .dateAndTime
+        }
+        
+        self.bind()
     }
     
     @IBAction func handleChangeSDate(_ sender: UIDatePicker) {
-        event.date = sender.date.toMillis()
-        let date = Date(timeIntervalSince1970: TimeInterval(event.date/1000))
+        var formatter: DateFormatter!
+        if allDaySwitch.isOn {
+            formatter = .dayMonthAndYear
+        }else{
+            formatter = .dayMonthYearHourMinute
+        }
         
-        startDateTxtfield.text = date.string(with: .dayMonthYearHourMinute)
+        let date = Date(string: sender.date.string(with: formatter), formatter: formatter)
+        endDatepicker.minimumDate = date
+        event.date = date?.toMillis()
+        if event.endDate < event.date {
+            event.endDate = date?.toMillis()
+        }
+        self.bind()
     }
     
+    
     @IBAction func handleChangeEDate(_ sender: UIDatePicker) {
-        event.endDate = sender.date.toMillis()
-        let date = Date(timeIntervalSince1970: TimeInterval(event.endDate/1000))
+        var formatter: DateFormatter!
+        if allDaySwitch.isOn {
+            formatter = .dayMonthAndYear
+        }else{
+            formatter = .dayMonthYearHourMinute
+        }
         
-        endateTxtField.text = date.string(with: .dayMonthYearHourMinute)
+        let date = Date(string: sender.date.string(with: formatter), formatter: formatter)
+        event.endDate = date?.toMillis()
+        
+        endDateLbl.text = date?.string(with: formatter)
     }
     
     override func didReceiveMemoryWarning() {

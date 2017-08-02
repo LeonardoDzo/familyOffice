@@ -10,72 +10,60 @@ import UIKit
 import Firebase
 import ReSwift
 class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UIScrollViewDelegate {
-    var imageView = UIImageView()
-    var tempImage : UIImage! = nil
+    @IBOutlet weak var imageView: UIImageView!
     var user: User!
+    var minZoomScale:CGFloat!
+    var chooseImg = UIImage()
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var imageViewWidth: NSLayoutConstraint!
+    @IBOutlet weak var imageViewHeight: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let doneButton : UIBarButtonItem = UIBarButtonItem(title: "Guardar", style: UIBarButtonItemStyle.plain, target: self, action:#selector(save(sender:)))
         self.navigationItem.rightBarButtonItem = doneButton
         scrollView.delegate = self
-        imageView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height)
-        imageView.isUserInteractionEnabled = true
-        scrollView.addSubview(imageView)
-        // Do any additional setup after loadi
+        
     }
-   
+    
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        store.state.UserState.status = .none
+        user = store.state.UserState.user
+        setImageToCrop(image: chooseImg)
         store.subscribe(self){
             state in
             state.UserState
         }
-        user = store.state.UserState.user
-       crop()
+        
     }
     override func viewWillDisappear(_ animated: Bool) {
         store.unsubscribe(self)
     }
-    func crop() -> Void {
-        scrollView.zoomScale = 1
-        
-        imageView.contentMode = UIViewContentMode.center
-        imageView.frame = CGRect(x: 0, y: 0, width: imageView.image!.size.width, height: (imageView.image?.size.height)!)
-       
-        scrollView.contentSize = (imageView.image?.size)!
-        
-        let scrollViewFrame = scrollView.frame
-        let scaleWidth = scrollViewFrame.size.width / scrollView.contentSize.width
-        let scaleHeight = scrollViewFrame.size.height / scrollView.contentSize.height
-        let minScale = min(scaleWidth, scaleHeight)
-        
-        scrollView.minimumZoomScale = minScale
-        scrollView.maximumZoomScale = 1
-        scrollView.zoomScale = minScale
-        centerScrollViewContents()
-    
+    func setImageToCrop(image:UIImage){
+        imageView.image = image
+        imageViewWidth.constant = image.size.width
+        imageViewHeight.constant = image.size.height
+        let scaleHeight = scrollView.frame.size.width/image.size.width
+        let scaleWidth = scrollView.frame.size.height/image.size.height
+        scrollView.minimumZoomScale = max(scaleWidth, scaleHeight)
+        scrollView.zoomScale = max(scaleWidth, scaleHeight)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     func save(sender: UIBarButtonItem) -> Void {
-        UIGraphicsBeginImageContextWithOptions(scrollView.bounds.size, true, UIScreen.main.scale)
-        let offset = scrollView.contentOffset
+        let scale:CGFloat = 1/scrollView.zoomScale
+        let x:CGFloat = scrollView.contentOffset.x * scale
+        let y:CGFloat = scrollView.contentOffset.y * scale
+        let width:CGFloat = scrollView.frame.size.width * scale
+        let height:CGFloat = scrollView.frame.size.height * scale
+        let croppedCGImage = imageView.image?.cgImage?.cropping(to: CGRect(x: x, y: y, width: width, height: height))
+        let croppedImage = UIImage(cgImage: croppedCGImage!)
         
-        UIGraphicsGetCurrentContext()?.translateBy(x: -offset.x, y: -offset.y)
-        scrollView.layer.render(in: UIGraphicsGetCurrentContext()!)
-        let _ = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        //Add validations
-        if(imageView.image != nil){
-            service.UTILITY_SERVICE.disabledView()
-            store.dispatch(UpdateUserAction(user: user, img: imageView.image))
-        }else{
-            alert()
-        }
-
+        service.UTILITY_SERVICE.disabledView()
+        store.dispatch(UpdateUserAction(user: user, img: croppedImage))
         
     }
     func alert() -> Void {
@@ -84,33 +72,13 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         alert.addAction(okAction)
         self.present(alert, animated: true, completion: nil)
     }
-    func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        centerScrollViewContents()
-    }
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
     }
     
-    func centerScrollViewContents(){
-        let boundsSize = scrollView.bounds.size
-        var contentsFrame = imageView.frame
-        
-        if contentsFrame.size.width < boundsSize.width {
-            contentsFrame.origin.x = (boundsSize.width - contentsFrame.size.width) / 2
-        }else{
-            contentsFrame.origin.x = 0
-        }
-        
-        if contentsFrame.size.height < boundsSize.height {
-            contentsFrame.origin.y = (boundsSize.height - contentsFrame.size.height) / 2
-        }else{
-            contentsFrame.origin.y = 0
-        }
-        imageView.frame = contentsFrame
-    }
-
-
+    
+    
 }
 extension ImageViewController : StoreSubscriber {
     typealias StoreSubscriberStateType = UserState
