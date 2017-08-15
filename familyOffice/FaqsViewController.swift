@@ -42,11 +42,13 @@ class FaqsTableViewController: UIViewController, UITableViewDataSource,UITableVi
     }
     
     func setupNavBar(){
+        let pqButton = UIBarButtonItem(barButtonSystemItem: .reply, target: self, action: #selector(self.handlePQ))
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.handleNew))
-        addButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
+        self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
+        
         let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "LeftChevron"), style: .plain, target: self, action: #selector(self.back))
         
-        self.navigationItem.rightBarButtonItems = [ addButton]
+        self.navigationItem.rightBarButtonItems = [pqButton, addButton]
         
         self.navigationItem.leftBarButtonItem = backButton
     }
@@ -54,6 +56,12 @@ class FaqsTableViewController: UIViewController, UITableViewDataSource,UITableVi
     func handleMore(_ sender: Any) {
         settingLauncher.showSetting()
     }
+    
+    func handlePQ() -> Void {
+        self.performSegue(withIdentifier: "pendingQuestionsSegue", sender: nil)
+    }
+        
+    
     func handleNew() -> Void {
         self.performSegue(withIdentifier: "addSegue", sender: nil)
     }
