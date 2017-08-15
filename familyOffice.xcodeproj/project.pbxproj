@@ -191,6 +191,8 @@
 		84FFCB8D1F0192DB006EDFA1 /* Contacts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84FFCB8C1F0192DB006EDFA1 /* Contacts.storyboard */; };
 		84FFCB8F1F01A74C006EDFA1 /* contactTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FFCB8E1F01A74C006EDFA1 /* contactTableViewController.swift */; };
 		84FFCB911F02D533006EDFA1 /* addContactTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FFCB901F02D533006EDFA1 /* addContactTableViewController.swift */; };
+		8B18D7B41F4395C100E2B3F5 /* pendingQuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B18D7B31F4395C100E2B3F5 /* pendingQuestionCell.swift */; };
+		8B18D7B61F4395CD00E2B3F5 /* PendingQuestionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B18D7B51F4395CD00E2B3F5 /* PendingQuestionsTableViewController.swift */; };
 		940964161F280C2600FB1F3A /* faqService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940964151F280C2600FB1F3A /* faqService.swift */; };
 		940964181F28138A00FB1F3A /* FaqState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940964171F28138A00FB1F3A /* FaqState.swift */; };
 		9409641A1F2815EA00FB1F3A /* FaqActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940964191F2815EA00FB1F3A /* FaqActions.swift */; };
@@ -465,6 +467,8 @@
 		84FFCB8C1F0192DB006EDFA1 /* Contacts.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Contacts.storyboard; sourceTree = "<group>"; };
 		84FFCB8E1F01A74C006EDFA1 /* contactTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = contactTableViewController.swift; sourceTree = "<group>"; };
 		84FFCB901F02D533006EDFA1 /* addContactTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addContactTableViewController.swift; sourceTree = "<group>"; };
+		8B18D7B31F4395C100E2B3F5 /* pendingQuestionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pendingQuestionCell.swift; sourceTree = "<group>"; };
+		8B18D7B51F4395CD00E2B3F5 /* PendingQuestionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PendingQuestionsTableViewController.swift; sourceTree = "<group>"; };
 		932BFD75DD88755F0C9C439E /* Pods-familyOfficeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-familyOfficeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-familyOfficeUITests/Pods-familyOfficeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		93AB15EA5D7772845EA7763E /* Pods_familyOfficeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_familyOfficeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		940964151F280C2600FB1F3A /* faqService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = faqService.swift; sourceTree = "<group>"; };
@@ -1251,6 +1255,7 @@
 				84CCA39C1F1B69D600B1C9D0 /* Faqs.storyboard */,
 				940964231F292B0800FB1F3A /* AddQuestionViewController.swift */,
 				94F7B7101F2AC0A500B7FAE0 /* QuestionDetailsViewController.swift */,
+				8B18D7B51F4395CD00E2B3F5 /* PendingQuestionsTableViewController.swift */,
 			);
 			name = Faqs;
 			sourceTree = "<group>";
@@ -1331,6 +1336,7 @@
 				9409641F1F2823EB00FB1F3A /* SectionQuestionsCell.swift */,
 				940964211F28242400FB1F3A /* QuestionCell.swift */,
 				940964251F296E1A00FB1F3A /* CQuestionCell.swift */,
+				8B18D7B31F4395C100E2B3F5 /* pendingQuestionCell.swift */,
 				940964271F296E2C00FB1F3A /* CResponseCell.swift */,
 			);
 			name = cells;
@@ -1878,6 +1884,7 @@
 				042230DB1F1961B0005CBAC7 /* GalleryCollectionViewCell.swift in Sources */,
 				02FA70641E707BAB0080AAEB /* ToastService.swift in Sources */,
 				94FF535B1F17E54E001D9EE4 /* ToDoListReducer.swift in Sources */,
+				8B18D7B41F4395C100E2B3F5 /* pendingQuestionCell.swift in Sources */,
 				02F15BB71E85ECE2008C26F8 /* chatModel.swift in Sources */,
 				02BC16F11EE9D80700722689 /* MapViewController.swift in Sources */,
 				94FF53561F17E52B001D9EE4 /* ToDoItemCell.swift in Sources */,
@@ -1953,6 +1960,7 @@
 				94A070CD1F27E3BB0098860E /* Question.swift in Sources */,
 				027213AB1E84865F001A144B /* testFile.swift in Sources */,
 				02C17D271E424AD400EE7CFA /* ActivityLogService .swift in Sources */,
+				8B18D7B61F4395CD00E2B3F5 /* PendingQuestionsTableViewController.swift in Sources */,
 				0215F4EA1E3FCDD400AC01D3 /* PersonalDataTableViewCell.swift in Sources */,
 				027CC9C11F29390A005A48A6 /* MainTabBarController.swift in Sources */,
 				0226C8E21E3C217D007968BA /* ConfigurationViewController.swift in Sources */,
