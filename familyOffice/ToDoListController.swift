@@ -200,8 +200,7 @@ extension ToDoListController: StoreSubscriber{
             state in state.ToDoListState
         }
     }
-    
-    
+
     
     func newState(state: ToDoListState) {
         items = state.items[userId!] ?? []

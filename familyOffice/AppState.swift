@@ -19,6 +19,7 @@ struct AppState: StateType{
     var MedicineState: MedicineState
     var IllnessState: IllnessState
     var FaqState: FaqState
+    var safeBoxState: SafeBoxState
 
     
     var notifications = [NotificationModel]()

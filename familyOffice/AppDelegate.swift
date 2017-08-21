@@ -26,7 +26,8 @@ let store = RecordingMainStore<AppState>(
                    medicineActionTypeMap,
                    illnessActionTypeMap,
                    familyActionTypeMap,
-                   faqActionTypeMap],
+                   faqActionTypeMap,
+                   safeBoxActionTypeMap],
 
         recording: "recording.json")
 

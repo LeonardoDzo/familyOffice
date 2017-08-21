@@ -53,7 +53,7 @@ struct DeleteToDoListItemAction: StandardActionConvertible{
     }
     
     func toStandardAction() -> StandardAction {
-        return StandardAction(type: UpdateToDoListItemAction.type, payload: [:], isTypedAction: true)
+        return StandardAction(type: DeleteToDoListItemAction.type, payload: [:], isTypedAction: true)
     }
 }
 
