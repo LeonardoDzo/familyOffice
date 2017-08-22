@@ -22,7 +22,7 @@ struct SafeBoxReducer: Reducer {
             }
             insertSafeBoxFile(action.safeBoxFile)
             state.status = .loading
-            
+            return state
         case let action as UpdateSafeBoxFileAction:
             if action.safeBoxFile == nil{
                 return state

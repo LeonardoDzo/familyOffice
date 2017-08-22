@@ -12,13 +12,14 @@ import ReSwift
 import Firebase
 import Lightbox
 
-class IndexViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate,UIDocumentMenuDelegate,UIDocumentPickerDelegate,UINavigationControllerDelegate,LightboxControllerPageDelegate,LightboxControllerDismissalDelegate  {
+class IndexViewController: UIViewController, UICollectionViewDataSource,UINavigationControllerDelegate, UICollectionViewDelegate,UIDocumentMenuDelegate,UIDocumentPickerDelegate,LightboxControllerPageDelegate,LightboxControllerDismissalDelegate  {
     
     var flag = false
     var files:[SafeBoxFile] = []
     var userId = store.state.UserState.user?.id
     
     var lightboxController = LightboxController()
+    var imagePicker: UIImagePickerController!
     
     @IBOutlet weak var filesCollectionView: UICollectionView!
     
@@ -56,10 +57,38 @@ class IndexViewController: UIViewController, UICollectionViewDataSource, UIColle
     
     
     func handleNew() -> Void {
-        let importMenu = UIDocumentMenuViewController(documentTypes: [String(kUTTypePDF), String(kUTTypeData)], in: .import)
-        importMenu.delegate = self
-        importMenu.modalPresentationStyle = .formSheet
-        self.present(importMenu, animated: true, completion: nil)
+        
+        let alert = UIAlertController(title: "Subir archivo", message: "¿De dónde desea seleccionar el archivo?", preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Cámara", style: .default , handler: { (action) in
+            self.imagePicker =  UIImagePickerController()
+            self.imagePicker.delegate = self
+            self.imagePicker.sourceType = .camera
+            self.present(self.imagePicker, animated: true, completion: nil)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Galería", style: .default , handler: { (action) in
+            self.imagePicker =  UIImagePickerController()
+            self.imagePicker.delegate = self
+            self.imagePicker.sourceType = .photoLibrary
+            self.present(self.imagePicker, animated: true, completion: nil)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Importar", style: .default, handler: { (action) in
+            let importMenu = UIDocumentMenuViewController(documentTypes: [String(kUTTypePDF), String(kUTTypeData)], in: .import)
+            importMenu.delegate = self
+            importMenu.modalPresentationStyle = .formSheet
+            self.present(importMenu, animated: true, completion: nil)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancelar", style: .destructive, handler: nil))
+            
+        alert.modalPresentationStyle = UIModalPresentationStyle.currentContext
+        
+        present(alert, animated: true) {
+        }
+
+        
+        
     }
 
    
@@ -86,7 +115,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource, UIColle
         
         cell.fileNameLabel.text = self.files[indexPath.row].filename
         let ext:NSString = self.files[indexPath.row].filename! as NSString
-        print(ext.pathExtension)
+        
         switch ext.pathExtension {
         case "png":
             cell.FileIconImageView.image = #imageLiteral(resourceName: "safeBox")
@@ -103,9 +132,9 @@ class IndexViewController: UIViewController, UICollectionViewDataSource, UIColle
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let fileNameString = self.files[indexPath.row].filename as NSString
         if(fileNameString.pathExtension.lowercased() == "pdf" || fileNameString.pathExtension.lowercased() == "docx" || fileNameString.pathExtension.lowercased() == "xlsx" || fileNameString.pathExtension.lowercased() == "pptx" ){
-            print("es PDF")
+            
             let resource = self.files[indexPath.row].downloadUrl as NSString
-            print(resource.deletingPathExtension)
+            
             
             self.performSegue(withIdentifier: "openPDFSegue", sender: nil)
         }else if(fileNameString.pathExtension.lowercased() == "jpg" || fileNameString.pathExtension.lowercased() == "png" || fileNameString.pathExtension.lowercased() == "gif"){
@@ -142,6 +171,42 @@ class IndexViewController: UIViewController, UICollectionViewDataSource, UIColle
                 webView.url = selectedItem.downloadUrl
             }
         }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        imagePicker.dismiss(animated: true, completion: nil)
+        let newFile:UIImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        
+        let alert = UIAlertController(title: "Nombre del archivo", message: "", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Cancelar", style: .destructive, handler: nil))
+        
+        alert.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = "Nombre del archivo"
+        }
+        
+        alert.addAction(UIAlertAction(title: "Aceptar", style: .default, handler: { (_alert) in
+            let fileNameTextField = alert.textFields?[0]
+            
+            let fileName = (fileNameTextField?.text)!
+            let data = UIImagePNGRepresentation(newFile.resizeImage()) as NSData?
+            Constants.FirStorage.STORAGEREF.child("users/\((store.state.UserState.user?.id)!)").child("safebox/\(fileName).png").put(data! as Data, metadata: nil){ metadata, error in
+                if error != nil{
+                    print(error.debugDescription)
+                }else{
+                    if let downloadUrl = metadata?.downloadURL()?.absoluteString{
+                        StorageService.Instance().save(url: downloadUrl, data: data as Data?)
+                        let downloadURL = downloadUrl
+                        
+                        //Save to database
+                        let newSafeBoxFile = SafeBoxFile(filename: "\(fileName).png", downloadUrl: downloadURL)
+                        store.dispatch(InsertSafeBoxFileAction(item: newSafeBoxFile))
+                    }
+                }
+            }
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
@@ -226,30 +291,30 @@ class IndexViewController: UIViewController, UICollectionViewDataSource, UIColle
 extension IndexViewController: StoreSubscriber{
     typealias StoreSubscriberStateType = SafeBoxState
     override func viewWillAppear(_ animated: Bool) {
-        NotificationCenter.default.addObserver(self, selector: #selector(self.updateFlag), name: notCenter.BACKGROUND_NOTIFICATION, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.updateFlag), name: notCenter.BACKGROUND_NOTIFICATION, object: nil)
         
-        service.SAFEBOX_SERVICE.initObservers(ref: "safebox/\((store.state.UserState.user?.id)!)", actions: [.childAdded, .childChanged, .childRemoved])
+        service.SAFEBOX_SERVICE.initObservers(ref: "safebox/\(userId!)", actions: [.childAdded, .childChanged, .childRemoved, .value])
         
         store.subscribe(self){
-            state in state.safeBoxState
+            subscription in subscription.safeBoxState
         }
         
         verify()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        flag = false
+//        flag = false
         
         store.state.safeBoxState.status = .none
         store.unsubscribe(self)
         service.SAFEBOX_SERVICE.removeHandles()
 
         
-        NotificationCenter.default.removeObserver(self, name: notCenter.BACKGROUND_NOTIFICATION, object: nil);
+//        NotificationCenter.default.removeObserver(self, name: notCenter.BACKGROUND_NOTIFICATION, object: nil);
     }
     
     func newState(state: SafeBoxState) {
-        files = state.safeBoxFiles[userId!] ?? []
+        print("------------Cambiando el estado------------")
         switch state.status {
         case .failed:
             self.view.makeToast("Ocurrió un error, intente nuevamente")
@@ -259,16 +324,33 @@ extension IndexViewController: StoreSubscriber{
             break
         case .finished:
             self.view.hideToastActivity()
-            filesCollectionView.reloadData()
+            self.filesCollectionView.reloadData()
             break
         case .none:
             break
         default:
             break
         }
-        filesCollectionView.reloadData()
+        
+        files = state.safeBoxFiles[userId!] ?? []
     }
     
     
+}
+
+extension IndexViewController :  UIImagePickerControllerDelegate  {
+    
+    func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            // we got back an error!
+            let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            present(alert, animated: true)
+        } else {
+            let alert = UIAlertController(title: "Saved!", message: "Image saved successfully", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            present(alert, animated: true)
+        }
+    }
 }
 

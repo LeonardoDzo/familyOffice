@@ -15,7 +15,12 @@ class PDFViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "LeftChevron"), style: .plain, target: self, action: #selector(self.back))
+        self.navigationItem.leftBarButtonItem = backButton
+        backButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         loadFromUrl()
+        
+
         // Do any additional setup after loading the view.
     }
 
@@ -28,6 +33,10 @@ class PDFViewController: UIViewController {
         let url =  NSURL(string:self.url)
         
         self.webView.loadRequest(NSURLRequest(url: url! as URL) as URLRequest)
+    }
+    
+    func back() -> Void {
+        _ = navigationController?.popViewController(animated: true)
     }
     
 
