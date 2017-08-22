@@ -22,6 +22,7 @@ struct SafeBoxReducer: Reducer {
             }
             insertSafeBoxFile(action.safeBoxFile)
             state.status = .loading
+            print(state)
             return state
         case let action as UpdateSafeBoxFileAction:
             if action.safeBoxFile == nil{
@@ -45,9 +46,12 @@ struct SafeBoxReducer: Reducer {
     func insertSafeBoxFile(_ item: SafeBoxFile) -> Void {
         let id = store.state.UserState.user?.id!
         let path = "safebox/\(id!)/\(item.id!)"
+        print(path)
         service.SAFEBOX_SERVICE.insert(path, value: item.toDictionary(), callback: {ref in
             if ref is FIRDatabaseReference{
-//                store.state.safeBoxState.safeBoxFiles[id!]?.append(item)
+                print("--------LLEGUE---------")
+                store.state.safeBoxState.safeBoxFiles[id!]?.append(item)
+                print(store.state.safeBoxState.safeBoxFiles[id!])
                 store.state.safeBoxState.status = .finished
             }
         })

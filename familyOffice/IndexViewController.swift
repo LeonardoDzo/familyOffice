@@ -11,6 +11,7 @@ import MobileCoreServices
 import ReSwift
 import Firebase
 import Lightbox
+import Photos
 
 class IndexViewController: UIViewController, UICollectionViewDataSource,UINavigationControllerDelegate, UICollectionViewDelegate,UIDocumentMenuDelegate,UIDocumentPickerDelegate,LightboxControllerPageDelegate,LightboxControllerDismissalDelegate  {
     
@@ -86,8 +87,6 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
         
         present(alert, animated: true) {
         }
-
-        
         
     }
 
@@ -160,7 +159,10 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
                 }
             }
             
+        }else {
+            downloadVideoLinkAndCreateAsset(self.files[indexPath.row].downloadUrl)
         }
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -201,6 +203,10 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
                         //Save to database
                         let newSafeBoxFile = SafeBoxFile(filename: "\(fileName).png", downloadUrl: downloadURL)
                         store.dispatch(InsertSafeBoxFileAction(item: newSafeBoxFile))
+                        store.subscribe(self){
+                            subscription in subscription.safeBoxState //Cosa cochi que debo de hacer porque el imagePicker y el documentPicker desinscriben la vista
+                        }
+
                     }
                 }
             }
@@ -243,6 +249,10 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
                                 //Save to database
                                 let newSafeBoxFile = SafeBoxFile(filename: "\(fileName).\(outerURL.pathExtension)", downloadUrl: downloadURL)
                                 store.dispatch(InsertSafeBoxFileAction(item: newSafeBoxFile))
+                                store.subscribe(self){
+                                    subscription in subscription.safeBoxState //Cosa cochi que debo de hacer porque el imagePicker y el documentPicker desinscriben la vista
+                                }
+
                             }
                         }
                     }
@@ -285,21 +295,66 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
     func lightboxController(_ controller: LightboxController, didMoveToPage page: Int) {
         //        self.selectedImage = page
     }
+    
+    func downloadVideoLinkAndCreateAsset(_ videoLink: String) {
+        
+        // use guard to make sure you have a valid url
+        guard let videoURL = URL(string: videoLink) else { return }
+        
+        let documentsDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        
+        // check if the file already exist at the destination folder if you don't want to download it twice
+        if !FileManager.default.fileExists(atPath: documentsDirectoryURL.appendingPathComponent(videoURL.lastPathComponent).path) {
+            
+            // set up your download task
+            URLSession.shared.downloadTask(with: videoURL) { (location, response, error) -> Void in
+                
+                // use guard to unwrap your optional url
+                guard let location = location else { return }
+                
+                // create a deatination url with the server response suggested file name
+                let destinationURL = documentsDirectoryURL.appendingPathComponent(response?.suggestedFilename ?? videoURL.lastPathComponent)
+                
+                do {
+                    
+                    try FileManager.default.moveItem(at: location, to: destinationURL)
+                    
+                    PHPhotoLibrary.requestAuthorization({ (authorizationStatus: PHAuthorizationStatus) -> Void in
+                        
+                        // check if user authorized access photos for your app
+                        if authorizationStatus == .authorized {
+                            PHPhotoLibrary.shared().performChanges({
+                                PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: destinationURL)}) { completed, error in
+                                    if completed {
+                                        print("Video asset created")
+                                    } else {
+                                        print(error)
+                                    }
+                            }
+                        }
+                    })
+                    
+                } catch let error as NSError { print(error.localizedDescription)}
+                
+                }.resume()
+            
+        } else {
+            print("File already exists at destination url")
+        }
+        
+    }
 
 }
 
 extension IndexViewController: StoreSubscriber{
-    typealias StoreSubscriberStateType = SafeBoxState
     override func viewWillAppear(_ animated: Bool) {
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.updateFlag), name: notCenter.BACKGROUND_NOTIFICATION, object: nil)
-        
-        service.SAFEBOX_SERVICE.initObservers(ref: "safebox/\(userId!)", actions: [.childAdded, .childChanged, .childRemoved, .value])
+        NotificationCenter.default.addObserver(self, selector: #selector(self.updateFlag), name: notCenter.BACKGROUND_NOTIFICATION, object: nil)
+        verify()
+        service.SAFEBOX_SERVICE.initObservers(ref: "safebox/\(userId!)", actions: [.childAdded, .childChanged, .childRemoved])
         
         store.subscribe(self){
             subscription in subscription.safeBoxState
         }
-        
-        verify()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -310,11 +365,10 @@ extension IndexViewController: StoreSubscriber{
         service.SAFEBOX_SERVICE.removeHandles()
 
         
-//        NotificationCenter.default.removeObserver(self, name: notCenter.BACKGROUND_NOTIFICATION, object: nil);
+        NotificationCenter.default.removeObserver(self, name: notCenter.BACKGROUND_NOTIFICATION, object: nil);
     }
     
     func newState(state: SafeBoxState) {
-        print("------------Cambiando el estado------------")
         switch state.status {
         case .failed:
             self.view.makeToast("Ocurrió un error, intente nuevamente")
@@ -333,6 +387,7 @@ extension IndexViewController: StoreSubscriber{
         }
         
         files = state.safeBoxFiles[userId!] ?? []
+        self.filesCollectionView.reloadData()
     }
     
     
