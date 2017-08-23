@@ -32,6 +32,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
         // Do any additional setup after loading the view.
         let nav = self.navigationController?.navigationBar
         nav?.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.3137395978, green: 0.1694342792, blue: 0.5204931498, alpha: 1)]
+        self.navigationItem.title = "Caja Fuerte"
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.handleNew))
         addButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
@@ -130,7 +131,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let fileNameString = self.files[indexPath.row].filename as NSString
-        if(fileNameString.pathExtension.lowercased() == "pdf" || fileNameString.pathExtension.lowercased() == "docx" || fileNameString.pathExtension.lowercased() == "xlsx" || fileNameString.pathExtension.lowercased() == "pptx" ){
+        if(fileNameString.pathExtension.lowercased() == "pdf" || fileNameString.pathExtension.lowercased() == "docx" || fileNameString.pathExtension.lowercased() == "xlsx" || fileNameString.pathExtension.lowercased() == "pptx" || fileNameString.pathExtension.lowercased() == "mp3" ){
             
             let resource = self.files[indexPath.row].downloadUrl as NSString
             
@@ -182,30 +183,31 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
             
             present(lightboxController, animated: true, completion: nil)
 
-        }else if(fileNameString.pathExtension.lowercased() == "mp3"){
-            let url = NSURL(string: self.files[indexPath.row].downloadUrl)
-            do {
-                
-                let playerItem = AVPlayerItem(url: url! as URL)
-                
-                self.player = try AVPlayer(playerItem:playerItem)
-                self.player!.volume = 1.0
-                self.player!.play()
-                
-                let alert = UIAlertController(title: "Reproduciendo", message: self.files[indexPath.row].filename!, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Detener", style: .destructive, handler: { (alert) in
-                    self.player.pause()
-                }))
-                
-                self.present(alert, animated: true, completion: nil)
-                
-            } catch let error as NSError {
-                player = nil
-                print(error.localizedDescription)
-            } catch {
-                print("AVAudioPlayer init failed")
-            }
         }
+//        else if(fileNameString.pathExtension.lowercased() == "mp3"){
+//            let url = NSURL(string: self.files[indexPath.row].downloadUrl)
+//            do {
+//                
+//                let playerItem = AVPlayerItem(url: url! as URL)
+//                
+//                self.player = try AVPlayer(playerItem:playerItem)
+//                self.player!.volume = 1.0
+//                self.player!.play()
+//                
+//                let alert = UIAlertController(title: "Reproduciendo", message: self.files[indexPath.row].filename!, preferredStyle: .alert)
+//                alert.addAction(UIAlertAction(title: "Detener", style: .destructive, handler: { (alert) in
+//                    self.player.pause()
+//                }))
+//                
+//                self.present(alert, animated: true, completion: nil)
+//                
+//            } catch let error as NSError {
+//                player = nil
+//                print(error.localizedDescription)
+//            } catch {
+//                print("AVAudioPlayer init failed")
+//            }
+//        }
         
     }
     
