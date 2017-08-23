@@ -159,8 +159,29 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
                 }
             }
             
-        }else {
-            downloadVideoLinkAndCreateAsset(self.files[indexPath.row].downloadUrl)
+        }else if(fileNameString.pathExtension.lowercased() == "mp4"){
+            let size = CGSize(width: 200, height: 200)
+            let color = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+            UIGraphicsBeginImageContextWithOptions(size, false, 0)
+            color.setFill()
+            UIRectFill(rect)
+            let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+            UIGraphicsEndImageContext()
+            lightboxController = LightboxController(images: [LightboxImage(
+                image: image,
+                text: "",
+                videoURL: NSURL(string: self.files[indexPath.row].downloadUrl!)! as URL
+                )], startIndex: 0)
+            
+            lightboxController.pageDelegate = self
+            lightboxController.dismissalDelegate = self
+            
+            lightboxController.dynamicBackground = false
+            LightboxConfig.CloseButton.text = "Cerrar"
+            
+            present(lightboxController, animated: true, completion: nil)
+
         }
         
     }
@@ -295,55 +316,6 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
     func lightboxController(_ controller: LightboxController, didMoveToPage page: Int) {
         //        self.selectedImage = page
     }
-    
-    func downloadVideoLinkAndCreateAsset(_ videoLink: String) {
-        
-        // use guard to make sure you have a valid url
-        guard let videoURL = URL(string: videoLink) else { return }
-        
-        let documentsDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        
-        // check if the file already exist at the destination folder if you don't want to download it twice
-        if !FileManager.default.fileExists(atPath: documentsDirectoryURL.appendingPathComponent(videoURL.lastPathComponent).path) {
-            
-            // set up your download task
-            URLSession.shared.downloadTask(with: videoURL) { (location, response, error) -> Void in
-                
-                // use guard to unwrap your optional url
-                guard let location = location else { return }
-                
-                // create a deatination url with the server response suggested file name
-                let destinationURL = documentsDirectoryURL.appendingPathComponent(response?.suggestedFilename ?? videoURL.lastPathComponent)
-                
-                do {
-                    
-                    try FileManager.default.moveItem(at: location, to: destinationURL)
-                    
-                    PHPhotoLibrary.requestAuthorization({ (authorizationStatus: PHAuthorizationStatus) -> Void in
-                        
-                        // check if user authorized access photos for your app
-                        if authorizationStatus == .authorized {
-                            PHPhotoLibrary.shared().performChanges({
-                                PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: destinationURL)}) { completed, error in
-                                    if completed {
-                                        print("Video asset created")
-                                    } else {
-                                        print(error)
-                                    }
-                            }
-                        }
-                    })
-                    
-                } catch let error as NSError { print(error.localizedDescription)}
-                
-                }.resume()
-            
-        } else {
-            print("File already exists at destination url")
-        }
-        
-    }
-
 }
 
 extension IndexViewController: StoreSubscriber{
