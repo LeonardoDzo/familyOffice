@@ -38,7 +38,6 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
         let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "LeftChevron"), style: .plain, target: self, action: #selector(self.back))
         self.navigationItem.leftBarButtonItem = backButton
         backButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
-        
         self.navigationItem.rightBarButtonItems = [addButton]
     }
     
@@ -54,7 +53,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
     }
     
     func back() -> Void {
-        self.dismiss(animated: true, completion: nil)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     
@@ -192,7 +191,14 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
                 self.player = try AVPlayer(playerItem:playerItem)
                 self.player!.volume = 1.0
                 self.player!.play()
-                self.view.makeToast("Reproduciendo \(self.files[indexPath.row].filename!)", duration: 0.5, position: CGPoint(x: 200, y: 200))
+                
+                let alert = UIAlertController(title: "Reproduciendo", message: self.files[indexPath.row].filename!, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Detener", style: .destructive, handler: { (alert) in
+                    self.player.pause()
+                }))
+                
+                self.present(alert, animated: true, completion: nil)
+                
             } catch let error as NSError {
                 player = nil
                 print(error.localizedDescription)
