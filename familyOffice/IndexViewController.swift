@@ -18,6 +18,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
     var flag = false
     var files:[SafeBoxFile] = []
     var userId = store.state.UserState.user?.id
+    var player:AVPlayer!
     
     var lightboxController = LightboxController()
     var imagePicker: UIImagePickerController!
@@ -182,6 +183,22 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
             
             present(lightboxController, animated: true, completion: nil)
 
+        }else if(fileNameString.pathExtension.lowercased() == "mp3"){
+            let url = NSURL(string: self.files[indexPath.row].downloadUrl)
+            do {
+                
+                let playerItem = AVPlayerItem(url: url! as URL)
+                
+                self.player = try AVPlayer(playerItem:playerItem)
+                self.player!.volume = 1.0
+                self.player!.play()
+                self.view.makeToast("Reproduciendo \(self.files[indexPath.row].filename!)", duration: 0.5, position: CGPoint(x: 200, y: 200))
+            } catch let error as NSError {
+                player = nil
+                print(error.localizedDescription)
+            } catch {
+                print("AVAudioPlayer init failed")
+            }
         }
         
     }
