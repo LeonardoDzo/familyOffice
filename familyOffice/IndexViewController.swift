@@ -13,12 +13,16 @@ import Firebase
 import Lightbox
 import Photos
 
-class IndexViewController: UIViewController, UICollectionViewDataSource,UINavigationControllerDelegate, UICollectionViewDelegate,UIDocumentMenuDelegate,UIDocumentPickerDelegate,LightboxControllerPageDelegate,LightboxControllerDismissalDelegate  {
+class IndexViewController: UIViewController, UICollectionViewDataSource,UINavigationControllerDelegate, UICollectionViewDelegate,UIDocumentMenuDelegate,UIDocumentPickerDelegate,LightboxControllerPageDelegate,LightboxControllerDismissalDelegate,UIGestureRecognizerDelegate  {
     
     var flag = false
     var files:[SafeBoxFile] = []
     var userId = store.state.UserState.user?.id
     var player:AVPlayer!
+    var currentFolder = "root"
+    var directoriesTree = ["","root"]
+    
+    @IBOutlet weak var searchBarFiles: UISearchBar!
     
     var lightboxController = LightboxController()
     var imagePicker: UIImagePickerController!
@@ -27,6 +31,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         let barButton = UIBarButtonItem(title: "Atras", style: .plain, target: self, action: #selector(self.handleBack))
         self.navigationItem.leftBarButtonItem = barButton
         // Do any additional setup after loading the view.
@@ -34,12 +39,45 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
         nav?.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.3137395978, green: 0.1694342792, blue: 0.5204931498, alpha: 1)]
         self.navigationItem.title = "Caja Fuerte"
         
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeRight.direction = UISwipeGestureRecognizerDirection.right
+        self.filesCollectionView.addGestureRecognizer(swipeRight)
+        
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.handleNew))
         addButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
-        let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "LeftChevron"), style: .plain, target: self, action: #selector(self.back))
+        let addFolderButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(self.newFolder))
+        let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "Home"), style: .plain, target: self, action: #selector(self.back))
         self.navigationItem.leftBarButtonItem = backButton
         backButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
-        self.navigationItem.rightBarButtonItems = [addButton]
+        self.navigationItem.rightBarButtonItems = [addFolderButton, addButton]
+        
+        if( traitCollection.forceTouchCapability == .available){
+            registerForPreviewing(with: self, sourceView: self.filesCollectionView)
+        }
+    }
+    
+    func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        
+        print ("Swiped right")
+        
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+                
+            case UISwipeGestureRecognizerDirection.right:
+                
+                if(self.currentFolder != "root"){
+                    self.directoriesTree.popLast()
+                    self.currentFolder = self.directoriesTree[self.directoriesTree.count - 1]
+                    print(self.directoriesTree)
+                    print("Current Folder: \(self.currentFolder)")
+                    files = (store.state.safeBoxState.safeBoxFiles[userId!]?.filter({$0.parent == self.currentFolder}))!
+                    self.filesCollectionView.reloadData()
+                }
+                break
+            default:
+                break
+            }
+        }
     }
     
     func updateFlag() {
@@ -57,6 +95,28 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
         _ = self.navigationController?.popViewController(animated: true)
     }
     
+    
+    func newFolder() -> Void {
+        let alert = UIAlertController(title: "Agregar carpeta", message: "", preferredStyle: .alert)
+        
+        alert.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = "Nombre de la carpeta"
+        }
+        
+        alert.addAction(UIAlertAction(title: "Cancelar", style: .destructive, handler: nil))
+        
+        alert.addAction(UIAlertAction(title: "Crear", style: .default, handler: { (_alert) in
+            let fileNameTextField = alert.textFields?[0]
+            
+            let fileName = (fileNameTextField?.text)!
+            
+            let newSafeBoxFile = SafeBoxFile(filename: fileName, downloadUrl: "", parent: self.currentFolder)
+            store.dispatch(InsertSafeBoxFileAction(item: newSafeBoxFile))
+        }))
+        
+        self.present(alert, animated: true) {
+        }
+    }
     
     func handleNew() -> Void {
         
@@ -130,11 +190,9 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         let fileNameString = self.files[indexPath.row].filename as NSString
         if(fileNameString.pathExtension.lowercased() == "pdf" || fileNameString.pathExtension.lowercased() == "docx" || fileNameString.pathExtension.lowercased() == "xlsx" || fileNameString.pathExtension.lowercased() == "pptx" || fileNameString.pathExtension.lowercased() == "mp3" ){
-            
-            let resource = self.files[indexPath.row].downloadUrl as NSString
-            
             
             self.performSegue(withIdentifier: "openPDFSegue", sender: nil)
         }else if(fileNameString.pathExtension.lowercased() == "jpg" || fileNameString.pathExtension.lowercased() == "png" || fileNameString.pathExtension.lowercased() == "gif"){
@@ -183,32 +241,15 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
             
             present(lightboxController, animated: true, completion: nil)
 
+        }else if(fileNameString.pathExtension.lowercased() == ""){
+            self.currentFolder = fileNameString as String
+            self.directoriesTree.append(fileNameString as String)
+            print(self.directoriesTree)
+            print("Current Folder: \(self.currentFolder)")
+            files = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({$0.parent == self.currentFolder}) ?? []
+            filesCollectionView.reloadData()
         }
-//        else if(fileNameString.pathExtension.lowercased() == "mp3"){
-//            let url = NSURL(string: self.files[indexPath.row].downloadUrl)
-//            do {
-//                
-//                let playerItem = AVPlayerItem(url: url! as URL)
-//                
-//                self.player = try AVPlayer(playerItem:playerItem)
-//                self.player!.volume = 1.0
-//                self.player!.play()
-//                
-//                let alert = UIAlertController(title: "Reproduciendo", message: self.files[indexPath.row].filename!, preferredStyle: .alert)
-//                alert.addAction(UIAlertAction(title: "Detener", style: .destructive, handler: { (alert) in
-//                    self.player.pause()
-//                }))
-//                
-//                self.present(alert, animated: true, completion: nil)
-//                
-//            } catch let error as NSError {
-//                player = nil
-//                print(error.localizedDescription)
-//            } catch {
-//                print("AVAudioPlayer init failed")
-//            }
-//        }
-        
+        self.searchBarFiles.text = ""
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -216,7 +257,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
             if let indexPath = self.filesCollectionView.indexPathsForSelectedItems{
                 let selectedItem = self.files[indexPath[0].row]
                 let webView = segue.destination as! PDFViewController
-                webView.url = selectedItem.downloadUrl
+                webView.file = selectedItem
             }
         }
     }
@@ -247,7 +288,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
                         let downloadURL = downloadUrl
                         
                         //Save to database
-                        let newSafeBoxFile = SafeBoxFile(filename: "\(fileName).png", downloadUrl: downloadURL)
+                        let newSafeBoxFile = SafeBoxFile(filename: "\(fileName).png", downloadUrl: downloadURL, parent: self.currentFolder)
                         store.dispatch(InsertSafeBoxFileAction(item: newSafeBoxFile))
                         store.subscribe(self){
                             subscription in subscription.safeBoxState //Cosa cochi que debo de hacer porque el imagePicker y el documentPicker desinscriben la vista
@@ -293,7 +334,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
                                 downloadURL = downloadUrl
                                 
                                 //Save to database
-                                let newSafeBoxFile = SafeBoxFile(filename: "\(fileName).\(outerURL.pathExtension)", downloadUrl: downloadURL)
+                                let newSafeBoxFile = SafeBoxFile(filename: "\(fileName).\(outerURL.pathExtension)", downloadUrl: downloadURL, parent: self.currentFolder)
                                 store.dispatch(InsertSafeBoxFileAction(item: newSafeBoxFile))
                                 store.subscribe(self){
                                     subscription in subscription.safeBoxState //Cosa cochi que debo de hacer porque el imagePicker y el documentPicker desinscriben la vista
@@ -383,7 +424,7 @@ extension IndexViewController: StoreSubscriber{
             break
         }
         
-        files = state.safeBoxFiles[userId!] ?? []
+        files = state.safeBoxFiles[userId!]?.filter({$0.parent == self.currentFolder}) ?? []
         self.filesCollectionView.reloadData()
     }
     
@@ -404,5 +445,72 @@ extension IndexViewController :  UIImagePickerControllerDelegate  {
             present(alert, animated: true)
         }
     }
+}
+
+extension IndexViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if(!(searchBar.text?.isEmpty)!){
+            //reload your data source if necessary
+            files = files.filter({$0.filename.lowercased().contains(searchBar.text!.lowercased()) && $0.parent == self.currentFolder})
+            filesCollectionView.reloadData()
+        }else{
+            files = store.state.safeBoxState.safeBoxFiles[userId!] ?? []
+            filesCollectionView.reloadData()
+        }
+        
+
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if(searchText.isEmpty){
+            //reload your data source if necessary
+            files = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({$0.parent == self.currentFolder}) ?? []
+            print(files.count)
+            filesCollectionView.reloadData()
+        }else{
+            files = files.filter({$0.filename.lowercased().contains(searchBar.text!.lowercased()) && $0.parent == self.currentFolder})
+            filesCollectionView.reloadData()
+        }
+        
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        files = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({$0.parent == self.currentFolder}) ?? []
+        filesCollectionView.reloadData()
+    }
+    
+    
+}
+
+extension IndexViewController: UIViewControllerPreviewingDelegate{
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let indexPath = filesCollectionView?.indexPathForItem(at: location) else {return nil}
+        
+        guard let cell = filesCollectionView?.cellForItem(at: indexPath) else {return nil}
+        
+        guard let detailVC = storyboard?.instantiateViewController(withIdentifier: "PDFViewController") as? PDFViewController else {return nil}
+        
+        let file = self.files[indexPath.row]
+        detailVC.file = file
+        if NSString(string: file.filename).pathExtension == "" {
+            return nil
+        }
+        
+        detailVC.preferredContentSize = CGSize(width: 0.0, height: 600)
+        
+        previewingContext.sourceRect = cell.frame
+        
+        return detailVC
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        
+        show(viewControllerToCommit, sender: self)
+        
+    }
+    
+    
+    
 }
 

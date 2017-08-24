@@ -10,7 +10,8 @@ import UIKit
 import WebKit
 
 class PDFViewController: UIViewController, WKUIDelegate {
-    var url: String!
+    var file: SafeBoxFile!
+    
     var webView: WKWebView!
     
     override func viewDidLoad() {
@@ -19,7 +20,7 @@ class PDFViewController: UIViewController, WKUIDelegate {
         self.navigationItem.leftBarButtonItem = backButton
         backButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         
-        let myURL = URL(string: url!)
+        let myURL = URL(string: file.downloadUrl!)
         let myRequest = URLRequest(url: myURL!)
         webView.load(myRequest)
         
@@ -44,6 +45,25 @@ class PDFViewController: UIViewController, WKUIDelegate {
     
     func back() -> Void {
         _ = navigationController?.popViewController(animated: true)
+    }
+    
+    var previewActions: [UIPreviewActionItem]
+    {
+        //        return [UIPreviewAction(title: asset!.favorite ? "Remove Favourite" : "Make Favourite",
+        //                                style: UIPreviewActionStyle.Default,
+        //                                handler:
+        //            {
+        //                (previewAction, viewController) in (viewController as? PeekViewController)?.toggleFavourite()
+        //        })]
+        return [
+            UIPreviewAction(title: "Mover", style: .default, handler: { (UIPreviewAction, UIViewController) in
+                print(self.file)
+            }),
+            UIPreviewAction(title: "Eliminar", style: .destructive , handler: { (UIPreviewAction, UIViewController) in
+                store.dispatch(DeleteSafeBoxFileAction(item: self.file))
+            })
+        ]
+        
     }
     
 

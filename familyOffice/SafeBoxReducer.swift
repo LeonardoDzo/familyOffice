@@ -36,7 +36,7 @@ struct SafeBoxReducer: Reducer {
                 return state
             }
             deleteSafeBoxFile(action.safeBoxFile)
-            state.status = .loading
+//            state.status = .loading
             return state
         default:break
         }
@@ -49,9 +49,9 @@ struct SafeBoxReducer: Reducer {
         print(path)
         service.SAFEBOX_SERVICE.insert(path, value: item.toDictionary(), callback: {ref in
             if ref is FIRDatabaseReference{
-                print("--------LLEGUE---------")
-                store.state.safeBoxState.safeBoxFiles[id!]?.append(item)
-                print(store.state.safeBoxState.safeBoxFiles[id!])
+                if(NSString(string: item.filename).pathExtension != ""){
+                    store.state.safeBoxState.safeBoxFiles[id!]?.append(item)
+                }
                 store.state.safeBoxState.status = .finished
             }
         })
