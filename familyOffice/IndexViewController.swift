@@ -259,6 +259,11 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
                 let webView = segue.destination as! PDFViewController
                 webView.file = selectedItem
             }
+        }else if segue.identifier == "showDirTree" {
+            let selectedFile = sender as! SafeBoxFile
+//            print(selectedFile)
+            let view = segue.destination as! MoveFileViewController
+            view.file = selectedFile
         }
     }
     
@@ -497,6 +502,15 @@ extension IndexViewController: UIViewControllerPreviewingDelegate{
             return nil
         }
         
+        detailVC.previewAct = [
+            UIPreviewAction(title: "Mover", style: .default, handler: { (UIPreviewAction, UIViewController) in
+                self.performSegue(withIdentifier: "showDirTree", sender: self.files[indexPath.row])
+            }),
+            UIPreviewAction(title: "Eliminar", style: .destructive , handler: { (UIPreviewAction, UIViewController) in
+                store.dispatch(DeleteSafeBoxFileAction(item: self.files[indexPath.row]))
+            })
+        ]
+        
         detailVC.preferredContentSize = CGSize(width: 0.0, height: 600)
         
         previewingContext.sourceRect = cell.frame
@@ -509,8 +523,5 @@ extension IndexViewController: UIViewControllerPreviewingDelegate{
         show(viewControllerToCommit, sender: self)
         
     }
-    
-    
-    
 }
 

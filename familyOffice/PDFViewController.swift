@@ -8,9 +8,11 @@
 
 import UIKit
 import WebKit
+import Toast_Swift
 
 class PDFViewController: UIViewController, WKUIDelegate {
     var file: SafeBoxFile!
+    var previewAct:[UIPreviewAction] = []
     
     var webView: WKWebView!
     
@@ -47,23 +49,17 @@ class PDFViewController: UIViewController, WKUIDelegate {
         _ = navigationController?.popViewController(animated: true)
     }
     
-    var previewActions: [UIPreviewActionItem]
-    {
-        //        return [UIPreviewAction(title: asset!.favorite ? "Remove Favourite" : "Make Favourite",
-        //                                style: UIPreviewActionStyle.Default,
-        //                                handler:
-        //            {
-        //                (previewAction, viewController) in (viewController as? PeekViewController)?.toggleFavourite()
-        //        })]
-        return [
-            UIPreviewAction(title: "Mover", style: .default, handler: { (UIPreviewAction, UIViewController) in
-                print(self.file)
-            }),
-            UIPreviewAction(title: "Eliminar", style: .destructive , handler: { (UIPreviewAction, UIViewController) in
-                store.dispatch(DeleteSafeBoxFileAction(item: self.file))
-            })
-        ]
-        
+    var previewActions: [UIPreviewActionItem]{
+        return self.previewAct
+//        return [
+//            UIPreviewAction(title: "Mover", style: .default, handler: { (UIPreviewAction, UIViewController) in
+//                print(UIViewController)
+//            }),
+//            UIPreviewAction(title: "Eliminar", style: .destructive , handler: { (UIPreviewAction, UIViewController) in
+//                store.dispatch(DeleteSafeBoxFileAction(item: self.file))
+//            })
+//        ]
+//        
     }
     
 

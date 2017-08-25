@@ -150,6 +150,7 @@
                         <outlet property="filesCollectionView" destination="ouo-v5-KwJ" id="SyE-ek-hF8"/>
                         <outlet property="searchBarFiles" destination="QGM-W8-Fue" id="VWt-39-TS2"/>
                         <segue destination="O0Q-J7-i8Q" kind="show" identifier="openPDFSegue" id="deh-xq-iYl"/>
+                        <segue destination="wVH-HR-nL2" kind="show" identifier="showDirTree" id="9LZ-iY-2Ah"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R6G-wE-Qc3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -177,7 +178,73 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JNn-gl-yLt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2178.4000000000001" y="1466.7166416791606"/>
+            <point key="canvasLocation" x="-2028" y="1812"/>
+        </scene>
+        <!--Move File View Controller-->
+        <scene sceneID="C02-fe-23a">
+            <objects>
+                <viewController id="wVH-HR-nL2" customClass="MoveFileViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ZQb-kV-rBO"/>
+                        <viewControllerLayoutGuide type="bottom" id="WAD-bg-yD0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="LpS-mZ-Toe">
+                        <rect key="frame" x="0.0" y="0.0" width="365" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JNk-XI-hT5">
+                                <rect key="frame" x="0.0" y="0.0" width="365" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="folderID" id="Hgl-bS-ECk" customClass="FolderTableViewCell" customModule="familyOffice" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="365" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hgl-bS-ECk" id="Ccx-ft-FgC">
+                                            <rect key="frame" x="0.0" y="0.0" width="365" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pol-5n-BAK">
+                                                    <rect key="frame" x="58" y="8" width="309" height="28"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.22978240250000001" green="0.1063450351" blue="0.49486315250000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="health" translatesAutoresizingMaskIntoConstraints="NO" id="foC-6V-Rqt">
+                                                    <rect key="frame" x="8" y="7" width="30" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="folderNameLbl" destination="Pol-5n-BAK" id="1ZV-q5-5m4"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="wVH-HR-nL2" id="ugX-Wt-gXS"/>
+                                    <outlet property="delegate" destination="wVH-HR-nL2" id="MKv-38-fdF"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="H2p-mG-ch6" appends="YES" id="ffq-ao-8e8"/>
+                        </connections>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="JNk-XI-hT5" id="Bmz-a9-5IP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GHR-M7-ew5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="H2p-mG-ch6"/>
+            </objects>
+            <point key="canvasLocation" x="-2194.4000000000001" y="1123.9880059970017"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="health" width="37" height="37"/>
+    </resources>
 </document>
