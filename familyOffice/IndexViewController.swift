@@ -264,6 +264,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
 //            print(selectedFile)
             let view = segue.destination as! MoveFileViewController
             view.file = selectedFile
+            view.tree = self.directoriesTree
         }
     }
     

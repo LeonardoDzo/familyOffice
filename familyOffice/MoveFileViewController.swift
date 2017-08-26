@@ -12,10 +12,11 @@ class MoveFileViewController: UIViewController {
     let userId = store.state.UserState.user?.id!
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var filesTreeLbl: UILabel!
     
     var folders:[SafeBoxFile] = []
-    var currentFolder = "root"
-    var tree = ["", "root"]
+    var currentFolder:String!
+    var tree:[String]!
     var file:SafeBoxFile!
     
     override func viewDidLoad() {
@@ -35,8 +36,11 @@ class MoveFileViewController: UIViewController {
         swipeRight.direction = UISwipeGestureRecognizerDirection.right
         self.tableView.addGestureRecognizer(swipeRight)
 
+        self.currentFolder = self.tree[self.tree.count - 1]
         
-        folders = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({NSString(string: $0.filename).pathExtension == "" && $0.parent == "root"}) ?? []
+        folders = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({NSString(string: $0.filename).pathExtension == "" && $0.parent == self.currentFolder}) ?? []
+        
+        filesTreeLbl.text = tree.joined(separator: "/")
         
         // Do any additional setup after loading the view.
     }
@@ -53,6 +57,7 @@ class MoveFileViewController: UIViewController {
                     self.tree.popLast()
                     self.currentFolder = self.tree[self.tree.count - 1]
                     self.folders = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({NSString(string: $0.filename).pathExtension == "" && $0.parent == self.currentFolder}) ?? []
+                    filesTreeLbl.text = tree.joined(separator: "/")
                     self.tableView.reloadData()
                 }
                 break
@@ -115,6 +120,7 @@ extension MoveFileViewController: UITableViewDelegate, UITableViewDataSource {
         self.currentFolder = self.folders[indexPath.row].filename!
         self.folders = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({NSString(string: $0.filename).pathExtension == "" && $0.parent == self.currentFolder}) ?? []
         self.tree.append(self.currentFolder)
+        filesTreeLbl.text = tree.joined(separator: "/")
         self.tableView.reloadData()
     }
     
