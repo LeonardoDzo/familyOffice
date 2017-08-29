@@ -15,6 +15,7 @@ import Photos
 
 class IndexViewController: UIViewController, UICollectionViewDataSource,UINavigationControllerDelegate, UICollectionViewDelegate,UIDocumentMenuDelegate,UIDocumentPickerDelegate,LightboxControllerPageDelegate,LightboxControllerDismissalDelegate,UIGestureRecognizerDelegate  {
     
+    @IBOutlet weak var dirTreeLbl: UILabel!
     var flag = false
     var files:[SafeBoxFile] = []
     var userId = store.state.UserState.user?.id
@@ -51,6 +52,8 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
         backButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         self.navigationItem.rightBarButtonItems = [addFolderButton, addButton]
         
+        self.dirTreeLbl.text = directoriesTree.joined(separator: "/")
+        
         if( traitCollection.forceTouchCapability == .available){
             registerForPreviewing(with: self, sourceView: self.filesCollectionView)
         }
@@ -69,6 +72,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
                     self.directoriesTree.popLast()
                     self.currentFolder = self.directoriesTree[self.directoriesTree.count - 1]
                     print(self.directoriesTree)
+                    self.dirTreeLbl.text = directoriesTree.joined(separator: "/")
                     print("Current Folder: \(self.currentFolder)")
                     files = (store.state.safeBoxState.safeBoxFiles[userId!]?.filter({$0.parent == self.currentFolder}))!
                     self.filesCollectionView.reloadData()
@@ -244,6 +248,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
         }else if(fileNameString.pathExtension.lowercased() == ""){
             self.currentFolder = fileNameString as String
             self.directoriesTree.append(fileNameString as String)
+            self.dirTreeLbl.text = directoriesTree.joined(separator: "/")
             print(self.directoriesTree)
             print("Current Folder: \(self.currentFolder)")
             files = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({$0.parent == self.currentFolder}) ?? []
@@ -504,6 +509,31 @@ extension IndexViewController: UIViewControllerPreviewingDelegate{
         }
         
         detailVC.previewAct = [
+            UIPreviewAction(title: "Compartir...", style: .default, handler: { (UIPreviewAction, UIViewController) in
+//                let objectsToShare:URL = URL(string: self.files[indexPath.row].downloadUrl)!
+//                let sharedObjects:[AnyObject] = [objectsToShare as AnyObject]
+//                let activityViewController = UIActivityViewController(activityItems : sharedObjects, applicationActivities: nil)
+//                activityViewController.popoverPresentationController?.sourceView = self.view
+//                
+//                self.present(activityViewController, animated: true, completion: nil)
+                let nsstring = NSString(string: self.files[indexPath.row].filename)
+                let fileURL = NSURL(string: self.files[indexPath.row].downloadUrl!)?.appendingPathExtension(NSString(string: self.files[indexPath.row].filename) as String)
+                let request = NSURLRequest(url: fileURL!)NSString(string: self.files[indexPath.row].filename)
+                let mainQueue = OperationQueue.main
+                NSURLConnection.sendAsynchronousRequest(request as URLRequest, queue: mainQueue, completionHandler: { (response, data, error) -> Void in
+                    if error == nil {
+                        let nsData = NSData(data: data!)
+                        let sharedObjects:[AnyObject] = [nsData as AnyObject]
+                        let activityViewController = UIActivityViewController(activityItems : sharedObjects, applicationActivities: nil)
+                        activityViewController.popoverPresentationController?.sourceView = self.view
+                        
+                        self.present(activityViewController, animated: true, completion: nil)
+                    } else {
+                        print("rip")
+                    }
+                })
+                
+            }),
             UIPreviewAction(title: "Mover", style: .default, handler: { (UIPreviewAction, UIViewController) in
                 self.performSegue(withIdentifier: "showDirTree", sender: self.files[indexPath.row])
             }),

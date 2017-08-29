@@ -54,7 +54,7 @@ class MoveFileViewController: UIViewController {
                 
             case UISwipeGestureRecognizerDirection.right:
                 if(self.currentFolder != "root"){
-                    self.tree.popLast()
+                    _ = self.tree.popLast()
                     self.currentFolder = self.tree[self.tree.count - 1]
                     self.folders = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({NSString(string: $0.filename).pathExtension == "" && $0.parent == self.currentFolder}) ?? []
                     filesTreeLbl.text = tree.joined(separator: "/")
@@ -72,7 +72,7 @@ class MoveFileViewController: UIViewController {
         print(self.tree)
         print(self.currentFolder)
         
-        let alert = UIAlertController(title: "Mover archivo", message: "Seguro desea mover el archivo \(file.filename!) a la carpeta \(self.currentFolder) ", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Mover archivo", message: "Seguro desea mover el archivo \(file.filename!) a la carpeta \(self.currentFolder!) ", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Cancelar", style: .destructive, handler: { (UIAlertAction) in
             _ = self.navigationController?.popViewController(animated: true)
