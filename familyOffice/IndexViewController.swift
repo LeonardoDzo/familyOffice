@@ -45,7 +45,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
         self.filesCollectionView.addGestureRecognizer(swipeRight)
         
         let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPressOnCell))
-        lpgr.minimumPressDuration = 0.5
+        lpgr.minimumPressDuration = 0.25
         lpgr.delaysTouchesBegan = true
         lpgr.delegate = self
         self.filesCollectionView.addGestureRecognizer(lpgr)
@@ -66,9 +66,9 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
     }
     
     func handleLongPressOnCell(gesture: UILongPressGestureRecognizer){
-        if gesture.state != UIGestureRecognizerState.ended {
-            return
-        }
+//        if gesture.state != UIGestureRecognizerState.ended {
+//            return
+//        }
         
         let p = gesture.location(in: self.filesCollectionView)
         let indexPath = self.filesCollectionView.indexPathForItem(at: p)
@@ -223,13 +223,18 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "fileID", for: indexPath) as! FileCollectionViewCell
-        
-        cell.fileNameLabel.text = self.files[indexPath.row].filename
+        let file = self.files[indexPath.row]
+        cell.fileNameLabel.text = file.filename
         let ext:NSString = self.files[indexPath.row].filename! as NSString
-        
         switch ext.pathExtension {
         case "png":
-            cell.FileIconImageView.image = #imageLiteral(resourceName: "safeBox")
+            if file.thumbnail! != ""{
+                if let url = NSURL(string: file.thumbnail!) {
+                    if let data = NSData(contentsOf: url as URL) {
+                         cell.FileIconImageView.image = UIImage(data: data as Data)!
+                    }
+                }
+            }
             break
         case "pdf":
             cell.FileIconImageView.image = #imageLiteral(resourceName: "icons8-Play_50")
@@ -264,8 +269,6 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
                     }else{
                         self.view.makeToast("Imagen con formato dañado.")
                     }
-                    
-
                 }
             }
             
@@ -336,22 +339,30 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
             let fileNameTextField = alert.textFields?[0]
             
             let fileName = (fileNameTextField?.text)!
-            let data = UIImagePNGRepresentation(newFile.resizeImage()) as NSData?
+            let data = UIImagePNGRepresentation(newFile.resizeToLarge()) as NSData?
+            let min_data = UIImagePNGRepresentation(newFile.resizeToSmall()) as NSData?
             Constants.FirStorage.STORAGEREF.child("users/\((store.state.UserState.user?.id)!)").child("safebox/\(fileName).png").put(data! as Data, metadata: nil){ metadata, error in
                 if error != nil{
                     print(error.debugDescription)
                 }else{
-                    if let downloadUrl = metadata?.downloadURL()?.absoluteString{
-                        StorageService.Instance().save(url: downloadUrl, data: data as Data?)
-                        let downloadURL = downloadUrl
-                        
-                        //Save to database
-                        let newSafeBoxFile = SafeBoxFile(filename: "\(fileName).png", downloadUrl: downloadURL, parent: self.currentFolder)
-                        store.dispatch(InsertSafeBoxFileAction(item: newSafeBoxFile))
-                        store.subscribe(self){
-                            subscription in subscription.safeBoxState //Cosa cochi que debo de hacer porque el imagePicker y el documentPicker desinscriben la vista
+                    Constants.FirStorage.STORAGEREF.child("users/\((store.state.UserState.user?.id)!)").child("safebox/\(fileName)_small.png").put(min_data! as Data, metadata: nil){ md, err in
+                        if err != nil{
+                            print(err.debugDescription)
                         }
-
+                        if let downloadUrl = metadata?.downloadURL()?.absoluteString{
+                            StorageService.Instance().save(url: downloadUrl, data: data as Data?)
+                            let downloadURL = downloadUrl
+                            
+                            if let download_min = md?.downloadURL()?.absoluteString{
+                                StorageService.Instance().save(url: download_min, data: min_data as Data?)
+                                //Save to database
+                                let newSafeBoxFile = SafeBoxFile(filename: "\(fileName).png", downloadUrl: downloadURL,thumbnail:download_min,parent: self.currentFolder)
+                                store.dispatch(InsertSafeBoxFileAction(item: newSafeBoxFile))
+                                store.subscribe(self){
+                                    subscription in subscription.safeBoxState //Cosa cochi que debo de hacer porque el imagePicker y el documentPicker desinscriben la vista
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -556,23 +567,14 @@ extension IndexViewController: UIViewControllerPreviewingDelegate{
             return nil
         }
         
-        detailVC.previewAct.append(UIPreviewAction(title: "Mover", style: .default, handler: { (UIPreviewAction, UIViewController) in
-            self.performSegue(withIdentifier: "showDirTree", sender: self.files[indexPath.row])
-        }))
-        
-        detailVC.previewAct.append(UIPreviewAction(title: "Eliminar", style: .destructive , handler: { (UIPreviewAction, UIViewController) in
-            store.dispatch(DeleteSafeBoxFileAction(item: self.files[indexPath.row]))
-        }))
-        
-        
         detailVC.previewAct.append(
             UIPreviewAction(title: "Compartir...", style: .default, handler: { (UIPreviewAction, UIViewController) in
                 self.view.makeToastActivity(.center)
-                var fileURL = NSURL(string: self.files[indexPath.row].downloadUrl!)!
-
+                let fileURL = NSURL(string: self.files[indexPath.row].downloadUrl!)!
+                
                 print(fileURL)
                 let request = NSURLRequest(url: fileURL as URL)
-                let task = URLSession.shared.dataTask(with: request as URLRequest) { (data, urlResponse, err) in
+                _ = URLSession.shared.dataTask(with: request as URLRequest) { (data, urlResponse, err) in
                     if err == nil {
                         let fileManager = FileManager.default
                         do {
@@ -597,10 +599,25 @@ extension IndexViewController: UIViewControllerPreviewingDelegate{
                     } else {
                         print("rip")
                     }
-                }.resume()
+                    }.resume()
                 
             })
         )
+
+        
+        detailVC.previewAct.append(UIPreviewAction(title: "Mover", style: .default, handler: { (UIPreviewAction, UIViewController) in
+            self.performSegue(withIdentifier: "showDirTree", sender: self.files[indexPath.row])
+        }))
+        
+        detailVC.previewAct.append(UIPreviewAction(title: "Eliminar", style: .destructive , handler: { (UIPreviewAction, UIViewController) in
+            store.dispatch(DeleteSafeBoxFileAction(item: self.files[indexPath.row]))
+            store.subscribe(self){
+                subscription in subscription.safeBoxState //Cosa cochi que debo de hacer porque el imagePicker y el documentPicker desinscriben la vista
+            }
+
+        }))
+        
+        
         
         detailVC.preferredContentSize = CGSize(width: 0.0, height: 600)
         

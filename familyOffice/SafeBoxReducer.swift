@@ -77,6 +77,23 @@ struct SafeBoxReducer: Reducer {
         let path = "safebox/\(id!)/\(item.id!)"
         service.SAFEBOX_SERVICE.delete(path) { (Any) in
             if let index = store.state.safeBoxState.safeBoxFiles[id!]?.index(where: {$0.id! == item.id! }){
+                let imageRef = FIRStorage.storage().reference(forURL: item.downloadUrl)
+                imageRef.delete { (err) in
+                    if let error = err {
+                        print(error.localizedDescription)
+                    } else {
+                        if item.thumbnail != ""{
+                            let min = FIRStorage.storage().reference(forURL: item.thumbnail!)
+                            min.delete { (err) in
+                                if let error = err {
+                                    print(error.localizedDescription)
+                                } else {
+                                }
+                            }
+                        }
+                    }
+                }
+                
                 store.state.safeBoxState.safeBoxFiles[id!]?.remove(at: index)
                 store.state.safeBoxState.status = .finished
             }

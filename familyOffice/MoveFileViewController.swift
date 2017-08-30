@@ -38,7 +38,7 @@ class MoveFileViewController: UIViewController {
 
         self.currentFolder = self.tree[self.tree.count - 1]
         
-        folders = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({NSString(string: $0.filename).pathExtension == "" && $0.parent == self.currentFolder}) ?? []
+        folders = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({NSString(string: $0.filename).pathExtension == "" && $0.parent == self.currentFolder && $0.id != file.id}) ?? []
         
         filesTreeLbl.text = tree.joined(separator: "/")
         
@@ -56,7 +56,7 @@ class MoveFileViewController: UIViewController {
                 if(self.currentFolder != "root"){
                     _ = self.tree.popLast()
                     self.currentFolder = self.tree[self.tree.count - 1]
-                    self.folders = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({NSString(string: $0.filename).pathExtension == "" && $0.parent == self.currentFolder}) ?? []
+                    self.folders = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({NSString(string: $0.filename).pathExtension == "" && $0.parent == self.currentFolder  && $0.id != file.id}) ?? []
                     filesTreeLbl.text = tree.joined(separator: "/")
                     self.tableView.reloadData()
                 }
@@ -74,7 +74,7 @@ class MoveFileViewController: UIViewController {
         
         let alert = UIAlertController(title: "Mover archivo", message: "Seguro desea mover el archivo \(file.filename!) a la carpeta \(self.currentFolder!) ", preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "Cancelar", style: .destructive, handler: { (UIAlertAction) in
+        alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: { (UIAlertAction) in
             _ = self.navigationController?.popViewController(animated: true)
         }))
         
@@ -118,7 +118,7 @@ extension MoveFileViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.currentFolder = self.folders[indexPath.row].filename!
-        self.folders = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({NSString(string: $0.filename).pathExtension == "" && $0.parent == self.currentFolder}) ?? []
+        self.folders = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({NSString(string: $0.filename).pathExtension == "" && $0.parent == self.currentFolder  && $0.id != file.id}) ?? []
         self.tree.append(self.currentFolder)
         filesTreeLbl.text = tree.joined(separator: "/")
         self.tableView.reloadData()
