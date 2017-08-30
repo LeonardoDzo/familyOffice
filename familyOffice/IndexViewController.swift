@@ -44,6 +44,12 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
         swipeRight.direction = UISwipeGestureRecognizerDirection.right
         self.filesCollectionView.addGestureRecognizer(swipeRight)
         
+        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPressOnCell))
+        lpgr.minimumPressDuration = 0.5
+        lpgr.delaysTouchesBegan = true
+        lpgr.delegate = self
+        self.filesCollectionView.addGestureRecognizer(lpgr)
+        
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.handleNew))
         addButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         let addFolderButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(self.newFolder))
@@ -56,6 +62,47 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
         
         if( traitCollection.forceTouchCapability == .available){
             registerForPreviewing(with: self, sourceView: self.filesCollectionView)
+        }
+    }
+    
+    func handleLongPressOnCell(gesture: UILongPressGestureRecognizer){
+        if gesture.state != UIGestureRecognizerState.ended {
+            return
+        }
+        
+        let p = gesture.location(in: self.filesCollectionView)
+        let indexPath = self.filesCollectionView.indexPathForItem(at: p)
+        
+        if let index = indexPath {
+            let file = self.files[index.row]
+            if NSString(string: file.filename).pathExtension == ""{
+                let alert = UIAlertController(title: file.filename, message: "¿Qué acción desea realizar?", preferredStyle: .actionSheet)
+                
+                alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
+                alert.addAction(UIAlertAction(title: "Mover", style: .default, handler: { (action) in
+                    self.performSegue(withIdentifier: "showDirTree", sender: file)
+                }))
+                
+                alert.addAction(UIAlertAction(title: "Eliminar", style: .destructive, handler: { (action) in
+                    let confirmationAlert = UIAlertController(title: "Eliminar carpeta", message: "", preferredStyle: .alert)
+                    
+                    confirmationAlert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: { (action) in
+                        return
+                    }))
+                    
+                    confirmationAlert.addAction(UIAlertAction(title: "Aceptar", style: .destructive, handler: { (alert) in
+                        store.dispatch(DeleteSafeBoxFileAction(item: file))
+                    }))
+                    
+                    self.present(confirmationAlert, animated: true, completion: nil)
+                }))
+                
+                self.present(alert, animated: true, completion: nil)
+            }else{
+                return
+            }
+        } else {
+            return
         }
     }
     
@@ -509,7 +556,16 @@ extension IndexViewController: UIViewControllerPreviewingDelegate{
             return nil
         }
         
-        detailVC.previewAct = [
+        detailVC.previewAct.append(UIPreviewAction(title: "Mover", style: .default, handler: { (UIPreviewAction, UIViewController) in
+            self.performSegue(withIdentifier: "showDirTree", sender: self.files[indexPath.row])
+        }))
+        
+        detailVC.previewAct.append(UIPreviewAction(title: "Eliminar", style: .destructive , handler: { (UIPreviewAction, UIViewController) in
+            store.dispatch(DeleteSafeBoxFileAction(item: self.files[indexPath.row]))
+        }))
+        
+        
+        detailVC.previewAct.append(
             UIPreviewAction(title: "Compartir...", style: .default, handler: { (UIPreviewAction, UIViewController) in
                 self.view.makeToastActivity(.center)
                 var fileURL = NSURL(string: self.files[indexPath.row].downloadUrl!)!
@@ -543,14 +599,8 @@ extension IndexViewController: UIViewControllerPreviewingDelegate{
                     }
                 }.resume()
                 
-            }),
-            UIPreviewAction(title: "Mover", style: .default, handler: { (UIPreviewAction, UIViewController) in
-                self.performSegue(withIdentifier: "showDirTree", sender: self.files[indexPath.row])
-            }),
-            UIPreviewAction(title: "Eliminar", style: .destructive , handler: { (UIPreviewAction, UIViewController) in
-                store.dispatch(DeleteSafeBoxFileAction(item: self.files[indexPath.row]))
             })
-        ]
+        )
         
         detailVC.preferredContentSize = CGSize(width: 0.0, height: 600)
         
