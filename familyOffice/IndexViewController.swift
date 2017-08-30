@@ -332,9 +332,9 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
             
             let fileURL = NSURL(string: "\(outerURL)")
             let request = NSURLRequest(url: fileURL! as URL)
-            let mainQueue = OperationQueue.main
-            NSURLConnection.sendAsynchronousRequest(request as URLRequest, queue: mainQueue, completionHandler: { (response, data, error) -> Void in
-                if error == nil {
+            let task = URLSession.shared.dataTask(with: request as URLRequest) { (data, urlResponse, err) in
+                print("Entered the completionHandler")
+                if err == nil {
                     
                     Constants.FirStorage.STORAGEREF.child("users/\((store.state.UserState.user?.id)!)").child("safebox/\(fileName).\(outerURL.pathExtension)").put(data!, metadata: nil){ metadata, error in
                         if error != nil{
@@ -350,7 +350,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
                                 store.subscribe(self){
                                     subscription in subscription.safeBoxState //Cosa cochi que debo de hacer porque el imagePicker y el documentPicker desinscriben la vista
                                 }
-
+                                
                             }
                         }
                     }
@@ -359,7 +359,8 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
                 } else {
                     print("rip")
                 }
-            })
+
+            }.resume()
         }))
         
         alert.addTextField { (textField : UITextField!) -> Void in
@@ -510,28 +511,37 @@ extension IndexViewController: UIViewControllerPreviewingDelegate{
         
         detailVC.previewAct = [
             UIPreviewAction(title: "Compartir...", style: .default, handler: { (UIPreviewAction, UIViewController) in
-//                let objectsToShare:URL = URL(string: self.files[indexPath.row].downloadUrl)!
-//                let sharedObjects:[AnyObject] = [objectsToShare as AnyObject]
-//                let activityViewController = UIActivityViewController(activityItems : sharedObjects, applicationActivities: nil)
-//                activityViewController.popoverPresentationController?.sourceView = self.view
-//                
-//                self.present(activityViewController, animated: true, completion: nil)
-                let nsstring = NSString(string: self.files[indexPath.row].filename)
-                let fileURL = NSURL(string: self.files[indexPath.row].downloadUrl!)?.appendingPathExtension(NSString(string: self.files[indexPath.row].filename) as String)
-                let request = NSURLRequest(url: fileURL!)NSString(string: self.files[indexPath.row].filename)
-                let mainQueue = OperationQueue.main
-                NSURLConnection.sendAsynchronousRequest(request as URLRequest, queue: mainQueue, completionHandler: { (response, data, error) -> Void in
-                    if error == nil {
-                        let nsData = NSData(data: data!)
-                        let sharedObjects:[AnyObject] = [nsData as AnyObject]
-                        let activityViewController = UIActivityViewController(activityItems : sharedObjects, applicationActivities: nil)
-                        activityViewController.popoverPresentationController?.sourceView = self.view
+                self.view.makeToastActivity(.center)
+                var fileURL = NSURL(string: self.files[indexPath.row].downloadUrl!)!
+
+                print(fileURL)
+                let request = NSURLRequest(url: fileURL as URL)
+                let task = URLSession.shared.dataTask(with: request as URLRequest) { (data, urlResponse, err) in
+                    if err == nil {
+                        let fileManager = FileManager.default
+                        do {
+                            let documentDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
+                            let fileUrl = documentDirectory.appendingPathComponent(self.files[indexPath.row].filename)
+                            try data?.write(to: fileUrl)
+                            let sharedObjects:[AnyObject] = [fileUrl as AnyObject]
+                            let activityViewController = UIActivityViewController(activityItems : sharedObjects, applicationActivities: nil)
+                            
+                            activityViewController.popoverPresentationController?.sourceView = self.view
+                            self.present(activityViewController, animated: true, completion: {
+                                do{
+                                    self.view.hideToastActivity()
+                                }catch{
+                                    print("rip")
+                                }
+                            })
+                        } catch {
+                            print(error)
+                        }
                         
-                        self.present(activityViewController, animated: true, completion: nil)
                     } else {
                         print("rip")
                     }
-                })
+                }.resume()
                 
             }),
             UIPreviewAction(title: "Mover", style: .default, handler: { (UIPreviewAction, UIViewController) in
