@@ -228,11 +228,11 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
         let ext:NSString = self.files[indexPath.row].filename! as NSString
         switch ext.pathExtension {
         case "png":
-            if file.thumbnail! != ""{
-                if let url = NSURL(string: file.thumbnail!) {
-                    if let data = NSData(contentsOf: url as URL) {
-                         cell.FileIconImageView.image = UIImage(data: data as Data)!
-                    }
+            let url = URL(string: file.thumbnail!)
+            DispatchQueue.global().async {
+                let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                DispatchQueue.main.async {
+                    cell.FileIconImageView.image = UIImage(data: data!)
                 }
             }
             break
@@ -252,26 +252,26 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
             
             self.performSegue(withIdentifier: "openPDFSegue", sender: nil)
         }else if(fileNameString.pathExtension.lowercased() == "jpg" || fileNameString.pathExtension.lowercased() == "png" || fileNameString.pathExtension.lowercased() == "gif"){
-            var image:UIImage? = nil
-            if let url = NSURL(string: self.files[indexPath.row].downloadUrl) {
-                if let data = NSData(contentsOf: url as URL) {
-                    image = UIImage(data: data as Data)!
-                    if(image != nil){
-                        lightboxController = LightboxController(images: [LightboxImage(image: image!)], startIndex: 0)
-                        
-                        lightboxController.pageDelegate = self
-                        lightboxController.dismissalDelegate = self
-                        
-                        lightboxController.dynamicBackground = false
-                        LightboxConfig.CloseButton.text = "Cerrar"
-                        
-                        present(lightboxController, animated: true, completion: nil)
-                    }else{
-                        self.view.makeToast("Imagen con formato dañado.")
-                    }
+            var aux = 0
+            var index = 0
+            let images:[LightboxImage] = self.files.filter({$0.thumbnail != ""}).map({ (file) -> LightboxImage in
+                if file.id != self.files[indexPath.row].id {
+                    aux += 1
+                }else{
+                    index = aux
                 }
-            }
+                return LightboxImage(imageURL: URL(string: file.downloadUrl)!, text: file.filename, videoURL: nil)
+            })
+            self.lightboxController = LightboxController(images: images, startIndex: index)
             
+            self.lightboxController.pageDelegate = self
+            self.lightboxController.dismissalDelegate = self
+            
+            self.lightboxController.dynamicBackground = false
+            LightboxConfig.CloseButton.text = "Cerrar"
+            
+            self.present(self.lightboxController, animated: true, completion: nil)
+
         }else if(fileNameString.pathExtension.lowercased() == "mp4"){
             let size = CGSize(width: 200, height: 200)
             let color = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
