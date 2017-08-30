@@ -42,6 +42,9 @@ class contactTableViewController: UITableViewController, StoreSubscriber{
         let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "LeftChevron"), style: .plain, target: self, action: #selector(self.back))
         self.navigationItem.rightBarButtonItems = [moreButton, addButton]
         self.navigationItem.leftBarButtonItem = backButton
+        let nav = self.navigationController?.navigationBar
+        nav?.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.3137395978, green: 0.1694342792, blue: 0.5204931498, alpha: 1)]
+        self.navigationItem.title = "Contactos de \(String(describing: store.state.FamilyState.families.family(fid: (store.state.UserState.user?.familyActive)!)?.name))"
         
     }
     func configureObservers(){
