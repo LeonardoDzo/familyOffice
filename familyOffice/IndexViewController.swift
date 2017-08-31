@@ -636,6 +636,9 @@ extension IndexViewController: UIViewControllerPreviewingDelegate{
                 file.filename = "\((fileNameTextField?.text)!).\(ext)"
                 
                 store.dispatch(UpdateSafeBoxFileAction(item: file))
+                store.subscribe(self){
+                    subscription in subscription.safeBoxState //Cosa cochi que debo de hacer porque el imagePicker y el documentPicker desinscriben la vista
+                }
             }))
             
             alert.addTextField { (textField : UITextField!) -> Void in
