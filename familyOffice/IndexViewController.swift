@@ -74,11 +74,32 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
         let indexPath = self.filesCollectionView.indexPathForItem(at: p)
         
         if let index = indexPath {
-            let file = self.files[index.row]
+            var file = self.files[index.row]
             if NSString(string: file.filename).pathExtension == ""{
                 let alert = UIAlertController(title: file.filename, message: "¿Qué acción desea realizar?", preferredStyle: .actionSheet)
                 
                 alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
+                
+//                alert.addAction((UIAlertAction(title: "Renombrar", style: .default, handler: { (action) in
+//                    let alert = UIAlertController(title: "Renombrar", message: "", preferredStyle: .alert)
+//                    
+//                    alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
+//                    
+//                    alert.addAction(UIAlertAction(title: "Aceptar", style: .default, handler: { (_alert) in
+//                        let fileNameTextField = alert.textFields?[0]
+//                        file.filename = fileNameTextField?.text
+//                        
+//                        store.dispatch(UpdateSafeBoxFileAction(item: file))
+//                    }))
+//                    
+//                    alert.addTextField { (textField : UITextField!) -> Void in
+//                        textField.placeholder = "Nuevo nombre"
+//                    }
+//                    
+//                    self.present(alert, animated: true, completion:nil)
+//
+//                })))
+                
                 alert.addAction(UIAlertAction(title: "Mover", style: .default, handler: { (action) in
                     self.performSegue(withIdentifier: "showDirTree", sender: file)
                 }))
@@ -561,7 +582,7 @@ extension IndexViewController: UIViewControllerPreviewingDelegate{
         
         guard let detailVC = storyboard?.instantiateViewController(withIdentifier: "PDFViewController") as? PDFViewController else {return nil}
         
-        let file = self.files[indexPath.row]
+        var file = self.files[indexPath.row]
         detailVC.file = file
         if NSString(string: file.filename).pathExtension == "" {
             return nil
@@ -604,6 +625,26 @@ extension IndexViewController: UIViewControllerPreviewingDelegate{
             })
         )
 
+        detailVC.previewAct.append(UIPreviewAction(title: "Renombrar", style: .default, handler: { (UIPreviewAction, UIViewController) in
+            let alert = UIAlertController(title: "Renombrar", message: "", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
+            
+            alert.addAction(UIAlertAction(title: "Aceptar", style: .default, handler: { (_alert) in
+                let fileNameTextField = alert.textFields?[0]
+                let ext = NSString(string: file.filename).pathExtension
+                file.filename = "\((fileNameTextField?.text)!).\(ext)"
+                
+                store.dispatch(UpdateSafeBoxFileAction(item: file))
+            }))
+            
+            alert.addTextField { (textField : UITextField!) -> Void in
+                textField.placeholder = "Nuevo nombre"
+            }
+            
+            self.present(alert, animated: true, completion:nil)
+
+        }))
         
         detailVC.previewAct.append(UIPreviewAction(title: "Mover", style: .default, handler: { (UIPreviewAction, UIViewController) in
             self.performSegue(withIdentifier: "showDirTree", sender: self.files[indexPath.row])
