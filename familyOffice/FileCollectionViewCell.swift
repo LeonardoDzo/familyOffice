@@ -15,7 +15,5 @@ class FileCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var fileNameLabel: UILabel!
     
     override func awakeFromNib() {
-        bgView.layer.borderWidth = 1
-        bgView.layer.borderColor = UIColor(red:222/255.0, green:225/255.0, blue:227/255.0, alpha: 1.0).cgColor
     }
 }

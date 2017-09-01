@@ -33,9 +33,9 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
-        let barButton = UIBarButtonItem(title: "Atras", style: .plain, target: self, action: #selector(self.handleBack))
-        self.navigationItem.leftBarButtonItem = barButton
-        // Do any additional setup after loading the view.
+//        let barButton = UIBarButtonItem(title: "Atras", style: .plain, target: self, action: #selector(self.handleBack))
+//        self.navigationItem.leftBarButtonItem = barButton
+//        // Do any additional setup after loading the view.
         let nav = self.navigationController?.navigationBar
         nav?.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.3137395978, green: 0.1694342792, blue: 0.5204931498, alpha: 1)]
         self.navigationItem.title = "Caja Fuerte"
@@ -51,11 +51,12 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
         self.filesCollectionView.addGestureRecognizer(lpgr)
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.handleNew))
-        addButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
-        let addFolderButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(self.newFolder))
+
+        let addFolderButton = UIBarButtonItem(image: #imageLiteral(resourceName: "add_folder_red"),style: .plain, target: self, action: #selector(self.newFolder))
+        addFolderButton.tintColor = nil
         let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "Home"), style: .plain, target: self, action: #selector(self.back))
         self.navigationItem.leftBarButtonItem = backButton
-        backButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
+
         self.navigationItem.rightBarButtonItems = [addFolderButton, addButton]
         
         self.dirTreeLbl.text = directoriesTree.joined(separator: "/")
@@ -248,14 +249,17 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
         cell.fileNameLabel.text = file.filename
         let ext:NSString = self.files[indexPath.row].filename! as NSString
         switch ext.pathExtension {
+        case "":
+            cell.FileIconImageView.image = #imageLiteral(resourceName: "folder_purple")
         case "png":
-            let url = URL(string: file.thumbnail!)
-            DispatchQueue.global().async {
-                let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-                DispatchQueue.main.async {
-                    cell.FileIconImageView.image = UIImage(data: data!)
-                }
-            }
+//            let url = URL(string: file.thumbnail!)
+//            DispatchQueue.global().async {
+//                let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+//                DispatchQueue.main.async {
+//                    cell.FileIconImageView.image = UIImage(data: data!)
+//                }
+//            }
+            cell.FileIconImageView.loadImage(urlString: file.thumbnail!)
             break
         case "pdf":
             cell.FileIconImageView.image = #imageLiteral(resourceName: "icons8-Play_50")
