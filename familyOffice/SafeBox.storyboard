@@ -219,7 +219,7 @@
                                                     <color key="textColor" red="0.22978240250000001" green="0.1063450351" blue="0.49486315250000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="health" translatesAutoresizingMaskIntoConstraints="NO" id="foC-6V-Rqt">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="folder_purple" translatesAutoresizingMaskIntoConstraints="NO" id="foC-6V-Rqt">
                                                     <rect key="frame" x="8" y="7" width="30" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -261,6 +261,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="health" width="37" height="37"/>
+        <image name="folder_purple" width="16" height="16"/>
     </resources>
 </document>
