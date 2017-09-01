@@ -14,7 +14,7 @@ struct Events {
 
 class EventService {
     public var events: [Event]
-    var handles: [(String,UInt,FIRDataEventType)] = []
+    var handles: [(String,UInt,DataEventType)] = []
     private init(events: [Event]){
         self.events = events
     }
@@ -27,7 +27,7 @@ class EventService {
     }
     private static let instance : EventService = EventService(events: [])
     
-    func addEventlocal(snapshot: FIRDataSnapshot) -> Void {
+    func addEventlocal(snapshot: DataSnapshot) -> Void {
         let event = Event.init(snapshot: snapshot)
         
         if !events.contains(where: {$0.id == event.id}){
@@ -42,27 +42,22 @@ class EventService {
 }
 
 extension EventService : RequestService  {
-    func notExistSnapshot() {
-        
+    func inserted(ref: DatabaseReference) {
     }
 
-    func addHandle(_ handle: UInt, ref: String, action: FIRDataEventType) {
-        
+    func notExistSnapshot() {
     }
+
+    func addHandle(_ handle: UInt, ref: String, action: DataEventType) {
+    }
+    
     func removeHandles() {
     }
 
-    func routing(snapshot: FIRDataSnapshot, action: FIRDataEventType, ref: String) {
+    func routing(snapshot: DataSnapshot, action: DataEventType, ref: String) {
     }
 
-
-    func inserted(ref: FIRDatabaseReference){
-        service.USER_SERVICE.users[0].events?.append(ref.key)
-        self.addEventToMember(uid: service.USER_SERVICE.users[0].id, eid: ref.key)
-    }
-    
     func delete(_ ref: String, callback: @escaping ((Any) -> Void)) {
-        
     }
     
     func update(_ ref: String, value: [AnyHashable : Any], callback: @escaping ((Any) -> Void)) {

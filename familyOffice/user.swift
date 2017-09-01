@@ -8,7 +8,6 @@
 
 import Foundation
 import Firebase
-
 struct User {
     
     static let kUserNameKey = "name"
@@ -77,7 +76,7 @@ struct User {
         self.id = ""
     }
     
-    init(snapshot: FIRDataSnapshot) {
+    init(snapshot: DataSnapshot) {
         let snapshotValue = snapshot.value as! NSDictionary
         self.id = snapshot.key
         self.familyActive = service.UTILITY_SERVICE.exist(field: User.kUserFamilyActiveKey, dictionary: snapshotValue)
@@ -116,7 +115,7 @@ struct User {
         ]
     }
     
-    mutating func update(snapshot: FIRDataSnapshot){
+    mutating func update(snapshot: DataSnapshot){
         switch snapshot.key {
         case  User.kUserPhotoUrlKey:
             self.photoURL =  snapshot.value! as! String

@@ -8,7 +8,7 @@
 
 import Foundation
 import ReSwift
-struct GalleryReducer: Reducer {
+struct GalleryReducer {
     func handleAction(action: Action, state: GalleryState?) -> GalleryState {
         var stateAux = state ?? GalleryState(Gallery: [:], Album: Album(), status: .none)
         switch action {

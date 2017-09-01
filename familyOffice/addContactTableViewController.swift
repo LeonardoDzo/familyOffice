@@ -32,8 +32,8 @@ class addContactTableViewController: UITableViewController, ContactBindible, CNC
     override func viewWillAppear(_ animated: Bool) {
         //configuration()
         store.subscribe(self) {
-            state in
-            state.ContactState
+            subcription in
+            subcription.select { state in state.ContactState }
         }
         self.bind(contact: contact)
         isEdit = !contact.name.isEmpty

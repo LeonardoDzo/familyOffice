@@ -40,7 +40,7 @@ UINavigationControllerDelegate  {
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-
+        
         dismiss(animated:true, completion: { _ in
             self.performSegue(withIdentifier: "updateImageSegue", sender: nil)
         })
@@ -89,21 +89,21 @@ UINavigationControllerDelegate  {
             style:.default,
             handler: nil)
         alertVC.addAction(okAction)
-        present(
+        self.present(
             alertVC,
             animated: true,
             completion: nil)
     }
     
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier=="updateImageSegue" {
             let viewController = segue.destination as! ImageViewController
             viewController.chooseImg = chosenImage
         }
-     }
-     
+    }
+    
     
 }

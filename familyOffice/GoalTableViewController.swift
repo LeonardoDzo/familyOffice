@@ -98,8 +98,8 @@ extension GoalTableViewController: StoreSubscriber, Segue, HandleFamilySelected 
         }
         selectFamily()
         store.subscribe(self) {
-            subscription in
-            subscription.GoalsState
+            subcription in
+            subcription.select { state in state.GoalsState }
         }
         
     }

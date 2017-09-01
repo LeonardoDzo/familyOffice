@@ -10,7 +10,7 @@ import Foundation
 import Firebase
 
 class FamilySvc {
-    var handles: [(String, UInt, FIRDataEventType)] = []
+    var handles: [(String, UInt, DataEventType)] = []
     private static let instance : FamilySvc = FamilySvc()
     private init() {
     }
@@ -19,7 +19,7 @@ class FamilySvc {
         return instance
     }
     
-    func initObserves(ref: String, actions: [FIRDataEventType]) -> Void {
+    func initObserves(ref: String, actions: [DataEventType]) -> Void {
         for action in actions {
             if !handles.contains(where: { $0.0 == ref && $0.2 == action} ){
                 self.child_action(ref: ref, action: action)
@@ -32,13 +32,13 @@ extension FamilySvc: RequestService {
     func notExistSnapshot() {
     }
 
-    func addHandle(_ handle: UInt, ref: String, action: FIRDataEventType) {
+    func addHandle(_ handle: UInt, ref: String, action: DataEventType) {
         self.handles.append((ref,handle,action))
     }
-    func inserted(ref: FIRDatabaseReference) {
-        store.state.FamilyState.status = .finished
+    func inserted(ref: DatabaseReference) {
+        //store.state.FamilyState.status = .finished
     }
-    func routing(snapshot: FIRDataSnapshot, action: FIRDataEventType, ref: String) {
+    func routing(snapshot: DataSnapshot, action: DataEventType, ref: String) {
        
         switch action {
         case .childAdded:
@@ -80,17 +80,16 @@ extension FamilySvc: RequestService {
     
     func create(family: Family, with data: UIImage) -> Void {
         var family = family
-        let imageName = NSUUID().uuidString
         family.setId()
-        service.STORAGE_SERVICE.insert("families/\(family.id!)/images/\(imageName).png", value: data , callback: {(response) in
-            if let metadata = response as? FIRStorageMetadata {
+        let ref = "families/\(family.id!)"
+        let imageName = NSUUID().uuidString
+        service.STORAGE_SERVICE.insert("families/\(family.id!)/images/\(imageName).jpg", value: data , callback: {(response) in
+            if let metadata = response as? StorageMetadata {
                 family.photoURL = metadata.downloadURL()?.absoluteString
                 family.imageProfilePath = metadata.path
-                let ref = "families/\(family.id!)"
                 self.insert(ref, value: family.toDictionary(), callback: { (response) in
-                    if response is String {
+                    if response is DatabaseReference {
                         store.state.FamilyState.status = .finished
-                        store.state.FamilyState.status = .none
                     }else{
                         store.state.FamilyState.status = .failed
                     }
@@ -98,7 +97,6 @@ extension FamilySvc: RequestService {
             }else{
                 store.state.FamilyState.status = .failed
             }
-            
         })
     }
     func update(family: Family, with data: UIImage?) -> Void {
@@ -107,8 +105,8 @@ extension FamilySvc: RequestService {
         
         if data != nil {
             let imageName = NSUUID().uuidString
-            service.STORAGE_SERVICE.insert("families/\(family.id!)/images/\(imageName).png", value: data! , callback: {(response) in
-                if let metadata = response as? FIRStorageMetadata {
+            service.STORAGE_SERVICE.insert("families/\(family.id!)/images/\(imageName).jpg", value: data! , callback: {(response) in
+                if let metadata = response as? StorageMetadata {
                     family.photoURL = metadata.downloadURL()?.absoluteString
                     family.imageProfilePath = metadata.path
                     store.dispatch(UpdateFamilyAction(family: family, img: nil))
@@ -118,9 +116,8 @@ extension FamilySvc: RequestService {
             })
         }else{
             self.update(ref, value: family.toDictionary() as! [AnyHashable: Any], callback: { ref in
-                if ref is FIRDatabaseReference {
+                if ref is DatabaseReference {
                     store.state.FamilyState.status = .finished
-                    store.state.FamilyState.status = .none
                 }
             })
         }
@@ -128,7 +125,7 @@ extension FamilySvc: RequestService {
 }
 
 extension FamilySvc: repository {
-    func added(snapshot: FIRDataSnapshot) {
+    func added(snapshot: DataSnapshot) {
         let family : Family = Family(snapshot: snapshot)
         if !store.state.FamilyState.families.hasEqualContent(family){
             store.state.FamilyState.families.appendItem(family)
@@ -138,7 +135,7 @@ extension FamilySvc: repository {
             }
         }
     }
-    func removed(snapshot: FIRDataSnapshot) {
+    func removed(snapshot: DataSnapshot) {
         let key : String = snapshot.key
         store.state.FamilyState.families.removeItem(fid: key)
         if store.state.UserState.user?.familyActive == key {
@@ -149,7 +146,7 @@ extension FamilySvc: repository {
         }
     }
     
-    func updated(snapshot: FIRDataSnapshot, id: Any) {
+    func updated(snapshot: DataSnapshot, id: Any) {
         let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
         if let index = store.state.FamilyState.families.indexOf(fid: id){
             store.state.FamilyState.families.items[index].update(snapshot: snapshot)

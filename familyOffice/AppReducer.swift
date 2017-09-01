@@ -8,15 +8,14 @@
 
 import Foundation
 import ReSwift
-import ReSwiftRouter
-struct AppReducer: Reducer {
     
-    func handleAction(action: Action, state: AppState?) -> AppState {
+    func appReducer(action: Action, state: AppState?) -> AppState {
         
         return AppState(
+            routingState: routingReducer(action: action, state: state?.routingState),
+            UserState: UserReducer().handleAction(action: action, state: state?.UserState),
             GoalsState: GoalReducer().handleAction(action: action, state: state?.GoalsState),
             FamilyState: FamilyReducer().handleAction(action: action, state: state?.FamilyState),
-            UserState: UserReducer().handleAction(action: action, state: state?.UserState),
             GalleryState: GalleryReducer().handleAction(action: action, state: state?.GalleryState),
             ToDoListState: ToDoListReducer().handleAction(action: action, state: state?.ToDoListState),
             ContactState: ContactReducer().handleAction(action: action, state: state?.ContactState),
@@ -27,4 +26,4 @@ struct AppReducer: Reducer {
         )
     }
     
-}
+

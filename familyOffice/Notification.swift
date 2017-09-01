@@ -28,7 +28,7 @@ struct NotificationModel {
     var type: Notification_Type!
 
     
-    init(snapshot: FIRDataSnapshot) {
+    init(snapshot: DataSnapshot) {
         let snapshotValue = snapshot.value as! NSDictionary
         self.id = snapshot.key
         self.title = snapshotValue.exist(field: not.kNotificationTitlekey)

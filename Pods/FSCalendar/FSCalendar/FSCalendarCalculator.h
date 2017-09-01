@@ -9,10 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
-@class FSCalendar;
-
-typedef NS_ENUM(NSUInteger, FSCalendarMonthPosition);
-
 struct FSCalendarCoordinate {
     NSInteger row;
     NSInteger column;
@@ -22,9 +18,6 @@ typedef struct FSCalendarCoordinate FSCalendarCoordinate;
 @interface FSCalendarCalculator : NSObject
 
 @property (weak  , nonatomic) FSCalendar *calendar;
-
-@property (assign, nonatomic) CGFloat titleHeight;
-@property (assign, nonatomic) CGFloat subtitleHeight;
 
 @property (readonly, nonatomic) NSInteger numberOfSections;
 

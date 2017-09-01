@@ -19,7 +19,7 @@ enum GoalType: Int {
 }
 
 
-struct Goal {
+struct Goal  {
     static let ktitle = "title"
     static let ktype = "type"
     static let kcategory = "category"
@@ -36,16 +36,16 @@ struct Goal {
     
     var id:String!
     var title: String!
-    var type: Int! = 0
-    var category: Int! = 0
-    var photo: String! = ""
-    var endDate: Int!
-    var done: Bool! = false
-    var note: String! = ""
-    var creator: String! = ""
-    var startDate : Int!
+    var type: Int? = 0
+    var category: Int? = 0
+    var photo: String? = ""
+    var endDate: Int?
+    var done: Bool? = false
+    var note: String? = ""
+    var creator: String? = ""
+    var startDate : Int?
     var members = [String:Int]()
-    var repeatGoalModel : repeatGoal!
+    var repeatGoalModel : repeatGoal?
     var follow = [FollowGoal]()
     
     init() {
@@ -58,8 +58,7 @@ struct Goal {
         self.repeatGoalModel = repeatGoal()
     }
     
-    
-    init(snapshot: FIRDataSnapshot) {
+    init(snapshot: DataSnapshot) {
         let snapshotValue = snapshot.value as! NSDictionary
         self.id = snapshot.key
         
@@ -94,16 +93,16 @@ struct Goal {
     }
     func toDictionary() -> NSDictionary! {
         return [
-            Goal.kcreator : self.creator,
-            Goal.kdateCreated : self.startDate,
-            Goal.kdone : self.done,
-            Goal.kendDate : self.endDate,
-            Goal.ktype : self.type,
-            Goal.knote : self.note,
-            Goal.ktitle : self.title,
-            Goal.kcategory : self.category,
+            Goal.kcreator : self.creator!,
+            Goal.kdateCreated : self.startDate!,
+            Goal.kdone : self.done!,
+            Goal.kendDate : self.endDate!,
+            Goal.ktype : self.type!,
+            Goal.knote : self.note!,
+            Goal.ktitle : self.title!,
+            Goal.kcategory : self.category!,
             Goal.kMembers : self.members,
-            Goal.kRepeat : self.repeatGoalModel.toDictionary(),
+            Goal.kRepeat : self.repeatGoalModel!.toDictionary(),
             Goal.kFollow : NSDictionary(objects: self.follow.map({$0.members}), forKeys: self.follow.map({$0.date}) as! [NSCopying]),
 
             

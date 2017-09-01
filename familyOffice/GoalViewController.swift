@@ -9,7 +9,6 @@
 import UIKit
 import ReSwift
 import Charts
-import ReSwiftRouter
 class GoalViewController: UIViewController, StoreSubscriber, UITabBarDelegate, GoalBindable {
     
     static let identifier = "GoalViewController"
@@ -37,8 +36,8 @@ class GoalViewController: UIViewController, StoreSubscriber, UITabBarDelegate, G
         
         self.bind()
         store.subscribe(self) {
-            subscription in
-            subscription.GoalsState
+            subcription in
+            subcription.select { state in state.GoalsState }
         }
         
         verifyFollow()

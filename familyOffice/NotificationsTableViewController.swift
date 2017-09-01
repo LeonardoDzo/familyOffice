@@ -13,7 +13,6 @@ class NotificationsTableViewController: UITableViewController {
     var notifications = [NotificationModel]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
 
     override func didReceiveMemoryWarning() {

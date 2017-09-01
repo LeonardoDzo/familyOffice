@@ -9,24 +9,22 @@
 import Foundation
 import ReSwift
 
-struct FamilyReducer: Reducer {
+struct FamilyReducer{
     func handleAction(action: Action, state: FamilyState?) -> FamilyState {
         var state = state ?? FamilyState(families: FamilyList(), status: .none)
         switch action {
         case let action as InsertFamilyAction:
             if action.family != nil {
+                state.status = .loading
                 if action.family.id.isEmpty {
                    service.FAMILY_SVC.create(family: action.family, with: action.famImage)
-                }else{
-                   service.FAMILY_SVC.update(family: action.family, with: action.famImage)
                 }
-                state.status = .loading
             }
             break
         case let action as UpdateFamilyAction:
             if action.family != nil {
-                service.FAMILY_SVC.update(family: action.family, with: action.famImage)
                 state.status = .loading
+                service.FAMILY_SVC.update(family: action.family, with: action.famImage)
             }
             break
         case let action as DeleteFamilyAction:

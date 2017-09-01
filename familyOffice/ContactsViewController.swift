@@ -34,11 +34,11 @@ class ContactsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     func back() -> Void {
-        self.dismiss(animated: true, completion: nil)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     func add() -> Void {
         contactDelegate.selected(users: selected)
-        self.dismiss(animated: true, completion: nil)
+        back()
     }
     
     func getContacts() -> Void {
@@ -72,16 +72,6 @@ class ContactsViewController: UIViewController {
             store.dispatch(GetUserAction(phone: phone))
         }
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 extension ContactsViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -137,8 +127,8 @@ extension ContactsViewController: StoreSubscriber {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         store.subscribe(self) {
-            state in
-            state.UserState
+            subcription in
+            subcription.select { state in state.UserState }
         }
         selected = contactDelegate.users
         getContacts()

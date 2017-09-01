@@ -8,10 +8,9 @@
 
 import Foundation
 import ReSwift
-import ReSwiftRouter
 import Firebase
 
-struct GoalReducer: Reducer {
+struct GoalReducer {
     
     func handleAction(action: Action, state: GoalState?) -> GoalState {
         var state = state ?? GoalState(goals: [:], status: .none)

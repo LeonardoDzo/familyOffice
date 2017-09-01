@@ -89,6 +89,7 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "$BUILT_PRODUCTS_DIR/ALCameraViewController/ALCameraViewController.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Alamofire/Alamofire.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Charts/Charts.framework"
   install_framework "$BUILT_PRODUCTS_DIR/DKImagePickerController/DKImagePickerController.framework"
@@ -106,14 +107,16 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/MultiAutoCompleteTextSwift/MultiAutoCompleteTextSwift.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Protobuf/Protobuf.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ReSwift/ReSwift.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/ReSwiftRecorder/ReSwiftRecorder.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ReSwiftRouter/ReSwiftRouter.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SearchTextField/SearchTextField.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SmileLock/SmileLock.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SnapKit/SnapKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Toast-Swift/Toast_Swift.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/leveldb-library/leveldb.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/nanopb/nanopb.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "$BUILT_PRODUCTS_DIR/ALCameraViewController/ALCameraViewController.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Alamofire/Alamofire.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Charts/Charts.framework"
   install_framework "$BUILT_PRODUCTS_DIR/DKImagePickerController/DKImagePickerController.framework"
@@ -131,12 +134,13 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/MultiAutoCompleteTextSwift/MultiAutoCompleteTextSwift.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Protobuf/Protobuf.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ReSwift/ReSwift.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/ReSwiftRecorder/ReSwiftRecorder.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ReSwiftRouter/ReSwiftRouter.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SearchTextField/SearchTextField.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SmileLock/SmileLock.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SnapKit/SnapKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Toast-Swift/Toast_Swift.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/leveldb-library/leveldb.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/nanopb/nanopb.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

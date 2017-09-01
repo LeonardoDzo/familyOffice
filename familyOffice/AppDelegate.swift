@@ -12,31 +12,17 @@ import FirebaseMessaging
 import GoogleSignIn
 import UserNotifications
 import ReSwift
-import ReSwiftRecorder
 import ReSwiftRouter
 
-let store = RecordingMainStore<AppState>(
-        reducer: AppReducer(),
-        state: nil,
-        typeMaps: [goalActionTypeMap,
-                   userActionTypeMap,
-                   contactActionTypeMap,
-                   todolistActionTypeMap,
-                   galleryActionTypeMap,
-                   medicineActionTypeMap,
-                   illnessActionTypeMap,
-                   familyActionTypeMap,
-                   faqActionTypeMap],
+let store = Store<AppState>(
+    reducer: appReducer,
+    state: nil)
 
-        recording: "recording.json")
-
+let Userdefault = UserDefaults.standard
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUserNotificationCenterDelegate {
-    var router: Router<AppState>!
     var window: UIWindow?
-    var rootViewController: Routable!
-    var AddGoalViewController: UIViewController!
-    var GoalViewController: UIViewController!
+    
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -49,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
             connectToFcm()
         }
         
-        FIRApp.configure()
+        FirebaseApp.configure()
         
         if #available(iOS 10.0, *) {
             // For iOS 10 display notification (sent via APNS)
@@ -61,47 +47,82 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
         } else {
             let settings: UIUserNotificationSettings =
                 UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-
+            
             application.registerUserNotificationSettings(settings)
         }
         
         application.registerForRemoteNotifications()
-        GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
+        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(tokenRefreshNotification),
-                                               name: NSNotification.Name.firInstanceIDTokenRefresh,
+                                               name: NSNotification.Name.InstanceIDTokenRefresh,
                                                object: nil)
-    
+        
+        if let _ = launchOptions {
+            let info = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification]
+            if (info != nil) {
+                Userdefault.set(info, forKey: "notification")
+            }
+        }
+        
+        
+        
         
         return true
     }
-
+    
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
         // If you are receiving a notification message while your app is in the background,
         // this callback will not be fired till the user taps on the notification launching the application.
         // TODO: Handle data of notification
         
         // Print message ID.
-      
+        
         // Print full message.
         print(userInfo)
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
                      fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        // If you are receiving a notification message while your app is in the background,
-        // this callback will not be fired till the user taps on the notification launching the application.
-        // TODO: Handle data of notification
+        if let type : String = userInfo["type"] as? String {
+            
+            switch Int(type)! {
+            case 7:
+                if let id = userInfo["id"] as? String {
+                    var family = Family()
+                    family.id = id
+                    let route = RoutingDestination(rawValue: userInfo["view"] as! String)!
+                    top?.pushToView(view: route, sender: family)
+                }else{
+                    top?.pushToView(view: RoutingDestination(rawValue: userInfo["view"] as! String)!)
+                }
+                break
+            default:
+                break
+            }
+        }
         
-        // Print message ID.
-        
-        // Print full message.
-        print(userInfo)
-        
-        completionHandler(UIBackgroundFetchResult.newData)
     }
-
+    var top: UIViewController? {
+        get {
+            return topViewController()
+        }
+    }
+    
+    
+    func topViewController(from viewController: UIViewController? = UIApplication.shared.delegate?.window??.rootViewController) -> UIViewController? {
+        if let tabBarViewController = viewController as? UITabBarController {
+            return topViewController(from: tabBarViewController.selectedViewController)
+        } else if let navigationController = viewController as? UINavigationController {
+            return topViewController(from: navigationController.visibleViewController)
+        } else if let presentedViewController = viewController?.presentedViewController {
+            return topViewController(from: presentedViewController)
+        } else {
+            return viewController
+        }
+    }
+    
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey: Any] = [:]) -> Bool {
         return GIDSignIn.sharedInstance().handle(url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
     }
@@ -113,9 +134,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
         }
         
         let authentication = user.authentication
-        let credential = FIRGoogleAuthProvider.credential(withIDToken: (authentication?.idToken)!,
-                                                          accessToken: (authentication?.accessToken)!)
-        store.dispatch(LoginAction(with: credential))
+        let credential = GoogleAuthProvider.credential(withIDToken: (authentication?.idToken)!,
+                                                       accessToken: (authentication?.accessToken)!)
+        store.dispatch(LoginAction(credential: credential))
     }
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
         
@@ -143,7 +164,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        FIRMessaging.messaging().disconnect()
+        Messaging.messaging().disconnect()
         print("Disconnected from FCM.")
     }
     
@@ -159,7 +180,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     func tokenRefreshNotification(_ notification: NSNotification) {
-        if let refreshedToken = FIRInstanceID.instanceID().token() {
+        if let refreshedToken = InstanceID.instanceID().token() {
             print("InstanceID token: \(refreshedToken)")
             service.NOTIFICATION_SERVICE.token = refreshedToken
         }
@@ -169,7 +190,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
     }
     
     func connectToFcm() {
-        FIRMessaging.messaging().connect { (error) in
+        Messaging.messaging().connect { (error) in
             if (error != nil) {
                 print("Unable to connect with FCM. \(String(describing: error))")
             } else {
@@ -177,7 +198,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
             }
         }
     }
-
+    
 }
 
 protocol Routable {

@@ -11,27 +11,23 @@ import Foundation
 struct repeatGoal: repeatProtocol {
     static let kFrequency = "frequency"
     static let kdays = "days"
-    static let keach = "each"
-    var frequency: String!
+    var frequency: Frequency!
     var days : [String]! = []
-    var each: Int!
+    var interval: Int!
     init() {
-        self.frequency = ""
-        self.each = 1
+        self.frequency = .never
     }
     
     init(_ snapvalue: NSDictionary) {
         let string : String! = snapvalue.exist(field: repeatGoal.kdays)
         self.days = string.components(separatedBy: ",")
-        self.frequency = snapvalue.exist(field: repeatGoal.kFrequency)
-        self.each = snapvalue.exist(field: repeatGoal.keach)
+        self.frequency = Frequency(rawValue: snapvalue.exist(field: repeatGoal.kFrequency))
     }
     
     func toDictionary() -> NSDictionary {
         return [
             repeatGoal.kdays : self.days.joined(separator: ","),
-            repeatGoal.kFrequency : self.frequency,
-            repeatGoal.keach : self.each
+            repeatGoal.kFrequency : self.frequency.rawValue
         ]
     }
 }

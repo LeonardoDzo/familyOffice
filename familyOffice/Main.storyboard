@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Kip-84-qVL">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="gkV-lX-uju">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -16,10 +16,10 @@
         </array>
     </customFonts>
     <scenes>
-        <!--startView-->
+        <!--Start View Controller-->
         <scene sceneID="HZ3-OX-wVo">
             <objects>
-                <viewController title="startView" id="gkV-lX-uju" customClass="StartViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StartViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="gkV-lX-uju" customClass="StartViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="R3B-Sw-mGg"/>
                         <viewControllerLayoutGuide type="bottom" id="dyh-nC-2Cl"/>
@@ -29,19 +29,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="p2Q-UG-ygO">
-                                <rect key="frame" x="16" y="114" width="343" height="99"/>
+                                <rect key="frame" x="16" y="70" width="343" height="99"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="99" id="8Js-vJ-S6a"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="family_office_white" translatesAutoresizingMaskIntoConstraints="NO" id="1U1-9B-Lux">
-                                <rect key="frame" x="36" y="213" width="303" height="120"/>
+                                <rect key="frame" x="36" y="169" width="303" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="hfv-vk-ySX"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jTx-ep-Zv5">
-                                <rect key="frame" x="36" y="438.5" width="303" height="30"/>
+                                <rect key="frame" x="36" y="394.5" width="303" height="30"/>
                                 <color key="backgroundColor" red="0.93333333330000001" green="0.27058823529999998" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="lSX-90-H9g"/>
@@ -60,7 +60,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dKq-qN-fUv" userLabel="Password" customClass="textFieldStyleController" customModule="familyOffice" customModuleProvider="target">
-                                <rect key="frame" x="36" y="376" width="303" height="42.5"/>
+                                <rect key="frame" x="36" y="332" width="303" height="42.5"/>
                                 <color key="tintColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="dKq-qN-fUv" secondAttribute="height" multiplier="335:47" id="vaC-iH-UY0"/>
@@ -115,14 +115,14 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AwA-sU-zu3" customClass="GIDSignInButton">
-                                <rect key="frame" x="36" y="488.5" width="303" height="30"/>
+                                <rect key="frame" x="36" y="444.5" width="303" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Qty-sR-3PD"/>
                                 </constraints>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q64-md-P18" customClass="textFieldStyleController" customModule="familyOffice" customModuleProvider="target">
-                                <rect key="frame" x="36" y="317" width="303" height="39"/>
+                                <rect key="frame" x="36" y="273" width="303" height="39"/>
                                 <color key="tintColor" red="0.97927886659999996" green="1" blue="0.99371440200000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Q64-md-P18" secondAttribute="height" multiplier="334:43" id="uXH-Qi-U55"/>
@@ -195,7 +195,6 @@
                         <outlet property="logo" destination="p2Q-UG-ygO" id="ll8-05-v2Z"/>
                         <outlet property="passwordField" destination="dKq-qN-fUv" id="yfr-2u-je3"/>
                         <outlet property="titleLogo" destination="1U1-9B-Lux" id="gcW-oW-1za"/>
-                        <segue destination="wdQ-wA-EWm" kind="show" identifier="signUpSegue" id="v5r-zu-hhj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jke-H5-E5T" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -205,7 +204,7 @@
         <!--Sing Up View Controller-->
         <scene sceneID="CeM-YR-5gn">
             <objects>
-                <viewController storyboardIdentifier="SignUpView" id="wdQ-wA-EWm" customClass="SingUpViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SingUpViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="wdQ-wA-EWm" customClass="SingUpViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ZOq-Zo-Brg"/>
                         <viewControllerLayoutGuide type="bottom" id="xy4-Bs-sfN"/>
@@ -215,7 +214,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nombre" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dON-69-51I" customClass="textFieldStyleController" customModule="familyOffice" customModuleProvider="target">
-                                <rect key="frame" x="16" y="82" width="343" height="40"/>
+                                <rect key="frame" x="16" y="38" width="343" height="40"/>
                                 <color key="tintColor" red="0.52156862745098043" green="0.52156862745098043" blue="0.52156862745098043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="aHC-EO-gap"/>
@@ -233,7 +232,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DN9-WA-rrf" customClass="textFieldStyleController" customModule="familyOffice" customModuleProvider="target">
-                                <rect key="frame" x="16" y="142" width="343" height="40"/>
+                                <rect key="frame" x="16" y="98" width="343" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="yj6-Dz-Yd6"/>
                                 </constraints>
@@ -250,7 +249,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Celular" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TpM-xy-qKv" customClass="textFieldStyleController" customModule="familyOffice" customModuleProvider="target">
-                                <rect key="frame" x="16" y="202" width="343" height="40"/>
+                                <rect key="frame" x="16" y="158" width="343" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="I1g-LF-mc2"/>
                                 </constraints>
@@ -267,7 +266,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Contraseña" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c1Q-rH-8gl" customClass="textFieldStyleController" customModule="familyOffice" customModuleProvider="target">
-                                <rect key="frame" x="16" y="262" width="343" height="40"/>
+                                <rect key="frame" x="16" y="218" width="343" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="bJh-o3-o6e"/>
                                 </constraints>
@@ -281,7 +280,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2HI-GW-0Ln">
-                                <rect key="frame" x="16" y="392" width="343" height="40"/>
+                                <rect key="frame" x="16" y="348" width="343" height="40"/>
                                 <color key="backgroundColor" red="0.93333333333333335" green="0.27058823529411763" blue="0.29019607843137252" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="jsv-6e-gK4"/>
@@ -299,7 +298,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirmar Contraseña" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Rtj-sI-Blw" customClass="textFieldStyleController" customModule="familyOffice" customModuleProvider="target">
-                                <rect key="frame" x="16" y="322" width="343" height="40"/>
+                                <rect key="frame" x="16" y="278" width="343" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="FCH-5m-DTG"/>
                                 </constraints>
@@ -316,7 +315,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ksd-4E-P65">
-                                <rect key="frame" x="16" y="462" width="343" height="40"/>
+                                <rect key="frame" x="16" y="418" width="343" height="40"/>
                                 <color key="backgroundColor" red="0.93333333333333335" green="0.27058823529411763" blue="0.29019607843137252" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="0gb-eJ-4na"/>
@@ -335,7 +334,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="o" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sgf-fX-Vjj">
-                                <rect key="frame" x="16" y="437" width="343" height="20"/>
+                                <rect key="frame" x="16" y="393" width="343" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="jpY-uu-FJi"/>
                                 </constraints>
@@ -390,7 +389,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="80y-Sm-zFD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1737" y="-1147"/>
+            <point key="canvasLocation" x="1108" y="-1147"/>
         </scene>
         <!--Inicio-->
         <scene sceneID="cbf-v6-vah">
@@ -408,7 +407,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iHg-XX-YTc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="462" y="995"/>
+            <point key="canvasLocation" x="1400.8" y="994.45277361319347"/>
         </scene>
         <!--Inicio-->
         <scene sceneID="AtC-uM-FkL">
@@ -686,7 +685,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XaN-W8-N4F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4054" y="226"/>
+            <point key="canvasLocation" x="4992.8000000000002" y="225.33733133433284"/>
         </scene>
         <!--Main Tab Bar Controller-->
         <scene sceneID="Vq8-7X-P9a">
@@ -709,7 +708,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kw7-z6-D0v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="462" y="225"/>
+            <point key="canvasLocation" x="1400.8" y="224.4377811094453"/>
         </scene>
         <!--Inicio-->
         <scene sceneID="B4y-vi-Cf0">
@@ -727,7 +726,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dZq-Tu-RNp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4054" y="994"/>
+            <point key="canvasLocation" x="4992.8000000000002" y="993.55322338830592"/>
         </scene>
         <!--Home Bussiness View Controller-->
         <scene sceneID="Hir-ol-YZU">
@@ -823,26 +822,10 @@
             </objects>
             <point key="canvasLocation" x="4054" y="1783"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="9Am-e1-fmx">
-            <objects>
-                <navigationController storyboardIdentifier="mainView" id="kMC-B3-l3W" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="RyQ-kR-bXX">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="3fU-un-bVl" kind="relationship" relationship="rootViewController" id="sTz-36-KbS"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3iH-dj-HJG" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2604" y="-287"/>
-        </scene>
         <!--Bienvenido-->
         <scene sceneID="FQA-np-zl8">
             <objects>
-                <viewController id="3fU-un-bVl" customClass="SelectCategoryViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="3fU-un-bVl" customClass="SelectCategoryViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="x4D-kM-Zbt"/>
                         <viewControllerLayoutGuide type="bottom" id="TdU-bF-Roh"/>
@@ -1101,7 +1084,7 @@
                         <barButtonItem key="backBarButtonItem" title="Atras" id="it3-Ks-YFZ"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="categoriasView" destination="Yul-Wm-qA6" id="yoY-Qx-K0t"/>
+                        <outlet property="categoriasView" destination="Yul-Wm-qA6" id="HAf-Nt-afl"/>
                         <outlet property="empresarialView" destination="6bt-Z8-nhq" id="n07-du-QiT"/>
                         <outlet property="familiasView" destination="4Li-0A-289" id="BC7-f3-org"/>
                         <outlet property="familiesCollection" destination="xtH-p2-Jmo" id="sVq-Wb-j9P"/>
@@ -1109,12 +1092,11 @@
                         <outlet property="image" destination="L7v-Dz-Fbd" id="XbO-OB-JEd"/>
                         <outlet property="name" destination="6Vj-ry-W2B" id="vYm-oT-qJP"/>
                         <outlet property="socialView" destination="oOP-c2-rNG" id="Qhl-gF-uBm"/>
-                        <segue destination="NjH-Lo-PVM" kind="show" identifier="registerFamilySegue" id="oTe-0A-F0j"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E8l-nm-wdB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2602.4000000000001" y="440.32983508245883"/>
+            <point key="canvasLocation" x="-1626" y="225"/>
         </scene>
         <!--Settings-->
         <scene sceneID="bQh-xv-0n0">
@@ -1124,7 +1106,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7vL-y0-lpz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2478" y="706"/>
+            <point key="canvasLocation" x="3416.8000000000002" y="705.24737631184416"/>
         </scene>
         <!--Families-->
         <scene sceneID="4F4-m2-L9U">
@@ -1134,15 +1116,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3XW-Hv-UCW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1342" y="224"/>
-        </scene>
-        <!--RegisterFamilyView-->
-        <scene sceneID="x91-jZ-tIq">
-            <objects>
-                <viewControllerPlaceholder storyboardIdentifier="RegisterFamilyView" storyboardName="Families" referencedIdentifier="RegisterFamilyView" id="NjH-Lo-PVM" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="uuH-Fb-llY" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2603" y="1121"/>
+            <point key="canvasLocation" x="2280" y="223.98800599700152"/>
         </scene>
         <!--safeBox-->
         <scene sceneID="eBO-gK-U8H">
@@ -1241,22 +1215,22 @@
             <point key="canvasLocation" x="238" y="2227"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="Ydb-xL-gA7">
+        <scene sceneID="GqD-lp-GFf">
             <objects>
-                <navigationController storyboardIdentifier="StartView" automaticallyAdjustsScrollViewInsets="NO" id="Kip-84-qVL" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavPreHome" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hrR-hz-ADR" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="xTp-qL-h7S">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="oeO-hu-mr5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="gkV-lX-uju" kind="relationship" relationship="rootViewController" id="xSk-8B-ZiI"/>
+                        <segue destination="3fU-un-bVl" kind="relationship" relationship="rootViewController" id="4aW-dZ-fW5"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lmn-eb-193" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BzA-he-ZMr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-631.20000000000005" y="-1147.3763118440781"/>
+            <point key="canvasLocation" x="-2601" y="224"/>
         </scene>
     </scenes>
     <resources>

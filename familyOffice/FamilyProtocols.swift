@@ -23,41 +23,40 @@ protocol ContactsProtocol: class {
     func selected(users: [User]) -> Void
 }
 protocol repeatProtocol {
-    var frequency : String! {get set}
-    var each: Int! {get set}
+    var frequency : Frequency! {get set}
+   
     var days : [String]! {get set}
 }
 
 protocol repeatTypeEvent: repeatProtocol {
+    var interval: Int! {get set}
     var end : Int! {get set}
 }
 
 protocol GDL90_Enum  {
     var description: String { get }
 }
-enum REPEAT_TYPE: Int, GDL90_Enum  {
-    case NEVER = 0
-    case DAILY = 1
-    case WEEKLY = 2
-    case WEEKLY_2 = 3
-    case MONTHLY = 4
-    case YEAR = 5
+enum Frequency: Int, GDL90_Enum  {
+    case never
+    case daily
+    case weekly
+    case monthly
+    case year
     
     var description: String {
         switch self {
-        case .DAILY:
-            return "day"
-        case .WEEKLY:
-            return "week"
-        case .WEEKLY_2:
-            return "week"
-        case .MONTHLY:
-            return "month"
-        case .YEAR:
-            return "year"
+        case .daily:
+            return "Diario"
+        case .weekly:
+            return "Semanal"
+        case .monthly:
+            return "Mensual"
+        case .year:
+            return "Anual"
         default:
-            return ""
+            return "nunca"
         }
     }
+    
     
 }

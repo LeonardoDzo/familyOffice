@@ -10,13 +10,13 @@ import UIKit
 import Toast_Swift
 import Firebase
 import ReSwift
-import ReSwiftRouter
-
+var frequency = [("Diario","day"),("Semanal","week"),("Mensual","month"), ("Anual","year")]
 
 class AddGoalViewController: UIViewController, GoalBindable, StoreSubscriber, UIGestureRecognizerDelegate, DateProtocol{
     static let identifier = "AddGoalViewController"
     var types = [("Deportivo","sport"),("Religión","religion"),("Escolar","school"),("Negocios","business-1"),("Alimentación","eat"),("Salud","health-1")]
-    var frequency = [("Diario","day"),("Semanal","week"),("Mensual","month")]
+    
+    @IBOutlet weak var mainContainer: UIView!
     var goal: Goal!
     var type = 0
     let padding = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 0)
@@ -44,6 +44,7 @@ class AddGoalViewController: UIViewController, GoalBindable, StoreSubscriber, UI
         endDateLbl.addGestureRecognizer(tap)
         // Do any additional setup after loading the view.
         self.hideKeyboardWhenTappedAround()
+        self.mainContainer.formatView()
     }
     
     func tap(_ gestureRecognizer: UITapGestureRecognizer) -> Void {
@@ -63,11 +64,11 @@ class AddGoalViewController: UIViewController, GoalBindable, StoreSubscriber, UI
         }
        
         store.subscribe(self) {
-            state in
-            state.GoalsState
+            subcription in
+            subcription.select { state in state.GoalsState }
         }
         
-        if let index = frequency.index(where: {$0.1 == goal.repeatGoalModel.frequency}){
+        if let index = frequency.index(where: {$0.1 == goal.repeatGoalModel.frequency.description}) {
             repeatSwitch.isOn = true
             pickerSelect.isHidden = false
             pickerSelect.selectRow(index, inComponent: 0, animated: true)
@@ -86,7 +87,7 @@ class AddGoalViewController: UIViewController, GoalBindable, StoreSubscriber, UI
         if sender.isOn {
             pickerSelect.isHidden = false
             collectionDays.isHidden = false
-            goal.repeatGoalModel.frequency = "day"
+            goal.repeatGoalModel.frequency = .daily
             return
         }
         collectionDays.isHidden = true
@@ -117,7 +118,7 @@ class AddGoalViewController: UIViewController, GoalBindable, StoreSubscriber, UI
             return
         }
         goal.setId()
-        if goal.repeatGoalModel.frequency.isEmpty {
+        if goal.repeatGoalModel.frequency == .never{
             goal.repeatGoalModel.days.removeAll()
         }
         goal.title = title
@@ -135,7 +136,7 @@ class AddGoalViewController: UIViewController, GoalBindable, StoreSubscriber, UI
     
     func newState(state: GoalState) {
         switch state.status {
-        case .finished:
+        case .Finished( _ as Goal):
             self.view.hideToastActivity()
             _ = self.navigationController?.popViewController(animated: true)
             break
@@ -212,7 +213,7 @@ extension AddGoalViewController: UICollectionViewDataSource, UICollectionViewDel
             collectionView.reloadData()
             return
         }
-        if goal.repeatGoalModel.frequency == "month" {
+        if goal.repeatGoalModel.frequency == .monthly {
             goal.repeatGoalModel.days.removeAll()
         }
         if let index = goal.repeatGoalModel.days.index(where: {$0 == String(indexPath.row)}) {
@@ -238,7 +239,7 @@ extension AddGoalViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         days.removeAll()
-        self.goal.repeatGoalModel.frequency = frequency[row].1
+        self.goal.repeatGoalModel.frequency = Frequency(rawValue: row)
         self.goal.repeatGoalModel.days.removeAll()
         reloadDataREpeat(row: row)
     }

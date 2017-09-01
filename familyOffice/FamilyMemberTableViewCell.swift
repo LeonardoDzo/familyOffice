@@ -20,8 +20,9 @@ class FamilyMemberTableViewCell: UITableViewCell, UserModelBindable {
         super.awakeFromNib()
         // Initialization code
         self.profileImage.image = #imageLiteral(resourceName: "profile_default")
-        
+    
         self.profileImage.profileUser()
+        self.profileImage.startAnimating()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

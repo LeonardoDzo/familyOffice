@@ -24,7 +24,7 @@ class GoalDataofSectionTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    func  setTableViewDataSourceDelegate() {
+    func setTableViewDataSourceDelegate() {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tag = self.tag

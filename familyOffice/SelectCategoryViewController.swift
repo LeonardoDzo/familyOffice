@@ -26,30 +26,27 @@ class SelectCategoryViewController: UIViewController {
         let logOutButton = UIBarButtonItem(title: "Log out", style: .plain, target: self, action: #selector(self.logout))
         logOutButton.tintColor = #colorLiteral(red: 1, green: 0.1757333279, blue: 0.2568904757, alpha: 1)
         navigationItem.rightBarButtonItems = [logOutButton]
+        
+        
         let nav = self.navigationController?.navigationBar
         nav?.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.3137395978, green: 0.1694342792, blue: 0.5204931498, alpha: 1)]
+        headerView.formatView()
+        familiasView.formatView()
+        categoriasView.formatView()
+        empresarialView.formatView()
+        socialView.formatView()
         
-        self.headerView.layer.borderWidth = 1
-        self.headerView.layer.borderColor = UIColor( red: 204/255, green: 204/255, blue:204.0/255, alpha: 1.0 ).cgColor
-        self.familiasView.layer.borderWidth = 1
-        self.familiasView.layer.borderColor = UIColor( red: 204/255, green: 204/255, blue:204.0/255, alpha: 1.0 ).cgColor
-        self.familiasView.layer.cornerRadius = 5
-        self.categoriasView.layer.borderWidth = 1
-        self.categoriasView.layer.borderColor = UIColor( red: 204/255, green: 204/255, blue:204.0/255, alpha: 1.0 ).cgColor
-        self.categoriasView.layer.cornerRadius = 5
-        self.socialView.layer.borderWidth = 1
-        self.socialView.layer.borderColor = UIColor( red: 204/255, green: 204/255, blue:204.0/255, alpha: 1.0 ).cgColor
-        self.socialView.layer.cornerRadius = 5
-        self.empresarialView.layer.borderWidth = 1
-        self.empresarialView.layer.borderColor = UIColor( red: 204/255, green: 204/255, blue:204.0/255, alpha: 1.0 ).cgColor
-        self.empresarialView.layer.cornerRadius = 5
     }
+    
     @IBAction func handlePressSocial(_ sender: UIButton) {
         if families.count > 0{
-            service.UTILITY_SERVICE.gotoView(view: "TabBarControllerView", context: self)
+            self.gotoView(view: .homeSocial)
         }
     }
-
+    
+    func dismissPopover(sender: AnyObject) {
+        self.dismiss(animated: true, completion: nil)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -78,13 +75,16 @@ class SelectCategoryViewController: UIViewController {
         }
         self.name.text = user?.name
         self.image.profileUser()
-        //self.image.layer.backgroundColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1).cgColor
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        if defaults.value(forKey: "notification") != nil {
+            self.pushToView(view: .registerFamily)
+            defaults.removeObject(forKey: "notification")
+        }
     }
     
     @IBAction func handleBussiness(_ sender: UIButton) {
-        if service.FAMILY_SERVICE.families.count > 0 && service.FAMILY_SERVICE.families.contains(where: {$0.id == service.USER_SERVICE.users[0].familyActive}){
-            service.UTILITY_SERVICE.gotoView(view: "HomeBussiness", context: self)
-        }
+        
         
     }
    

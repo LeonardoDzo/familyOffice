@@ -8,8 +8,6 @@
 
 import Foundation
 import Firebase
-import FirebaseDatabase
-import FirebaseDatabase.FIRDatabaseReference
 
 struct Album {
     static let kId = "Id"
@@ -35,7 +33,7 @@ struct Album {
         self.title = title
         self.images = images
     }
-    init(snapshot: FirebaseDatabase.FIRDataSnapshot){
+    init(snapshot: DataSnapshot){
         self.id = snapshot.key
         let snapValue = snapshot.value as! NSDictionary
         self.cover = service.UTILITY_SERVICE.exist(field: Album.kCover, dictionary: snapValue)

@@ -8,6 +8,8 @@
 
 import Foundation
 import FirebaseDatabase
+import Firebase
+
 let defaults = UserDefaults.standard
 class GoalService: RequestService {
     func notExistSnapshot() {
@@ -15,14 +17,14 @@ class GoalService: RequestService {
     }
 
     var goals: [Goal] = []
-    var handles: [(String,UInt,FIRDataEventType)] = []
+    var handles: [(String,UInt,DataEventType)] = []
     private init() {}
     
     static private let instance = GoalService()
     
     public static func Instance() -> GoalService { return instance }
     
-    func routing(snapshot: FIRDataSnapshot, action: FIRDataEventType, ref: String) {
+    func routing(snapshot: DataSnapshot, action: DataEventType, ref: String) {
         switch action {
         case .childAdded:
             self.added(snapshot: snapshot)
@@ -41,7 +43,7 @@ class GoalService: RequestService {
         }
     }
     
-    func initObserves(ref: String, actions: [FIRDataEventType]) -> Void {
+    func initObserves(ref: String, actions: [DataEventType]) -> Void {
         for action in actions {
             if !handles.contains(where: { $0.0 == ref && $0.2 == action} ){
                 self.child_action(ref: ref, action: action)
@@ -49,7 +51,7 @@ class GoalService: RequestService {
         }
     }
     
-    func addHandle(_ handle: UInt, ref: String, action: FIRDataEventType) {
+    func addHandle(_ handle: UInt, ref: String, action: DataEventType) {
         self.handles.append(ref,handle, action)
     }
     
@@ -60,7 +62,7 @@ class GoalService: RequestService {
         self.handles.removeAll()
     }
     
-    func inserted(ref: FIRDatabaseReference) {
+    func inserted(ref: DatabaseReference) {
         Constants.FirDatabase.REF_USERS.child((store.state.UserState.user?.id!)!).child("goals").updateChildValues([ref.key:true])
         
         store.state.GoalsState.status = .finished
@@ -84,7 +86,7 @@ class GoalService: RequestService {
             goal.members[(store.state.UserState.user?.id)!] = -1
         }
         service.GOAL_SERVICE.insert(path, value: goal.toDictionary(), callback: {ref in
-            if ref is FIRDatabaseReference {
+            if ref is DatabaseReference {
                 store.state.GoalsState.goals[id]?.append(goal)
             }
         })
@@ -94,7 +96,7 @@ class GoalService: RequestService {
         let id = getPath(type: goal.type)
         let path = "goals/\(id)/\(goal.id!)"
         service.GOAL_SERVICE.update(path, value: goal.toDictionary() as! [AnyHashable : Any], callback: { ref in
-            if ref is FIRDatabaseReference {
+            if ref is DatabaseReference {
                 if let index = store.state.GoalsState.goals[id]?.index(where: {$0.id == goal.id }){
                     store.state.GoalsState.goals[id]?[index] = goal
                     store.state.GoalsState.status = .Finished(goal)
@@ -108,7 +110,7 @@ class GoalService: RequestService {
     func updateFollow(_ follow: FollowGoal, path: String) -> Void {
         self.update(path, value: follow.members , callback: {
             ref in
-            if ref is FIRDatabaseReference {
+            if ref is DatabaseReference {
                 let array = path.components(separatedBy: "/")
                 let fid = array[1]
                 let gid = array[2]
@@ -141,7 +143,7 @@ class GoalService: RequestService {
 
 extension GoalService: repository {
     
-    func added(snapshot: FirebaseDatabase.FIRDataSnapshot) {
+    func added(snapshot: DataSnapshot) {
         let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
         let goal = Goal(snapshot: snapshot)
         
@@ -154,7 +156,7 @@ extension GoalService: repository {
         }
     }
     
-    func updated(snapshot: FirebaseDatabase.FIRDataSnapshot, id: Any) {
+    func updated(snapshot: DataSnapshot, id: Any) {
         let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
         let goal = Goal(snapshot: snapshot)
         if let index = store.state.GoalsState.goals[id]?.index(where: {$0.id == snapshot.key})  {
@@ -162,7 +164,7 @@ extension GoalService: repository {
         }
     }
     
-    func removed(snapshot: FirebaseDatabase.FIRDataSnapshot) {
+    func removed(snapshot: DataSnapshot) {
         let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
         if let index = store.state.GoalsState.goals[id]?.index(where: {$0.id == snapshot.key})  {
             store.state.GoalsState.goals[id]?.remove(at: index)

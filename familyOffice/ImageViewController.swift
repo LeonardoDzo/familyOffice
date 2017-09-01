@@ -32,8 +32,8 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         user = store.state.UserState.user
         setImageToCrop(image: chooseImg)
         store.subscribe(self){
-            state in
-            state.UserState
+            subcription in
+            subcription.select { state in state.UserState }
         }
         
     }

@@ -113,8 +113,13 @@ extension MembersTableViewController : StoreSubscriber {
     override func viewWillAppear(_ animated: Bool) {
     
         store.subscribe(self){
-            state in
-            state.UserState
+            subcription in
+            subcription.select { state in state.UserState }
+        }
+        for family in store.state.FamilyState.families.items  {
+            for uid in family.members {
+                store.dispatch(GetUserAction(uid: uid))
+            }
         }
         
        

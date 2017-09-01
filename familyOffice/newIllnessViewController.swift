@@ -9,8 +9,6 @@
 import UIKit
 import Firebase
 import ReSwift
-import ReSwiftRouter
-
 class NewIllnessViewController: UIViewController {
     
     @IBOutlet var illName: UITextField!
@@ -104,7 +102,8 @@ extension NewIllnessViewController: StoreSubscriber {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         store.subscribe(self){
-            state in state.IllnessState
+            subcription in
+            subcription.select { state in state.IllnessState }
         }
     }
     

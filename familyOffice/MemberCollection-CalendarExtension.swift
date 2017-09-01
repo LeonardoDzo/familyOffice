@@ -35,12 +35,12 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
             cell.image.image = #imageLiteral(resourceName: "profile_default")
             let id: String = dates[collectionView.tag].members[indexPath.row].id
             if !id.isEmpty {
-                if let user = service.USER_SERVICE.users.filter({$0.id == id}).first {
+                if let user = store.state.UserState.user {
                     if !user.photoURL.isEmpty {
                         cell.image.loadImage(urlString: user.photoURL)
                     }
                 }else{
-                    service.REF_SERVICE.valueSingleton(ref: "users/\(id)")
+                    //GET USER
                 }
             }
             return cell
@@ -55,9 +55,5 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
         }
         return CGSize(width: 30, height: 30)
     }
-   
 
-    
-    
-    
 }

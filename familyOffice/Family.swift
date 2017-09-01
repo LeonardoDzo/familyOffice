@@ -25,7 +25,7 @@ struct Family {
     var totalMembers : UInt? = 0
     var admin : String? = ""
     var members : [String]!
-    let firebaseReference: FIRDatabaseReference?
+    let firebaseReference: DatabaseReference?
     var goals: [Goal]! = []
     /* Initializer for instantiating a new object in code.
      */
@@ -54,7 +54,7 @@ struct Family {
     
     /* Initializer for instantiating an object received from Firebase.
      */
-    init(snapshot: FIRDataSnapshot) {
+    init(snapshot: DataSnapshot) {
         let snapshotValue = snapshot.value as! NSDictionary
         self.id = snapshot.key
         self.name = service.UTILITY_SERVICE.exist(field: Family.kFamilyNameKey, dictionary: snapshotValue)
@@ -72,14 +72,14 @@ struct Family {
         
         return [
             Family.kFamilyNameKey: self.name,
-            Family.kFamilyPhotoUrlKey: self.photoURL!,
+            Family.kFamilyPhotoUrlKey: self.photoURL ?? "",
             Family.kFamilyMembersKey : service.UTILITY_SERVICE.toDictionary(array: self.members),
             Family.kFamilyAdminKey : self.admin ?? "",
-            Family.kFamilyImagePathKey: self.imageProfilePath!
+            Family.kFamilyImagePathKey: self.imageProfilePath ?? ""
         ]
     }
     
-    mutating func update(snapshot: FIRDataSnapshot){
+    mutating func update(snapshot: DataSnapshot){
         guard let value = snapshot.value! as? NSDictionary else {
             return
         }

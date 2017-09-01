@@ -8,52 +8,28 @@
 
 import Foundation
 import ReSwift
-import ReSwiftRecorder
 
-let todolistActionTypeMap: TypeMap = [
-                                    InsertToDoListItemAction.type:InsertToDoListItemAction.self,
-                                    UpdateToDoListItemAction.type:UpdateToDoListItemAction.self,
-                                    DeleteToDoListItemAction.type:DeleteToDoListItemAction.self]
 
-struct InsertToDoListItemAction: StandardActionConvertible{
-    static let type = "TODOLIST_ACTION_INSERT"
+struct InsertToDoListItemAction: Action{
     var item: ToDoList.ToDoItem!
     init(item: ToDoList.ToDoItem){
         self.item = item
     }
-    init(_ standardAction: StandardAction){
-    }
-    
-    func toStandardAction() -> StandardAction {
-        return StandardAction(type: InsertToDoListItemAction.type, payload: [:], isTypedAction: true)
-    }
 }
 
-struct UpdateToDoListItemAction: StandardActionConvertible{
-    static let type = "TODOLIST_ACTION_UPDATE"
+struct UpdateToDoListItemAction: Action{
     var item: ToDoList.ToDoItem!
     init(item: ToDoList.ToDoItem){
         self.item = item
     }
-    init (_ standarAction:StandardAction){
-    }
-    
-    func toStandardAction() -> StandardAction {
-        return StandardAction(type: UpdateToDoListItemAction.type, payload: [:], isTypedAction: true)
-    }
+
 }
 
-struct DeleteToDoListItemAction: StandardActionConvertible{
+struct DeleteToDoListItemAction: Action{
     static let type = "TODOLIST_ACTION_DELETE"
     var item: ToDoList.ToDoItem!
     init(item: ToDoList.ToDoItem){
         self.item = item
-    }
-    init (_ standarAction:StandardAction){
-    }
-    
-    func toStandardAction() -> StandardAction {
-        return StandardAction(type: UpdateToDoListItemAction.type, payload: [:], isTypedAction: true)
     }
 }
 

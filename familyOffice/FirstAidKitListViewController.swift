@@ -109,7 +109,8 @@ extension FirstAidKitListViewController: StoreSubscriber{
         service.MEDICINE_SERVICE.initObservers(ref: "medicines/\(familyID!)", actions: [.childAdded, .childChanged, .childRemoved])
         
         store.subscribe(self){
-            state in state.MedicineState
+            subcription in
+            subcription.select { state in state.MedicineState }
         }
     }
     

@@ -8,51 +8,24 @@
 
 import Foundation
 import ReSwift
-import ReSwiftRecorder
 
-let illnessActionTypeMap: TypeMap = [
-    InsertIllnessAction.type: InsertIllnessAction.self,
-    UpdateIllnessAction.type: UpdateIllnessAction.self,
-    DeleteIllnessAction.type: DeleteIllnessAction.self]
-
-struct InsertIllnessAction: StandardActionConvertible {
-    static let type = "ILLNESS_ACTION_INSERT"
+struct InsertIllnessAction: Action {
     var illness: Illness!
     init(illness: Illness){
         self.illness = illness
-    }
-    init(_ standardAction: StandardAction){
-    }
-    
-    func toStandardAction() -> StandardAction {
-        return StandardAction(type: InsertIllnessAction.type, payload: [:], isTypedAction: true)
     }
 }
 
-struct UpdateIllnessAction: StandardActionConvertible {
-    static let type = "ILLNESS_ACTION_UPDATE"
+struct UpdateIllnessAction: Action {
     var illness: Illness!
     init(illness: Illness){
         self.illness = illness
-    }
-    init(_ standardAction: StandardAction){
-    }
-    
-    func toStandardAction() -> StandardAction {
-        return StandardAction(type: UpdateIllnessAction.type, payload: [:], isTypedAction: true)
     }
 }
 
-struct DeleteIllnessAction: StandardActionConvertible {
-    static let type = "ILLNESS_ACTION_DELETE"
+struct DeleteIllnessAction: Action {
     var illness: Illness!
     init(illness: Illness){
         self.illness = illness
-    }
-    init(_ standardAction: StandardAction){
-    }
-    
-    func toStandardAction() -> StandardAction {
-        return StandardAction(type: DeleteIllnessAction.type, payload: [:], isTypedAction: true)
     }
 }

@@ -15,14 +15,14 @@ class FaqService: RequestService {
     }
     
     var questions: [Question] = []
-    var handles: [(String,UInt,FIRDataEventType)] = []
+    var handles: [(String,UInt,DataEventType)] = []
     private init() {}
     
     static private let instance = FaqService()
     
     public static func Instance() -> FaqService { return instance}
     
-    func routing(snapshot: FIRDataSnapshot, action: FIRDataEventType, ref: String) {
+    func routing(snapshot: DataSnapshot, action: DataEventType, ref: String) {
         switch action{
         case .childAdded:
             self.added(snapshot:snapshot)
@@ -40,7 +40,7 @@ class FaqService: RequestService {
         }
     }
     
-    func initObservers(ref: String, actions: [FIRDataEventType]) -> Void{
+    func initObservers(ref: String, actions: [DataEventType]) -> Void{
         for action in actions {
             if !handles.contains(where: {$0.0 == ref && $0.2 == action}){
                 self.child_action(ref: ref, action: action)
@@ -48,7 +48,7 @@ class FaqService: RequestService {
         }
     }
     
-    func addHandle(_ handle: UInt, ref: String, action: FIRDataEventType) {
+    func addHandle(_ handle: UInt, ref: String, action: DataEventType) {
         self.handles.append(ref, handle, action)
     }
     
@@ -59,7 +59,7 @@ class FaqService: RequestService {
         self.handles.removeAll()
     }
     
-    func inserted(ref: FIRDatabaseReference) {
+    func inserted(ref: DatabaseReference) {
         store.state.FaqState.status = .none
     }
     
@@ -77,7 +77,7 @@ class FaqService: RequestService {
 }
 
 extension FaqService: repository {
-    func added(snapshot: FIRDataSnapshot) {
+    func added(snapshot: DataSnapshot) {
         let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
         let question = Question(snapshot: snapshot)
         
@@ -90,7 +90,7 @@ extension FaqService: repository {
         }
     }
     
-    func updated(snapshot: FIRDataSnapshot, id: Any) {
+    func updated(snapshot: DataSnapshot, id: Any) {
         let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
         let question = Question(snapshot: snapshot)
         if let index = store.state.FaqState.questions[id]?.index(where: {$0.id == snapshot.key})  {
@@ -98,7 +98,7 @@ extension FaqService: repository {
         }
     }
     
-    func removed(snapshot: FIRDataSnapshot) {
+    func removed(snapshot: DataSnapshot) {
         let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
         if let index = store.state.FaqState.questions[id]?.index(where: {$0.id == snapshot.key})  {
             store.state.FaqState.questions[id]?.remove(at: index)

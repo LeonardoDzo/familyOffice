@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>ALCameraViewController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Alamofire.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -109,11 +114,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>ReSwiftRecorder.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>ReSwiftRouter.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -139,14 +139,19 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>leveldb-library.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>nanopb.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>073C88F25368D517FCEFA6ED0EF56169</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>103C159A8E41B13CC7B3B8B027604542</key>
 		<dict>
 			<key>primary</key>
@@ -167,17 +172,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>266AE1506DAD13D34C0725E909C0C476</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>2A4448146C785C426971111F117D773C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>2C63B52CCD1C95D8517B75BFA85C8565</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>331E126E77FB610653616C56BDFBB7B8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -197,17 +197,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4A90C418ED6F413FD671174E3B5984D7</key>
+		<key>4349AA5603ABA1F0F317190E44F29101</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4EBB9E62C8E3701F7572C6770C110532</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>5170D3A418343762813263E32C460ECF</key>
+		<key>50F502026ABD9F5A91BCC010AE00B049</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -217,12 +212,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>83B3E4C779790269A014C1D1E00DCA09</key>
+		<key>7722F6BC48D588EE77BE799DAD37839E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>77D395E59800A86C11A2EF1C476FE14A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8EBDED93E6C6D9A2D0AB8B3EC44C5CE4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>946E9ECC7BD1E6DF840DE36186720E6A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -242,22 +252,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B3D32D346342589DD1560659037CF413</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>BDACA4ACD419A74E10E157454C375FDF</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>C5A2DB7A84B7B78E359870D2E1B24AA7</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>CBB99011DD091C53537EE93866FB7BEB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -272,7 +267,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>D7FAEFEAF68AE19EB2D22369766AF24E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E272BFB24970C4ED3CA08D07FF6F0128</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E4DD95323C54A78F879DAB0F1508B8E7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EA24CA1A86B2DC4B7D63FEA975F654E1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>F307B842FF76B2DE6C55DB67C0885325</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FE60C11DE8F2CC70152297526722D2E3</key>
 		<dict>
 			<key>primary</key>
 			<true/>

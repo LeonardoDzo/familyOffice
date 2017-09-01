@@ -84,7 +84,7 @@ class AlbumViewController: UIViewController,UIGestureRecognizerDelegate, StoreSu
                                         let key = Constants.FirDatabase.REF.childByAutoId().key as String
                                         let imgAlbum: ImageAlbum = ImageAlbum(id: key, path: "", album: self.currentAlbum?.id, comments: [], reacts: [], uiimage: image,video: data)
                                         store.dispatch(InsertVideoAlbumAction(image: imgAlbum))
-                                    }catch let error as NSError
+                                    }catch let _ as NSError
                                     {
                                         self.view.makeToast("Error al subir video al album.", duration: 1.0, position: .center)
                                     }
@@ -111,7 +111,7 @@ class AlbumViewController: UIViewController,UIGestureRecognizerDelegate, StoreSu
                         })*/
                     }else{
                         item.fetchOriginalImageWithCompleteBlock({(image, data) in
-                            if let img : UIImage = image{
+                            if let _ : UIImage = image{
                                 if image is UIImage{
                                     //let imageData = self.resizeImage(image: image!, scale: CGFloat.init(20))
                                     let imageData = image?.resizeImage()
@@ -146,8 +146,8 @@ extension AlbumViewController{
         super.viewWillAppear(true)
         if !(store.state.GalleryState.Album.id.isEmpty){
             store.subscribe(self){
-                state in
-                state.GalleryState
+                subcription in
+                subcription.select { state in state.GalleryState }
             }
             currentAlbum = store.state.GalleryState.Album
             self.navigationItem.title = currentAlbum?.title

@@ -24,8 +24,8 @@ class contactTableViewController: UITableViewController, StoreSubscriber{
     }
     override func viewWillAppear(_ animated: Bool) {
         store.subscribe(self){
-            state in
-            state.ContactState
+            subcription in
+            subcription.select { state in state.ContactState }
         }
         configureObservers()
     }

@@ -115,7 +115,8 @@ extension IllnessesListViewController: StoreSubscriber{
         service.ILLNESS_SERVICE.initObservers(ref: "illnesses/\(familyID!)", actions: [.childAdded, .childChanged, .childRemoved])
         
         store.subscribe(self){
-            state in state.IllnessState
+            subcription in
+            subcription.select { state in state.IllnessState }
         }
     }
     

@@ -9,9 +9,9 @@ import FirebaseDatabase
 
 @objc protocol repository : class {
     
-    func added(snapshot: FIRDataSnapshot) -> Void
-    func updated(snapshot: FIRDataSnapshot, id: Any) -> Void
-    func removed(snapshot: FIRDataSnapshot) -> Void
+    func added(snapshot: DataSnapshot) -> Void
+    func updated(snapshot: DataSnapshot, id: Any) -> Void
+    func removed(snapshot: DataSnapshot) -> Void
     @objc optional func removed(snapshot: Any, id: Any) -> Void
-    @objc optional func get(snapshot: FIRDataSnapshot) -> Void
+    @objc optional func get(snapshot: DataSnapshot) -> Void
 }

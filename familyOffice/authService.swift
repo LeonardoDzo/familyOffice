@@ -11,7 +11,7 @@ import FirebaseAuth
 import UIKit
 import ReSwift
 class AuthService {
-    var uid = FIRAuth.auth()?.currentUser?.uid
+    var uid = Auth.auth().currentUser?.uid
     
     public static func Instance() -> AuthService {
         return instance
@@ -25,7 +25,7 @@ class AuthService {
     //MARK: Shared Instance
 
     func login(email: String, password: String){
-        FIRAuth.auth()?.signIn(withEmail: email, password: password) { (user, error) in
+        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             if((error) != nil){
                 print(error.debugDescription)
                 store.state.UserState.status = .failed
@@ -34,8 +34,8 @@ class AuthService {
             }
         }
     }
-    func login(credential:FIRAuthCredential){
-        FIRAuth.auth()?.signIn(with: credential ) { (user, error) in
+    func login(credential:AuthCredential){
+        Auth.auth().signIn(with: credential ) { (user, error) in
             service.ACTIVITYLOG_SERVICE.create(id: user!.uid, activity: "Se inicio sesión", photo: "", type: "sesion")
         }
     }
@@ -43,7 +43,7 @@ class AuthService {
         Constants.FirDatabase.REF_USERS.child(self.uid!).updateChildValues(["online": state])
     }
     func logOut(){
-        if let uid = FIRAuth.auth()?.currentUser?.uid {
+        if let uid = Auth.auth().currentUser?.uid {
             service.NOTIFICATION_SERVICE.deleteToken(token: service.NOTIFICATION_SERVICE.token, id: uid)
             self.userStatus(state: "Offline")
         }
@@ -54,7 +54,7 @@ class AuthService {
         store.state.GalleryState.Gallery.removeAll()
         store.state.ToDoListState.items.removeAll()
         store.state.UserState.status = .none
-        try! FIRAuth.auth()!.signOut()
+        try! Auth.auth().signOut()
     }
 
     //Create account with federate entiies like Facebook Twitter Google  etc
@@ -63,7 +63,7 @@ class AuthService {
         let url = user.photoURL
         let data = NSData(contentsOf:url!! as URL)
         if let uploadData = UIImagePNGRepresentation(UIImage(data: data! as Data)!){
-            Constants.FirStorage.STORAGEREF.child("users").child(user.uid).child("images").child("\(imageName).jpg").put(uploadData, metadata: nil) { metadata, error in
+            Constants.FirStorage.STORAGEREF.child("users").child(user.uid).child("images").child("\(imageName).jpg").putData(uploadData, metadata: nil) { metadata, error in
                 if (error != nil) {
                     // Uh-oh, an error occurred!
                     print(error.debugDescription)
@@ -81,8 +81,8 @@ class AuthService {
         }
     }
     func checkUserAgainstDatabase(completion: @escaping (_ success: Bool, _ error: NSError?) -> Void) {
-        guard let currentUser = FIRAuth.auth()?.currentUser else { return }
-        currentUser.getTokenForcingRefresh(true) { (idToken, error) in
+        guard let currentUser = Auth.auth().currentUser else { return }
+        currentUser.getIDTokenForcingRefresh(true) { (idToken, error) in
             if let error = error {
                 completion(false, error as NSError?)
                 print(error.localizedDescription)
@@ -92,11 +92,17 @@ class AuthService {
         }
     }
     func isAuth()  {
-        FIRAuth.auth()?.addStateDidChangeListener { auth, user in
+        var view = false
+        Auth.auth().addStateDidChangeListener { auth, user in
+            
             if (user != nil) {
                 self.checkUserAgainstDatabase(completion: {(success, error ) in
                     if success {
-                        store.dispatch(GetUserAction(uid: (user?.uid)!))
+                        if !view {
+                            store.dispatch(GetUserAction(uid: (user?.uid)!))
+                            view = !view
+                        }
+                        
                     }else{
                        self.logOut()
                     }

@@ -68,7 +68,7 @@ extension SelectCategoryViewController: UICollectionViewDelegate, UICollectionVi
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if(indexPath.row == families.count){
-            self.performSegue(withIdentifier: "registerFamilySegue", sender: nil)
+           self.pushToView(view: .registerFamily)
         }else{
             let family = families[(indexPath.row)]
             self.toggleSelect(family: family)

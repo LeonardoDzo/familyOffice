@@ -16,10 +16,6 @@ class HomeBussinessViewController: UIViewController, UICollectionViewDelegate, U
     
     private var family : Family?
     
-    
-    let user = service.USER_SERVICE.users.first(where: {$0.id == FIRAuth.auth()?.currentUser?.uid})
-    var families : [String]! = []
-    
    
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -59,23 +55,6 @@ class HomeBussinessViewController: UIViewController, UICollectionViewDelegate, U
     override func viewWillAppear(_ animated: Bool) {
         reloadFamily()
         
-        
-        if let index = service.FAMILY_SERVICE.families.index(where: {$0.id == service.USER_SERVICE.users[0].familyActive}) {
-            self.navigationItem.title = service.FAMILY_SERVICE.families[index].name
-        }
-        
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        NotificationCenter.default.addObserver(forName: notCenter.NOFAMILIES_NOTIFICATION, object: nil, queue: nil){ notification in
-      
-            return
-        }
-        NotificationCenter.default.addObserver(forName: notCenter.USER_NOTIFICATION, object: nil, queue: nil){_ in
-            self.reloadFamily()
-        }
-        NotificationCenter.default.addObserver(forName: notCenter.FAMILYADDED_NOTIFICATION, object: nil, queue: nil){family in
-            self.reloadFamily()
-            //FAMILY_SERVICE.verifyFamilyActive(family: family.object as! Family)
-        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -84,9 +63,6 @@ class HomeBussinessViewController: UIViewController, UICollectionViewDelegate, U
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        NotificationCenter.default.removeObserver(notCenter.USER_NOTIFICATION)
-        NotificationCenter.default.removeObserver(notCenter.NOFAMILIES_NOTIFICATION)
-        NotificationCenter.default.removeObserver(notCenter.FAMILYADDED_NOTIFICATION)
     }
     
     func reloadFamily() -> Void {
