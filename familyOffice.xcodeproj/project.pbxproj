@@ -200,6 +200,8 @@
 		8B359DE61F44B00000E6A97A /* SafeBoxActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B359DE51F44B00000E6A97A /* SafeBoxActions.swift */; };
 		8B359DE91F44B31900E6A97A /* SafeBoxReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B359DE81F44B31900E6A97A /* SafeBoxReducer.swift */; };
 		8B56FB771F462FFC002EF8EC /* PDFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B56FB761F462FFC002EF8EC /* PDFViewController.swift */; };
+		8B90F0001F5DD88A00C27513 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B90EFFF1F5DD88A00C27513 /* ImageCollectionViewCell.swift */; };
+		8B90F0021F5DD89C00C27513 /* FolderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B90F0011F5DD89C00C27513 /* FolderCollectionViewCell.swift */; };
 		8BE66E261F50902D003AC45C /* MoveFileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE66E251F50902D003AC45C /* MoveFileViewController.swift */; };
 		8BE66E281F5093CE003AC45C /* FolderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE66E271F5093CE003AC45C /* FolderTableViewCell.swift */; };
 		940964161F280C2600FB1F3A /* faqService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940964151F280C2600FB1F3A /* faqService.swift */; };
@@ -485,6 +487,8 @@
 		8B359DE51F44B00000E6A97A /* SafeBoxActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeBoxActions.swift; sourceTree = "<group>"; };
 		8B359DE81F44B31900E6A97A /* SafeBoxReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeBoxReducer.swift; sourceTree = "<group>"; };
 		8B56FB761F462FFC002EF8EC /* PDFViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFViewController.swift; sourceTree = "<group>"; };
+		8B90EFFF1F5DD88A00C27513 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		8B90F0011F5DD89C00C27513 /* FolderCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderCollectionViewCell.swift; sourceTree = "<group>"; };
 		8BE66E251F50902D003AC45C /* MoveFileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveFileViewController.swift; sourceTree = "<group>"; };
 		8BE66E271F5093CE003AC45C /* FolderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderTableViewCell.swift; sourceTree = "<group>"; };
 		932BFD75DD88755F0C9C439E /* Pods-familyOfficeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-familyOfficeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-familyOfficeUITests/Pods-familyOfficeUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -1305,6 +1309,8 @@
 			children = (
 				8B2D85201F43CB4C007D18BE /* FileCollectionViewCell.swift */,
 				8BE66E271F5093CE003AC45C /* FolderTableViewCell.swift */,
+				8B90EFFF1F5DD88A00C27513 /* ImageCollectionViewCell.swift */,
+				8B90F0011F5DD89C00C27513 /* FolderCollectionViewCell.swift */,
 			);
 			name = cells;
 			sourceTree = "<group>";
@@ -1915,12 +1921,14 @@
 				8450EFC61E64A1E500A51C09 /* AlertService.swift in Sources */,
 				02AD814B1E4B87520030B3DD /* AddMembersTableViewController.swift in Sources */,
 				023F9CEF1E1C39D300420217 /* AuthService.swift in Sources */,
+				8B90F0021F5DD89C00C27513 /* FolderCollectionViewCell.swift in Sources */,
 				9418C5A61F22D2A400F08BB5 /* HeaderViewCell.swift in Sources */,
 				028E0E341EDF4DFE00D5205B /* MemberInviteCollectionViewCell.swift in Sources */,
 				028E0E311EDF3F0700D5205B /* memberEventTableViewCell.swift in Sources */,
 				02002BFB1E82074E007191CC /* BaseTableViewCell.swift in Sources */,
 				029F65931F15446100C3A0A7 /* ContactService.swift in Sources */,
 				02441D9A1F16A3E500EA8202 /* CalendarOpenViewController.swift in Sources */,
+				8B90F0001F5DD88A00C27513 /* ImageCollectionViewCell.swift in Sources */,
 				02CF79AB1EAEC4B200E13056 /* EventService.swift in Sources */,
 				94C110C51F2688DC00ABBA8B /* IllnessDetailsViewController.swift in Sources */,
 				02D2C0D11E6747AE007A6798 /* References.swift in Sources */,

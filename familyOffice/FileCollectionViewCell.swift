@@ -13,6 +13,7 @@ class FileCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var FileIconImageView: UIImageView!
     @IBOutlet weak var fileNameLabel: UILabel!
+    @IBOutlet weak var fileExtLabel: UILabel!
     
     override func awakeFromNib() {
     }

@@ -97,7 +97,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="fileID" id="NVy-rv-Ean" customClass="FileCollectionViewCell" customModule="familyOffice" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="safeboxFileID" id="NVy-rv-Ean" customClass="FileCollectionViewCell" customModule="familyOffice" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -109,7 +109,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xh5-jL-UOM">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="file" translatesAutoresizingMaskIntoConstraints="NO" id="xh5-jL-UOM">
                                                     <rect key="frame" x="15" y="10" width="60" height="60"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -120,12 +120,79 @@
                                                     <color key="textColor" red="0.61835739209999996" green="0.61835739209999996" blue="0.61835739209999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bJm-rD-jTB">
+                                                    <rect key="frame" x="17" y="40" width="49" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </view>
                                         <connections>
                                             <outlet property="FileIconImageView" destination="xh5-jL-UOM" id="AEW-Hn-hKK"/>
                                             <outlet property="bgView" destination="cAh-xV-Auv" id="HIQ-EE-DGJ"/>
+                                            <outlet property="fileExtLabel" destination="bJm-rD-jTB" id="WIO-7F-mfh"/>
                                             <outlet property="fileNameLabel" destination="39S-oN-rj2" id="niX-Mv-Wlp"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="safeboxImageID" id="t1v-J1-Mul" customClass="ImageCollectionViewCell" customModule="familyOffice" customModuleProvider="target">
+                                        <rect key="frame" x="137.5" y="0.0" width="90" height="90"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yng-DL-J5q">
+                                                    <rect key="frame" x="2" y="4" width="86" height="83"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hkD-SI-JNz">
+                                                    <rect key="frame" x="15" y="10" width="60" height="60"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ss3-dy-99d">
+                                                    <rect key="frame" x="2" y="73" width="86" height="14"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="12"/>
+                                                    <color key="textColor" red="0.61835739209999996" green="0.61835739209999996" blue="0.61835739209999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </view>
+                                        <connections>
+                                            <outlet property="imageNameLabel" destination="ss3-dy-99d" id="Ix1-Ti-2dS"/>
+                                            <outlet property="imgView" destination="hkD-SI-JNz" id="VQP-eu-JeD"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="safeboxFolderID" id="qMt-I7-Nxn" customClass="FolderCollectionViewCell" customModule="familyOffice" customModuleProvider="target">
+                                        <rect key="frame" x="275" y="0.0" width="90" height="90"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zxp-pz-dsi">
+                                                    <rect key="frame" x="2" y="4" width="86" height="83"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="folder_purple" translatesAutoresizingMaskIntoConstraints="NO" id="eI7-b9-IUI">
+                                                    <rect key="frame" x="15" y="10" width="60" height="60"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eao-Cm-NQY">
+                                                    <rect key="frame" x="2" y="73" width="86" height="14"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="12"/>
+                                                    <color key="textColor" red="0.61835739209999996" green="0.61835739209999996" blue="0.61835739209999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </view>
+                                        <connections>
+                                            <outlet property="folderNameLabel" destination="Eao-Cm-NQY" id="lL9-zT-vC9"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -209,7 +276,7 @@
                                         <rect key="frame" x="0.0" y="28" width="365" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hgl-bS-ECk" id="Ccx-ft-FgC">
-                                            <rect key="frame" x="0.0" y="0.0" width="365" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="365" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pol-5n-BAK">
@@ -261,6 +328,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="file" width="16" height="16"/>
         <image name="folder_purple" width="16" height="16"/>
     </resources>
 </document>

@@ -54,7 +54,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
 
         let addFolderButton = UIBarButtonItem(image: #imageLiteral(resourceName: "add_folder_red"),style: .plain, target: self, action: #selector(self.newFolder))
         addFolderButton.tintColor = nil
-        let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "Home"), style: .plain, target: self, action: #selector(self.back))
+        let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "LeftChevron"), style: .plain, target: self, action: #selector(self.back))
         self.navigationItem.leftBarButtonItem = backButton
 
         self.navigationItem.rightBarButtonItems = [addFolderButton, addButton]
@@ -165,7 +165,19 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
     }
     
     func back() -> Void {
-        _ = self.navigationController?.popViewController(animated: true)
+        if self.currentFolder == "root"{
+            _ = self.navigationController?.popViewController(animated: true)
+        }else{
+            self.directoriesTree.popLast()
+            self.currentFolder = self.directoriesTree[self.directoriesTree.count - 1]
+            print(self.directoriesTree)
+            self.dirTreeLbl.text = directoriesTree.joined(separator: "/")
+            print("Current Folder: \(self.currentFolder)")
+            files = (store.state.safeBoxState.safeBoxFiles[userId!]?.filter({$0.parent == self.currentFolder}))!
+            self.filesCollectionView.reloadData()
+
+        }
+        
     }
     
     
@@ -244,30 +256,25 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "fileID", for: indexPath) as! FileCollectionViewCell
-        let file = self.files[indexPath.row]
-        cell.fileNameLabel.text = file.filename
         let ext:NSString = self.files[indexPath.row].filename! as NSString
-        switch ext.pathExtension {
-        case "":
-            cell.FileIconImageView.image = #imageLiteral(resourceName: "folder_purple")
-        case "png":
-//            let url = URL(string: file.thumbnail!)
-//            DispatchQueue.global().async {
-//                let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-//                DispatchQueue.main.async {
-//                    cell.FileIconImageView.image = UIImage(data: data!)
-//                }
-//            }
-            cell.FileIconImageView.loadImage(urlString: file.thumbnail!)
-            break
-        case "pdf":
-            cell.FileIconImageView.image = #imageLiteral(resourceName: "icons8-Play_50")
-        default:
-            cell.FileIconImageView.image = #imageLiteral(resourceName: "todolist-30")
-        }
+        let file:SafeBoxFile = self.files[indexPath.row]
         
-        return cell
+        switch(ext.pathExtension){
+            case "":
+                let cell = filesCollectionView.dequeueReusableCell(withReuseIdentifier: "safeboxFolderID", for: indexPath) as! FolderCollectionViewCell
+                cell.folderNameLabel.text = file.filename
+                return cell
+            case "png":
+                let cell = filesCollectionView.dequeueReusableCell(withReuseIdentifier: "safeboxImageID", for: indexPath) as! ImageCollectionViewCell
+                cell.imageNameLabel.text = file.filename
+                cell.imgView.loadImage(urlString: file.downloadUrl!)
+                return cell
+            default:
+                let cell = filesCollectionView.dequeueReusableCell(withReuseIdentifier: "safeboxFileID", for: indexPath) as! FileCollectionViewCell
+                cell.fileNameLabel.text = file.filename
+                cell.fileExtLabel.text = ext.pathExtension
+                return cell
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
