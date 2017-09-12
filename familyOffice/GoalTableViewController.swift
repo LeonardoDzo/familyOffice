@@ -53,7 +53,7 @@ class GoalTableViewController: UIViewController, UITableViewDelegate, UITableVie
             let cell = tableView.dequeueReusableCell(withIdentifier: "cellSection", for: indexPath) as!  GoalSectionTableViewCell
             let obj = types[indexPath.row/2]
             cell.backgroundImage.image  = UIImage(named: obj.1)
-            let name = data.count > 0 ? " (\(data.filter({$0.done}).count)/\(data.count))" : " (No existen)"
+            let name = data.count > 0 ? " (\(data.filter({$0.done ?? false }).count)/\(data.count))" : " (No existen)"
             cell.nameLbl.text = obj.0 + name
             return cell
         }
@@ -142,9 +142,11 @@ extension GoalTableViewController: StoreSubscriber, Segue, HandleFamilySelected 
     }
     func addObservers() -> Void {
         if tabBar.selectedItem?.tag == 0 {
+            service.GOAL_SERVICE.type = .Individual
             let id = store.state.UserState.user?.id!
             service.GOAL_SERVICE.initObserves(ref: "goals/\(id!)", actions: [.childAdded, .childRemoved, .childChanged])
         }else{
+            service.GOAL_SERVICE.type = .Familiar
             service.GOAL_SERVICE.initObserves(ref: "goals/\((user?.familyActive!)!)", actions: [.childAdded, .childRemoved, .childChanged])
         }
     }

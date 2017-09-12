@@ -33,7 +33,7 @@ class GoalDataForCategoryTableViewCell: UITableViewCell, GoalBindable {
             goal.members[uid!] = sender.isOn ? Date().toMillis() : -1
         }
         
-        store.dispatch(UpdateGoalAction(goal: self.goal))
+        store.dispatch(gac.Update(goal: self.goal))
     }
     
 

@@ -15,7 +15,7 @@ class GoalViewController: UIViewController, StoreSubscriber, UITabBarDelegate, G
     let settingLauncher = SettingLauncher()
     typealias StoreSubscriberStateType = GoalState
     var goal : Goal!
-    var follow: FollowGoal!
+    var follow: Goal!
     var user = store.state.UserState.user
     @IBOutlet weak var pieChart: PieChartView!
     @IBOutlet weak var tableView: UITableView!
@@ -111,15 +111,15 @@ class GoalViewController: UIViewController, StoreSubscriber, UITabBarDelegate, G
     
     @IBAction func handleChange(_ sender: UISwitch) {
         
-        if follow != nil, let index = goal.follow.index(where: {$0.date == follow.date}), let uid = store.state.UserState.user?.id
+        if follow != nil, let index = goal.list.index(where: {$0.startDate == follow.startDate}), let uid = store.state.UserState.user?.id
         {
-            goal.follow[index].members[uid] = sender.isOn ? Date().toMillis() : -1
+            goal.list[index].members[uid] = sender.isOn ? Date().toMillis() : -1
             
         }else{
             goal.members[(user?.id)!] = sender.isOn ? Date().toMillis() : -1
             
         }
-        store.dispatch(UpdateGoalAction(goal: goal))
+        store.dispatch(GoalActions.Update(goal: goal))
     }
     func updatePieChartData()  {
         self.pieChart.clear()
@@ -206,7 +206,6 @@ extension GoalViewController: UITableViewDelegate, UITableViewDataSource {
         if follow != nil {
             self.performSegue(withIdentifier: "detailSegue", sender: member)
         }
-        
     }
     
     func getUser(id: String) -> User? {
@@ -223,15 +222,13 @@ extension GoalViewController: UITableViewDelegate, UITableViewDataSource {
 }
 extension GoalViewController {
     func verifyFollow() -> Void {
-        
         let date = Date().toMillis()
-        let follows = goal.follow.sorted(by: {$0.date < $1.date})
+        let follows = goal.list
         for item in follows {
-            let comp = Date(string: item.date, formatter: .ShortInternationalFormat)?.toMillis()
-            if date! <= comp! {
+            if date! <= item.startDate {
                 follow = item
                 let string = "Fecha: "
-                dateForCompleate.text = string + item.date
+                dateForCompleate.text = string + Date(timeIntervalSince1970: TimeInterval(item.startDate/1000)).string(with: .ddMMMyyyy)
                 break
             }
         }
@@ -239,12 +236,11 @@ extension GoalViewController {
             doneSwitch.isOn = follow.members[(user?.id!)!]! > 0 ? true : false
         }else{
             doneSwitch.isOn = goal.members[(user?.id!)!]! > 0 ? true : false
-            let string = "Complete la obj. de: : "
-            dateForCompleate.text = string + Date(timeIntervalSince1970: TimeInterval(goal.endDate/1000)).string(with: .dayMonthAndYear2)
+            let string = "Complete la obj. de: "
+            dateForCompleate.text = string + Date(timeIntervalSince1970: TimeInterval(goal.endDate!/1000)).string(with: .dayMonthAndYear2)
         }
         updatePieChartData()
         tableView.reloadData()
-        
     }
     
 }

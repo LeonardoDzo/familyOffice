@@ -28,7 +28,8 @@ enum RoutingDestination: String {
          homeSocial = "TabBarControllerView",
          profileFamily = "FamilyViewController",
          families = "FamilyCollectionViewController",
-         contacts = "ContactsViewController"
+         contacts = "ContactsViewController",
+         addEvent = "addEventTableViewController"
     case none = ""
 }
 extension RoutingDestination {
@@ -38,6 +39,8 @@ extension RoutingDestination {
             return StoryBoard.main.rawValue
         case .registerFamily,.profileFamily,.families,.contacts:
             return StoryBoard.families.rawValue
+        case .addEvent:
+            return StoryBoard.calendar.rawValue
         }
     }
 }

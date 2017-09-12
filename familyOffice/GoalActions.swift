@@ -8,32 +8,45 @@
 
 import Foundation
 import ReSwift
-
-
-struct InsertGoalAction: Action {
-    var goal: Goal!
-    init(goal: Goal) {
-        self.goal = goal
-    }
-}
-
-struct UpdateGoalAction: Action {
-    var goal: Goal!
-    init(goal: Goal) {
-        self.goal = goal
+import Firebase
+struct GoalActions {
+    struct Insert: Action {
+        var goal: Goal!
+        init(goal: Goal) {
+            self.goal = goal
+        }
     }
     
-}
-struct UpdateFollowAction: Action {
-    var follow: FollowGoal!
-    var path: String!
-    init(follow: FollowGoal, path: String) {
-        self.follow = follow
-        self.path = path
+    struct Update: Action {
+        var goal: Goal!
+        init(goal: Goal) {
+            self.goal = goal
+        }
+        
     }
-   
+    struct UpdateFollow: Action {
+        let goal: Goal!
+        let path: String!
+        init(_ path: String!, goal: Goal) {
+            self.path = path
+            self.goal = goal
+        }
+    }
+    
+    struct Get: Action {
+    }
+    
+    struct routing: Action {
+        var snapshot: DataSnapshot
+        var event: DataEventType
+        var ref: String
+        init(_ snapshot: DataSnapshot,_ action: DataEventType,_ ref: String) {
+            self.snapshot = snapshot
+            self.event = action
+            self.ref = ref
+        }
+    }
 }
 
-struct GetGoalsAction: Action {
-}
+
 

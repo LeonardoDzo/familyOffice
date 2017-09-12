@@ -16,7 +16,12 @@ class repeatEventTableViewController: UITableViewController {
         super.viewDidLoad()
     }
     override func viewWillAppear(_ animated: Bool) {
-        self.tableView.selectRow(at: IndexPath(row: shareEvent.event.repeatmodel.frequency.hashValue, section: 0), animated: true, scrollPosition: .none)
+        if shareEvent.event!.repeatmodel.interval > 1 {
+            self.tableView.selectRow(at: IndexPath(row: 0, section: 1), animated: true, scrollPosition: .none)
+        }else{
+            self.tableView.selectRow(at: IndexPath(row: shareEvent.event.repeatmodel.frequency.hashValue, section: 0), animated: true, scrollPosition: .none)
+        }
+        
         block()
     }
     
@@ -65,21 +70,17 @@ class repeatEventTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 6 {
+        if indexPath.section ==  1 {
             shareEvent.event.repeatmodel = repeatEvent()
             self.performSegue(withIdentifier: "customSegue", sender: nil)
             return
         }
         var frequency: Frequency!
         
-        if indexPath.row == 3 {
-            frequency = Frequency(rawValue: indexPath.row)
-            
-            shareEvent.event.repeatmodel.interval = 2
-        }else if indexPath.row > 3 {
-            frequency = Frequency(rawValue: indexPath.row-1)
-        }
+        
+        frequency = Frequency(rawValue: indexPath.row)
         shareEvent.event.repeatmodel.frequency = frequency
+        shareEvent.event.repeatmodel.interval = 1
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

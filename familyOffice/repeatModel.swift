@@ -22,8 +22,8 @@ struct repeatEvent: repeatTypeEvent {
     init() {
         self.end = 0
         self.days = []
-        self.frequency = .daily
-        self.interval = 1
+        self.frequency = .never
+        self.interval = 0
     }
     
     init(snapshot: NSDictionary) {

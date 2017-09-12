@@ -10,11 +10,11 @@ import Foundation
 import ReSwift
     
     func appReducer(action: Action, state: AppState?) -> AppState {
-        
+        var goalReducer = GoalReducer(state?.GoalsState)
         return AppState(
             routingState: routingReducer(action: action, state: state?.routingState),
             UserState: UserReducer().handleAction(action: action, state: state?.UserState),
-            GoalsState: GoalReducer().handleAction(action: action, state: state?.GoalsState),
+            GoalsState: goalReducer.handleAction(action: action),
             FamilyState: FamilyReducer().handleAction(action: action, state: state?.FamilyState),
             GalleryState: GalleryReducer().handleAction(action: action, state: state?.GalleryState),
             ToDoListState: ToDoListReducer().handleAction(action: action, state: state?.ToDoListState),

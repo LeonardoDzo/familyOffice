@@ -54,7 +54,21 @@ enum Frequency: Int, GDL90_Enum  {
         case .year:
             return "Anual"
         default:
-            return "nunca"
+            return "Nunca"
+        }
+    }
+    var value : Int? {
+        switch self {
+        case .daily:
+            return 60*60*24
+        case .weekly:
+            return 60*60*24*7
+        case .monthly:
+            return 60*60*24*30
+        case .year:
+            return 60*60*24*365
+        default:
+            return nil
         }
     }
     

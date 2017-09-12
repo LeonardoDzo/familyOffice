@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import ReSwift
 protocol ShareEvent: class {
     var event: Event! {get set}
 }
@@ -175,8 +176,6 @@ extension addEventTableViewController {
         guard validation() else {
             return
         }
-        
-       //save
     }
     func validation() -> Bool{
         

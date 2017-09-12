@@ -68,11 +68,11 @@ class AddGoalViewController: UIViewController, GoalBindable, StoreSubscriber, UI
             subcription.select { state in state.GoalsState }
         }
         
-        if let index = frequency.index(where: {$0.1 == goal.repeatGoalModel.frequency.description}) {
+        if let index = goal.repeatGoalModel?.frequency.value, index > 0 {
             repeatSwitch.isOn = true
             pickerSelect.isHidden = false
-            pickerSelect.selectRow(index, inComponent: 0, animated: true)
-            reloadDataREpeat(row: index)
+            pickerSelect.selectRow(index-1, inComponent: 0, animated: true)
+            reloadDataREpeat(row: index-1)
         }else{
             repeatSwitch.isOn = false
         }
@@ -87,7 +87,7 @@ class AddGoalViewController: UIViewController, GoalBindable, StoreSubscriber, UI
         if sender.isOn {
             pickerSelect.isHidden = false
             collectionDays.isHidden = false
-            goal.repeatGoalModel.frequency = .daily
+            goal.repeatGoalModel?.frequency = .daily
             return
         }
         collectionDays.isHidden = true
@@ -118,11 +118,11 @@ class AddGoalViewController: UIViewController, GoalBindable, StoreSubscriber, UI
             return
         }
         goal.setId()
-        if goal.repeatGoalModel.frequency == .never{
-            goal.repeatGoalModel.days.removeAll()
+        if goal.repeatGoalModel?.frequency == .never{
+            goal.repeatGoalModel?.days.removeAll()
         }
         goal.title = title
-        store.dispatch(InsertGoalAction(goal: goal))
+        store.dispatch(gac.Insert(goal: goal))
     }
     
     func update() -> Void {
@@ -131,7 +131,7 @@ class AddGoalViewController: UIViewController, GoalBindable, StoreSubscriber, UI
             return
         }
         goal.title = title
-        store.dispatch(UpdateGoalAction(goal: goal))
+        store.dispatch(gac.Update(goal: goal))
     }
     
     func newState(state: GoalState) {
@@ -195,7 +195,7 @@ extension AddGoalViewController: UICollectionViewDataSource, UICollectionViewDel
         }else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellDay", for: indexPath) as! dayCollectionViewCell
             cell.dayLbl.text = days[indexPath.row]
-            if goal.repeatGoalModel.days.contains(String(indexPath.row)) {
+            if (goal.repeatGoalModel?.days.contains(String(indexPath.row+1)))! {
                 cell.backgroundColor = #colorLiteral(red: 0.3098039329, green: 0.01568627544, blue: 0.1294117719, alpha: 1)
                 cell.dayLbl.textColor = UIColor.white
             }else{
@@ -213,13 +213,13 @@ extension AddGoalViewController: UICollectionViewDataSource, UICollectionViewDel
             collectionView.reloadData()
             return
         }
-        if goal.repeatGoalModel.frequency == .monthly {
-            goal.repeatGoalModel.days.removeAll()
+        if goal.repeatGoalModel?.frequency == .monthly {
+            goal.repeatGoalModel?.days.removeAll()
         }
-        if let index = goal.repeatGoalModel.days.index(where: {$0 == String(indexPath.row)}) {
-            goal.repeatGoalModel.days.remove(at: index)
+        if let index = goal.repeatGoalModel?.days.index(where: {$0 == String(indexPath.row + 1)}) {
+            goal.repeatGoalModel?.days.remove(at: index)
         }else{
-            goal.repeatGoalModel.days.append(String(indexPath.row))
+            goal.repeatGoalModel?.days.append(String(indexPath.row + 1))
         }
         
         collectionDays.reloadData()
@@ -239,8 +239,8 @@ extension AddGoalViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         days.removeAll()
-        self.goal.repeatGoalModel.frequency = Frequency(rawValue: row)
-        self.goal.repeatGoalModel.days.removeAll()
+        self.goal.repeatGoalModel?.frequency = Frequency(rawValue: row+1)
+        self.goal.repeatGoalModel?.days.removeAll()
         reloadDataREpeat(row: row)
     }
     

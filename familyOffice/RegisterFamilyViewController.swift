@@ -11,7 +11,6 @@ import Firebase
 import FirebaseStorage
 import ReSwift
 import ALCameraViewController
-import Photos
 
 class RegisterFamilyViewController: UIViewController, FamilyBindable, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate, ContactsProtocol {
     var family: Family!

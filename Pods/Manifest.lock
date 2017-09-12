@@ -1,29 +1,29 @@
 PODS:
   - Alamofire (4.5.0)
-  - ALCameraViewController (1.4.0)
+  - ALCameraViewController (1.4.1)
   - Charts (3.0.2):
     - Charts/Core (= 3.0.2)
   - Charts/Core (3.0.2)
-  - DKImagePickerController (3.5.7):
-    - DKImagePickerController/Camera (= 3.5.7)
-    - DKImagePickerController/ImageManager (= 3.5.7)
-  - DKImagePickerController/Camera (3.5.7)
-  - DKImagePickerController/ImageManager (3.5.7)
-  - Firebase (4.1.0):
-    - Firebase/Core (= 4.1.0)
-  - Firebase/Auth (4.1.0):
+  - DKImagePickerController (3.6.1):
+    - DKImagePickerController/Camera (= 3.6.1)
+    - DKImagePickerController/ImageManager (= 3.6.1)
+  - DKImagePickerController/Camera (3.6.1)
+  - DKImagePickerController/ImageManager (3.6.1)
+  - Firebase (4.1.1):
+    - Firebase/Core (= 4.1.1)
+  - Firebase/Auth (4.1.1):
     - Firebase/Core
-    - FirebaseAuth (= 4.1.0)
-  - Firebase/Core (4.1.0):
+    - FirebaseAuth (= 4.1.1)
+  - Firebase/Core (4.1.1):
     - FirebaseAnalytics (= 4.0.3)
-    - FirebaseCore (= 4.0.5)
-  - Firebase/Database (4.1.0):
+    - FirebaseCore (= 4.0.6)
+  - Firebase/Database (4.1.1):
     - Firebase/Core
-    - FirebaseDatabase (= 4.0.1)
-  - Firebase/Messaging (4.1.0):
+    - FirebaseDatabase (= 4.0.2)
+  - Firebase/Messaging (4.1.1):
     - Firebase/Core
-    - FirebaseMessaging (= 2.0.1)
-  - Firebase/Storage (4.1.0):
+    - FirebaseMessaging (= 2.0.2)
+  - Firebase/Storage (4.1.1):
     - Firebase/Core
     - FirebaseStorage (= 2.0.1)
   - FirebaseAnalytics (4.0.3):
@@ -31,20 +31,20 @@ PODS:
     - FirebaseInstanceID (~> 2.0)
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
     - nanopb (~> 0.3)
-  - FirebaseAuth (4.1.0):
+  - FirebaseAuth (4.1.1):
     - FirebaseAnalytics (~> 4.0)
     - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
     - GTMSessionFetcher/Core (~> 1.1)
-  - FirebaseCore (4.0.5):
+  - FirebaseCore (4.0.6):
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
     - nanopb (~> 0.3)
-  - FirebaseDatabase (4.0.1):
+  - FirebaseDatabase (4.0.2):
     - FirebaseAnalytics (~> 4.0)
     - FirebaseCore (~> 4.0)
     - leveldb-library (~> 1.18)
-  - FirebaseInstanceID (2.0.1):
+  - FirebaseInstanceID (2.0.2):
     - FirebaseCore (~> 4.0)
-  - FirebaseMessaging (2.0.1):
+  - FirebaseMessaging (2.0.2):
     - FirebaseAnalytics (~> 4.0)
     - FirebaseCore (~> 4.0)
     - FirebaseInstanceID (~> 2.0)
@@ -86,15 +86,20 @@ PODS:
   - leveldb-library (1.18.3)
   - Lightbox (1.0.0):
     - Hue
-  - MGSwipeTableCell (1.6.0)
+  - MGSwipeTableCell (1.6.1)
   - MIBadgeButton-Swift (0.5)
-  - MultiAutoCompleteTextSwift (0.1.1)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
+  - ObjectMapper (2.2.8)
   - Protobuf (3.4.0)
+  - Realm (2.10.0):
+    - Realm/Headers (= 2.10.0)
+  - Realm/Headers (2.10.0)
+  - RealmSwift (2.10.0):
+    - Realm (= 2.10.0)
   - ReSwift (4.0.0)
   - ReSwiftRouter (0.6.0):
     - ReSwift (~> 4.0.0)
@@ -122,7 +127,8 @@ DEPENDENCIES:
   - Lightbox
   - MGSwipeTableCell
   - MIBadgeButton-Swift (from `https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git`, branch `master`)
-  - MultiAutoCompleteTextSwift
+  - ObjectMapper (~> 2.2)
+  - RealmSwift
   - ReSwift (~> 4.0.0)
   - ReSwiftRouter
   - SearchTextField
@@ -142,16 +148,16 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
-  ALCameraViewController: 8311f17d3dc2c24ab7d81a3a3b288dcdf210c5cf
+  ALCameraViewController: a69f2133e93e480f76139d2571bb17dd266fa007
   Charts: 236d6ccdd0ce6feae151d89e829a7397381a21fd
-  DKImagePickerController: da5111f475c2fda9f932bab55519a43275bd4cf0
-  Firebase: ebebf41db7f10e0c7668b6eaaa857fbe599aa478
+  DKImagePickerController: 4f8072aed44119a33955c9583273ea7c8739c0f4
+  Firebase: 052c0de688fc87b414996eea13e223dd9fee3fa2
   FirebaseAnalytics: 76f754d37ca5b04f36856729b6af3ca0152d1069
-  FirebaseAuth: 8d1d2389cf82f891048d6d50d27d044f55ae09a6
-  FirebaseCore: 7d876ea97a830cbe62ba7fbbe7670c833a324ba0
-  FirebaseDatabase: 94c38c783d23dc6679441050772d42e801d06e9e
-  FirebaseInstanceID: 0500e3cb54a1a4e01a8cffcc09323b8bb8fc7e1e
-  FirebaseMessaging: b45ff9ef5d932600d3f78ff43168e7c5707aa7dc
+  FirebaseAuth: f8b07aa83de60d606b4eadd81484b3ac2097ea3e
+  FirebaseCore: 28def3c643989c97ea5a69ea5000f5fa9902b9fd
+  FirebaseDatabase: 4d1a10639a42cae26e094296951b53c689e5e191
+  FirebaseInstanceID: c4c7fca62c7b7330caee5da04f19a37ea37bb1c1
+  FirebaseMessaging: 85af6c27188538b3a6f7dfd0b3b0596358cb0c39
   FirebaseStorage: 661fc1f8d4131891d256b62e82a45ace8b3f0c3b
   FSCalendar: a04b09f16f811bc92e82f3cf852a15225233b9d5
   GoogleSignIn: d7ad83f13480e1f30453471d00d19b5293ac46af
@@ -164,11 +170,13 @@ SPEC CHECKSUMS:
   JVFloatLabeledTextField: 96c0c1b6739001801340d25b86aff990d67c4181
   leveldb-library: 10fb39c39e243db4af1828441162405bbcec1404
   Lightbox: 13f55a0a840f7945dc5ac87931564e7fe569fca9
-  MGSwipeTableCell: 6e1994f1eb31c76e76f70a8bc39de3c42cf5cd38
+  MGSwipeTableCell: 19a1d65dcc1ceaea42eb44bb2adae32101904514
   MIBadgeButton-Swift: 9e57309b00b168d75ca8fecb45bc75124a8ffddf
-  MultiAutoCompleteTextSwift: d5631e77b48413af5795e14a1ae6d72054fe2d1e
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  ObjectMapper: 3d571bb5af471c779e1160828cd9ad5c4ef90958
   Protobuf: 03eef2ee0b674770735cf79d9c4d3659cf6908e8
+  Realm: 98b3a25643cf6b3e07d2b99fb43fe0eb9c801dec
+  RealmSwift: 34073ad3a31232bbaf7c0db898c037940284cba2
   ReSwift: f058ef13b46ae5f463f10605ccbbb7fb04424d8d
   ReSwiftRouter: 81f41b37a5dd1c88e1d3d10a660ff2dcc939ba7c
   SearchTextField: 1d43b423c2acd3a9e2b37a74180e0cb137fcf1e7
@@ -176,6 +184,6 @@ SPEC CHECKSUMS:
   SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
   Toast-Swift: 5b2f8f720f7e78e48511f693df1f9c9a6e38a25a
 
-PODFILE CHECKSUM: 8e59bbffbafee3cda51238dcd60c531b651ce574
+PODFILE CHECKSUM: 21eca1fd2de5d1af6674a85266f322a10128a8a6
 
 COCOAPODS: 1.2.1.rc.1
