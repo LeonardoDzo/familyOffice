@@ -8,11 +8,13 @@
 
 import Foundation
 import ReSwift
-import ReSwiftRouter
+
 struct AppState: StateType{
+    var routingState: RoutingState
+    var UserState: UserState
     var GoalsState : GoalState
     var FamilyState: FamilyState
-    var UserState: UserState
+    
     var GalleryState: GalleryState
     var ToDoListState: ToDoListState
     var ContactState: ContactState

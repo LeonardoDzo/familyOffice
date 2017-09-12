@@ -9,13 +9,12 @@
 import UIKit
 import Firebase
 import ReSwift
-import ReSwiftRouter
 import Lightbox
 
 class EditItemViewController: UIViewController,UINavigationControllerDelegate,UIGestureRecognizerDelegate,DateProtocol,UITextViewDelegate,LightboxControllerPageDelegate,LightboxControllerDismissalDelegate {
     
     
-    var item:ToDoList.ToDoItem = ToDoList.ToDoItem(title: "", photoUrl: "", status: "Pendiente", endDate: "")
+    var item: ToDoList.ToDoItem = ToDoList.ToDoItem(title: "", photoUrl: "", status: "Pendiente", endDate: "")
     var imagePicker: UIImagePickerController!
     var endDate: String?
     var initialPhoto: String!
@@ -179,7 +178,7 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
         if tookPhoto {
             let path = "users/\((store.state.UserState.user?.id)!)/images/\(photoName).png"
             service.STORAGE_SERVICE.insert(path, value: (photo?.image)!, callback: { metadata in
-                if let metadata: FIRStorageMetadata = metadata as? FIRStorageMetadata{
+                if let metadata: StorageMetadata = metadata as? StorageMetadata{
                     if let downloadUrl = metadata.downloadURL()?.absoluteString{
                         photoUrl = downloadUrl
                         self.item.photoUrl = photoUrl
@@ -281,8 +280,8 @@ extension EditItemViewController: StoreSubscriber{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        store.subscribe(self){
-            state in state.ToDoListState
+        store.subscribe(self){ subcription in
+            subcription.select  { state in state.ToDoListState }
         }
     }
     

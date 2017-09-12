@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import ReSwift
 protocol ShareEvent: class {
     var event: Event! {get set}
 }
@@ -18,7 +19,7 @@ extension ShareEvent {
 }
 
 class addEventTableViewController: UITableViewController, EventBindable, ShareEvent {
-    @IBOutlet weak var numberSelected: UILabel!
+    @IBOutlet weak var memberCountLbl: UILabel!
     var event: Event!
     var startActivate = false
     var endActivate = false
@@ -31,6 +32,7 @@ class addEventTableViewController: UITableViewController, EventBindable, ShareEv
     @IBOutlet weak var repeatLabel: UILabel!
     @IBOutlet weak var endRepeat: UILabel!
     @IBOutlet weak var descriptionTxtField: UITextField!
+    @IBOutlet weak var typeLbl: UILabel!
     @IBOutlet weak var allDaySwitch: UISwitch!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,7 +107,7 @@ class addEventTableViewController: UITableViewController, EventBindable, ShareEv
                     return 0.0
                 }
             }
-            if indexPath.row == 6 && event.repeatmodel.frequency == "" {
+            if indexPath.row == 6 && event.repeatmodel.frequency == .never {
                 return 0.0
             }
         }
@@ -147,6 +149,10 @@ class addEventTableViewController: UITableViewController, EventBindable, ShareEv
                 let viewController = segue.destination as! EndRepeatEventTableViewController
                 viewController.shareEvent = self
                 break
+            case "typeSegue":
+                let viewController = segue.destination as! Type_EventTableViewController
+                viewController.shareEvent = self
+                break
             default:
                 break
             }
@@ -170,8 +176,6 @@ extension addEventTableViewController {
         guard validation() else {
             return
         }
-        
-       //save
     }
     func validation() -> Bool{
         

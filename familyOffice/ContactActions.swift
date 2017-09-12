@@ -8,34 +8,17 @@
 
 import Foundation
 import ReSwift
-import ReSwiftRecorder
-let contactActionTypeMap: TypeMap = [InsertContactAction.type: InsertContactAction.self,
-                                  UpdateContactAction.type: UpdateContactAction.self]
 
-struct InsertContactAction: StandardActionConvertible {
-    static let type = "CONTACT_ACTION_INSERT"
+struct InsertContactAction: Action {
     var contact: Contact!
     init(contact: Contact) {
         self.contact = contact
-    }
-    init(_ standardAction: StandardAction) {
-    }
-    
-    func toStandardAction() -> StandardAction {
-        return StandardAction(type: InsertContactAction.type, payload: [:], isTypedAction: true)
     }
 }
 
-struct UpdateContactAction: StandardActionConvertible {
-    static let type = "CONTACT_ACTION_UPDATE"
+struct UpdateContactAction: Action {
     var contact: Contact!
     init(contact: Contact) {
         self.contact = contact
-    }
-    init(_ standardAction: StandardAction) {
-    }
-    
-    func toStandardAction() -> StandardAction {
-        return StandardAction(type: UpdateContactAction.type, payload: [:], isTypedAction: true)
     }
 }

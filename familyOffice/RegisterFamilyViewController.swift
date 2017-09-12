@@ -10,118 +10,90 @@ import UIKit
 import Firebase
 import FirebaseStorage
 import ReSwift
+import ALCameraViewController
+
 class RegisterFamilyViewController: UIViewController, FamilyBindable, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate, ContactsProtocol {
     var family: Family!
     var users: [User]! = []
     
     /// Variable para saber si cambio la foto o no para editar
     var change = false
-    
+    let picker = UIImagePickerController()
     typealias StoreSubscriberStateType = FamilyState
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var schearButton: UIButton!
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var nameTxt: textFieldStyleController!
     @IBOutlet weak var contentview: UIView!
-    
-    var Image: UIImageView!
+    @IBOutlet weak var Image: CustomUIImageView!
+    @IBOutlet weak var nameTxt: textFieldStyleController!
+   
+    @IBOutlet weak var viewcn: UIView!
     var blurImageView = UIImageView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
-        scrollView.delegate = self
-        Image = UIImageView()
-        blurImageView.contentMode = UIViewContentMode.scaleAspectFill
-        Image.frame = CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height)
-        blurImageView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height)
-        Image.isUserInteractionEnabled = true
-        scrollView.addSubview(blurImageView)
-        scrollView.addSubview(Image)
+        
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.loadImage(_:)))
         tapGestureRecognizer.numberOfTapsRequired = 1
-        Image.addGestureRecognizer(tapGestureRecognizer)
         contentview.formatView()
-        scrollView.formatView()
+        viewcn.formatView()
+        Image.addGestureRecognizer(tapGestureRecognizer)
     }
     
     func loadImage(_ recognizer: UITapGestureRecognizer){
-        let imagePicker = UIImagePickerController()
-        self.Image.image = nil
-        imagePicker.delegate = self
-        imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
-        self.present(imagePicker, animated: true, completion: nil)
+        let croppingEnabled = true
+        let _ = validate()
+        let actionSheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
+        
+        actionSheet.addAction(UIAlertAction(title: "Camara", style: .default, handler: { (action: UIAlertAction) in
+            let croppingEnabled = true
+            let cameraViewController = CameraViewController(croppingEnabled: croppingEnabled) { [weak self] image, asset in
+                
+                guard let img = image else {
+                    self?.dismiss(animated: true, completion: nil)
+                    return
+                }
+                self?.Image.image = img
+                self?.change = true
+                self?.dismiss(animated: true, completion: nil)
+            }
+            
+            self.present(cameraViewController, animated: true, completion: nil)
+
+            
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Galería", style: .default, handler: { (action: UIAlertAction) in
+            
+            /// Provides an image picker wrapped inside a UINavigationController instance
+            let imagePickerViewController = CameraViewController.imagePickerViewController(croppingEnabled: croppingEnabled) { [weak self] image, asset in
+                guard let img = image else {
+                    self?.dismiss(animated: true, completion: nil)
+                    return
+                }
+                self?.Image.image = img
+                self?.change = true
+                self?.dismiss(animated: true, completion: nil)
+            }
+            
+            self.present(imagePickerViewController, animated: true, completion: nil)
+            
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(actionSheet, animated: true, completion: nil)
     }
+    
+    
     
     @IBAction func handleClickContact(_ sender: UIButton) {
-        self.performSegue(withIdentifier: "contactsSegue", sender: nil)
+        self.pushToView(view: .contacts, sender: self)
     }
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        self.Image.image = nil
-        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
-        scrollView.zoomScale = 1
-        self.Image.image = image
-        change = true
-        blurImageView.image = image
-        Image.contentMode = UIViewContentMode.center
-        Image.frame = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
-        scrollView.contentSize = CGSize(width: self.view.frame.size.width, height: scrollView.frame.size.height)
-        scrollView.contentSize = image.size
-        
-        let scrollViewFrame = scrollView.frame
-        let scaleWidth = scrollViewFrame.size.width / scrollView.contentSize.width
-        let scaleHeight = scrollViewFrame.size.height / scrollView.contentSize.height
-        let minScale = min(scaleWidth, scaleHeight)
-        
-        scrollView.minimumZoomScale = minScale
-        scrollView.maximumZoomScale = 1
-        scrollView.zoomScale = minScale
-        centerScrollViewContents()
-        
-        //blur
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        //always fill the view
-        blurEffectView.frame = self.view.bounds
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.blurImageView.addSubview(blurEffectView)
-        
-        picker.dismiss(animated: true, completion: nil)
-    }
+
     
-    func centerScrollViewContents(){
-        let boundsSize = scrollView.bounds.size
-        var contentsFrame = Image.frame
-        
-        if contentsFrame.size.width < boundsSize.width {
-            contentsFrame.origin.x = (boundsSize.width - contentsFrame.size.width) / 2
-        }else{
-            contentsFrame.origin.x = 0
-        }
-        
-        if contentsFrame.size.height < boundsSize.height {
-            contentsFrame.origin.y = (boundsSize.height - contentsFrame.size.height) / 2
-        }else{
-            contentsFrame.origin.y = 0
-        }
-        Image.frame = contentsFrame
-    }
-    
-    func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        centerScrollViewContents()
-    }
-    
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return Image
-    }
-    
-    
-    func cropAndSave(_ sender: Any) {
-        UIGraphicsBeginImageContextWithOptions(scrollView.bounds.size, true, UIScreen.main.scale)
-        let offset = scrollView.contentOffset
-        UIGraphicsGetCurrentContext()?.translateBy(x: -offset.x, y: -offset.y)
-        scrollView.layer.render(in: UIGraphicsGetCurrentContext()!)
-        UIGraphicsEndImageContext()
+    func validate() -> Bool{
+   
         
         if !users.contains((store.state.UserState.user)!){
             users.append((store.state.UserState.user)!)
@@ -129,25 +101,16 @@ class RegisterFamilyViewController: UIViewController, FamilyBindable, UIImagePic
         
         guard let name = nameTxt.text, !name.isEmpty else {
             error()
-            return
-        }
-        guard let image = Image, image.image != nil else {
-            error()
-            return
+            return false
         }
         self.family.name = name
         self.family.members = self.users.map({ $0.id})
-        self.family.admin = (FIRAuth.auth()?.currentUser?.uid)!
-        service.UTILITY_SERVICE.disabledView()
-        if family.id.isEmpty{
-            save()
-            return
-        }
+        self.family.admin = (Auth.auth().currentUser?.uid)!
         
-        edit()
+        return true
     }
     func edit() -> Void {
-        if(!(nameTxt.text?.isEmpty)!){
+        if validate() {
             if change {
                 store.dispatch(UpdateFamilyAction(family: family, img: Image.image!))
                 return
@@ -158,13 +121,10 @@ class RegisterFamilyViewController: UIViewController, FamilyBindable, UIImagePic
         }
     }
     func save() -> Void {
-        
-        if(Image.image != nil && !(nameTxt.text?.isEmpty)!){
-            self.family.name = self.nameTxt.text!
-            self.family.members = self.users.map({ $0.id})
-            self.family.admin = (FIRAuth.auth()?.currentUser?.uid)!
-            
-            service.UTILITY_SERVICE.disabledView()
+        if !validate() {
+            return
+        }
+        if Image.image != nil {
             store.dispatch(InsertFamilyAction(family: family, img: Image.image!))
         }else{
             error()
@@ -177,27 +137,6 @@ class RegisterFamilyViewController: UIViewController, FamilyBindable, UIImagePic
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alert.addAction(okAction)
         self.present(alert, animated: true, completion: nil)
-    }
-    
-    @IBAction func chooseImage(_ sender: Any) {
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.delegate = self
-        
-        let actionSheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
-        
-        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action: UIAlertAction) in
-            imagePickerController.sourceType = .camera
-            self.present(imagePickerController, animated: true, completion: nil)
-        }))
-        
-        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action: UIAlertAction) in
-            imagePickerController.sourceType = .photoLibrary
-            self.present(imagePickerController, animated: true, completion: nil)
-        }))
-        
-        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        
-        self.present(actionSheet, animated: true, completion: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -232,24 +171,12 @@ extension RegisterFamilyViewController: UICollectionViewDataSource, UICollection
         collectionView.deleteItems(at: [indexPath])
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        family.name = nameTxt.text
-        if segue.identifier ==  "contactsSegue" {
-            
-            if let destinationNavController = (segue.destination as? UINavigationController){
-                if let vc = destinationNavController.viewControllers.first as? ContactsViewController{
-                    vc.contactDelegate = self
-                }
-            }
-        }
-    }
-    
 }
 extension RegisterFamilyViewController : StoreSubscriber {
     override func viewWillAppear(_ animated: Bool) {
         store.subscribe(self) {
-            state in
-            state.FamilyState
+            subcription in
+            subcription.select { state in state.FamilyState }
         }
         
         self.bind()
@@ -265,7 +192,6 @@ extension RegisterFamilyViewController : StoreSubscriber {
         
         self.setupNavBar()
         self.collectionView.reloadData()
-        self.centerScrollViewContents()
         
     }
     
@@ -286,7 +212,6 @@ extension RegisterFamilyViewController : StoreSubscriber {
             self.view.makeToastActivity(.center)
             break
         case .finished:
-            service.UTILITY_SERVICE.enabledView()
             _ = self.navigationController?.popViewController(animated: true)
             break
         default:
@@ -296,11 +221,11 @@ extension RegisterFamilyViewController : StoreSubscriber {
     
     func setupNavBar() -> Void {
         if family.id.isEmpty {
-            let saveButton = UIBarButtonItem(title: "Crear", style: .plain, target: self, action: #selector(self.cropAndSave(_:)))
+            let saveButton = UIBarButtonItem(title: "Crear", style: .plain, target: self, action: #selector(self.save))
             navigationItem.rightBarButtonItems = [saveButton]
             navigationItem.title = "Crear Familia"
         }else{
-            let update = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(self.cropAndSave(_:)))
+            let update = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(self.edit))
             navigationItem.rightBarButtonItems = [update]
             navigationItem.title = "Actualizar Familia"
         }

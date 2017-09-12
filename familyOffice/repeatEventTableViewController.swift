@@ -14,13 +14,14 @@ class repeatEventTableViewController: UITableViewController {
     var select : Int! = 0
     override func viewDidLoad() {
         super.viewDidLoad()
-        let addButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.save))
-        let quitButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(self.cancel))
-        
-        navigationItem.rightBarButtonItems = [addButton,quitButton]
     }
     override func viewWillAppear(_ animated: Bool) {
-        self.tableView.selectRow(at: IndexPath(row: desc_Int(shareEvent.event.repeatmodel.frequency), section: 0), animated: true, scrollPosition: .none)
+        if shareEvent.event!.repeatmodel.interval > 1 {
+            self.tableView.selectRow(at: IndexPath(row: 0, section: 1), animated: true, scrollPosition: .none)
+        }else{
+            self.tableView.selectRow(at: IndexPath(row: shareEvent.event.repeatmodel.frequency.hashValue, section: 0), animated: true, scrollPosition: .none)
+        }
+        
         block()
     }
     
@@ -64,41 +65,28 @@ class repeatEventTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     func dismissPopover() {
-        _ = navigationController?.popViewController(animated: true)    }
-    
-    func save() -> Void {
-        //shareEvent?.event.repeatmodel = select
-        dismissPopover()
-        
-    }
-    func cancel() -> Void {
-        dismissPopover()
+        _ = navigationController?.popViewController(animated: true)
     }
     
-    func desc_Int(_ frequency: String) -> Int {
-        switch frequency {
-        case "day":
-            return 1
-        case "week":
-            return 2
-        case "week":
-            return 2
-        case "month":
-            return 4
-        case "year":
-            return 5
-        default:
-            return 0
-        }
-    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let frequency = REPEAT_TYPE(rawValue: indexPath.row)
-        shareEvent.event.repeatmodel.frequency = frequency?.description
-        if frequency == REPEAT_TYPE.WEEKLY_2 {
-            shareEvent.event.repeatmodel.each = 2
-        }else{
-            shareEvent.event.repeatmodel.each = 1
+        if indexPath.section ==  1 {
+            shareEvent.event.repeatmodel = repeatEvent()
+            self.performSegue(withIdentifier: "customSegue", sender: nil)
+            return
+        }
+        var frequency: Frequency!
+        
+        
+        frequency = Frequency(rawValue: indexPath.row)
+        shareEvent.event.repeatmodel.frequency = frequency
+        shareEvent.event.repeatmodel.interval = 1
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "customSegue" {
+            let vc = segue.destination as! CustomRepeatTableViewController
+            vc.shareEvent = shareEvent
         }
     }
     

@@ -125,7 +125,7 @@ extension HomeGalleryViewController : UICollectionViewDelegate, UICollectionView
         let keyAlbum = self.personal[indexPath[1]].id
         service.GALLERY_SERVICE.activeAlbum = keyAlbum
         store.state.GalleryState.Album = self.personal[indexPath[1]]
-        service.GALLERY_SERVICE.initObserves(ref: "images/\(keyAlbum)", actions: [.childAdded])
+        service.GALLERY_SERVICE.initObserves(ref: "images/\(keyAlbum!)", actions: [.childAdded])
         service.GALLERY_SERVICE.refUserFamily = self.key
         self.performSegue(withIdentifier: "AlbumDetailSegue", sender: nil)
     }
@@ -153,8 +153,8 @@ extension HomeGalleryViewController: StoreSubscriber{
         self.ChangeSelected()
         self.InitObserver()
         store.subscribe(self){
-            state in
-            state.GalleryState
+            subcription in
+            subcription.select { state in state.GalleryState }
         }
     }
     func newState(state: GalleryState) {

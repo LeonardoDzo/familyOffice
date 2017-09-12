@@ -8,7 +8,6 @@
 
 import UIKit
 import ReSwift
-import ReSwiftRouter
 
 class IllnessDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var illness: Illness!
@@ -126,8 +125,8 @@ extension IllnessDetailsViewController: StoreSubscriber{
         addObservers()
         
         store.subscribe(self) {
-            subscription in
-            subscription.IllnessState
+            subcription in
+            subcription.select { state in state.IllnessState }
         }
     }
     

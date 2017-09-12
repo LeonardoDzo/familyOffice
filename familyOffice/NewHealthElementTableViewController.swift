@@ -20,18 +20,7 @@ class NewHealthElementViewController: UITableViewController {
         super.viewDidLoad()
 
         // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        let saveButton = UIBarButtonItem(title: "Guardar", style: .plain, target: self, action: #selector(save(sender:)))
-        self.navigationItem.rightBarButtonItem = saveButton
-        
-        if let index = healthIndex {
-            let med = service.USER_SERVICE.users[0].health.elements[index]
-            nameField.text = med.name
-            descriptionField.text = med.description
-        }
+      
     }
 
     override func didReceiveMemoryWarning() {
@@ -67,28 +56,7 @@ class NewHealthElementViewController: UITableViewController {
     */
     
     func save(sender: UIBarButtonItem){
-        let name : String! = nameField.text
-        if name == nil || name.isEmpty {
-        	service.ANIMATIONS.shakeTextField(txt: nameField)
-            return
-        }
-        
-        let description : String! = descriptionField.text
-        if description == nil || description.isEmpty {
-            service.ANIMATIONS.shakeTextField(txt: descriptionField)
-            return
-        }
-        
-        let element = Health.Element(name: name, type: healthType, description: description)
-        var user = service.USER_SERVICE.users[0]
-        if let index = healthIndex {
-            user.health.elements[index] = element
-        } else {
-            user.health.elements.append(element)
-        }
-        service.USER_SERVICE.updateUser(user: user)
-        navigationController!.popViewController(animated: true)
-        
+                
     }
 
 }

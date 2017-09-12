@@ -8,7 +8,6 @@
 
 import UIKit
 import ReSwift
-import ReSwiftRouter
 
 class MedicineDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var medicine: Medicine!
@@ -114,7 +113,7 @@ class MedicineDetailsViewController: UIViewController, UITableViewDelegate, UITa
     }
     */
     func addObservers() -> Void {
-        service.MEDICINE_SERVICE.initObservers(ref: "medicines/\((user?.familyActive!))", actions: [ .childChanged])
+        service.MEDICINE_SERVICE.initObservers(ref: "medicines/\((user?.familyActive!)!)", actions: [ .childChanged])
     }
 
 }
@@ -125,8 +124,8 @@ extension MedicineDetailsViewController: StoreSubscriber{
         addObservers()
         
         store.subscribe(self) {
-            subscription in
-            subscription.MedicineState
+            subcription in
+            subcription.select { state in state.MedicineState }
         }
     }
     

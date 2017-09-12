@@ -33,9 +33,8 @@ class SetPersonalDataViewController: UIViewController, UITableViewDelegate, UITa
     override func viewWillAppear(_ animated: Bool) {
         user = store.state.UserState.user
         store.state.UserState.status = .none
-        store.subscribe(self){
-            state in
-            state.UserState
+        store.subscribe(self){subcription in
+            subcription.select { state in state.UserState }
         }
     }
     override func viewWillDisappear(_ animated: Bool) {

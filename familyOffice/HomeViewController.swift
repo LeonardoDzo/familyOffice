@@ -72,8 +72,8 @@ class HomeViewController: UIViewController,UIGestureRecognizerDelegate {
     /** ESTA FUNCION NOMAS PONE OBSERVERS */
     override func viewWillAppear(_ animated: Bool) {
         store.subscribe(self) {
-            state in
-            state.FamilyState
+            subcription in
+            subcription.select { state in state.FamilyState }
         }
         reloadFamily()
     }

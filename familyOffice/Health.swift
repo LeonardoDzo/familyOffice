@@ -24,7 +24,7 @@ struct Health {
         self.elements = elements
     }
     
-    init(snapshot: FIRDataSnapshot){
+    init(snapshot: DataSnapshot){
         let snapArray = snapshot.value as? NSArray
         self.init(array: snapArray ?? [])
     }
@@ -60,7 +60,7 @@ struct Health {
             self.description = service.UTILITY_SERVICE.exist(field: Element.kElementDescription, dictionary: dic)
         }
         
-        init(snapshot: FIRDataSnapshot){
+        init(snapshot: DataSnapshot){
             let snapDic = snapshot.value as! NSDictionary
             self.init(dic: snapDic)
         }

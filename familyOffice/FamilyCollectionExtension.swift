@@ -15,8 +15,8 @@ extension FamilyCollectionViewController: StoreSubscriber {
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         store.subscribe(self) {
-            state in
-            state.FamilyState
+            subcription in
+            subcription.select { state in state.FamilyState }
         }
         if (store.state.UserState.user?.families?.count == 0){
             self.performSegue(withIdentifier: "registerSegue", sender: nil)
@@ -61,7 +61,7 @@ extension FamilyCollectionViewController: StoreSubscriber {
                     }
                 }))
                 alert.addAction(UIAlertAction(title: "Cancelar", style: UIAlertActionStyle.cancel, handler: nil))
-                if(family.admin == FIRAuth.auth()?.currentUser?.uid){
+                if(family.admin == Auth.auth().currentUser?.uid){
                     alert.addAction(UIAlertAction(title: "Eliminar", style: UIAlertActionStyle.destructive, handler:  { action in
                         DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
                             self.togglePendingDelete(family: family)

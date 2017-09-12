@@ -25,7 +25,7 @@ struct Contact  {
     var address : String?
     var webpage : String?
     var email : String?
-    let firebaseReference: FIRDatabaseReference?
+    let firebaseReference: DatabaseReference?
     
     /* Initializer for instantiating a new object in code.
      */
@@ -42,7 +42,7 @@ struct Contact  {
     
     /* Initializer for instantiating an object received from Firebase.
      */
-    init(snapshot: FIRDataSnapshot) {
+    init(snapshot: DataSnapshot) {
         let snapshotValue = snapshot.value as! NSDictionary
         self.id = snapshot.key
         self.name = service.UTILITY_SERVICE.exist(field: Contact.kContactNameKey, dictionary: snapshotValue)
@@ -68,7 +68,7 @@ struct Contact  {
         ]
     }
    
-    mutating func update(snapshot: FIRDataSnapshot){
+    mutating func update(snapshot: DataSnapshot){
         guard let value = snapshot.value! as? String else {
             return
         }

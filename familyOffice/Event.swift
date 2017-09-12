@@ -9,6 +9,46 @@
 import UIKit
 import Firebase
 
+public enum EventAvailability : Int {
+    
+    
+    case notSupported
+    
+    case busy
+    
+    case free
+    
+    case tentative
+    
+    case unavailable
+}
+
+public enum EventStatus : Int {
+    
+    
+    case none
+    
+    case confirmed
+    
+    case tentative
+    
+    case canceled
+}
+
+enum eventType: Int, GDL90_Enum  {
+
+    case Default = 0, BirthDay, Meet
+    var description: String {
+        switch self {
+        case .BirthDay:
+            return "Cumpleaños"
+        case .Meet:
+            return "Reunion"
+        default:
+            return "Default"
+        }
+    }
+}
 
 struct Event {
     
@@ -38,7 +78,7 @@ struct Event {
     var location: Location? = nil
     var creator: String!
     var dates : NSDictionary!
-    //var type: String! = "Home"
+    var type: eventType!
     var repeatmodel: repeatEvent!
     
     init() {
@@ -51,9 +91,10 @@ struct Event {
         self.members = []
         self.creator = store.state.UserState.user?.id!
         self.repeatmodel = repeatEvent()
+        self.type = .Default
     }
     
-    init(snapshot: FIRDataSnapshot) {
+    init(snapshot: DataSnapshot) {
         let snapshotValue = snapshot.value as! NSDictionary
         self.title = snapshotValue.exist(field: Event.kTitle)
         self.id = snapshot.key
@@ -62,6 +103,12 @@ struct Event {
         self.endDate = snapshotValue.exist(field: Event.kEndDate)
         self.priority = snapshotValue.exist(field: Event.kPriority)
         self.isAllDay = snapshotValue.exist(field: Event.kisAllDay)
+        
+        if let val : Int? = snapshotValue.exist(field: Event.ktype) {
+            self.type = eventType(rawValue: val!)
+        }else{
+            self.type = eventType(rawValue: 0)
+        }
         if let members = snapshotValue[Event.kMembers] as? NSDictionary {
             for item in members {
                 let member = memberEvent(snapshot: item.value as! NSDictionary, id: item.key as! String)
@@ -110,30 +157,22 @@ protocol EventBindable: AnyObject {
     var repeatLabel: UILabel! {get}
     var endRepeat: UILabel! {get}
     var descriptionTxtField: UITextField! {get}
+    var typeLbl: UILabel! {get}
+    var memberCountLbl: UILabel! {get}
 }
 
 extension EventBindable {
     // Make the views optionals
     
     var startDateLbl: UILabel! {return nil}
-    
-    var endDateLbl: UILabel! {
-        return nil
-    }
-    
-    var locationLabel: UILabel! {
-        return nil
-    }
-    var titleLabel: UILabel! {
-        return nil
-    }
-    var descriptionLabel: UILabel! {
-        return nil
-    }
+    var endDateLbl: UILabel! {return nil}
+    var typeLbl: UILabel! {return nil}
+    var memberCountLbl: UILabel! {return nil}
+    var locationLabel: UILabel! {return nil}
+    var titleLabel: UILabel! {return nil}
+    var descriptionLabel: UILabel! {return nil}
     var descriptionTxtField: UITextField! {return nil}
-    var imageTime: UIImageView! {
-        return nil
-    }
+    var imageTime: UIImageView! {return nil}
     var ubicationLabel: UITextField! {return nil}
     var repeatLabel: UILabel! {return nil}
     var endRepeat: UILabel! {return nil}
@@ -181,6 +220,9 @@ extension EventBindable {
             endDateLbl.text = date.string(with: formatter)
             
         }
+        if let memberCountLbl = self.memberCountLbl {
+            memberCountLbl.text = String(event.members.count)
+        }
         if let titleTxtField = self.titleTxtField {
             titleTxtField.text = event.title
         }
@@ -192,6 +234,9 @@ extension EventBindable {
         }
         if let descriptionLabel = self.descriptionLabel {
             descriptionLabel.text = event.description
+        }
+        if let typeLbl = self.typeLbl {
+            typeLbl.text = event.type.description
         }
         
         if let startDateLbl = self.startDateLbl {
@@ -208,11 +253,13 @@ extension EventBindable {
         }
         
         if let repeatLabel = self.repeatLabel {
-            repeatLabel.text = event.repeatmodel.frequency
+            repeatLabel.text = event.repeatmodel.frequency.description
         }
         if let endRepeat = self.endRepeat {
             if event.repeatmodel.end > 0 {
                 endRepeat.text = Date(timeIntervalSince1970: TimeInterval(event.repeatmodel.end/1000)).string(with: .dayMonthAndYear)
+            }else{
+                endRepeat.text = "Nunca"
             }
         }
         

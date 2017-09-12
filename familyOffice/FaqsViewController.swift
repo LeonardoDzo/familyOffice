@@ -139,7 +139,8 @@ extension FaqsTableViewController: StoreSubscriber, Segue {
         super.viewWillAppear(true)
         addObservers()
         store.subscribe(self){
-            subscription in subscription.FaqState
+            subcription in
+            subcription.select { state in state.FaqState }
         }
     }
     

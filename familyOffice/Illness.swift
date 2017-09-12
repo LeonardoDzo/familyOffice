@@ -35,7 +35,7 @@ struct Illness{
         
     }
     
-    init(snapshot: FIRDataSnapshot){
+    init(snapshot: DataSnapshot){
         let dic = snapshot.value as! NSDictionary
         self.id  = snapshot.key
         self.name = service.UTILITY_SERVICE.exist(field: Illness.illNameKey, dictionary: dic)

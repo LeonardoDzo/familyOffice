@@ -91,8 +91,8 @@ extension PasswordChangeViewController : StoreSubscriber {
     
     override func viewWillAppear(_ animated: Bool) {
         store.subscribe(self) {
-            state in
-            state.UserState
+            subcription in
+            subcription.select { state in state.UserState }
         }
     }
     override func viewWillDisappear(_ animated: Bool) {

@@ -8,51 +8,45 @@
 
 import Foundation
 import ReSwift
-import ReSwiftRecorder
-
-let goalActionTypeMap: TypeMap = [InsertGoalAction.type: InsertGoalAction.self,
-                                  UpdateGoalAction.type: UpdateGoalAction.self,
-                                  UpdateFollowAction.type: UpdateFollowAction.self]
-
-struct InsertGoalAction: StandardActionConvertible {
-    static let type = "GOAL_ACTION_INSERT"
-    var goal: Goal!
-    init(goal: Goal) {
-        self.goal = goal
-    }
-    init(_ standardAction: StandardAction) {
+import Firebase
+struct GoalActions {
+    struct Insert: Action {
+        var goal: Goal!
+        init(goal: Goal) {
+            self.goal = goal
+        }
     }
     
-    func toStandardAction() -> StandardAction {
-        return StandardAction(type: InsertGoalAction.type, payload: [:], isTypedAction: true)
+    struct Update: Action {
+        var goal: Goal!
+        init(goal: Goal) {
+            self.goal = goal
+        }
+        
+    }
+    struct UpdateFollow: Action {
+        let goal: Goal!
+        let path: String!
+        init(_ path: String!, goal: Goal) {
+            self.path = path
+            self.goal = goal
+        }
+    }
+    
+    struct Get: Action {
+    }
+    
+    struct routing: Action {
+        var snapshot: DataSnapshot
+        var event: DataEventType
+        var ref: String
+        init(_ snapshot: DataSnapshot,_ action: DataEventType,_ ref: String) {
+            self.snapshot = snapshot
+            self.event = action
+            self.ref = ref
+        }
     }
 }
 
-struct UpdateGoalAction: StandardActionConvertible {
-    static let type = "GOAL_ACTION_UPDATE"
-    var goal: Goal!
-    init(goal: Goal) {
-        self.goal = goal
-    }
-    init(_ standardAction: StandardAction) {}
-    func toStandardAction() -> StandardAction {
-        return StandardAction(type: UpdateGoalAction.type, payload: [:], isTypedAction: true)
-    }
-}
-struct UpdateFollowAction: StandardActionConvertible {
-    static let type = "FOLLOWGOAL_ACTION_UPDATE"
-    var follow: FollowGoal!
-    var path: String!
-    init(follow: FollowGoal, path: String) {
-        self.follow = follow
-        self.path = path
-    }
-    init(_ standardAction: StandardAction) {}
-    func toStandardAction() -> StandardAction {
-        return StandardAction(type: UpdateFollowAction.type, payload: [:], isTypedAction: true)
-    }
-}
 
-struct GetGoalsAction: Action {
-}
 

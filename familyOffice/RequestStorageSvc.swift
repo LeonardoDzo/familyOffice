@@ -10,7 +10,7 @@ import Firebase
 import Gzip
 protocol RequestStorageSvc {
 
-    func inserted(metadata: FIRStorageMetadata, data: Data) -> Void
+    func inserted(metadata: StorageMetadata, data: Data) -> Void
     
 }
 extension RequestStorageSvc {
@@ -18,7 +18,7 @@ extension RequestStorageSvc {
     
     func insert(_ ref: String, value: Any, callback: @escaping ((Any?) -> Void)) {
         var uploadData: Data = Data()
-        var metadata = FIRStorageMetadata()
+        let metadata = StorageMetadata()
         if value is UIImage{
             metadata.contentType = "image/jpeg"
             let aux: Data = (value as! UIImage).resizeImage().jpeg(.high)!
@@ -30,7 +30,7 @@ extension RequestStorageSvc {
             }
             uploadData = value as! Data
         }
-        Constants.FirStorage.STORAGEREF.child(ref).put(uploadData, metadata: metadata) { metadata, error in
+        Constants.FirStorage.STORAGEREF.child(ref).putData(uploadData, metadata: metadata) { metadata, error in
             if (error != nil) {
                 print(error.debugDescription)
                 callback(nil)
@@ -50,9 +50,9 @@ extension RequestStorageSvc {
             let aux: Data = (value as! UIImage).resizeImage().jpeg(.high)!
             uploadData = try! aux.gzipped(level: .bestCompression)
         }
-        var metadata = FIRStorageMetadata()
+        let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
-        Constants.FirStorage.STORAGEREF.child(ref).put(uploadData, metadata: metadata) { metadata, error in
+        Constants.FirStorage.STORAGEREF.child(ref).putData(uploadData, metadata: metadata) { metadata, error in
             if (error != nil) {
                 print(error.debugDescription)
                 callback(nil)

@@ -12,18 +12,20 @@ import Charts
 class GoalHistoryByUserViewController: UIViewController, GoalBindable {
     var goal: Goal!
     var user: User!
+    var follow: Goal!
+    var path: String!
     @IBOutlet weak var titleLbl: UILabel!
     @IBOutlet weak var starEndDate: UILabel!
     @IBOutlet weak var completeLbl: UILabel!
     @IBOutlet weak var restLbl: UILabel!
     @IBOutlet weak var incompLbl: UILabel!
-    var follow : FollowGoal!
     @IBOutlet weak var pieChart: PieChartView!
     @IBOutlet weak var dateForCompleate: UILabel!
     @IBOutlet weak var doneSwitch: UISwitch!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var secondView: UIView!
     @IBOutlet weak var firstView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         firstView.formatView()
@@ -34,9 +36,9 @@ class GoalHistoryByUserViewController: UIViewController, GoalBindable {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.bind(goal: goal)
-        self.goal.follow = goal.follow.sorted(by: {$0.date < $1.date})
+        self.goal.list = goal.list
         if goal != nil {
-            starEndDate.text = getDate(goal.startDate, with: .dayMonthAndYear2) + "-" + getDate(goal.endDate, with: .dayMonthAndYear2)
+            starEndDate.text = getDate(goal.startDate, with: .dayMonthAndYear2) + "-" + getDate(goal.endDate!, with: .dayMonthAndYear2)
         }
         self.navigationItem.title = user.name
         updatePieChartData()
@@ -102,12 +104,11 @@ class GoalHistoryByUserViewController: UIViewController, GoalBindable {
         var incomplete = 0
         var rest = 0
         let date = Date().toMillis()
-        for item in goal.follow {
-            let comp = Date(string: item.date, formatter: .ShortInternationalFormat)?.toMillis()
+        for item in goal.list {
             if item.members[user.id]! > 0 {
                 count+=1
             }else{
-                if date! >= comp! {
+                if date! >= item.startDate! {
                     incomplete+=1
                 }else {
                     rest+=1
@@ -126,17 +127,18 @@ extension GoalHistoryByUserViewController : UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return goal.follow.count
+        return goal.list.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TimeLineCellTableViewCell
-        let follow = goal.follow[indexPath.row]
-        cell.doneLbl.text = Date(string: follow.date, formatter: .ShortInternationalFormat)?.string(with: .dayMonthAndYear2)
-        if indexPath.row == goal.follow.count {
+        let follow = goal.list[indexPath.row]
+        cell.doneLbl.text = Date(timeIntervalSince1970: TimeInterval(follow.startDate/1000)).string(with: .ddMMMyyyy)
+        if indexPath.row == goal.list.count {
             cell.lineLbl.isHidden = true
         }
-        cell.dateLbl.text = follow.date
+        cell.dateLbl.text = Date(timeIntervalSince1970: TimeInterval(follow.startDate/1000)).string(with: .ddMMMyyyy)
+
         cell.doneLbl.text = follow.members[user.id!]! > 0 ? getDate(follow.members[user.id!]!, with: .dayMonthAndYear2) : "Incompleta"
         if follow.members[user.id!]! > 0  {
             cell.doneLbl.backgroundColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
@@ -153,13 +155,12 @@ extension GoalHistoryByUserViewController : UITableViewDelegate, UITableViewData
     func verifyFollow() -> Void {
         
         let date = Date().toMillis()
-        let follows = goal.follow.sorted(by: {$0.date < $1.date})
+        let follows = goal.list.sorted(by: {$0.startDate < $1.startDate})
         for item in follows {
-            let comp = Date(string: item.date, formatter: .ShortInternationalFormat)?.toMillis()
-            if date! <= comp! {
+            if date! <= item.startDate! {
                 follow = item
                 let string = "Fecha: "
-                self.dateForCompleate.text = string + item.date
+                self.dateForCompleate.text = string +  Date(timeIntervalSince1970: TimeInterval(item.startDate/1000) ).string(with: .ddMMMyyyy)
                 if user.id == store.state.UserState.user?.id {
                     self.doneSwitch.isOn = follow.members[(user?.id!)!]! > 0 ? true : false
                     self.dateForCompleate.isHidden = false
@@ -171,13 +172,22 @@ extension GoalHistoryByUserViewController : UITableViewDelegate, UITableViewData
         
     }
     @IBAction func handleChange(_ sender: UISwitch) {
-        
-        if follow != nil, let index = goal.follow.index(where: {$0.date == follow.date}), let uid = store.state.UserState.user?.id
-        {
-            goal.follow[index].members[uid] = sender.isOn ? Date().toMillis() : -1
-            
+        var path = "goals/\(user.id!)/\(goal.id!)/follows"
+        if service.GOAL_SERVICE.type != .Individual {
+            if let fid = store.state.UserState.user?.familyActive {
+                path = "goals/\(fid)/\(goal.id!)/follows"
+            }
         }
-        store.dispatch(UpdateGoalAction(goal: goal))
+        var xgoal: Goal!
+       
+        if follow != nil, let index = goal.list.index(where: {$0.startDate == follow.startDate}), let uid = store.state.UserState.user?.id
+        {
+            goal.list[index].members[uid] = sender.isOn ? Date().toMillis() : -1
+            xgoal = goal.list[index]
+            path += "/\(goal.startDate!)"
+
+        }
+        store.dispatch(gac.UpdateFollow(path, goal: xgoal))
         updatePieChartData()
         self.tableView.reloadData()
         

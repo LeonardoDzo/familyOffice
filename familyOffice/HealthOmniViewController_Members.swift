@@ -12,22 +12,7 @@ extension HealthOmniViewController: UICollectionViewDelegate, UICollectionViewDa
     
     func initMembers(){
         
-        membersCollectionView.delegate = self
-        membersCollectionView.dataSource = self
-        membersCollectionView.layer.cornerRadius = 2
         
-        let user = service.USER_SERVICE.users[0]
-        fam = service.FAMILY_SERVICE.families.first(where: { $0.id == user.familyActive })
-        membersId = fam!.members
-//        let myIdIndex = membersId.index(where: { $0 == user.id! })
-//        membersId.remove(at: myIdIndex!)
-//        membersId.insert(user.id!, at: 0)
-        
-        for id in membersId {
-            if !service.USER_SERVICE.users.contains(where: {$0.id == id}) {
-                service.USER_SERVICE.getUser(uid: id)
-            }
-        }
 //        let indexPath = IndexPath(item: 0, section: 0)
 //        membersCollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .bottom)
         
@@ -59,19 +44,13 @@ extension HealthOmniViewController: UICollectionViewDelegate, UICollectionViewDa
     }
   
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let count = zip(service.USER_SERVICE.users, membersId).map({$0.0.id == $0.1}).count
-        return count
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = membersCollectionView.dequeueReusableCell(withReuseIdentifier: "memberCell", for: indexPath) as! HealthMemberCollectionViewCell
-        let user = service.USER_SERVICE.users.first(where: { $0.id == membersId[indexPath.item] })
-
-        if user != nil{
-            cell.bind(userModel: user!, filter: "blackwhite")
-        }
-      
+        
         
         return cell
     }
@@ -81,8 +60,7 @@ extension HealthOmniViewController: UICollectionViewDelegate, UICollectionViewDa
         let cell = collectionView.cellForItem(at: indexPath) as! HealthMemberCollectionViewCell
         cell.selectedMember.isHidden = false
         cell.profileImage.loadImage(urlString: (cell.userModel?.photoURL)!)
-        userIndex = service.USER_SERVICE.users.index(where: { $0.id! == membersId[indexPath.row] })!
-        elems = service.USER_SERVICE.users[userIndex].health.elements.filter({ $0.type == categorySelected })
+       
         categoryTableView.reloadData()
     }
     

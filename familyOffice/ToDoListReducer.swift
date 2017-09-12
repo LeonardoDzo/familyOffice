@@ -8,10 +8,9 @@
 
 import Foundation
 import ReSwift
-import ReSwiftRouter
 import Firebase
 
-struct ToDoListReducer: Reducer{
+struct ToDoListReducer{
     
     func handleAction(action: Action, state: ToDoListState?) -> ToDoListState {
         var state = state ?? ToDoListState(items: [:], status: .none)
@@ -47,7 +46,7 @@ struct ToDoListReducer: Reducer{
         let id = store.state.UserState.user?.id!
         let path = "todolist/\(id!)/\(item.id!)"
         service.TODO_SERVICE.insert(path, value: item.toDictionary(), callback: {ref in
-            if ref is FIRDatabaseReference{
+            if ref is DatabaseReference{
                 store.state.ToDoListState.items[id!]?.append(item)
                 store.state.ToDoListState.status = .finished
             }
@@ -58,7 +57,7 @@ struct ToDoListReducer: Reducer{
         let id = store.state.UserState.user?.id!
         let path = "todolist/\(id!)/\(item.id!)"
         service.TODO_SERVICE.update(path, value: item.toDictionary() as! [AnyHashable : Any], callback: { ref in
-            if ref is FIRDatabaseReference {
+            if ref is DatabaseReference {
                 if let index = store.state.ToDoListState.items[id!]?.index(where: {$0.id! == item.id! }){
                     store.state.ToDoListState.items[id!]?[index] = item
                     store.state.ToDoListState.status = .finished

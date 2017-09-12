@@ -14,7 +14,6 @@ import ReSwift
 class SingUpViewController: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate {
     
     typealias StoreSubscriberStateType = UserState
-    
     @IBOutlet weak var nameTxtfield: UITextField!
     @IBOutlet weak var emailTxtfield: UITextField!
     @IBOutlet weak var phoneTxtfield: UITextField!
@@ -27,8 +26,6 @@ class SingUpViewController: UIViewController, UITextFieldDelegate, GIDSignInUIDe
         super.viewDidLoad()
         GIDSignIn.sharedInstance().uiDelegate = self
         // Do any additional setup after loading the view.
-        let backButton : UIBarButtonItem = UIBarButtonItem(title: "Atrás", style: UIBarButtonItemStyle.plain, target: self, action:#selector(handleBack))
-        self.navigationItem.leftBarButtonItem = backButton
         self.confirmPassTxtfield.delegate = self
     }
     
@@ -42,8 +39,8 @@ class SingUpViewController: UIViewController, UITextFieldDelegate, GIDSignInUIDe
         STYLES.borderbottom(textField: self.passwordTxtfield, color: UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1), width: 1.0)
         STYLES.borderbottom(textField: self.confirmPassTxtfield, color: UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1), width: 1.0)
         store.subscribe(self) {
-            state in
-            state.UserState
+            subcription in
+            subcription.select { state in state.UserState }
         }
     }
     override func viewWillDisappear(_ animated: Bool) {
@@ -92,20 +89,20 @@ class SingUpViewController: UIViewController, UITextFieldDelegate, GIDSignInUIDe
             return
         }
         
-        FIRAuth.auth()?.createUser(withEmail: email, password: pass) { (user, error) in
+        Auth.auth().createUser(withEmail: email, password: pass) { (user, error) in
             if(error == nil){
                 let userModel = User(id: (user?.uid)!, name: name, phone: phone, photoURL: "", families: [:], familyActive: "", rfc: "", nss: "", curp: "", birth: "", address: "", bloodtype: "", health: [])
                 store.dispatch(CreateUserAction(user: userModel))
                 Constants.FirDatabase.REF_USERS.child(userModel.id).setValue(userModel)
             }
             else{
-                let errCode : FIRAuthErrorCode = FIRAuthErrorCode(rawValue: error!._code)!
+                let errCode : AuthErrorCode = AuthErrorCode(rawValue: error!._code)!
                 switch errCode {
-                case .errorCodeInvalidEmail:
+                case .invalidEmail:
                     er = "Correo electrónico incorrecto"
-                case .errorCodeWrongPassword:
+                case .wrongPassword:
                     er = "Contraseña incorrecta"
-                case .errorCodeWeakPassword:
+                case .weakPassword:
                     er = "La contraseña debe de contener al menos 6 caracteres"
                 default:
                     er = "Algo salio mal, intente más tarde"
@@ -166,7 +163,7 @@ extension SingUpViewController : StoreSubscriber {
             self.view.makeToastActivity(.center)
             break
         case .finished:
-            _ = self.navigationController?.popViewController(animated: true)
+            //_ = self.navigationController?.popViewController(animated: true)
             break
         default:
             break

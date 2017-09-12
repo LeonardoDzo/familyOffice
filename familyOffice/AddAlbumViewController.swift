@@ -15,7 +15,7 @@ class AddAlbumViewController: UIViewController, UIImagePickerControllerDelegate,
     
     let picker = UIImagePickerController()
     let path: String = "album/" + service.GALLERY_SERVICE.refUserFamily!
-    var reference: FIRDatabaseReference = FIRDatabaseReference()
+    var reference: DatabaseReference = DatabaseReference()
     var chosenImage: UIImage? = nil
     var albums: [Album] = []
 
@@ -99,8 +99,8 @@ extension AddAlbumViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         store.subscribe(self){
-            state in
-            state.GalleryState
+            subcription in
+            subcription.select { state in state.GalleryState }
         }
         store.state.GalleryState.status = .none
     }

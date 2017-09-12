@@ -8,7 +8,8 @@
 
 import UIKit
 import FirebaseAuth
-
+import ALCameraViewController
+import ReSwift
 class ConfigurationViewController: UIViewController, UIImagePickerControllerDelegate,
 UINavigationControllerDelegate  {
     var user: User!
@@ -30,9 +31,15 @@ UINavigationControllerDelegate  {
     override func viewWillAppear(_ animated: Bool) {
         user = store.state.UserState.user!
         profileImage.loadImage(urlString: user.photoURL)
+        store.subscribe(self) {
+            $0.select({
+                s in
+                s.UserState
+            })
+        }
     }
     override func viewWillDisappear(_ animated: Bool) {
-        
+        store.unsubscribe(self)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -40,7 +47,7 @@ UINavigationControllerDelegate  {
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-
+        
         dismiss(animated:true, completion: { _ in
             self.performSegue(withIdentifier: "updateImageSegue", sender: nil)
         })
@@ -51,32 +58,46 @@ UINavigationControllerDelegate  {
     }
     
     @IBAction func chooseImage(_ sender: UIButton) {
-        
-        
+        let croppingEnabled = true
         let actionSheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
         
-        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action: UIAlertAction) in
-            self.picker.sourceType = .camera
-            if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                self.picker.allowsEditing = false
-                self.picker.sourceType = UIImagePickerControllerSourceType.camera
-                self.picker.cameraCaptureMode = .photo
-                self.picker.modalPresentationStyle = .fullScreen
-                self.present(self.picker, animated: true, completion: nil)
-            } else {
-                self.noCamera()
+        actionSheet.addAction(UIAlertAction(title: "Camara", style: .default, handler: { (action: UIAlertAction) in
+            let croppingEnabled = true
+            let cameraViewController = CameraViewController(croppingEnabled: croppingEnabled) { [weak self] image, asset in
+                
+                guard let img = image else {
+                    self?.dismiss(animated: true, completion: nil)
+                    return
+                }
+                store.dispatch(UpdateUserAction(user: (self?.user)!, img: img))
+                self?.dismiss(animated: true, completion: nil)
             }
+            
+            self.present(cameraViewController, animated: true, completion: nil)
+            
             
         }))
         
-        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action: UIAlertAction) in
-            self.picker.sourceType = .photoLibrary
-            self.present(self.picker, animated: true, completion: nil)
+        actionSheet.addAction(UIAlertAction(title: "Galería", style: .default, handler: { (action: UIAlertAction) in
+            
+            /// Provides an image picker wrapped inside a UINavigationController instance
+            let imagePickerViewController = CameraViewController.imagePickerViewController(croppingEnabled: croppingEnabled) { [weak self] image, asset in
+                guard let img = image else {
+                    self?.dismiss(animated: true, completion: nil)
+                    return
+                }
+                store.dispatch(UpdateUserAction(user: (self?.user)!, img: img))
+                self?.dismiss(animated: true, completion: nil)
+            }
+            
+            self.present(imagePickerViewController, animated: true, completion: nil)
+            
         }))
         
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         self.present(actionSheet, animated: true, completion: nil)
+
         
     }
     func noCamera(){
@@ -89,21 +110,32 @@ UINavigationControllerDelegate  {
             style:.default,
             handler: nil)
         alertVC.addAction(okAction)
-        present(
+        self.present(
             alertVC,
             animated: true,
             completion: nil)
     }
     
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier=="updateImageSegue" {
-            let viewController = segue.destination as! ImageViewController
-            viewController.chooseImg = chosenImage
-        }
-     }
-     
+}
+
+extension ConfigurationViewController : StoreSubscriber {
+    typealias StoreSubscriberStateType = UserState
     
+    func newState(state: UserState) {
+        user = store.state.UserState.user!
+        self.view.hideToastActivity()
+        switch state.status {
+        case .loading:
+            self.view.makeToastActivity(.center)
+            break
+        case .finished:
+            profileImage.loadImage(urlString: user.photoURL)
+            break
+        case .failed:
+            self.view.makeToast("Algo salio mal", duration: 3.0, position: .center)
+            break
+        default:
+            break
+        }
+    }
 }

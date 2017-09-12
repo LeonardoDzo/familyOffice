@@ -24,7 +24,7 @@ class GoalDataofSectionTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    func  setTableViewDataSourceDelegate() {
+    func setTableViewDataSourceDelegate() {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tag = self.tag
@@ -49,11 +49,11 @@ extension GoalDataofSectionTableViewCell: UITableViewDataSource,UITableViewDeleg
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! GoalDataForCategoryTableViewCell
         let goal = data[indexPath.row]
         cell.bind(goal:goal)
-        if goal.follow.count == 0 {
+        if goal.list.count == 0 {
             cell.doneSwitch.isHidden = false
             if goal.type == 0 {
                  cell.accessoryType = .none
-                 cell.doneSwitch.isOn = goal.done
+                 cell.doneSwitch.isOn = goal.done!
             }else{
                  let uid = store.state.UserState.user?.id
                 cell.doneSwitch.isOn = goal.members[uid!]! > 0 ? true : false
@@ -68,7 +68,7 @@ extension GoalDataofSectionTableViewCell: UITableViewDataSource,UITableViewDeleg
         if goal.type  == 1 {
              segueDelegate.selected("infoSegue", sender: goal)
         }else{
-            if goal.follow.count > 0 {
+            if goal.list.count > 0 {
                  segueDelegate.selected("detailSegue", sender: goal)
             }
         }

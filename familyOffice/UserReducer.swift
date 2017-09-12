@@ -8,19 +8,33 @@
 
 import Foundation
 import ReSwift
-
-struct UserReducer: Reducer {
+import FirebaseAuth
+struct UserReducer {
     func handleAction(action: Action, state: UserState?) -> UserState {
         var state = state ?? UserState(users: [], user: nil, status: .none)
         
         switch action {
         case let action as GetUserAction:
+            state.status = .loading
             if action.uid != nil {
                 getUser(action.uid)
             }else if action.phone != nil {
                 service.USER_SVC.getUser(byphone: action.phone)
             }
-            state.status = .loading
+           
+            break
+        case let action as SetUserAction:
+            state.status = .finished
+            if action.user != nil {
+                let user = action.user
+                if user?.id == Auth.auth().currentUser?.uid {
+                    state.user = user
+                }else{
+                    if !state.users.contains(where: {$0.id == user?.id}) {
+                        state.users.append(user!)
+                    }
+                }
+            }
             break
         case let action as LoginAction:
             if action.credential != nil{
@@ -59,4 +73,5 @@ struct UserReducer: Reducer {
     func getUser(_ uid: String) -> Void {
         service.USER_SVC.valueSingleton(ref: ref_users(uid: uid))
     }
+    
 }

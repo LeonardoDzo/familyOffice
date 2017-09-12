@@ -131,7 +131,8 @@ extension AddQuestionViewController: StoreSubscriber {
         super.viewWillAppear(true)
         addObservers()
         store.subscribe(self){
-            subscription in subscription.FaqState
+            subcription in
+            subcription.select { state in state.FaqState}
         }
         NotificationCenter.default.addObserver(self, selector: #selector(AddQuestionViewController.keyboardWillShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AddQuestionViewController.keyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)

@@ -53,7 +53,7 @@ struct ImageAlbum {
         self.width = width
         self.height = height
     }
-    init(snap: FIRDataSnapshot){
+    init(snap: DataSnapshot){
         self.id = snap.key
         let snapValue = snap.value as! NSDictionary
         self.path = service.UTILITY_SERVICE.exist(field: ImageAlbum.kPath, dictionary: snapValue)

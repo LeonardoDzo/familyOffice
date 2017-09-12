@@ -8,10 +8,9 @@
 
 import Foundation
 import ReSwift
-import ReSwiftRouter
 import Firebase
 
-struct IllnessReducer: Reducer {
+struct IllnessReducer{
     func handleAction(action: Action, state: IllnessState?) -> IllnessState {
         var state = state ?? IllnessState(illnesses: [:], status: .none)
         switch action {
@@ -46,7 +45,7 @@ struct IllnessReducer: Reducer {
         let id = store.state.UserState.user?.familyActive!
         let path = "illnesses/\(id!)/\(illness.id!)"
         service.ILLNESS_SERVICE.insert(path, value: illness.toDictionary(), callback: {ref in
-            if ref is FIRDatabaseReference {
+            if ref is DatabaseReference {
                 store.state.IllnessState.illnesses[id!]?.append(illness)
                 store.state.IllnessState.status = .finished
             }
@@ -57,7 +56,7 @@ struct IllnessReducer: Reducer {
         let id = store.state.UserState.user?.familyActive!
         let path = "illnesses/\(id!)/\(illness.id!)"
         service.ILLNESS_SERVICE.update(path, value: illness.toDictionary() as! [AnyHashable:Any]) { ref in
-            if ref is FIRDatabaseReference {
+            if ref is DatabaseReference {
                 if let index = store.state.IllnessState.illnesses[id!]?.index(where: {$0.id == illness.id}){
                     store.state.IllnessState.illnesses[id!]?[index] = illness
                     store.state.IllnessState.status = .finished

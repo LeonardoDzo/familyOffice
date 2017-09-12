@@ -10,12 +10,12 @@ import Toast_Swift
 import Firebase
 protocol RequestService {
     
-    var handles: [(String,UInt,FIRDataEventType)] {get set}
-    func addHandle(_ handle: UInt, ref: String, action: FIRDataEventType) -> Void
+    var handles: [(String,UInt,DataEventType)] {get set}
+    func addHandle(_ handle: UInt, ref: String, action: DataEventType) -> Void
     func removeHandles() -> Void
     func notExistSnapshot() -> Void
-    func inserted(ref: FIRDatabaseReference) -> Void
-    func routing(snapshot: FIRDataSnapshot, action: FIRDataEventType, ref: String) -> Void
+    func inserted(ref: DatabaseReference) -> Void
+    func routing(snapshot: DataSnapshot, action: DataEventType, ref: String) -> Void
     
 }
 extension RequestService {
@@ -27,7 +27,7 @@ extension RequestService {
             }else {
                 DispatchQueue.main.async {
                     self.inserted(ref: ref)
-                    callback(ref as FIRDatabaseReference)
+                    callback(ref as DatabaseReference)
                 }
             }
         })
@@ -48,13 +48,13 @@ extension RequestService {
                 print(error.debugDescription)
             }else {
                 DispatchQueue.main.async {
-                    callback(ref as FIRDatabaseReference)
+                    callback(ref as DatabaseReference)
                 }
             }
         })
     }
     
-    func child_action(ref: String, action: FIRDataEventType) -> Void {
+    func child_action(ref: String, action: DataEventType) -> Void {
         let handle = Constants.FirDatabase.REF.child(ref).observe(action, with: {(snapshot) in
             if(snapshot.exists()){
                 self.routing(snapshot: snapshot, action: action, ref: ref)
@@ -78,6 +78,16 @@ extension RequestService {
             print(error.localizedDescription)
         })
     }
-
+    func valueSingleton(_ ref: String, callback: @escaping ((Any) -> Void)) {
+        Constants.FirDatabase.REF.child(ref).observeSingleEvent(of: .value, with: {(snapshot) in
+            if snapshot.exists(){
+                DispatchQueue.main.async {
+                    callback(snapshot)
+                }
+            }
+        }, withCancel: {(error) in
+            print(error.localizedDescription)
+        })
+    }
 
 }

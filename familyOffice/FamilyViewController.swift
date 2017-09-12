@@ -21,12 +21,14 @@ class FamilyViewController: UIViewController, UIGestureRecognizerDelegate, Famil
         membersTable.addGestureRecognizer(lpgr )
         membersTable.contentInset = UIEdgeInsetsMake(20, 0, 0, 0)
         
-        let addButton : UIBarButtonItem = UIBarButtonItem(title: "Agregar", style: UIBarButtonItemStyle.plain, target: self, action:#selector(addMemberScreen(sender:)))
+        let addButton : UIBarButtonItem = UIBarButtonItem(title: "Editar", style: UIBarButtonItemStyle.plain, target: self, action:#selector(addMemberScreen(sender:)))
         self.navigationItem.rightBarButtonItem = addButton
         
         let nav = self.navigationController?.navigationBar
         nav?.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.3137395978, green: 0.1694342792, blue: 0.5204931498, alpha: 1)]
-        // Do any additional setup after loading the view.
+        
+        Image.formatView()
+        membersTable.formatView()
     }
     
     
@@ -47,7 +49,7 @@ class FamilyViewController: UIViewController, UIGestureRecognizerDelegate, Famil
                 
                 let uid = family.members[(indexPath?.row)!]
                 if let user = service.USER_SVC.getUser(byId: uid) {
-                    if(user.id == FIRAuth.auth()?.currentUser?.uid){
+                    if(user.id == Auth.auth().currentUser?.uid){
                         break
                     }
                     // create the alert
@@ -57,17 +59,15 @@ class FamilyViewController: UIViewController, UIGestureRecognizerDelegate, Famil
                         self.performSegue(withIdentifier: "ProfileSegue", sender: user)
                     }))
                     alert.addAction(UIAlertAction(title: "Cancelar", style: UIAlertActionStyle.cancel, handler: nil))
-                    if(family?.admin == FIRAuth.auth()?.currentUser?.uid){
+                    if(family?.admin == Auth.auth().currentUser?.uid){
                         alert.addAction(UIAlertAction(title: "Remover de la familia", style: UIAlertActionStyle.destructive, handler:  { action in
                             DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
-                                //ELiminar usuario de la familia
-                                service.FAMILY_SERVICE.remove(snapshot: user.id, id: (self.family?.id!)!)
+                               //Delete USER
                             }
                         }))
                     }
                     // show the alert
                     self.present(alert, animated: true, completion: nil)
-
                 }
                 break
             case .ended:
@@ -122,8 +122,6 @@ extension FamilyViewController : UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
-    
-
 }
 extension FamilyViewController : StoreSubscriber {
     typealias StoreSubscriberStateType = AppState
@@ -131,7 +129,6 @@ extension FamilyViewController : StoreSubscriber {
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.navigationItem.title = family?.name
-        self.bind()
         store.subscribe(self) {
             state in
             state
@@ -145,6 +142,7 @@ extension FamilyViewController : StoreSubscriber {
     }
     func newState(state: AppState) {
         family = state.FamilyState.families.family(fid: family.id)
+        self.bind()
         self.membersTable.reloadData()
     }
     override func viewWillDisappear(_ animated: Bool) {

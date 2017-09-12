@@ -9,7 +9,8 @@
 import Foundation
 import UIKit
 import Firebase
-
+import ObjectMapper
+import Realm
 enum GoalCategory: Int {
     case sport, religion, school, business, eat, health
 }
@@ -19,7 +20,8 @@ enum GoalType: Int {
 }
 
 
-struct Goal {
+struct Goal: Mappable   {
+    typealias  g = Goal
     static let ktitle = "title"
     static let ktype = "type"
     static let kcategory = "category"
@@ -31,22 +33,22 @@ struct Goal {
     static let kdateCreated = "startDate"
     static let kMembers = "members"
     static let kRepeat = "repeat"
-    static let kFollow = "follow"
+    static let kFollow = "follows"
     
     
     var id:String!
-    var title: String!
-    var type: Int! = 0
-    var category: Int! = 0
-    var photo: String! = ""
-    var endDate: Int!
-    var done: Bool! = false
-    var note: String! = ""
-    var creator: String! = ""
+    var title: String?
+    var type: Int?
+    var category: Int?
+    var photo: String?
+    var endDate: Int?
+    var done: Bool? = false
+    var note: String?
+    var creator: String?
     var startDate : Int!
     var members = [String:Int]()
-    var repeatGoalModel : repeatGoal!
-    var follow = [FollowGoal]()
+    var repeatGoalModel : repeatGoal?
+    var list = [Goal]()
     
     init() {
         
@@ -57,64 +59,152 @@ struct Goal {
         self.type = 0
         self.repeatGoalModel = repeatGoal()
     }
+    init(_ startDate: Int) {
+        self.startDate = startDate
+    }
+    /// This function is where all variable mappings should occur. It is executed by Mapper during the mapping (serialization and deserialization) process.
+    mutating func mapping(map: Map) {
+        self.title <- map[g.ktitle]
+        
+        self.startDate <- map[g.kdateCreated]
+        
+        self.endDate <- map[g.kendDate]
+        
+        self.type <- map[g.ktype]
+        
+        self.creator <- map[g.kcreator]
+        
+        self.photo = try? map.value(g.kphoto)
+        
+        self.done = try? map.value(g.kdone) ?? false
+        
+        self.members <- map[g.kMembers]
+        print(map[g.kMembers])
+        self.category <- map[g.kcategory]
+        
+        self.repeatGoalModel <- map[g.kRepeat]
+    }
+    init?(map: Map) {
+        self.mapping(map: map)
+    }
     
-    
-    init(snapshot: FIRDataSnapshot) {
+    init(snapshot: DataSnapshot) {
         let snapshotValue = snapshot.value as! NSDictionary
+        let map = Map(mappingType: .fromJSON, JSON: snapshotValue as! [String : Any])
+        self.mapping(map: map)
         self.id = snapshot.key
         
-        self.title = snapshotValue.exist(field: Goal.ktitle)
-        
-        self.startDate = snapshotValue.exist(field: Goal.kdateCreated)
-        
-        self.endDate = snapshotValue.exist(field: Goal.kendDate)
-        
-        self.type = snapshotValue.exist(field: Goal.ktype)
-        
-        self.note = snapshotValue.exist(field: Goal.knote)
-        
-        self.creator = snapshotValue.exist(field: Goal.kcreator)
-        
-        self.photo = snapshotValue.exist(field: Goal.kphoto)
-        
-        self.done = snapshotValue.exist(field: Goal.kdone)
-        
-        self.members = snapshotValue.exist(strInt: Goal.kMembers)
-        
-        self.category = snapshotValue.exist(field: Goal.kcategory)
-        
-        self.repeatGoalModel =  repeatGoal(snapshotValue.exist(dic: Goal.kRepeat)!)
-        
-        if let snap = snapshotValue[Goal.kFollow] as? NSDictionary {
-            for date in snap.allKeys as! [String] {
-                self.follow.append(FollowGoal(snapshot: snap[date] as! NSDictionary, date: date ))
-            }
+        guard let follow = snapshotValue[g.kFollow] as? NSDictionary else {
+            self.updateGoals(follow: nil, date: self.startDate, repeatModel: self.repeatGoalModel!)
+            return
         }
-     
+        self.updateGoals(follow: follow, date: self.startDate, repeatModel: self.repeatGoalModel!)
     }
-    func toDictionary() -> NSDictionary! {
-        return [
-            Goal.kcreator : self.creator,
-            Goal.kdateCreated : self.startDate,
-            Goal.kdone : self.done,
-            Goal.kendDate : self.endDate,
-            Goal.ktype : self.type,
-            Goal.knote : self.note,
-            Goal.ktitle : self.title,
-            Goal.kcategory : self.category,
-            Goal.kMembers : self.members,
-            Goal.kRepeat : self.repeatGoalModel.toDictionary(),
-            Goal.kFollow : NSDictionary(objects: self.follow.map({$0.members}), forKeys: self.follow.map({$0.date}) as! [NSCopying]),
+    
+    mutating func updateGoals(follow: NSDictionary?, date: Int, repeatModel: repeatGoal) -> Void {
+        self.getDates(date, repeatModel: repeatModel)
+        
+        guard follow != nil else {
+            return
+        }
+        
+        self.list.enumerated().forEach({
+            index, goal in
+            if let value = follow?.value(forKey: String(goal.startDate)) as? NSDictionary {
+                print(value)
+                let map = Map(mappingType: .fromJSON, JSON: value as! [String : Any])
+                let copy = Goal(map: map)!
+                self.list[index] = copy
+                if self.list[index].repeatGoalModel != nil {
+                    follow?.setValue(nil, forKey: String(goal.startDate))
+                    for index in index..<self.list.count {
+                        self.list.remove(at: index)
+                    }
+                    updateGoals(follow: follow, date: self.list[index].startDate, repeatModel: self.list[index].repeatGoalModel!)
+                }
+            }
+        })
+    }
+    
+    mutating func getDates(_ date: Int, repeatModel: repeatGoal) -> Void {
+        var date : Int? = date
+        var i = 500
+        while((date != nil) && i > 0){
+            var goal = Goal(date!)
+            goal.members = members
+            date = nextDate(currentDate: date!, repeatGoal: self.repeatGoalModel, endDate: self.endDate!);
+            self.list.append(goal)
+            i-=1;
+        }
+        
+    }
+    func nextDate(currentDate: Int, repeatGoal: repeatGoal?, endDate: Int) -> Int? {
+        if repeatGoal == nil {
+            return nil
+        }
+        let calendar = Calendar.current
+        var next = Date(timeIntervalSince1970: TimeInterval(currentDate/1000));
+        
+        let days = repeatGoal?.days.map({$0.isEmpty ? calendar.component(.weekday, from: next) : Int($0)!}) ?? []
 
+        switch (repeatGoal?.frequency)! {
+        case .never:
+            return nil
+        case .daily:
+            if let value = repeatGoal?.frequency.value {
+                next.addTimeInterval(TimeInterval(value))
+                if next.toMillis() >= endDate {
+                    return nil
+                }
+                return next.toMillis()
+            }
+            return nil
+        case .weekly:
+            let nextDayOfTheWeek = calendar.component(.weekday, from: next)
+            var closestBiggerDay = days.first(where: {$0 > nextDayOfTheWeek})
             
-        ]
+            if closestBiggerDay == nil  {
+                closestBiggerDay = (days.count > 0 ? days[0] : 0)  + 7
+            }
+            let dayDifference = closestBiggerDay! - nextDayOfTheWeek
+            let interval = TimeInterval(Frequency.daily.value! * dayDifference)
+            next.addTimeInterval(interval)
+            print(next, Date(timeIntervalSince1970: TimeInterval(endDate/1000)))
+            let hour = 23 - calendar.component(.hour, from: Date(endDate)!)
+            var end = Date(endDate)!
+            end.addTimeInterval(TimeInterval(60*60*hour))
+            if next.toMillis() > end.toMillis(){
+                return nil
+            }
+            return next.toMillis()
+        case .monthly:
+            let nextDayOfTheMonth = Calendar.current.component(.weekOfMonth, from: next)
+            var closestBiggerDay = days.first(where: {$0 > nextDayOfTheMonth})
+            if closestBiggerDay == nil {
+                let current = Date(timeIntervalSince1970: TimeInterval(currentDate/1000))
+                let lastDayOfTheMonth = Calendar.current.component(.weekOfMonth, from: current.endOfMonth())
+                closestBiggerDay = days[0] + lastDayOfTheMonth;
+            }
+            let dateDifference = closestBiggerDay! - nextDayOfTheMonth;
+            let interval = TimeInterval(Frequency.daily.value! * dateDifference)
+            next.addTimeInterval(interval)
+          
+            let hour = calendar.component(.hour, from: Date(endDate)!) - 23
+            let end = Date(endDate)!.addingTimeInterval(TimeInterval(60*60*hour))
+
+            if next.toMillis() > end.toMillis() {
+                return nil
+            }
+            return next.toMillis()
+        default:
+            return nil
+        }
+        
     }
     
     mutating func setId() -> Void {
-       self.id = Constants.FirDatabase.REF.childByAutoId().key
+        self.id = Constants.FirDatabase.REF.childByAutoId().key
     }
-    
-    
 }
 
 protocol GoalBindable: AnyObject {

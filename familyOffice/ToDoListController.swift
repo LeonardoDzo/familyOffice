@@ -198,7 +198,8 @@ extension ToDoListController: StoreSubscriber{
         service.TODO_SERVICE.initObserves(ref: "todolist/\((store.state.UserState.user?.id)!)", actions: [.childAdded, .childChanged, .childRemoved])
         
         store.subscribe(self){
-            state in state.ToDoListState
+            subcription in
+            subcription.select { state in state.ToDoListState }
         }
     }
 

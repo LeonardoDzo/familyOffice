@@ -9,7 +9,6 @@
 import UIKit
 import Firebase
 import ReSwift
-import ReSwiftRouter
 
 class NewMedicineViewController: UIViewController {
     
@@ -110,7 +109,8 @@ extension NewMedicineViewController: StoreSubscriber {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         store.subscribe(self){
-            state in state.MedicineState
+            subcription in
+            subcription.select { state in state.MedicineState }
         }
     }
     
