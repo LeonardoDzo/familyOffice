@@ -84,7 +84,9 @@ extension PendingQuestionsTableViewController: StoreSubscriber {
         super.viewWillAppear(true)
         addObservers()
         store.subscribe(self){
-            subscription in subscription.FaqState
+            $0.select({
+                s in s.FaqState
+                })
         }
     }
     

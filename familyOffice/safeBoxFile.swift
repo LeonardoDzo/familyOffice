@@ -44,7 +44,7 @@ struct SafeBoxFile{
         self.id = Constants.FirDatabase.REF.childByAutoId().key
     }
     
-    init(snapshot: FIRDataSnapshot){
+    init(snapshot: DataSnapshot){
         let dic = snapshot.value as! NSDictionary
         self.id = snapshot.key
         self.filename = service.UTILITY_SERVICE.exist(field: SafeBoxFile.fFilename, dictionary: dic)

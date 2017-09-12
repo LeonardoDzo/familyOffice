@@ -15,7 +15,7 @@ class SafeBoxService: RequestService{
     }
     
     var files: [SafeBoxFile] = []
-    var handles: [(String,UInt,FIRDataEventType)] = []
+    var handles: [(String,UInt,DataEventType)] = []
     let basePath = "safebox/\((store.state.UserState.user?.id)!)"
     private init() {}
     
@@ -23,7 +23,7 @@ class SafeBoxService: RequestService{
     
     public static func Instance() -> SafeBoxService { return instance}
     
-    func routing(snapshot: FIRDataSnapshot, action: FIRDataEventType, ref: String) {
+    func routing(snapshot: DataSnapshot, action: DataEventType, ref: String) {
         switch action{
         case .childAdded:
             self.added(snapshot:snapshot)
@@ -40,7 +40,7 @@ class SafeBoxService: RequestService{
             break
         }
     }
-    func initObservers(ref: String, actions: [FIRDataEventType]) -> Void{
+    func initObservers(ref: String, actions: [DataEventType]) -> Void{
         for action in actions {
             if !handles.contains(where: {$0.0 == ref && $0.2 == action}){
                 self.child_action(ref: ref, action: action)
@@ -48,7 +48,7 @@ class SafeBoxService: RequestService{
         }
     }
     
-    func addHandle(_ handle: UInt, ref: String, action: FIRDataEventType) {
+    func addHandle(_ handle: UInt, ref: String, action: DataEventType) {
         self.handles.append(ref, handle, action)
     }
     
@@ -59,13 +59,13 @@ class SafeBoxService: RequestService{
         self.handles.removeAll()
     }
     
-    func inserted(ref: FIRDatabaseReference) {
+    func inserted(ref: DatabaseReference) {
         store.state.safeBoxState.status = .none
     }
 }
 
 extension SafeBoxService: repository {
-    func added(snapshot: FIRDataSnapshot) {
+    func added(snapshot: DataSnapshot) {
         let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
         let safeBoxFile = SafeBoxFile(snapshot: snapshot)
         
@@ -78,7 +78,7 @@ extension SafeBoxService: repository {
         }
     }
     
-    func updated(snapshot: FIRDataSnapshot, id: Any) {
+    func updated(snapshot: DataSnapshot, id: Any) {
         let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
         let safeBoxFile = SafeBoxFile(snapshot: snapshot)
         if let index = store.state.safeBoxState.safeBoxFiles[id]?.index(where: {$0.id == snapshot.key})  {
@@ -86,7 +86,7 @@ extension SafeBoxService: repository {
         }
     }
     
-    func removed(snapshot: FIRDataSnapshot) {
+    func removed(snapshot: DataSnapshot) {
         let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
         if let index = store.state.safeBoxState.safeBoxFiles[id]?.index(where: {$0.id == snapshot.key})  {
             store.state.safeBoxState.safeBoxFiles[id]?.remove(at: index)

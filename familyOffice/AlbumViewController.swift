@@ -119,7 +119,7 @@ class AlbumViewController: UIViewController,UIGestureRecognizerDelegate, StoreSu
                                     //let imageData = self.resizeImage(image: image!, scale: CGFloat.init(20))
                                     let imageData = image?.resizeImage()
                                     let key = Constants.FirDatabase.REF.childByAutoId().key as String
-                                    let imgAlbum: ImageAlbum = ImageAlbum(id: key, path: "", album: self.currentAlbum?.id, comments: [], reacts: [], uiimage: imageData!,video: nil, width: Double(img.size.width*img.scale), height: Double(img.size.height*img.scale))
+                                    let imgAlbum: ImageAlbum = ImageAlbum(id: key, path: "", album: self.currentAlbum?.id, comments: [], reacts: [], uiimage: imageData!,video: nil, width: Double(image!.size.width*image!.scale), height: Double(image!.size.height*image!.scale))
                                     store.dispatch(InsertImagesAlbumAction(image: imgAlbum))
                                     self.imgesAlbum.append(ImageAlbum())
                                     self.collectionImages.reloadData()

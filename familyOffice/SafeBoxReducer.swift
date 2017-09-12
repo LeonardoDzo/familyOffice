@@ -8,10 +8,9 @@
 
 import Foundation
 import ReSwift
-import ReSwiftRecorder
 import Firebase
 
-struct SafeBoxReducer: Reducer {
+struct SafeBoxReducer {
     
     func handleAction(action: Action, state: SafeBoxState?) -> SafeBoxState {
         var state = state ?? SafeBoxState(safeBoxFiles: [:], status: .none)
@@ -48,7 +47,7 @@ struct SafeBoxReducer: Reducer {
         let path = "safebox/\(id!)/\(item.id!)"
         print(path)
         service.SAFEBOX_SERVICE.insert(path, value: item.toDictionary(), callback: {ref in
-            if ref is FIRDatabaseReference{
+            if ref is DatabaseReference{
                 if(NSString(string: item.filename).pathExtension != ""){
                     store.state.safeBoxState.safeBoxFiles[id!]?.append(item)
                 }
@@ -61,7 +60,7 @@ struct SafeBoxReducer: Reducer {
         let id = store.state.UserState.user?.id!
         let path = "safebox/\(id!)/\(item.id!)"
         service.SAFEBOX_SERVICE.update(path, value: item.toDictionary() as! [AnyHashable : Any], callback: { ref in
-            if ref is FIRDatabaseReference {
+            if ref is DatabaseReference {
                 if let index = store.state.safeBoxState.safeBoxFiles[id!]?.index(where: {$0.id! == item.id! }){
                     store.state.safeBoxState.safeBoxFiles[id!]?[index] = item
                     store.state.safeBoxState.status = .finished
@@ -77,13 +76,13 @@ struct SafeBoxReducer: Reducer {
         let path = "safebox/\(id!)/\(item.id!)"
         service.SAFEBOX_SERVICE.delete(path) { (Any) in
             if let index = store.state.safeBoxState.safeBoxFiles[id!]?.index(where: {$0.id! == item.id! }){
-                let imageRef = FIRStorage.storage().reference(forURL: item.downloadUrl)
+                let imageRef = Storage.storage().reference(forURL: item.downloadUrl)
                 imageRef.delete { (err) in
                     if let error = err {
                         print(error.localizedDescription)
                     } else {
                         if item.thumbnail != ""{
-                            let min = FIRStorage.storage().reference(forURL: item.thumbnail!)
+                            let min = Storage.storage().reference(forURL: item.thumbnail!)
                             min.delete { (err) in
                                 if let error = err {
                                     print(error.localizedDescription)

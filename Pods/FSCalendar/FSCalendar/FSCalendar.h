@@ -506,7 +506,7 @@ IB_DESIGNABLE
  @param position The month position for the cell
  @return An object representing a cell of the calendar, or nil if the cell is not visible or date is out of range.
  */
-- (__kindof FSCalendarCell *)cellForDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)position;
+- (nullable FSCalendarCell *)cellForDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)position;
 
 
 /**
@@ -515,7 +515,7 @@ IB_DESIGNABLE
  @param cell The cell object whose date you want.
  @return The date of the cell or nil if the specified cell is not in the calendar.
  */
-- (NSDate *)dateForCell:(FSCalendarCell *)cell;
+- (nullable NSDate *)dateForCell:(FSCalendarCell *)cell;
 
 /**
  Returns the month position of the specified cell.
@@ -541,11 +541,6 @@ IB_DESIGNABLE
 - (CGRect)frameForDate:(NSDate *)date;
 
 /**
- Invalidates the current appearance of the calendar and triggers an update during the next update cycle.
- */
-- (void)setNeedsConfigureAppearance;
-
-/**
  An action selector for UIPanGestureRecognizer instance to control the scope transition
  
  @param sender A UIPanGestureRecognizer instance which controls the scope of the calendar
@@ -560,7 +555,6 @@ IB_DESIGNABLE
 
 #if TARGET_INTERFACE_BUILDER
 
-@property (assign, nonatomic) IBInspectable BOOL     adjustsFontSizeToFitContentSize;
 @property (assign, nonatomic) IBInspectable CGFloat  titleTextSize;
 @property (assign, nonatomic) IBInspectable CGFloat  subtitleTextSize;
 @property (assign, nonatomic) IBInspectable CGFloat  weekdayTextSize;
