@@ -47,7 +47,7 @@ class RegisterFamilyViewController: UIViewController, FamilyBindable, UIImagePic
         
         actionSheet.addAction(UIAlertAction(title: "Camara", style: .default, handler: { (action: UIAlertAction) in
             let croppingEnabled = true
-            let cameraViewController = CameraViewController(croppingEnabled: croppingEnabled) { [weak self] image, asset in
+            let cameraViewController = CameraViewController(croppingParameters: CroppingParameters(isEnabled: croppingEnabled, allowResizing: true, allowMoving: true)) { [weak self] image, asset in
                 
                 guard let img = image else {
                     self?.dismiss(animated: true, completion: nil)
@@ -66,7 +66,7 @@ class RegisterFamilyViewController: UIViewController, FamilyBindable, UIImagePic
         actionSheet.addAction(UIAlertAction(title: "Galería", style: .default, handler: { (action: UIAlertAction) in
             
             /// Provides an image picker wrapped inside a UINavigationController instance
-            let imagePickerViewController = CameraViewController.imagePickerViewController(croppingEnabled: croppingEnabled) { [weak self] image, asset in
+            let imagePickerViewController = CameraViewController.imagePickerViewController(croppingParameters: CroppingParameters(isEnabled: croppingEnabled, allowResizing: true, allowMoving: true)) { [weak self] image, asset in
                 guard let img = image else {
                     self?.dismiss(animated: true, completion: nil)
                     return

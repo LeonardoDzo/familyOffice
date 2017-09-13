@@ -12,7 +12,6 @@ import FirebaseMessaging
 import GoogleSignIn
 import UserNotifications
 import ReSwift
-import ReSwiftRouter
 
 let store = Store<AppState>(
     reducer: appReducer,
@@ -198,19 +197,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
             }
         }
     }
-    
-}
-
-protocol Routable {
-    
-    func changeRouteSegment(from: RouteElementIdentifier,
-                            to: RouteElementIdentifier,
-                            completionHandler: RoutingCompletionHandler) -> Routable
-    
-    func pushRouteSegment(routeElementIdentifier: RouteElementIdentifier,
-                          completionHandler: RoutingCompletionHandler) -> Routable
-    
-    func popRouteSegment(routeElementIdentifier: RouteElementIdentifier,
-                         completionHandler: RoutingCompletionHandler)
     
 }

@@ -8,7 +8,9 @@
 
 import UIKit
 import ReSwift
+
 import Charts
+
 class GoalViewController: UIViewController, StoreSubscriber, UITabBarDelegate, GoalBindable {
     
     static let identifier = "GoalViewController"

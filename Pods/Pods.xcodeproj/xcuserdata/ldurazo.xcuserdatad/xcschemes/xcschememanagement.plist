@@ -39,12 +39,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>GoogleToolboxForMac-615f275e.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>GoogleToolboxForMac-Defines-NSData+zlib.xcscheme</key>
+		<key>GoogleToolboxForMac.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -114,11 +109,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>ReSwiftRouter.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Realm.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -162,32 +152,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>01BA4556493AC9FEB596476D77EEEED5</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>0616319948768F00E7AD28B46045A4E4</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>103C159A8E41B13CC7B3B8B027604542</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>13A24A8D222384EFDEF6FBFC18BC8E7A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>1C377B02F76A8CD0062146A1DBBDAE21</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>1CD80321715FDB12A3A31B7BCB09EA28</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>210DB7BF12FBE439F95EC7CFD41E9E8E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -212,32 +187,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3572043D381A4E8AEEA2B1C585C8D460</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>37B66AF5870FA3E1022722ECFA09EB7C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>38E62876C07336EF20BC354A615FEFBF</key>
+		<key>5570ADD82640075EE63C4B974684196D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>433E90BF6136E433A0FEA61CD4159E56</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>5362CFC9C123E1679CDE752C57FCE72D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>5EC81EB6117FE8B1EDF389FD2CE9EC45</key>
+		<key>5ED9907D3C7071E703947C9BCB4140B8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -247,7 +207,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8126462122FF1460DCC7221525D9913E</key>
+		<key>6D5CEDECD3D8DC52EA507E0431BDA8A0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -257,7 +217,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8EBDED93E6C6D9A2D0AB8B3EC44C5CE4</key>
+		<key>8F3B086157FDF14DED48BBE704A33B28</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -267,7 +227,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>A69AF0227C1A58155742F3CBD73C0BAD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>A85101B2D8F83CBBC40FE5CD5A830086</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A96B1F29715CB1EFEDABEB25A1A116EC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -282,12 +252,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C5A2DB7A84B7B78E359870D2E1B24AA7</key>
+		<key>B2905F8D83FD5D41A6BFFCFCC36CBF59</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C6CB00426791326540F135241EAD518C</key>
+		<key>C5A2DB7A84B7B78E359870D2E1B24AA7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -297,12 +267,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D7FAEFEAF68AE19EB2D22369766AF24E</key>
+		<key>CF1566F7C67D3A2D9E8A958FE28BDFC2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DAED56B105938CB014DAA93C410E6EF7</key>
+		<key>D0524366CDDC2E4EF4F4BCB1076F5EF9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DD30F419C2E84FC47BCCCFB3634C96DA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -313,6 +288,11 @@
 			<true/>
 		</dict>
 		<key>F307B842FF76B2DE6C55DB67C0885325</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F83A5BE6E651E5460C7A78A47EE1B4B2</key>
 		<dict>
 			<key>primary</key>
 			<true/>

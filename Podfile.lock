@@ -1,16 +1,14 @@
 PODS:
-  - Alamofire (4.5.0)
-  - ALCameraViewController (1.4.1)
-  - Charts (3.0.2):
-    - Charts/Core (= 3.0.2)
-  - Charts/Core (3.0.2)
+  - Alamofire (4.5.1)
+  - ALCameraViewController (2.0.2)
+  - Charts (3.0.3):
+    - Charts/Core (= 3.0.3)
+  - Charts/Core (3.0.3)
   - DKImagePickerController (3.6.1):
     - DKImagePickerController/Camera (= 3.6.1)
     - DKImagePickerController/ImageManager (= 3.6.1)
   - DKImagePickerController/Camera (3.6.1)
   - DKImagePickerController/ImageManager (3.6.1)
-  - Firebase (4.1.1):
-    - Firebase/Core (= 4.1.1)
   - Firebase/Auth (4.1.1):
     - Firebase/Core
     - FirebaseAuth (= 4.1.1)
@@ -55,7 +53,7 @@ PODS:
     - FirebaseCore (~> 4.0)
     - GTMSessionFetcher/Core (~> 1.1)
   - FSCalendar (2.7.9)
-  - GoogleSignIn (4.0.2):
+  - GoogleSignIn (4.1.0):
     - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
     - GoogleToolboxForMac/NSString+URLArguments (~> 2.1)
     - GTMOAuth2 (~> 1.0)
@@ -101,8 +99,6 @@ PODS:
   - RealmSwift (2.10.0):
     - Realm (= 2.10.0)
   - ReSwift (4.0.0)
-  - ReSwiftRouter (0.6.0):
-    - ReSwift (~> 4.0.0)
   - SearchTextField (1.1.8)
   - SmileLock (2.0.2)
   - SnapKit (3.2.0)
@@ -113,7 +109,6 @@ DEPENDENCIES:
   - ALCameraViewController
   - Charts (~> 3.0)
   - DKImagePickerController
-  - Firebase
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
@@ -130,7 +125,6 @@ DEPENDENCIES:
   - ObjectMapper (~> 2.2)
   - RealmSwift
   - ReSwift (~> 4.0.0)
-  - ReSwiftRouter
   - SearchTextField
   - SmileLock
   - SnapKit (~> 3.0)
@@ -147,9 +141,9 @@ CHECKOUT OPTIONS:
     :git: https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git
 
 SPEC CHECKSUMS:
-  Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
-  ALCameraViewController: a69f2133e93e480f76139d2571bb17dd266fa007
-  Charts: 236d6ccdd0ce6feae151d89e829a7397381a21fd
+  Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
+  ALCameraViewController: aa1dd3efe604cc50eb5674959a15d61d35e9e5e0
+  Charts: bcde37724c161958c1438dd4883971fcb2d50c06
   DKImagePickerController: 4f8072aed44119a33955c9583273ea7c8739c0f4
   Firebase: 052c0de688fc87b414996eea13e223dd9fee3fa2
   FirebaseAnalytics: 76f754d37ca5b04f36856729b6af3ca0152d1069
@@ -160,7 +154,7 @@ SPEC CHECKSUMS:
   FirebaseMessaging: 85af6c27188538b3a6f7dfd0b3b0596358cb0c39
   FirebaseStorage: 661fc1f8d4131891d256b62e82a45ace8b3f0c3b
   FSCalendar: a04b09f16f811bc92e82f3cf852a15225233b9d5
-  GoogleSignIn: d7ad83f13480e1f30453471d00d19b5293ac46af
+  GoogleSignIn: 8c599fc10d25b2af86a3f82fd9631e863f2b1400
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
   GTMSessionFetcher: 5ad62e8200fa00ed011fe5e08d27fef72c5b1429
@@ -178,12 +172,11 @@ SPEC CHECKSUMS:
   Realm: 98b3a25643cf6b3e07d2b99fb43fe0eb9c801dec
   RealmSwift: 34073ad3a31232bbaf7c0db898c037940284cba2
   ReSwift: f058ef13b46ae5f463f10605ccbbb7fb04424d8d
-  ReSwiftRouter: 81f41b37a5dd1c88e1d3d10a660ff2dcc939ba7c
   SearchTextField: 1d43b423c2acd3a9e2b37a74180e0cb137fcf1e7
   SmileLock: 7ae1e174b4697c0a33882dab838fc0bea94432f4
   SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
   Toast-Swift: 5b2f8f720f7e78e48511f693df1f9c9a6e38a25a
 
-PODFILE CHECKSUM: 21eca1fd2de5d1af6674a85266f322a10128a8a6
+PODFILE CHECKSUM: 527174852f1079c38a205024e45a31e4ca42d796
 
 COCOAPODS: 1.2.1.rc.1
