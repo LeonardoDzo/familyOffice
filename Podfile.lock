@@ -1,9 +1,9 @@
 PODS:
-  - Alamofire (4.5.0)
-  - ALCameraViewController (1.4.1)
-  - Charts (3.0.2):
-    - Charts/Core (= 3.0.2)
-  - Charts/Core (3.0.2)
+  - Alamofire (4.5.1)
+  - ALCameraViewController (2.0.2)
+  - Charts (3.0.3):
+    - Charts/Core (= 3.0.3)
+  - Charts/Core (3.0.3)
   - DKImagePickerController (3.6.1):
     - DKImagePickerController/Camera (= 3.6.1)
     - DKImagePickerController/ImageManager (= 3.6.1)
@@ -55,7 +55,7 @@ PODS:
     - FirebaseCore (~> 4.0)
     - GTMSessionFetcher/Core (~> 1.1)
   - FSCalendar (2.7.9)
-  - GoogleSignIn (4.0.2):
+  - GoogleSignIn (4.1.0):
     - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
     - GoogleToolboxForMac/NSString+URLArguments (~> 2.1)
     - GTMOAuth2 (~> 1.0)
@@ -147,9 +147,9 @@ CHECKOUT OPTIONS:
     :git: https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git
 
 SPEC CHECKSUMS:
-  Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
-  ALCameraViewController: a69f2133e93e480f76139d2571bb17dd266fa007
-  Charts: 236d6ccdd0ce6feae151d89e829a7397381a21fd
+  Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
+  ALCameraViewController: aa1dd3efe604cc50eb5674959a15d61d35e9e5e0
+  Charts: bcde37724c161958c1438dd4883971fcb2d50c06
   DKImagePickerController: 4f8072aed44119a33955c9583273ea7c8739c0f4
   Firebase: 052c0de688fc87b414996eea13e223dd9fee3fa2
   FirebaseAnalytics: 76f754d37ca5b04f36856729b6af3ca0152d1069
@@ -160,7 +160,7 @@ SPEC CHECKSUMS:
   FirebaseMessaging: 85af6c27188538b3a6f7dfd0b3b0596358cb0c39
   FirebaseStorage: 661fc1f8d4131891d256b62e82a45ace8b3f0c3b
   FSCalendar: a04b09f16f811bc92e82f3cf852a15225233b9d5
-  GoogleSignIn: d7ad83f13480e1f30453471d00d19b5293ac46af
+  GoogleSignIn: 8c599fc10d25b2af86a3f82fd9631e863f2b1400
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
   GTMSessionFetcher: 5ad62e8200fa00ed011fe5e08d27fef72c5b1429
