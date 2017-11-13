@@ -88,7 +88,7 @@ class CustomUIImageView: UIImageView {
     var urlString: String?
     private var activityIndicator: UIActivityIndicatorView!
     
-    override func loadImage(urlString: String, filter: String = "") -> Void {
+    @objc override func loadImage(urlString: String, filter: String = "") -> Void {
         
         guard let url = URL(string: urlString) else {
             return
