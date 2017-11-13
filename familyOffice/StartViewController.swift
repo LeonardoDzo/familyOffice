@@ -34,10 +34,7 @@ class StartViewController: UIViewController, GIDSignInUIDelegate, UITextFieldDel
     }
     
     override func viewDidLoad() {
-        self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 1, green: 0.1757333279, blue: 0.2568904757, alpha: 1)
-        self.navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 1, green: 0.1757333279, blue: 0.2568904757, alpha: 1)
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.3137395978, green: 0.1694342792, blue: 0.5204931498, alpha: 1)]
-        
+        style_1()
         service.AUTH_SERVICE.isAuth()
         super.viewDidLoad()
         if(UIDevice.current.model == "Iphone 5s"){
@@ -54,7 +51,7 @@ class StartViewController: UIViewController, GIDSignInUIDelegate, UITextFieldDel
             player?.isMuted = true
             
             let playerLayer = AVPlayerLayer(player: player)
-            playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+            playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
             playerLayer.zPosition = -1
             
             playerLayer.frame = view.frame
@@ -81,7 +78,7 @@ class StartViewController: UIViewController, GIDSignInUIDelegate, UITextFieldDel
         service.UTILITY_SERVICE.enabledView()
     }
     
-    func videoDidReachEnd() {
+    @objc func videoDidReachEnd() {
         //now use seek to make current playback time to the specified time in this case (O)
         let duration : Int64 = 0
         let preferredTimeScale : Int32 = 1

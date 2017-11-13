@@ -15,15 +15,14 @@ class IndexViewController: UIViewController {
         let barButton = UIBarButtonItem(title: "Atras", style: .plain, target: self, action: #selector(self.handleBack))
         self.navigationItem.leftBarButtonItem = barButton
         // Do any additional setup after loading the view.
-        let nav = self.navigationController?.navigationBar
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.3137395978, green: 0.1694342792, blue: 0.5204931498, alpha: 1)]
+        style_1()
     }
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateFlag), name: notCenter.BACKGROUND_NOTIFICATION, object: nil)
         
         verify()
     }
-    func updateFlag() {
+    @objc func updateFlag() {
         flag  = false
         verify()
     }
@@ -42,7 +41,7 @@ class IndexViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    func handleBack() {
+    @objc func handleBack() {
         self.dismiss(animated: true, completion: nil)
     }
     

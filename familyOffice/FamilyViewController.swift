@@ -23,9 +23,7 @@ class FamilyViewController: UIViewController, UIGestureRecognizerDelegate, Famil
         
         let addButton : UIBarButtonItem = UIBarButtonItem(title: "Editar", style: UIBarButtonItemStyle.plain, target: self, action:#selector(addMemberScreen(sender:)))
         self.navigationItem.rightBarButtonItem = addButton
-        
-        let nav = self.navigationController?.navigationBar
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.3137395978, green: 0.1694342792, blue: 0.5204931498, alpha: 1)]
+        style_1()
         
         Image.formatView()
         membersTable.formatView()
@@ -39,7 +37,7 @@ class FamilyViewController: UIViewController, UIGestureRecognizerDelegate, Famil
     }
     
     //Long press
-    func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
+    @objc func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
         let point: CGPoint = gestureReconizer.location(in: self.membersTable)
         let indexPath = self.membersTable?.indexPathForRow(at: point)
         
@@ -137,7 +135,7 @@ extension FamilyViewController : StoreSubscriber {
         service.FAMILY_SVC.valueSingleton(ref: ref)
     }
     
-    func addMemberScreen(sender: UIBarButtonItem) -> Void {
+    @objc func addMemberScreen(sender: UIBarButtonItem) -> Void {
         self.performSegue(withIdentifier: "editSegue", sender: family)
     }
     func newState(state: AppState) {

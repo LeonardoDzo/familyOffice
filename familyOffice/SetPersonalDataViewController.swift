@@ -50,7 +50,7 @@ class SetPersonalDataViewController: UIViewController, UITableViewDelegate, UITa
         return 1
     }
     
-    func back(sender: UIBarButtonItem) -> Void {
+    @objc func back(sender: UIBarButtonItem) -> Void {
         _ =  navigationController?.popViewController(animated: true)
     }
     
@@ -110,7 +110,7 @@ class SetPersonalDataViewController: UIViewController, UITableViewDelegate, UITa
     func setDate() -> Void {
         self.tableView.reloadData()
     }
-    func save(sender: UINavigationBar) -> Void {
+    @objc func save(sender: UINavigationBar) -> Void {
         var index = 0
         var userdictionary : [String: Any] = {
             return (user.toDictionary() as! [String : Any])

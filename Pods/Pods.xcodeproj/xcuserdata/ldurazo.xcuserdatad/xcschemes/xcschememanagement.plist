@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Cache.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Charts.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -54,6 +59,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Imaginary.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>JBDatePicker.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -75,11 +85,6 @@
 			<false/>
 		</dict>
 		<key>MIBadgeButton-Swift.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>ObjectMapper.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -119,11 +124,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>SearchTextField.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>SmileLock.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -151,152 +151,6 @@
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
-	<dict>
-		<key>103C159A8E41B13CC7B3B8B027604542</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>1CD80321715FDB12A3A31B7BCB09EA28</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>210DB7BF12FBE439F95EC7CFD41E9E8E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>24741339EAF4AA5A8D7CFEA1D1B76CF2</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>266AE1506DAD13D34C0725E909C0C476</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>2A4448146C785C426971111F117D773C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>34E1BEE5B9151B6FF42B51C88D1AF746</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>37B66AF5870FA3E1022722ECFA09EB7C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>5570ADD82640075EE63C4B974684196D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>5ED9907D3C7071E703947C9BCB4140B8</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>681BE6E3D02A43F9BA63777AC435C8FD</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>6D5CEDECD3D8DC52EA507E0431BDA8A0</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>8F3B086157FDF14DED48BBE704A33B28</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A01A78E1415B1103149D782482AE955F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A69AF0227C1A58155742F3CBD73C0BAD</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A85101B2D8F83CBBC40FE5CD5A830086</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A96B1F29715CB1EFEDABEB25A1A116EC</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>B1C4AAFAF49036C7007633DAA3C806AD</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>B2542602E50EDF091ADB18B4688DF34F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>B2905F8D83FD5D41A6BFFCFCC36CBF59</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C5A2DB7A84B7B78E359870D2E1B24AA7</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>CD6C9FB6B052E1CF663F8A56041EA163</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>CF1566F7C67D3A2D9E8A958FE28BDFC2</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D0524366CDDC2E4EF4F4BCB1076F5EF9</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>DD30F419C2E84FC47BCCCFB3634C96DA</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E4DD95323C54A78F879DAB0F1508B8E7</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F307B842FF76B2DE6C55DB67C0885325</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F83A5BE6E651E5460C7A78A47EE1B4B2</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-	</dict>
+	<dict/>
 </dict>
 </plist>

@@ -25,9 +25,7 @@ class FaqsTableViewController: UIViewController, UITableViewDataSource,UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let nav = self.navigationController?.navigationBar
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName:#colorLiteral(red: 0.2848778963, green: 0.2029544115, blue: 0.4734018445, alpha: 1)]
+        style_1()
         self.navigationItem.title = "FAQs"
         
         setupNavBar()
@@ -43,7 +41,6 @@ class FaqsTableViewController: UIViewController, UITableViewDataSource,UITableVi
     
     func setupNavBar(){
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.handleNew))
-        addButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "LeftChevron"), style: .plain, target: self, action: #selector(self.back))
         
         self.navigationItem.rightBarButtonItems = [ addButton]
@@ -54,11 +51,11 @@ class FaqsTableViewController: UIViewController, UITableViewDataSource,UITableVi
     func handleMore(_ sender: Any) {
         settingLauncher.showSetting()
     }
-    func handleNew() -> Void {
+    @objc func handleNew() -> Void {
         self.performSegue(withIdentifier: "addSegue", sender: nil)
     }
     
-    func back() -> Void {
+    @objc func back() -> Void {
         self.dismiss(animated: true, completion: nil)
     }
     

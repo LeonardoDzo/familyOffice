@@ -33,10 +33,10 @@ class ContactsViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    func back() -> Void {
+    @objc func back() -> Void {
         _ = self.navigationController?.popViewController(animated: true)
     }
-    func add() -> Void {
+    @objc func add() -> Void {
         contactDelegate.selected(users: selected)
         back()
     }

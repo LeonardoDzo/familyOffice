@@ -188,13 +188,13 @@ extension GoalTableViewController {
         self.navigationItem.leftBarButtonItem = backButton
         self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
     }
-    func handleMore(_ sender: Any) {
+    @objc func handleMore(_ sender: Any) {
         settingLauncher.showSetting()
     }
-    func handleNew() -> Void {
+    @objc func handleNew() -> Void {
         self.performSegue(withIdentifier: "addSegue", sender: nil)
     }
-    func back() -> Void {
+    @objc func back() -> Void {
         self.dismiss(animated: true, completion: nil)
     }
 }

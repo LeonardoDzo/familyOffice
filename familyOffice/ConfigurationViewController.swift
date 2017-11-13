@@ -23,8 +23,7 @@ UINavigationControllerDelegate  {
         self.profileImage.layer.cornerRadius = self.profileImage.frame.size.width/2
         self.profileImage.clipsToBounds = true
         picker.delegate = self
-        let nav = self.navigationController?.navigationBar
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.3137395978, green: 0.1694342792, blue: 0.5204931498, alpha: 1)]
+        style_1()
         self.containerView.formatView()
         self.profileImage.profileUser()
     }
@@ -48,7 +47,7 @@ UINavigationControllerDelegate  {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
         
-        dismiss(animated:true, completion: { _ in
+        dismiss(animated:true, completion: { 
             self.performSegue(withIdentifier: "updateImageSegue", sender: nil)
         })
     }

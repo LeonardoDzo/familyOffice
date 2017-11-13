@@ -67,7 +67,7 @@ struct ToDoList{
         func toDictionary() -> NSDictionary {
             return [
                 ToDoItem.titleKey: self.title,
-                ToDoItem.photoUrlKey: self.photoUrl,
+                ToDoItem.photoUrlKey: self.photoUrl as Any,
                 ToDoItem.endDateKey: self.endDate,
                 ToDoItem.statusKey: self.status
             ]

@@ -51,7 +51,7 @@ class MapViewController : UIViewController {
     func dismissPopover() {
         _ = navigationController?.popViewController(animated: true)    }
     
-    func addLocation() -> Void {
+    @objc func addLocation() -> Void {
         
         if locationModel != nil {
             shareEvent?.event.location = locationModel
@@ -59,7 +59,7 @@ class MapViewController : UIViewController {
         dismissPopover()
 
     }
-    func quitLocation() -> Void {
+    @objc func quitLocation() -> Void {
         if shareEvent?.event.location != nil {
             shareEvent?.event.location = nil
         }

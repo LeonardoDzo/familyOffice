@@ -42,12 +42,12 @@ class EndRepeatEventTableViewController: UITableViewController {
         _ = navigationController?.popViewController(animated: true)
     }
     
-    func save() -> Void {
+    @objc func save() -> Void {
         shareEvent?.event.repeatmodel.end = value
         dismissPopover()
         
     }
-    func cancel() -> Void {
+    @objc func cancel() -> Void {
         dismissPopover()
     }
     

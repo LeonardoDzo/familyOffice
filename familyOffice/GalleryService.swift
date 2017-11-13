@@ -137,7 +137,7 @@ extension GalleryService: repository {
             service.GALLERY_SERVICE.insert(data.value(forKey: "reference") as! String, value: album.toDictionary(), callback: {reference in
                 if let ref = reference as? DatabaseReference{
                     ref.observeSingleEvent(of: .value, with: {snapshot in
-                        let aux = Album(snapshot: snapshot)
+                        _ = Album(snapshot: snapshot)
                         callback("Guardado sin portada")
                     })
                 }else{

@@ -23,13 +23,9 @@ class SelectCategoryViewController: UIViewController {
     var localeChangeObserver :[NSObjectProtocol] = []
     override func viewDidLoad() {
         super.viewDidLoad()
+        style_1()
         let logOutButton = UIBarButtonItem(title: "Log out", style: .plain, target: self, action: #selector(self.logout))
-        logOutButton.tintColor = #colorLiteral(red: 1, green: 0.1757333279, blue: 0.2568904757, alpha: 1)
         navigationItem.rightBarButtonItems = [logOutButton]
-        
-        
-        let nav = self.navigationController?.navigationBar
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.3137395978, green: 0.1694342792, blue: 0.5204931498, alpha: 1)]
         headerView.formatView()
         familiasView.formatView()
         categoriasView.formatView()
@@ -100,7 +96,7 @@ class SelectCategoryViewController: UIViewController {
         }
     }
     
-    func logout(){
+    @objc func logout(){
         service.AUTH_SERVICE.logOut()
         service.UTILITY_SERVICE.gotoView(view: "StartView", context: self)
     }

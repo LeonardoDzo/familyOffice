@@ -53,9 +53,7 @@ class FamilyCollectionViewController: UIViewController, UICollectionViewDelegate
         lpgr.minimumPressDuration = 0.5
         lpgr.delaysTouchesBegan = true
         self.familyCollection.addGestureRecognizer(lpgr)
-        
-        let nav = self.navigationController?.navigationBar
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.3137395978, green: 0.1694342792, blue: 0.5204931498, alpha: 1)]
+        style_1()
         
         self.familyCollection.layer.cornerRadius = 8
         self.familyCollection.clipsToBounds = true

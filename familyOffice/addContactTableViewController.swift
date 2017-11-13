@@ -47,7 +47,7 @@ class addContactTableViewController: UITableViewController, ContactBindible, CNC
         store.unsubscribe(self)
 
     }
-    func save(sender: UIBarButtonItem) {
+    @objc func save(sender: UIBarButtonItem) {
         if !validation() {
            return
         }
@@ -66,11 +66,11 @@ class addContactTableViewController: UITableViewController, ContactBindible, CNC
     }
     
     func validation() -> Bool {
-        guard let name = self.nameTxt.text, !name.isEmpty, name.characters.count >= 3 else {
+        guard let name = self.nameTxt.text, !name.isEmpty, name.count >= 3 else {
             self.view.makeToast("Escriba un nombre válido", duration: 1.0, position: .top)
             return false
         }
-        guard let phone = self.phoneTxt.text, !phone.isEmpty, phone.characters.count >= 10 else {
+        guard let phone = self.phoneTxt.text, !phone.isEmpty, phone.count >= 10 else {
             self.view.makeToast("Escriba un teléfono válido", duration: 1.0, position: .top)
             return false
         }

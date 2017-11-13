@@ -97,7 +97,7 @@ class AddQuestionViewController: UIViewController, UITableViewDelegate, UITableV
     
     // MARK: - Keyboard
 
-    func keyboardWillShow(notification: Notification){
+    @objc func keyboardWillShow(notification: Notification){
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {
                 self.view.frame.origin.y -= keyboardSize.height
@@ -105,7 +105,7 @@ class AddQuestionViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
-    func keyboardWillHide(notification: Notification){
+    @objc func keyboardWillHide(notification: Notification){
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y != 0 {
                 self.view.frame.origin.y += keyboardSize.height

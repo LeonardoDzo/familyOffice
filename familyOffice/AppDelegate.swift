@@ -178,7 +178,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-    func tokenRefreshNotification(_ notification: NSNotification) {
+    @objc func tokenRefreshNotification(_ notification: NSNotification) {
         if let refreshedToken = InstanceID.instanceID().token() {
             print("InstanceID token: \(refreshedToken)")
             service.NOTIFICATION_SERVICE.token = refreshedToken

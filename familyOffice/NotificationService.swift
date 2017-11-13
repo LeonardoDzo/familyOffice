@@ -70,7 +70,7 @@ class NotificationService {
 }
 extension NotificationService: RequestService {
     func addHandle(_ handle: UInt, ref: String, action: DataEventType) {
-        self.handles.append(ref,handle, action)
+        self.handles.append((ref,handle, action))
     }
 
     func routing(snapshot: DataSnapshot, action: DataEventType, ref: String) {

@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import ObjectMapper
-struct repeatGoal: repeatProtocol, Mappable {
+
+struct repeatGoal: repeatProtocol, Codable {
     static let kFrequency = "frequency"
     static let kdays = "days"
     var frequency: Frequency!
@@ -17,14 +17,10 @@ struct repeatGoal: repeatProtocol, Mappable {
     init() {
         self.frequency = .never
     }
-    init?(map: Map) {
+    enum CodingKeys: String, CodingKey {
+        case frequency, days, interval
     }
-    mutating func mapping(map: Map) {
-        frequency <- map[repeatGoal.kFrequency]
-        var str: String?
-        str = try? map.value(repeatGoal.kdays) ?? ""
-        days = str?.components(separatedBy: ",") ?? []
-    }
+
     init(_ snapvalue: NSDictionary) {
         let string : String! = snapvalue.exist(field: repeatGoal.kdays)
         self.days = string.components(separatedBy: ",")

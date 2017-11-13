@@ -50,7 +50,7 @@ class IllnessService: RequestService {
     }
     
     func addHandle(_ handle: UInt, ref: String, action: DataEventType) {
-        self.handles.append(ref, handle, action)
+        self.handles.append((ref, handle, action))
     }
     
     func removeHandles() {

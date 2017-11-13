@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 import Firebase
-import ObjectMapper
 import Realm
 enum GoalCategory: Int {
     case sport, religion, school, business, eat, health
@@ -20,7 +19,9 @@ enum GoalType: Int {
 }
 
 
-struct Goal: Mappable   {
+struct Goal: Serializable   {
+   
+    
     typealias  g = Goal
     static let ktitle = "title"
     static let ktype = "type"
@@ -51,7 +52,6 @@ struct Goal: Mappable   {
     var list = [Goal]()
     
     init() {
-        
         self.title = ""
         self.endDate = Date().toMillis()
         self.startDate =  Date().toMillis()
@@ -62,38 +62,14 @@ struct Goal: Mappable   {
     init(_ startDate: Int) {
         self.startDate = startDate
     }
-    /// This function is where all variable mappings should occur. It is executed by Mapper during the mapping (serialization and deserialization) process.
-    mutating func mapping(map: Map) {
-        self.title <- map[g.ktitle]
-        
-        self.startDate <- map[g.kdateCreated]
-        
-        self.endDate <- map[g.kendDate]
-        
-        self.type <- map[g.ktype]
-        
-        self.creator <- map[g.kcreator]
-        
-        self.photo = try? map.value(g.kphoto)
-        
-        self.done = try? map.value(g.kdone) ?? false
-        
-        self.members <- map[g.kMembers]
-        print(map[g.kMembers])
-        self.category <- map[g.kcategory]
-        
-        self.repeatGoalModel <- map[g.kRepeat]
-    }
-    init?(map: Map) {
-        self.mapping(map: map)
-    }
     
-    init(snapshot: DataSnapshot) {
+    
+    init(snapshot: DataSnapshot) throws {
         let snapshotValue = snapshot.value as! NSDictionary
-        let map = Map(mappingType: .fromJSON, JSON: snapshotValue as! [String : Any])
-        self.mapping(map: map)
+        if let map = snapshotValue.jsonToData() {
+            self = try JSONDecoder().decode(Goal.self, from: map)
+        }
         self.id = snapshot.key
-        
         guard let follow = snapshotValue[g.kFollow] as? NSDictionary else {
             self.updateGoals(follow: nil, date: self.startDate, repeatModel: self.repeatGoalModel!)
             return
@@ -108,20 +84,23 @@ struct Goal: Mappable   {
             return
         }
         
-        self.list.enumerated().forEach({
+         self.list.enumerated().forEach({
             index, goal in
             if let value = follow?.value(forKey: String(goal.startDate)) as? NSDictionary {
-                print(value)
-                let map = Map(mappingType: .fromJSON, JSON: value as! [String : Any])
-                let copy = Goal(map: map)!
-                self.list[index] = copy
-                if self.list[index].repeatGoalModel != nil {
-                    follow?.setValue(nil, forKey: String(goal.startDate))
-                    for index in index..<self.list.count {
-                        self.list.remove(at: index)
+                
+                if let map = value.jsonToData() {
+                    let copy  = try! JSONDecoder().decode(Goal.self, from: map)
+                    self.list[index] = copy
+                    if self.list[index].repeatGoalModel != nil {
+                        follow?.setValue(nil, forKey: String(goal.startDate))
+                        for index in index..<self.list.count {
+                            self.list.remove(at: index)
+                        }
+                        updateGoals(follow: follow, date: self.list[index].startDate, repeatModel: self.list[index].repeatGoalModel!)
                     }
-                    updateGoals(follow: follow, date: self.list[index].startDate, repeatModel: self.list[index].repeatGoalModel!)
                 }
+              
+               
             }
         })
     }

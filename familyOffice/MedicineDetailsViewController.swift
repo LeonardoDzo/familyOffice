@@ -20,17 +20,11 @@ class MedicineDetailsViewController: UIViewController, UITableViewDelegate, UITa
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let nav = self.navigationController?.navigationBar
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName:#colorLiteral(red: 0.2848778963, green: 0.2029544115, blue: 0.4734018445, alpha: 1)]
+        self.style_1()
         self.navigationItem.title = "\(medicine.name!)"
         
         let saveButton = UIBarButtonItem(title:"Editar", style: .plain, target: self, action: #selector(edit(sender:)))
-        saveButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         self.navigationItem.rightBarButtonItem = saveButton
-        self.navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
-        
-        self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         
         //No sé cómo hacer esto mejor :s o es viernes por la tarde y me anda valiendo jajaja
         self.fields[0].1 = medicine.indications
@@ -41,7 +35,7 @@ class MedicineDetailsViewController: UIViewController, UITableViewDelegate, UITa
         // Do any additional setup after loading the view.
     }
     
-    func edit(sender: UIBarButtonItem){
+    @objc func edit(sender: UIBarButtonItem){
         self.performSegue(withIdentifier: "editMedicine", sender: nil)
     }
     

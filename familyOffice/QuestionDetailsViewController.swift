@@ -20,7 +20,7 @@ class QuestionDetailsViewController: UIViewController {
         super.viewDidLoad()
         
         let nav = self.navigationController?.navigationBar
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName:#colorLiteral(red: 0.2848778963, green: 0.2029544115, blue: 0.4734018445, alpha: 1)]
+        nav?.titleTextAttributes = [NSAttributedStringKey.foregroundColor:#colorLiteral(red: 0.2848778963, green: 0.2029544115, blue: 0.4734018445, alpha: 1)]
         self.navigationItem.title = "FAQs/\(question.subject!)"
         
         self.questionLbl.layer.borderWidth = 1

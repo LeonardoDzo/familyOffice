@@ -40,7 +40,7 @@ class RegisterFamilyViewController: UIViewController, FamilyBindable, UIImagePic
         Image.addGestureRecognizer(tapGestureRecognizer)
     }
     
-    func loadImage(_ recognizer: UITapGestureRecognizer){
+    @objc func loadImage(_ recognizer: UITapGestureRecognizer){
         let croppingEnabled = true
         let _ = validate()
         let actionSheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
@@ -109,7 +109,7 @@ class RegisterFamilyViewController: UIViewController, FamilyBindable, UIImagePic
         
         return true
     }
-    func edit() -> Void {
+    @objc func edit() -> Void {
         if validate() {
             if change {
                 store.dispatch(UpdateFamilyAction(family: family, img: Image.image!))
@@ -120,7 +120,7 @@ class RegisterFamilyViewController: UIViewController, FamilyBindable, UIImagePic
             error()
         }
     }
-    func save() -> Void {
+    @objc func save() -> Void {
         if !validate() {
             return
         }

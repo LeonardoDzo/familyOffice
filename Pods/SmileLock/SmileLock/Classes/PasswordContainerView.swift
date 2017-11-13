@@ -33,7 +33,7 @@ open class PasswordContainerView: UIView {
     
     fileprivate var inputString: String = "" {
         didSet {
-            passwordDotView.inputDotCount = inputString.characters.count
+            passwordDotView.inputDotCount = inputString.count
             checkInputComplete()
         }
     }
@@ -94,7 +94,7 @@ open class PasswordContainerView: UIView {
     fileprivate func configureConstraints() {
         let ratioConstraint = widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: kDefaultWidth / kDefaultHeight)
         self.widthConstraint = widthAnchor.constraint(equalToConstant: kDefaultWidth)
-        self.widthConstraint.priority = 999
+        self.widthConstraint.priority = UILayoutPriority(rawValue: 999)
         NSLayoutConstraint.activate([ratioConstraint, widthConstraint])
     }
     
@@ -154,10 +154,10 @@ open class PasswordContainerView: UIView {
     
     //MARK: IBAction
     @IBAction func deleteInputString(_ sender: AnyObject) {
-        guard inputString.characters.count > 0 && !passwordDotView.isFull else {
+        guard inputString.count > 0 && !passwordDotView.isFull else {
             return
         }
-        inputString = String(inputString.characters.dropLast())
+        inputString = String(inputString.dropLast())
     }
     
     @IBAction func touchAuthenticationAction(_ sender: UIButton) {
@@ -177,7 +177,7 @@ open class PasswordContainerView: UIView {
 
 private extension PasswordContainerView {
     func checkInputComplete() {
-        if inputString.characters.count == passwordDotView.totalDotCount {
+        if inputString.count == passwordDotView.totalDotCount {
             delegate?.passwordInputComplete(self, input: inputString)
         }
     }

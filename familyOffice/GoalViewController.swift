@@ -79,10 +79,10 @@ class GoalViewController: UIViewController, StoreSubscriber, UITabBarDelegate, G
         service.GOAL_SERVICE.initObserves(ref: "goals/\((user?.familyActive!)!)", actions: [ .childChanged])
     }
     
-    func handleEdit() -> Void {
+    @objc func handleEdit() -> Void {
         self.performSegue(withIdentifier: "addSegue", sender: goal)
     }
-    func back() -> Void {
+    @objc func back() -> Void {
         _ = self.navigationController?.popViewController(animated: true)
     }
     

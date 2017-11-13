@@ -41,7 +41,7 @@ class SettingLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectio
         }
         self.collectionView.reloadData()
     }
-    func handleDismiss() {
+    @objc func handleDismiss() {
         UIView.animate(withDuration: 0.5, animations: {
             self.blackView.alpha = 0
             

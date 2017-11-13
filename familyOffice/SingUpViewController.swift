@@ -62,7 +62,7 @@ class SingUpViewController: UIViewController, UITextFieldDelegate, GIDSignInUIDe
             return
         }
         
-        guard let pass :String = passwordTxtfield.text, !pass.isEmpty,  pass == confirmPassTxtfield.text, (passwordTxtfield.text?.characters.count)! > 5 else{
+        guard let pass :String = passwordTxtfield.text, !pass.isEmpty,  pass == confirmPassTxtfield.text, (passwordTxtfield.text?.count)! > 5 else{
             er = "La contraseña y confirmación de contraseña deben ser capturadas"
             service.ANIMATIONS.shakeTextField(txt: passwordTxtfield)
             service.ANIMATIONS.shakeTextField(txt: confirmPassTxtfield)

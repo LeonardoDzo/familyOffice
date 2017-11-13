@@ -65,25 +65,27 @@ struct GoalReducer  {
     }
     mutating func added(snapshot: DataSnapshot) {
         let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
-        let goal = Goal(snapshot: snapshot)
-        
-        if (self.state.goals[id] == nil) {
-            self.state.goals[id] = []
-        }
-        
-        if !(self.state.goals[id]?.contains(where: {$0.id == goal.id}))!{
-            self.state.goals[id]?.append(goal)
-        }else if let index = self.state.goals[id]?.index(where: {$0.id == goal.id}){
-            self.state.goals[id]?[index] = goal
+        if let goal =  try? Goal(snapshot: snapshot) {
+            if (self.state.goals[id] == nil) {
+                self.state.goals[id] = []
+            }
+            
+            if !(self.state.goals[id]?.contains(where: {$0.id == goal.id}))!{
+                self.state.goals[id]?.append(goal)
+            }else if let index = self.state.goals[id]?.index(where: {$0.id == goal.id}){
+                self.state.goals[id]?[index] = goal
+            }
         }
     }
     
     mutating func updated(snapshot: DataSnapshot, id: Any) {
         let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
-        let goal = Goal(snapshot: snapshot)
-        if let index = self.state.goals[id]?.index(where: {$0.id == snapshot.key})  {
-            self.state.goals[id]?[index] = goal
+        if let goal = try? Goal(snapshot: snapshot) {
+            if let index = self.state.goals[id]?.index(where: {$0.id == snapshot.key})  {
+                self.state.goals[id]?[index] = goal
+            }
         }
+        
     }
     
     mutating func removed(snapshot: DataSnapshot) {

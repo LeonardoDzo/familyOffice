@@ -20,7 +20,7 @@
 - (void)performTransitionCompletionAnimated:(BOOL)animated;
 - (void)performTransitionCompletion:(FSCalendarTransition)transition animated:(BOOL)animated;
 
-- (void)performAlphaAnimationFrom:(CGFloat)fromAlpha to:(CGFloat)toAlpha duration:(CGFloat)duration exception:(NSInteger)exception completion:(void(^)())completion;
+- (void)performAlphaAnimationFrom:(CGFloat)fromAlpha to:(CGFloat)toAlpha duration:(CGFloat)duration exception:(NSInteger)exception completion:(void(^)(void))completion;
 - (void)performForwardTransition:(FSCalendarTransition)transition fromProgress:(CGFloat)progress;
 - (void)performBackwardTransition:(FSCalendarTransition)transition fromProgress:(CGFloat)progress;
 - (void)performAlphaAnimationWithProgress:(CGFloat)progress;

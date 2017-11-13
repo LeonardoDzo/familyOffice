@@ -33,7 +33,7 @@ class ImageAlbumService: RequestService{
                     handle = Constants.FirDatabase.REF.child("images").queryOrdered(byChild: "album").queryEqual(toValue: self.Album?.id!).observe(action, with: ({
                         ref in
                         self.addHandle(handle, ref: "images", action: action)
-                        self.routing(snapshot: ref as! DataSnapshot, action: action, ref: "images")
+                        self.routing(snapshot: ref, action: action, ref: "images")
                     }))
                 }
             }
@@ -123,7 +123,7 @@ class ImageAlbumService: RequestService{
     func InsertImage(image: ImageAlbum) {
         var image: ImageAlbum! = image
         let reference: String = "images/\(image.id!)"
-        service.STORAGE_SERVICE.insert("\(reference)\(".jpg")", value: image.uiimage, callback: {metadata in
+        service.STORAGE_SERVICE.insert("\(reference)\(".jpg")", value: image.uiimage as Any, callback: {metadata in
             if let metadata: StorageMetadata = metadata as? StorageMetadata{
                 image.path = metadata.downloadURL()?.absoluteString
                 service.IMAGEALBUM_SERVICE.insert(reference, value: image.toDictionary(), callback: {ref in
@@ -147,10 +147,10 @@ class ImageAlbumService: RequestService{
     func InsertVideo(image: ImageAlbum) {
         var image: ImageAlbum! = image
         let reference: String = "images/\(image.id!)"
-        service.STORAGE_SERVICE.insert("\(reference)\(".jpg")", value: image.uiimage, callback: {metadata in
+        service.STORAGE_SERVICE.insert("\(reference)\(".jpg")", value: image.uiimage as Any, callback: {metadata in
             if let metadata: StorageMetadata = metadata as? StorageMetadata{
                 image.video = metadata.downloadURL()?.absoluteString
-                service.STORAGE_SERVICE.insert("\(reference)\(".m4v")", value: image.DataVideo, callback: {metadata in
+                service.STORAGE_SERVICE.insert("\(reference)\(".m4v")", value: image.DataVideo as Any, callback: {metadata in
                     if let metadata: StorageMetadata = metadata as? StorageMetadata{
                         image.path = metadata.downloadURL()?.absoluteString
                         service.IMAGEALBUM_SERVICE.insert(reference, value: image.toDictionary(), callback: {ref in

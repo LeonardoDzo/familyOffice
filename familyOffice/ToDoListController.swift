@@ -31,22 +31,16 @@ class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, U
         searchController.searchResultsUpdater = self
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.dimsBackgroundDuringPresentation = false
-        
-        let nav = self.navigationController?.navigationBar
-        
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName:#colorLiteral(red: 0.2848778963, green: 0.2029544115, blue: 0.4734018445, alpha: 1)]
+        style_1()
         
         self.navigationItem.title = "Lista de tareas"
         
         tableView.tableHeaderView = searchController.searchBar
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.handleNew))
-        addButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "LeftChevron"), style: .plain, target: self, action: #selector(self.back))
         self.navigationItem.leftBarButtonItem = backButton
-        backButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         let moreButton = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_bar_more_button"), style: .plain, target: self, action:  #selector(self.handleMore(_:)))
-        moreButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         
         self.navigationItem.rightBarButtonItems = [moreButton,addButton]
         // Do any additional setup after loading the view.
@@ -59,7 +53,7 @@ class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, U
     
     let settingLauncher = SettingLauncher()
     
-    func handleMore(_ sender: Any) {
+    @objc func handleMore(_ sender: Any) {
         settingLauncher.showSetting()
     }
     
@@ -75,7 +69,7 @@ class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, U
         tableView.reloadData()
     }
     
-    func back() -> Void {
+    @objc func back() -> Void {
         self.dismiss(animated: true, completion: nil)
     }
 
@@ -84,7 +78,7 @@ class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, U
         // Dispose of any resources that can be recreated.
     }
     
-    func handleNew() -> Void {
+    @objc func handleNew() -> Void {
         self.performSegue(withIdentifier: "showItemDetails", sender: "new")
     }
 

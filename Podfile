@@ -18,17 +18,15 @@ target 'familyOffice' do
   pod 'Alamofire'
   pod 'FSCalendar'
   pod 'Toast-Swift', '~> 2.0.0'
-  pod 'SearchTextField'
   pod 'ReSwift','~> 4.0.0'
   pod 'Charts', '~> 3.0'
   pod 'DKImagePickerController'
   pod 'Lightbox'
   pod 'JBDatePicker'
-  pod 'SnapKit', '~> 3.0'
+  pod 'SnapKit', '~> 4.0.0'
   pod 'GzipSwift'
   pod 'ALCameraViewController'
   pod 'RealmSwift'
-  pod 'ObjectMapper', '~> 2.2'
   pod "MIBadgeButton-Swift", :git => 'https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git', :branch => 'master'
   target 'familyOfficeTests' do
     inherit! :search_paths

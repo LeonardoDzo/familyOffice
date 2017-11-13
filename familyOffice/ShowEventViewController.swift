@@ -37,7 +37,7 @@ class ShowEventViewController: UIViewController, EventBindable {
         // Do any additional setup after loading the view.
       
     }
-    func handleConfiguration(_ sender: Any) {
+    @objc func handleConfiguration(_ sender: Any) {
         self.performSegue(withIdentifier: "confEventSegue", sender: nil)
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -51,7 +51,7 @@ class ShowEventViewController: UIViewController, EventBindable {
         NotificationCenter.default.removeObserver(self)
     }
     
-    func observeActions() -> Void {
+    @objc func observeActions() -> Void {
          self.collectionView.reloadData()
     }
     override func viewDidAppear(_ animated: Bool) {

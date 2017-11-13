@@ -41,7 +41,7 @@ extension FamilyCollectionViewController: StoreSubscriber {
         self.familyCollection.reloadData()
     }
     
-    func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
+    @objc func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
         let point: CGPoint = gestureReconizer.location(in: self.familyCollection)
         let indexPath = self.familyCollection?.indexPathForItem(at: point)
         

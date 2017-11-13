@@ -61,7 +61,7 @@ class InfoContactViewController: UIViewController, ContactBindible, UITabBarDele
         self.navigationController?.isNavigationBarHidden = false
     }
     
-    func tap(_ gestureRecognizer: UITapGestureRecognizer) -> Void {
+    @objc func tap(_ gestureRecognizer: UITapGestureRecognizer) -> Void {
         if (contact.address?.isEmpty)!{
             return
         }
@@ -124,7 +124,7 @@ class InfoContactViewController: UIViewController, ContactBindible, UITabBarDele
     }
     
     
-    func edit() -> Void {
+    @objc func edit() -> Void {
         performSegue(withIdentifier: "editSegue", sender: contact)
     }
     func sendSMSText(phoneNumber: String) {

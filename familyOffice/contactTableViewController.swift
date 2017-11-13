@@ -48,14 +48,14 @@ class contactTableViewController: UITableViewController, StoreSubscriber{
         let ref = "contacts/\((store.state.UserState.user?.familyActive)!)/"
         service.CONTACT_SVC.initObserves(ref: ref, actions: [.childAdded,.childChanged,.childRemoved])
     }
-    func back() -> Void {
+    @objc func back() -> Void {
         self.dismiss(animated: true, completion: nil)
     }
-    func add() {
+    @objc func add() {
         
         performSegue(withIdentifier: "addContactSegue", sender: self)
     }
-    func handleMore(_ sender: Any) {
+    @objc func handleMore(_ sender: Any) {
         settingLauncher.showSetting()
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
