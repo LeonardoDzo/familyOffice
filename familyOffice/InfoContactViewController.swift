@@ -50,7 +50,7 @@ class InfoContactViewController: UIViewController, ContactBindible, UITabBarDele
         // Dispose of any resources that can be recreated.
     }
     override func viewWillAppear(_ animated: Bool) {
-        let key = store.state.UserState.user?.familyActive
+        let key = userStore?.familyActive
         if let xcontact = store.state.ContactState.contacts[key!]?.first(where: {$0.id == contact.id}) {
             self.bind(contact: xcontact)
         }else{

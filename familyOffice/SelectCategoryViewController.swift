@@ -107,10 +107,16 @@ extension SelectCategoryViewController : StoreSubscriber {
     typealias StoreSubscriberStateType = AppState
     
     func newState(state: AppState) {
-        user = state.UserState.user
+       
         if user != nil {
             loadImage()
-            verifyUser(status: state.UserState.status)
+            verifyUser { user,exist in
+                if exist {
+                    self.user = user
+                }else{
+                    state.UserState.user.status()
+                }
+            }
             verifyFamilies(state: state.FamilyState)
         }
     }
@@ -120,19 +126,6 @@ extension SelectCategoryViewController : StoreSubscriber {
             addFamily(family: families.last!)
         }else{
             self.familiesCollection.reloadData()
-        }
-    }
-    func verifyUser(status: Result<Any>){
-
-        switch status {
-        case .loading:
-            self.view.makeToastActivity(.center)
-            break
-        case .finished:
-            self.view.hideToastActivity()
-            break
-        default:
-            break
         }
     }
 }

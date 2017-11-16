@@ -31,12 +31,16 @@ class UserSvc {
         getUsersByFamilyActive()
     }
     func getUsersByFamilyActive() -> Void {
-        let user = store.state.UserState.user
-        if let family = store.state.FamilyState.families.family(fid: (user?.familyActive)!) {
-            for item in (family.members)! {
-                store.dispatch(GetUserAction(uid: item))
+        verifyUser { (user, exist) in
+            if exist {
+                if let family = store.state.FamilyState.families.family(fid: (user.familyActive)!) {
+                    for item in (family.members)! {
+                        store.dispatch(UserAction.getbyId(uid: item))
+                    }
+                }
             }
         }
+        
         
     }
     
@@ -44,27 +48,16 @@ class UserSvc {
         Constants.FirDatabase.REF_USERS.queryOrdered(byChild: "phone").queryEqual(toValue: phone).observeSingleEvent(of: .childAdded, with: {snapshot in
             if(snapshot.exists()){
                 let user = User(snapshot: snapshot)
-                store.state.UserState.users.append(user)
-                store.state.UserState.status = .Finished(user)
-                store.state.UserState.status = .none
+                store.dispatch(UserAction.set(user: user))
             }
         })
     }
-    func getUser(byId uid: String) -> User?{
-        if let user = store.state.UserState.users.first(where: {$0.id == uid }) {
-            return user
-        }else if store.state.UserState.user?.id == uid {
-            return store.state.UserState.user
-        }else{
-            store.dispatch(GetUserAction(uid: uid))
-        }
-        return nil
-    }
+
     
     func create(user: User) -> Void {
         self.insert("users/\(user.id)", value: user.toDictionary(), callback: { ref in
             if ref is DatabaseReference {
-                store.state.UserState.status = .finished
+                store.dispatch(UserAction.set(user: user))
             }
         })
     }
@@ -72,14 +65,14 @@ class UserSvc {
         let user = Auth.auth().currentUser
         Auth.auth().signIn(withEmail: (user?.email)!, password: oldPass) { (user, error) in
             if((error) != nil){
-                store.state.UserState.status = .failed
+                store.state.UserState.user = .failed
             }else{
                 user?.updatePassword(to: newPass) { error in
                     if let error = error {
                         print(error.localizedDescription)
-                        store.state.UserState.status = .failed
+                         store.state.UserState.user = .failed
                     } else {
-                        store.state.UserState.status = .finished
+                        store.state.UserState.user = .finished
                     }
                 }
             }
@@ -89,7 +82,10 @@ class UserSvc {
 }
 extension UserSvc : RequestService {
         func notExistSnapshot() {
-            
+            if let user = Auth.auth().currentUser {
+                service.AUTH_SERVICE.createAccount(user: user)
+            }
+           
         }
         
         func addHandle(_ handle: UInt, ref: String, action: DataEventType) {
@@ -97,7 +93,7 @@ extension UserSvc : RequestService {
         }
         
         func inserted(ref: DatabaseReference) {
-            store.state.UserState.status = .finished
+            store.state.UserState.user = .finished
         }
         
         func routing(snapshot: DataSnapshot, action: DataEventType, ref: String) {
@@ -150,18 +146,15 @@ extension UserSvc : RequestService {
                 service.STORAGE_SERVICE.insert("users/\(user.id!)/images/\(imageName).png", value: image! , callback: {(response) in
                     if let metadata = response as? StorageMetadata {
                         user.photoURL = metadata.downloadURL()?.absoluteString
-                        store.dispatch(UpdateUserAction(user: user, img: nil))
+                        store.dispatch(UserAction.update(user: user, img: nil))
                     }else{
-                        store.state.UserState.status = .failed
-                        store.state.UserState.status = .none
+                        store.dispatch(UserAction.set(user: user))
                     }
                 })
             }else{
                 self.update(ref, value: user.toDictionary() as! [AnyHashable: Any], callback: { ref in
                     if ref is DatabaseReference {
-                        store.state.UserState.user = user
-                        store.state.UserState.status = .finished
-                        store.state.UserState.status = .none
+                       store.dispatch(UserAction.set(user: user))
                     }
                 })
             }
@@ -177,7 +170,8 @@ extension UserSvc : RequestService {
         /// - Parameter snapshot: FirDataSnapshot
         func added(snapshot: DataSnapshot) -> Void {
             let user = User(snapshot: snapshot)
-            store.dispatch(SetUserAction(u: user))
+            store.dispatch(UserAction.set(user: user))
+            
             if user.id == Auth.auth().currentUser?.uid {
                 if user.families != nil {
                     for fid in (user.families?.allKeys)!  {
@@ -192,10 +186,9 @@ extension UserSvc : RequestService {
         }
         func updated(snapshot: DataSnapshot, id: Any) {
             let id = snapshot.ref.description().components(separatedBy: "/")[4]
-            if id == Auth.auth().currentUser?.uid {
-                store.state.UserState.user?.update(snapshot: snapshot)
-            }else if let index = store.state.UserState.users.index(where: {$0.id == id})  {
-                store.state.UserState.users[index].update(snapshot: snapshot)
+            if var user = store.state.UserState.findUser(byId: id) {
+                user.update(snapshot: snapshot)
+                store.dispatch(UserAction.set(user: user))
             }
         }
         func removed(snapshot: DataSnapshot) {

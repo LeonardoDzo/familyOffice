@@ -176,7 +176,7 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
         var photoUrl:String = initialPhoto
         
         if tookPhoto {
-            let path = "users/\((store.state.UserState.user?.id)!)/images/\(photoName).png"
+            let path = "users/\((userStore?.id)!)/images/\(photoName).png"
             service.STORAGE_SERVICE.insert(path, value: (photo?.image)!, callback: { metadata in
                 if let metadata: StorageMetadata = metadata as? StorageMetadata{
                     if let downloadUrl = metadata.downloadURL()?.absoluteString{

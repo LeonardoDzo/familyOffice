@@ -161,7 +161,7 @@ extension GoalHistoryByUserViewController : UITableViewDelegate, UITableViewData
                 follow = item
                 let string = "Fecha: "
                 self.dateForCompleate.text = string +  Date(timeIntervalSince1970: TimeInterval(item.startDate/1000) ).string(with: .ddMMMyyyy)
-                if user.id == store.state.UserState.user?.id {
+                if user.id == userStore?.id {
                     self.doneSwitch.isOn = follow.members[(user?.id!)!]! > 0 ? true : false
                     self.dateForCompleate.isHidden = false
                     self.doneSwitch.isHidden = false
@@ -174,13 +174,13 @@ extension GoalHistoryByUserViewController : UITableViewDelegate, UITableViewData
     @IBAction func handleChange(_ sender: UISwitch) {
         var path = "goals/\(user.id!)/\(goal.id!)/follows"
         if service.GOAL_SERVICE.type != .Individual {
-            if let fid = store.state.UserState.user?.familyActive {
+            if let fid = userStore?.familyActive {
                 path = "goals/\(fid)/\(goal.id!)/follows"
             }
         }
         var xgoal: Goal!
        
-        if follow != nil, let index = goal.list.index(where: {$0.startDate == follow.startDate}), let uid = store.state.UserState.user?.id
+        if follow != nil, let index = goal.list.index(where: {$0.startDate == follow.startDate}), let uid = userStore?.id
         {
             goal.list[index].members[uid] = sender.isOn ? Date().toMillis() : -1
             xgoal = goal.list[index]

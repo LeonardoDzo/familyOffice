@@ -12,7 +12,7 @@ import Firebase
 
 class FirstAidKitListViewController: UIViewController,UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
     var medicines:[Medicine] = []
-    let familyID = store.state.UserState.user?.familyActive!
+    let familyID = store.state.UserState.getUser()?.familyActive!
     let settingLauncher = SettingLauncher()
     let searchController = UISearchController(searchResultsController: nil)
 

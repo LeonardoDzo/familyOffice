@@ -55,7 +55,7 @@ extension GoalDataofSectionTableViewCell: UITableViewDataSource,UITableViewDeleg
                  cell.accessoryType = .none
                  cell.doneSwitch.isOn = goal.done!
             }else{
-                 let uid = store.state.UserState.user?.id
+                 let uid = userStore?.id
                 cell.doneSwitch.isOn = goal.members[uid!]! > 0 ? true : false
             }
            

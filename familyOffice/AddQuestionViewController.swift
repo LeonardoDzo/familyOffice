@@ -124,7 +124,11 @@ class AddQuestionViewController: UIViewController, UITableViewDelegate, UITableV
 
 extension AddQuestionViewController: StoreSubscriber {
     func addObservers() -> Void {
-        service.FAQ_SERVICE.initObservers(ref: "faq/\((user?.familyActive!)!)", actions: [.childAdded, .childRemoved, .childChanged])
+        verifyUser { (user, exist) in
+            if exist {
+                service.FAQ_SERVICE.initObservers(ref: "faq/\(user.familyActive!)", actions: [.childAdded, .childRemoved, .childChanged])
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

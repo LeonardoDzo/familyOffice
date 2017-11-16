@@ -8,8 +8,9 @@
 
 import Foundation
 import ReSwift
+import UIKit
 
-struct AppState: StateType{
+struct AppState: StateType {
     var routingState: RoutingState
     var UserState: UserState
     var GoalsState : GoalState
@@ -21,6 +22,7 @@ struct AppState: StateType{
     var MedicineState: MedicineState
     var IllnessState: IllnessState
     var FaqState: FaqState
+    var safeBoxState: SafeBoxState
 
     
     var notifications = [NotificationModel]()
@@ -33,4 +35,27 @@ enum Result<T> {
     case Finished(T)
     case noFamilies
     case none
+}
+
+extension Result {
+    func status() -> Void {
+        guard let topController = UIApplication.topViewController() else {
+            return
+        }
+        topController.view.hideToastActivity()
+        switch self {
+        case .loading:
+            topController.view.makeToastActivity(.center)
+            break
+        case .failed, .Failed(_):
+            topController.view.makeToast("Hubo algun error", duration: 2.0, position: .top)
+            break
+        case .finished, .Finished(_):
+            break
+        case .noFamilies:
+            break
+        case .none:
+            break
+        }
+    }
 }

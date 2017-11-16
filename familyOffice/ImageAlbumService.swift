@@ -45,7 +45,7 @@ class ImageAlbumService: RequestService{
     }
     
     func inserted(ref: DatabaseReference) {
-        store.state.UserState.status = .finished
+        //do something
     }
     
     func routing(snapshot: DataSnapshot, action: DataEventType, ref: String) {

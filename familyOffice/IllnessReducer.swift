@@ -42,7 +42,7 @@ struct IllnessReducer{
     }
     
     func insertIllness(_ illness: Illness) -> Void {
-        let id = store.state.UserState.user?.familyActive!
+        let id = userStore?.familyActive!
         let path = "illnesses/\(id!)/\(illness.id!)"
         service.ILLNESS_SERVICE.insert(path, value: illness.toDictionary(), callback: {ref in
             if ref is DatabaseReference {
@@ -53,7 +53,7 @@ struct IllnessReducer{
     }
     
     func updateIllness(_ illness: Illness) -> Void {
-        let id = store.state.UserState.user?.familyActive!
+        let id = userStore?.familyActive!
         let path = "illnesses/\(id!)/\(illness.id!)"
         service.ILLNESS_SERVICE.update(path, value: illness.toDictionary() as! [AnyHashable:Any]) { ref in
             if ref is DatabaseReference {
@@ -66,7 +66,7 @@ struct IllnessReducer{
     }
     
     func deleteIllness(_ illness: Illness) -> Void {
-        let id = store.state.UserState.user?.familyActive!
+        let id = userStore?.familyActive!
         let path = "illnesses/\(id!)/\(illness.id!)"
         service.ILLNESS_SERVICE.delete(path) { (Any) in
             if let index = store.state.IllnessState.illnesses[id!]?.index(where: {$0.id! == illness.id!}){

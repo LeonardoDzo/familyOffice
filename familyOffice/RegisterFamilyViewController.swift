@@ -94,9 +94,12 @@ class RegisterFamilyViewController: UIViewController, FamilyBindable, UIImagePic
     
     func validate() -> Bool{
    
-        
-        if !users.contains((store.state.UserState.user)!){
-            users.append((store.state.UserState.user)!)
+        verifyUser { (user, exist) in
+            if exist {
+                if !self.users.contains(user){
+                   self.users.append(user)
+                }
+            }
         }
         
         guard let name = nameTxt.text, !name.isEmpty else {
@@ -182,7 +185,7 @@ extension RegisterFamilyViewController : StoreSubscriber {
         self.bind()
         
         family.members.forEach({uid in
-            if let user = service.USER_SVC.getUser(byId: uid) {
+            if let user = store.state.UserState.findUser(byId: uid) {
                 if !self.users.contains(user) {
                     self.users.append(user)
                 }

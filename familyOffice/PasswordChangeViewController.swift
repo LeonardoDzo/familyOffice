@@ -63,7 +63,7 @@ class PasswordChangeViewController: UIViewController, UIGestureRecognizerDelegat
         
         if rptPass == newPass {
             //Action change pass
-            store.dispatch(ChangePassUserAction(pass: newPass, oldPass: oldPass))
+            store.dispatch(UserAction.changePass(pass: newPass, oldPass: oldPass))
         }else{
             repeatPass.shakeTextField()
             newPassword.shakeTextField()
@@ -96,13 +96,12 @@ extension PasswordChangeViewController : StoreSubscriber {
         }
     }
     override func viewWillDisappear(_ animated: Bool) {
-        store.state.UserState.status = .none
         store.unsubscribe(self)
     }
     
     func newState(state: UserState) {
         self.view.hideToastActivity()
-        switch state.status {
+        switch state.user {
         case .loading:
             self.view.makeToastActivity(.center)
             break

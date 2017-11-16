@@ -20,7 +20,7 @@ class SettingLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectio
     }()
     
     func showSetting() {
-        fid = store.state.UserState.user?.familyActive ?? ""
+        fid = userStore?.familyActive ?? ""
         if let window = UIApplication.shared.keyWindow {
             blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
             blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
@@ -81,7 +81,7 @@ class SettingLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectio
         service.USER_SVC.selectFamily(family: store.state.FamilyState.families.items[indexPath.row])
         handleDismiss()
         if handleFamily != nil {
-            store.state.UserState.user?.familyActive = store.state.FamilyState.families.items[indexPath.row].id
+            userStore?.familyActive = store.state.FamilyState.families.items[indexPath.row].id
             handleFamily.selectFamily()
         }
        

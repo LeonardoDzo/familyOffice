@@ -47,11 +47,7 @@
     
 #ifdef __IPHONE_9_0
     if ([self respondsToSelector:@selector(setSemanticContentAttribute:)]) {
-        if (@available(iOS 9.0, *)) {
-            self.semanticContentAttribute = UISemanticContentAttributeForceLeftToRight;
-        } else {
-            // Fallback on earlier versions
-        }
+        self.semanticContentAttribute = UISemanticContentAttributeForceLeftToRight;
     }
 #endif
     

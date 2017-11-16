@@ -18,7 +18,7 @@ extension FamilyCollectionViewController: StoreSubscriber {
             subcription in
             subcription.select { state in state.FamilyState }
         }
-        if (store.state.UserState.user?.families?.count == 0){
+        if (userStore?.families?.count == 0){
             self.performSegue(withIdentifier: "registerSegue", sender: nil)
         }
         

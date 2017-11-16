@@ -118,14 +118,14 @@ extension MembersTableViewController : StoreSubscriber {
         }
         for family in store.state.FamilyState.families.items  {
             for uid in family.members {
-                store.dispatch(GetUserAction(uid: uid))
+                store.dispatch(UserAction.getbyId(uid: uid))
             }
         }
         
        
     }
     func newState(state: UserState) {
-        self.users = state.users
+        self.users = state.getUsers()
         self.tableView.reloadData()
     }
     

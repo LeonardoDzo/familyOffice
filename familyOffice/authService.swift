@@ -28,7 +28,7 @@ class AuthService {
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             if((error) != nil){
                 print(error.debugDescription)
-                store.state.UserState.status = .failed
+                store.dispatch(UserAction.authFai(error: error.debugDescription))
             }else{
                 service.ACTIVITYLOG_SERVICE.create(id: user!.uid, activity: "Se inicio sesión", photo: "", type: "sesion")
             }
@@ -47,13 +47,7 @@ class AuthService {
             service.NOTIFICATION_SERVICE.deleteToken(token: service.NOTIFICATION_SERVICE.token, id: uid)
             self.userStatus(state: "Offline")
         }
-        store.state.ContactState.contacts.removeAll()
-        store.state.UserState.users.removeAll()
-        store.state.UserState.user = nil
-        store.state.FamilyState.families.items.removeAll()
-        store.state.GalleryState.Gallery.removeAll()
-        store.state.ToDoListState.items.removeAll()
-        store.state.UserState.status = .none
+        store.state = nil
         try! Auth.auth().signOut()
     }
 
@@ -74,7 +68,7 @@ class AuthService {
                                           "photoUrl": downloadURL] as [String : Any]
                         Constants.FirDatabase.REF_USERS.child(user.uid).setValue(xuserModel)
                         service.ACTIVITYLOG_SERVICE.create(id: user.uid, activity: "Se creo la cuenta", photo: downloadURL, type: "sesion")
-                        //self.userStatus(state: "Online")
+                        store.dispatch(UserAction.getbyId(uid: user.uid))
                     }
                 }
             }
@@ -99,10 +93,9 @@ class AuthService {
                 self.checkUserAgainstDatabase(completion: {(success, error ) in
                     if success {
                         if !view {
-                            store.dispatch(GetUserAction(uid: (user?.uid)!))
+                            store.dispatch(UserAction.getbyId(uid: (user?.uid)!))
                             view = !view
                         }
-                        
                     }else{
                        self.logOut()
                     }

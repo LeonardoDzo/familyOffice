@@ -25,7 +25,7 @@ class HomeGalleryViewController: UIViewController, UITabBarDelegate, HandleFamil
     }
 
     
-    var key: String! = store.state.UserState.user?.id ?? ""
+    var key: String! = userStore?.id ?? ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,11 +71,11 @@ class HomeGalleryViewController: UIViewController, UITabBarDelegate, HandleFamil
     func ChangeSelected() {
         if(tabBar.selectedItem?.tag == 0){
             self.navigationItem.title = "Albums"
-            self.key = store.state.UserState.user?.id ?? ""
+            self.key = userStore?.id ?? ""
             service.GALLERY_SERVICE.refUserFamily = self.key
             self.InitObserver()
         }else{
-            self.key = store.state.UserState.user?.familyActive ?? ""
+            self.key = userStore?.familyActive ?? ""
             if let family: Family = store.state.FamilyState.families.family(fid: self.key) {
                 self.navigationItem.title = "Familia: \(family.name!)"
                 service.GALLERY_SERVICE.refUserFamily = self.key
@@ -166,7 +166,7 @@ extension HomeGalleryViewController: StoreSubscriber{
             break
         case .none:
             self.view.hideToastActivity()
-            self.key = store.state.UserState.user?.familyActive ?? ""
+            self.key = userStore?.familyActive ?? ""
             if let family: Family = store.state.FamilyState.families.family(fid: self.key) {
                 self.navigationItem.title = "Familia: \(family.name!)"
                 service.GALLERY_SERVICE.refUserFamily = self.key

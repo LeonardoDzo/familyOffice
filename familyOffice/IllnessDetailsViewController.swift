@@ -108,7 +108,7 @@ class IllnessDetailsViewController: UIViewController, UITableViewDelegate, UITab
      }
      */
     func addObservers() -> Void {
-        service.MEDICINE_SERVICE.initObservers(ref: "illnesses/\((user?.familyActive)!)", actions: [ .childChanged])
+        service.MEDICINE_SERVICE.initObservers(ref: "illnesses/\((userStore?.familyActive)!)", actions: [ .childChanged])
     }
     
 }

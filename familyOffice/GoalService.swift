@@ -54,7 +54,7 @@ class GoalService: RequestService {
     }
     
     func inserted(ref: DatabaseReference) {
-        Constants.FirDatabase.REF_USERS.child((store.state.UserState.user?.id!)!).child("goals").updateChildValues([ref.key:true])
+        Constants.FirDatabase.REF_USERS.child((userStore?.id!)!).child("goals").updateChildValues([ref.key:true])
         
         store.state.GoalsState.status = .finished
         
@@ -66,7 +66,7 @@ class GoalService: RequestService {
         let path = "goals/\(id)/\(goal.id!)"
         if goal.type == 1 {
             goal.members = {
-                let fid = store.state.UserState.user?.familyActive
+                let fid = userStore?.familyActive
                 var members = [String:Int]()
                 store.state.FamilyState.families.family(fid: fid!)?.members.forEach({s in
                     members[s] = -1
@@ -74,7 +74,7 @@ class GoalService: RequestService {
                 return members
             }()
         }else{
-            goal.members[(store.state.UserState.user?.id)!] = -1
+            goal.members[(userStore?.id)!] = -1
         }
        
         if var json = goal.toJSON()  {
@@ -132,9 +132,9 @@ class GoalService: RequestService {
     
     func getPath(type: Int) -> String {
         if type == 0 {
-            return store.state.UserState.user!.id!
+            return store.state.UserState.getUser().id!
         }else{
-            return store.state.UserState.user!.familyActive!
+            return store.state.UserState.getUser().familyActive!
         }
     }
     

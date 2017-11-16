@@ -15,6 +15,8 @@ struct ImageAlbum {
     static let kReacts = "reacts"
     static let kAlbum = "album"
     static let kVideo = "video"
+    static let kWidth = "width"
+    static let kHeight = "height"
 
 
     var id: String!
@@ -25,6 +27,8 @@ struct ImageAlbum {
     var uiimage: UIImage?
     var video: String?
     var DataVideo: Data?
+    var width: Double
+    var height: Double
 
     init(){
         self.id = ""
@@ -34,8 +38,10 @@ struct ImageAlbum {
         self.album = ""
         self.uiimage = nil
         self.video = nil
+        self.width = -1
+        self.height = -1
     }
-    init(id: String!,path: String!,album: String!,comments: [String],reacts: [String],uiimage: UIImage, video: Data?){
+    init(id: String!,path: String!,album: String!,comments: [String],reacts: [String],uiimage: UIImage, video: Data?, width: Double = 0, height: Double = 0){
         self.id = id
         self.path = path
         self.comments = comments
@@ -44,6 +50,8 @@ struct ImageAlbum {
         self.uiimage = uiimage
         self.video = ""
         self.DataVideo = video
+        self.width = width
+        self.height = height
     }
     init(snap: DataSnapshot){
         self.id = snap.key
@@ -53,6 +61,8 @@ struct ImageAlbum {
         self.reacts = service.UTILITY_SERVICE.exist(field: ImageAlbum.kReacts, dictionary: snapValue)
         self.album = service.UTILITY_SERVICE.exist(field: ImageAlbum.kAlbum, dictionary: snapValue)
         self.video = service.UTILITY_SERVICE.exist(field: ImageAlbum.kVideo, dictionary: snapValue) == "" ? nil : service.UTILITY_SERVICE.exist(field: ImageAlbum.kVideo, dictionary: snapValue)
+        self.width = service.UTILITY_SERVICE.exist(field: ImageAlbum.kWidth, dictionary: snapValue)
+        self.height = service.UTILITY_SERVICE.exist(field: ImageAlbum.kHeight, dictionary: snapValue)
     }
     func toDictionary() -> NSDictionary {
         return [
@@ -60,7 +70,9 @@ struct ImageAlbum {
             ImageAlbum.kComments: self.comments,
             ImageAlbum.kReacts: self.reacts,
             ImageAlbum.kAlbum: self.album,
-            ImageAlbum.kVideo: self.video!
+            ImageAlbum.kVideo: self.video!,
+            ImageAlbum.kWidth: self.width,
+            ImageAlbum.kHeight: self.height
         ]
     }
 }

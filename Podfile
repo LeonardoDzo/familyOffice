@@ -6,11 +6,13 @@ target 'familyOffice' do
   use_frameworks!
 
   # Pods for familyOffice
-  pod 'SmileLock'
+  
+  pod 'GoogleSignIn'
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod 'Firebase/Auth'
-  pod 'GoogleSignIn'
+  pod 'Firebase/Storage'
+  pod 'Firebase/Messaging'
   pod 'Firebase/Storage'
   pod 'Firebase/Messaging'
   pod 'JVFloatLabeledTextField'
@@ -19,7 +21,7 @@ target 'familyOffice' do
   pod 'FSCalendar'
   pod 'Toast-Swift', '~> 2.0.0'
   pod 'ReSwift','~> 4.0.0'
-  pod 'Charts', '~> 3.0'
+  pod 'Charts'
   pod 'DKImagePickerController'
   pod 'Lightbox'
   pod 'JBDatePicker'
@@ -27,6 +29,7 @@ target 'familyOffice' do
   pod 'GzipSwift'
   pod 'ALCameraViewController'
   pod 'RealmSwift'
+  pod 'SmileLock'
   pod "MIBadgeButton-Swift", :git => 'https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git', :branch => 'master'
   target 'familyOfficeTests' do
     inherit! :search_paths

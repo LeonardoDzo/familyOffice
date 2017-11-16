@@ -46,7 +46,7 @@ class FamilyViewController: UIViewController, UIGestureRecognizerDelegate, Famil
             case .began:
                 
                 let uid = family.members[(indexPath?.row)!]
-                if let user = service.USER_SVC.getUser(byId: uid) {
+                if let user = store.state.UserState.findUser(byId: uid) {
                     if(user.id == Auth.auth().currentUser?.uid){
                         break
                     }
@@ -109,7 +109,7 @@ extension FamilyViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! FamilyMemberTableViewCell
         let uid = family.members[indexPath.row]
-        if let member = service.USER_SVC.getUser(byId: uid) {
+        if let member = store.state.UserState.findUser(byId: uid){
             cell.bind(userModel: member)
             cell.adminlabel.isHidden = family.admin == member.familyActive ?
                 true : false

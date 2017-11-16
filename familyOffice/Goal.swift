@@ -55,7 +55,7 @@ struct Goal: Serializable   {
         self.title = ""
         self.endDate = Date().toMillis()
         self.startDate =  Date().toMillis()
-        self.creator = (store.state.UserState.user?.id)!
+        self.creator = (userStore?.id)!
         self.type = 0
         self.repeatGoalModel = repeatGoal()
     }

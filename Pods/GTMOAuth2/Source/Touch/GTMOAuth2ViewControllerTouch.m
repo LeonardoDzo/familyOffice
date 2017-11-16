@@ -387,7 +387,7 @@ static GTMOAuth2Keychain* gGTMOAuth2DefaultKeychain = nil;
 
 - (void)popView {
 #if NS_BLOCKS_AVAILABLE
-    void (^popViewBlock)(void) = self.popViewBlock;
+  void (^popViewBlock)(void) = self.popViewBlock;
 #else
   id popViewBlock = nil;
 #endif

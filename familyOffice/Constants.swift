@@ -12,7 +12,7 @@ import Firebase
 
 struct Constants {
     struct FirDatabase {
-        static let REF = Database.database().reference(fromURL: "https://familyoffice-6017a.firebaseio.com/")
+        static let REF = Database.database().reference(fromURL: "https://familyoffice-63b4b.firebaseio.com/")
         static let REF_FAMILIES = REF.child("families")
         static let REF_USERS = REF.child("users")
         static let REF_ACTIVITY = REF.child("activityLog")
@@ -21,7 +21,7 @@ struct Constants {
     }
     
     struct FirStorage {
-        static let STORAGEREF = Storage.storage().reference(forURL: "gs://familyoffice-6017a.appspot.com")
+        static let STORAGEREF = Storage.storage().reference(forURL: "gs://familyoffice-63b4b.appspot.com")
     }
     
     struct Services {
@@ -44,6 +44,7 @@ struct Constants {
         static let MEDICINE_SERVICE = MedicineService.Instance()
         static let ILLNESS_SERVICE = IllnessService.Instance()
         static let FAQ_SERVICE = FaqService.Instance()
+        static let SAFEBOX_SERVICE = SafeBoxService.Instance()
 
     }
     

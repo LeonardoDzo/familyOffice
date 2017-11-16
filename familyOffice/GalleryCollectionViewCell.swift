@@ -24,8 +24,8 @@ class GalleryImageCollectionViewCell: UICollectionViewCell, ImageAlbumBindable {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.imageBackground.frame.size.width = self.bounds.size.width
-        self.imageBackground.frame.size.height = self.bounds.size.height
+//        self.imageBackground.frame.size.width = self.bounds.size.width
+//        self.imageBackground.frame.size.height = self.bounds.size.height
     }
     
 }

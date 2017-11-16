@@ -28,7 +28,11 @@ UINavigationControllerDelegate  {
         self.profileImage.profileUser()
     }
     override func viewWillAppear(_ animated: Bool) {
-        user = store.state.UserState.user!
+        verifyUser { (user, exist) in
+            if exist {
+                self.user = user
+            }
+        }
         profileImage.loadImage(urlString: user.photoURL)
         store.subscribe(self) {
             $0.select({
@@ -68,7 +72,7 @@ UINavigationControllerDelegate  {
                     self?.dismiss(animated: true, completion: nil)
                     return
                 }
-                store.dispatch(UpdateUserAction(user: (self?.user)!, img: img))
+                store.dispatch(UserAction.update(user: (self?.user)!, img: img))
                 self?.dismiss(animated: true, completion: nil)
             }
             
@@ -85,7 +89,7 @@ UINavigationControllerDelegate  {
                     self?.dismiss(animated: true, completion: nil)
                     return
                 }
-                store.dispatch(UpdateUserAction(user: (self?.user)!, img: img))
+                store.dispatch(UserAction.update(user: (self?.user)!, img: img))
                 self?.dismiss(animated: true, completion: nil)
             }
             

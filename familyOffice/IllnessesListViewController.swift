@@ -12,7 +12,7 @@ import Firebase
 
 class IllnessesListViewController: UIViewController,UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
     var illnesses:[Illness] = []
-    let familyID = store.state.UserState.user?.familyActive!
+    let familyID = userStore?.familyActive ?? ""
     
     let searchController = UISearchController(searchResultsController: nil)
     var settingLauncher = SettingLauncher()
@@ -110,7 +110,7 @@ extension IllnessesListViewController: StoreSubscriber{
     typealias StoreSubscriberStateType = IllnessState
     
     override func viewWillAppear(_ animated: Bool) {
-        service.ILLNESS_SERVICE.initObservers(ref: "illnesses/\(familyID!)", actions: [.childAdded, .childChanged, .childRemoved])
+        service.ILLNESS_SERVICE.initObservers(ref: "illnesses/\(userStore?.familyActive!)", actions: [.childAdded, .childChanged, .childRemoved])
         
         store.subscribe(self){
             subcription in
@@ -119,7 +119,7 @@ extension IllnessesListViewController: StoreSubscriber{
     }
     
     func newState(state: IllnessState){
-        illnesses = state.illnesses[familyID!] ?? []
+        illnesses = state.illnesses[(userStore?.familyActive)!] ?? []
         self.tableView.reloadData()
     }
     
@@ -137,7 +137,7 @@ extension IllnessesListViewController: UISearchResultsUpdating {
         if let searchText = searchController.searchBar.text, !searchText.isEmpty{
             self.illnesses = self.illnesses.filter({$0.name.lowercased().contains(searchText.lowercased())})
         }else {
-            self.illnesses = store.state.IllnessState.illnesses[familyID!] ?? []
+            self.illnesses = store.state.IllnessState.illnesses[familyID] ?? []
         }
         tableView.reloadData()
     }

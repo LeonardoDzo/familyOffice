@@ -115,14 +115,14 @@ extension ShowEventViewController: UICollectionViewDelegate, UICollectionViewDat
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "memberCell", for: indexPath) as! MemberInviteCollectionViewCell
         let member = (event?.members[indexPath.row])!
         let id : String = member.id
-        if let user = store.state.UserState.user {
+        if let user = userStore {
             cell.bind(userModel: user)
             cell.check.isHidden = false
             cell.check.image = member.statusImage()
             cell.check.layer.borderWidth = 2
             cell.check.layer.borderColor = UIColor.white.cgColor
         }else{
-            store.dispatch(GetUserAction(uid: id))
+            store.dispatch(UserAction.getbyId(uid: id))
         }
         return cell
     }

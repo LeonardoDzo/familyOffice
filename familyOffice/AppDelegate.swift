@@ -135,7 +135,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
         let authentication = user.authentication
         let credential = GoogleAuthProvider.credential(withIDToken: (authentication?.idToken)!,
                                                        accessToken: (authentication?.accessToken)!)
-        store.dispatch(LoginAction(credential: credential))
+        store.dispatch(UserAction.loginWithCredentials(credential: credential))
     }
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
         

@@ -17,7 +17,7 @@ class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, U
     @IBOutlet var tabBar: UITabBar!
     
     var items : [ToDoList.ToDoItem] = []
-    var userId = store.state.UserState.user?.id
+    var userId = store.state.UserState.getUser()?.id
     let searchController = UISearchController(searchResultsController: nil)
     
     
@@ -58,7 +58,7 @@ class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, U
     }
     
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        let user = store.state.UserState.user?.id!
+        let user = userStore?.id!
         if item.tag == 1 {
             self.items = self.items.filter({ (item) -> Bool in
                 return item.status == "Finalizada"
@@ -161,6 +161,7 @@ class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, U
     // 3D touch en cada elemento de la tabla
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        
         guard let indexPath = tableView?.indexPathForRow(at: location) else {return nil}
         
         guard let cell = tableView?.cellForRow(at: indexPath) else {return nil}
@@ -188,15 +189,14 @@ extension ToDoListController: StoreSubscriber{
     typealias StoreSubscriberStateType = ToDoListState
     
     override func viewWillAppear(_ animated: Bool) {
-        service.TODO_SERVICE.initObserves(ref: "todolist/\((store.state.UserState.user?.id)!)", actions: [.childAdded, .childChanged, .childRemoved])
+        service.TODO_SERVICE.initObserves(ref: "todolist/\((userStore?.id)!)", actions: [.childAdded, .childChanged, .childRemoved])
         
         store.subscribe(self){
             subcription in
             subcription.select { state in state.ToDoListState }
         }
     }
-    
-    
+
     
     func newState(state: ToDoListState) {
         items = state.items[userId!] ?? []
@@ -215,7 +215,7 @@ extension ToDoListController: StoreSubscriber{
 
 extension ToDoListController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        let user = store.state.UserState.user?.id!
+        let user = userStore?.id!
         if let searchText = searchController.searchBar.text, !searchText.isEmpty{
             self.items = self.items.filter({$0.title.lowercased().contains(searchText.lowercased())})
         }else{

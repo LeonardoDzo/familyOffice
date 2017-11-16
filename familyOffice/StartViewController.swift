@@ -110,7 +110,7 @@ class StartViewController: UIViewController, GIDSignInUIDelegate, UITextFieldDel
             return
         }
         service.UTILITY_SERVICE.disabledView()
-        store.dispatch(LoginAction(username: email, password: password))
+        store.dispatch(UserAction.login(username: email, password: password))
         
     }
     
@@ -126,7 +126,7 @@ class StartViewController: UIViewController, GIDSignInUIDelegate, UITextFieldDel
 }
 
 extension StartViewController : StoreSubscriber {
-    
+   
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: false)

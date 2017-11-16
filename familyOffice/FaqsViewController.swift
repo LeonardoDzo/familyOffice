@@ -40,10 +40,13 @@ class FaqsTableViewController: UIViewController, UITableViewDataSource,UITableVi
     }
     
     func setupNavBar(){
+        let pqButton = UIBarButtonItem(barButtonSystemItem: .reply, target: self, action: #selector(self.handleMore(_:)))
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.handleNew))
+        self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
+        
         let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "LeftChevron"), style: .plain, target: self, action: #selector(self.back))
         
-        self.navigationItem.rightBarButtonItems = [ addButton]
+        self.navigationItem.rightBarButtonItems = [pqButton, addButton]
         
         self.navigationItem.leftBarButtonItem = backButton
     }
@@ -119,9 +122,14 @@ class FaqsTableViewController: UIViewController, UITableViewDataSource,UITableVi
 
 extension FaqsTableViewController: StoreSubscriber, Segue {
     func newState(state: FaqState) {
-        user = store.state.UserState.user
-        questions = state.questions[(user?.familyActive!)!] ?? []
-        self.tableView.reloadData()
+        verifyUser { (user, exist) in
+            if exist {
+                self.questions = state.questions[(user.familyActive!)] ?? []
+                self.tableView.reloadData()
+            }
+           
+        }
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -140,7 +148,11 @@ extension FaqsTableViewController: StoreSubscriber, Segue {
     }
     
     func addObservers() -> Void {
-        service.FAQ_SERVICE.initObservers(ref: "faq/\((user?.familyActive!)!)", actions: [.childAdded, .childRemoved, .childChanged])
+        verifyUser { (user, exist) in
+            if (exist) {
+                service.FAQ_SERVICE.initObservers(ref: "faq/\((user.familyActive!))", actions: [.childAdded, .childRemoved, .childChanged])
+            }
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -31,8 +31,11 @@ class SetPersonalDataViewController: UIViewController, UITableViewDelegate, UITa
         //loadInfo()
     }
     override func viewWillAppear(_ animated: Bool) {
-        user = store.state.UserState.user
-        store.state.UserState.status = .none
+       
+        if let user = store.state.UserState.getUser() {
+            self.user = user
+        }
+        
         store.subscribe(self){subcription in
             subcription.select { state in state.UserState }
         }
@@ -140,14 +143,14 @@ class SetPersonalDataViewController: UIViewController, UITableViewDelegate, UITa
         }
         user.fromDictionary(snapshotValue: userdictionary as NSDictionary)
         //Update
-        store.dispatch(UpdateUserAction(user: user))
+        store.dispatch(UserAction.update(user: user, img: nil))
         _ =  navigationController?.popViewController(animated: true)
         //UTILITY_SERVICE.gotoView(view: "ConfiguracionScene", context: self)
     }
     
     func newState(state: UserState) {
         self.view.hideToastActivity()
-        switch state.status {
+        switch state.user {
         case .loading:
             self.view.makeToastActivity(.center)
             break

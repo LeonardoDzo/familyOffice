@@ -7,6 +7,7 @@
 #import "FIRAuthDataResult.h"
 #import "FIRAuthErrors.h"
 #import "FIRAuthSwiftNameSupport.h"
+#import "FIRAuthUIDelegate.h"
 #import "FIREmailAuthProvider.h"
 #import "FIRFacebookAuthProvider.h"
 #import "FIRGitHubAuthProvider.h"
@@ -17,3 +18,4 @@
 #import "FIRTwitterAuthProvider.h"
 #import "FIRUser.h"
 #import "FIRUserInfo.h"
+#import "FIRUserMetadata.h"

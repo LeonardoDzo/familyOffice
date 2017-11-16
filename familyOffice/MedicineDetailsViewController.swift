@@ -107,7 +107,12 @@ class MedicineDetailsViewController: UIViewController, UITableViewDelegate, UITa
     }
     */
     func addObservers() -> Void {
-        service.MEDICINE_SERVICE.initObservers(ref: "medicines/\((user?.familyActive!)!)", actions: [ .childChanged])
+        verifyUser { (user, exist) in
+            if exist {
+                  service.MEDICINE_SERVICE.initObservers(ref: "medicines/\(user.familyActive!)", actions: [ .childChanged])
+            }
+        }
+      
     }
 
 }
