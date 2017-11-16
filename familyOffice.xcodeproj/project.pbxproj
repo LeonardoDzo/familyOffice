@@ -1104,13 +1104,13 @@
 		02B876461E1C717A005E5473 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				02C855911FBE5096004D7BFB /* User */,
 				02C71A4A1F1E996C0017BB4C /* Family */,
 				04AFE3891F01DDD000D4ECA2 /* Gallery */,
 				A48FD6DE1F143D2700832559 /* Budget */,
 				0233A4F51EFD8A4B00D01F5C /* Goal */,
 				02BC16EB1EE9C87200722689 /* Event */,
 				8471A2511E2D8C5100EC9FD7 /* ConfigProfile.swift */,
-				026AE1051E3A93A9003B75BD /* User.swift */,
 				02C17D281E424F6A00EE7CFA /* Record.swift */,
 				020540961E552A13000741CC /* Notification.swift */,
 				024BCA821E6F237900736F1A /* Proccess.swift */,
@@ -1156,6 +1156,14 @@
 				02C8558D1FBE1963004D7BFB /* HelperSvc.swift */,
 			);
 			name = Helpers;
+			sourceTree = "<group>";
+		};
+		02C855911FBE5096004D7BFB /* User */ = {
+			isa = PBXGroup;
+			children = (
+				026AE1051E3A93A9003B75BD /* User.swift */,
+			);
+			name = User;
 			sourceTree = "<group>";
 		};
 		02CCF1551E7218E800436AF6 /* Profile */ = {

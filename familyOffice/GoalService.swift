@@ -132,9 +132,9 @@ class GoalService: RequestService {
     
     func getPath(type: Int) -> String {
         if type == 0 {
-            return store.state.UserState.getUser().id!
+            return store.state.UserState.getUser()!.id!
         }else{
-            return store.state.UserState.getUser().familyActive!
+            return store.state.UserState.getUser()!.familyActive!
         }
     }
     

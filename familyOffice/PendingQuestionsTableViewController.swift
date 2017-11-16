@@ -76,7 +76,12 @@ class PendingQuestionsTableViewController: UITableViewController {
 
 extension PendingQuestionsTableViewController: StoreSubscriber {
     func addObservers() -> Void {
-        service.FAQ_SERVICE.initObservers(ref: "faq/\((user?.familyActive!)!)", actions: [.childAdded, .childRemoved, .childChanged])
+        verifyUser { (user, exist) in
+            if exist {
+                 service.FAQ_SERVICE.initObservers(ref: "faq/\(user.familyActive!)", actions: [.childAdded, .childRemoved, .childChanged])
+            }
+        }
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -114,7 +119,7 @@ extension PendingQuestionsTableViewController: StoreSubscriber {
         }
         verifyUser { (user, exist) in
             if exist {
-                questions = state.questions[(user.familyActive)!]?.filter({$0.subject == "Asistente" && ($0.answer?.isEmpty)!}) ?? []
+                self.questions = state.questions[(user.familyActive)!]?.filter({$0.subject == "Asistente" && ($0.answer?.isEmpty)!}) ?? []
             }
         }
     

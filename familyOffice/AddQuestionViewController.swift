@@ -12,7 +12,7 @@ import ReSwift
 class AddQuestionViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
     var questions: [Question] = []
     
-    let user = store.state.UserState.user
+    let user = store.state.UserState.getUser()
     
     @IBOutlet var tableView: UITableView!
     @IBOutlet var questionTextField: UITextField!

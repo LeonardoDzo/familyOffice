@@ -140,7 +140,7 @@ extension StartViewController : StoreSubscriber {
         self.view.hideToastActivity()
         service.UTILITY_SERVICE.enabledView()
 
-        switch state.status {
+        switch state.user {
         case .failed:
             alert()
             break

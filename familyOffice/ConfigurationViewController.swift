@@ -125,9 +125,9 @@ extension ConfigurationViewController : StoreSubscriber {
     typealias StoreSubscriberStateType = UserState
     
     func newState(state: UserState) {
-        user = store.state.UserState.user!
+        user = store.state.UserState.getUser()
         self.view.hideToastActivity()
-        switch state.status {
+        switch state.user {
         case .loading:
             self.view.makeToastActivity(.center)
             break

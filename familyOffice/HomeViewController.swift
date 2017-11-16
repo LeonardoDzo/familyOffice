@@ -127,8 +127,8 @@ extension HomeViewController : UICollectionViewDelegate, UICollectionViewDataSou
     
     func reloadFamily() -> Void {
         verifyUser { (user, exist) in
-            if let index = families.index(where: {$0.id == user.familyActive}) {
-                let family = families[index]
+            if let index = self.families.index(where: {$0.id == user.familyActive}) {
+                let family = self.families[index]
                 self.navigationItem.title = family.name
             }
         }
