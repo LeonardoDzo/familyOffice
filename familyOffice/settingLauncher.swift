@@ -78,13 +78,19 @@ class SettingLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectio
         return CGSize(width: collectionView.frame.width, height: 80)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        service.USER_SVC.selectFamily(family: store.state.FamilyState.families.items[indexPath.row])
+        
+        let f = store.state.FamilyState.families.items[indexPath.row]
+        let action = UserS()
+        action.action = .selectFamily(family: f)
+        store.dispatch(action)
+        
+        
         handleDismiss()
         if handleFamily != nil {
             userStore?.familyActive = store.state.FamilyState.families.items[indexPath.row].id
             handleFamily.selectFamily()
         }
-       
+        
     }
     
     override init(){
@@ -98,7 +104,7 @@ class SettingLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectio
 }
 
 class BaseCell: UICollectionViewCell {
-   
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)

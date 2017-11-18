@@ -140,7 +140,7 @@ extension FamilySvc: repository {
         store.state.FamilyState.families.removeItem(fid: key)
         if userStore?.familyActive == key {
             if let family = store.state.FamilyState.families.items.first {
-                service.USER_SVC.selectFamily(family: family)
+               // service.USER_SVC.selectFamily(family: family)
             }
             
         }

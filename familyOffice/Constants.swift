@@ -27,7 +27,7 @@ struct Constants {
     struct Services {
         static let ACTIVITYLOG_SERVICE = ActivityLogService.Instance()
         static let UTILITY_SERVICE = Utility.Instance()
-        static let AUTH_SERVICE = AuthService.Instance()
+       // static let AUTH_SERVICE = AuthService.Instance()
         static let ANIMATIONS = Animations.instance
         static let STORAGE_SERVICE = StorageService.Instance()
         static let NOTIFICATION_SERVICE = NotificationService.Instance()
@@ -37,7 +37,7 @@ struct Constants {
         static let GOAL_SERVICE = GoalService.Instance()
         static let GALLERY_SERVICE = GalleryService.Instance()
         static let IMAGEALBUM_SERVICE = ImageAlbumService.Instance()
-        static let USER_SVC = UserSvc.Instance()
+        //static let USER_SVC = UserSvc.Instance()
         static let FAMILY_SVC = FamilySvc.Instance()
         static let TODO_SERVICE = ToDoListService.Instance()
         static let CONTACT_SVC = ContactService.Instance()

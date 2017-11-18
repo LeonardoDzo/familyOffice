@@ -69,7 +69,9 @@ class ContactsViewController: UIViewController {
                 self.tableView.insertRows(at: [NSIndexPath(row: self.users.count-1, section: 0) as IndexPath], with: .fade)
             }
         }else{
-            store.dispatch(UserAction.getbyPhone(phone: phone))
+            let action = UserS()
+            action.action = .getbyPhone(phone: phone)
+            store.dispatch(action)
         }
     }
 }

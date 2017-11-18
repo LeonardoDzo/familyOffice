@@ -143,7 +143,10 @@ class SetPersonalDataViewController: UIViewController, UITableViewDelegate, UITa
         }
         user.fromDictionary(snapshotValue: userdictionary as NSDictionary)
         //Update
-        store.dispatch(UserAction.update(user: user, img: nil))
+        let action = UserS()
+        action.action = .update(user: user, img: nil)
+        action.fromView = RoutingDestination(rawValue: self.restorationIdentifier ?? "")
+        store.dispatch(action)
         _ =  navigationController?.popViewController(animated: true)
         //UTILITY_SERVICE.gotoView(view: "ConfiguracionScene", context: self)
     }

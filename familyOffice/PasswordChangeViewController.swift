@@ -63,7 +63,9 @@ class PasswordChangeViewController: UIViewController, UIGestureRecognizerDelegat
         
         if rptPass == newPass {
             //Action change pass
-            store.dispatch(UserAction.changePass(pass: newPass, oldPass: oldPass))
+            let action = AuthSvc()
+            action.action = .changePass(pass: newPass, oldPass: oldPass)
+            store.dispatch(action)
         }else{
             repeatPass.shakeTextField()
             newPassword.shakeTextField()

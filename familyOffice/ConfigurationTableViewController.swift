@@ -28,7 +28,9 @@ class ConfigurationTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         if(indexPath.row == 3){
-             service.AUTH_SERVICE.logOut()
+             let action = AuthSvc()
+             action.action = .logout
+             store.dispatch(action)
              Utility.Instance().gotoView(view: "StartView", context: self)
         }
     }

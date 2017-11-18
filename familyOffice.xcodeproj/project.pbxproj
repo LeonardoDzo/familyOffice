@@ -137,6 +137,8 @@
 		02C808801ED76979005BB8B1 /* ConfigurationEventTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C8087F1ED76979005BB8B1 /* ConfigurationEventTableViewController.swift */; };
 		02C8558E1FBE1963004D7BFB /* HelperSvc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C8558D1FBE1963004D7BFB /* HelperSvc.swift */; };
 		02C855901FBE20FC004D7BFB /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C8558F1FBE20FC004D7BFB /* UIApplication.swift */; };
+		02CB7AAB1FBFA7AD005408F9 /* RealmMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CB7AAA1FBFA7AD005408F9 /* RealmMiddleware.swift */; };
+		02CB7AAD1FBFA7F8005408F9 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CB7AAC1FBFA7F8005408F9 /* RealmManager.swift */; };
 		02CE93261F1FDADB00D3B96E /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CE93251F1FDADB00D3B96E /* ContactsViewController.swift */; };
 		02CE93291F1FFAD900D3B96E /* FamilyActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CE93281F1FFAD900D3B96E /* FamilyActions.swift */; };
 		02CF79AB1EAEC4B200E13056 /* EventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CF79AA1EAEC4B200E13056 /* EventService.swift */; };
@@ -149,6 +151,12 @@
 		02EABF591E312B67008A7CA9 /* FamilyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02EABF581E312B67008A7CA9 /* FamilyCollectionViewCell.swift */; };
 		02F15BB71E85ECE2008C26F8 /* chatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F15BB61E85ECE2008C26F8 /* chatModel.swift */; };
 		02F15BBA1E85F37A008C26F8 /* chatCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F15BB81E85F37A008C26F8 /* chatCellTableViewCell.swift */; };
+		02F50B1B1FBF64AF00285BEE /* UserS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F50B1A1FBF64AF00285BEE /* UserS.swift */; };
+		02F50B1D1FBF665D00285BEE /* EventProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F50B1C1FBF665D00285BEE /* EventProtocol.swift */; };
+		02F50B1F1FBF681A00285BEE /* Reducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F50B1E1FBF681A00285BEE /* Reducer.swift */; };
+		02F50B211FBF6F2D00285BEE /* RequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F50B201FBF6F2D00285BEE /* RequestProtocol.swift */; };
+		02F50B231FBF797200285BEE /* AuthSvc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F50B221FBF797200285BEE /* AuthSvc.swift */; };
+		02F50B251FBF82C500285BEE /* AuthState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F50B241FBF82C500285BEE /* AuthState.swift */; };
 		02F5EDC21ED4B8A600BCDF84 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F5EDC11ED4B8A600BCDF84 /* UIColor.swift */; };
 		02F5EDC41ED4B9F500BCDF84 /* CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F5EDC31ED4B9F500BCDF84 /* CGFloat.swift */; };
 		02FA70641E707BAB0080AAEB /* ToastService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FA70631E707BAB0080AAEB /* ToastService.swift */; };
@@ -414,6 +422,8 @@
 		02C8087F1ED76979005BB8B1 /* ConfigurationEventTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ConfigurationEventTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		02C8558D1FBE1963004D7BFB /* HelperSvc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperSvc.swift; sourceTree = "<group>"; };
 		02C8558F1FBE20FC004D7BFB /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
+		02CB7AAA1FBFA7AD005408F9 /* RealmMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmMiddleware.swift; sourceTree = "<group>"; };
+		02CB7AAC1FBFA7F8005408F9 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		02CE93251F1FDADB00D3B96E /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		02CE93281F1FFAD900D3B96E /* FamilyActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyActions.swift; sourceTree = "<group>"; };
 		02CF79AA1EAEC4B200E13056 /* EventService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = EventService.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -428,6 +438,12 @@
 		02F15BB61E85ECE2008C26F8 /* chatModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = chatModel.swift; sourceTree = "<group>"; };
 		02F15BB81E85F37A008C26F8 /* chatCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = chatCellTableViewCell.swift; sourceTree = "<group>"; };
 		02F15BB91E85F37A008C26F8 /* chatCellTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = chatCellTableViewCell.xib; sourceTree = "<group>"; };
+		02F50B1A1FBF64AF00285BEE /* UserS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserS.swift; sourceTree = "<group>"; };
+		02F50B1C1FBF665D00285BEE /* EventProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventProtocol.swift; sourceTree = "<group>"; };
+		02F50B1E1FBF681A00285BEE /* Reducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reducer.swift; sourceTree = "<group>"; };
+		02F50B201FBF6F2D00285BEE /* RequestProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestProtocol.swift; sourceTree = "<group>"; };
+		02F50B221FBF797200285BEE /* AuthSvc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSvc.swift; sourceTree = "<group>"; };
+		02F50B241FBF82C500285BEE /* AuthState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthState.swift; sourceTree = "<group>"; };
 		02F5EDC11ED4B8A600BCDF84 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		02F5EDC31ED4B9F500BCDF84 /* CGFloat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGFloat.swift; sourceTree = "<group>"; };
 		02FA70631E707BAB0080AAEB /* ToastService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastService.swift; sourceTree = "<group>"; };
@@ -718,19 +734,7 @@
 				02AD814E1E4B92FF0030B3DD /* Extensions */,
 				02F5E35A1E1C322500A9FBFA /* Controllers */,
 				842116791E28124600C6BD80 /* background.mp4 */,
-				949B52021F2021D5001C7ABA /* FirstAidKit.storyboard */,
-				042567851EFC34B8001EAC50 /* Gallery.storyboard */,
-				02E7E5EB1E78806D00D8360B /* Main.storyboard */,
-				84FFCB8C1F0192DB006EDFA1 /* Contacts.storyboard */,
-				A44D4E5D1F0481CD00323B87 /* Budget.storyboard */,
-				02B82AC61E8AE52600E41E32 /* Chat.storyboard */,
-				02B82AC41E8AE50B00E41E32 /* Calendar.storyboard */,
-				02B82AC21E8AE4D800E41E32 /* SafeBox.storyboard */,
-				02B82AC01E8AE4A100E41E32 /* Families.storyboard */,
-				02B82ABE1E8AE3CF00E41E32 /* Settings.storyboard */,
-				A47F14B01E8B27DB00285CA8 /* Health.storyboard */,
-				94FF53521F17E516001D9EE4 /* ToDoList.storyboard */,
-				02382F151E1C210C0036FFC9 /* LaunchScreen.storyboard */,
+				02CB7AAE1FBFA946005408F9 /* Storyboard */,
 				02382F181E1C210C0036FFC9 /* Info.plist */,
 			);
 			path = familyOffice;
@@ -779,6 +783,8 @@
 				941B5A001F2178470078EF9C /* IllnessService.swift */,
 				940964151F280C2600FB1F3A /* faqService.swift */,
 				8B359DDF1F44A51400E6A97A /* SafeBoxService.swift */,
+				02F50B1A1FBF64AF00285BEE /* UserS.swift */,
+				02F50B221FBF797200285BEE /* AuthSvc.swift */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -880,6 +886,7 @@
 				02668FAA1F12B5FF0052617E /* UserState.swift */,
 				02C71A4D1F1E9CCD0017BB4C /* FamilyState.swift */,
 				021DB6A71F4B785A00E216BE /* RoutingState.swift */,
+				02F50B241FBF82C500285BEE /* AuthState.swift */,
 			);
 			name = States;
 			sourceTree = "<group>";
@@ -986,6 +993,9 @@
 				02802DFE1EFC36A900E12A84 /* FamilyProtocols.swift */,
 				0266454B1EFC50920034D434 /* RequestStorageSvc.swift */,
 				02D19FAD1FBA25D200D4E9B3 /* Serializable.swift */,
+				02F50B1C1FBF665D00285BEE /* EventProtocol.swift */,
+				02F50B1E1FBF681A00285BEE /* Reducer.swift */,
+				02F50B201FBF6F2D00285BEE /* RequestProtocol.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -1154,6 +1164,8 @@
 			isa = PBXGroup;
 			children = (
 				02C8558D1FBE1963004D7BFB /* HelperSvc.swift */,
+				02CB7AAA1FBFA7AD005408F9 /* RealmMiddleware.swift */,
+				02CB7AAC1FBFA7F8005408F9 /* RealmManager.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -1164,6 +1176,26 @@
 				026AE1051E3A93A9003B75BD /* User.swift */,
 			);
 			name = User;
+			sourceTree = "<group>";
+		};
+		02CB7AAE1FBFA946005408F9 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				949B52021F2021D5001C7ABA /* FirstAidKit.storyboard */,
+				042567851EFC34B8001EAC50 /* Gallery.storyboard */,
+				02E7E5EB1E78806D00D8360B /* Main.storyboard */,
+				84FFCB8C1F0192DB006EDFA1 /* Contacts.storyboard */,
+				A44D4E5D1F0481CD00323B87 /* Budget.storyboard */,
+				02B82AC61E8AE52600E41E32 /* Chat.storyboard */,
+				02B82AC41E8AE50B00E41E32 /* Calendar.storyboard */,
+				02B82AC21E8AE4D800E41E32 /* SafeBox.storyboard */,
+				02B82AC01E8AE4A100E41E32 /* Families.storyboard */,
+				02B82ABE1E8AE3CF00E41E32 /* Settings.storyboard */,
+				A47F14B01E8B27DB00285CA8 /* Health.storyboard */,
+				94FF53521F17E516001D9EE4 /* ToDoList.storyboard */,
+				02382F151E1C210C0036FFC9 /* LaunchScreen.storyboard */,
+			);
+			name = Storyboard;
 			sourceTree = "<group>";
 		};
 		02CCF1551E7218E800436AF6 /* Profile */ = {
@@ -2014,6 +2046,7 @@
 				941B59FB1F213C3D0078EF9C /* FirstAidKitCellView.swift in Sources */,
 				949B52121F202D1D001C7ABA /* IllnessState.swift in Sources */,
 				024BCA831E6F237900736F1A /* Proccess.swift in Sources */,
+				02F50B231FBF797200285BEE /* AuthSvc.swift in Sources */,
 				0271DD4F1E2EB1FB002C101B /* FamilyMemberTableViewCell.swift in Sources */,
 				84CCA3961F1AB76F00B1C9D0 /* UIString.swift in Sources */,
 				02C06B451F325D4500FFF52B /* Type_EventTableViewController.swift in Sources */,
@@ -2038,6 +2071,7 @@
 				02441DA21F16FFF600EA8202 /* GoalDataForCategoryTableViewCell.swift in Sources */,
 				02002BF71E820589007191CC /* GroupsTableViewCell.swift in Sources */,
 				02DFD5591EC2810300DA7486 /* Event.swift in Sources */,
+				02F50B1B1FBF64AF00285BEE /* UserS.swift in Sources */,
 				045F4A0F1F0DB8D000B483C9 /* AlbumViewController.swift in Sources */,
 				028CD36B1EFB447600DEC001 /* typeiconCollectionViewCell.swift in Sources */,
 				02FA707A1F1957E10027E8B5 /* GoalHistoryByUserViewController.swift in Sources */,
@@ -2082,8 +2116,10 @@
 				8452F5AB1E5F4F550064A964 /* ModuleCollectionViewCell.swift in Sources */,
 				940964221F28242400FB1F3A /* QuestionCell.swift in Sources */,
 				029B7A471EDE3515006868A7 /* MembersTableViewController.swift in Sources */,
+				02CB7AAD1FBFA7F8005408F9 /* RealmManager.swift in Sources */,
 				024BCA811E6F1E2D00736F1A /* RequestService.swift in Sources */,
 				021DB6A81F4B785A00E216BE /* RoutingState.swift in Sources */,
+				02F50B251FBF82C500285BEE /* AuthState.swift in Sources */,
 				0282DDA41F290D5A00FBB31B /* ProfileUserViewController.swift in Sources */,
 				02811B481F06ED44004231BE /* GoalActions.swift in Sources */,
 				02AB00471E1DD0AB0098411C /* RegisterFamilyViewController.swift in Sources */,
@@ -2112,6 +2148,7 @@
 				02668FAF1F12B6B80052617E /* UserActions.swift in Sources */,
 				020A64F91E81A8AF00F473A0 /* menuBar.swift in Sources */,
 				A4F65A271E97F05100831BFD /* EditHealthTableViewController.swift in Sources */,
+				02F50B1D1FBF665D00285BEE /* EventProtocol.swift in Sources */,
 				8B359DE61F44B00000E6A97A /* SafeBoxActions.swift in Sources */,
 				02FA70781F1955F00027E8B5 /* TimeLineCellTableViewCell.swift in Sources */,
 				020DA38E1F0C1A9C000BD7E2 /* FamilyReducer.swift in Sources */,
@@ -2121,6 +2158,7 @@
 				940964281F296E2D00FB1F3A /* CResponseCell.swift in Sources */,
 				940964241F292B0800FB1F3A /* AddQuestionViewController.swift in Sources */,
 				A44F5BE91F1D42D300B840F3 /* BudgetTabBarController.swift in Sources */,
+				02CB7AAB1FBFA7AD005408F9 /* RealmMiddleware.swift in Sources */,
 				02C71A4E1F1E9CCD0017BB4C /* FamilyState.swift in Sources */,
 				04BDB2851F19A2F6006D3A62 /* AppReducer.swift in Sources */,
 				029CD0631F131EBC00A29CBA /* UserReducer.swift in Sources */,
@@ -2136,6 +2174,7 @@
 				8B56FB771F462FFC002EF8EC /* PDFViewController.swift in Sources */,
 				027CC9C11F29390A005A48A6 /* MainTabBarController.swift in Sources */,
 				0226C8E21E3C217D007968BA /* ConfigurationViewController.swift in Sources */,
+				02F50B211FBF6F2D00285BEE /* RequestProtocol.swift in Sources */,
 				021DB6AC1F4B79AE00E216BE /* RoutingReducer.swift in Sources */,
 				0233A4F91EFDA33600D01F5C /* GoalService.swift in Sources */,
 				02382F0D1E1C210C0036FFC9 /* AppDelegate.swift in Sources */,
@@ -2143,6 +2182,7 @@
 				02A437601F183FCB003F10A1 /* FollowGoal.swift in Sources */,
 				A4F65A2B1E985A4E00831BFD /* HealthOmniViewController_Categories.swift in Sources */,
 				02EABF571E312AE8008A7CA9 /* FamilyCollectionViewController.swift in Sources */,
+				02F50B1F1FBF681A00285BEE /* Reducer.swift in Sources */,
 				024104871E6F40C4002B8E1C /* FamilyCollectionExtension.swift in Sources */,
 				02F15BBA1E85F37A008C26F8 /* chatCellTableViewCell.swift in Sources */,
 				849C81C71E1D6D2F00FF3EE7 /* StartViewController.swift in Sources */,

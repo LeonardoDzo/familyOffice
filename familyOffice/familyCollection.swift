@@ -77,7 +77,9 @@ extension SelectCategoryViewController: UICollectionViewDelegate, UICollectionVi
         }
     }
     func toggleSelect(family: Family){
-        service.USER_SVC.selectFamily(family: family)
+        let action = UserS()
+        action.action = .selectFamily(family: family)
+
     }
     
 }

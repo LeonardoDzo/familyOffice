@@ -15,7 +15,8 @@ import ReSwift
 
 let store = Store<AppState>(
     reducer: appReducer,
-    state: nil)
+    state: nil,
+    middleware: [realmMiddleware] )
 
 let Userdefault = UserDefaults.standard
 @UIApplicationMain
@@ -135,7 +136,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
         let authentication = user.authentication
         let credential = GoogleAuthProvider.credential(withIDToken: (authentication?.idToken)!,
                                                        accessToken: (authentication?.accessToken)!)
-        store.dispatch(UserAction.loginWithCredentials(credential: credential))
+        let action = AuthSvc()
+        action.action = .loginWithCredentials(credential: credential)
+        store.dispatch(action)
     }
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
         

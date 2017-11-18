@@ -94,7 +94,9 @@ extension GoalTableViewController: StoreSubscriber, Segue, HandleFamilySelected 
         super.viewWillAppear(true)
         addObservers()
         if let family = store.state.FamilyState.families.family(fid: (userStore?.familyActive)!){
-            service.USER_SVC.selectFamily(family: family)
+            let action = UserS()
+            action.action = .selectFamily(family: family)
+            store.dispatch(action)
         }
         selectFamily()
         store.subscribe(self) {

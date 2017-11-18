@@ -91,9 +91,9 @@ class SingUpViewController: UIViewController, UITextFieldDelegate, GIDSignInUIDe
         
         Auth.auth().createUser(withEmail: email, password: pass) { (user, error) in
             if(error == nil){
-                let userModel = User(id: (user?.uid)!, name: name, phone: phone, photoURL: "", families: [:], familyActive: "", rfc: "", nss: "", curp: "", birth: "", address: "", bloodtype: "", health: [])
-                store.dispatch(UserAction.create(user: userModel))
-                Constants.FirDatabase.REF_USERS.child(userModel.id).setValue(userModel)
+                //                let userModel = User(id: (user?.uid)!, name: name, phone: phone, photoURL: "", families: [:], familyActive: "", rfc: "", nss: "", curp: "", birth: "", address: "", bloodtype: "", health: [])
+                //                store.dispatch(UserAction.create(user: userModel))
+                //Constants.FirDatabase.REF_USERS.child(userModel.id).setValue(userModel)
             }
             else{
                 let errCode : AuthErrorCode = AuthErrorCode(rawValue: error!._code)!

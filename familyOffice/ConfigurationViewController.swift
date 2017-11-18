@@ -72,7 +72,7 @@ UINavigationControllerDelegate  {
                     self?.dismiss(animated: true, completion: nil)
                     return
                 }
-                store.dispatch(UserAction.update(user: (self?.user)!, img: img))
+                store.dispatch( UserS(action: .update(user: (self?.user)!, img: img)))
                 self?.dismiss(animated: true, completion: nil)
             }
             

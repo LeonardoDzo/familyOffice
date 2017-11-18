@@ -97,7 +97,9 @@ class SelectCategoryViewController: UIViewController {
     }
     
     @objc func logout(){
-        service.AUTH_SERVICE.logOut()
+        let action = AuthSvc()
+        action.action = .logout
+        store.dispatch(action)
         service.UTILITY_SERVICE.gotoView(view: "StartView", context: self)
     }
     

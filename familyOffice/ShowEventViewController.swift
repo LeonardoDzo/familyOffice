@@ -122,7 +122,7 @@ extension ShowEventViewController: UICollectionViewDelegate, UICollectionViewDat
             cell.check.layer.borderWidth = 2
             cell.check.layer.borderColor = UIColor.white.cgColor
         }else{
-            store.dispatch(UserAction.getbyId(uid: id))
+           // store.dispatch(UserAction.getbyId(uid: id))
         }
         return cell
     }

@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import Firebase
+
 /// Global User
 var userStore = {
     return store.state.UserState.getUser()
@@ -25,6 +27,39 @@ func verifyUser( closure: @escaping (_ user: User, _ exist: Bool)->()) {
         }
     }
 }
+func isAuth()  {
+    var view = false
+    Auth.auth().addStateDidChangeListener { auth, user in
+        
+        if (user != nil) {
+            checkUserAgainstDatabase(completion: {(success, error ) in
+                if success {
+                    if !view {
+                        let action  = UserS()
+                        action.action = .getbyId(uid: (user?.uid)!)
+                        store.dispatch(action)
+                        view = !view
+                    }
+                }else{
+                    let action  = UserS()
+                    self.logOut()
+                }
+            })
+        }else{
+            store.dispatch()
+        }
+    }
+}
 
-
+func checkUserAgainstDatabase(completion: @escaping (_ success: Bool, _ error: NSError?) -> Void) {
+    guard let currentUser = Auth.auth().currentUser else { return }
+    currentUser.getIDTokenForcingRefresh(true) { (idToken, error) in
+        if let error = error {
+            completion(false, error as NSError?)
+            print(error.localizedDescription)
+        } else {
+            completion(true, nil)
+        }
+    }
+}
 
