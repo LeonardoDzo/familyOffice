@@ -43,7 +43,7 @@ struct ToDoListReducer{
     
     func insertItem(_ item: ToDoList.ToDoItem) -> Void {
         //seleccionar ruta por un ToDoList familiar??
-        let id = store.state.UserState.user?.id!
+        let id = userStore?.id!
         let path = "todolist/\(id!)/\(item.id!)"
         service.TODO_SERVICE.insert(path, value: item.toDictionary(), callback: {ref in
             if ref is DatabaseReference{
@@ -54,7 +54,7 @@ struct ToDoListReducer{
     }
     
     func updateItem(_ item: ToDoList.ToDoItem) -> Void {
-        let id = store.state.UserState.user?.id!
+        let id = userStore?.id!
         let path = "todolist/\(id!)/\(item.id!)"
         service.TODO_SERVICE.update(path, value: item.toDictionary() as! [AnyHashable : Any], callback: { ref in
             if ref is DatabaseReference {
@@ -69,7 +69,7 @@ struct ToDoListReducer{
     }
     
     func deleteItem(_ item: ToDoList.ToDoItem) -> Void {
-        let id = store.state.UserState.user?.id!
+        let id = userStore?.id!
         let path = "todolist/\(id!)/\(item.id!)"
         service.TODO_SERVICE.delete(path) { (Any) in
             if let index = store.state.ToDoListState.items[id!]?.index(where: {$0.id! == item.id! }){

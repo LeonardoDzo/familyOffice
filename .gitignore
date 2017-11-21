@@ -17,7 +17,6 @@ Pods/
 *.md
 .idea/
 
-Pods/
 *.xcscheme
 *.xcscheme
 *.plist

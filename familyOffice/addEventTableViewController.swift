@@ -171,7 +171,7 @@ extension addEventTableViewController {
         }
         //update
     }
-    func save(){
+    @objc func save(){
         preSave()
         guard validation() else {
             return

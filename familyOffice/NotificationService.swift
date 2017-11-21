@@ -28,9 +28,13 @@ class NotificationService {
             print("InstanceID token: \(refreshedToken)")
             service.NOTIFICATION_SERVICE.token = refreshedToken
         }
-        if store.state.UserState.user != nil {
-            Constants.FirDatabase.REF_USERS.child("\((store.state.UserState.user?.id)!)/\(User.kUserTokensFCMeKey)").updateChildValues([self.token: true])
+        verifyUser { (user,exist)  in
+            if exist {
+                Constants.FirDatabase.REF_USERS.child("\(user.id)/\(User.kUserTokensFCMeKey)").updateChildValues([self.token: true])
+            }
         }
+        
+        
     }
    
     func sendNotification(title: String, message: String, to: String){
@@ -70,7 +74,7 @@ class NotificationService {
 }
 extension NotificationService: RequestService {
     func addHandle(_ handle: UInt, ref: String, action: DataEventType) {
-        self.handles.append(ref,handle, action)
+        self.handles.append((ref,handle, action))
     }
 
     func routing(snapshot: DataSnapshot, action: DataEventType, ref: String) {

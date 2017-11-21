@@ -33,10 +33,10 @@ class ContactsViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    func back() -> Void {
+    @objc func back() -> Void {
         _ = self.navigationController?.popViewController(animated: true)
     }
-    func add() -> Void {
+    @objc func add() -> Void {
         contactDelegate.selected(users: selected)
         back()
     }
@@ -54,7 +54,7 @@ class ContactsViewController: UIViewController {
         self.users = []
         for item in contacts {
             for phone in item.phoneNumbers {
-                if phone.value.value(forKey: "digits") as? String  != store.state.UserState.user?.phone{
+                if phone.value.value(forKey: "digits") as? String  != userStore?.phone{
                     self.addMember(phone: phone.value.value(forKey: "digits") as! String )
                 }
                 
@@ -63,13 +63,15 @@ class ContactsViewController: UIViewController {
     }
     func addMember(phone: String) -> Void {
         
-        if let user = store.state.UserState.users.filter({$0.phone == phone}).first {
+        if let user = store.state.UserState.getUsers().filter({$0.phone == phone}).first {
             if !self.users.contains(where: {$0.id == user.id}) {
                 self.users.append(user)
                 self.tableView.insertRows(at: [NSIndexPath(row: self.users.count-1, section: 0) as IndexPath], with: .fade)
             }
         }else{
-            store.dispatch(GetUserAction(phone: phone))
+            let action = UserS()
+            action.action = .getbyPhone(phone: phone)
+            store.dispatch(action)
         }
     }
 }
@@ -137,16 +139,15 @@ extension ContactsViewController: StoreSubscriber {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         store.unsubscribe(self)
-        store.state.UserState.status = .none
     }
     func newState(state: UserState) {
         self.view.hideToastActivity()
-        switch state.status {
+        switch state.users {
         case .loading:
             self.view.makeToastActivity(.center)
             break
-        case .Finished(let user as User):
-            users.append(user)
+        case .Finished(let users as [User]):
+            self.users.append(users.last!)
             self.tableView.reloadData()
             break
         default:

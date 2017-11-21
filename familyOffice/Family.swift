@@ -167,7 +167,7 @@ extension FamilyBindable{
             }
         }
         if let check = self.check{
-            if family.id == store.state.UserState.user?.familyActive {
+            if family.id == userStore?.familyActive {
                 check.isHidden = false
             }else{
                 check.isHidden = true

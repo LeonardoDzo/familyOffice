@@ -38,29 +38,32 @@ class ContactService {
     
     func create(_ contact: Contact) -> Void {
         let contact = contact
-        let fid = store.state.UserState.user!.familyActive!
-        let path = "contacts/\(fid)/\(contact.id!)"
-        self.insert(path, value: contact.toDictionary(), callback: {ref in
-            if ref is DatabaseReference {
-                store.state.ContactState.contacts[fid]?.append(contact)
-                store.state.ContactState.status = .finished
-            }
-        })
+        if let user = store.state.UserState.getUser(), let fid = user.familyActive {
+            let path = "contacts/\(fid)/\(contact.id!)"
+            self.insert(path, value: contact.toDictionary(), callback: {ref in
+                if ref is DatabaseReference {
+                    store.state.ContactState.contacts[fid]?.append(contact)
+                    store.state.ContactState.status = .finished
+                }
+            })
+        }
+       
     }
     
     func update(_ contact: Contact) -> Void {
-        let fid = store.state.UserState.user!.familyActive!
-        let path = "contacts/\(fid)/\(contact.id!)"
-        service.GOAL_SERVICE.update(path, value: contact.toDictionary() as! [AnyHashable : Any], callback: { ref in
-            if ref is DatabaseReference {
-                if let index = store.state.ContactState.contacts[fid]?.index(where: {$0.id == contact.id }){
-                    store.state.ContactState.contacts[fid]?[index] = contact
-                    store.state.ContactState.status = .finished
+        if let user = store.state.UserState.getUser(), let fid = user.familyActive {
+            let path = "contacts/\(fid)/\(contact.id!)"
+            service.GOAL_SERVICE.update(path, value: contact.toDictionary() as! [AnyHashable : Any], callback: { ref in
+                if ref is DatabaseReference {
+                    if let index = store.state.ContactState.contacts[fid]?.index(where: {$0.id == contact.id }){
+                        store.state.ContactState.contacts[fid]?[index] = contact
+                        store.state.ContactState.status = .finished
+                    }
+                    
                 }
                 
-            }
-            
-        })
+            })
+        }
     }
     
     func delete(_ ref: String, callback: @escaping ((Any) -> Void)) {
@@ -68,9 +71,9 @@ class ContactService {
     
     func getPath(type: Int) -> String {
         if type == 0 {
-            return store.state.UserState.user!.id!
+            return store.state.UserState.getUser()!.id!
         }else{
-            return store.state.UserState.user!.familyActive!
+            return store.state.UserState.getUser()!.familyActive!
         }
     }
 }
@@ -87,7 +90,7 @@ extension ContactService : RequestService {
     }
     
     func addHandle(_ handle: UInt, ref: String, action: DataEventType) {
-        self.handles.append(ref,handle, action)
+        self.handles.append((ref,handle, action))
     }
     
     func removeHandles() {

@@ -16,7 +16,7 @@ class ToDoListService: RequestService{
 
     var items: [ToDoList.ToDoItem] = []
     var handles: [(String, UInt, DataEventType)] = []
-    let basePath = "todolist/\((store.state.UserState.user?.id)!)"
+    let basePath = "todolist/\((store.state.UserState.getUser()?.id)!)"
     
     private init(){}
     
@@ -51,7 +51,7 @@ class ToDoListService: RequestService{
     }
     
     func addHandle(_ handle: UInt, ref: String, action: DataEventType) {
-        self.handles.append(ref, handle, action)
+        self.handles.append((ref, handle, action))
     }
     
     func removeHandles() {
@@ -62,8 +62,8 @@ class ToDoListService: RequestService{
     }
     
     func inserted(ref: DatabaseReference) {
-        Constants.FirDatabase.REF_USERS.child((store.state.UserState.user?.id!)!).child("todolist").updateChildValues([ref.key:true])
-        
+        Constants.FirDatabase.REF_USERS.child((userStore!.id!)).child("todolist").updateChildValues(
+                    [ref.key:true])
         store.state.ToDoListState.status = .finished
     }
     

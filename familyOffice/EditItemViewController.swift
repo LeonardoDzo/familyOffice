@@ -103,11 +103,11 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
         // Do any additional setup after loading the view.
     }
     
-    func tap(_ gestureRecognizer: UITapGestureRecognizer) -> Void {
+    @objc func tap(_ gestureRecognizer: UITapGestureRecognizer) -> Void {
         self.performSegue(withIdentifier: "toPickingDate", sender: nil)
     }
     
-    func photoTapped(_ gestureRecognizer: UITapGestureRecognizer) -> Void {
+    @objc func photoTapped(_ gestureRecognizer: UITapGestureRecognizer) -> Void {
         lightboxController = LightboxController(images: [LightboxImage(image: photo.image!)], startIndex: 0)
         
         lightboxController.pageDelegate = self
@@ -161,7 +161,7 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
         store.dispatch(UpdateToDoListItemAction(item:item))
     }
     
-    func save(sender: UIBarButtonItem){
+    @objc func save(sender: UIBarButtonItem){
         let title: String! = textFieldTitle.text
         if title == nil || title.isEmpty || textFieldTitle.textColor == UIColor.lightGray{
             service.ANIMATIONS.shakeTextField(txt: textFieldTitle)
@@ -176,7 +176,7 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
         var photoUrl:String = initialPhoto
         
         if tookPhoto {
-            let path = "users/\((store.state.UserState.user?.id)!)/images/\(photoName).png"
+            let path = "users/\((userStore?.id)!)/images/\(photoName).png"
             service.STORAGE_SERVICE.insert(path, value: (photo?.image)!, callback: { metadata in
                 if let metadata: StorageMetadata = metadata as? StorageMetadata{
                     if let downloadUrl = metadata.downloadURL()?.absoluteString{

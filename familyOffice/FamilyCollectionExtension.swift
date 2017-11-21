@@ -18,7 +18,7 @@ extension FamilyCollectionViewController: StoreSubscriber {
             subcription in
             subcription.select { state in state.FamilyState }
         }
-        if (store.state.UserState.user?.families?.count == 0){
+        if (userStore?.families?.count == 0){
             self.performSegue(withIdentifier: "registerSegue", sender: nil)
         }
         
@@ -41,7 +41,7 @@ extension FamilyCollectionViewController: StoreSubscriber {
         self.familyCollection.reloadData()
     }
     
-    func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
+    @objc func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
         let point: CGPoint = gestureReconizer.location(in: self.familyCollection)
         let indexPath = self.familyCollection?.indexPathForItem(at: point)
         
@@ -82,7 +82,7 @@ extension FamilyCollectionViewController: StoreSubscriber {
     }
     
     func toggleSelect(family: Family){
-       service.USER_SVC.selectFamily(family: family)
+       store.dispatch(UserS(.selectFamily(family: family)))
     }
     
     func togglePendingDelete(family: Family) -> Void

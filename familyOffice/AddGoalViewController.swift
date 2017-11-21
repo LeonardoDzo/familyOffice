@@ -47,7 +47,7 @@ class AddGoalViewController: UIViewController, GoalBindable, StoreSubscriber, UI
         self.mainContainer.formatView()
     }
     
-    func tap(_ gestureRecognizer: UITapGestureRecognizer) -> Void {
+    @objc func tap(_ gestureRecognizer: UITapGestureRecognizer) -> Void {
         self.performSegue(withIdentifier: "toDatePicker", sender: nil)
     }
     func selectedDate(date: Date) {
@@ -112,7 +112,7 @@ class AddGoalViewController: UIViewController, GoalBindable, StoreSubscriber, UI
     }
     
     
-    func save() -> Void {
+    @objc func save() -> Void {
         
         guard let title = titleTxt.text, !title.isEmpty else {
             return
@@ -125,7 +125,7 @@ class AddGoalViewController: UIViewController, GoalBindable, StoreSubscriber, UI
         store.dispatch(gac.Insert(goal: goal))
     }
     
-    func update() -> Void {
+    @objc func update() -> Void {
         
         guard let title = titleTxt.text, !title.isEmpty else {
             return

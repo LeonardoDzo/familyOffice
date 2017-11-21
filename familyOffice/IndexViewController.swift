@@ -18,7 +18,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
     @IBOutlet weak var dirTreeLbl: UILabel!
     var flag = false
     var files:[SafeBoxFile] = []
-    var userId = store.state.UserState.user?.id
+    var userId = store.state.UserState.getUser()?.id
     var player:AVPlayer!
     var currentFolder = "root"
     var directoriesTree = ["","root"]
@@ -32,38 +32,10 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.hideKeyboardWhenTappedAround()
-//        let barButton = UIBarButtonItem(title: "Atras", style: .plain, target: self, action: #selector(self.handleBack))
-//        self.navigationItem.leftBarButtonItem = barButton
-//        // Do any additional setup after loading the view.
-        let nav = self.navigationController?.navigationBar
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.3137395978, green: 0.1694342792, blue: 0.5204931498, alpha: 1)]
-        self.navigationItem.title = "Caja Fuerte"
-        
-        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
-        swipeRight.direction = UISwipeGestureRecognizerDirection.right
-        self.filesCollectionView.addGestureRecognizer(swipeRight)
-        
-        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPressOnCell))
-        lpgr.minimumPressDuration = 0.25
-        lpgr.delaysTouchesBegan = true
-        lpgr.delegate = self
-        self.filesCollectionView.addGestureRecognizer(lpgr)
-        
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.handleNew))
-
-        let addFolderButton = UIBarButtonItem(image: #imageLiteral(resourceName: "add_folder_red"),style: .plain, target: self, action: #selector(self.newFolder))
-        addFolderButton.tintColor = nil
-        let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "LeftChevron"), style: .plain, target: self, action: #selector(self.back))
-        self.navigationItem.leftBarButtonItem = backButton
-
-        self.navigationItem.rightBarButtonItems = [addFolderButton, addButton]
-        
-        self.dirTreeLbl.text = directoriesTree.joined(separator: "/")
-        
-        if( traitCollection.forceTouchCapability == .available){
-            registerForPreviewing(with: self, sourceView: self.filesCollectionView)
-        }
+        let barButton = UIBarButtonItem(title: "Atras", style: .plain, target: self, action: #selector(self.handleBack))
+        self.navigationItem.leftBarButtonItem = barButton
+        // Do any additional setup after loading the view.
+        style_1()
     }
     
     func handleLongPressOnCell(gesture: UILongPressGestureRecognizer){
@@ -75,7 +47,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
         let indexPath = self.filesCollectionView.indexPathForItem(at: p)
         
         if let index = indexPath {
-            var file = self.files[index.row]
+            let file = self.files[index.row]
             if NSString(string: file.filename).pathExtension == ""{
                 let alert = UIAlertController(title: file.filename, message: "¿Qué acción desea realizar?", preferredStyle: .actionSheet)
                 
@@ -127,33 +99,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
             return
         }
     }
-    
-    func respondToSwipeGesture(gesture: UIGestureRecognizer) {
-        
-        print ("Swiped right")
-        
-        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
-            switch swipeGesture.direction {
-                
-            case UISwipeGestureRecognizerDirection.right:
-                
-                if(self.currentFolder != "root"){
-                    self.directoriesTree.popLast()
-                    self.currentFolder = self.directoriesTree[self.directoriesTree.count - 1]
-                    print(self.directoriesTree)
-                    self.dirTreeLbl.text = directoriesTree.joined(separator: "/")
-                    print("Current Folder: \(self.currentFolder)")
-                    files = (store.state.safeBoxState.safeBoxFiles[userId!]?.filter({$0.parent == self.currentFolder}))!
-                    self.filesCollectionView.reloadData()
-                }
-                break
-            default:
-                break
-            }
-        }
-    }
-    
-    func updateFlag() {
+    @objc func updateFlag() {
         flag  = false
         verify()
     }
@@ -242,7 +188,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    func handleBack() {
+    @objc func handleBack() {
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -373,11 +319,12 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
             let fileName = (fileNameTextField?.text)!
             let data = UIImagePNGRepresentation(newFile.resizeToLarge()) as NSData?
             let min_data = UIImagePNGRepresentation(newFile.resizeToSmall()) as NSData?
-            Constants.FirStorage.STORAGEREF.child("users/\((store.state.UserState.user?.id)!)").child("safebox/\(fileName).png").putData(data! as Data, metadata: nil){ metadata, error in
+
+            Constants.FirStorage.STORAGEREF.child("users/\((userStore?.id)!)").child("safebox/\(fileName).png").putData(data! as Data, metadata: nil, completion: { metadata, error in
                 if error != nil{
                     print(error.debugDescription)
                 }else{
-                    Constants.FirStorage.STORAGEREF.child("users/\((store.state.UserState.user?.id)!)").child("safebox/\(fileName)_small.png").putData(min_data! as Data, metadata: nil){ md, err in
+                    Constants.FirStorage.STORAGEREF.child("users/\((userStore?.id)!)").child("safebox/\(fileName)_small.png").putData(min_data! as Data, metadata: nil, completion: { md, err in
                         if err != nil{
                             print(err.debugDescription)
                         }
@@ -391,15 +338,16 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
                                 let newSafeBoxFile = SafeBoxFile(filename: "\(fileName).png", downloadUrl: downloadURL,thumbnail:download_min,parent: self.currentFolder)
                                 store.dispatch(InsertSafeBoxFileAction(item: newSafeBoxFile))
                                 store.subscribe(self){
-                                    $0.select({
-                                        $0.safeBoxState
-                                    })
+
+                                    $0.select({ (s)  in
+                                        s.safeBoxState
+                                    }) //Cosa cochi que debo de hacer porque el imagePicker y el documentPicker desinscriben la vista
                                 }
                             }
                         }
-                    }
+                    })
                 }
-            }
+            })
         }))
         
         self.present(alert, animated: true, completion: nil)
@@ -428,7 +376,9 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
                 print("Entered the completionHandler")
                 if err == nil {
                     
-                    Constants.FirStorage.STORAGEREF.child("users/\((store.state.UserState.user?.id)!)").child("safebox/\(fileName).\(outerURL.pathExtension)").putData(data!, metadata: nil){ metadata, error in
+
+                    Constants.FirStorage.STORAGEREF.child("users/\((store.state.UserState.getUser()?.id)!)").child("safebox/\(fileName).\(outerURL.pathExtension)").putData(data!, metadata: nil, completion: { metadata, error in
+
                         if error != nil{
                             print(error.debugDescription)
                         }else{
@@ -440,14 +390,16 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
                                 let newSafeBoxFile = SafeBoxFile(filename: "\(fileName).\(outerURL.pathExtension)", downloadUrl: downloadURL, parent: self.currentFolder)
                                 store.dispatch(InsertSafeBoxFileAction(item: newSafeBoxFile))
                                 store.subscribe(self){
-                                    $0.select({
-                                        $0.safeBoxState
-                                    })
+
+                                    $0.select {
+                                        s in s.safeBoxState
+                                    } //Cosa cochi que debo de hacer porque el imagePicker y el documentPicker desinscriben la vista
+
                                 }
                                 
                             }
                         }
-                    }
+                    })
                     
                     
                 } else {
@@ -497,9 +449,10 @@ extension IndexViewController: StoreSubscriber{
         service.SAFEBOX_SERVICE.initObservers(ref: "safebox/\(userId!)", actions: [.childAdded, .childChanged, .childRemoved])
         
         store.subscribe(self){
-            $0.select({
-                $0.safeBoxState
-            })
+
+            $0.select {
+                s in s.safeBoxState
+            }
         }
     }
     
@@ -626,7 +579,7 @@ extension IndexViewController: UIViewControllerPreviewingDelegate{
                             self.present(activityViewController, animated: true, completion: {
                                 do{
                                     self.view.hideToastActivity()
-                                }catch{
+                                }catch _ {
                                     print("rip")
                                 }
                             })
@@ -654,9 +607,10 @@ extension IndexViewController: UIViewControllerPreviewingDelegate{
                 
                 store.dispatch(UpdateSafeBoxFileAction(item: file))
                 store.subscribe(self){
-                    $0.select({
-                        $0.safeBoxState
-                    })
+
+                    $0.select {
+                        s in s.safeBoxState
+                    }
                 }
             }))
             
@@ -675,9 +629,10 @@ extension IndexViewController: UIViewControllerPreviewingDelegate{
         detailVC.previewAct.append(UIPreviewAction(title: "Eliminar", style: .destructive , handler: { (UIPreviewAction, UIViewController) in
             store.dispatch(DeleteSafeBoxFileAction(item: self.files[indexPath.row]))
             store.subscribe(self){
-                $0.select({
-                    $0.safeBoxState
-                })
+
+                $0.select {
+                    s in s.safeBoxState
+                }
             }
 
         }))

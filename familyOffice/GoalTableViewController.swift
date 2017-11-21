@@ -18,7 +18,7 @@ class GoalTableViewController: UIViewController, UITableViewDelegate, UITableVie
     typealias StoreSubscriberStateType = GoalState
     
     var myGoals = [Goal]()
-    var user = store.state.UserState.user
+    var user = store.state.UserState.getUser()
     var cellSelected = -1
     lazy var settingLauncher : SettingLauncher = {
         let launcher = SettingLauncher()
@@ -93,8 +93,10 @@ extension GoalTableViewController: StoreSubscriber, Segue, HandleFamilySelected 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         addObservers()
-        if let family = store.state.FamilyState.families.family(fid: (store.state.UserState.user?.familyActive)!){
-            service.USER_SVC.selectFamily(family: family)
+        if let family = store.state.FamilyState.families.family(fid: (userStore?.familyActive)!){
+            let action = UserS()
+            action.action = .selectFamily(family: family)
+            store.dispatch(action)
         }
         selectFamily()
         store.subscribe(self) {
@@ -143,7 +145,7 @@ extension GoalTableViewController: StoreSubscriber, Segue, HandleFamilySelected 
     func addObservers() -> Void {
         if tabBar.selectedItem?.tag == 0 {
             service.GOAL_SERVICE.type = .Individual
-            let id = store.state.UserState.user?.id!
+            let id = userStore?.id!
             service.GOAL_SERVICE.initObserves(ref: "goals/\(id!)", actions: [.childAdded, .childRemoved, .childChanged])
         }else{
             service.GOAL_SERVICE.type = .Familiar
@@ -151,7 +153,7 @@ extension GoalTableViewController: StoreSubscriber, Segue, HandleFamilySelected 
         }
     }
     func newState(state: GoalState) {
-        user = store.state.UserState.user
+        user = store.state.UserState.getUser()
         if tabBar.selectedItem?.tag == 0 {
             myGoals = state.goals[(user?.id)!] ?? []
 
@@ -161,7 +163,7 @@ extension GoalTableViewController: StoreSubscriber, Segue, HandleFamilySelected 
         tableView.reloadData()
     }
     func selectFamily() -> Void {
-        if let family = store.state.FamilyState.families.family(fid: (store.state.UserState.user?.familyActive)!){
+        if let family = store.state.FamilyState.families.family(fid: (userStore?.familyActive)!){
             self.navigationItem.title = family.name
         }
         configuration()
@@ -188,13 +190,13 @@ extension GoalTableViewController {
         self.navigationItem.leftBarButtonItem = backButton
         self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
     }
-    func handleMore(_ sender: Any) {
+    @objc func handleMore(_ sender: Any) {
         settingLauncher.showSetting()
     }
-    func handleNew() -> Void {
+    @objc func handleNew() -> Void {
         self.performSegue(withIdentifier: "addSegue", sender: nil)
     }
-    func back() -> Void {
+    @objc func back() -> Void {
         self.dismiss(animated: true, completion: nil)
     }
 }

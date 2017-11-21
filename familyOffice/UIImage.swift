@@ -11,7 +11,7 @@ let imageBWCache = NSCache<AnyObject, AnyObject>()
 
 extension UIImageView {
     
-    func loadImage(urlString: String, filter: String = "") -> Void {
+    @objc func loadImage(urlString: String, filter: String = "") -> Void {
         
         guard let url = URL(string: urlString) else {
             return
@@ -46,9 +46,8 @@ extension UIImageView {
                     }
             }
         }).resume()
-        
     }
-    func verifyFilter(filter: String, urlString: String) -> Void {
+    @objc func verifyFilter(filter: String, urlString: String) -> Void {
         switch filter {
         case "blackwhite":
             self.blackwhite(urlString: urlString)
@@ -61,7 +60,7 @@ extension UIImageView {
         self.clipsToBounds = true
         self.layer.cornerRadius = self.frame.size.width/2
     }
-    func blackwhite(urlString: String) {
+    @objc func blackwhite(urlString: String) {
         if let cacheImage = imageBWCache.object(forKey: urlString as AnyObject) {
             self.image = cacheImage as? UIImage
         }else if self.image != nil {
@@ -89,8 +88,7 @@ class CustomUIImageView: UIImageView {
     var urlString: String?
     private var activityIndicator: UIActivityIndicatorView!
     
-    override func loadImage(urlString: String, filter: String = "") -> Void {
-        
+    @objc override func loadImage(urlString: String, filter: String = "") -> Void {
         guard let url = URL(string: urlString) else {
             return
         }
@@ -130,7 +128,7 @@ class CustomUIImageView: UIImageView {
         }).resume()
         
     }
-    override func verifyFilter(filter: String, urlString: String) -> Void {
+    @objc override func verifyFilter(filter: String, urlString: String) -> Void {
         switch filter {
         case "blackwhite":
             self.blackwhite(urlString: urlString)
@@ -140,7 +138,7 @@ class CustomUIImageView: UIImageView {
         }
     }
     
-    override func blackwhite(urlString: String) {
+    @objc override func blackwhite(urlString: String) {
         if let cacheImage = imageBWCache.object(forKey: urlString as AnyObject) {
             self.image = cacheImage as? UIImage
         }else if self.image != nil {

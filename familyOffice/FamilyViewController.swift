@@ -23,9 +23,7 @@ class FamilyViewController: UIViewController, UIGestureRecognizerDelegate, Famil
         
         let addButton : UIBarButtonItem = UIBarButtonItem(title: "Editar", style: UIBarButtonItemStyle.plain, target: self, action:#selector(addMemberScreen(sender:)))
         self.navigationItem.rightBarButtonItem = addButton
-        
-        let nav = self.navigationController?.navigationBar
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.3137395978, green: 0.1694342792, blue: 0.5204931498, alpha: 1)]
+        style_1()
         
         Image.formatView()
         membersTable.formatView()
@@ -39,7 +37,7 @@ class FamilyViewController: UIViewController, UIGestureRecognizerDelegate, Famil
     }
     
     //Long press
-    func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
+    @objc func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
         let point: CGPoint = gestureReconizer.location(in: self.membersTable)
         let indexPath = self.membersTable?.indexPathForRow(at: point)
         
@@ -48,7 +46,7 @@ class FamilyViewController: UIViewController, UIGestureRecognizerDelegate, Famil
             case .began:
                 
                 let uid = family.members[(indexPath?.row)!]
-                if let user = service.USER_SVC.getUser(byId: uid) {
+                if let user = store.state.UserState.findUser(byId: uid) {
                     if(user.id == Auth.auth().currentUser?.uid){
                         break
                     }
@@ -111,7 +109,7 @@ extension FamilyViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! FamilyMemberTableViewCell
         let uid = family.members[indexPath.row]
-        if let member = service.USER_SVC.getUser(byId: uid) {
+        if let member = store.state.UserState.findUser(byId: uid){
             cell.bind(userModel: member)
             cell.adminlabel.isHidden = family.admin == member.familyActive ?
                 true : false
@@ -137,7 +135,7 @@ extension FamilyViewController : StoreSubscriber {
         service.FAMILY_SVC.valueSingleton(ref: ref)
     }
     
-    func addMemberScreen(sender: UIBarButtonItem) -> Void {
+    @objc func addMemberScreen(sender: UIBarButtonItem) -> Void {
         self.performSegue(withIdentifier: "editSegue", sender: family)
     }
     func newState(state: AppState) {

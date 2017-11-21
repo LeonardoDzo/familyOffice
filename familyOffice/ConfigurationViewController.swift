@@ -23,13 +23,16 @@ UINavigationControllerDelegate  {
         self.profileImage.layer.cornerRadius = self.profileImage.frame.size.width/2
         self.profileImage.clipsToBounds = true
         picker.delegate = self
-        let nav = self.navigationController?.navigationBar
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.3137395978, green: 0.1694342792, blue: 0.5204931498, alpha: 1)]
+        style_1()
         self.containerView.formatView()
         self.profileImage.profileUser()
     }
     override func viewWillAppear(_ animated: Bool) {
-        user = store.state.UserState.user!
+        verifyUser { (user, exist) in
+            if exist {
+                self.user = user
+            }
+        }
         profileImage.loadImage(urlString: user.photoURL)
         store.subscribe(self) {
             $0.select({
@@ -48,7 +51,7 @@ UINavigationControllerDelegate  {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
         
-        dismiss(animated:true, completion: { _ in
+        dismiss(animated:true, completion: { 
             self.performSegue(withIdentifier: "updateImageSegue", sender: nil)
         })
     }
@@ -63,13 +66,13 @@ UINavigationControllerDelegate  {
         
         actionSheet.addAction(UIAlertAction(title: "Camara", style: .default, handler: { (action: UIAlertAction) in
             let croppingEnabled = true
-            let cameraViewController = CameraViewController(croppingEnabled: croppingEnabled) { [weak self] image, asset in
+            let cameraViewController = CameraViewController(croppingParameters: CroppingParameters(isEnabled: croppingEnabled, allowResizing: true, allowMoving: true)) { [weak self] image, asset in
                 
                 guard let img = image else {
                     self?.dismiss(animated: true, completion: nil)
                     return
                 }
-                store.dispatch(UpdateUserAction(user: (self?.user)!, img: img))
+                store.dispatch( UserS(.update(user: (self?.user)!, img: img)))
                 self?.dismiss(animated: true, completion: nil)
             }
             
@@ -81,12 +84,12 @@ UINavigationControllerDelegate  {
         actionSheet.addAction(UIAlertAction(title: "Galería", style: .default, handler: { (action: UIAlertAction) in
             
             /// Provides an image picker wrapped inside a UINavigationController instance
-            let imagePickerViewController = CameraViewController.imagePickerViewController(croppingEnabled: croppingEnabled) { [weak self] image, asset in
+            let imagePickerViewController = CameraViewController.imagePickerViewController(croppingParameters: CroppingParameters(isEnabled: croppingEnabled, allowResizing: true, allowMoving: true)) { [weak self] image, asset in
                 guard let img = image else {
                     self?.dismiss(animated: true, completion: nil)
                     return
                 }
-                store.dispatch(UpdateUserAction(user: (self?.user)!, img: img))
+                store.dispatch(UserS(.update(user: (self?.user)!, img: img)))
                 self?.dismiss(animated: true, completion: nil)
             }
             
@@ -122,9 +125,9 @@ extension ConfigurationViewController : StoreSubscriber {
     typealias StoreSubscriberStateType = UserState
     
     func newState(state: UserState) {
-        user = store.state.UserState.user!
+        user = store.state.UserState.getUser()
         self.view.hideToastActivity()
-        switch state.status {
+        switch state.user {
         case .loading:
             self.view.makeToastActivity(.center)
             break

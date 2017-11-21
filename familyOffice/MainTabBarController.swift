@@ -24,7 +24,6 @@ class MainTabBarController: UITabBarController {
 
     
     override func viewWillAppear(_ animated: Bool) {
-     
     }
 
 }

@@ -36,13 +36,12 @@ class AddAlbumViewController: UIViewController, UIImagePickerControllerDelegate,
         
         let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "LeftChevron"), style: .plain, target: self, action: #selector(self.back))
         self.navigationItem.leftBarButtonItem = backButton
-        backButton.tintColor = #colorLiteral(red: 1, green: 0.2940415765, blue: 0.02801861018, alpha: 1)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Guardar", style: .done, target: self, action: #selector(createAlbum))
-        self.navigationItem.rightBarButtonItem?.tintColor = #colorLiteral(red: 1, green: 0.2940415765, blue: 0.02801861018, alpha: 1)
         self.navigationItem.title = "Crear Album"
+        style_1()
     }
     
-    func back() -> Void {
+    @objc func back() -> Void {
         _ = self.navigationController?.popViewController(animated: true)
     }
 
@@ -62,7 +61,7 @@ class AddAlbumViewController: UIViewController, UIImagePickerControllerDelegate,
     }
     */
     
-    func createAlbum() -> Void {
+    @objc func createAlbum() -> Void {
         guard self.txtTitle.text != "" else{
             self.view.makeToast("Agrega un título", duration: 1.0, position: CGPoint(x: 200, y: 150))
             return
@@ -72,7 +71,7 @@ class AddAlbumViewController: UIViewController, UIImagePickerControllerDelegate,
             "album": album,
             "reference": "\(self.path)/\(self.reference.key)",
             "reference-img": "albums/\(self.reference.key)/\(Constants.FirDatabase.REF.childByAutoId().key).png",
-            "file": imgSelected.image ?? nil
+            "file": imgSelected.image as Any
             ])
         store.dispatch(InsertGalleryAction(album: data))
     }

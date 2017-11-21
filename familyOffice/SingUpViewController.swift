@@ -62,7 +62,7 @@ class SingUpViewController: UIViewController, UITextFieldDelegate, GIDSignInUIDe
             return
         }
         
-        guard let pass :String = passwordTxtfield.text, !pass.isEmpty,  pass == confirmPassTxtfield.text, (passwordTxtfield.text?.characters.count)! > 5 else{
+        guard let pass :String = passwordTxtfield.text, !pass.isEmpty,  pass == confirmPassTxtfield.text, (passwordTxtfield.text?.count)! > 5 else{
             er = "La contraseña y confirmación de contraseña deben ser capturadas"
             service.ANIMATIONS.shakeTextField(txt: passwordTxtfield)
             service.ANIMATIONS.shakeTextField(txt: confirmPassTxtfield)
@@ -91,9 +91,13 @@ class SingUpViewController: UIViewController, UITextFieldDelegate, GIDSignInUIDe
         
         Auth.auth().createUser(withEmail: email, password: pass) { (user, error) in
             if(error == nil){
-                let userModel = User(id: (user?.uid)!, name: name, phone: phone, photoURL: "", families: [:], familyActive: "", rfc: "", nss: "", curp: "", birth: "", address: "", bloodtype: "", health: [])
-                store.dispatch(CreateUserAction(user: userModel))
-                Constants.FirDatabase.REF_USERS.child(userModel.id).setValue(userModel)
+                var newuser = UserEntitie()
+                newuser.id = user!.uid
+                newuser.name = name
+                newuser.phone = phone
+                newuser.email = email
+                store.dispatch(UserS(.create(user: newuser)))
+                //Constants.FirDatabase.REF_USERS.child(userModel.id).setValue(userModel)
             }
             else{
                 let errCode : AuthErrorCode = AuthErrorCode(rawValue: error!._code)!
@@ -158,15 +162,16 @@ class SingUpViewController: UIViewController, UITextFieldDelegate, GIDSignInUIDe
 extension SingUpViewController : StoreSubscriber {
     func newState(state: UserState) {
         self.view.hideToastActivity()
-        switch state.status {
-        case .loading:
-            self.view.makeToastActivity(.center)
-            break
-        case .finished:
-            //_ = self.navigationController?.popViewController(animated: true)
-            break
-        default:
-            break
-        }
+        //Do something
+//        switch state.status {
+//        case .loading:
+//            self.view.makeToastActivity(.center)
+//            break
+//        case .finished:
+//            //_ = self.navigationController?.popViewController(animated: true)
+//            break
+//        default:
+//            break
+//        }
     }
 }

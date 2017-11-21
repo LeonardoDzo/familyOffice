@@ -76,6 +76,7 @@ struct User {
         self.id = ""
     }
     
+    
     init(snapshot: DataSnapshot) {
         let snapshotValue = snapshot.value as! NSDictionary
         self.id = snapshot.key

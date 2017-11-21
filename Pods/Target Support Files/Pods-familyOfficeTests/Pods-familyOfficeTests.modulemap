@@ -1,0 +1,6 @@
+framework module Pods_familyOfficeTests {
+  umbrella header "Pods-familyOfficeTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

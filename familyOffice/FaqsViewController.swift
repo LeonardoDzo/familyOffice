@@ -25,9 +25,7 @@ class FaqsTableViewController: UIViewController, UITableViewDataSource,UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let nav = self.navigationController?.navigationBar
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName:#colorLiteral(red: 0.2848778963, green: 0.2029544115, blue: 0.4734018445, alpha: 1)]
+        style_1()
         self.navigationItem.title = "FAQs"
         
         setupNavBar()
@@ -42,7 +40,7 @@ class FaqsTableViewController: UIViewController, UITableViewDataSource,UITableVi
     }
     
     func setupNavBar(){
-        let pqButton = UIBarButtonItem(barButtonSystemItem: .reply, target: self, action: #selector(self.handlePQ))
+        let pqButton = UIBarButtonItem(barButtonSystemItem: .reply, target: self, action: #selector(self.handleMore(_:)))
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.handleNew))
         self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         
@@ -56,17 +54,11 @@ class FaqsTableViewController: UIViewController, UITableViewDataSource,UITableVi
     func handleMore(_ sender: Any) {
         settingLauncher.showSetting()
     }
-    
-    func handlePQ() -> Void {
-        self.performSegue(withIdentifier: "pendingQuestionsSegue", sender: nil)
-    }
-        
-    
-    func handleNew() -> Void {
+    @objc func handleNew() -> Void {
         self.performSegue(withIdentifier: "addSegue", sender: nil)
     }
     
-    func back() -> Void {
+    @objc func back() -> Void {
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -130,9 +122,14 @@ class FaqsTableViewController: UIViewController, UITableViewDataSource,UITableVi
 
 extension FaqsTableViewController: StoreSubscriber, Segue {
     func newState(state: FaqState) {
-        user = store.state.UserState.user
-        questions = state.questions[(user?.familyActive!)!] ?? []
-        self.tableView.reloadData()
+        verifyUser { (user, exist) in
+            if exist {
+                self.questions = state.questions[(user.familyActive!)] ?? []
+                self.tableView.reloadData()
+            }
+           
+        }
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -151,7 +148,11 @@ extension FaqsTableViewController: StoreSubscriber, Segue {
     }
     
     func addObservers() -> Void {
-        service.FAQ_SERVICE.initObservers(ref: "faq/\((user?.familyActive!)!)", actions: [.childAdded, .childRemoved, .childChanged])
+        verifyUser { (user, exist) in
+            if (exist) {
+                service.FAQ_SERVICE.initObservers(ref: "faq/\((user.familyActive!))", actions: [.childAdded, .childRemoved, .childChanged])
+            }
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -50,7 +50,7 @@ class MedicineService: RequestService {
     }
     
     func addHandle(_ handle: UInt, ref: String, action: DataEventType) {
-        self.handles.append(ref, handle, action)
+        self.handles.append((ref, handle, action))
     }
     
     func removeHandles() {
@@ -61,7 +61,7 @@ class MedicineService: RequestService {
     }
     
     func inserted(ref: DatabaseReference) {
-        Constants.FirDatabase.REF_FAMILIES.child((store.state.UserState.user?.familyActive)!)
+        Constants.FirDatabase.REF_FAMILIES.child((userStore?.familyActive)!)
             .child("medicines").updateChildValues([ref.key:true])
         
         store.state.MedicineState.status = .none
@@ -69,14 +69,18 @@ class MedicineService: RequestService {
     
     func create(_ nMedicine: Medicine) -> Void{
         let medicine = nMedicine
-        let id = store.state.UserState.user!.familyActive!
-        let path = "medicines/\(id)/\(medicine.id!)"
-        
-        service.MEDICINE_SERVICE.insert(path, value: medicine.toDictionary(), callback: {ref in
-            if ref is DatabaseReference {
-                store.state.MedicineState.medicines[id]?.append(medicine)
+        verifyUser { (user, exist) in
+            if exist {
+                let id = user.familyActive!
+                let path = "medicines/\(id)/\(medicine.id!)"
+                
+                service.MEDICINE_SERVICE.insert(path, value: medicine.toDictionary(), callback: {ref in
+                    if ref is DatabaseReference {
+                        store.state.MedicineState.medicines[id]?.append(medicine)
+                    }
+                })
             }
-        })
+        }
     }
 }
 

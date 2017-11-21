@@ -138,9 +138,9 @@ extension FamilySvc: repository {
     func removed(snapshot: DataSnapshot) {
         let key : String = snapshot.key
         store.state.FamilyState.families.removeItem(fid: key)
-        if store.state.UserState.user?.familyActive == key {
+        if userStore?.familyActive == key {
             if let family = store.state.FamilyState.families.items.first {
-                service.USER_SVC.selectFamily(family: family)
+               // service.USER_SVC.selectFamily(family: family)
             }
             
         }

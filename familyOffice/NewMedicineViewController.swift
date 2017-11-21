@@ -50,11 +50,7 @@ class NewMedicineViewController: UIViewController {
         self.medMoreTextField.layer.cornerRadius = 5
         
         let saveButton = UIBarButtonItem(title:!isEdit ? "Guardar" : "Editar", style: .plain, target: self, action: #selector(save(sender:)))
-        saveButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         self.navigationItem.rightBarButtonItem = saveButton
-        self.navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
-        
-        self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
 
         // Do any additional setup after loading the view.
     }
@@ -64,7 +60,7 @@ class NewMedicineViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func save(sender: UIBarButtonItem){
+    @objc func save(sender: UIBarButtonItem){
         let medName:String! = medNameTextField.text
         let medIndications:String! = medIndicTextField.text
         let medDosage:String! = medDosageTextField.text

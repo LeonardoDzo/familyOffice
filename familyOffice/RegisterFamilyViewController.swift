@@ -40,14 +40,14 @@ class RegisterFamilyViewController: UIViewController, FamilyBindable, UIImagePic
         Image.addGestureRecognizer(tapGestureRecognizer)
     }
     
-    func loadImage(_ recognizer: UITapGestureRecognizer){
+    @objc func loadImage(_ recognizer: UITapGestureRecognizer){
         let croppingEnabled = true
         let _ = validate()
         let actionSheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
         
         actionSheet.addAction(UIAlertAction(title: "Camara", style: .default, handler: { (action: UIAlertAction) in
             let croppingEnabled = true
-            let cameraViewController = CameraViewController(croppingEnabled: croppingEnabled) { [weak self] image, asset in
+            let cameraViewController = CameraViewController(croppingParameters: CroppingParameters(isEnabled: croppingEnabled, allowResizing: true, allowMoving: true)) { [weak self] image, asset in
                 
                 guard let img = image else {
                     self?.dismiss(animated: true, completion: nil)
@@ -66,7 +66,7 @@ class RegisterFamilyViewController: UIViewController, FamilyBindable, UIImagePic
         actionSheet.addAction(UIAlertAction(title: "Galería", style: .default, handler: { (action: UIAlertAction) in
             
             /// Provides an image picker wrapped inside a UINavigationController instance
-            let imagePickerViewController = CameraViewController.imagePickerViewController(croppingEnabled: croppingEnabled) { [weak self] image, asset in
+            let imagePickerViewController = CameraViewController.imagePickerViewController(croppingParameters: CroppingParameters(isEnabled: croppingEnabled, allowResizing: true, allowMoving: true)) { [weak self] image, asset in
                 guard let img = image else {
                     self?.dismiss(animated: true, completion: nil)
                     return
@@ -94,9 +94,12 @@ class RegisterFamilyViewController: UIViewController, FamilyBindable, UIImagePic
     
     func validate() -> Bool{
    
-        
-        if !users.contains((store.state.UserState.user)!){
-            users.append((store.state.UserState.user)!)
+        verifyUser { (user, exist) in
+            if exist {
+                if !self.users.contains(user){
+                   self.users.append(user)
+                }
+            }
         }
         
         guard let name = nameTxt.text, !name.isEmpty else {
@@ -109,7 +112,7 @@ class RegisterFamilyViewController: UIViewController, FamilyBindable, UIImagePic
         
         return true
     }
-    func edit() -> Void {
+    @objc func edit() -> Void {
         if validate() {
             if change {
                 store.dispatch(UpdateFamilyAction(family: family, img: Image.image!))
@@ -120,7 +123,7 @@ class RegisterFamilyViewController: UIViewController, FamilyBindable, UIImagePic
             error()
         }
     }
-    func save() -> Void {
+    @objc func save() -> Void {
         if !validate() {
             return
         }
@@ -182,7 +185,7 @@ extension RegisterFamilyViewController : StoreSubscriber {
         self.bind()
         
         family.members.forEach({uid in
-            if let user = service.USER_SVC.getUser(byId: uid) {
+            if let user = store.state.UserState.findUser(byId: uid) {
                 if !self.users.contains(user) {
                     self.users.append(user)
                 }

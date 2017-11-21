@@ -9,18 +9,25 @@
 import Foundation
 import ReSwift
 
-struct InsertSafeBoxFileAction: Action{
+
+struct InsertSafeBoxFileAction: Action {
+
     var safeBoxFile: SafeBoxFile!
     init(item: SafeBoxFile){
         self.safeBoxFile = item
     }
+
+
 }
 
-struct UpdateSafeBoxFileAction: Action{
+struct UpdateSafeBoxFileAction: Action {
+
     var safeBoxFile: SafeBoxFile!
     init(item: SafeBoxFile){
         self.safeBoxFile = item
     }
+
+
 }
 
 struct DeleteSafeBoxFileAction: Action{

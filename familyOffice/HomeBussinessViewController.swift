@@ -35,19 +35,18 @@ class HomeBussinessViewController: UIViewController, UICollectionViewDelegate, U
         self.navigationItem.rightBarButtonItem = moreButton
         let barButton = UIBarButtonItem(title: "Atrás", style: .plain, target: self, action: #selector(self.handleBack))
         self.navigationItem.leftBarButtonItem = barButton
-        let nav = self.navigationController?.navigationBar
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.3137395978, green: 0.1694342792, blue: 0.5204931498, alpha: 1)]
+        style_1()
         
     }
     
     let settingLauncher = SettingLauncher()
     
-    func handleMore(_ sender: Any) {
+    @objc func handleMore(_ sender: Any) {
         settingLauncher.showSetting()
     }
     
     
-    func handleBack()  {
+    @objc func handleBack()  {
         self.dismiss(animated: true, completion: nil)
         
     }
@@ -102,7 +101,7 @@ class HomeBussinessViewController: UIViewController, UICollectionViewDelegate, U
     
     
     
-    func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
+    @objc func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
         let point: CGPoint = gestureReconizer.location(in: self.collectionView)
         let indexPath = self.collectionView?.indexPathForItem(at: point)
         

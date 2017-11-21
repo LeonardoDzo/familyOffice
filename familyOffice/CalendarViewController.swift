@@ -50,7 +50,7 @@ extension CalendarViewController  {
         self.navigationItem.rightBarButtonItem = add
     }
     
-    func gotoAddEvent() -> Void {
+    @objc func gotoAddEvent() -> Void {
         self.pushToView(view: .addEvent, sender: Event())
     }
 }

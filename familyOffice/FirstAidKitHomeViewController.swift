@@ -21,7 +21,7 @@ class FirstAidKitHomeViewController: UIViewController {
         super.viewDidLoad()
         
         let nav = self.navigationController?.navigationBar
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName:#colorLiteral(red: 0.2848778963, green: 0.2029544115, blue: 0.4734018445, alpha: 1)]
+        nav?.titleTextAttributes = [NSAttributedStringKey.foregroundColor:#colorLiteral(red: 0.2848778963, green: 0.2029544115, blue: 0.4734018445, alpha: 1)]
         self.navigationItem.title = "Botiquín"
         
         medicinesBackground.image = #imageLiteral(resourceName: "medicines-bg")
@@ -39,11 +39,11 @@ class FirstAidKitHomeViewController: UIViewController {
     
     //MARK :- Botones
     
-    func back() -> Void {
+    @objc func back() -> Void {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func handleMore(_ sender: Any) -> Void {
+    @objc func handleMore(_ sender: Any) -> Void {
         settingLauncher.showSetting()
     }
 

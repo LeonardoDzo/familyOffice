@@ -8,7 +8,9 @@
 
 import UIKit
 import ReSwift
+
 import Charts
+
 class GoalViewController: UIViewController, StoreSubscriber, UITabBarDelegate, GoalBindable {
     
     static let identifier = "GoalViewController"
@@ -16,7 +18,7 @@ class GoalViewController: UIViewController, StoreSubscriber, UITabBarDelegate, G
     typealias StoreSubscriberStateType = GoalState
     var goal : Goal!
     var follow: Goal!
-    var user = store.state.UserState.user
+    var user = store.state.UserState.getUser()
     @IBOutlet weak var pieChart: PieChartView!
     @IBOutlet weak var tableView: UITableView!
     weak var axisFormatDelegate: IAxisValueFormatter?
@@ -74,13 +76,15 @@ class GoalViewController: UIViewController, StoreSubscriber, UITabBarDelegate, G
     }
     
     func addObservers() -> Void {
-        service.GOAL_SERVICE.initObserves(ref: "goals/\((user?.familyActive!)!)", actions: [ .childChanged])
+        if let user = store.state.UserState.getUser() {
+            service.GOAL_SERVICE.initObserves(ref: "goals/\(user.familyActive!)", actions: [ .childChanged])
+        }
     }
     
-    func handleEdit() -> Void {
+    @objc func handleEdit() -> Void {
         self.performSegue(withIdentifier: "addSegue", sender: goal)
     }
-    func back() -> Void {
+    @objc func back() -> Void {
         _ = self.navigationController?.popViewController(animated: true)
     }
     
@@ -103,15 +107,18 @@ class GoalViewController: UIViewController, StoreSubscriber, UITabBarDelegate, G
         
     }
     func selectFamily() -> Void {
-        if let family = store.state.FamilyState.families.family(fid: (store.state.UserState.user?.familyActive)!){
+        
+        if let family = store.state.FamilyState.families.family(fid: (user?.familyActive)!){
             self.navigationItem.title = family.name
         }
+        
+        
     }
     
     
     @IBAction func handleChange(_ sender: UISwitch) {
         
-        if follow != nil, let index = goal.list.index(where: {$0.startDate == follow.startDate}), let uid = store.state.UserState.user?.id
+        if follow != nil, let index = goal.list.index(where: {$0.startDate == follow.startDate}), let uid = store.state.UserState.getUser()?.id
         {
             goal.list[index].members[uid] = sender.isOn ? Date().toMillis() : -1
             
@@ -151,7 +158,7 @@ class GoalViewController: UIViewController, StoreSubscriber, UITabBarDelegate, G
         pieChart.noDataText = "No existen objetivos"
         // user interaction
         pieChart.isUserInteractionEnabled = true
-
+        
         pieChart.chartDescription?.text = ""
         pieChart.centerText = "Obj."
         pieChart.holeRadiusPercent = 0.5
@@ -209,15 +216,7 @@ extension GoalViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func getUser(id: String) -> User? {
-        if let user =  store.state.UserState.users.first(where: {$0.id == id}) {
-            return user
-        }else if id == store.state.UserState.user?.id {
-            return user
-        }else{
-            store.dispatch(GetUserAction(uid: id))
-        }
-        return nil
-        
+        return store.state.UserState.findUser(byId:id)
     }
 }
 extension GoalViewController {

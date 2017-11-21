@@ -34,11 +34,8 @@ class StartViewController: UIViewController, GIDSignInUIDelegate, UITextFieldDel
     }
     
     override func viewDidLoad() {
-        self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 1, green: 0.1757333279, blue: 0.2568904757, alpha: 1)
-        self.navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 1, green: 0.1757333279, blue: 0.2568904757, alpha: 1)
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.3137395978, green: 0.1694342792, blue: 0.5204931498, alpha: 1)]
-        
-        service.AUTH_SERVICE.isAuth()
+        style_1()
+        isAuth()
         super.viewDidLoad()
         if(UIDevice.current.model == "Iphone 5s"){
             logo.frame.origin.y = logo.frame.origin.y-20
@@ -54,7 +51,7 @@ class StartViewController: UIViewController, GIDSignInUIDelegate, UITextFieldDel
             player?.isMuted = true
             
             let playerLayer = AVPlayerLayer(player: player)
-            playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+            playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
             playerLayer.zPosition = -1
             
             playerLayer.frame = view.frame
@@ -81,7 +78,7 @@ class StartViewController: UIViewController, GIDSignInUIDelegate, UITextFieldDel
         service.UTILITY_SERVICE.enabledView()
     }
     
-    func videoDidReachEnd() {
+    @objc func videoDidReachEnd() {
         //now use seek to make current playback time to the specified time in this case (O)
         let duration : Int64 = 0
         let preferredTimeScale : Int32 = 1
@@ -113,7 +110,7 @@ class StartViewController: UIViewController, GIDSignInUIDelegate, UITextFieldDel
             return
         }
         service.UTILITY_SERVICE.disabledView()
-        store.dispatch(LoginAction(username: email, password: password))
+        store.dispatch(AuthSvc(.login(username: email, password: password)))
         
     }
     
@@ -129,7 +126,7 @@ class StartViewController: UIViewController, GIDSignInUIDelegate, UITextFieldDel
 }
 
 extension StartViewController : StoreSubscriber {
-    
+   
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
@@ -143,11 +140,11 @@ extension StartViewController : StoreSubscriber {
         self.view.hideToastActivity()
         service.UTILITY_SERVICE.enabledView()
 
-        switch state.status {
+        switch state.user {
         case .failed:
             alert()
             break
-        case .finished:
+        case .finished, .Finished(_):
             self.gotoView(view: .preHome)
             break
         case .loading:

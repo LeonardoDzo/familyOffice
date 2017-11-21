@@ -89,7 +89,7 @@ struct Event {
         self.endDate = Date().addingTimeInterval(60 * 60).toMillis()
         self.priority = 0
         self.members = []
-        self.creator = store.state.UserState.user?.id!
+        self.creator = userStore?.id!
         self.repeatmodel = repeatEvent()
         self.type = .Default
     }

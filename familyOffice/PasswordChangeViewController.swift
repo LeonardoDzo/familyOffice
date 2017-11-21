@@ -39,23 +39,23 @@ class PasswordChangeViewController: UIViewController, UIGestureRecognizerDelegat
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    func back(sender: UIBarButtonItem) -> Void {
+    @objc func back(sender: UIBarButtonItem) -> Void {
         _ =  navigationController?.popViewController(animated: true)
     }
     
-    func changePassword(sender: UIBarButtonItem?) -> Void {
+    @objc func changePassword(sender: UIBarButtonItem?) -> Void {
         
         guard let oldPass = oldPassword.text, !oldPass.isEmpty else {
             self.alertMessage(title: "Campo vacío", msg: "El campo Contraseña actual no puede estar vacío")
             oldPassword.shakeTextField()
             return
         }
-        guard let newPass = newPassword.text, !newPass.isEmpty, newPass.characters.count >= 6 else {
+        guard let newPass = newPassword.text, !newPass.isEmpty, newPass.count >= 6 else {
             newPassword.shakeTextField()
             self.alertMessage(title: "Campo vacío", msg: "El campo Contraseña nueva no puede estar vacío o al menos debe contener 6 caracteres")
             return
         }
-        guard let rptPass = repeatPass.text, !rptPass.isEmpty, rptPass.characters.count >= 6 else {
+        guard let rptPass = repeatPass.text, !rptPass.isEmpty, rptPass.count >= 6 else {
             repeatPass.shakeTextField()
             self.alertMessage( title: "Campo vacío", msg: "El campo Contraseña nueva no puede estar vacío o al menos debe contener 6 caracteres")
             return
@@ -63,7 +63,9 @@ class PasswordChangeViewController: UIViewController, UIGestureRecognizerDelegat
         
         if rptPass == newPass {
             //Action change pass
-            store.dispatch(ChangePassUserAction(pass: newPass, oldPass: oldPass))
+            let action = AuthSvc()
+            action.action = .changePass(pass: newPass, oldPass: oldPass)
+            store.dispatch(action)
         }else{
             repeatPass.shakeTextField()
             newPassword.shakeTextField()
@@ -96,13 +98,12 @@ extension PasswordChangeViewController : StoreSubscriber {
         }
     }
     override func viewWillDisappear(_ animated: Bool) {
-        store.state.UserState.status = .none
         store.unsubscribe(self)
     }
     
     func newState(state: UserState) {
         self.view.hideToastActivity()
-        switch state.status {
+        switch state.user {
         case .loading:
             self.view.makeToastActivity(.center)
             break

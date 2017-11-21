@@ -42,7 +42,7 @@ struct FaqReducer {
     }
     
     func insertQuestion(_ question: Question) -> Void {
-        let id = store.state.UserState.user?.familyActive!
+        let id = userStore?.familyActive!
         let path = "faq/\(id!)/\(question.id!)"
         service.FAQ_SERVICE.insert(path, value: question.toDictionary(), callback: {ref in
             if ref is DatabaseReference {
@@ -52,7 +52,7 @@ struct FaqReducer {
     }
     
     func updateQuestion(_ question: Question) -> Void {
-        let id = store.state.UserState.user?.familyActive!
+        let id = userStore?.familyActive!
         let path = "faq/\(id!)/\(question.id!)"
         service.FAQ_SERVICE.update(path, value: question.toDictionary() as! [AnyHashable:Any]) { ref in
             if ref is DatabaseReference {
@@ -65,7 +65,7 @@ struct FaqReducer {
     }
     
     func deleteQuestion(_ question: Question) -> Void {
-        let id = store.state.UserState.user?.familyActive!
+        let id = userStore?.familyActive!
         let path = "faq/\(id!)/\(question.id!)"
         service.FAQ_SERVICE.delete(path) { (Any) in
             if let index = store.state.FaqState.questions[id!]?.index(where: {$0.id! == question.id!}){

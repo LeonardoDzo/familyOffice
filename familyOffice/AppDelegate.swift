@@ -12,12 +12,13 @@ import FirebaseMessaging
 import GoogleSignIn
 import UserNotifications
 import ReSwift
-import ReSwiftRouter
 
 
 let store = Store<AppState>(
     reducer: appReducer,
-    state: nil)
+    state: nil,
+    middleware: [realmMiddleware] )
+
 
 let Userdefault = UserDefaults.standard
 @UIApplicationMain
@@ -137,7 +138,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
         let authentication = user.authentication
         let credential = GoogleAuthProvider.credential(withIDToken: (authentication?.idToken)!,
                                                        accessToken: (authentication?.accessToken)!)
-        store.dispatch(LoginAction(credential: credential))
+        store.dispatch( AuthSvc(.loginWithCredentials(credential: credential)))
     }
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
         
@@ -180,7 +181,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-    func tokenRefreshNotification(_ notification: NSNotification) {
+    @objc func tokenRefreshNotification(_ notification: NSNotification) {
         if let refreshedToken = InstanceID.instanceID().token() {
             print("InstanceID token: \(refreshedToken)")
             service.NOTIFICATION_SERVICE.token = refreshedToken
@@ -199,19 +200,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
             }
         }
     }
-    
-}
-
-protocol Routable {
-    
-    func changeRouteSegment(from: RouteElementIdentifier,
-                            to: RouteElementIdentifier,
-                            completionHandler: RoutingCompletionHandler) -> Routable
-    
-    func pushRouteSegment(routeElementIdentifier: RouteElementIdentifier,
-                          completionHandler: RoutingCompletionHandler) -> Routable
-    
-    func popRouteSegment(routeElementIdentifier: RouteElementIdentifier,
-                         completionHandler: RoutingCompletionHandler)
     
 }

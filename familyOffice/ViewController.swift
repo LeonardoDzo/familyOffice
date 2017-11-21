@@ -18,7 +18,7 @@ extension UIViewController {
         view.addGestureRecognizer(tap)
     }
     
-    func dismissKeyboard() {
+    @objc func dismissKeyboard() {
         view.endEditing(true)
     }
     func alertMessage(title: String, msg: String){
@@ -27,6 +27,13 @@ extension UIViewController {
         alert.addAction(okAction)
         self.present(alert, animated: true, completion: nil)
     }
+    
+    func style_1() -> Void {
+        let nav = self.navigationController?.navigationBar
+        nav?.titleTextAttributes = [NSAttributedStringKey.foregroundColor:#colorLiteral(red: 0.2848778963, green: 0.2029544115, blue: 0.4734018445, alpha: 1)]
+        nav?.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
+    }
+    
     func gotoView(view: RoutingDestination )  {
         let mainStoryboard: UIStoryboard = UIStoryboard(name: view.getStoryBoard(), bundle: nil)
         let homeViewController : UIViewController = mainStoryboard.instantiateViewController(withIdentifier: view.rawValue)

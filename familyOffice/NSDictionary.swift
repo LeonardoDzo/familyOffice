@@ -73,4 +73,12 @@ extension NSDictionary {
         }
         return value as! [String : Int]
     }
+    func jsonToData() -> Data? {
+        do {
+            return try JSONSerialization.data(withJSONObject: self, options: JSONSerialization.WritingOptions.prettyPrinted)
+        } catch let myJSONError {
+            print(myJSONError)
+        }
+        return nil;
+    }
 }

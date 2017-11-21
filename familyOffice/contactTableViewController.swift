@@ -37,28 +37,30 @@ class contactTableViewController: UITableViewController, StoreSubscriber{
     }
     func setupNavBar(){
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.add))
-        addButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         let moreButton = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_bar_more_button"), style: .plain, target: self, action:  #selector(self.handleMore))
         let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "LeftChevron"), style: .plain, target: self, action: #selector(self.back))
         self.navigationItem.rightBarButtonItems = [moreButton, addButton]
         self.navigationItem.leftBarButtonItem = backButton
-        let nav = self.navigationController?.navigationBar
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.3137395978, green: 0.1694342792, blue: 0.5204931498, alpha: 1)]
-        self.navigationItem.title = "Contactos de \(String(describing: store.state.FamilyState.families.family(fid: (store.state.UserState.user?.familyActive)!)?.name))"
-        
+        self.navigationItem.title = "Contactos de \(String(describing: store.state.FamilyState.families.family(fid: (userStore?.familyActive)!)?.name))"
+        style_1()
     }
     func configureObservers(){
-        let ref = "contacts/\((store.state.UserState.user?.familyActive)!)/"
-        service.CONTACT_SVC.initObserves(ref: ref, actions: [.childAdded,.childChanged,.childRemoved])
+        verifyUser { (user, e) in
+            if e {
+                let ref = "contacts/\(user.familyActive!)/"
+                service.CONTACT_SVC.initObserves(ref: ref, actions: [.childAdded,.childChanged,.childRemoved])
+            }
+        }
+       
     }
-    func back() -> Void {
+    @objc func back() -> Void {
         self.dismiss(animated: true, completion: nil)
     }
-    func add() {
+    @objc func add() {
         
         performSegue(withIdentifier: "addContactSegue", sender: self)
     }
-    func handleMore(_ sender: Any) {
+    @objc func handleMore(_ sender: Any) {
         settingLauncher.showSetting()
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -89,11 +91,14 @@ class contactTableViewController: UITableViewController, StoreSubscriber{
         }
     }
     func newState(state: ContactState) {
-        let user = store.state.UserState.user
-        selectfamily(fid: (user?.familyActive)!)
-        contacts = state.contacts[(user?.familyActive)!] ?? []
-        configureObservers()
-        tableView.reloadData()
+        verifyUser { (user, exist) in
+            if exist {
+                self.selectfamily(fid: (user.familyActive)!)
+                self.self.contacts = state.contacts[(user.familyActive)!] ?? []
+                self.configureObservers()
+                self.tableView.reloadData()
+            }
+        }
     }
     
     
@@ -120,12 +125,17 @@ extension contactTableViewController {
 
 extension contactTableViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        let user = store.state.UserState.user
-        if let searchText = searchController.searchBar.text,  !searchText.isEmpty {
-            self.contacts = self.contacts.filter({$0.name.lowercased().contains(searchText.lowercased())  || $0.job.lowercased().contains(searchText.lowercased())})
-        }else{
-            self.contacts = store.state.ContactState.contacts[(user?.familyActive)!] ?? []
+        verifyUser { (user, exist) in
+            if exist {
+                if let searchText = searchController.searchBar.text,  !searchText.isEmpty {
+                    self.contacts = self.contacts.filter({$0.name.lowercased().contains(searchText.lowercased())  || $0.job.lowercased().contains(searchText.lowercased())})
+                }else{
+                    self.contacts = store.state.ContactState.contacts[(user.familyActive)!] ?? []
+                }
+                 self.tableView.reloadData()
+            }
         }
-        tableView.reloadData()
+       
+       
     }
 }

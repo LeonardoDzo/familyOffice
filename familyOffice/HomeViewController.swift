@@ -65,7 +65,7 @@ class HomeViewController: UIViewController,UIGestureRecognizerDelegate {
         
     }
     
-    func handleBack()  {
+    @objc func handleBack()  {
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -126,23 +126,25 @@ extension HomeViewController : UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func reloadFamily() -> Void {
-        if let index = families.index(where: {$0.id == user?.familyActive}) {
-            let family = families[index]
-            self.navigationItem.title = family.name
+        verifyUser { (user, exist) in
+            if let index = self.families.index(where: {$0.id == user.familyActive}) {
+                let family = self.families[index]
+                self.navigationItem.title = family.name
+            }
         }
     }
     
 }
 extension HomeViewController {
 
-    func handleMore(_ sender: Any) {
+    @objc func handleMore(_ sender: Any) {
         settingLauncher.showSetting()
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         gotoModule(index: (indexPath.item))
     }
-    func handleShowModal(_ sender: Any) -> Void {
+    @objc func handleShowModal(_ sender: Any) -> Void {
         self.backgroundButton.backgroundColor = UIColor.black
         UIView.animate(withDuration: 0.3,delay: 0.3, animations: {
             self.backgroundButton.alpha = 0.65
@@ -186,16 +188,13 @@ extension HomeViewController {
         
     }
     func setupConfigurationNavBar() -> Void {
-     
+        style_1()
         let moreButton = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_bar_more_button"), style: .plain, target: self, action:  #selector(self.handleMore(_:)))
         let valueButton = UIBarButtonItem(image: #imageLiteral(resourceName: "value"), style: .plain, target: self, action:  #selector(self.handleShowModal(_:)))
         
         self.navigationItem.rightBarButtonItems = [ moreButton,valueButton]
         let barButton = UIBarButtonItem(title: "Regresar", style: .plain, target: self, action: #selector(self.handleBack))
-        self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         self.navigationItem.leftBarButtonItem = barButton
-        let nav = self.navigationController?.navigationBar
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.3137395978, green: 0.1694342792, blue: 0.5204931498, alpha: 1)]
     }
     
 }

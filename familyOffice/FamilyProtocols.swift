@@ -43,6 +43,7 @@ enum Frequency: Int, GDL90_Enum  {
     case monthly
     case year
     
+    
     var description: String {
         switch self {
         case .daily:
@@ -73,4 +74,9 @@ enum Frequency: Int, GDL90_Enum  {
     }
     
     
+}
+extension Frequency : Codable {
+    enum CodingKeys: Int, CodingKey {
+        case never, daily, weekly, monthly, year
+    }
 }

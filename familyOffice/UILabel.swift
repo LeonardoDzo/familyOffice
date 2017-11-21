@@ -13,14 +13,14 @@ extension UILabel {
     func strikeText() -> Void {
         if !(self.text?.isEmpty)!{
             let attrString = NSMutableAttributedString(string: self.text!)
-            attrString.addAttribute(NSStrikethroughStyleAttributeName, value: NSNumber(value: NSUnderlineStyle.styleSingle.rawValue), range: NSMakeRange(0, attrString.length))
+            attrString.addAttribute(NSAttributedStringKey.strikethroughStyle, value: NSNumber(value: NSUnderlineStyle.styleSingle.rawValue), range: NSMakeRange(0, attrString.length))
             self.attributedText = attrString
         }
     }
     func removeAttribute() -> Void {
         if !(self.text?.isEmpty)!{
             let attrString = NSMutableAttributedString(string: self.text!)
-            attrString.removeAttribute(NSStrikethroughStyleAttributeName, range: NSMakeRange(0, attrString.length))
+            attrString.removeAttribute(NSAttributedStringKey.strikethroughStyle, range: NSMakeRange(0, attrString.length))
             self.attributedText = attrString
         }
     }

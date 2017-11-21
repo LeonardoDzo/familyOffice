@@ -53,7 +53,7 @@ class HealthOmniViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func edit(sender: UIBarButtonItem) {
+    @objc func edit(sender: UIBarButtonItem) {
         performSegue(withIdentifier: "editSegue", sender: self)
     }
     // MARK: - Navigation

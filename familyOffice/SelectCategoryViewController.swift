@@ -8,8 +8,10 @@
 
 import UIKit
 import ReSwift
+import RealmSwift
+import Firebase
 class SelectCategoryViewController: UIViewController {
-    var user: User?
+    var user: UserEntitie!
     var imageSelect : UIImage!
     var families = [Family]()
     @IBOutlet weak var name: UILabel!
@@ -23,13 +25,10 @@ class SelectCategoryViewController: UIViewController {
     var localeChangeObserver :[NSObjectProtocol] = []
     override func viewDidLoad() {
         super.viewDidLoad()
+        user = rManager.realm.object(ofType: UserEntitie.self, forPrimaryKey: Auth.auth().currentUser?.uid)
+        style_1()
         let logOutButton = UIBarButtonItem(title: "Log out", style: .plain, target: self, action: #selector(self.logout))
-        logOutButton.tintColor = #colorLiteral(red: 1, green: 0.1757333279, blue: 0.2568904757, alpha: 1)
         navigationItem.rightBarButtonItems = [logOutButton]
-        
-        
-        let nav = self.navigationController?.navigationBar
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.3137395978, green: 0.1694342792, blue: 0.5204931498, alpha: 1)]
         headerView.formatView()
         familiasView.formatView()
         categoriasView.formatView()
@@ -100,8 +99,10 @@ class SelectCategoryViewController: UIViewController {
         }
     }
     
-    func logout(){
-        service.AUTH_SERVICE.logOut()
+    @objc func logout(){
+        let action = AuthSvc()
+        action.action = .logout
+        store.dispatch(action)
         service.UTILITY_SERVICE.gotoView(view: "StartView", context: self)
     }
     
@@ -111,10 +112,9 @@ extension SelectCategoryViewController : StoreSubscriber {
     typealias StoreSubscriberStateType = AppState
     
     func newState(state: AppState) {
-        user = state.UserState.user
+       
         if user != nil {
             loadImage()
-            verifyUser(status: state.UserState.status)
             verifyFamilies(state: state.FamilyState)
         }
     }
@@ -124,19 +124,6 @@ extension SelectCategoryViewController : StoreSubscriber {
             addFamily(family: families.last!)
         }else{
             self.familiesCollection.reloadData()
-        }
-    }
-    func verifyUser(status: Result<Any>){
-
-        switch status {
-        case .loading:
-            self.view.makeToastActivity(.center)
-            break
-        case .finished:
-            self.view.hideToastActivity()
-            break
-        default:
-            break
         }
     }
 }

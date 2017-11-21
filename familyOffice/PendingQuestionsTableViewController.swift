@@ -11,7 +11,6 @@ import ReSwift
 
 class PendingQuestionsTableViewController: UITableViewController {
     var questions: [Question] = []
-    let user = store.state.UserState.user
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,16 +76,22 @@ class PendingQuestionsTableViewController: UITableViewController {
 
 extension PendingQuestionsTableViewController: StoreSubscriber {
     func addObservers() -> Void {
-        service.FAQ_SERVICE.initObservers(ref: "faq/\((user?.familyActive!)!)", actions: [.childAdded, .childRemoved, .childChanged])
+        verifyUser { (user, exist) in
+            if exist {
+                 service.FAQ_SERVICE.initObservers(ref: "faq/\(user.familyActive!)", actions: [.childAdded, .childRemoved, .childChanged])
+            }
+        }
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         addObservers()
         store.subscribe(self){
-            $0.select({
+
+            $0.select {
                 s in s.FaqState
-                })
+            }
         }
     }
     
@@ -113,8 +118,12 @@ extension PendingQuestionsTableViewController: StoreSubscriber {
         default:
             break
         }
-        
-        questions = state.questions[(user?.familyActive)!]?.filter({$0.subject == "Asistente" && ($0.answer?.isEmpty)!}) ?? []
+        verifyUser { (user, exist) in
+            if exist {
+                self.questions = state.questions[(user.familyActive)!]?.filter({$0.subject == "Asistente" && ($0.answer?.isEmpty)!}) ?? []
+            }
+        }
+    
         
     }
     

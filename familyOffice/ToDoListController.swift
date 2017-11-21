@@ -17,7 +17,7 @@ class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, U
     @IBOutlet var tabBar: UITabBar!
     
     var items : [ToDoList.ToDoItem] = []
-    var userId = store.state.UserState.user?.id
+    var userId = store.state.UserState.getUser()?.id
     let searchController = UISearchController(searchResultsController: nil)
     
     
@@ -31,22 +31,16 @@ class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, U
         searchController.searchResultsUpdater = self
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.dimsBackgroundDuringPresentation = false
-        
-        let nav = self.navigationController?.navigationBar
-        
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName:#colorLiteral(red: 0.2848778963, green: 0.2029544115, blue: 0.4734018445, alpha: 1)]
+        style_1()
         
         self.navigationItem.title = "Lista de tareas"
         
         tableView.tableHeaderView = searchController.searchBar
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.handleNew))
-        addButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "LeftChevron"), style: .plain, target: self, action: #selector(self.back))
         self.navigationItem.leftBarButtonItem = backButton
-        backButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         let moreButton = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_bar_more_button"), style: .plain, target: self, action:  #selector(self.handleMore(_:)))
-        moreButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         
         self.navigationItem.rightBarButtonItems = [moreButton,addButton]
         // Do any additional setup after loading the view.
@@ -59,12 +53,12 @@ class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, U
     
     let settingLauncher = SettingLauncher()
     
-    func handleMore(_ sender: Any) {
+    @objc func handleMore(_ sender: Any) {
         settingLauncher.showSetting()
     }
     
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        let user = store.state.UserState.user?.id!
+        let user = userStore?.id!
         if item.tag == 1 {
             self.items = self.items.filter({ (item) -> Bool in
                 return item.status == "Finalizada"
@@ -75,7 +69,7 @@ class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, U
         tableView.reloadData()
     }
     
-    func back() -> Void {
+    @objc func back() -> Void {
         self.dismiss(animated: true, completion: nil)
     }
 
@@ -84,7 +78,7 @@ class ToDoListController: UIViewController,UIViewControllerPreviewingDelegate, U
         // Dispose of any resources that can be recreated.
     }
     
-    func handleNew() -> Void {
+    @objc func handleNew() -> Void {
         self.performSegue(withIdentifier: "showItemDetails", sender: "new")
     }
 
@@ -195,7 +189,7 @@ extension ToDoListController: StoreSubscriber{
     typealias StoreSubscriberStateType = ToDoListState
     
     override func viewWillAppear(_ animated: Bool) {
-        service.TODO_SERVICE.initObserves(ref: "todolist/\((store.state.UserState.user?.id)!)", actions: [.childAdded, .childChanged, .childRemoved])
+        service.TODO_SERVICE.initObserves(ref: "todolist/\((userStore?.id)!)", actions: [.childAdded, .childChanged, .childRemoved])
         
         store.subscribe(self){
             subcription in
@@ -221,7 +215,7 @@ extension ToDoListController: StoreSubscriber{
 
 extension ToDoListController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        let user = store.state.UserState.user?.id!
+        let user = userStore?.id!
         if let searchText = searchController.searchBar.text, !searchText.isEmpty{
             self.items = self.items.filter({$0.title.lowercased().contains(searchText.lowercased())})
         }else{

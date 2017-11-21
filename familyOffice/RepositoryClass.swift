@@ -14,6 +14,7 @@ import ReSwift
     func removed(snapshot: DataSnapshot) -> Void
     @objc optional func removed(snapshot: Any, id: Any) -> Void
     @objc optional func get(snapshot: DataSnapshot) -> Void
+    func notExistSnapshot() -> Void
 }
 
 

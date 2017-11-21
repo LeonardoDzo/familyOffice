@@ -9,7 +9,7 @@
 import UIKit
 
 class MoveFileViewController: UIViewController {
-    let userId = store.state.UserState.user?.id!
+    let userId = store.state.UserState.getUser()?.id!
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var filesTreeLbl: UILabel!
@@ -21,9 +21,7 @@ class MoveFileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let nav = self.navigationController?.navigationBar
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.3137395978, green: 0.1694342792, blue: 0.5204931498, alpha: 1)]
+        style_1()
         self.navigationItem.title = "Mover a..."
         
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false

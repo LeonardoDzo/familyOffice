@@ -194,6 +194,26 @@ static CGFloat const kFloatingLabelHideAnimationDuration = 0.3f;
     else {
         [self showFloatingLabel:firstResponder];
     }
+    
+    // Without this code, the size of the view is not calculated correctly when it
+    // is first displayed. Only seems relevant when scroll is disabled.
+    if (!self.scrollEnabled && !CGSizeEqualToSize(self.bounds.size, [self intrinsicContentSize])) {
+        [self invalidateIntrinsicContentSize];
+    }
+}
+
+- (CGSize)intrinsicContentSize
+{
+    CGSize textFieldIntrinsicContentSize = [super intrinsicContentSize];
+
+    if (self.text != nil && self.text.length > 0) {
+        return textFieldIntrinsicContentSize;
+    } else {
+        CGFloat additionalHeight = _placeholderLabel.bounds.size.height - (_floatingLabel.bounds.size.height + _floatingLabelYPadding);
+
+        return CGSizeMake(textFieldIntrinsicContentSize.width,
+                          textFieldIntrinsicContentSize.height + additionalHeight);
+    }
 }
 
 - (UIColor *)labelActiveColor
@@ -215,7 +235,7 @@ static CGFloat const kFloatingLabelHideAnimationDuration = 0.3f;
 
 - (void)showFloatingLabel:(BOOL)animated
 {
-    void (^showBlock)() = ^{
+    void (^showBlock)(void) = ^{
         _floatingLabel.alpha = 1.0f;
         CGFloat top = _floatingLabelYPadding;
         if (0 != self.floatingLabelShouldLockToTop) {
@@ -242,7 +262,7 @@ static CGFloat const kFloatingLabelHideAnimationDuration = 0.3f;
 
 - (void)hideFloatingLabel:(BOOL)animated
 {
-    void (^hideBlock)() = ^{
+    void (^hideBlock)(void) = ^{
         _floatingLabel.alpha = 0.0f;
         _floatingLabel.frame = CGRectMake(_floatingLabel.frame.origin.x,
                                           _floatingLabel.font.lineHeight + _placeholderYPadding,

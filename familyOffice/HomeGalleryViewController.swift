@@ -18,28 +18,27 @@ class HomeGalleryViewController: UIViewController, UITabBarDelegate, HandleFamil
     var familiar:[Family] = []
     
     let settingLauncher = SettingLauncher()
-    func handleMore(_ sender: Any) {
+    @objc func handleMore(_ sender: Any) {
         settingLauncher.showSetting()
         settingLauncher.handleFamily = self
 
     }
 
     
-    var key: String! = store.state.UserState.user?.id ?? ""
+    var key: String! = userStore?.id ?? ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        style_1()
         let moreButton = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_bar_more_button"), style: .plain, target: self, action:  #selector(self.handleMore(_:)))
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.AddAlbum))
         self.navigationItem.rightBarButtonItems = [moreButton,addButton]
         let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "LeftChevron"), style: .plain, target: self, action: #selector(self.back))
-        moreButton.tintColor = #colorLiteral(red: 1, green: 0.2940415765, blue: 0.02801861018, alpha: 1)
-        addButton.tintColor = #colorLiteral(red: 1, green: 0.2940415765, blue: 0.02801861018, alpha: 1)
-        backButton.tintColor = #colorLiteral(red: 1, green: 0.2940415765, blue: 0.02801861018, alpha: 1)
+ 
+   
         self.navigationItem.leftBarButtonItem = backButton
         self.navigationItem.title = "Albums"
         self.tabBar.delegate = self
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:#colorLiteral(red: 0.2848778963, green: 0.2029544115, blue: 0.4734018445, alpha: 1)]
         // Do any additional setup after loading the view.
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -53,7 +52,7 @@ class HomeGalleryViewController: UIViewController, UITabBarDelegate, HandleFamil
         self.tabBar.selectedItem = self.tabBar.items?[0]
         self.ChangeSelected()
     }
-    func back() -> Void {
+    @objc func back() -> Void {
         self.dismiss(animated: true, completion: nil)
     }
 
@@ -72,11 +71,11 @@ class HomeGalleryViewController: UIViewController, UITabBarDelegate, HandleFamil
     func ChangeSelected() {
         if(tabBar.selectedItem?.tag == 0){
             self.navigationItem.title = "Albums"
-            self.key = store.state.UserState.user?.id ?? ""
+            self.key = userStore?.id ?? ""
             service.GALLERY_SERVICE.refUserFamily = self.key
             self.InitObserver()
         }else{
-            self.key = store.state.UserState.user?.familyActive ?? ""
+            self.key = userStore?.familyActive ?? ""
             if let family: Family = store.state.FamilyState.families.family(fid: self.key) {
                 self.navigationItem.title = "Familia: \(family.name!)"
                 service.GALLERY_SERVICE.refUserFamily = self.key
@@ -94,7 +93,7 @@ class HomeGalleryViewController: UIViewController, UITabBarDelegate, HandleFamil
         // Pass the selected object to the new view controller.
     }
     */
-    func AddAlbum() {
+    @objc func AddAlbum() {
         store.state.GalleryState.status = .none
         self.performSegue(withIdentifier: "AddAlbumSegue", sender: nil)
     }
@@ -167,7 +166,7 @@ extension HomeGalleryViewController: StoreSubscriber{
             break
         case .none:
             self.view.hideToastActivity()
-            self.key = store.state.UserState.user?.familyActive ?? ""
+            self.key = userStore?.familyActive ?? ""
             if let family: Family = store.state.FamilyState.families.family(fid: self.key) {
                 self.navigationItem.title = "Familia: \(family.name!)"
                 service.GALLERY_SERVICE.refUserFamily = self.key
