@@ -12,6 +12,7 @@ import UIKit
 
 struct AppState: StateType {
     var routingState: RoutingState
+    var authState: AuthState
     var UserState: UserState
     var GoalsState : GoalState
     var FamilyState: FamilyState
@@ -35,6 +36,17 @@ enum Result<T> {
     case Finished(T)
     case noFamilies
     case none
+    
+    var description : String {
+        let mirror = Mirror(reflecting: self)
+        if let label = mirror.children.first?.label {
+            return label
+        } else {
+            return String(describing:self)
+        }
+    }
+}
+extension Result : description{
 }
 
 extension Result {

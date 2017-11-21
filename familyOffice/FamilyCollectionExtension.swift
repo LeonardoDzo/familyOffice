@@ -82,7 +82,7 @@ extension FamilyCollectionViewController: StoreSubscriber {
     }
     
     func toggleSelect(family: Family){
-       service.USER_SVC.selectFamily(family: family)
+       store.dispatch(UserS(.selectFamily(family: family)))
     }
     
     func togglePendingDelete(family: Family) -> Void

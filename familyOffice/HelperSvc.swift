@@ -35,18 +35,15 @@ func isAuth()  {
             checkUserAgainstDatabase(completion: {(success, error ) in
                 if success {
                     if !view {
-                        let action  = UserS()
-                        action.action = .getbyId(uid: (user?.uid)!)
-                        store.dispatch(action)
+                        store.dispatch(UserS(.getbyId(uid: (user?.uid)!)))
                         view = !view
                     }
                 }else{
-                    let action  = UserS()
-                    self.logOut()
+                    store.dispatch(AuthSvc(.logout))
                 }
             })
         }else{
-            store.dispatch()
+            store.dispatch(AuthSvc(.logout))
         }
     }
 }

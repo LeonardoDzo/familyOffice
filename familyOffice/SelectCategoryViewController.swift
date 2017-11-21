@@ -8,8 +8,10 @@
 
 import UIKit
 import ReSwift
+import RealmSwift
+import Firebase
 class SelectCategoryViewController: UIViewController {
-    var user: User?
+    var user: UserEntitie!
     var imageSelect : UIImage!
     var families = [Family]()
     @IBOutlet weak var name: UILabel!
@@ -23,6 +25,7 @@ class SelectCategoryViewController: UIViewController {
     var localeChangeObserver :[NSObjectProtocol] = []
     override func viewDidLoad() {
         super.viewDidLoad()
+        user = rManager.realm.object(ofType: UserEntitie.self, forPrimaryKey: Auth.auth().currentUser?.uid)
         style_1()
         let logOutButton = UIBarButtonItem(title: "Log out", style: .plain, target: self, action: #selector(self.logout))
         navigationItem.rightBarButtonItems = [logOutButton]
@@ -112,13 +115,6 @@ extension SelectCategoryViewController : StoreSubscriber {
        
         if user != nil {
             loadImage()
-            verifyUser { user,exist in
-                if exist {
-                    self.user = user
-                }else{
-                    state.UserState.user.status()
-                }
-            }
             verifyFamilies(state: state.FamilyState)
         }
     }

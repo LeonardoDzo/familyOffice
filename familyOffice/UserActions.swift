@@ -10,12 +10,12 @@ import Foundation
 import ReSwift
 import FirebaseAuth
 
-enum UserAction {
+enum UserAction : description {
     case getbyId(uid: String),
          getbyPhone(phone: String),
          set(user: User),
          update(user: User, img: UIImage?),
-         create(user: User),
+         create(user: UserEntitie),
          selectFamily(family: Family),
          none
     

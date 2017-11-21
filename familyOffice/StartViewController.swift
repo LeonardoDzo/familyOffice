@@ -35,7 +35,7 @@ class StartViewController: UIViewController, GIDSignInUIDelegate, UITextFieldDel
     
     override func viewDidLoad() {
         style_1()
-        service.AUTH_SERVICE.isAuth()
+        isAuth()
         super.viewDidLoad()
         if(UIDevice.current.model == "Iphone 5s"){
             logo.frame.origin.y = logo.frame.origin.y-20
@@ -110,7 +110,7 @@ class StartViewController: UIViewController, GIDSignInUIDelegate, UITextFieldDel
             return
         }
         service.UTILITY_SERVICE.disabledView()
-        store.dispatch(UserAction.login(username: email, password: password))
+        store.dispatch(AuthSvc(.login(username: email, password: password)))
         
     }
     
@@ -144,7 +144,7 @@ extension StartViewController : StoreSubscriber {
         case .failed:
             alert()
             break
-        case .finished:
+        case .finished, .Finished(_):
             self.gotoView(view: .preHome)
             break
         case .loading:

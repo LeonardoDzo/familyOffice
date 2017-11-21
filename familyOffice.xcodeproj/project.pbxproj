@@ -114,6 +114,7 @@
 		02ABAC421E6E02B5003780AB /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ABAC411E6E02B5003780AB /* Device.swift */; };
 		02AD814D1E4B90B10030B3DD /* SelectedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AD814C1E4B90B10030B3DD /* SelectedTableViewCell.swift */; };
 		02AD81521E4B963C0030B3DD /* memberSelectedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AD81511E4B963C0030B3DD /* memberSelectedCollectionViewCell.swift */; };
+		02ADE5471FC4957500D05893 /* UserEntitie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADE5461FC4957500D05893 /* UserEntitie.swift */; };
 		02B46A341E52908200CC7511 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B46A331E52908200CC7511 /* NotificationService.swift */; };
 		02B7E7FA1E7C614A0082BAE7 /* settingLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B7E7F91E7C614A0082BAE7 /* settingLauncher.swift */; };
 		02B7E7FC1E7C7A0E0082BAE7 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B7E7FB1E7C7A0E0082BAE7 /* UIView.swift */; };
@@ -394,6 +395,7 @@
 		02ABAC411E6E02B5003780AB /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		02AD814C1E4B90B10030B3DD /* SelectedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedTableViewCell.swift; sourceTree = "<group>"; };
 		02AD81511E4B963C0030B3DD /* memberSelectedCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = memberSelectedCollectionViewCell.swift; sourceTree = "<group>"; };
+		02ADE5461FC4957500D05893 /* UserEntitie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntitie.swift; sourceTree = "<group>"; };
 		02B46A321E52281200CC7511 /* familyOffice.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = familyOffice.entitlements; path = familyOffice/familyOffice.entitlements; sourceTree = "<group>"; };
 		02B46A331E52908200CC7511 /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		02B7E7F91E7C614A0082BAE7 /* settingLauncher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = settingLauncher.swift; sourceTree = "<group>"; };
@@ -1174,6 +1176,7 @@
 			isa = PBXGroup;
 			children = (
 				026AE1051E3A93A9003B75BD /* User.swift */,
+				02ADE5461FC4957500D05893 /* UserEntitie.swift */,
 			);
 			name = User;
 			sourceTree = "<group>";
@@ -2123,6 +2126,7 @@
 				0282DDA41F290D5A00FBB31B /* ProfileUserViewController.swift in Sources */,
 				02811B481F06ED44004231BE /* GoalActions.swift in Sources */,
 				02AB00471E1DD0AB0098411C /* RegisterFamilyViewController.swift in Sources */,
+				02ADE5471FC4957500D05893 /* UserEntitie.swift in Sources */,
 				02441D9C1F16BECD00EA8202 /* GoalTableViewController.swift in Sources */,
 				045B648F1EFDD1F600F57BBD /* HomeGalleryViewController.swift in Sources */,
 				02FD90031EDCA7C300F76BA1 /* addEventTableViewController.swift in Sources */,

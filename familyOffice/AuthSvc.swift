@@ -11,7 +11,20 @@ import ReSwift
 import Firebase
 import RealmSwift
 
-enum AuthAction {
+protocol description {
+}
+extension description {
+    func description() -> String {
+        let mirror = Mirror(reflecting: self)
+        if let label = mirror.children.first?.label {
+            return label
+        } else {
+            return String(describing:self)
+        }
+    }
+}
+
+enum AuthAction: description  {
     case changePass(pass: String, oldPass: String),
     login(username: String, password: String),
     loginWithCredentials(credential: AuthCredential),
@@ -20,21 +33,30 @@ enum AuthAction {
     init(){
         self = .none
     }
+    
+    
+    
 }
 
+class AuthSvc : Action, EventProtocol {
 
-@objcMembers
-class AuthSvc : Object, Action, EventProtocol {
-    typealias EnumType = AuthAction
-    dynamic var id : String!
-    dynamic var action = AuthAction()
-    dynamic var handles: [(String, UInt, DataEventType)] = []
-    dynamic var status: Result<Any>! = .none
-    dynamic var fromView: RoutingDestination! = .none
     
-    primaryKey
-    convenience required init() {
+    func getDescription() -> String {
+        return "\(self.action.description()) \(self.status.description)"
+    }
+    
+  
+    typealias EnumType = AuthAction
+    var id : String! = UUID().uuidString
+    var action = AuthAction()
+    var handles: [(String, UInt, DataEventType)] = []
+    var status: Result<Any> = .loading
+    var fromView: RoutingDestination! = .none
+    
+    
+    convenience required init(_ action: AuthAction) {
         self.init()
+        self.action = action
         self.fromView = RoutingDestination(rawValue: UIApplication.topViewController()?.restorationIdentifier ?? "" )
     }
     
@@ -57,7 +79,7 @@ class AuthSvc : Object, Action, EventProtocol {
         }
     }
     
-
+    
     func login(email: String, password: String){
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             if((error) != nil){
@@ -83,32 +105,41 @@ class AuthSvc : Object, Action, EventProtocol {
         rManager.deleteDatabase()
         try! Auth.auth().signOut()
     }
+    
 }
 extension AuthSvc : Reducer {
     typealias StoreSubscriberStateType = AuthState
-    func handleAction(state: AuthState?) -> AuthState {
-        if case self.status = Result<Any>.loading {
-            switch self.action {
-                case .changePass(let pass, let oldPass):
-                    self.changePassword(newPass: pass, oldPass: oldPass)
-                break
-                case .login(let username, let password):
-                    self.login(email: username, password: password)
-                break
-                case .loginWithCredentials(let credential):
-                    self.login(credential: credential)
-                break
-                case .none:
-                break
-                case .logout:
-                    self.logOut()
 
+    func handleAction(state: AuthState?) -> AuthState {
+        var state = state ?? AuthState(state: .none)
+            state.state = self.status
+        switch status {
+        case .loading:
+            switch self.action {
+            case .changePass(let pass, let oldPass):
+                self.changePassword(newPass: pass, oldPass: oldPass)
+                break
+            case .login(let username, let password):
+                self.login(email: username, password: password)
+                break
+            case .loginWithCredentials(let credential):
+                self.login(credential: credential)
+                break
+            case .none:
+                break
+            case .logout:
+                self.logOut()
                 break
             }
-        }else{
-            
+        case .Failed(_), .failed:
+            break
+        case .finished, .Finished(_):
+            store.dispatch(UserS(.getbyId(uid: (Auth.auth().currentUser?.uid)!)))
+            break
+        case .noFamilies, .none:
+            break
         }
-       
+        return state
     }
     func checkUserAgainstDatabase(completion: @escaping (_ success: Bool, _ error: NSError?) -> Void) {
         guard let currentUser = Auth.auth().currentUser else { return }

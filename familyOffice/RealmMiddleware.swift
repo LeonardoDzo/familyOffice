@@ -14,8 +14,9 @@ import ReSwift
 let realmMiddleware: Middleware<Any> = { dispatch, getState in
     return { next in
         return { action in
-            if let s = action as? Object {
-                rManager.save(objs: s)
+            if let s = action as? EventDescription {
+                rManager.save(objs: EventProccess(builder: s))
+                print(rManager.getObjects(type: EventProccess.self))
             }
             // call next middleware
             return next(action)

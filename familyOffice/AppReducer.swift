@@ -11,9 +11,11 @@ import ReSwift
     
     func appReducer(action: Action, state: AppState?) -> AppState {
         var goalReducer = GoalReducer(state?.GoalsState)
-        let useraction =  action as? UserAction
+        let useraction =  action as? UserS
+        let authAction = action as? AuthSvc
         return AppState(
             routingState: routingReducer(action: action, state: state?.routingState),
+            authState: authAction != nil ? (authAction?.handleAction(state: state?.authState))! : AuthState(state: .none),
             UserState:  useraction != nil ? (useraction?.handleAction(state: state?.UserState))! : UserState(users: .none, user: .none),
             GoalsState: goalReducer.handleAction(action: action),
             FamilyState: FamilyReducer().handleAction(action: action, state: state?.FamilyState),

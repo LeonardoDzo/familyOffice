@@ -52,7 +52,7 @@ extension RequestProtocol {
             if(snapshot.exists()){
                 self.routing(snapshot: snapshot, action: action, ref: ref)
             }else{
-                //self.notExistSnapshot()
+                self.notExistSnapshot()
             }
         }, withCancel: {(error) in
             print(error.localizedDescription)
@@ -64,7 +64,8 @@ extension RequestProtocol {
         Constants.FirDatabase.REF.child(ref).observeSingleEvent(of: .value, with: {(snapshot) in
             if snapshot.exists(){
                 self.routing(snapshot: snapshot, action: .value, ref: ref)
-            }else{                self.notExistSnapshot()
+            }else{
+                self.notExistSnapshot()
             }
         }, withCancel: {(error) in
             print(error.localizedDescription)
