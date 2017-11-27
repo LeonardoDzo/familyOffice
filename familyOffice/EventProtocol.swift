@@ -24,6 +24,7 @@ protocol EventDescription  {
     var status: Result<Any> {get set}
     var fromView: RoutingDestination! {get set}
     var id: String! {get set}
+    
 }
 
 @objcMembers
@@ -36,7 +37,7 @@ class EventProccess: Object {
     convenience required init(builder: EventDescription) {
         self.init()
         self.action = builder.getDescription()
-        self.fromView = builder.fromView.rawValue
+        self.fromView = builder.fromView == nil ? "none" : builder.fromView.rawValue
         self.id = builder.id
         self.status = builder.status
         

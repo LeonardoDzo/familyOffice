@@ -24,9 +24,8 @@ enum RoutingDestination: String {
     case start = "StartViewController"
     case signUp = "SingUpViewController"
     case preHome = "NavPreHome"
-    case registerFamily = "RegisterFamilyView",
-         homeSocial = "TabBarControllerView",
-         profileFamily = "FamilyViewController",
+    case homeSocial = "TabBarControllerView",
+         profileFamily = "FamilyProfileViewController",
          families = "FamilyCollectionViewController",
          contacts = "ContactsViewController",
          addEvent = "addEventTableViewController",
@@ -38,7 +37,7 @@ extension RoutingDestination {
         switch self {
         case .start, .signUp, .preHome, .homeSocial, .none:
             return StoryBoard.main.rawValue
-        case .registerFamily,.profileFamily,.families,.contacts:
+        case .profileFamily,.families,.contacts:
             return StoryBoard.families.rawValue
         case .personalData:
             return StoryBoard.setting.rawValue

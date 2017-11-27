@@ -10,7 +10,7 @@ import ReSwift
 
 struct UserState {
     var users : Result<Any>
-    var user: Result<Any>
+    var user: Result<Any> = .none
     
     func getUser() -> User?  {
         if case .Finished(let value as User) = user {

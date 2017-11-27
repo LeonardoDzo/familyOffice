@@ -30,6 +30,7 @@ target 'familyOffice' do
   pod 'ALCameraViewController'
   pod 'RealmSwift'
   pod 'SmileLock'
+  pod 'Eureka'
   pod "MIBadgeButton-Swift", :git => 'https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git', :branch => 'master'
   target 'familyOfficeTests' do
     inherit! :search_paths

@@ -17,6 +17,7 @@
 		020A64F91E81A8AF00F473A0 /* menuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020A64F81E81A8AF00F473A0 /* menuBar.swift */; };
 		020A64FD1E81EE1A00F473A0 /* chatCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020A64FC1E81EE1A00F473A0 /* chatCollectionViewController.swift */; };
 		020DA38E1F0C1A9C000BD7E2 /* FamilyReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020DA38D1F0C1A9C000BD7E2 /* FamilyReducer.swift */; };
+		0214C7E51FC8F44F00CDCA57 /* UserPersonalFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0214C7E41FC8F44F00CDCA57 /* UserPersonalFormViewController.swift */; };
 		0215F4E81E3FBCCD00AC01D3 /* PasswordChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215F4E71E3FBCCD00AC01D3 /* PasswordChangeViewController.swift */; };
 		0215F4EA1E3FCDD400AC01D3 /* PersonalDataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215F4E91E3FCDD400AC01D3 /* PersonalDataTableViewCell.swift */; };
 		021DB69D1F4B5F1A00E216BE /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021DB69C1F4B5F1A00E216BE /* AppRouter.swift */; };
@@ -26,7 +27,6 @@
 		021DB6B01F4BAF7900E216BE /* RequestAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021DB6AF1F4BAF7900E216BE /* RequestAction.swift */; };
 		0224341A1F1D41EB0057A0D0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022434191F1D41EB0057A0D0 /* ViewController.swift */; };
 		0226C8E21E3C217D007968BA /* ConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226C8E11E3C217D007968BA /* ConfigurationViewController.swift */; };
-		0226C8E61E3C267B007968BA /* ConfigurationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226C8E51E3C267B007968BA /* ConfigurationTableViewController.swift */; };
 		022EC1D21E20078C0096A18B /* Family.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022EC1D11E20078C0096A18B /* Family.swift */; };
 		0233A4F71EFD8A5A00D01F5C /* Goal-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0233A4F61EFD8A5A00D01F5C /* Goal-Extension.swift */; };
 		0233A4F91EFDA33600D01F5C /* GoalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0233A4F81EFDA33600D01F5C /* GoalService.swift */; };
@@ -112,9 +112,21 @@
 		02AB00471E1DD0AB0098411C /* RegisterFamilyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AB00461E1DD0AB0098411C /* RegisterFamilyViewController.swift */; };
 		02ABAC401E6DE73A003780AB /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ABAC3F1E6DE73A003780AB /* UIImage.swift */; };
 		02ABAC421E6E02B5003780AB /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ABAC411E6E02B5003780AB /* Device.swift */; };
+		02AD47E71FC4F1F5009E20E8 /* FamilyS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AD47E61FC4F1F5009E20E8 /* FamilyS.swift */; };
+		02AD47E91FC4F381009E20E8 /* FamilyEntitie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AD47E81FC4F381009E20E8 /* FamilyEntitie.swift */; };
 		02AD814D1E4B90B10030B3DD /* SelectedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AD814C1E4B90B10030B3DD /* SelectedTableViewCell.swift */; };
 		02AD81521E4B963C0030B3DD /* memberSelectedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AD81511E4B963C0030B3DD /* memberSelectedCollectionViewCell.swift */; };
 		02ADE5471FC4957500D05893 /* UserEntitie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADE5461FC4957500D05893 /* UserEntitie.swift */; };
+		02B1F93B1FC5E575002326CD /* UIViewXRadialGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B1F9311FC5E574002326CD /* UIViewXRadialGradient.swift */; };
+		02B1F93C1FC5E575002326CD /* UITextFieldX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B1F9321FC5E574002326CD /* UITextFieldX.swift */; };
+		02B1F93D1FC5E575002326CD /* UIButtonX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B1F9331FC5E574002326CD /* UIButtonX.swift */; };
+		02B1F93E1FC5E575002326CD /* UILabelX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B1F9341FC5E574002326CD /* UILabelX.swift */; };
+		02B1F93F1FC5E575002326CD /* UIViewAnchorPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B1F9351FC5E574002326CD /* UIViewAnchorPoint.swift */; };
+		02B1F9401FC5E575002326CD /* UIViewControllerX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B1F9361FC5E574002326CD /* UIViewControllerX.swift */; };
+		02B1F9411FC5E575002326CD /* UIImageViewX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B1F9371FC5E574002326CD /* UIImageViewX.swift */; };
+		02B1F9421FC5E575002326CD /* UIViewX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B1F9381FC5E574002326CD /* UIViewX.swift */; };
+		02B1F9431FC5E575002326CD /* UIVisualEffectViewX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B1F9391FC5E574002326CD /* UIVisualEffectViewX.swift */; };
+		02B1F9441FC5E575002326CD /* UISliderX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B1F93A1FC5E574002326CD /* UISliderX.swift */; };
 		02B46A341E52908200CC7511 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B46A331E52908200CC7511 /* NotificationService.swift */; };
 		02B7E7FA1E7C614A0082BAE7 /* settingLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B7E7F91E7C614A0082BAE7 /* settingLauncher.swift */; };
 		02B7E7FC1E7C7A0E0082BAE7 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B7E7FB1E7C7A0E0082BAE7 /* UIView.swift */; };
@@ -133,6 +145,7 @@
 		02C17D291E424F6A00EE7CFA /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C17D281E424F6A00EE7CFA /* Record.swift */; };
 		02C17D2B1E42796700EE7CFA /* recordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C17D2A1E42796700EE7CFA /* recordTableViewCell.swift */; };
 		02C414BF1E95C70A00045459 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C414BE1E95C70A00045459 /* DateFormatter.swift */; };
+		02C64F211FC7A540006C1059 /* EditBtnView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02C64F1F1FC7A540006C1059 /* EditBtnView.xib */; };
 		02C71A4C1F1E99840017BB4C /* FamilyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C71A4B1F1E99840017BB4C /* FamilyList.swift */; };
 		02C71A4E1F1E9CCD0017BB4C /* FamilyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C71A4D1F1E9CCD0017BB4C /* FamilyState.swift */; };
 		02C808801ED76979005BB8B1 /* ConfigurationEventTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C8087F1ED76979005BB8B1 /* ConfigurationEventTableViewController.swift */; };
@@ -160,6 +173,7 @@
 		02F50B251FBF82C500285BEE /* AuthState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F50B241FBF82C500285BEE /* AuthState.swift */; };
 		02F5EDC21ED4B8A600BCDF84 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F5EDC11ED4B8A600BCDF84 /* UIColor.swift */; };
 		02F5EDC41ED4B9F500BCDF84 /* CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F5EDC31ED4B9F500BCDF84 /* CGFloat.swift */; };
+		02F62D721FC659C700CA8A03 /* FamilyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F62D711FC659C700CA8A03 /* FamilyProfileViewController.swift */; };
 		02FA70641E707BAB0080AAEB /* ToastService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FA70631E707BAB0080AAEB /* ToastService.swift */; };
 		02FA70781F1955F00027E8B5 /* TimeLineCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FA70771F1955F00027E8B5 /* TimeLineCellTableViewCell.swift */; };
 		02FA707A1F1957E10027E8B5 /* GoalHistoryByUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FA70791F1957E10027E8B5 /* GoalHistoryByUserViewController.swift */; };
@@ -197,7 +211,6 @@
 		84CCA39B1F1B68EF00B1C9D0 /* FaqsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CCA39A1F1B68EF00B1C9D0 /* FaqsViewController.swift */; };
 		84D51B1D1EA6ACE3006829F7 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D51B1C1EA6ACE3006829F7 /* Section.swift */; };
 		84E9C9B51E92B78E00905A10 /* addCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E9C9B41E92B78E00905A10 /* addCell.swift */; };
-		84E9C9B91E93269100905A10 /* SetPersonalDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E9C9B81E93269100905A10 /* SetPersonalDataViewController.swift */; };
 		84FFCB8F1F01A74C006EDFA1 /* contactTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FFCB8E1F01A74C006EDFA1 /* contactTableViewController.swift */; };
 		84FFCB911F02D533006EDFA1 /* addContactTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FFCB901F02D533006EDFA1 /* addContactTableViewController.swift */; };
 		8B18D7B41F4395C100E2B3F5 /* pendingQuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B18D7B31F4395C100E2B3F5 /* pendingQuestionCell.swift */; };
@@ -301,6 +314,7 @@
 		020A64F81E81A8AF00F473A0 /* menuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = menuBar.swift; sourceTree = "<group>"; };
 		020A64FC1E81EE1A00F473A0 /* chatCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = chatCollectionViewController.swift; sourceTree = "<group>"; };
 		020DA38D1F0C1A9C000BD7E2 /* FamilyReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyReducer.swift; sourceTree = "<group>"; };
+		0214C7E41FC8F44F00CDCA57 /* UserPersonalFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPersonalFormViewController.swift; sourceTree = "<group>"; };
 		0215F4E71E3FBCCD00AC01D3 /* PasswordChangeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PasswordChangeViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		0215F4E91E3FCDD400AC01D3 /* PersonalDataTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalDataTableViewCell.swift; sourceTree = "<group>"; };
 		021DB69C1F4B5F1A00E216BE /* AppRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
@@ -310,7 +324,6 @@
 		021DB6AF1F4BAF7900E216BE /* RequestAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestAction.swift; sourceTree = "<group>"; };
 		022434191F1D41EB0057A0D0 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0226C8E11E3C217D007968BA /* ConfigurationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ConfigurationViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		0226C8E51E3C267B007968BA /* ConfigurationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ConfigurationTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		022CC44C1EF9C3F3009FA79C /* Objectives.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Objectives.storyboard; sourceTree = "<group>"; };
 		022EC1D11E20078C0096A18B /* Family.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Family.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		0233A4F61EFD8A5A00D01F5C /* Goal-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Goal-Extension.swift"; sourceTree = "<group>"; };
@@ -393,9 +406,21 @@
 		02AB00461E1DD0AB0098411C /* RegisterFamilyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterFamilyViewController.swift; sourceTree = "<group>"; };
 		02ABAC3F1E6DE73A003780AB /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		02ABAC411E6E02B5003780AB /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		02AD47E61FC4F1F5009E20E8 /* FamilyS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyS.swift; sourceTree = "<group>"; };
+		02AD47E81FC4F381009E20E8 /* FamilyEntitie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyEntitie.swift; sourceTree = "<group>"; };
 		02AD814C1E4B90B10030B3DD /* SelectedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedTableViewCell.swift; sourceTree = "<group>"; };
 		02AD81511E4B963C0030B3DD /* memberSelectedCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = memberSelectedCollectionViewCell.swift; sourceTree = "<group>"; };
 		02ADE5461FC4957500D05893 /* UserEntitie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntitie.swift; sourceTree = "<group>"; };
+		02B1F9311FC5E574002326CD /* UIViewXRadialGradient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewXRadialGradient.swift; sourceTree = "<group>"; };
+		02B1F9321FC5E574002326CD /* UITextFieldX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextFieldX.swift; sourceTree = "<group>"; };
+		02B1F9331FC5E574002326CD /* UIButtonX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonX.swift; sourceTree = "<group>"; };
+		02B1F9341FC5E574002326CD /* UILabelX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabelX.swift; sourceTree = "<group>"; };
+		02B1F9351FC5E574002326CD /* UIViewAnchorPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewAnchorPoint.swift; sourceTree = "<group>"; };
+		02B1F9361FC5E574002326CD /* UIViewControllerX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerX.swift; sourceTree = "<group>"; };
+		02B1F9371FC5E574002326CD /* UIImageViewX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewX.swift; sourceTree = "<group>"; };
+		02B1F9381FC5E574002326CD /* UIViewX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewX.swift; sourceTree = "<group>"; };
+		02B1F9391FC5E574002326CD /* UIVisualEffectViewX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIVisualEffectViewX.swift; sourceTree = "<group>"; };
+		02B1F93A1FC5E574002326CD /* UISliderX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISliderX.swift; sourceTree = "<group>"; };
 		02B46A321E52281200CC7511 /* familyOffice.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = familyOffice.entitlements; path = familyOffice/familyOffice.entitlements; sourceTree = "<group>"; };
 		02B46A331E52908200CC7511 /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		02B7E7F91E7C614A0082BAE7 /* settingLauncher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = settingLauncher.swift; sourceTree = "<group>"; };
@@ -419,6 +444,7 @@
 		02C17D281E424F6A00EE7CFA /* Record.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
 		02C17D2A1E42796700EE7CFA /* recordTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = recordTableViewCell.swift; sourceTree = "<group>"; };
 		02C414BE1E95C70A00045459 /* DateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		02C64F1F1FC7A540006C1059 /* EditBtnView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditBtnView.xib; sourceTree = "<group>"; };
 		02C71A4B1F1E99840017BB4C /* FamilyList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyList.swift; sourceTree = "<group>"; };
 		02C71A4D1F1E9CCD0017BB4C /* FamilyState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyState.swift; sourceTree = "<group>"; };
 		02C8087F1ED76979005BB8B1 /* ConfigurationEventTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ConfigurationEventTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -448,6 +474,7 @@
 		02F50B241FBF82C500285BEE /* AuthState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthState.swift; sourceTree = "<group>"; };
 		02F5EDC11ED4B8A600BCDF84 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		02F5EDC31ED4B9F500BCDF84 /* CGFloat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGFloat.swift; sourceTree = "<group>"; };
+		02F62D711FC659C700CA8A03 /* FamilyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyProfileViewController.swift; sourceTree = "<group>"; };
 		02FA70631E707BAB0080AAEB /* ToastService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastService.swift; sourceTree = "<group>"; };
 		02FA70771F1955F00027E8B5 /* TimeLineCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLineCellTableViewCell.swift; sourceTree = "<group>"; };
 		02FA70791F1957E10027E8B5 /* GoalHistoryByUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalHistoryByUserViewController.swift; sourceTree = "<group>"; };
@@ -490,7 +517,6 @@
 		84CCA39C1F1B69D600B1C9D0 /* Faqs.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Faqs.storyboard; sourceTree = "<group>"; };
 		84D51B1C1EA6ACE3006829F7 /* Section.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		84E9C9B41E92B78E00905A10 /* addCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addCell.swift; sourceTree = "<group>"; };
-		84E9C9B81E93269100905A10 /* SetPersonalDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetPersonalDataViewController.swift; sourceTree = "<group>"; };
 		84FFCB8C1F0192DB006EDFA1 /* Contacts.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Contacts.storyboard; sourceTree = "<group>"; };
 		84FFCB8E1F01A74C006EDFA1 /* contactTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = contactTableViewController.swift; sourceTree = "<group>"; };
 		84FFCB901F02D533006EDFA1 /* addContactTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addContactTableViewController.swift; sourceTree = "<group>"; };
@@ -647,9 +673,8 @@
 			children = (
 				029059221E78B9EC005F760C /* Cells */,
 				0226C8E11E3C217D007968BA /* ConfigurationViewController.swift */,
-				0226C8E51E3C267B007968BA /* ConfigurationTableViewController.swift */,
 				0215F4E71E3FBCCD00AC01D3 /* PasswordChangeViewController.swift */,
-				84E9C9B81E93269100905A10 /* SetPersonalDataViewController.swift */,
+				0214C7E41FC8F44F00CDCA57 /* UserPersonalFormViewController.swift */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -719,6 +744,8 @@
 		02382F0B1E1C210C0036FFC9 /* familyOffice */ = {
 			isa = PBXGroup;
 			children = (
+				02CB7AAE1FBFA946005408F9 /* Storyboard */,
+				02B1F9301FC5E574002326CD /* DesignableX */,
 				02C8558C1FBE18C9004D7BFB /* Helpers */,
 				02421E2F1FBCCBC500ADDC71 /* GoogleService-Info.plist */,
 				024137161F58DE0700E011F1 /* Delegate */,
@@ -736,7 +763,6 @@
 				02AD814E1E4B92FF0030B3DD /* Extensions */,
 				02F5E35A1E1C322500A9FBFA /* Controllers */,
 				842116791E28124600C6BD80 /* background.mp4 */,
-				02CB7AAE1FBFA946005408F9 /* Storyboard */,
 				02382F181E1C210C0036FFC9 /* Info.plist */,
 			);
 			path = familyOffice;
@@ -787,6 +813,7 @@
 				8B359DDF1F44A51400E6A97A /* SafeBoxService.swift */,
 				02F50B1A1FBF64AF00285BEE /* UserS.swift */,
 				02F50B221FBF797200285BEE /* AuthSvc.swift */,
+				02AD47E61FC4F1F5009E20E8 /* FamilyS.swift */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -801,6 +828,7 @@
 				024104841E6F407F002B8E1C /* Cells */,
 				02EABF561E312AE8008A7CA9 /* FamilyCollectionViewController.swift */,
 				020A30941E2DA4440024B1FB /* FamilyViewController.swift */,
+				02F62D711FC659C700CA8A03 /* FamilyProfileViewController.swift */,
 			);
 			name = Families;
 			sourceTree = "<group>";
@@ -1103,12 +1131,31 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
+		02B1F9301FC5E574002326CD /* DesignableX */ = {
+			isa = PBXGroup;
+			children = (
+				02B1F9311FC5E574002326CD /* UIViewXRadialGradient.swift */,
+				02B1F9321FC5E574002326CD /* UITextFieldX.swift */,
+				02B1F9331FC5E574002326CD /* UIButtonX.swift */,
+				02B1F9341FC5E574002326CD /* UILabelX.swift */,
+				02B1F9351FC5E574002326CD /* UIViewAnchorPoint.swift */,
+				02B1F9361FC5E574002326CD /* UIViewControllerX.swift */,
+				02B1F9371FC5E574002326CD /* UIImageViewX.swift */,
+				02B1F9381FC5E574002326CD /* UIViewX.swift */,
+				02B1F9391FC5E574002326CD /* UIVisualEffectViewX.swift */,
+				02B1F93A1FC5E574002326CD /* UISliderX.swift */,
+			);
+			name = DesignableX;
+			path = ../DesignableX;
+			sourceTree = "<group>";
+		};
 		02B7E7F81E7C5A8F0082BAE7 /* Extra */ = {
 			isa = PBXGroup;
 			children = (
 				02B7E7F91E7C614A0082BAE7 /* settingLauncher.swift */,
 				020A64F81E81A8AF00F473A0 /* menuBar.swift */,
 				0249F62B1F58818700CDBE7E /* DesignableTextField.swift */,
+				02C64F1F1FC7A540006C1059 /* EditBtnView.xib */,
 			);
 			name = Extra;
 			sourceTree = "<group>";
@@ -1158,6 +1205,7 @@
 			children = (
 				022EC1D11E20078C0096A18B /* Family.swift */,
 				02C71A4B1F1E99840017BB4C /* FamilyList.swift */,
+				02AD47E81FC4F381009E20E8 /* FamilyEntitie.swift */,
 			);
 			name = Family;
 			sourceTree = "<group>";
@@ -1743,6 +1791,7 @@
 				02954C571FBA77380057F809 /* Families.storyboard in Resources */,
 				02954C581FBA77380057F809 /* Settings.storyboard in Resources */,
 				02421E301FBCCBC500ADDC71 /* GoogleService-Info.plist in Resources */,
+				02C64F211FC7A540006C1059 /* EditBtnView.xib in Resources */,
 				02954C591FBA77380057F809 /* Health.storyboard in Resources */,
 				02954C5A1FBA77380057F809 /* ToDoList.storyboard in Resources */,
 				02954C5B1FBA77380057F809 /* LaunchScreen.storyboard in Resources */,
@@ -1781,6 +1830,7 @@
 				"${BUILT_PRODUCTS_DIR}/Cache/Cache.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/DKImagePickerController/DKImagePickerController.framework",
+				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
 				"${BUILT_PRODUCTS_DIR}/FSCalendar/FSCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
@@ -1810,6 +1860,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DKImagePickerController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FSCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
@@ -1986,7 +2037,6 @@
 				02C17D2B1E42796700EE7CFA /* recordTableViewCell.swift in Sources */,
 				940964161F280C2600FB1F3A /* faqService.swift in Sources */,
 				04AFE38F1F05A0F500D4ECA2 /* AddAlbumViewController.swift in Sources */,
-				84E9C9B91E93269100905A10 /* SetPersonalDataViewController.swift in Sources */,
 				94FF534F1F17E4F2001D9EE4 /* ToDoListService.swift in Sources */,
 				0266454C1EFC50920034D434 /* RequestStorageSvc.swift in Sources */,
 				8450EFC61E64A1E500A51C09 /* AlertService.swift in Sources */,
@@ -2010,11 +2060,13 @@
 				A48FD6DD1F143D2200832559 /* Budget.swift in Sources */,
 				02E33A641EBA71D0003BF787 /* ShowEventViewController.swift in Sources */,
 				02C06B431F3245F400FFF52B /* (null) in Sources */,
+				02AD47E91FC4F381009E20E8 /* FamilyEntitie.swift in Sources */,
 				042693011F1448EB004356D6 /* ImageAlbumService.swift in Sources */,
 				02B46A341E52908200CC7511 /* NotificationService.swift in Sources */,
 				940964261F296E1A00FB1F3A /* CQuestionCell.swift in Sources */,
 				941B59F41F211C730078EF9C /* MedicineReducer.swift in Sources */,
 				A46316B21E78C69E00E3F72C /* Health.swift in Sources */,
+				02B1F93B1FC5E575002326CD /* UIViewXRadialGradient.swift in Sources */,
 				941B59FF1F214A4E0078EF9C /* IllnessesListViewController.swift in Sources */,
 				021DB6AA1F4B788500E216BE /* RoutingAction.swift in Sources */,
 				941B5A011F2178470078EF9C /* IllnessService.swift in Sources */,
@@ -2034,6 +2086,7 @@
 				02B7E7FC1E7C7A0E0082BAE7 /* UIView.swift in Sources */,
 				029CD0651F1327BD00A29CBA /* FamilySvc.swift in Sources */,
 				026AF37E1F071F6400EF6DCD /* GoalMiddleware.swift in Sources */,
+				02B1F9401FC5E575002326CD /* UIViewControllerX.swift in Sources */,
 				94FF53671F17E58E001D9EE4 /* ItemDetailViewController.swift in Sources */,
 				8471A2521E2D8C5100EC9FD7 /* ConfigProfile.swift in Sources */,
 				8B2D85211F43CB4C007D18BE /* FileCollectionViewCell.swift in Sources */,
@@ -2068,7 +2121,6 @@
 				02BC16F31EE9D85B00722689 /* LocationSearchTable.swift in Sources */,
 				02AD81521E4B963C0030B3DD /* memberSelectedCollectionViewCell.swift in Sources */,
 				9409641E1F28233300FB1F3A /* FAQSectionCell.swift in Sources */,
-				0226C8E61E3C267B007968BA /* ConfigurationTableViewController.swift in Sources */,
 				020A64FD1E81EE1A00F473A0 /* chatCollectionViewController.swift in Sources */,
 				941B59FD1F213D1C0078EF9C /* FirstAidKitListViewController.swift in Sources */,
 				02441DA21F16FFF600EA8202 /* GoalDataForCategoryTableViewCell.swift in Sources */,
@@ -2092,6 +2144,7 @@
 				94FF535B1F17E54E001D9EE4 /* ToDoListReducer.swift in Sources */,
 				8B18D7B41F4395C100E2B3F5 /* pendingQuestionCell.swift in Sources */,
 				02F15BB71E85ECE2008C26F8 /* chatModel.swift in Sources */,
+				02B1F93F1FC5E575002326CD /* UIViewAnchorPoint.swift in Sources */,
 				02BC16F11EE9D80700722689 /* MapViewController.swift in Sources */,
 				94FF53561F17E52B001D9EE4 /* ToDoItemCell.swift in Sources */,
 				02CE93261F1FDADB00D3B96E /* ContactsViewController.swift in Sources */,
@@ -2103,6 +2156,7 @@
 				A44F5BE71F1D421100B840F3 /* LineChartViewController.swift in Sources */,
 				94FF53511F17E4FF001D9EE4 /* ToDoList.swift in Sources */,
 				949B52091F202B10001C7ABA /* MedicineService.swift in Sources */,
+				02B1F93C1FC5E575002326CD /* UITextFieldX.swift in Sources */,
 				02002BFE1E8208C2007191CC /* sectionChatCollectionViewController.swift in Sources */,
 				02002BF91E820631007191CC /* MemberTableViewCell.swift in Sources */,
 				949B52071F202323001C7ABA /* Medicine.swift in Sources */,
@@ -2117,6 +2171,7 @@
 				026AF3781F06F0FC00EF6DCD /* GoalReducer.swift in Sources */,
 				02099EB21F59F6D6004CA889 /* memberEventTableViewCell.swift in Sources */,
 				8452F5AB1E5F4F550064A964 /* ModuleCollectionViewCell.swift in Sources */,
+				02B1F93E1FC5E575002326CD /* UILabelX.swift in Sources */,
 				940964221F28242400FB1F3A /* QuestionCell.swift in Sources */,
 				029B7A471EDE3515006868A7 /* MembersTableViewController.swift in Sources */,
 				02CB7AAD1FBFA7F8005408F9 /* RealmManager.swift in Sources */,
@@ -2147,6 +2202,7 @@
 				8B2D85231F43D492007D18BE /* safeBoxFile.swift in Sources */,
 				02ABAC401E6DE73A003780AB /* UIImage.swift in Sources */,
 				02441D9E1F16BF4200EA8202 /* GoalSectionTableViewCell.swift in Sources */,
+				02B1F9411FC5E575002326CD /* UIImageViewX.swift in Sources */,
 				04475B541F0ED55500F257EA /* GalleryActions.swift in Sources */,
 				02AD814D1E4B90B10030B3DD /* SelectedTableViewCell.swift in Sources */,
 				02668FAF1F12B6B80052617E /* UserActions.swift in Sources */,
@@ -2159,12 +2215,14 @@
 				02A4375E1F183F74003F10A1 /* repeatGoalModel.swift in Sources */,
 				02BD2D171E1F0D8B00A61A84 /* HomeViewController.swift in Sources */,
 				0233A4F71EFD8A5A00D01F5C /* Goal-Extension.swift in Sources */,
+				02F62D721FC659C700CA8A03 /* FamilyProfileViewController.swift in Sources */,
 				940964281F296E2D00FB1F3A /* CResponseCell.swift in Sources */,
 				940964241F292B0800FB1F3A /* AddQuestionViewController.swift in Sources */,
 				A44F5BE91F1D42D300B840F3 /* BudgetTabBarController.swift in Sources */,
 				02CB7AAB1FBFA7AD005408F9 /* RealmMiddleware.swift in Sources */,
 				02C71A4E1F1E9CCD0017BB4C /* FamilyState.swift in Sources */,
 				04BDB2851F19A2F6006D3A62 /* AppReducer.swift in Sources */,
+				02AD47E71FC4F1F5009E20E8 /* FamilyS.swift in Sources */,
 				029CD0631F131EBC00A29CBA /* UserReducer.swift in Sources */,
 				94C110C31F267C3C00ABBA8B /* newIllnessViewController.swift in Sources */,
 				02C808801ED76979005BB8B1 /* ConfigurationEventTableViewController.swift in Sources */,
@@ -2177,8 +2235,10 @@
 				0215F4EA1E3FCDD400AC01D3 /* PersonalDataTableViewCell.swift in Sources */,
 				8B56FB771F462FFC002EF8EC /* PDFViewController.swift in Sources */,
 				027CC9C11F29390A005A48A6 /* MainTabBarController.swift in Sources */,
+				0214C7E51FC8F44F00CDCA57 /* UserPersonalFormViewController.swift in Sources */,
 				0226C8E21E3C217D007968BA /* ConfigurationViewController.swift in Sources */,
 				02F50B211FBF6F2D00285BEE /* RequestProtocol.swift in Sources */,
+				02B1F9441FC5E575002326CD /* UISliderX.swift in Sources */,
 				021DB6AC1F4B79AE00E216BE /* RoutingReducer.swift in Sources */,
 				0233A4F91EFDA33600D01F5C /* GoalService.swift in Sources */,
 				02382F0D1E1C210C0036FFC9 /* AppDelegate.swift in Sources */,
@@ -2192,6 +2252,7 @@
 				849C81C71E1D6D2F00FF3EE7 /* StartViewController.swift in Sources */,
 				A46D01781F31585F00071E16 /* GalleryLayout.swift in Sources */,
 				A48DDA1F1F1541D90059D982 /* BudgetViewController.swift in Sources */,
+				02B1F9431FC5E575002326CD /* UIVisualEffectViewX.swift in Sources */,
 				0249F3361E43C1E6000872CD /* StorageService.swift in Sources */,
 				029CD0611F13172C00A29CBA /* UserSvc.swift in Sources */,
 				028E20FF1EC0F1D1004D83B0 /* UILabel.swift in Sources */,
@@ -2204,10 +2265,12 @@
 				8BE66E261F50902D003AC45C /* MoveFileViewController.swift in Sources */,
 				946401B71F227A8700A8840E /* NewMedicineViewController.swift in Sources */,
 				021DB69D1F4B5F1A00E216BE /* AppRouter.swift in Sources */,
+				02B1F9421FC5E575002326CD /* UIViewX.swift in Sources */,
 				9409641C1F28184200FB1F3A /* FaqReducer.swift in Sources */,
 				84C721231ED7697200381FB7 /* AddViewController.swift in Sources */,
 				848130161E85ECAD008B08B8 /* Styles.swift in Sources */,
 				02EABF591E312B67008A7CA9 /* FamilyCollectionViewCell.swift in Sources */,
+				02B1F93D1FC5E575002326CD /* UIButtonX.swift in Sources */,
 				026B72BA1F33A3F8000DBAD0 /* CustomRepeatTableViewController.swift in Sources */,
 				02C71A4C1F1E99840017BB4C /* FamilyList.swift in Sources */,
 				8421167C1E2860C000C6BD80 /* textFieldStyleController.swift in Sources */,

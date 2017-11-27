@@ -8,11 +8,11 @@
 
 import UIKit
 
-class FamilyMemberTableViewCell: UITableViewCell, UserModelBindable {
-    var userModel: User?
+class FamilyMemberTableViewCell: UITableViewCell, UserEModelBindable {
+    var userModel: UserEntitie!
     var filter: String!
     @IBOutlet weak var adminlabel: UILabel!
-    @IBOutlet weak var profileImage: CustomUIImageView!
+    @IBOutlet weak var profileImage: UIImageViewX!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var phoneLbl: UILabel!
     
@@ -21,7 +21,7 @@ class FamilyMemberTableViewCell: UITableViewCell, UserModelBindable {
         // Initialization code
         self.profileImage.image = #imageLiteral(resourceName: "profile_default")
     
-        self.profileImage.profileUser()
+        self.profileImage.formatView()
         self.profileImage.startAnimating()
     }
 

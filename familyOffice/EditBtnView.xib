@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="70" height="40"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Editar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pfw-tN-UIp">
+                    <rect key="frame" x="28" y="10" width="35.5" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="edit" translatesAutoresizingMaskIntoConstraints="NO" id="nvN-d8-M8e" customClass="UIImageViewX" customModule="familyOffice" customModuleProvider="target">
+                    <rect key="frame" x="4" y="10" width="20" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="20" id="kH0-iG-1re"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="maskColor">
+                            <color key="value" red="0.0" green="0.56904578210000001" blue="0.57461684940000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="0.33333333329999998" alpha="0.79200556506849318" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="nvN-d8-M8e" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="L9d-ho-Yas"/>
+                <constraint firstItem="nvN-d8-M8e" firstAttribute="centerY" secondItem="pfw-tN-UIp" secondAttribute="centerY" id="ioO-0g-dP8"/>
+                <constraint firstItem="nvN-d8-M8e" firstAttribute="top" secondItem="pfw-tN-UIp" secondAttribute="top" id="oDC-zh-sme"/>
+                <constraint firstItem="nvN-d8-M8e" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="10" id="oDj-aM-UEp"/>
+                <constraint firstItem="nvN-d8-M8e" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="4" id="rcj-Dr-cG0"/>
+                <constraint firstItem="pfw-tN-UIp" firstAttribute="leading" secondItem="nvN-d8-M8e" secondAttribute="trailing" constant="4" id="wIg-Pl-ZRO"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="edit" width="12" height="12"/>
+    </resources>
+</document>

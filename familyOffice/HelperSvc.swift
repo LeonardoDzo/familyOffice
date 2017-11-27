@@ -20,13 +20,23 @@ var userStore = {
 func verifyUser( closure: @escaping (_ user: User, _ exist: Bool)->()) {
     DispatchQueue.main.async {
         if let user = store.state.UserState.getUser() {
-            userStore = store.state.UserState.getUser()
             closure(user, true)
         }else{
             closure(User(), false)
         }
     }
 }
+
+func getUser( closure: @escaping (_ user: UserEntitie?)->()) {
+    DispatchQueue.main.async {
+        if let user = rManager.realm.object(ofType: UserEntitie.self, forPrimaryKey: Auth.auth().currentUser?.uid) {
+            closure(user)
+        }else{
+            closure(nil)
+        }
+    }
+}
+
 func isAuth()  {
     var view = false
     Auth.auth().addStateDidChangeListener { auth, user in
@@ -35,6 +45,7 @@ func isAuth()  {
             checkUserAgainstDatabase(completion: {(success, error ) in
                 if success {
                     if !view {
+                        rManager.deleteDatabase()
                         store.dispatch(UserS(.getbyId(uid: (user?.uid)!)))
                         view = !view
                     }
@@ -58,5 +69,91 @@ func checkUserAgainstDatabase(completion: @escaping (_ success: Bool, _ error: N
             completion(true, nil)
         }
     }
+}
+let sharedMains = MainFunctions.sharedInstance
+class MainFunctions : RequestProtocol {
+    var handles = [(String, UInt, DataEventType)]()
+    
+    static let sharedInstance = MainFunctions()
+    
+    private init(){
+    }
+    func initObserves(ref: String, actions: [DataEventType]) -> Void {
+        for action in actions {
+            if !handles.contains(where: { $0.0 == ref && $0.2 == action} ){
+                self.child_action(ref: ref, action: action)
+            }
+        }
+    }
+
+    func added(snapshot: DataSnapshot) {
+        let route = snapshot.ref.description().components(separatedBy: "/")
+        switch route[3] {
+            case "users":
+                switch route[5]{
+                    case "families":
+                        store.dispatch(FamilyS(.getbyId(fid: route[6])))
+                        break
+                    case "events":
+                        break
+                    default:
+                        break
+                }
+            break
+            default:
+                break
+        }
+    }
+    
+    func updated(snapshot: DataSnapshot, id: Any) {
+        let route  = snapshot.ref.description().components(separatedBy: "/")
+        switch route[3] {
+        case "users":
+            let id = snapshot.ref.description().components(separatedBy: "/")[4]
+            if var val = rManager.realm.object(ofType: UserEntitie.self, forPrimaryKey: id)?.toJSON() {
+                    val[route[5]] = snapshot.value ?? ""
+                    let user : NSDictionary = val as NSDictionary
+                    if  let data = user.jsonToData() {
+                        do {
+                            let editUser = try JSONDecoder().decode(UserEntitie.self, from: data)
+                            rManager.save(objs: editUser)
+                            store.state.UserState.user = .finished
+                        }catch let error {
+                            print(error)
+                        }
+                    }
+                
+            }
+            break
+        default:
+            break
+        }
+        
+    }
+    
+    func removed(snapshot: DataSnapshot) {
+        let route = snapshot.ref.description().components(separatedBy: "/")
+        switch route[4] {
+        case "users":
+            switch route[5]{
+            case "families":
+                store.dispatch(FamilyS(.delete(fid: route[6])))
+                break
+            case "events":
+                break
+            default:
+                break
+            }
+            break
+        default:
+            break
+        }
+    }
+    
+    func notExistSnapshot() {
+        
+    }
+    
+    
 }
 

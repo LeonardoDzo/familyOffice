@@ -12,7 +12,7 @@ import FirebaseAuth
 
 class ActivityLogService {
     public var activityLog : [Record] = []
-    public var sec : [Section] = []
+    public var sec : [Section_Record] = []
     var handle: UInt!
     private init() {
     }
@@ -31,7 +31,7 @@ class ActivityLogService {
     }
     func add(record: Record) -> Void {
         if !self.sec.contains(where: {$0.date == Date(timeIntervalSince1970: abs(record.timestamp)).monthYearLabel}){
-            sec.append(Section(date: Date(timeIntervalSince1970: abs(record.timestamp)).monthYearLabel, record: [record]))
+            sec.append(Section_Record(date: Date(timeIntervalSince1970: abs(record.timestamp)).monthYearLabel, record: [record]))
         }else{
             if !self.sec.contains(where: {$0.record.contains(where: {$0.id == record.id}) }) {
                 sec[sec.count-1].record.append(record)

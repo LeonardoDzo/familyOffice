@@ -96,4 +96,13 @@ extension RequestProtocol {
         }
         self.handles.removeAll()
     }
+    func removeHandles(ref: String) {
+        let handlesFiltered =  self.handles.filter { (key,_,_) -> Bool in
+            return key == ref
+        }
+        handlesFiltered.enumerated().forEach { (index, handle) in
+            Constants.FirDatabase.REF.child(handle.0).removeObserver(withHandle: handle.1)
+            self.handles.remove(at: index)
+        }
+    }
 }

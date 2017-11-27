@@ -175,4 +175,63 @@ extension FamilyBindable{
         }
     }
 }
+protocol FamilyEBindable: AnyObject {
+    var family: FamilyEntitie! {get set}
+    var titleLbl: UIKit.UILabel! {get}
+    var Image: CustomUIImageView! {get}
+    var check: UIImageView! { get }
+    var nameTxt: textFieldStyleController! {get}
+}
+extension FamilyEBindable{
+    var titleLbl: UIKit.UILabel!{
+        return nil
+    }
+    var Image: CustomUIImageView!{
+        return nil
+    }
+    var check: UIKit.UIImageView!{
+        return nil
+    }
+    var nameTxt: textFieldStyleController! {
+        return nil
+    }
+    //Bind Ninja
+    func bind(fam: FamilyEntitie){
+        self.family = fam
+        bind()
+    }
+    func bind() {
+        guard let family = self.family else{
+            return
+        }
+        if let titleLabel = self.titleLbl{
+           
+            titleLabel.text = (family.name.isEmpty) ? "Sin título" : family.name
+        }
+        if let nameTxt = self.nameTxt{
+            
+            nameTxt.text = (family.name.isEmpty) ? "" : family.name
+            
+        }
+        if let imageBackground = self.Image{
+            if(!(family.photoURL.isEmpty)){
+                    imageBackground.loadImage(urlString: family.photoURL)
+                }else{
+                    imageBackground.image = #imageLiteral(resourceName: "familyImage")
+                }
+            imageBackground.formatView()
+            imageBackground.contentMode = .scaleAspectFit
+            
+        }
+        if let check = self.check{
+            if family.id == userStore?.familyActive {
+                check.isHidden = false
+            }else{
+                check.isHidden = true
+            }
+        }
+    }
+}
+
+
 

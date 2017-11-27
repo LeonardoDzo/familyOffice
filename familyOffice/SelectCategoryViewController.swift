@@ -10,10 +10,12 @@ import UIKit
 import ReSwift
 import RealmSwift
 import Firebase
+
 class SelectCategoryViewController: UIViewController {
     var user: UserEntitie!
     var imageSelect : UIImage!
-    var families = [Family]()
+    var families : Results<FamilyEntitie>!
+    var create = false
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var image: CustomUIImageView!
@@ -25,6 +27,7 @@ class SelectCategoryViewController: UIViewController {
     var localeChangeObserver :[NSObjectProtocol] = []
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         user = rManager.realm.object(ofType: UserEntitie.self, forPrimaryKey: Auth.auth().currentUser?.uid)
         style_1()
         let logOutButton = UIBarButtonItem(title: "Log out", style: .plain, target: self, action: #selector(self.logout))
@@ -34,7 +37,8 @@ class SelectCategoryViewController: UIViewController {
         categoriasView.formatView()
         empresarialView.formatView()
         socialView.formatView()
-        
+   
+     
     }
     
     @IBAction func handlePressSocial(_ sender: UIButton) {
@@ -74,12 +78,13 @@ class SelectCategoryViewController: UIViewController {
         }
         self.name.text = user?.name
         self.image.profileUser()
+        self.familiesCollection.reloadData()
     }
     override func viewDidAppear(_ animated: Bool) {
         if defaults.value(forKey: "notification") != nil {
-            self.pushToView(view: .registerFamily)
             defaults.removeObject(forKey: "notification")
         }
+        
     }
     
     @IBAction func handleBussiness(_ sender: UIButton) {
@@ -90,15 +95,6 @@ class SelectCategoryViewController: UIViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if segue.identifier == "registerFamilySegue" {
-            let vc = segue.destination as! RegisterFamilyViewController
-            let family = Family()
-            vc.bind(fam: family)
-        }
-    }
-    
     @objc func logout(){
         let action = AuthSvc()
         action.action = .logout
@@ -112,18 +108,25 @@ extension SelectCategoryViewController : StoreSubscriber {
     typealias StoreSubscriberStateType = AppState
     
     func newState(state: AppState) {
-       
-        if user != nil {
-            loadImage()
-            verifyFamilies(state: state.FamilyState)
-        }
-    }
-    func verifyFamilies(state: FamilyState) -> Void {
-        if families.count != state.families.items.count {
-            families = state.families.items
-            addFamily(family: families.last!)
-        }else{
+        loadImage()
+        switch state.FamilyState.status {
+        case .finished:
+            families = rManager.realm.objects(FamilyEntitie.self)
             self.familiesCollection.reloadData()
+            break
+        case .Finished(let s as FamilyAction):
+            if case let .insert(f) = s {
+                self.pushToView(view: .profileFamily, sender: f)
+            }
+            break
+        case .none:
+            self.user.families.forEach({ (key) in
+                store.dispatch(FamilyS(.getbyId(fid: key.value)))
+            })
+            break
+        default:
+            break
         }
     }
+    
 }

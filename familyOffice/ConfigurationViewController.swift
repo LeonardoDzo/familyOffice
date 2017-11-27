@@ -12,7 +12,7 @@ import ALCameraViewController
 import ReSwift
 class ConfigurationViewController: UIViewController, UIImagePickerControllerDelegate,
 UINavigationControllerDelegate  {
-    var user: User!
+    var user: UserEntitie!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var containerView: UIView!
     let picker = UIImagePickerController()
@@ -20,20 +20,22 @@ UINavigationControllerDelegate  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        user = rManager.realm.object(ofType: UserEntitie.self, forPrimaryKey: Auth.auth().currentUser?.uid)
         self.profileImage.layer.cornerRadius = self.profileImage.frame.size.width/2
         self.profileImage.clipsToBounds = true
         picker.delegate = self
         style_1()
         self.containerView.formatView()
         self.profileImage.profileUser()
+        profileImage.loadImage(urlString: user.photoURL)
     }
     override func viewWillAppear(_ animated: Bool) {
-        verifyUser { (user, exist) in
-            if exist {
+        getUser(closure: { (user) in
+            if user != nil {
                 self.user = user
             }
-        }
-        profileImage.loadImage(urlString: user.photoURL)
+        })
+       
         store.subscribe(self) {
             $0.select({
                 s in
@@ -67,12 +69,12 @@ UINavigationControllerDelegate  {
         actionSheet.addAction(UIAlertAction(title: "Camara", style: .default, handler: { (action: UIAlertAction) in
             let croppingEnabled = true
             let cameraViewController = CameraViewController(croppingParameters: CroppingParameters(isEnabled: croppingEnabled, allowResizing: true, allowMoving: true)) { [weak self] image, asset in
-                
-                guard let img = image else {
+   
+                guard image != nil else {
                     self?.dismiss(animated: true, completion: nil)
                     return
                 }
-                store.dispatch( UserS(.update(user: (self?.user)!, img: img)))
+                store.dispatch( UserS(.update(user: (self?.user)!, img: image)))
                 self?.dismiss(animated: true, completion: nil)
             }
             
@@ -85,11 +87,11 @@ UINavigationControllerDelegate  {
             
             /// Provides an image picker wrapped inside a UINavigationController instance
             let imagePickerViewController = CameraViewController.imagePickerViewController(croppingParameters: CroppingParameters(isEnabled: croppingEnabled, allowResizing: true, allowMoving: true)) { [weak self] image, asset in
-                guard let img = image else {
+                guard image != nil else {
                     self?.dismiss(animated: true, completion: nil)
                     return
                 }
-                store.dispatch(UserS(.update(user: (self?.user)!, img: img)))
+                store.dispatch( UserS(.update(user: (self?.user)!, img: image)))
                 self?.dismiss(animated: true, completion: nil)
             }
             
@@ -125,16 +127,15 @@ extension ConfigurationViewController : StoreSubscriber {
     typealias StoreSubscriberStateType = UserState
     
     func newState(state: UserState) {
-        user = store.state.UserState.getUser()
         self.view.hideToastActivity()
         switch state.user {
         case .loading:
             self.view.makeToastActivity(.center)
             break
-        case .finished:
+        case .Finished(_ as UserAction):
             profileImage.loadImage(urlString: user.photoURL)
             break
-        case .failed:
+        case .Failed(_ as UserAction):
             self.view.makeToast("Algo salio mal", duration: 3.0, position: .center)
             break
         default:

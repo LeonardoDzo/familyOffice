@@ -105,7 +105,7 @@ extension ContactsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let user = users[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! FamilyMemberTableViewCell
-        cell.bind(userModel: user)
+   
         if selected.contains(where: {$0.id == user.id}) {
             cell.accessoryType = .checkmark
         }else{

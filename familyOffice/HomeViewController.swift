@@ -15,14 +15,10 @@ class HomeViewController: UIViewController,UIGestureRecognizerDelegate {
     
     let icons = ["chat", "calendar", "objetives", "gallery","safeBox", "contacts", "firstaid","property", "health","seguro-purple", "presupuesto", "todolist", "faqs"]
     let labels = ["Chat", "Calendario", "Objetivos", "Galería", "Caja Fuerte", "Contactos","Botiquín","Inmuebles", "Salud", "Seguros", "Presupuesto", "Lista de Tareas","FAQs"]
-
     
     
-    private var family : Family?
-    
-    var user = store.state.UserState.user
-    var families = [Family]()
-    
+    private var family : FamilyEntitie!
+    private var user : UserEntitie!
     
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
@@ -126,12 +122,13 @@ extension HomeViewController : UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func reloadFamily() -> Void {
-        verifyUser { (user, exist) in
-            if let index = self.families.index(where: {$0.id == user.familyActive}) {
-                let family = self.families[index]
-                self.navigationItem.title = family.name
-            }
+        
+        if let family = rManager.realm.object(ofType: FamilyEntitie.self, forPrimaryKey: user?.familyActive ?? "") {
+            self.navigationItem.title = family.name
+        }else{
+             self.handleBack()
         }
+        
     }
     
 }
@@ -203,10 +200,8 @@ extension HomeViewController : StoreSubscriber {
     typealias StoreSubscriberStateType = FamilyState
     
     func newState(state: FamilyState) {
-        user = store.state.UserState.user
-        
-        families = state.families.items
-        if families.count == 0 {
+        user = rManager.realm.object(ofType: UserEntitie.self, forPrimaryKey: Auth.auth().currentUser?.uid)
+        if user == nil{
             self.handleBack()
         }
         reloadFamily()
