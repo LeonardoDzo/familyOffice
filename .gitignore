@@ -13,6 +13,7 @@
 *.m
 
 Pods/
+Pods/
 
 *.md
 .idea/

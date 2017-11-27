@@ -36,7 +36,7 @@ class SettingLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectio
             window.addSubview(blackView)
             window.addSubview(collectionView)
             
-            let height : CGFloat = CGFloat(store.state.FamilyState.families.items.count * 80)
+            let height : CGFloat = CGFloat(families.count * 80)
             let y = window.frame.height - height
             collectionView.frame = CGRect(x: 0, y: y, width: window.frame.width, height: height)
             
@@ -79,7 +79,6 @@ class SettingLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectio
             cell.isHighlighted = false
         }
         cell.nameLabel.text = family.name
-        
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -144,10 +143,11 @@ class familySettingCell: BaseCell {
         return label
     }()
     
-    lazy var image: CustomUIImageView = {
-        let image = CustomUIImageView()
+    lazy var image: UIImageViewX = {
+        let image = UIImageViewX()
         image.image = #imageLiteral(resourceName: "familyImage")
-        image.circleImage()
+        image.clipsToBounds = true
+        image.cornerRadius = 8
         return image
     }()
     override func awakeFromNib() {
@@ -163,7 +163,8 @@ class familySettingCell: BaseCell {
         addContraintWithFormat(format: "H:|-8-[v0(60)]-8-[v1]|", views: image, nameLabel)
         addContraintWithFormat(format: "V:|[v0]|", views: nameLabel)
         addContraintWithFormat(format: "V:[v0(60)]", views: image)
-        awakeFromNib()
         addConstraint(NSLayoutConstraint(item: image, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
+        image.clipsToBounds = true
+        image.cornerRadius = 8
     }
 }

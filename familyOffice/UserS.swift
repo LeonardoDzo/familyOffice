@@ -186,10 +186,10 @@ extension UserS : Reducer {
     
     func handleAction(state: UserState?) -> UserState {
         var state = state ?? UserState(users: .none, user: .none)
-      
+        state.user = self.status
         switch status {
         case .loading:
-              state.user = self.status
+           
             switch self.action {
                 
             case .getbyId(let uid):
