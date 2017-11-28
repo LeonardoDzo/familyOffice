@@ -18,8 +18,7 @@ class UserPersonalFormViewController: FormViewController {
         user = rManager.realm.object(ofType: UserEntitie.self, forPrimaryKey: Auth.auth().currentUser?.uid)
         let addbtn = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.update))
         self.navigationItem.rightBarButtonItem = addbtn
-        
-        
+   
         
         form +++ Section("Información Básica")
             

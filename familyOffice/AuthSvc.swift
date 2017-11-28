@@ -37,9 +37,6 @@ enum AuthAction: description  {
     init(){
         self = .none
     }
-    
-    
-    
 }
 
 class AuthSvc : Action, EventProtocol {

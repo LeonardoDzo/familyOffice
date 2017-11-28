@@ -9,6 +9,7 @@
 import Foundation
 import RealmSwift
 import Firebase
+
 @objcMembers
 class RealmString: Object {
     dynamic var value = ""

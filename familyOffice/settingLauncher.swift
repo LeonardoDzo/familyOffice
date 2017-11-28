@@ -105,8 +105,6 @@ class SettingLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectio
         collectionView.register(familySettingCell.self, forCellWithReuseIdentifier: "cellId")
         collectionView.dataSource = self
         collectionView.delegate = self
-        
-        
     }
     
 }

@@ -28,8 +28,9 @@ enum RoutingDestination: String {
          profileFamily = "FamilyProfileViewController",
          families = "FamilyCollectionViewController",
          contacts = "ContactsViewController",
-         addEvent = "addEventTableViewController",
+         addEvent = "EventViewController",
          personalData = "SetPersonalDataViewController"
+    
     case none = ""
 }
 extension RoutingDestination {

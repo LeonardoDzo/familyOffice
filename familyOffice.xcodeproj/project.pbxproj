@@ -53,6 +53,7 @@
 		025A89961E7A04AF0032C3C0 /* FamiliesPreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025A89951E7A04AF0032C3C0 /* FamiliesPreCollectionViewCell.swift */; };
 		025A89981E7A06000032C3C0 /* familyCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025A89971E7A06000032C3C0 /* familyCollection.swift */; };
 		025C70FE1E38229D004A4A5B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025C70FD1E38229D004A4A5B /* Constants.swift */; };
+		025D97AC1FCDE30B00F1D8FB /* UsersCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025D97AB1FCDE30B00F1D8FB /* UsersCustomCell.swift */; };
 		0266454C1EFC50920034D434 /* RequestStorageSvc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0266454B1EFC50920034D434 /* RequestStorageSvc.swift */; };
 		0266454E1EFC86DD0034D434 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0266454D1EFC86DD0034D434 /* Goal.swift */; };
 		02668FAB1F12B5FF0052617E /* UserState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02668FAA1F12B5FF0052617E /* UserState.swift */; };
@@ -62,6 +63,8 @@
 		026AF3781F06F0FC00EF6DCD /* GoalReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026AF3771F06F0FC00EF6DCD /* GoalReducer.swift */; };
 		026AF37E1F071F6400EF6DCD /* GoalMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026AF37D1F071F6400EF6DCD /* GoalMiddleware.swift */; };
 		026B72BA1F33A3F8000DBAD0 /* CustomRepeatTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026B72B91F33A3F8000DBAD0 /* CustomRepeatTableViewController.swift */; };
+		026F29AE1FCCD5EC0098C0AE /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026F29AD1FCCD5EC0098C0AE /* EventViewController.swift */; };
+		026F29B11FCCD91E0098C0AE /* CustomCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026F29B01FCCD91E0098C0AE /* CustomCells.swift */; };
 		0271DD4F1E2EB1FB002C101B /* FamilyMemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0271DD4E1E2EB1FB002C101B /* FamilyMemberTableViewCell.swift */; };
 		0272139F1E84478F001A144B /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0272139E1E84478F001A144B /* CalendarViewController.swift */; };
 		027213AB1E84865F001A144B /* testFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027213AA1E84865F001A144B /* testFile.swift */; };
@@ -360,6 +363,7 @@
 		025A89951E7A04AF0032C3C0 /* FamiliesPreCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamiliesPreCollectionViewCell.swift; sourceTree = "<group>"; };
 		025A89971E7A06000032C3C0 /* familyCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = familyCollection.swift; sourceTree = "<group>"; };
 		025C70FD1E38229D004A4A5B /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Constants.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		025D97AB1FCDE30B00F1D8FB /* UsersCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersCustomCell.swift; sourceTree = "<group>"; };
 		0266454B1EFC50920034D434 /* RequestStorageSvc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestStorageSvc.swift; sourceTree = "<group>"; };
 		0266454D1EFC86DD0034D434 /* Goal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
 		02668FAA1F12B5FF0052617E /* UserState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserState.swift; sourceTree = "<group>"; };
@@ -369,6 +373,8 @@
 		026AF3771F06F0FC00EF6DCD /* GoalReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalReducer.swift; sourceTree = "<group>"; };
 		026AF37D1F071F6400EF6DCD /* GoalMiddleware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalMiddleware.swift; sourceTree = "<group>"; };
 		026B72B91F33A3F8000DBAD0 /* CustomRepeatTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomRepeatTableViewController.swift; sourceTree = "<group>"; };
+		026F29AD1FCCD5EC0098C0AE /* EventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
+		026F29B01FCCD91E0098C0AE /* CustomCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCells.swift; sourceTree = "<group>"; };
 		0271DD4E1E2EB1FB002C101B /* FamilyMemberTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberTableViewCell.swift; sourceTree = "<group>"; };
 		0272139E1E84478F001A144B /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CalendarViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		027213A81E848509001A144B /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Event.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -957,6 +963,7 @@
 				0272139E1E84478F001A144B /* CalendarViewController.swift */,
 				02E33A631EBA71D0003BF787 /* ShowEventViewController.swift */,
 				02C8087F1ED76979005BB8B1 /* ConfigurationEventTableViewController.swift */,
+				026F29AD1FCCD5EC0098C0AE /* EventViewController.swift */,
 			);
 			name = Events;
 			sourceTree = "<group>";
@@ -1216,6 +1223,8 @@
 				02C8558D1FBE1963004D7BFB /* HelperSvc.swift */,
 				02CB7AAA1FBFA7AD005408F9 /* RealmMiddleware.swift */,
 				02CB7AAC1FBFA7F8005408F9 /* RealmManager.swift */,
+				026F29B01FCCD91E0098C0AE /* CustomCells.swift */,
+				025D97AB1FCDE30B00F1D8FB /* UsersCustomCell.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -2070,6 +2079,7 @@
 				941B59FF1F214A4E0078EF9C /* IllnessesListViewController.swift in Sources */,
 				021DB6AA1F4B788500E216BE /* RoutingAction.swift in Sources */,
 				941B5A011F2178470078EF9C /* IllnessService.swift in Sources */,
+				026F29B11FCCD91E0098C0AE /* CustomCells.swift in Sources */,
 				02A4375C1F18043D003F10A1 /* dayCollectionViewCell.swift in Sources */,
 				94F7B7111F2AC0A500B7FAE0 /* QuestionDetailsViewController.swift in Sources */,
 				02BC16F51EE9E32900722689 /* UIBarbutton.swift in Sources */,
@@ -2124,6 +2134,7 @@
 				020A64FD1E81EE1A00F473A0 /* chatCollectionViewController.swift in Sources */,
 				941B59FD1F213D1C0078EF9C /* FirstAidKitListViewController.swift in Sources */,
 				02441DA21F16FFF600EA8202 /* GoalDataForCategoryTableViewCell.swift in Sources */,
+				026F29AE1FCCD5EC0098C0AE /* EventViewController.swift in Sources */,
 				02002BF71E820589007191CC /* GroupsTableViewCell.swift in Sources */,
 				02DFD5591EC2810300DA7486 /* Event.swift in Sources */,
 				02F50B1B1FBF64AF00285BEE /* UserS.swift in Sources */,
@@ -2156,6 +2167,7 @@
 				A44F5BE71F1D421100B840F3 /* LineChartViewController.swift in Sources */,
 				94FF53511F17E4FF001D9EE4 /* ToDoList.swift in Sources */,
 				949B52091F202B10001C7ABA /* MedicineService.swift in Sources */,
+				025D97AC1FCDE30B00F1D8FB /* UsersCustomCell.swift in Sources */,
 				02B1F93C1FC5E575002326CD /* UITextFieldX.swift in Sources */,
 				02002BFE1E8208C2007191CC /* sectionChatCollectionViewController.swift in Sources */,
 				02002BF91E820631007191CC /* MemberTableViewCell.swift in Sources */,

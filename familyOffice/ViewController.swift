@@ -67,7 +67,7 @@ extension UIViewController {
             vc.contactDelegate = sender as! ContactsProtocol
             break
         case let vc as addEventTableViewController:
-            vc.event = sender as! Event
+           // vc.event = sender as! Event
             break
         default:
             break
