@@ -88,7 +88,6 @@ class addEventTableViewController: UITableViewController, EventBindable, ShareEv
         
         let date = Date(string: sender.date.string(with: formatter), formatter: formatter)
         event.endDate = date?.toMillis()
-        
         endDateLbl.text = date?.string(with: formatter)
     }
     
@@ -138,8 +137,8 @@ class addEventTableViewController: UITableViewController, EventBindable, ShareEv
                 }
                 break
             case "mapSegue":
-                let viewController = segue.destination as! MapViewController
-                viewController.shareEvent = self
+//                let viewController = segue.destination as! MapViewController
+//                viewController.shareEvent = self
                 break
             case "repeatSegue":
                 let viewController = segue.destination as! repeatEventTableViewController
@@ -190,3 +189,4 @@ extension addEventTableViewController {
         event.description = descriptionTxtField.text
     }
 }
+

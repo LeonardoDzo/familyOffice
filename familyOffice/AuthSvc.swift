@@ -14,13 +14,17 @@ import RealmSwift
 protocol description {
 }
 extension description {
-    func description() -> String {
+    var description: String {
         let mirror = Mirror(reflecting: self)
-        if let label = mirror.children.first?.label {
-            return label
-        } else {
-            return String(describing:self)
+        var result = ""
+        for child in mirror.children {
+            if let label = child.label {
+                result += "\(label): \(child.value)"
+            } else {
+                result += "\(child.value)"
+            }
         }
+        return result
     }
 }
 
@@ -33,16 +37,13 @@ enum AuthAction: description  {
     init(){
         self = .none
     }
-    
-    
-    
 }
 
 class AuthSvc : Action, EventProtocol {
 
     
     func getDescription() -> String {
-        return "\(self.action.description()) \(self.status.description)"
+        return "\(self.action.description) \(self.status.description)"
     }
     
   
@@ -53,10 +54,14 @@ class AuthSvc : Action, EventProtocol {
     var status: Result<Any> = .loading
     var fromView: RoutingDestination! = .none
     
+    init() {
+        self.status = .none
+    }
     
     convenience required init(_ action: AuthAction) {
         self.init()
         self.action = action
+        status = .loading
         self.fromView = RoutingDestination(rawValue: UIApplication.topViewController()?.restorationIdentifier ?? "" )
     }
     
@@ -64,17 +69,18 @@ class AuthSvc : Action, EventProtocol {
         let user = Auth.auth().currentUser
         Auth.auth().signIn(withEmail: (user?.email)!, password: oldPass) { (user, error) in
             if((error) != nil){
-                store.state.UserState.user = .failed
+                self.status = .failed
             }else{
                 user?.updatePassword(to: newPass) { error in
                     if let error = error {
                         print(error.localizedDescription)
-                        store.state.UserState.user = .failed
+                        self.status = .failed
                     } else {
-                        store.state.UserState.user = .finished
+                         self.status = .finished
                     }
                 }
             }
+             store.dispatch(self)
             
         }
     }
@@ -112,7 +118,7 @@ extension AuthSvc : Reducer {
 
     func handleAction(state: AuthState?) -> AuthState {
         var state = state ?? AuthState(state: .none)
-            state.state = self.status
+        state.state = self.status
         switch status {
         case .loading:
             switch self.action {
@@ -134,7 +140,10 @@ extension AuthSvc : Reducer {
         case .Failed(_), .failed:
             break
         case .finished, .Finished(_):
-            store.dispatch(UserS(.getbyId(uid: (Auth.auth().currentUser?.uid)!)))
+            if case .changePass(_,_) = self.action {
+            }else{
+                store.dispatch(UserS(.getbyId(uid: (Auth.auth().currentUser?.uid)!)))
+            }
             break
         case .noFamilies, .none:
             break

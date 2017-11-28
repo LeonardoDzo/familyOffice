@@ -11,14 +11,34 @@ import ReSwift
     
     func appReducer(action: Action, state: AppState?) -> AppState {
         var goalReducer = GoalReducer(state?.GoalsState)
-        let useraction =  action as? UserS
-        let authAction = action as? AuthSvc
+        var userState: UserState!
+        var famState: FamilyState!
+        var authState: AuthState!
+        if let useraction =  action as? UserS {
+            userState = useraction.handleAction(state: state?.UserState)
+        }else{
+            userState = state?.UserState != nil ? state?.UserState : UserState(users: .none, user: .none)
+        }
+        if let authAction = action as? AuthSvc{
+            authState = authAction.handleAction(state: state?.authState)
+        }else{
+            authState = state?.authState != nil ? state?.authState : AuthState(state: .none)
+        }
+
+        if  let familyAction = action as? FamilyS {
+            famState = familyAction.handleAction(state: state?.FamilyState)
+        }else{
+            famState = state?.FamilyState != nil ? state?.FamilyState : FamilyState(families: FamilyList(), status: .none)
+        }
+        
+       
+
         return AppState(
             routingState: routingReducer(action: action, state: state?.routingState),
-            authState: authAction != nil ? (authAction?.handleAction(state: state?.authState))! : AuthState(state: .none),
-            UserState:  useraction != nil ? (useraction?.handleAction(state: state?.UserState))! : UserState(users: .none, user: .none),
+            authState: authState,
+            UserState:  userState,
             GoalsState: goalReducer.handleAction(action: action),
-            FamilyState: FamilyReducer().handleAction(action: action, state: state?.FamilyState),
+            FamilyState: famState,
             GalleryState: GalleryReducer().handleAction(action: action, state: state?.GalleryState),
             ToDoListState: ToDoListReducer().handleAction(action: action, state: state?.ToDoListState),
             ContactState: ContactReducer().handleAction(action: action, state: state?.ContactState),

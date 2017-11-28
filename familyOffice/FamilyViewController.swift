@@ -86,8 +86,8 @@ class FamilyViewController: UIViewController, UIGestureRecognizerDelegate, Famil
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier=="editSegue"{
             let vc = segue.destination as! RegisterFamilyViewController
-            if sender is Family {
-                vc.bind(fam: sender as! Family)
+            if sender is FamilyEntitie {
+                vc.bind(fam: sender as! FamilyEntitie)
             }
         }else if segue.identifier == "ProfileSegue" {
             let viewController = segue.destination as! ProfileUserViewController
@@ -110,12 +110,8 @@ extension FamilyViewController : UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! FamilyMemberTableViewCell
         let uid = family.members[indexPath.row]
         if let member = store.state.UserState.findUser(byId: uid){
-            cell.bind(userModel: member)
-            cell.adminlabel.isHidden = family.admin == member.familyActive ?
-                true : false
         }else{
             let user = User()
-            cell.bind(userModel: user)
         }
         
         return cell

@@ -14,9 +14,9 @@ enum UserAction : description {
     case getbyId(uid: String),
          getbyPhone(phone: String),
          set(user: User),
-         update(user: User, img: UIImage?),
+         update(user: UserEntitie, img: UIImage?),
          create(user: UserEntitie),
-         selectFamily(family: Family),
+         selectFamily(family: FamilyEntitie),
          none
     
     init(){

@@ -206,3 +206,63 @@ extension UserModelBindable {
     }
 }
 
+
+protocol UserEModelBindable: AnyObject {
+    var userModel: UserEntitie! { get set }
+    var filter: String! { get set}
+    var nameLabel: UILabel! {get}
+    var profileImage: UIImageViewX! {get}
+    var phoneLbl: UILabel! {get}
+}
+
+extension UserEModelBindable {
+    // Make the views optionals
+    
+    var nameLabel: UILabel! {
+        return nil
+    }
+    
+    var profileImage: UIImageViewX! {
+        return nil
+    }
+    
+    var phoneLbl : UILabel! {
+        return nil
+    }
+    
+    
+    
+    // Bind
+    
+    func bind(userModel: UserEntitie, filter: String = "") {
+        self.userModel = userModel
+        self.filter = filter
+        bind()
+    }
+    
+    func bind() {
+        
+        guard let userModel = self.userModel else {
+            return
+        }
+        
+        if let nameLabel = self.nameLabel {
+            nameLabel.text = userModel.name
+        }
+        if let phoneLbl = self.phoneLbl {
+            phoneLbl.text = userModel.phone
+        }
+        
+        
+        if let profileImage = self.profileImage {
+            if !userModel.photoURL.isEmpty {
+                profileImage.loadImage(urlString: userModel.photoURL, filter: filter)
+            }else{
+                profileImage.image = #imageLiteral(resourceName: "profile_default")
+            }
+        }
+        
+        
+    }
+}
+

@@ -5,7 +5,6 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -64,25 +63,70 @@
                                     <action selector="chooseImage:" destination="q30-K7-Xag" eventType="touchUpInside" id="6l0-0f-nTH"/>
                                 </connections>
                             </button>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xvj-Ri-XHO">
-                                <rect key="frame" x="16" y="248" width="343" height="362"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <connections>
-                                    <segue destination="5Yd-vX-NMy" kind="embed" id="xLn-4x-s4E"/>
-                                </connections>
-                            </containerView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kOd-jE-oTt">
+                                <rect key="frame" x="16" y="269" width="343" height="151"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <stackView contentMode="scaleToFill" fixedFrame="YES" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="xjB-H9-7l1">
+                                        <rect key="frame" x="5" y="0.0" width="333" height="151"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xv0-7R-kFD">
+                                                <rect key="frame" x="0.0" y="0.0" width="333" height="30"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Configuración"/>
+                                                <connections>
+                                                    <segue destination="Ss2-dz-Tgx" kind="show" id="cVl-pK-VhD"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dQe-9P-GiE">
+                                                <rect key="frame" x="0.0" y="40" width="333" height="30"/>
+                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" title="Cambiar Contraseña"/>
+                                                <connections>
+                                                    <segue destination="qD1-Rx-XDA" kind="show" id="Qak-6h-Zx4"/>
+                                                </connections>
+                                            </button>
+                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r3W-Vs-tq2">
+                                                <rect key="frame" x="0.0" y="80" width="333" height="31"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Activar notificaciones" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PIs-J4-2tY">
+                                                        <rect key="frame" x="0.0" y="0.0" width="286" height="31"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="286" id="7Ua-VM-MxX"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xif-PQ-bX2">
+                                                        <rect key="frame" x="286" y="0.0" width="49" height="31"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="47" id="nT8-5g-0bx"/>
+                                                        </constraints>
+                                                    </switch>
+                                                </subviews>
+                                            </stackView>
+                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v8c-pk-eFh">
+                                                <rect key="frame" x="0.0" y="121" width="333" height="30"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Log out"/>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.96078431372549022" green="0.96862745098039216" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="aUZ-47-OKh" firstAttribute="width" secondItem="dkn-Iv-ITf" secondAttribute="width" id="8DJ-kg-ZgT"/>
                             <constraint firstItem="dkn-Iv-ITf" firstAttribute="top" secondItem="oGz-v0-u7Q" secondAttribute="bottom" constant="20" id="8KR-x1-zMg"/>
-                            <constraint firstAttribute="trailing" secondItem="xvj-Ri-XHO" secondAttribute="trailing" constant="16" id="AKN-1f-Ves"/>
                             <constraint firstItem="aUZ-47-OKh" firstAttribute="top" secondItem="dkn-Iv-ITf" secondAttribute="bottom" constant="10" id="DnF-IZ-Axd"/>
-                            <constraint firstItem="xvj-Ri-XHO" firstAttribute="top" secondItem="aUZ-47-OKh" secondAttribute="bottom" constant="15" id="JWx-yU-m2k"/>
                             <constraint firstItem="dkn-Iv-ITf" firstAttribute="centerX" secondItem="6B3-qk-H1H" secondAttribute="centerX" id="Y6N-YT-KES"/>
-                            <constraint firstItem="xvj-Ri-XHO" firstAttribute="centerX" secondItem="6B3-qk-H1H" secondAttribute="centerX" id="dOm-iW-peU"/>
-                            <constraint firstItem="CjS-EL-dRA" firstAttribute="top" secondItem="xvj-Ri-XHO" secondAttribute="bottom" constant="8" id="iG3-r9-6sR"/>
-                            <constraint firstItem="xvj-Ri-XHO" firstAttribute="leading" secondItem="6B3-qk-H1H" secondAttribute="leading" constant="16" id="yRN-J7-dJG"/>
                             <constraint firstItem="aUZ-47-OKh" firstAttribute="centerX" secondItem="dkn-Iv-ITf" secondAttribute="centerX" id="zgx-ND-lyA"/>
                         </constraints>
                     </view>
@@ -94,7 +138,7 @@
                         <color key="tintColor" red="0.93333333333333335" green="0.27058823529411763" blue="0.29019607843137252" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </simulatedTabBarMetrics>
                     <connections>
-                        <outlet property="containerView" destination="xvj-Ri-XHO" id="huS-Ex-ddM"/>
+                        <outlet property="containerView" destination="kOd-jE-oTt" id="eq6-9y-GDN"/>
                         <outlet property="profileImage" destination="dkn-Iv-ITf" id="xmz-jH-7X1"/>
                     </connections>
                 </viewController>
@@ -102,158 +146,53 @@
             </objects>
             <point key="canvasLocation" x="3924" y="1393.8530734632684"/>
         </scene>
-        <!--Configuration Table View Controller-->
-        <scene sceneID="Rgq-3r-hZ5">
+        <!--User Personal Form View Controller-->
+        <scene sceneID="SGC-Ij-klW">
             <objects>
-                <tableViewController id="5Yd-vX-NMy" customClass="ConfigurationTableViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="oo4-6n-fRn">
-                        <rect key="frame" x="0.0" y="0.0" width="343" height="365"/>
+                <viewController id="Ss2-dz-Tgx" customClass="UserPersonalFormViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="l0o-bP-NKh"/>
+                        <viewControllerLayoutGuide type="bottom" id="qXf-yP-6x6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="guc-0a-v3Q">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <sections>
-                            <tableViewSection id="Uoi-Sg-m31">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="D0f-tN-3g1" style="IBUITableViewCellStyleDefault" id="07e-gX-rZ9">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="07e-gX-rZ9" id="mB2-uq-9dy">
-                                            <rect key="frame" x="0.0" y="0.0" width="309" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Datos Personales" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="D0f-tN-3g1">
-                                                    <rect key="frame" x="15" y="0.0" width="293" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="17"/>
-                                                    <color key="textColor" red="0.69411764705882351" green="0.69411764705882351" blue="0.69411764705882351" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <connections>
-                                            <segue destination="kvh-LX-nWv" kind="show" id="tzI-BO-fOJ"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="dSr-Uf-Im3" style="IBUITableViewCellStyleDefault" id="ZsL-Hn-UYd">
-                                        <rect key="frame" x="0.0" y="44" width="343" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZsL-Hn-UYd" id="ltu-jk-gaJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="309" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Contraseña" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dSr-Uf-Im3">
-                                                    <rect key="frame" x="15" y="0.0" width="293" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="17"/>
-                                                    <color key="textColor" red="0.69411764705882351" green="0.69411764705882351" blue="0.69411764705882351" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <connections>
-                                            <segue destination="qD1-Rx-XDA" kind="show" id="3KI-If-fVM"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="xEQ-Bo-le7">
-                                        <rect key="frame" x="0.0" y="88" width="343" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xEQ-Bo-le7" id="aKn-mM-GQN">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Activar Notificaciones" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y5E-54-BW0">
-                                                    <rect key="frame" x="26" y="11" width="186.5" height="15.5"/>
-                                                    <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="17"/>
-                                                    <color key="textColor" red="0.69411764705882351" green="0.69411764705882351" blue="0.69411764705882351" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k15-Op-I7N">
-                                                    <rect key="frame" x="289" y="4" width="51" height="31"/>
-                                                </switch>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="k15-Op-I7N" firstAttribute="top" secondItem="aKn-mM-GQN" secondAttribute="top" constant="4" id="UFU-Dc-voF"/>
-                                                <constraint firstItem="y5E-54-BW0" firstAttribute="leading" secondItem="aKn-mM-GQN" secondAttribute="leadingMargin" constant="10" id="pHd-q9-zPO"/>
-                                                <constraint firstAttribute="trailing" secondItem="k15-Op-I7N" secondAttribute="trailing" constant="5" id="tZa-MK-2ek"/>
-                                                <constraint firstItem="y5E-54-BW0" firstAttribute="top" secondItem="aKn-mM-GQN" secondAttribute="topMargin" id="wKm-50-bOJ"/>
-                                                <constraint firstAttribute="bottom" secondItem="k15-Op-I7N" secondAttribute="bottom" constant="8" id="zB5-ez-Q7T"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="S8b-AT-GwE">
-                                        <rect key="frame" x="0.0" y="132" width="343" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="S8b-AT-GwE" id="J2f-Pf-i82">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Cerrar Sesión" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qnK-Md-o77">
-                                                    <rect key="frame" x="16" y="7" width="177" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="17"/>
-                                                    <color key="textColor" red="0.69411764705882351" green="0.69411764705882351" blue="0.69411764705882351" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imageView:SQY-Vd-Cwq:image" translatesAutoresizingMaskIntoConstraints="NO" id="SQY-Vd-Cwq">
-                                                    <rect key="frame" x="307" y="6" width="30" height="30"/>
-                                                    <color key="tintColor" red="0.69411764705882351" green="0.69411764705882351" blue="0.69411764705882351" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="6PL-lX-DMm"/>
-                                                        <constraint firstAttribute="width" constant="30" id="O2x-63-oaF"/>
-                                                    </constraints>
-                                                </imageView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="SQY-Vd-Cwq" secondAttribute="trailing" constant="6" id="mvx-BL-VxS"/>
-                                                <constraint firstItem="SQY-Vd-Cwq" firstAttribute="top" secondItem="J2f-Pf-i82" secondAttribute="top" constant="6" id="omU-t0-0iV"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
-                        <connections>
-                            <outlet property="dataSource" destination="5Yd-vX-NMy" id="Zu1-Oj-jn5"/>
-                            <outlet property="delegate" destination="5Yd-vX-NMy" id="EpB-Mt-KK7"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1hx-zy-xXB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rOB-cx-r8j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4959" y="1262"/>
+            <point key="canvasLocation" x="3924" y="2113"/>
         </scene>
-        <!--Set Personal Data View Controller-->
+        <!--View Controller-->
         <scene sceneID="Szn-S8-gcm">
             <objects>
-                <viewController storyboardIdentifier="SetPersonalDataViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="kvh-LX-nWv" customClass="SetPersonalDataViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SetPersonalDataViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="kvh-LX-nWv" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ego-lI-SrX"/>
                         <viewControllerLayoutGuide type="bottom" id="77x-mz-5Mp"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" restorationIdentifier="Cambiar Datos" id="e76-9O-fBe">
-                        <rect key="frame" x="0.0" y="0.0" width="343" height="365"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WsD-Ow-tFk">
-                                <rect key="frame" x="20" y="20" width="303" height="325"/>
+                                <rect key="frame" x="20" y="40" width="335" height="607"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="20" sectionHeaderHeight="1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8us-jB-HaY">
-                                        <rect key="frame" x="5" y="5" width="293" height="315"/>
+                                        <rect key="frame" x="5" y="5" width="325" height="597"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <inset key="scrollIndicatorInsets" minX="30" minY="0.0" maxX="20" maxY="20"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="25" id="24S-KY-IY0" customClass="PersonalDataTableViewCell" customModule="familyOffice" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="1" width="293" height="25"/>
+                                                <rect key="frame" x="0.0" y="1" width="325" height="25"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="24S-KY-IY0" id="9Tc-bD-Gc1">
-                                                    <rect key="frame" x="0.0" y="0.0" width="293" height="24.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="325" height="24.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="62r-0E-K7S" customClass="textFieldStyleController" customModule="familyOffice" customModuleProvider="target">
-                                                            <rect key="frame" x="10" y="0.0" width="273" height="24.5"/>
+                                                            <rect key="frame" x="10" y="0.0" width="305" height="24.5"/>
                                                             <color key="textColor" red="0.52156862749999999" green="0.52156862749999999" blue="0.52156862749999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="17"/>
                                                             <textInputTraits key="textInputTraits"/>
@@ -284,14 +223,14 @@
                                                 </connections>
                                             </tableViewCell>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="datepickerCell" rowHeight="165" id="tRA-4v-DOt" customClass="DatePickerTableViewCell" customModule="familyOffice" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="26" width="293" height="165"/>
+                                                <rect key="frame" x="0.0" y="26" width="325" height="165"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tRA-4v-DOt" id="eie-ZP-EI8">
-                                                    <rect key="frame" x="0.0" y="0.0" width="293" height="164.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="325" height="164.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="QHS-k7-SVq">
-                                                            <rect key="frame" x="0.0" y="0.0" width="293" height="164"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="325" height="164"/>
                                                             <date key="date" timeIntervalSinceReferenceDate="507585004.35117102">
                                                                 <!--2017-01-31 19:50:04 +0000-->
                                                             </date>
@@ -343,7 +282,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TFV-mh-Z8U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4877.6000000000004" y="2030.7346326836582"/>
+            <point key="canvasLocation" x="4894" y="2079"/>
         </scene>
         <!--Cambiar contraseña-->
         <scene sceneID="jth-QP-jIE">
@@ -356,256 +295,17 @@
                     <view key="view" contentMode="scaleToFill" id="tgy-ig-Xcc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JKe-t2-RmO">
-                                <rect key="frame" x="16" y="40" width="343" height="607"/>
-                                <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Contraseña actual" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YWY-6m-XQe" customClass="textFieldStyleController" customModule="familyOffice" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="69" width="323" height="35"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="Hbc-cp-X5X"/>
-                                        </constraints>
-                                        <color key="textColor" red="0.52156862745098043" green="0.52156862745098043" blue="0.52156862745098043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="titleTextColour">
-                                                <color key="value" red="0.52156862749999999" green="0.52156862749999999" blue="0.52156862749999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="titleActiveTextColour">
-                                                <color key="value" red="0.52156862749999999" green="0.52156862749999999" blue="0.52156862749999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Contraseña nueva" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qMU-hI-DVI" customClass="textFieldStyleController" customModule="familyOffice" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="112" width="323" height="35"/>
-                                        <color key="tintColor" red="0.52156862745098043" green="0.52156862745098043" blue="0.52156862745098043" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="mpG-Pt-C6B"/>
-                                        </constraints>
-                                        <color key="textColor" red="0.52156862745098043" green="0.52156862745098043" blue="0.52156862745098043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="titleTextColor">
-                                                <color key="value" red="0.52156862745098043" green="0.52156862745098043" blue="0.52156862745098043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="titleActiveTextColour">
-                                                <color key="value" red="0.52156862745098043" green="0.52156862745098043" blue="0.52156862745098043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cambiar contraseña" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xBu-nL-GBf">
-                                        <rect key="frame" x="0.0" y="20.5" width="343" height="14.5"/>
-                                        <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="16"/>
-                                        <color key="textColor" red="0.29411764709999999" green="0.1764705882" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirmar contraseña" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qIT-bn-N4J" customClass="textFieldStyleController" customModule="familyOffice" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="155" width="323" height="35"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="PUo-DD-mXL"/>
-                                        </constraints>
-                                        <color key="textColor" red="0.52156862745098043" green="0.52156862745098043" blue="0.52156862745098043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" name="GothamBook" family="Gotham Book" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits" keyboardAppearance="light" secureTextEntry="YES"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="titleActiveTextColour">
-                                                <color key="value" red="0.52156862745098043" green="0.52156862745098043" blue="0.52156862745098043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="titleTextColour">
-                                                <color key="value" red="0.52156862745098043" green="0.52156862745098043" blue="0.52156862745098043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="savePassword:" destination="qD1-Rx-XDA" eventType="editingDidEnd" id="ERB-pv-rKk"/>
-                                        </connections>
-                                    </textField>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="xBu-nL-GBf" firstAttribute="leading" secondItem="JKe-t2-RmO" secondAttribute="leading" id="6lY-3c-IHb"/>
-                                    <constraint firstItem="qMU-hI-DVI" firstAttribute="leading" secondItem="YWY-6m-XQe" secondAttribute="leading" id="CX5-bY-AJf"/>
-                                    <constraint firstItem="qMU-hI-DVI" firstAttribute="top" secondItem="JKe-t2-RmO" secondAttribute="top" constant="112" id="KcI-Cc-3eG"/>
-                                    <constraint firstItem="qMU-hI-DVI" firstAttribute="centerX" secondItem="JKe-t2-RmO" secondAttribute="centerX" id="N2N-ZI-xhz"/>
-                                    <constraint firstItem="qMU-hI-DVI" firstAttribute="top" secondItem="YWY-6m-XQe" secondAttribute="bottom" constant="8" symbolic="YES" id="PPF-aC-uGd"/>
-                                    <constraint firstItem="qMU-hI-DVI" firstAttribute="trailing" secondItem="qIT-bn-N4J" secondAttribute="trailing" id="Qms-V1-FZv"/>
-                                    <constraint firstItem="qIT-bn-N4J" firstAttribute="top" secondItem="qMU-hI-DVI" secondAttribute="bottom" constant="8" symbolic="YES" id="brY-02-n7z"/>
-                                    <constraint firstItem="qMU-hI-DVI" firstAttribute="centerX" secondItem="xBu-nL-GBf" secondAttribute="centerX" id="eMx-im-GN4"/>
-                                    <constraint firstItem="qMU-hI-DVI" firstAttribute="leading" secondItem="qIT-bn-N4J" secondAttribute="leading" id="goT-8H-Eyn"/>
-                                    <constraint firstItem="qMU-hI-DVI" firstAttribute="leading" secondItem="JKe-t2-RmO" secondAttribute="leading" constant="10" id="lH7-mB-xGY"/>
-                                    <constraint firstItem="YWY-6m-XQe" firstAttribute="top" secondItem="xBu-nL-GBf" secondAttribute="bottom" constant="34" id="y3t-uh-Bhm"/>
-                                    <constraint firstItem="qMU-hI-DVI" firstAttribute="trailing" secondItem="YWY-6m-XQe" secondAttribute="trailing" id="zWb-f2-L0D"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" red="0.96078431372549022" green="0.96862745098039216" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="JKe-t2-RmO" firstAttribute="leading" secondItem="tgy-ig-Xcc" secondAttribute="leadingMargin" id="Hwv-5m-123"/>
-                            <constraint firstItem="JKe-t2-RmO" firstAttribute="top" secondItem="JpG-Z9-FbC" secondAttribute="bottom" constant="20" id="J0k-Sg-z57"/>
-                            <constraint firstItem="EQJ-VN-hPD" firstAttribute="top" secondItem="JKe-t2-RmO" secondAttribute="bottom" constant="20" id="UBD-n1-IaG"/>
-                            <constraint firstItem="JKe-t2-RmO" firstAttribute="trailing" secondItem="tgy-ig-Xcc" secondAttribute="trailingMargin" id="kCj-6U-8j7"/>
-                        </constraints>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
-                    <connections>
-                        <outlet property="newPassword" destination="qMU-hI-DVI" id="bUH-fV-fQe"/>
-                        <outlet property="oldPassword" destination="YWY-6m-XQe" id="oRP-9V-ZvX"/>
-                        <outlet property="repeatPass" destination="qIT-bn-N4J" id="elV-bm-qZs"/>
-                        <outlet property="viewContainer" destination="JKe-t2-RmO" id="AZA-c7-LZf"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Mf-Bn-WhF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5884" y="1262"/>
+            <point key="canvasLocation" x="4894" y="1394"/>
         </scene>
     </scenes>
     <resources>
         <image name="Setting" width="29" height="29"/>
-        <image name="imageView:SQY-Vd-Cwq:image" width="37" height="37">
-            <mutableData key="keyedArchiveRepresentation">
-YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
-GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
-c1dOU0NvbG9ygAKADRIgwAAAgAOAC1h7MzcsIDM3fdIVChYYWk5TLm9iamVjdHOhF4AEgArSFQoaHaIb
-HIAFgAaACRAA0iAKISJfEBROU1RJRkZSZXByZXNlbnRhdGlvboAHgAhPER4aTU0AKgAAFWwAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAGQUGHGoTGnFuFRt6bhUbem4VG3puFRt6bhUbem4VG3puFRt6bhUbem4VG3puFRt6bhUb
-em4VG3puFRt6bhUbem4VG3puFRt6bhUbem4VG3puFRt6bhUbem8VG3U9Cw9DAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEIMEEndKjbvihoimIoaIpiKGiKYihoi
-mIoaIpiKGiKYihoimIoaIpiKGiKYihoimIoaIpiKGiKYihoimIoaIpiKGiKYihoimIoaIpiKGiKYihoi
-mIoaIpi6Iy/Hmh4nqgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAABDDBFLqCEqvAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVhAVYJoeJqoAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQwwRS60hKr8AAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-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
-AAAAAAAAAAAAAAAAAC0JCjLJJjLgaRMadQAAAAAAAAAAAAAAAEMMEUutISq/AAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC0JCzLKJjLgaRMadQAAAAAAAAAAAAAA
-AAAAAABDDBFLrSEqvwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJQcJKj0MD0UAAAAAAAAAAAAAAAAAAAAAAAAA
-AC4JCzPKJzLgaRUadQAAAAAAAAAAAAAAAAAAAAAAAAAAQwwRS60hKr8AAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AGISGGyhHyexAAAAAAAAAAAAAAAAAAAAABQDBRfBJTDXahQadgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AEMMEUutISq/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABdEhdnmR0mqQAAAAAAAAAAAAAAAAAAAAAJAQILNgoN
-PQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABDDBFLrSEqvwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAXRIX
-Z5kdJqkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQwwR
-S6ghKrwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFYQFWCaHiaqAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEINEEngKjfwjRsjno0bI56NGyOejRsjno0bI56NGyOejRsj
-no0bI56NGyOejRsjno0bI56NGyOejRsjno0bI56NGyOejRsjno0bI56NGyOejRsjno0bI56+JTDKmh4n
-qgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYBAYaZBMZ
-a2gUGnRoFBp0aBQadGgUGnRoFBp0aBQadGgUGnRoFBp0aBQadGgUGnRoFBp0aBQadGgUGnRoFBp0aBQa
-dGgUGnRoFBp0aBQadGgUGnRoFBp0aRQabzkKDz8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAABABAAADAAAAAQAlAAABAQADAAAAAQAlAAABAgADAAAABAAAFjIBAwADAAAAAQABAAAB
-BgADAAAAAQACAAABCgADAAAAAQABAAABEQAEAAAAAQAAAAgBEgADAAAAAQABAAABFQADAAAAAQAEAAAB
-FgADAAAAAQAlAAABFwAEAAAAAQAAFWQBHAADAAAAAQABAAABKAADAAAAAQACAAABUgADAAAAAQABAAAB
-UwADAAAABAAAFjqHcwAHAAAH2AAAFkIAAAAAAAgACAAIAAgAAQABAAEAAQAAB9hhcHBsAiAAAG1udHJS
-R0IgWFlaIAfZAAIAGQALABoAC2Fjc3BBUFBMAAAAAGFwcGwAAAAAAAAAAAAAAAAAAAAAAAD21gABAAAA
-ANMtYXBwbAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC2Rlc2MA
-AAEIAAAAb2RzY20AAAF4AAAFnGNwcnQAAAcUAAAAOHd0cHQAAAdMAAAAFHJYWVoAAAdgAAAAFGdYWVoA
-AAd0AAAAFGJYWVoAAAeIAAAAFHJUUkMAAAecAAAADmNoYWQAAAesAAAALGJUUkMAAAecAAAADmdUUkMA
-AAecAAAADmRlc2MAAAAAAAAAFEdlbmVyaWMgUkdCIFByb2ZpbGUAAAAAAAAAAAAAABRHZW5lcmljIFJH
-QiBQcm9maWxlAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABt
-bHVjAAAAAAAAAB8AAAAMc2tTSwAAACgAAAGEZGFESwAAAC4AAAGsY2FFUwAAACQAAAHadmlWTgAAACQA
-AAH+cHRCUgAAACYAAAIidWtVQQAAACoAAAJIZnJGVQAAACgAAAJyaHVIVQAAACgAAAKaemhUVwAAABYA
-AALCbmJOTwAAACYAAALYY3NDWgAAACIAAAL+aGVJTAAAAB4AAAMgaXRJVAAAACgAAAM+cm9STwAAACQA
-AANmZGVERQAAACwAAAOKa29LUgAAABYAAAO2c3ZTRQAAACYAAALYemhDTgAAABYAAAPMamFKUAAAABoA
-AAPiZWxHUgAAACIAAAP8cHRQTwAAACYAAAQebmxOTAAAACgAAAREZXNFUwAAACYAAAQedGhUSAAAACQA
-AARsdHJUUgAAACIAAASQZmlGSQAAACgAAASyaHJIUgAAACgAAATacGxQTAAAACwAAAUCcnVSVQAAACIA
-AAUuYXJFRwAAACYAAAVQZW5VUwAAACYAAAV2AFYBYQBlAG8AYgBlAGMAbgD9ACAAUgBHAEIAIABwAHIA
-bwBmAGkAbABHAGUAbgBlAHIAZQBsACAAUgBHAEIALQBiAGUAcwBrAHIAaQB2AGUAbABzAGUAUABlAHIA
-ZgBpAGwAIABSAEcAQgAgAGcAZQBuAOgAcgBpAGMAQx6lAHUAIABoAOwAbgBoACAAUgBHAEIAIABDAGgA
-dQBuAGcAUABlAHIAZgBpAGwAIABSAEcAQgAgAEcAZQBuAOkAcgBpAGMAbwQXBDAEMwQwBDsETAQ9BDgE
-OQAgBD8EQAQ+BEQEMAQ5BDsAIABSAEcAQgBQAHIAbwBmAGkAbAAgAGcA6QBuAOkAcgBpAHEAdQBlACAA
-UgBWAEIAwQBsAHQAYQBsAOEAbgBvAHMAIABSAEcAQgAgAHAAcgBvAGYAaQBskBp1KAAgAFIARwBCACCC
-cl9pY8+P8ABHAGUAbgBlAHIAaQBzAGsAIABSAEcAQgAtAHAAcgBvAGYAaQBsAE8AYgBlAGMAbgD9ACAA
-UgBHAEIAIABwAHIAbwBmAGkAbAXkBegF1QXkBdkF3AAgAFIARwBCACAF2wXcBdwF2QBQAHIAbwBmAGkA
-bABvACAAUgBHAEIAIABnAGUAbgBlAHIAaQBjAG8AUAByAG8AZgBpAGwAIABSAEcAQgAgAGcAZQBuAGUA
-cgBpAGMAQQBsAGwAZwBlAG0AZQBpAG4AZQBzACAAUgBHAEIALQBQAHIAbwBmAGkAbMd8vBgAIABSAEcA
-QgAg1QS4XNMMx3xmbpAaACAAUgBHAEIAIGPPj/Blh072TgCCLAAgAFIARwBCACAw1zDtMNUwoTCkMOsD
-kwO1A70DuQO6A8wAIAPAA8EDvwPGA68DuwAgAFIARwBCAFAAZQByAGYAaQBsACAAUgBHAEIAIABnAGUA
-bgDpAHIAaQBjAG8AQQBsAGcAZQBtAGUAZQBuACAAUgBHAEIALQBwAHIAbwBmAGkAZQBsDkIOGw4jDkQO
-Hw4lDkwAIABSAEcAQgAgDhcOMQ5IDicORA4bAEcAZQBuAGUAbAAgAFIARwBCACAAUAByAG8AZgBpAGwA
-aQBZAGwAZQBpAG4AZQBuACAAUgBHAEIALQBwAHIAbwBmAGkAaQBsAGkARwBlAG4AZQByAGkBDQBrAGkA
-IABSAEcAQgAgAHAAcgBvAGYAaQBsAFUAbgBpAHcAZQByAHMAYQBsAG4AeQAgAHAAcgBvAGYAaQBsACAA
-UgBHAEIEHgQxBEkEOAQ5ACAEPwRABD4ERAQ4BDsETAAgAFIARwBCBkUGRAZBACAGKgY5BjEGSgZBACAA
-UgBHAEIAIAYnBkQGOQYnBkUARwBlAG4AZQByAGkAYwAgAFIARwBCACAAUAByAG8AZgBpAGwAZXRleHQA
-AAAAQ29weXJpZ2h0IDIwMDcgQXBwbGUgSW5jLiwgYWxsIHJpZ2h0cyByZXNlcnZlZC4AWFlaIAAAAAAA
-APNSAAEAAAABFs9YWVogAAAAAAAAdE0AAD3uAAAD0FhZWiAAAAAAAABadQAArHMAABc0WFlaIAAAAAAA
-ACgaAAAVnwAAuDZjdXJ2AAAAAAAAAAEBzQAAc2YzMgAAAAAAAQxCAAAF3v//8yYAAAeSAAD9kf//+6L/
-//2jAAAD3AAAwGzSJSYnKFokY2xhc3NuYW1lWCRjbGFzc2VzXxAQTlNCaXRtYXBJbWFnZVJlcKMnKSpa
-TlNJbWFnZVJlcFhOU09iamVjdNIlJiwtV05TQXJyYXmiLCrSJSYvMF5OU011dGFibGVBcnJheaMvLCrT
-MjMKNDU2V05TV2hpdGVcTlNDb2xvclNwYWNlRDAgMAAQA4AM0iUmODlXTlNDb2xvcqI4KtIlJjs8V05T
-SW1hZ2WiOypfEA9OU0tleWVkQXJjaGl2ZXLRP0BUcm9vdIABAAgAEQAaACMALQAyADcARgBMAFcAXgBl
-AHIAeQCBAIMAhQCKAIwAjgCXAJwApwCpAKsArQCyALUAtwC5ALsAvQDCANkA2wDdHvsfAB8LHxQfJx8r
-HzYfPx9EH0wfTx9UH2MfZx9uH3Yfgx+IH4ofjB+RH5kfnB+hH6kfrB++H8EfxgAAAAAAAAIBAAAAAAAA
-AEEAAAAAAAAAAAAAAAAAAB/IA
-</mutableData>
-        </image>
         <image name="profile_default" width="626" height="626"/>
     </resources>
 </document>

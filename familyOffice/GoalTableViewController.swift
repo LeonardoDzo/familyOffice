@@ -93,11 +93,6 @@ extension GoalTableViewController: StoreSubscriber, Segue, HandleFamilySelected 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         addObservers()
-        if let family = store.state.FamilyState.families.family(fid: (userStore?.familyActive)!){
-            let action = UserS()
-            action.action = .selectFamily(family: family)
-            store.dispatch(action)
-        }
         selectFamily()
         store.subscribe(self) {
             subcription in

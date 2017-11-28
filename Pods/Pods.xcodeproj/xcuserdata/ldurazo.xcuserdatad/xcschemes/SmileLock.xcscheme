@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1C5DA63D938B39574436075E4D61EFE4"
+               BlueprintIdentifier = "6CC1BD8180B3E7C798BFD0C49BE98C7C"
                BuildableName = "SmileLock.framework"
                BlueprintName = "SmileLock"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1C5DA63D938B39574436075E4D61EFE4"
+            BlueprintIdentifier = "6CC1BD8180B3E7C798BFD0C49BE98C7C"
             BuildableName = "SmileLock.framework"
             BlueprintName = "SmileLock"
             ReferencedContainer = "container:Pods.xcodeproj">

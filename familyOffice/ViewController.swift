@@ -8,7 +8,8 @@
 
 import Foundation
 import UIKit
-
+import RealmSwift
+import Lightbox
 extension UIViewController {
     
     func hideKeyboardWhenTappedAround() {
@@ -40,18 +41,17 @@ extension UIViewController {
         self.present(homeViewController, animated: true, completion: nil)
     }
     
+    
     func pushToView(view: RoutingDestination, sender: Any? = nil) -> Void {
         let mainStoryboard: UIStoryboard = UIStoryboard(name: view.getStoryBoard(), bundle: nil)
         let viewcontroller : UIViewController = mainStoryboard.instantiateViewController(withIdentifier: view.rawValue)
         
         
         switch viewcontroller {
-        case let vc as RegisterFamilyViewController:
-            var family : Family
-            if sender == nil {
-                family = Family()
-            }else{
-                family = sender as! Family
+        case let vc as FamilyProfileViewController:
+            var family = FamilyEntitie()
+            if sender != nil {
+                family = sender as! FamilyEntitie
             }
             vc.bind(fam: family)
         case let vc as FamilyViewController:
@@ -67,7 +67,7 @@ extension UIViewController {
             vc.contactDelegate = sender as! ContactsProtocol
             break
         case let vc as addEventTableViewController:
-            vc.event = sender as! Event
+           // vc.event = sender as! Event
             break
         default:
             break
@@ -77,6 +77,24 @@ extension UIViewController {
     }
     
     func openNotification(data: Any? = nil) -> Void {
-        self.pushToView(view: .registerFamily)
+     
     }
+    
+    func showImages(images: [UIImage]) -> Void {
+        
+        if  images.count == 0 {
+            return
+        }
+        
+        var imgs  = [LightboxImage]()
+        
+        imgs = images.map({ (img) -> LightboxImage in
+            return LightboxImage(image: img)
+        })
+        
+        let controller = LightboxController(images: imgs)
+        controller.dynamicBackground = true
+        self.present(controller, animated: true, completion: nil)
+    }
+
 }

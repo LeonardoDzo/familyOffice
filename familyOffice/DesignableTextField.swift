@@ -27,7 +27,7 @@ class DesignableTextField: UITextField {
         if let img = leftImage {
             leftViewMode = .always
             let imageView = UIImageView(frame: CGRect(x: leftPadding, y: 0, width: 20, height: 20))
-            imageView.image = img
+            imageView.image = img.maskWithColor(color: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))
             let width = leftPadding + 20
             let view = UIView(frame:  CGRect(x:0, y: 0, width: width, height: 20))
             view.addSubview(imageView)

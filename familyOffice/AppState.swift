@@ -36,15 +36,6 @@ enum Result<T> {
     case Finished(T)
     case noFamilies
     case none
-    
-    var description : String {
-        let mirror = Mirror(reflecting: self)
-        if let label = mirror.children.first?.label {
-            return label
-        } else {
-            return String(describing:self)
-        }
-    }
 }
 extension Result : description{
 }

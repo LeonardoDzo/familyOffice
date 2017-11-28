@@ -9,6 +9,7 @@ import Foundation
 import RealmSwift
 let rManager = RealmManager.shared
 
+
 class RealmManager {
     
     var realm = try! Realm()
@@ -43,6 +44,8 @@ class RealmManager {
                 // updated instead of added a new.
                 realm.add(objs, update: true)
             })
+        }catch let error{
+            print("Error: \(error.localizedDescription)")
         }
         
         

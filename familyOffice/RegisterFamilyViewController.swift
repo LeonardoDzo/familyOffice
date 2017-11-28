@@ -12,8 +12,8 @@ import FirebaseStorage
 import ReSwift
 import ALCameraViewController
 
-class RegisterFamilyViewController: UIViewController, FamilyBindable, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate, ContactsProtocol {
-    var family: Family!
+class RegisterFamilyViewController: UIViewController, FamilyEBindable, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate, ContactsProtocol {
+    var family: FamilyEntitie! = FamilyEntitie()
     var users: [User]! = []
     
     /// Variable para saber si cambio la foto o no para editar
@@ -107,18 +107,18 @@ class RegisterFamilyViewController: UIViewController, FamilyBindable, UIImagePic
             return false
         }
         self.family.name = name
-        self.family.members = self.users.map({ $0.id})
-        self.family.admin = (Auth.auth().currentUser?.uid)!
+        //self.family.members = self.users.map({ $0.id})
+        //self.family.admin = (Auth.auth().currentUser?.uid)!
         
         return true
     }
     @objc func edit() -> Void {
         if validate() {
             if change {
-                store.dispatch(UpdateFamilyAction(family: family, img: Image.image!))
+                store.dispatch(FamilyS(.update(family: family)))
                 return
             }
-            store.dispatch(UpdateFamilyAction(family: family))
+            store.dispatch(FamilyS(.update(family: family)))
         }else{
             error()
         }
@@ -128,7 +128,7 @@ class RegisterFamilyViewController: UIViewController, FamilyBindable, UIImagePic
             return
         }
         if Image.image != nil {
-            store.dispatch(InsertFamilyAction(family: family, img: Image.image!))
+            store.dispatch(FamilyS(.insert(family: family)))
         }else{
             error()
         }
@@ -183,16 +183,7 @@ extension RegisterFamilyViewController : StoreSubscriber {
         }
         
         self.bind()
-        
-        family.members.forEach({uid in
-            if let user = store.state.UserState.findUser(byId: uid) {
-                if !self.users.contains(user) {
-                    self.users.append(user)
-                }
-            }
-            
-        })
-        
+    
         self.setupNavBar()
         self.collectionView.reloadData()
         
