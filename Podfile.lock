@@ -10,7 +10,6 @@ PODS:
     - DKImagePickerController/ImageManager (= 3.8.1)
   - DKImagePickerController/Camera (3.8.1)
   - DKImagePickerController/ImageManager (3.8.1)
-
   - Eureka (4.0.1)
   - Firebase/Auth (4.6.0):
     - Firebase/Core
@@ -147,7 +146,6 @@ SPEC CHECKSUMS:
   Cache: bd0233fc688b5e83a27bcd87807db7e6f23adcc5
   Charts: 0705898046257443f0afbbc3179f4b67507b6e48
   DKImagePickerController: 51ad6ee2ba05414bb741db54a72cd7f4fb178e34
-
   Eureka: c8bd5cc07143b6f66268c208d28a246c99b41955
   Firebase: 27321a925aa85520618255a7c630859e0502ccbd
   FirebaseAnalytics: 5b02a63ead2c3f0259cfc7f15e053e440587ecf8
