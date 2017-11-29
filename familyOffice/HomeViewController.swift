@@ -15,14 +15,10 @@ class HomeViewController: UIViewController,UIGestureRecognizerDelegate {
     
     let icons = ["chat", "calendar", "objetives", "gallery","safeBox", "contacts", "firstaid","property", "health","seguro-purple", "presupuesto", "todolist", "faqs"]
     let labels = ["Chat", "Calendario", "Objetivos", "Galería", "Caja Fuerte", "Contactos","Botiquín","Inmuebles", "Salud", "Seguros", "Presupuesto", "Lista de Tareas","FAQs"]
-
     
     
-    private var family : Family?
-    
-    var user = store.state.UserState.user
-    var families = [Family]()
-    
+    private var family : FamilyEntitie!
+    private var user : UserEntitie!
     
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
@@ -65,15 +61,15 @@ class HomeViewController: UIViewController,UIGestureRecognizerDelegate {
         
     }
     
-    func handleBack()  {
+    @objc func handleBack()  {
         self.dismiss(animated: true, completion: nil)
     }
     
     /** ESTA FUNCION NOMAS PONE OBSERVERS */
     override func viewWillAppear(_ animated: Bool) {
         store.subscribe(self) {
-            state in
-            state.FamilyState
+            subcription in
+            subcription.select { state in state.FamilyState }
         }
         reloadFamily()
     }
@@ -126,23 +122,26 @@ extension HomeViewController : UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func reloadFamily() -> Void {
-        if let index = families.index(where: {$0.id == user?.familyActive}) {
-            let family = families[index]
+        
+        if let family = rManager.realm.object(ofType: FamilyEntitie.self, forPrimaryKey: user?.familyActive ?? "") {
             self.navigationItem.title = family.name
+        }else{
+             self.handleBack()
         }
+        
     }
     
 }
 extension HomeViewController {
 
-    func handleMore(_ sender: Any) {
+    @objc func handleMore(_ sender: Any) {
         settingLauncher.showSetting()
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         gotoModule(index: (indexPath.item))
     }
-    func handleShowModal(_ sender: Any) -> Void {
+    @objc func handleShowModal(_ sender: Any) -> Void {
         self.backgroundButton.backgroundColor = UIColor.black
         UIView.animate(withDuration: 0.3,delay: 0.3, animations: {
             self.backgroundButton.alpha = 0.65
@@ -186,16 +185,13 @@ extension HomeViewController {
         
     }
     func setupConfigurationNavBar() -> Void {
-     
+        style_1()
         let moreButton = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_bar_more_button"), style: .plain, target: self, action:  #selector(self.handleMore(_:)))
         let valueButton = UIBarButtonItem(image: #imageLiteral(resourceName: "value"), style: .plain, target: self, action:  #selector(self.handleShowModal(_:)))
         
         self.navigationItem.rightBarButtonItems = [ moreButton,valueButton]
         let barButton = UIBarButtonItem(title: "Regresar", style: .plain, target: self, action: #selector(self.handleBack))
-        self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         self.navigationItem.leftBarButtonItem = barButton
-        let nav = self.navigationController?.navigationBar
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.3137395978, green: 0.1694342792, blue: 0.5204931498, alpha: 1)]
     }
     
 }
@@ -204,10 +200,8 @@ extension HomeViewController : StoreSubscriber {
     typealias StoreSubscriberStateType = FamilyState
     
     func newState(state: FamilyState) {
-        user = store.state.UserState.user
-        
-        families = state.families.items
-        if families.count == 0 {
+        user = rManager.realm.object(ofType: UserEntitie.self, forPrimaryKey: Auth.auth().currentUser?.uid)
+        if user == nil{
             self.handleBack()
         }
         reloadFamily()

@@ -25,7 +25,7 @@ struct Family {
     var totalMembers : UInt? = 0
     var admin : String? = ""
     var members : [String]!
-    let firebaseReference: FIRDatabaseReference?
+    let firebaseReference: DatabaseReference?
     var goals: [Goal]! = []
     /* Initializer for instantiating a new object in code.
      */
@@ -54,7 +54,7 @@ struct Family {
     
     /* Initializer for instantiating an object received from Firebase.
      */
-    init(snapshot: FIRDataSnapshot) {
+    init(snapshot: DataSnapshot) {
         let snapshotValue = snapshot.value as! NSDictionary
         self.id = snapshot.key
         self.name = service.UTILITY_SERVICE.exist(field: Family.kFamilyNameKey, dictionary: snapshotValue)
@@ -72,14 +72,14 @@ struct Family {
         
         return [
             Family.kFamilyNameKey: self.name,
-            Family.kFamilyPhotoUrlKey: self.photoURL!,
+            Family.kFamilyPhotoUrlKey: self.photoURL ?? "",
             Family.kFamilyMembersKey : service.UTILITY_SERVICE.toDictionary(array: self.members),
             Family.kFamilyAdminKey : self.admin ?? "",
-            Family.kFamilyImagePathKey: self.imageProfilePath!
+            Family.kFamilyImagePathKey: self.imageProfilePath ?? ""
         ]
     }
     
-    mutating func update(snapshot: FIRDataSnapshot){
+    mutating func update(snapshot: DataSnapshot){
         guard let value = snapshot.value! as? NSDictionary else {
             return
         }
@@ -167,7 +167,7 @@ extension FamilyBindable{
             }
         }
         if let check = self.check{
-            if family.id == store.state.UserState.user?.familyActive {
+            if family.id == userStore?.familyActive {
                 check.isHidden = false
             }else{
                 check.isHidden = true
@@ -175,4 +175,63 @@ extension FamilyBindable{
         }
     }
 }
+protocol FamilyEBindable: AnyObject {
+    var family: FamilyEntitie! {get set}
+    var titleLbl: UIKit.UILabel! {get}
+    var Image: CustomUIImageView! {get}
+    var check: UIImageView! { get }
+    var nameTxt: textFieldStyleController! {get}
+}
+extension FamilyEBindable{
+    var titleLbl: UIKit.UILabel!{
+        return nil
+    }
+    var Image: CustomUIImageView!{
+        return nil
+    }
+    var check: UIKit.UIImageView!{
+        return nil
+    }
+    var nameTxt: textFieldStyleController! {
+        return nil
+    }
+    //Bind Ninja
+    func bind(fam: FamilyEntitie){
+        self.family = fam
+        bind()
+    }
+    func bind() {
+        guard let family = self.family else{
+            return
+        }
+        if let titleLabel = self.titleLbl{
+           
+            titleLabel.text = (family.name.isEmpty) ? "Sin título" : family.name
+        }
+        if let nameTxt = self.nameTxt{
+            
+            nameTxt.text = (family.name.isEmpty) ? "" : family.name
+            
+        }
+        if let imageBackground = self.Image{
+            if(!(family.photoURL.isEmpty)){
+                    imageBackground.loadImage(urlString: family.photoURL)
+                }else{
+                    imageBackground.image = #imageLiteral(resourceName: "familyImage")
+                }
+            imageBackground.formatView()
+            imageBackground.contentMode = .scaleAspectFit
+            
+        }
+        if let check = self.check{
+            if family.id == userStore?.familyActive {
+                check.isHidden = false
+            }else{
+                check.isHidden = true
+            }
+        }
+    }
+}
+
+
 

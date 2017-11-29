@@ -8,101 +8,95 @@
 
 import UIKit
 import ReSwift
-class PasswordChangeViewController: UIViewController {
-    @IBOutlet weak var oldPassword: UITextField!
-    @IBOutlet weak var newPassword: UITextField!
-    @IBOutlet weak var repeatPass: UITextField!
-    @IBOutlet weak var viewContainer: UIView!
+import Eureka
+class PasswordChangeViewController: FormViewController {
+
     
     override func viewDidLoad() {
-        let homeButton : UIBarButtonItem = UIBarButtonItem(title: "Atras", style: .plain, target: self, action: #selector(back(sender:)))
-        let doneButton : UIBarButtonItem = UIBarButtonItem(title: "Cambiar", style: UIBarButtonItemStyle.plain, target: self, action:#selector(changePassword(sender:)))
-        
-        self.navigationItem.backBarButtonItem = homeButton
+        let doneButton = UIBarButtonItem(title: "Cambiar", style: UIBarButtonItemStyle.plain, target: self, action:#selector(self.savePassword))
         self.navigationItem.rightBarButtonItem = doneButton
         super.viewDidLoad()
+        form +++ Section()
+            
+            <<< PasswordRow() { row in
+                row.title = "Contraseña anterior"
+                row.placeholder = ""
+                row.add(rule: RuleRequired())
+                row.add(rule: RuleMinLength(minLength: 6, msg: "Mínimo 6 letras."))
+                row.validationOptions = .validatesOnChange
+                row.tag = "oldPass"
+                
+                }.cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = .red
+                    }
+            }
+            
+            +++ Section()
+            <<< PasswordRow() { row in
+                row.title = "Contraseña Nueva"
+                row.placeholder = ""
+                row.add(rule: RuleRequired())
+                row.add(rule: RuleMinLength(minLength: 6, msg: "Mínimo 6 letras."))
+                row.validationOptions = .validatesOnChange
+                row.tag = "newPass"
+                }.cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = .red
+                    }
+            }
+            <<< PasswordRow() { row in
+                row.title = "Repetir contraseña"
+                row.placeholder = ""
+                row.add(rule: RuleRequired())
+                row.add(rule: RuleMinLength(minLength: 6, msg: "Mínimo 6 letras."))
+                row.validationOptions = .validatesOnChange
+                }.cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = .red
+                    }else{
+                        let xrow: TextRow? = self.form.rowBy(tag: "newPass")
+                        if row.value != xrow?.value {
+                            cell.titleLabel?.textColor = .red
+                        }
+                    }
+            }
         
-        self.hideKeyboardWhenTappedAround()
-        /// Textfields cutomitazions
-        let color = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1)
-        oldPassword.borderbottom(color: color, width: 1.0)
-        newPassword.borderbottom(color: color, width: 1.0)
-        repeatPass.borderbottom(color: color, width: 1.0)
-        self.viewContainer.formatView()
-        // Do any additional setup after loading the view.
+      
     }
    
-    @IBAction func savePassword(_ sender: Any) {
-        changePassword(sender: nil)
+    @objc func savePassword(_ sender: Any) {
+        guard let new : String = self.form.rowBy(tag: "newPass")?.value, !new.isEmpty else {
+            return
+        }
+        guard let old : String = self.form.rowBy(tag: "oldPass")?.value, !old.isEmpty else {
+            return
+        }
+        store.dispatch(AuthSvc(.changePass(pass: new, oldPass: old)))
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    func back(sender: UIBarButtonItem) -> Void {
-        _ =  navigationController?.popViewController(animated: true)
-    }
     
-    func changePassword(sender: UIBarButtonItem?) -> Void {
-        
-        guard let oldPass = oldPassword.text, !oldPass.isEmpty else {
-            self.alertMessage(title: "Campo vacío", msg: "El campo Contraseña actual no puede estar vacío")
-            oldPassword.shakeTextField()
-            return
-        }
-        guard let newPass = newPassword.text, !newPass.isEmpty, newPass.characters.count >= 6 else {
-            newPassword.shakeTextField()
-            self.alertMessage(title: "Campo vacío", msg: "El campo Contraseña nueva no puede estar vacío o al menos debe contener 6 caracteres")
-            return
-        }
-        guard let rptPass = repeatPass.text, !rptPass.isEmpty, rptPass.characters.count >= 6 else {
-            repeatPass.shakeTextField()
-            self.alertMessage( title: "Campo vacío", msg: "El campo Contraseña nueva no puede estar vacío o al menos debe contener 6 caracteres")
-            return
-        }
-        
-        if rptPass == newPass {
-            //Action change pass
-            store.dispatch(ChangePassUserAction(pass: newPass, oldPass: oldPass))
-        }else{
-            repeatPass.shakeTextField()
-            newPassword.shakeTextField()
-            self.alertMessage(title: "Error", msg: "Contraseñas no coinciden")
-        }
-        
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-         service.UTILITY_SERVICE.moveTextField(textField: textField, moveDistance: -200, up: true, context: self)
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-         service.UTILITY_SERVICE.moveTextField(textField: textField, moveDistance: -200, up: false, context: self)
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
 
 }
 extension PasswordChangeViewController : StoreSubscriber {
-    typealias StoreSubscriberStateType = UserState
+    typealias StoreSubscriberStateType = AuthState
     
     override func viewWillAppear(_ animated: Bool) {
         store.subscribe(self) {
-            state in
-            state.UserState
+            subcription in
+            subcription.select { state in state.authState }
         }
     }
     override func viewWillDisappear(_ animated: Bool) {
-        store.state.UserState.status = .none
         store.unsubscribe(self)
     }
     
-    func newState(state: UserState) {
+    func newState(state: AuthState) {
         self.view.hideToastActivity()
-        switch state.status {
+        switch state.state {
         case .loading:
             self.view.makeToastActivity(.center)
             break
@@ -110,7 +104,7 @@ extension PasswordChangeViewController : StoreSubscriber {
             self.view.makeToast("Contraseña actualizada", duration: 2.0, position: .center)
             break
         case .failed:
-            self.view.makeToast("Sucedio un error", duration: 2.0, position: .center)
+            self.view.makeToast("Sucedio un error", duration: 3.0, position: .center)
             break
         default:
             break

@@ -8,6 +8,8 @@
 
 import Foundation
 import UIKit
+
+
 extension SelectCategoryViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,  UIGestureRecognizerDelegate{
     
 
@@ -16,13 +18,14 @@ extension SelectCategoryViewController: UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return families.count + 1
+        return families != nil ? families.count + 1 : 1
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.row < families.count {
+        if families != nil,  indexPath.row < families.count {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! FamiliesPreCollectionViewCell
             let family = families[indexPath.item]
             cell.bind(fam: family)
+            
             return cell
         }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "addCell", for: indexPath)
@@ -37,7 +40,8 @@ extension SelectCategoryViewController: UICollectionViewDelegate, UICollectionVi
         
         //Where elements_count is the count of all your items in that
         //Collection view...
-        let cellCount = CGFloat(families.count+1)
+        let count = (families != nil ? families.count : 0 ) + 1
+        let cellCount = CGFloat(count)
         
         //If the cell count is zero, no point in calculating anything.
         if cellCount > 0 {
@@ -67,17 +71,48 @@ extension SelectCategoryViewController: UICollectionViewDelegate, UICollectionVi
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if(indexPath.row == families.count){
-            self.performSegue(withIdentifier: "registerFamilySegue", sender: nil)
+        if(families == nil || indexPath.row == families.count){
+           promptForAnswer()
         }else{
             let family = families[(indexPath.row)]
             self.toggleSelect(family: family)
             self.familiesCollection.reloadData()
+            self.pushToView(view: .profileFamily, sender: family)
             
         }
     }
-    func toggleSelect(family: Family){
-        service.USER_SVC.selectFamily(family: family)
+    func promptForAnswer() {
+        let alertController = UIAlertController(title: "Crear Familia", message: "Ingresa el nombre de la familia", preferredStyle: .alert)
+        
+        //the confirm action taking the inputs
+        let confirmAction = UIAlertAction(title: "Crear", style: .default) { (_) in
+            
+            guard let text = alertController.textFields?[0].text, !text.isEmpty else {
+                return
+            }
+            let family = FamilyEntitie()
+            family.name = text
+            store.dispatch(FamilyS(.insert(family: family)))
+            
+        }
+        
+        //the cancel action doing nothing
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+        
+        //adding textfields to our dialog box
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Nombre de la familia"
+        }
+        
+        //adding the action to dialogbox
+        alertController.addAction(confirmAction)
+        alertController.addAction(cancelAction)
+        
+        //finally presenting the dialog box
+        self.present(alertController, animated: true, completion: nil)
+    }
+    func toggleSelect(family: FamilyEntitie){
+        store.dispatch(UserS( .selectFamily(family: family)))
     }
     
 }

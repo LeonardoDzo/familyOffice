@@ -6,12 +6,23 @@
 //  Copyright © 2017 Leonardo Durazo. All rights reserved.
 //
 import FirebaseDatabase
-
+import ReSwift
 @objc protocol repository : class {
     
-    func added(snapshot: FIRDataSnapshot) -> Void
-    func updated(snapshot: FIRDataSnapshot, id: Any) -> Void
-    func removed(snapshot: FIRDataSnapshot) -> Void
+    func added(snapshot: DataSnapshot) -> Void
+    func updated(snapshot: DataSnapshot, id: Any) -> Void
+    func removed(snapshot: DataSnapshot) -> Void
     @objc optional func removed(snapshot: Any, id: Any) -> Void
-    @objc optional func get(snapshot: FIRDataSnapshot) -> Void
+    @objc optional func get(snapshot: DataSnapshot) -> Void
+    func notExistSnapshot() -> Void
+}
+
+
+
+protocol FireBaseRepository {
+    associatedtype T
+    
+    func added(snapshot: DataSnapshot) -> T
+//    func updated(snapshot: DataSnapshot, id: Any, state: T) -> T
+//    func removed(snapshot: DataSnapshot, state: T) -> T
 }

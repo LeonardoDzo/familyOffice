@@ -16,10 +16,6 @@ class HomeBussinessViewController: UIViewController, UICollectionViewDelegate, U
     
     private var family : Family?
     
-    
-    let user = service.USER_SERVICE.users.first(where: {$0.id == FIRAuth.auth()?.currentUser?.uid})
-    var families : [String]! = []
-    
    
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -39,19 +35,18 @@ class HomeBussinessViewController: UIViewController, UICollectionViewDelegate, U
         self.navigationItem.rightBarButtonItem = moreButton
         let barButton = UIBarButtonItem(title: "Atrás", style: .plain, target: self, action: #selector(self.handleBack))
         self.navigationItem.leftBarButtonItem = barButton
-        let nav = self.navigationController?.navigationBar
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.3137395978, green: 0.1694342792, blue: 0.5204931498, alpha: 1)]
+        style_1()
         
     }
     
     let settingLauncher = SettingLauncher()
     
-    func handleMore(_ sender: Any) {
+    @objc func handleMore(_ sender: Any) {
         settingLauncher.showSetting()
     }
     
     
-    func handleBack()  {
+    @objc func handleBack()  {
         self.dismiss(animated: true, completion: nil)
         
     }
@@ -59,23 +54,6 @@ class HomeBussinessViewController: UIViewController, UICollectionViewDelegate, U
     override func viewWillAppear(_ animated: Bool) {
         reloadFamily()
         
-        
-        if let index = service.FAMILY_SERVICE.families.index(where: {$0.id == service.USER_SERVICE.users[0].familyActive}) {
-            self.navigationItem.title = service.FAMILY_SERVICE.families[index].name
-        }
-        
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        NotificationCenter.default.addObserver(forName: notCenter.NOFAMILIES_NOTIFICATION, object: nil, queue: nil){ notification in
-      
-            return
-        }
-        NotificationCenter.default.addObserver(forName: notCenter.USER_NOTIFICATION, object: nil, queue: nil){_ in
-            self.reloadFamily()
-        }
-        NotificationCenter.default.addObserver(forName: notCenter.FAMILYADDED_NOTIFICATION, object: nil, queue: nil){family in
-            self.reloadFamily()
-            //FAMILY_SERVICE.verifyFamilyActive(family: family.object as! Family)
-        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -84,9 +62,6 @@ class HomeBussinessViewController: UIViewController, UICollectionViewDelegate, U
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        NotificationCenter.default.removeObserver(notCenter.USER_NOTIFICATION)
-        NotificationCenter.default.removeObserver(notCenter.NOFAMILIES_NOTIFICATION)
-        NotificationCenter.default.removeObserver(notCenter.FAMILYADDED_NOTIFICATION)
     }
     
     func reloadFamily() -> Void {
@@ -126,7 +101,7 @@ class HomeBussinessViewController: UIViewController, UICollectionViewDelegate, U
     
     
     
-    func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
+    @objc func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
         let point: CGPoint = gestureReconizer.location(in: self.collectionView)
         let indexPath = self.collectionView?.indexPathForItem(at: point)
         

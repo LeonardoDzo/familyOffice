@@ -13,10 +13,13 @@
 *.m
 
 Pods/
+Pods/
 
 *.md
 .idea/
 
-Pods/
 *.xcscheme
 *.xcscheme
+*.plist
+
+familyOffice\.xcworkspace/xcuserdata/

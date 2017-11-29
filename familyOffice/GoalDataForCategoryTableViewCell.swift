@@ -29,11 +29,11 @@ class GoalDataForCategoryTableViewCell: UITableViewCell, GoalBindable {
         if goal.type == 0 {
             goal.done = sender.isOn
         }else{
-            let uid = store.state.UserState.user?.id
+            let uid = userStore?.id
             goal.members[uid!] = sender.isOn ? Date().toMillis() : -1
         }
         
-        store.dispatch(UpdateGoalAction(goal: self.goal))
+        store.dispatch(gac.Update(goal: self.goal))
     }
     
 

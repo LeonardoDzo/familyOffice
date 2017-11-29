@@ -9,14 +9,16 @@
 import UIKit
 import Firebase
 import Toast_Swift
+import RealmSwift
+
 private let reuseIdentifier = "cell"
 
 class FamilyCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate  {
     @IBOutlet weak var mainView: UIView!
+    var families : Results<FamilyEntitie>!
     typealias StoreSubscriberStateType = FamilyState
     //Internal var
     var indexP : IndexPath? = nil
-    var families = [Family]()
     var longPressTarget: (cell: UICollectionViewCell, indexPath: IndexPath)?
     //UI
     @IBOutlet var familyCollection: UICollectionView!
@@ -40,11 +42,6 @@ class FamilyCollectionViewController: UIViewController, UICollectionViewDelegate
             if sender is Family {
                 viewController.bind(fam: sender as! Family)
             }
-        }else if segue.identifier == "registerSegue"  {
-            let viewController = segue.destination as! RegisterFamilyViewController
-            let family = Family()
-            viewController.bind(fam: family)
-            
         }
     }
     
@@ -53,13 +50,11 @@ class FamilyCollectionViewController: UIViewController, UICollectionViewDelegate
         lpgr.minimumPressDuration = 0.5
         lpgr.delaysTouchesBegan = true
         self.familyCollection.addGestureRecognizer(lpgr)
-        
-        let nav = self.navigationController?.navigationBar
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.3137395978, green: 0.1694342792, blue: 0.5204931498, alpha: 1)]
+        style_1()
         
         self.familyCollection.layer.cornerRadius = 8
         self.familyCollection.clipsToBounds = true
-        
+        families = rManager.realm.objects(FamilyEntitie.self)
         self.mainView.formatView()
         
     }
@@ -77,7 +72,7 @@ extension FamilyCollectionViewController {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if(indexPath.row == families.count){
-            self.performSegue(withIdentifier: "registerSegue", sender: nil)
+            
         }else{
             self.performSegue(withIdentifier: "changeScreen", sender: families[indexPath.row])
         }

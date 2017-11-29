@@ -24,7 +24,7 @@ class ItemDetailViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    func handleEdit() -> Void {
+    @objc func handleEdit() -> Void {
         self.performSegue(withIdentifier: "editItemSegue", sender: nil)
     }
 

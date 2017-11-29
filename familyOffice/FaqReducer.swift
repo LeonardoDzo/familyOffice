@@ -8,10 +8,9 @@
 
 import Foundation
 import ReSwift
-import ReSwiftRouter
 import Firebase
 
-struct FaqReducer: Reducer {
+struct FaqReducer {
     func handleAction(action: Action, state: FaqState?) -> FaqState {
         var state = state ?? FaqState(questions: [:], status: .none)
         switch action {
@@ -43,20 +42,20 @@ struct FaqReducer: Reducer {
     }
     
     func insertQuestion(_ question: Question) -> Void {
-        let id = store.state.UserState.user?.familyActive!
+        let id = userStore?.familyActive!
         let path = "faq/\(id!)/\(question.id!)"
         service.FAQ_SERVICE.insert(path, value: question.toDictionary(), callback: {ref in
-            if ref is FIRDatabaseReference {
+            if ref is DatabaseReference {
                 store.state.FaqState.status = .finished
             }
         })
     }
     
     func updateQuestion(_ question: Question) -> Void {
-        let id = store.state.UserState.user?.familyActive!
+        let id = userStore?.familyActive!
         let path = "faq/\(id!)/\(question.id!)"
         service.FAQ_SERVICE.update(path, value: question.toDictionary() as! [AnyHashable:Any]) { ref in
-            if ref is FIRDatabaseReference {
+            if ref is DatabaseReference {
                 if let index = store.state.FaqState.questions[id!]?.index(where: {$0.id! == question.id!}){
                     store.state.FaqState.questions[id!]?[index] = question
                     store.state.FaqState.status = .finished
@@ -66,7 +65,7 @@ struct FaqReducer: Reducer {
     }
     
     func deleteQuestion(_ question: Question) -> Void {
-        let id = store.state.UserState.user?.familyActive!
+        let id = userStore?.familyActive!
         let path = "faq/\(id!)/\(question.id!)"
         service.FAQ_SERVICE.delete(path) { (Any) in
             if let index = store.state.FaqState.questions[id!]?.index(where: {$0.id! == question.id!}){

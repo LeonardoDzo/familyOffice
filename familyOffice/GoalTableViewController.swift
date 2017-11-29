@@ -18,7 +18,7 @@ class GoalTableViewController: UIViewController, UITableViewDelegate, UITableVie
     typealias StoreSubscriberStateType = GoalState
     
     var myGoals = [Goal]()
-    var user = store.state.UserState.user
+    var user = store.state.UserState.getUser()
     var cellSelected = -1
     lazy var settingLauncher : SettingLauncher = {
         let launcher = SettingLauncher()
@@ -53,7 +53,7 @@ class GoalTableViewController: UIViewController, UITableViewDelegate, UITableVie
             let cell = tableView.dequeueReusableCell(withIdentifier: "cellSection", for: indexPath) as!  GoalSectionTableViewCell
             let obj = types[indexPath.row/2]
             cell.backgroundImage.image  = UIImage(named: obj.1)
-            let name = data.count > 0 ? " (\(data.filter({$0.done}).count)/\(data.count))" : " (No existen)"
+            let name = data.count > 0 ? " (\(data.filter({$0.done ?? false }).count)/\(data.count))" : " (No existen)"
             cell.nameLbl.text = obj.0 + name
             return cell
         }
@@ -93,13 +93,10 @@ extension GoalTableViewController: StoreSubscriber, Segue, HandleFamilySelected 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         addObservers()
-        if let family = store.state.FamilyState.families.family(fid: (store.state.UserState.user?.familyActive)!){
-            service.USER_SVC.selectFamily(family: family)
-        }
         selectFamily()
         store.subscribe(self) {
-            subscription in
-            subscription.GoalsState
+            subcription in
+            subcription.select { state in state.GoalsState }
         }
         
     }
@@ -142,14 +139,16 @@ extension GoalTableViewController: StoreSubscriber, Segue, HandleFamilySelected 
     }
     func addObservers() -> Void {
         if tabBar.selectedItem?.tag == 0 {
-            let id = store.state.UserState.user?.id!
+            service.GOAL_SERVICE.type = .Individual
+            let id = userStore?.id!
             service.GOAL_SERVICE.initObserves(ref: "goals/\(id!)", actions: [.childAdded, .childRemoved, .childChanged])
         }else{
+            service.GOAL_SERVICE.type = .Familiar
             service.GOAL_SERVICE.initObserves(ref: "goals/\((user?.familyActive!)!)", actions: [.childAdded, .childRemoved, .childChanged])
         }
     }
     func newState(state: GoalState) {
-        user = store.state.UserState.user
+        user = store.state.UserState.getUser()
         if tabBar.selectedItem?.tag == 0 {
             myGoals = state.goals[(user?.id)!] ?? []
 
@@ -159,7 +158,7 @@ extension GoalTableViewController: StoreSubscriber, Segue, HandleFamilySelected 
         tableView.reloadData()
     }
     func selectFamily() -> Void {
-        if let family = store.state.FamilyState.families.family(fid: (store.state.UserState.user?.familyActive)!){
+        if let family = store.state.FamilyState.families.family(fid: (userStore?.familyActive)!){
             self.navigationItem.title = family.name
         }
         configuration()
@@ -186,13 +185,13 @@ extension GoalTableViewController {
         self.navigationItem.leftBarButtonItem = backButton
         self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
     }
-    func handleMore(_ sender: Any) {
+    @objc func handleMore(_ sender: Any) {
         settingLauncher.showSetting()
     }
-    func handleNew() -> Void {
+    @objc func handleNew() -> Void {
         self.performSegue(withIdentifier: "addSegue", sender: nil)
     }
-    func back() -> Void {
+    @objc func back() -> Void {
         self.dismiss(animated: true, completion: nil)
     }
 }

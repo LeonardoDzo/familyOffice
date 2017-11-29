@@ -6,12 +6,41 @@
 //  Copyright © 2017 Leonardo Durazo. All rights reserved.
 //
 import UIKit
+
 let imageCache = NSCache<AnyObject, AnyObject>()
 let imageBWCache = NSCache<AnyObject, AnyObject>()
 
+extension UIImage {
+    
+    func maskWithColor(color: UIColor) -> UIImage? {
+        let maskImage = cgImage!
+        
+        let width = size.width
+        let height = size.height
+        let bounds = CGRect(x: 0, y: 0, width: width, height: height)
+        
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
+        let context = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)!
+        
+        context.clip(to: bounds, mask: maskImage)
+        context.setFillColor(color.cgColor)
+        context.fill(bounds)
+        
+        if let cgImage = context.makeImage() {
+            let coloredImage = UIImage(cgImage: cgImage)
+            return coloredImage
+        } else {
+            return nil
+        }
+    }
+    
+}
+
+
 extension UIImageView {
     
-    func loadImage(urlString: String, filter: String = "") -> Void {
+    @objc func loadImage(urlString: String, filter: String = "") -> Void {
         
         guard let url = URL(string: urlString) else {
             return
@@ -46,9 +75,8 @@ extension UIImageView {
                     }
             }
         }).resume()
-        
     }
-    func verifyFilter(filter: String, urlString: String) -> Void {
+    @objc func verifyFilter(filter: String, urlString: String) -> Void {
         switch filter {
         case "blackwhite":
             self.blackwhite(urlString: urlString)
@@ -61,7 +89,7 @@ extension UIImageView {
         self.clipsToBounds = true
         self.layer.cornerRadius = self.frame.size.width/2
     }
-    func blackwhite(urlString: String) {
+    @objc func blackwhite(urlString: String) {
         if let cacheImage = imageBWCache.object(forKey: urlString as AnyObject) {
             self.image = cacheImage as? UIImage
         }else if self.image != nil {
@@ -89,8 +117,7 @@ class CustomUIImageView: UIImageView {
     var urlString: String?
     private var activityIndicator: UIActivityIndicatorView!
     
-    override func loadImage(urlString: String, filter: String = "") -> Void {
-        
+    @objc override func loadImage(urlString: String, filter: String = "") -> Void {
         guard let url = URL(string: urlString) else {
             return
         }
@@ -130,7 +157,8 @@ class CustomUIImageView: UIImageView {
         }).resume()
         
     }
-    override func verifyFilter(filter: String, urlString: String) -> Void {
+    
+    @objc override func verifyFilter(filter: String, urlString: String) -> Void {
         switch filter {
         case "blackwhite":
             self.blackwhite(urlString: urlString)
@@ -140,7 +168,7 @@ class CustomUIImageView: UIImageView {
         }
     }
     
-    override func blackwhite(urlString: String) {
+    @objc override func blackwhite(urlString: String) {
         if let cacheImage = imageBWCache.object(forKey: urlString as AnyObject) {
             self.image = cacheImage as? UIImage
         }else if self.image != nil {
@@ -164,7 +192,8 @@ class CustomUIImageView: UIImageView {
         
         showSpinning()
     }
-
+    
+   
     
     func hideLoading() {
         activityIndicator.stopAnimating()

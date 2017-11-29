@@ -27,10 +27,8 @@ class AddHealthViewController: UIViewController {
         let saveButton = UIBarButtonItem(title: "Guardar", style: .plain, target: self, action: #selector(save(sender:)))
         self.navigationItem.rightBarButtonItem = saveButton
         
-        if let index = healthIndex {
-            let med = Constants.Services.USER_SERVICE.users[0].health.elements[index]
-            nameField.text = med.name
-            descriptionField.text = med.description
+        if healthIndex != nil {
+          
         }
         if self.healthType == Health.Element.typeOperation {
             nameLabel.text = "Tipo de operación"
@@ -68,28 +66,7 @@ class AddHealthViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     
-    func save(sender: UIBarButtonItem){
-        let name : String! = nameField.text
-        if name == nil || name.isEmpty {
-            Constants.Services.ANIMATIONS.shakeTextField(txt: nameField)
-            return
-        }
-        
-        let descriptionT : String! = descriptionField.text
-        if descriptionT == nil || descriptionT.isEmpty {
-            Constants.Services.ANIMATIONS.shakeTextField(txt: descriptionField)
-            return
-        }
-        
-        let element = Health.Element(name: name, type: healthType, description: descriptionT)
-        var user = Constants.Services.USER_SERVICE.users[0]
-        if let index = healthIndex {
-            user.health.elements[index] = element
-        } else {
-            user.health.elements.append(element)
-        }
-        Constants.Services.USER_SERVICE.updateUser(user: user)
-        navigationController!.popViewController(animated: true)
+    @objc func save(sender: UIBarButtonItem){
         
     }
     

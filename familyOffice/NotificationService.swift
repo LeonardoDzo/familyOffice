@@ -12,7 +12,7 @@ import Firebase
 
 class NotificationService {
     var token = ""
-    var handles: [(String, UInt, FIRDataEventType)]  = []
+    var handles: [(String, UInt, DataEventType)]  = []
     public var notifications : [NotificationModel] = []
     public var sections : [SectionNotification] = []
     private init(){
@@ -24,21 +24,19 @@ class NotificationService {
     private static let instance : NotificationService = NotificationService()
     
     func saveToken() -> Void {
-        if let refreshedToken = FIRInstanceID.instanceID().token() {
+        if let refreshedToken = InstanceID.instanceID().token() {
             print("InstanceID token: \(refreshedToken)")
             service.NOTIFICATION_SERVICE.token = refreshedToken
         }
-        if store.state.UserState.user != nil {
-            Constants.FirDatabase.REF_USERS.child("\((store.state.UserState.user?.id)!)/\(User.kUserTokensFCMeKey)").updateChildValues([self.token: true])
-        }
-    }
-    func send(title: String, message: String, to: String) -> Void {
-        if let user = service.USER_SERVICE.users.first(where: {$0.id == to}) {
-            for token in (user.tokens?.allKeys)! {
-                sendNotification(title: title, message: message, to: token as! String)
+        verifyUser { (user,exist)  in
+            if exist {
+                Constants.FirDatabase.REF_USERS.child("\(user.id)/\(User.kUserTokensFCMeKey)").updateChildValues([self.token: true])
             }
         }
+        
+        
     }
+   
     func sendNotification(title: String, message: String, to: String){
         let headers = [
             "Content-Type" : "application/json",
@@ -59,15 +57,13 @@ class NotificationService {
         })
     }
     func seenNotification(index: Int) -> Void {
-        self.notifications[index].seen = true
-        Constants.FirDatabase.REF_NOTIFICATION.child(service.USER_SERVICE.users[0].id).child(self.notifications[index].id!).updateChildValues(self.notifications[index].toDictionary() as! [AnyHashable : Any])
     }
     
     func deleteToken(token: String, id: String) -> Void {
         Constants.FirDatabase.REF_USERS.child("\(id)/\(User.kUserTokensFCMeKey)/\(token)").removeValue()
     }
     
-    func initObserves(ref: String, actions: [FIRDataEventType]) -> Void {
+    func initObserves(ref: String, actions: [DataEventType]) -> Void {
         for action in actions {
             if !handles.contains(where: { $0.0 == ref && $0.2 == action} ){
                 self.child_action(ref: ref, action: action)
@@ -77,11 +73,11 @@ class NotificationService {
     
 }
 extension NotificationService: RequestService {
-    func addHandle(_ handle: UInt, ref: String, action: FIRDataEventType) {
-        self.handles.append(ref,handle, action)
+    func addHandle(_ handle: UInt, ref: String, action: DataEventType) {
+        self.handles.append((ref,handle, action))
     }
 
-    func routing(snapshot: FIRDataSnapshot, action: FIRDataEventType, ref: String) {
+    func routing(snapshot: DataSnapshot, action: DataEventType, ref: String) {
         if action == .childAdded {
             let not = NotificationModel(snapshot: snapshot)
             if !store.state.notifications.contains(not) {
@@ -99,6 +95,6 @@ extension NotificationService: RequestService {
     func notExistSnapshot() {
         
     }
-    func inserted(ref: FIRDatabaseReference) {
+    func inserted(ref: DatabaseReference) {
     }
 }

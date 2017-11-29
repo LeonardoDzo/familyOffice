@@ -8,15 +8,15 @@
 
 import Foundation
 import FirebaseDatabase
-
+import Firebase
 class ToDoListService: RequestService{
     func notExistSnapshot() {
         
     }
 
     var items: [ToDoList.ToDoItem] = []
-    var handles: [(String, UInt, FIRDataEventType)] = []
-    let basePath = "todolist/\(store.state.UserState.user?.id!)"
+    var handles: [(String, UInt, DataEventType)] = []
+    let basePath = "todolist/\((store.state.UserState.getUser()?.id)!)"
     
     private init(){}
     
@@ -24,7 +24,7 @@ class ToDoListService: RequestService{
     
     public static func Instance() -> ToDoListService { return instance}
     
-    func routing(snapshot: FIRDataSnapshot, action: FIRDataEventType, ref: String){
+    func routing(snapshot: DataSnapshot, action: DataEventType, ref: String){
         switch action {
         case .childAdded:
             self.added(snapshot:snapshot)
@@ -42,7 +42,7 @@ class ToDoListService: RequestService{
         }
     }
     
-    func initObserves(ref: String, actions: [FIRDataEventType]) -> Void {
+    func initObserves(ref: String, actions: [DataEventType]) -> Void {
         for action in actions{
             if !handles.contains(where: {$0.0 == ref && $0.2 == action}){
                 self.child_action(ref: ref, action: action)
@@ -50,8 +50,8 @@ class ToDoListService: RequestService{
         }
     }
     
-    func addHandle(_ handle: UInt, ref: String, action: FIRDataEventType) {
-        self.handles.append(ref, handle, action)
+    func addHandle(_ handle: UInt, ref: String, action: DataEventType) {
+        self.handles.append((ref, handle, action))
     }
     
     func removeHandles() {
@@ -61,16 +61,16 @@ class ToDoListService: RequestService{
         self.handles.removeAll()
     }
     
-    func inserted(ref: FIRDatabaseReference) {
-        Constants.FirDatabase.REF_USERS.child((store.state.UserState.user?.id!)!).child("todolist").updateChildValues([ref.key:true])
-        
+    func inserted(ref: DatabaseReference) {
+        Constants.FirDatabase.REF_USERS.child((userStore!.id!)).child("todolist").updateChildValues(
+                    [ref.key:true])
         store.state.ToDoListState.status = .finished
     }
     
 }
 
 extension ToDoListService: repository{
-    func added(snapshot: FirebaseDatabase.FIRDataSnapshot) {
+    func added(snapshot: DataSnapshot) {
         let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
         let item = ToDoList.ToDoItem(snapshot: snapshot)
         
@@ -83,7 +83,7 @@ extension ToDoListService: repository{
         }
     }
     
-    func updated(snapshot: FirebaseDatabase.FIRDataSnapshot, id: Any) {
+    func updated(snapshot: DataSnapshot, id: Any) {
         let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
         let item = ToDoList.ToDoItem(snapshot: snapshot)
         if let index = store.state.ToDoListState.items[id]?.index(where: {$0.id == snapshot.key})  {
@@ -91,7 +91,7 @@ extension ToDoListService: repository{
         }
     }
     
-    func removed(snapshot: FirebaseDatabase.FIRDataSnapshot) {
+    func removed(snapshot: DataSnapshot) {
         let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
         if let index = store.state.ToDoListState.items[id]?.index(where: {$0.id == snapshot.key})  {
             store.state.ToDoListState.items[id]?.remove(at: index)

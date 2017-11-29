@@ -1,0 +1,1144 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		4D8AC8673DAB0881C35A936A /* Qt Preprocess */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 6CC3B5D2136C7CD6A5CF5A59 /* Build configuration list for PBXNativeTarget "Snipe-App" */;
+			buildPhases = (
+				5E618435888B9D49F8540165 /* Qt Qmake */,
+				7EF0942E79C014DCEC8976BC /* Qt Preprocessors */,
+			);
+			dependencies = (
+			);
+			name = "Qt Preprocess";
+			productName = "Qt Preprocess";
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		0CD1365EBFD7108008392680 /* qtharfbuzzng in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 4CB9426046D235B5748F841D /* qtharfbuzzng */; };
+		0CE02722F00CAD43741297B5 /* CoreGraphics.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 6AE3EC31EE5BB1FCEE84137C /* CoreGraphics.framework */; };
+		11D880386042AD9D586C864C /* LaunchScreen.xib in Copy Bundle Resources */ = {isa = PBXBuildFile; fileRef = C9C20095EF22491525F21B31 /* LaunchScreen.xib */; };
+		1462C852201CC1E60E8D6A98 /* moc_auctionproxymodel.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 2B993254060D1B453D5CB2E2 /* moc_auctionproxymodel.cpp */; settings = {ATTRIBUTES = (); }; };
+		15364689D2AB5A30E87A689F /* Security.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 205259EEEE2BADA5E64741E3 /* Security.framework */; };
+		15516D8B8191940035530C3E /* Default-568h@2x.png in Copy Bundle Resources */ = {isa = PBXBuildFile; fileRef = A3030B04072DFFAC78C6CCF7 /* Default-568h@2x.png */; };
+		1647F0302D653158386A5669 /* qgenericbearer in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 2CCA15393CA594256E1B93A4 /* qgenericbearer */; };
+		19A80650482C275886757EB3 /* Qt5Quick in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = ADB89ACCFF029CF6275285C9 /* Qt5Quick */; };
+		22FB74112651D6B8F528D71D /* Qt5DBus in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = BF25F9B89D1FBFF11E385441 /* Qt5DBus */; };
+		26EA7E8513E710238D5EF87E /* moc_snipeservice_client.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 6091FCC5EAABA68F902AC24F /* moc_snipeservice_client.cpp */; settings = {ATTRIBUTES = (); }; };
+		2B02D9DC58A01E45248DDBCE /* CoreText.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 7D7B02101166B76FD2D4F8B4 /* CoreText.framework */; };
+		30F707F34FE035DAEA3F69DC /* qwbmp in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 07E87645CF8D1E57CD4EE487 /* qwbmp */; };
+		31AB64423F02D4873EBAA8CC /* qtquick2plugin in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = E2C602188C53962AE5DF0589 /* qtquick2plugin */; };
+		33FB5CFAE9A04364F4A3063F /* Qt5Widgets in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = A1FC471EB3ABD3D39F870758 /* Qt5Widgets */; };
+		3751D23A572BEBE29D27546F /* Qt5PlatformSupport in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 84F96EC084538E3548159DE4 /* Qt5PlatformSupport */; };
+		4571BC887499F9DF7BDDB434 /* qmlsettingsplugin in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 2032E13B27D295EC3140E6A7 /* qmlsettingsplugin */; };
+		47E08AFDD9E69E15A0AFC946 /* snipe-app_plugin_import.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = CC9448CED2EA1B4AF4F0715C /* snipe-app_plugin_import.cpp */; settings = {ATTRIBUTES = (); }; };
+		48B5EE916604ADC7506FB1D5 /* qmldbg_tcp in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 86692015E3D2978C80FFDE27 /* qmldbg_tcp */; };
+		4E09857325DEA695FFF20D60 /* qico in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 2BD342C070385175D4491859 /* qico */; };
+		50AD1BC93AEE47BE310EE1A0 /* qrc_snipeapp.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 6B3B6559D37B68AF9DDDFA24 /* qrc_snipeapp.cpp */; settings = {ATTRIBUTES = (); }; };
+		51B7A38BE8C4EBEF3E7AA860 /* Qt5Network in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = E749EC8E43A0D723601FBABC /* Qt5Network */; };
+		51F40739C5044A3E99A70B38 /* moc_customersnipegroupmodel.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 48248995ECFF0EE43BF76082 /* moc_customersnipegroupmodel.cpp */; settings = {ATTRIBUTES = (); }; };
+		583CC1C81C2EF0E700B5C5EB /* Images.xcassets in Copy Bundle Resources */ = {isa = PBXBuildFile; fileRef = 583CC1C71C2EF0E700B5C5EB /* Images.xcassets */; };
+		583CC1CD1C2EF6F900B5C5EB /* libBraintree.a in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 583CC1CC1C2EF6F900B5C5EB /* libBraintree.a */; };
+		641A163D0BA6DADB9A2F61E8 /* qmldbg_qtquick2 in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 134CB22F920B9CA6FE094CFE /* qmldbg_qtquick2 */; };
+		6C73D3623467FB4BB7EAFE49 /* main.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 07F236E3FBC1DE07901BF71B /* main.cpp */; settings = {ATTRIBUTES = (); }; };
+		70A9C635B048F62F9B0FFB4C /* qmlfolderlistmodelplugin in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 0AA95389BCCCD4619E99E96A /* qmlfolderlistmodelplugin */; };
+		768C2DD1F12BB11C1C89ED2E /* qsvg in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 5A83E663A315ABE52296FDBD /* qsvg */; };
+		77394E4C3101B83DA3577B94 /* qjp2 in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = B334CE711C2F71E3785D98E7 /* qjp2 */; };
+		788F0688E5A1579040AB4BBC /* moc_translator.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 112AB73736A0F83843F7F8B5 /* moc_translator.cpp */; settings = {ATTRIBUTES = (); }; };
+		816F25977F59CDA289A039DB /* qtga in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 527880EAF04E9EF5EAB7D9A0 /* qtga */; };
+		84B5016209C6D6A3AF71FCB9 /* qtquickextrasplugin in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = B7CB6CA821459DE41A42FD91 /* qtquickextrasplugin */; };
+		851DE5717616B83ED88BED60 /* qwebp in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = E5641A5037385DBFF2D4D4F7 /* qwebp */; };
+		888A3AB620B6D766B1D078F0 /* qmng in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = EB88A0E7FE29C5E28F246A11 /* qmng */; };
+		89B1D2B1A64B73E1206CA52E /* auctionsearchresultmodel.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 8F22BDDF4633B76400E208A9 /* auctionsearchresultmodel.cpp */; settings = {ATTRIBUTES = (); }; };
+		8A2A9DE296C7B8A50FB5FA66 /* qtquickcontrolsplugin in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = C206D4962E4A8D0DE89D2007 /* qtquickcontrolsplugin */; };
+		8D92488D2C801C60606B71FF /* dialogplugin in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 27F766713E4F054D5F32C906 /* dialogplugin */; };
+		8E2ED7DA64A1E00DC5A472CF /* snipemanager.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 7AD015E23B0F2110E34C6863 /* snipemanager.cpp */; settings = {ATTRIBUTES = (); }; };
+		8FAE0325499A04A6EB887079 /* windowplugin in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = F38F773F4062E1452DC19264 /* windowplugin */; };
+		90DA2DF42AF15AAE329E2AAD /* moc_auctionmodel.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 7359969F2E5AE2079F1901B0 /* moc_auctionmodel.cpp */; settings = {ATTRIBUTES = (); }; };
+		9243BB1D5C7A4B08DC6D9494 /* moc_auctionsearchresultmodel.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 14132C793CEA346B5BF302C6 /* moc_auctionsearchresultmodel.cpp */; settings = {ATTRIBUTES = (); }; };
+		92AE0CC766F734EF473ADAB4 /* modelsplugin in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = F19E5A11BB9092C6A73EC08D /* modelsplugin */; };
+		94EB18FAFB4BB68CF08222B9 /* auctionproxymodel.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 3D71C13E0CE95F40890D3597 /* auctionproxymodel.cpp */; settings = {ATTRIBUTES = (); }; };
+		96AE4F47AC126F7CD7637120 /* qtpcre in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 9742D4805033FA5808F6894F /* qtpcre */; };
+		99A5CE9DE361D902B424FB5B /* customersnipegroupmodel.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 957D1B4176CC1F71A9DB8383 /* customersnipegroupmodel.cpp */; settings = {ATTRIBUTES = (); }; };
+		99A5E7F9B8623EA282E482B1 /* qdds in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = CDA6CA37E6E948F7B573A8FB /* qdds */; };
+		A0B81A9F1F3C46E89049A376 /* translator.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 0CC44A0762065022AA5DCCA1 /* translator.cpp */; settings = {ATTRIBUTES = (); }; };
+		A26F3D29D879ED79063CCDD8 /* qios in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = A40D0349BFD8C46BF69F3237 /* qios */; };
+		A3AB39597380DC7F1E319599 /* Qt5Svg in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = AF6A58C0BA49169C10F428A9 /* Qt5Svg */; };
+		AA961B6D6F2B66B1F8777C68 /* qtiff in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = D473A1F518E7BCF435F86EC0 /* qtiff */; };
+		ABEAFED972FDD2B9431E789F /* Snipe in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 88D01039807893A588BF944C /* Snipe */; };
+		B460F624007324313696BE86 /* QuartzCore.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 7EC00404ACD5AB0E97726B0E /* QuartzCore.framework */; };
+		B4D2D72661C9EF81194A87BB /* declarative_webview in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 4F8AE6CE4B2FC4DB21F41B85 /* declarative_webview */; };
+		BC52EC8017C73DFDD64A2D32 /* dialogsprivateplugin in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = F23C118CBA3DD7E9D89B949F /* dialogsprivateplugin */; };
+		C225E7526E93DB0F0C8DFF39 /* Qt5Xml in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = BA472B7A80FAF6C367215320 /* Qt5Xml */; };
+		CFB016FCD2BB885F188FAADA /* qsvgicon in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = A45AC9FB08F7857F38122589 /* qsvgicon */; };
+		CFE9FCA9A8142A09EC4BED96 /* Qt5Qml in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = B39F4936C39CE15B0DB60679 /* Qt5Qml */; };
+		D4639595C3BCF2A39D88DF6E /* SystemConfiguration.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = FF5BDAB0076F3391B219EA52 /* SystemConfiguration.framework */; };
+		D49C5D1284743410C03C0709 /* auctionmodel.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 1870A19CCD616067C927C60B /* auctionmodel.cpp */; settings = {ATTRIBUTES = (); }; };
+		D87E8390C5FAAFEF08091D28 /* snipe-app_qml_plugin_import.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 2C8DE587A63402A2BE36DC08 /* snipe-app_qml_plugin_import.cpp */; settings = {ATTRIBUTES = (); }; };
+		E0E5E21FF6C1B6B690AE9D09 /* Qt5WebView in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = B7DB171AD1054777485C9447 /* Qt5WebView */; };
+		E1F3B89D2F4DAC3C69535B3D /* moc_snipemanager.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = BE3FF01EDBE6138CD84A8608 /* moc_snipemanager.cpp */; settings = {ATTRIBUTES = (); }; };
+		E277713F23BC98A4E76A09C5 /* qicns in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = DFEC4F128951425801D9EAAA /* qicns */; };
+		EBA96812968A1D8DF7E1CCDB /* Qt5Core in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 1018B4B42930FC3178F4E7F8 /* Qt5Core */; };
+		ED943941BC58CC21456245FA /* snipeservice_client.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = DD852AE7CABD8C82C3939925 /* snipeservice_client.cpp */; settings = {ATTRIBUTES = (); }; };
+		F26454630C80841CBDCFE1CA /* Foundation.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = FCC237CA5AD60B9BA4447615 /* Foundation.framework */; };
+		F2F5B53BC3BCBA27C9AAD3C9 /* qquicklayoutsplugin in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 984B36431720CB7FD03DA702 /* qquicklayoutsplugin */; };
+		F8B465CE34D8DF87AAE95913 /* CoreFoundation.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 4D765E1B1EA6C757220C63E7 /* CoreFoundation.framework */; };
+		FD438DD91072A203647A8C78 /* Qt5Gui in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 24F699B2B603BB538D2F07D6 /* Qt5Gui */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		583CC1C61C2EEFE300B5C5EB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6DB9C3763D02B1415CD9D565 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4D8AC8673DAB0881C35A936A;
+			remoteInfo = "Qt Preprocess";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0606C49D73D6D5B0750412ED /* auctionsearchresultmodel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = auctionsearchresultmodel.h; path = "/development/qtcreator-workspace/snipe/Snipe-App/src/auctionsearchresultmodel.h"; sourceTree = "<absolute>"; };
+		07E87645CF8D1E57CD4EE487 /* qwbmp */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qwbmp; path = "/Users/nando/Qt/5.5/ios/plugins/imageformats/libqwbmp$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		07F236E3FBC1DE07901BF71B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = "/development/qtcreator-workspace/snipe/Snipe-App/src/main.cpp"; sourceTree = "<absolute>"; };
+		0AA95389BCCCD4619E99E96A /* qmlfolderlistmodelplugin */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qmlfolderlistmodelplugin; path = "/Users/nando/Qt/5.5/ios/qml/Qt/labs/folderlistmodel/libqmlfolderlistmodelplugin$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		0CC44A0762065022AA5DCCA1 /* translator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = translator.cpp; path = "/development/qtcreator-workspace/snipe/Snipe-App/src/translator.cpp"; sourceTree = "<absolute>"; };
+		1018B4B42930FC3178F4E7F8 /* Qt5Core */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = Qt5Core; path = "/Users/nando/Qt/5.5/ios/lib/libQt5Core$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		112AB73736A0F83843F7F8B5 /* moc_translator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = moc_translator.cpp; path = "/development/qtcreator-workspace/build-snipe-iphoneos_clang_Qt_5_5_1_for_iOS-Debug/Snipe-App/build/moc/moc_translator.cpp"; sourceTree = "<absolute>"; };
+		134CB22F920B9CA6FE094CFE /* qmldbg_qtquick2 */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qmldbg_qtquick2; path = "/Users/nando/Qt/5.5/ios/plugins/qmltooling/libqmldbg_qtquick2$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		14132C793CEA346B5BF302C6 /* moc_auctionsearchresultmodel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = moc_auctionsearchresultmodel.cpp; path = "/development/qtcreator-workspace/build-snipe-iphoneos_clang_Qt_5_5_1_for_iOS-Debug/Snipe-App/build/moc/moc_auctionsearchresultmodel.cpp"; sourceTree = "<absolute>"; };
+		16C898DB5E2D0979806B5AB6 /* Snipe-App.pro */ = {isa = PBXFileReference; lastKnownFileType = text; name = "Snipe-App.pro"; path = "/development/qtcreator-workspace/snipe/Snipe-App/Snipe-App.pro"; sourceTree = "<absolute>"; };
+		1870A19CCD616067C927C60B /* auctionmodel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = auctionmodel.cpp; path = "/development/qtcreator-workspace/snipe/Snipe-App/src/auctionmodel.cpp"; sourceTree = "<absolute>"; };
+		2032E13B27D295EC3140E6A7 /* qmlsettingsplugin */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qmlsettingsplugin; path = "/Users/nando/Qt/5.5/ios/qml/Qt/labs/settings/libqmlsettingsplugin$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		205259EEEE2BADA5E64741E3 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
+		24F699B2B603BB538D2F07D6 /* Qt5Gui */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = Qt5Gui; path = "/Users/nando/Qt/5.5/ios/lib/libQt5Gui$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		27F766713E4F054D5F32C906 /* dialogplugin */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = dialogplugin; path = "/Users/nando/Qt/5.5/ios/qml/QtQuick/Dialogs/libdialogplugin$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		2B993254060D1B453D5CB2E2 /* moc_auctionproxymodel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = moc_auctionproxymodel.cpp; path = "/development/qtcreator-workspace/build-snipe-iphoneos_clang_Qt_5_5_1_for_iOS-Debug/Snipe-App/build/moc/moc_auctionproxymodel.cpp"; sourceTree = "<absolute>"; };
+		2BD342C070385175D4491859 /* qico */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qico; path = "/Users/nando/Qt/5.5/ios/plugins/imageformats/libqico$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		2C8DE587A63402A2BE36DC08 /* snipe-app_qml_plugin_import.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "snipe-app_qml_plugin_import.cpp"; path = "/development/qtcreator-workspace/build-snipe-iphoneos_clang_Qt_5_5_1_for_iOS-Debug/Snipe-App/snipe-app_qml_plugin_import.cpp"; sourceTree = "<absolute>"; };
+		2CCA15393CA594256E1B93A4 /* qgenericbearer */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qgenericbearer; path = "/Users/nando/Qt/5.5/ios/plugins/bearer/libqgenericbearer$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		3A854203153C5A20927EDDFC /* Snipe-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Snipe-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D71C13E0CE95F40890D3597 /* auctionproxymodel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = auctionproxymodel.cpp; path = "/development/qtcreator-workspace/snipe/Snipe-App/src/auctionproxymodel.cpp"; sourceTree = "<absolute>"; };
+		45FC421878C93A7721B01E83 /* customersnipegroupmodel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = customersnipegroupmodel.h; path = "/development/qtcreator-workspace/snipe/Snipe-App/src/customersnipegroupmodel.h"; sourceTree = "<absolute>"; };
+		48248995ECFF0EE43BF76082 /* moc_customersnipegroupmodel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = moc_customersnipegroupmodel.cpp; path = "/development/qtcreator-workspace/build-snipe-iphoneos_clang_Qt_5_5_1_for_iOS-Debug/Snipe-App/build/moc/moc_customersnipegroupmodel.cpp"; sourceTree = "<absolute>"; };
+		4CB9426046D235B5748F841D /* qtharfbuzzng */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qtharfbuzzng; path = "/Users/nando/Qt/5.5/ios/lib/libqtharfbuzzng$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		4D765E1B1EA6C757220C63E7 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
+		4F8AE6CE4B2FC4DB21F41B85 /* declarative_webview */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = declarative_webview; path = "/Users/nando/Qt/5.5/ios/qml/QtWebView/libdeclarative_webview$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		527880EAF04E9EF5EAB7D9A0 /* qtga */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qtga; path = "/Users/nando/Qt/5.5/ios/plugins/imageformats/libqtga$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		583CC1C71C2EF0E700B5C5EB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Snipe-App/Images.xcassets"; sourceTree = SOURCE_ROOT; };
+		583CC1CC1C2EF6F900B5C5EB /* libBraintree.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBraintree.a; path = development/libBraintree.a; sourceTree = "<group>"; };
+		5A83E663A315ABE52296FDBD /* qsvg */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qsvg; path = "/Users/nando/Qt/5.5/ios/plugins/imageformats/libqsvg$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		5E4F9D2431408AA950949951 /* snipeservice_client.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = snipeservice_client.h; path = "/development/qtcreator-workspace/snipe/Snipe-App/src/snipeservice_client.h"; sourceTree = "<absolute>"; };
+		6091FCC5EAABA68F902AC24F /* moc_snipeservice_client.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = moc_snipeservice_client.cpp; path = "/development/qtcreator-workspace/build-snipe-iphoneos_clang_Qt_5_5_1_for_iOS-Debug/Snipe-App/build/moc/moc_snipeservice_client.cpp"; sourceTree = "<absolute>"; };
+		6AE3EC31EE5BB1FCEE84137C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = /System/Library/Frameworks/CoreGraphics.framework; sourceTree = "<absolute>"; };
+		6B3B6559D37B68AF9DDDFA24 /* qrc_snipeapp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = qrc_snipeapp.cpp; path = "/development/qtcreator-workspace/build-snipe-iphoneos_clang_Qt_5_5_1_for_iOS-Debug/Snipe-App/qrc_snipeapp.cpp"; sourceTree = "<absolute>"; };
+		7359969F2E5AE2079F1901B0 /* moc_auctionmodel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = moc_auctionmodel.cpp; path = "/development/qtcreator-workspace/build-snipe-iphoneos_clang_Qt_5_5_1_for_iOS-Debug/Snipe-App/build/moc/moc_auctionmodel.cpp"; sourceTree = "<absolute>"; };
+		7AD015E23B0F2110E34C6863 /* snipemanager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = snipemanager.cpp; path = "/development/qtcreator-workspace/snipe/Snipe-App/src/snipemanager.cpp"; sourceTree = "<absolute>"; };
+		7D7B02101166B76FD2D4F8B4 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = /System/Library/Frameworks/CoreText.framework; sourceTree = "<absolute>"; };
+		7EC00404ACD5AB0E97726B0E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
+		84F96EC084538E3548159DE4 /* Qt5PlatformSupport */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = Qt5PlatformSupport; path = "/Users/nando/Qt/5.5/ios/lib/libQt5PlatformSupport$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		86692015E3D2978C80FFDE27 /* qmldbg_tcp */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qmldbg_tcp; path = "/Users/nando/Qt/5.5/ios/plugins/qmltooling/libqmldbg_tcp$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		88D01039807893A588BF944C /* Snipe */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = Snipe; path = "/development/qtcreator-workspace/build-snipe-iphoneos_clang_Qt_5_5_1_for_iOS-Debug/Snipe/libSnipe.a"; sourceTree = "<absolute>"; };
+		8F22BDDF4633B76400E208A9 /* auctionsearchresultmodel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = auctionsearchresultmodel.cpp; path = "/development/qtcreator-workspace/snipe/Snipe-App/src/auctionsearchresultmodel.cpp"; sourceTree = "<absolute>"; };
+		957D1B4176CC1F71A9DB8383 /* customersnipegroupmodel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = customersnipegroupmodel.cpp; path = "/development/qtcreator-workspace/snipe/Snipe-App/src/customersnipegroupmodel.cpp"; sourceTree = "<absolute>"; };
+		96FFEEA80037B39F6E15309E /* Snipe-App.pro */ = {isa = PBXFileReference; lastKnownFileType = text; name = "Snipe-App.pro"; path = "/development/qtcreator-workspace/build-snipe-iphoneos_clang_Qt_5_5_1_for_iOS-Debug/Snipe-App/Snipe-App.pro"; sourceTree = "<absolute>"; };
+		9742D4805033FA5808F6894F /* qtpcre */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qtpcre; path = "/Users/nando/Qt/5.5/ios/lib/libqtpcre$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		984B36431720CB7FD03DA702 /* qquicklayoutsplugin */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qquicklayoutsplugin; path = "/Users/nando/Qt/5.5/ios/qml/QtQuick/Layouts/libqquicklayoutsplugin$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		A1FC471EB3ABD3D39F870758 /* Qt5Widgets */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = Qt5Widgets; path = "/Users/nando/Qt/5.5/ios/lib/libQt5Widgets$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		A3030B04072DFFAC78C6CCF7 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "/development/qtcreator-workspace/build-snipe-iphoneos_clang_Qt_5_5_1_for_iOS-Debug/Snipe-App/Snipe-App.xcodeproj/Default-568h@2x.png"; sourceTree = "<absolute>"; };
+		A40D0349BFD8C46BF69F3237 /* qios */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qios; path = "/Users/nando/Qt/5.5/ios/plugins/platforms/libqios$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		A45AC9FB08F7857F38122589 /* qsvgicon */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qsvgicon; path = "/Users/nando/Qt/5.5/ios/plugins/iconengines/libqsvgicon$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		A8BE3971D54AA85F3FD9EA52 /* .qmake.stash */ = {isa = PBXFileReference; lastKnownFileType = text; name = .qmake.stash; path = "/development/qtcreator-workspace/build-snipe-iphoneos_clang_Qt_5_5_1_for_iOS-Debug/.qmake.stash"; sourceTree = "<absolute>"; };
+		ADB89ACCFF029CF6275285C9 /* Qt5Quick */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = Qt5Quick; path = "/Users/nando/Qt/5.5/ios/lib/libQt5Quick$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		AF6A58C0BA49169C10F428A9 /* Qt5Svg */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = Qt5Svg; path = "/Users/nando/Qt/5.5/ios/lib/libQt5Svg$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		B334CE711C2F71E3785D98E7 /* qjp2 */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qjp2; path = "/Users/nando/Qt/5.5/ios/plugins/imageformats/libqjp2$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		B39F4936C39CE15B0DB60679 /* Qt5Qml */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = Qt5Qml; path = "/Users/nando/Qt/5.5/ios/lib/libQt5Qml$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		B7CB6CA821459DE41A42FD91 /* qtquickextrasplugin */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qtquickextrasplugin; path = "/Users/nando/Qt/5.5/ios/qml/QtQuick/Extras/libqtquickextrasplugin$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		B7DB171AD1054777485C9447 /* Qt5WebView */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = Qt5WebView; path = "/Users/nando/Qt/5.5/ios/lib/libQt5WebView$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		BA472B7A80FAF6C367215320 /* Qt5Xml */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = Qt5Xml; path = "/Users/nando/Qt/5.5/ios/lib/libQt5Xml$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		BE3FF01EDBE6138CD84A8608 /* moc_snipemanager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = moc_snipemanager.cpp; path = "/development/qtcreator-workspace/build-snipe-iphoneos_clang_Qt_5_5_1_for_iOS-Debug/Snipe-App/build/moc/moc_snipemanager.cpp"; sourceTree = "<absolute>"; };
+		BF25F9B89D1FBFF11E385441 /* Qt5DBus */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = Qt5DBus; path = "/Users/nando/Qt/5.5/ios/lib/libQt5DBus$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		C206D4962E4A8D0DE89D2007 /* qtquickcontrolsplugin */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qtquickcontrolsplugin; path = "/Users/nando/Qt/5.5/ios/qml/QtQuick/Controls/libqtquickcontrolsplugin$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		C9C20095EF22491525F21B31 /* LaunchScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LaunchScreen.xib; path = "/development/qtcreator-workspace/build-snipe-iphoneos_clang_Qt_5_5_1_for_iOS-Debug/Snipe-App/Snipe-App.xcodeproj/LaunchScreen.xib"; sourceTree = "<absolute>"; };
+		CC9448CED2EA1B4AF4F0715C /* snipe-app_plugin_import.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "snipe-app_plugin_import.cpp"; path = "/development/qtcreator-workspace/build-snipe-iphoneos_clang_Qt_5_5_1_for_iOS-Debug/Snipe-App/snipe-app_plugin_import.cpp"; sourceTree = "<absolute>"; };
+		CDA6CA37E6E948F7B573A8FB /* qdds */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qdds; path = "/Users/nando/Qt/5.5/ios/plugins/imageformats/libqdds$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		D40EAB75EF1E9E15EC47738B /* auctionproxymodel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = auctionproxymodel.h; path = "/development/qtcreator-workspace/snipe/Snipe-App/src/auctionproxymodel.h"; sourceTree = "<absolute>"; };
+		D473A1F518E7BCF435F86EC0 /* qtiff */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qtiff; path = "/Users/nando/Qt/5.5/ios/plugins/imageformats/libqtiff$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		D7D5E0F5E63F4F0DB73614EA /* snipemanager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = snipemanager.h; path = "/development/qtcreator-workspace/snipe/Snipe-App/src/snipemanager.h"; sourceTree = "<absolute>"; };
+		DAFF8F8E4D802AC0DE08F0FD /* auctionmodel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = auctionmodel.h; path = "/development/qtcreator-workspace/snipe/Snipe-App/src/auctionmodel.h"; sourceTree = "<absolute>"; };
+		DD852AE7CABD8C82C3939925 /* snipeservice_client.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = snipeservice_client.cpp; path = "/development/qtcreator-workspace/snipe/Snipe-App/src/snipeservice_client.cpp"; sourceTree = "<absolute>"; };
+		DFEC4F128951425801D9EAAA /* qicns */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qicns; path = "/Users/nando/Qt/5.5/ios/plugins/imageformats/libqicns$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		E2C602188C53962AE5DF0589 /* qtquick2plugin */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qtquick2plugin; path = "/Users/nando/Qt/5.5/ios/qml/QtQuick.2/libqtquick2plugin$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		E5641A5037385DBFF2D4D4F7 /* qwebp */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qwebp; path = "/Users/nando/Qt/5.5/ios/plugins/imageformats/libqwebp$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		E749EC8E43A0D723601FBABC /* Qt5Network */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = Qt5Network; path = "/Users/nando/Qt/5.5/ios/lib/libQt5Network$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		EB88A0E7FE29C5E28F246A11 /* qmng */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qmng; path = "/Users/nando/Qt/5.5/ios/plugins/imageformats/libqmng$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		F09010A02D507D5F7642977F /* snipeapp.qrc */ = {isa = PBXFileReference; lastKnownFileType = text; name = snipeapp.qrc; path = "/development/qtcreator-workspace/snipe/Snipe-App/snipeapp.qrc"; sourceTree = "<absolute>"; };
+		F19E5A11BB9092C6A73EC08D /* modelsplugin */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = modelsplugin; path = "/Users/nando/Qt/5.5/ios/qml/QtQml/Models.2/libmodelsplugin$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		F23C118CBA3DD7E9D89B949F /* dialogsprivateplugin */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = dialogsprivateplugin; path = "/Users/nando/Qt/5.5/ios/qml/QtQuick/Dialogs/Private/libdialogsprivateplugin$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		F38F773F4062E1452DC19264 /* windowplugin */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = windowplugin; path = "/Users/nando/Qt/5.5/ios/qml/QtQuick/Window.2/libwindowplugin$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		FCC237CA5AD60B9BA4447615 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		FEE21567FEC4F321D507A170 /* translator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = translator.h; path = "/development/qtcreator-workspace/snipe/Snipe-App/src/translator.h"; sourceTree = "<absolute>"; };
+		FF5BDAB0076F3391B219EA52 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = /System/Library/Frameworks/SystemConfiguration.framework; sourceTree = "<absolute>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D1C883685E82D5676953459A /* Link Binary With Libraries */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				583CC1CD1C2EF6F900B5C5EB /* libBraintree.a in Link Binary With Libraries */,
+				ABEAFED972FDD2B9431E789F /* Snipe in Link Binary With Libraries */,
+				A26F3D29D879ED79063CCDD8 /* qios in Link Binary With Libraries */,
+				F26454630C80841CBDCFE1CA /* Foundation.framework in Link Binary With Libraries */,
+				B460F624007324313696BE86 /* QuartzCore.framework in Link Binary With Libraries */,
+				F8B465CE34D8DF87AAE95913 /* CoreFoundation.framework in Link Binary With Libraries */,
+				2B02D9DC58A01E45248DDBCE /* CoreText.framework in Link Binary With Libraries */,
+				0CE02722F00CAD43741297B5 /* CoreGraphics.framework in Link Binary With Libraries */,
+				3751D23A572BEBE29D27546F /* Qt5PlatformSupport in Link Binary With Libraries */,
+				22FB74112651D6B8F528D71D /* Qt5DBus in Link Binary With Libraries */,
+				15364689D2AB5A30E87A689F /* Security.framework in Link Binary With Libraries */,
+				D4639595C3BCF2A39D88DF6E /* SystemConfiguration.framework in Link Binary With Libraries */,
+				C225E7526E93DB0F0C8DFF39 /* Qt5Xml in Link Binary With Libraries */,
+				31AB64423F02D4873EBAA8CC /* qtquick2plugin in Link Binary With Libraries */,
+				8A2A9DE296C7B8A50FB5FA66 /* qtquickcontrolsplugin in Link Binary With Libraries */,
+				B4D2D72661C9EF81194A87BB /* declarative_webview in Link Binary With Libraries */,
+				E0E5E21FF6C1B6B690AE9D09 /* Qt5WebView in Link Binary With Libraries */,
+				8FAE0325499A04A6EB887079 /* windowplugin in Link Binary With Libraries */,
+				8D92488D2C801C60606B71FF /* dialogplugin in Link Binary With Libraries */,
+				70A9C635B048F62F9B0FFB4C /* qmlfolderlistmodelplugin in Link Binary With Libraries */,
+				4571BC887499F9DF7BDDB434 /* qmlsettingsplugin in Link Binary With Libraries */,
+				BC52EC8017C73DFDD64A2D32 /* dialogsprivateplugin in Link Binary With Libraries */,
+				F2F5B53BC3BCBA27C9AAD3C9 /* qquicklayoutsplugin in Link Binary With Libraries */,
+				84B5016209C6D6A3AF71FCB9 /* qtquickextrasplugin in Link Binary With Libraries */,
+				92AE0CC766F734EF473ADAB4 /* modelsplugin in Link Binary With Libraries */,
+				CFB016FCD2BB885F188FAADA /* qsvgicon in Link Binary With Libraries */,
+				99A5E7F9B8623EA282E482B1 /* qdds in Link Binary With Libraries */,
+				E277713F23BC98A4E76A09C5 /* qicns in Link Binary With Libraries */,
+				4E09857325DEA695FFF20D60 /* qico in Link Binary With Libraries */,
+				77394E4C3101B83DA3577B94 /* qjp2 in Link Binary With Libraries */,
+				888A3AB620B6D766B1D078F0 /* qmng in Link Binary With Libraries */,
+				768C2DD1F12BB11C1C89ED2E /* qsvg in Link Binary With Libraries */,
+				A3AB39597380DC7F1E319599 /* Qt5Svg in Link Binary With Libraries */,
+				33FB5CFAE9A04364F4A3063F /* Qt5Widgets in Link Binary With Libraries */,
+				816F25977F59CDA289A039DB /* qtga in Link Binary With Libraries */,
+				AA961B6D6F2B66B1F8777C68 /* qtiff in Link Binary With Libraries */,
+				30F707F34FE035DAEA3F69DC /* qwbmp in Link Binary With Libraries */,
+				851DE5717616B83ED88BED60 /* qwebp in Link Binary With Libraries */,
+				641A163D0BA6DADB9A2F61E8 /* qmldbg_qtquick2 in Link Binary With Libraries */,
+				19A80650482C275886757EB3 /* Qt5Quick in Link Binary With Libraries */,
+				FD438DD91072A203647A8C78 /* Qt5Gui in Link Binary With Libraries */,
+				0CD1365EBFD7108008392680 /* qtharfbuzzng in Link Binary With Libraries */,
+				48B5EE916604ADC7506FB1D5 /* qmldbg_tcp in Link Binary With Libraries */,
+				CFE9FCA9A8142A09EC4BED96 /* Qt5Qml in Link Binary With Libraries */,
+				1647F0302D653158386A5669 /* qgenericbearer in Link Binary With Libraries */,
+				51B7A38BE8C4EBEF3E7AA860 /* Qt5Network in Link Binary With Libraries */,
+				EBA96812968A1D8DF7E1CCDB /* Qt5Core in Link Binary With Libraries */,
+				96AE4F47AC126F7CD7637120 /* qtpcre in Link Binary With Libraries */,
+			);
+			name = "Link Binary With Libraries";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		25B08E2869634E9BCBA333A2 /* Generated Sources */ = {
+			isa = PBXGroup;
+			children = (
+				6B3B6559D37B68AF9DDDFA24 /* qrc_snipeapp.cpp */,
+				C5C31264768DCC05446CDDCF /* build */,
+			);
+			name = "Generated Sources";
+			sourceTree = "<Group>";
+		};
+		2EB56BE3C2D93CDAB0C52E67 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				921315FAA7F261D737F4F4C7 /* src */,
+				2C8DE587A63402A2BE36DC08 /* snipe-app_qml_plugin_import.cpp */,
+				CC9448CED2EA1B4AF4F0715C /* snipe-app_plugin_import.cpp */,
+			);
+			name = Sources;
+			sourceTree = "<Group>";
+		};
+		74B182DB50CB5611B5C1C297 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				96FFEEA80037B39F6E15309E /* Snipe-App.pro */,
+				A8BE3971D54AA85F3FD9EA52 /* .qmake.stash */,
+				16C898DB5E2D0979806B5AB6 /* Snipe-App.pro */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<Group>";
+		};
+		7BED9CF353461AB751D52FE0 /* moc */ = {
+			isa = PBXGroup;
+			children = (
+				BE3FF01EDBE6138CD84A8608 /* moc_snipemanager.cpp */,
+				7359969F2E5AE2079F1901B0 /* moc_auctionmodel.cpp */,
+				2B993254060D1B453D5CB2E2 /* moc_auctionproxymodel.cpp */,
+				14132C793CEA346B5BF302C6 /* moc_auctionsearchresultmodel.cpp */,
+				48248995ECFF0EE43BF76082 /* moc_customersnipegroupmodel.cpp */,
+				6091FCC5EAABA68F902AC24F /* moc_snipeservice_client.cpp */,
+				112AB73736A0F83843F7F8B5 /* moc_translator.cpp */,
+			);
+			name = moc;
+			sourceTree = "<Group>";
+		};
+		858FCAB0EB1F29CF8B07677C /* Bundle Data */ = {
+			isa = PBXGroup;
+			children = (
+				A3030B04072DFFAC78C6CCF7 /* Default-568h@2x.png */,
+				C9C20095EF22491525F21B31 /* LaunchScreen.xib */,
+			);
+			name = "Bundle Data";
+			sourceTree = "<Group>";
+		};
+		87DF60DE337FB58864343E39 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				583CC1C71C2EF0E700B5C5EB /* Images.xcassets */,
+				F09010A02D507D5F7642977F /* snipeapp.qrc */,
+			);
+			name = Resources;
+			sourceTree = "<Group>";
+		};
+		921315FAA7F261D737F4F4C7 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				07F236E3FBC1DE07901BF71B /* main.cpp */,
+				7AD015E23B0F2110E34C6863 /* snipemanager.cpp */,
+				1870A19CCD616067C927C60B /* auctionmodel.cpp */,
+				3D71C13E0CE95F40890D3597 /* auctionproxymodel.cpp */,
+				8F22BDDF4633B76400E208A9 /* auctionsearchresultmodel.cpp */,
+				957D1B4176CC1F71A9DB8383 /* customersnipegroupmodel.cpp */,
+				DD852AE7CABD8C82C3939925 /* snipeservice_client.cpp */,
+				0CC44A0762065022AA5DCCA1 /* translator.cpp */,
+				D7D5E0F5E63F4F0DB73614EA /* snipemanager.h */,
+				DAFF8F8E4D802AC0DE08F0FD /* auctionmodel.h */,
+				D40EAB75EF1E9E15EC47738B /* auctionproxymodel.h */,
+				0606C49D73D6D5B0750412ED /* auctionsearchresultmodel.h */,
+				45FC421878C93A7721B01E83 /* customersnipegroupmodel.h */,
+				5E4F9D2431408AA950949951 /* snipeservice_client.h */,
+				FEE21567FEC4F321D507A170 /* translator.h */,
+			);
+			name = src;
+			sourceTree = "<Group>";
+		};
+		AF39DD055C3EF8226FBE929D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				583CC1CC1C2EF6F900B5C5EB /* libBraintree.a */,
+				88D01039807893A588BF944C /* Snipe */,
+				A40D0349BFD8C46BF69F3237 /* qios */,
+				FCC237CA5AD60B9BA4447615 /* Foundation.framework */,
+				7EC00404ACD5AB0E97726B0E /* QuartzCore.framework */,
+				4D765E1B1EA6C757220C63E7 /* CoreFoundation.framework */,
+				7D7B02101166B76FD2D4F8B4 /* CoreText.framework */,
+				6AE3EC31EE5BB1FCEE84137C /* CoreGraphics.framework */,
+				84F96EC084538E3548159DE4 /* Qt5PlatformSupport */,
+				BF25F9B89D1FBFF11E385441 /* Qt5DBus */,
+				205259EEEE2BADA5E64741E3 /* Security.framework */,
+				FF5BDAB0076F3391B219EA52 /* SystemConfiguration.framework */,
+				BA472B7A80FAF6C367215320 /* Qt5Xml */,
+				E2C602188C53962AE5DF0589 /* qtquick2plugin */,
+				C206D4962E4A8D0DE89D2007 /* qtquickcontrolsplugin */,
+				4F8AE6CE4B2FC4DB21F41B85 /* declarative_webview */,
+				B7DB171AD1054777485C9447 /* Qt5WebView */,
+				F38F773F4062E1452DC19264 /* windowplugin */,
+				27F766713E4F054D5F32C906 /* dialogplugin */,
+				0AA95389BCCCD4619E99E96A /* qmlfolderlistmodelplugin */,
+				2032E13B27D295EC3140E6A7 /* qmlsettingsplugin */,
+				F23C118CBA3DD7E9D89B949F /* dialogsprivateplugin */,
+				984B36431720CB7FD03DA702 /* qquicklayoutsplugin */,
+				B7CB6CA821459DE41A42FD91 /* qtquickextrasplugin */,
+				F19E5A11BB9092C6A73EC08D /* modelsplugin */,
+				A45AC9FB08F7857F38122589 /* qsvgicon */,
+				CDA6CA37E6E948F7B573A8FB /* qdds */,
+				DFEC4F128951425801D9EAAA /* qicns */,
+				2BD342C070385175D4491859 /* qico */,
+				B334CE711C2F71E3785D98E7 /* qjp2 */,
+				EB88A0E7FE29C5E28F246A11 /* qmng */,
+				5A83E663A315ABE52296FDBD /* qsvg */,
+				AF6A58C0BA49169C10F428A9 /* Qt5Svg */,
+				A1FC471EB3ABD3D39F870758 /* Qt5Widgets */,
+				527880EAF04E9EF5EAB7D9A0 /* qtga */,
+				D473A1F518E7BCF435F86EC0 /* qtiff */,
+				07E87645CF8D1E57CD4EE487 /* qwbmp */,
+				E5641A5037385DBFF2D4D4F7 /* qwebp */,
+				134CB22F920B9CA6FE094CFE /* qmldbg_qtquick2 */,
+				ADB89ACCFF029CF6275285C9 /* Qt5Quick */,
+				24F699B2B603BB538D2F07D6 /* Qt5Gui */,
+				4CB9426046D235B5748F841D /* qtharfbuzzng */,
+				86692015E3D2978C80FFDE27 /* qmldbg_tcp */,
+				B39F4936C39CE15B0DB60679 /* Qt5Qml */,
+				2CCA15393CA594256E1B93A4 /* qgenericbearer */,
+				E749EC8E43A0D723601FBABC /* Qt5Network */,
+				1018B4B42930FC3178F4E7F8 /* Qt5Core */,
+				9742D4805033FA5808F6894F /* qtpcre */,
+			);
+			name = Frameworks;
+			sourceTree = "<Group>";
+		};
+		C5C31264768DCC05446CDDCF /* build */ = {
+			isa = PBXGroup;
+			children = (
+				7BED9CF353461AB751D52FE0 /* moc */,
+			);
+			name = build;
+			sourceTree = "<Group>";
+		};
+		E8C543AB96796ECAA2E65C57 /* Snipe-App */ = {
+			isa = PBXGroup;
+			children = (
+				2EB56BE3C2D93CDAB0C52E67 /* Sources */,
+				25B08E2869634E9BCBA333A2 /* Generated Sources */,
+				74B182DB50CB5611B5C1C297 /* Supporting Files */,
+				87DF60DE337FB58864343E39 /* Resources */,
+				AF39DD055C3EF8226FBE929D /* Frameworks */,
+				858FCAB0EB1F29CF8B07677C /* Bundle Data */,
+				FE0A091FDBFB3E9C31B7A1BD /* Products */,
+			);
+			name = "Snipe-App";
+			sourceTree = "<Group>";
+		};
+		FE0A091FDBFB3E9C31B7A1BD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3A854203153C5A20927EDDFC /* Snipe-App.app */,
+			);
+			name = Products;
+			sourceTree = "<Group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0D57C29249E2ADB765982B18 /* Snipe-App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6CC3B5D2136C7CD6A5CF5A59 /* Build configuration list for PBXNativeTarget "Snipe-App" */;
+			buildPhases = (
+				F7E50F631C51CD5B5DC0BC43 /* Compile Sources */,
+				3DA90DAE39A0C9D07C6F6B0F /* Qt Prelink */,
+				D1C883685E82D5676953459A /* Link Binary With Libraries */,
+				776D5E25B18ED6FE9A43064F /* Qt Postlink */,
+				30414803F31797EB689AE508 /* Copy Bundle Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B6209BE7C512CB6863239ADF /* PBXTargetDependency */,
+			);
+			name = "Snipe-App";
+			productName = "Snipe-App";
+			productReference = 3A854203153C5A20927EDDFC /* Snipe-App.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6DB9C3763D02B1415CD9D565 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				TargetAttributes = {
+					0D57C29249E2ADB765982B18 = {
+						DevelopmentTeam = 8CFX8MQ27Z;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = DAC4C1AA5EDEA1C85E9CA5E6 /* Build configuration list for PBXProject "Snipe-App" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E8C543AB96796ECAA2E65C57 /* Snipe-App */;
+			productRefGroup = FE0A091FDBFB3E9C31B7A1BD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0D57C29249E2ADB765982B18 /* Snipe-App */,
+				4D8AC8673DAB0881C35A936A /* Qt Preprocess */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		30414803F31797EB689AE508 /* Copy Bundle Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				583CC1C81C2EF0E700B5C5EB /* Images.xcassets in Copy Bundle Resources */,
+				15516D8B8191940035530C3E /* Default-568h@2x.png in Copy Bundle Resources */,
+				11D880386042AD9D586C864C /* LaunchScreen.xib in Copy Bundle Resources */,
+			);
+			name = "Copy Bundle Resources";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3DA90DAE39A0C9D07C6F6B0F /* Qt Prelink */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(OBJECT_FILE_DIR_$(CURRENT_VARIANT))/armv7/",
+				"$(OBJECT_FILE_DIR_$(CURRENT_VARIANT))/arm64/",
+				"$(OBJECT_FILE_DIR_$(CURRENT_VARIANT))/i386/",
+				"$(OBJECT_FILE_DIR_$(CURRENT_VARIANT))/x86_64/",
+			);
+			name = "Qt Prelink";
+			outputPaths = (
+				"$(LINK_FILE_LIST_$(CURRENT_VARIANT)_armv7)",
+				"$(LINK_FILE_LIST_$(CURRENT_VARIANT)_arm64)",
+				"$(LINK_FILE_LIST_$(CURRENT_VARIANT)_i386)",
+				"$(LINK_FILE_LIST_$(CURRENT_VARIANT)_x86_64)",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/Users/nando/Qt/5.5/ios/mkspecs/macx-ios-clang/rename_main.sh \"${OBJECT_FILE_DIR}-${CURRENT_VARIANT}\" \"${ARCHS}\"";
+			showEnvVarsInLog = 0;
+		};
+		5E618435888B9D49F8540165 /* Qt Qmake */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "Qt Qmake";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /development/qtcreator-workspace/build-snipe-iphoneos_clang_Qt_5_5_1_for_iOS-Debug/Snipe-App/ -f Snipe-App.xcodeproj/qt_makeqmake.mak";
+			showEnvVarsInLog = 0;
+		};
+		776D5E25B18ED6FE9A43064F /* Qt Postlink */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(TARGET_BUILD_DIR)/$(EXECUTABLE_PATH)",
+			);
+			name = "Qt Postlink";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp /development/qtcreator-workspace/build-snipe-iphoneos_clang_Qt_5_5_1_for_iOS-Debug/Snipe-App/qt.conf $CODESIGNING_FOLDER_PATH/qt.conf;  test -d $CODESIGNING_FOLDER_PATH/qt_qml && rm -r $CODESIGNING_FOLDER_PATH/qt_qml;  mkdir -p $CODESIGNING_FOLDER_PATH/qt_qml &&  for p in /Users/nando/Qt/5.5/ios/qml; do rsync -r --exclude='*.a' --exclude='*.prl' --exclude='*.qmltypes'  $p/ $CODESIGNING_FOLDER_PATH/qt_qml; done";
+			showEnvVarsInLog = 0;
+		};
+		7EF0942E79C014DCEC8976BC /* Qt Preprocessors */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "Qt Preprocessors";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /development/qtcreator-workspace/build-snipe-iphoneos_clang_Qt_5_5_1_for_iOS-Debug/Snipe-App/ -f Snipe-App.xcodeproj/qt_preprocess.mak";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F7E50F631C51CD5B5DC0BC43 /* Compile Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6C73D3623467FB4BB7EAFE49 /* main.cpp in Compile Sources */,
+				8E2ED7DA64A1E00DC5A472CF /* snipemanager.cpp in Compile Sources */,
+				D49C5D1284743410C03C0709 /* auctionmodel.cpp in Compile Sources */,
+				94EB18FAFB4BB68CF08222B9 /* auctionproxymodel.cpp in Compile Sources */,
+				89B1D2B1A64B73E1206CA52E /* auctionsearchresultmodel.cpp in Compile Sources */,
+				99A5CE9DE361D902B424FB5B /* customersnipegroupmodel.cpp in Compile Sources */,
+				ED943941BC58CC21456245FA /* snipeservice_client.cpp in Compile Sources */,
+				A0B81A9F1F3C46E89049A376 /* translator.cpp in Compile Sources */,
+				D87E8390C5FAAFEF08091D28 /* snipe-app_qml_plugin_import.cpp in Compile Sources */,
+				47E08AFDD9E69E15A0AFC946 /* snipe-app_plugin_import.cpp in Compile Sources */,
+				50AD1BC93AEE47BE310EE1A0 /* qrc_snipeapp.cpp in Compile Sources */,
+				E1F3B89D2F4DAC3C69535B3D /* moc_snipemanager.cpp in Compile Sources */,
+				90DA2DF42AF15AAE329E2AAD /* moc_auctionmodel.cpp in Compile Sources */,
+				1462C852201CC1E60E8D6A98 /* moc_auctionproxymodel.cpp in Compile Sources */,
+				9243BB1D5C7A4B08DC6D9494 /* moc_auctionsearchresultmodel.cpp in Compile Sources */,
+				51F40739C5044A3E99A70B38 /* moc_customersnipegroupmodel.cpp in Compile Sources */,
+				26EA7E8513E710238D5EF87E /* moc_snipeservice_client.cpp in Compile Sources */,
+				788F0688E5A1579040AB4BBC /* moc_translator.cpp in Compile Sources */,
+			);
+			name = "Compile Sources";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B6209BE7C512CB6863239ADF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4D8AC8673DAB0881C35A936A /* Qt Preprocess */;
+			targetProxy = 583CC1C61C2EEFE300B5C5EB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		339EE1B2CC4FC24589A0EA95 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"ARCHS[sdk=iphoneos*]" = (
+					armv7,
+					arm64,
+				);
+				"ARCHS[sdk=iphonesimulator*]" = (
+					i386,
+					x86_64,
+				);
+				CC = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1.0;
+				DYLIB_CURRENT_VERSION = 1.0.0;
+				ENABLE_BITCODE = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"../../snipe/Snipe-App",
+					.,
+					"/Users/nando/Qt/5.5/ios/mkspecs/macx-ios-clang/ios",
+					../../snipe/Snipe,
+					/Users/nando/Qt/5.5/ios/include,
+					/Users/nando/Qt/5.5/ios/include/QtQuick,
+					/Users/nando/Qt/5.5/ios/include/QtSvg,
+					/Users/nando/Qt/5.5/ios/include/QtWidgets,
+					/Users/nando/Qt/5.5/ios/include/QtGui,
+					/Users/nando/Qt/5.5/ios/include/QtQml,
+					/Users/nando/Qt/5.5/ios/include/QtNetwork,
+					/Users/nando/Qt/5.5/ios/include/QtXml,
+					/Users/nando/Qt/5.5/ios/include/QtCore,
+					build/moc,
+					"/Users/nando/Qt/5.5/ios/mkspecs/macx-ios-clang",
+				);
+				INFOPLIST_FILE = "../../snipe/Snipe-App/ios/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
+				LDPLUSPLUS = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++";
+				LIBRARY_SEARCH_PATHS = (
+					"/development/qtcreator-workspace/snipe/Snipe-App/../../build-snipe-iphoneos_clang_Qt_5_5_1_for_iOS-Debug/Snipe",
+					"/development/qtcreator-workspace/build-snipe-iphoneos_clang_Qt_5_5_1_for_iOS-Debug/Snipe",
+					/Users/nando/Qt/5.5/ios/plugins/platforms,
+					/System/Library/Frameworks/,
+					/Users/nando/Qt/5.5/ios/lib,
+					/Users/nando/Qt/5.5/ios/qml/QtQuick.2,
+					/Users/nando/Qt/5.5/ios/qml/QtQuick/Controls,
+					/Users/nando/Qt/5.5/ios/qml/QtWebView,
+					/Users/nando/Qt/5.5/ios/qml/QtQuick/Window.2,
+					/Users/nando/Qt/5.5/ios/qml/QtQuick/Dialogs,
+					/Users/nando/Qt/5.5/ios/qml/Qt/labs/folderlistmodel,
+					/Users/nando/Qt/5.5/ios/qml/Qt/labs/settings,
+					/Users/nando/Qt/5.5/ios/qml/QtQuick/Dialogs/Private,
+					/Users/nando/Qt/5.5/ios/qml/QtQuick/Layouts,
+					/Users/nando/Qt/5.5/ios/qml/QtQuick/Extras,
+					/Users/nando/Qt/5.5/ios/qml/QtQml/Models.2,
+					/Users/nando/Qt/5.5/ios/plugins/iconengines,
+					/Users/nando/Qt/5.5/ios/plugins/imageformats,
+					/Users/nando/Qt/5.5/ios/plugins/qmltooling,
+					/Users/nando/Qt/5.5/ios/plugins/bearer,
+				);
+				OBJROOT = build/obj/;
+				OTHER_CFLAGS = (
+					"-pipe",
+					"-fvisibility=hidden",
+					"-fpascal-strings",
+					"-fmessage-length=0",
+					"-Wno-trigraphs",
+					"-Wreturn-type",
+					"-Wparentheses",
+					"-Wswitch",
+					"-Wno-unused-parameter",
+					"-Wunused-variable",
+					"-Wunused-value",
+					"-Wno-shorten-64-to-32",
+					"-Wno-sign-conversion",
+					"-fexceptions",
+					"-fasm-blocks",
+					"-Wno-missing-field-initializers",
+					"-Wno-missing-prototypes",
+					"-Wno-implicit-atomic-properties",
+					"-Wformat",
+					"-Wno-missing-braces",
+					"-Wno-unused-function",
+					"-Wno-unused-label",
+					"-Wuninitialized",
+					"-Wno-unknown-pragmas",
+					"-Wno-shadow",
+					"-Wno-four-char-constants",
+					"-Wno-sign-compare",
+					"-Wpointer-sign",
+					"-Wno-newline-eof",
+					"-Wdeprecated-declarations",
+					"-Winvalid-offsetof",
+					"-Wno-conversion",
+					"-g",
+					"-Wall",
+					"-W",
+					"-fPIC",
+					"-DDARWIN_NO_CARBON",
+					"-DQT_NO_PRINTER",
+					"-DQT_NO_PRINTDIALOG",
+					"-DQT_QML_DEBUG",
+					"-DQT_QUICK_LIB",
+					"-DQT_SVG_LIB",
+					"-DQT_WIDGETS_LIB",
+					"-DQT_GUI_LIB",
+					"-DQT_QML_LIB",
+					"-DQT_NETWORK_LIB",
+					"-DQT_XML_LIB",
+					"-DQT_CORE_LIB",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-pipe",
+					"-fvisibility=hidden",
+					"-fpascal-strings",
+					"-fmessage-length=0",
+					"-Wno-trigraphs",
+					"-Wreturn-type",
+					"-Wparentheses",
+					"-Wswitch",
+					"-Wno-unused-parameter",
+					"-Wunused-variable",
+					"-Wunused-value",
+					"-Wno-shorten-64-to-32",
+					"-Wno-sign-conversion",
+					"-fexceptions",
+					"-fasm-blocks",
+					"-Wno-missing-field-initializers",
+					"-Wno-missing-prototypes",
+					"-Wno-implicit-atomic-properties",
+					"-Wformat",
+					"-Wno-missing-braces",
+					"-Wno-unused-function",
+					"-Wno-unused-label",
+					"-Wuninitialized",
+					"-Wno-unknown-pragmas",
+					"-Wno-shadow",
+					"-Wno-four-char-constants",
+					"-Wno-sign-compare",
+					"-Wpointer-sign",
+					"-Wno-newline-eof",
+					"-Wdeprecated-declarations",
+					"-Winvalid-offsetof",
+					"-Wno-conversion",
+					"-fvisibility-inlines-hidden",
+					"-Wno-non-virtual-dtor",
+					"-Wno-overloaded-virtual",
+					"-Wno-exit-time-destructors",
+					"-g",
+					"-std=c++11",
+					"-stdlib=libc++",
+					"-Wall",
+					"-W",
+					"-fPIC",
+					"-DDARWIN_NO_CARBON",
+					"-DQT_NO_PRINTER",
+					"-DQT_NO_PRINTDIALOG",
+					"-DQT_QML_DEBUG",
+					"-DQT_QUICK_LIB",
+					"-DQT_SVG_LIB",
+					"-DQT_WIDGETS_LIB",
+					"-DQT_GUI_LIB",
+					"-DQT_QML_LIB",
+					"-DQT_NETWORK_LIB",
+					"-DQT_XML_LIB",
+					"-DQT_CORE_LIB",
+				);
+				OTHER_LDFLAGS = (
+					"-headerpad_max_install_names",
+					"-stdlib=libc++",
+					"-u",
+					_qt_registerPlatformPlugin,
+					"-L/development/qtcreator-workspace/snipe/Snipe-App/../../build-snipe-iphoneos_clang_Qt_5_5_1_for_iOS-Debug/Snipe",
+					"-L/Users/nando/Qt/5.5/ios/plugins/platforms",
+					"-framework",
+					UIKit,
+					"-framework",
+					AssetsLibrary,
+					"-L/Users/nando/Qt/5.5/ios/lib",
+					"-framework",
+					OpenGLES,
+					"-L/Users/nando/Qt/5.5/ios/qml/QtQuick.2",
+					"-L/Users/nando/Qt/5.5/ios/qml/QtQuick/Controls",
+					"-L/Users/nando/Qt/5.5/ios/qml/QtWebView",
+					"-L/Users/nando/Qt/5.5/ios/qml/QtQuick/Window.2",
+					"-L/Users/nando/Qt/5.5/ios/qml/QtQuick/Dialogs",
+					"-L/Users/nando/Qt/5.5/ios/qml/Qt/labs/folderlistmodel",
+					"-L/Users/nando/Qt/5.5/ios/qml/Qt/labs/settings",
+					"-L/Users/nando/Qt/5.5/ios/qml/QtQuick/Dialogs/Private",
+					"-L/Users/nando/Qt/5.5/ios/qml/QtQuick/Layouts",
+					"-L/Users/nando/Qt/5.5/ios/qml/QtQuick/Extras",
+					"-L/Users/nando/Qt/5.5/ios/qml/QtQml/Models.2",
+					"-L/Users/nando/Qt/5.5/ios/plugins/iconengines",
+					"-L/Users/nando/Qt/5.5/ios/plugins/imageformats",
+					"-L/Users/nando/Qt/5.5/ios/plugins/qmltooling",
+					"-L/Users/nando/Qt/5.5/ios/plugins/bearer",
+					"-lz",
+					"-lm",
+				);
+				PRODUCT_NAME = "Snipe-App";
+				"QMAKE_MAC_SDK_PATH[sdk=iphoneos*]" = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk;
+				"QMAKE_MAC_SDK_PATH[sdk=iphonesimulator*]" = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.2.sdk;
+				"QMAKE_MAC_SDK_PLATFORM_PATH[sdk=iphoneos*]" = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform;
+				"QMAKE_MAC_SDK_PLATFORM_PATH[sdk=iphonesimulator*]" = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform;
+				QT_LIBRARY_SUFFIX = "";
+				"QT_LIBRARY_SUFFIX[sdk=iphonesimulator*]" = "_iphonesimulator$(QT_LIBRARY_SUFFIX)";
+				SDKROOT = iphoneos;
+				SYMROOT = "/development/qtcreator-workspace/build-snipe-iphoneos_clang_Qt_5_5_1_for_iOS-Debug/Snipe-App/";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		3AA6C32AC930069E80220CF1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"ARCHS[sdk=iphoneos*]" = (
+					armv7,
+					arm64,
+				);
+				"ARCHS[sdk=iphonesimulator*]" = (
+					i386,
+					x86_64,
+				);
+				CC = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DYLIB_COMPATIBILITY_VERSION = 1.0;
+				DYLIB_CURRENT_VERSION = 1.0.0;
+				ENABLE_BITCODE = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"../../snipe/Snipe-App",
+					.,
+					"/Users/nando/Qt/5.5/ios/mkspecs/macx-ios-clang/ios",
+					../../snipe/Snipe,
+					/Users/nando/Qt/5.5/ios/include,
+					/Users/nando/Qt/5.5/ios/include/QtQuick,
+					/Users/nando/Qt/5.5/ios/include/QtSvg,
+					/Users/nando/Qt/5.5/ios/include/QtWidgets,
+					/Users/nando/Qt/5.5/ios/include/QtGui,
+					/Users/nando/Qt/5.5/ios/include/QtQml,
+					/Users/nando/Qt/5.5/ios/include/QtNetwork,
+					/Users/nando/Qt/5.5/ios/include/QtXml,
+					/Users/nando/Qt/5.5/ios/include/QtCore,
+					build/moc,
+					"/Users/nando/Qt/5.5/ios/mkspecs/macx-ios-clang",
+				);
+				INFOPLIST_FILE = "../../snipe/Snipe-App/ios/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
+				LDPLUSPLUS = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++";
+				LIBRARY_SEARCH_PATHS = (
+					"/development/qtcreator-workspace/snipe/Snipe-App/../../build-snipe-iphoneos_clang_Qt_5_5_1_for_iOS-Debug/Snipe",
+					"/development/qtcreator-workspace/build-snipe-iphoneos_clang_Qt_5_5_1_for_iOS-Debug/Snipe",
+					/Users/nando/Qt/5.5/ios/plugins/platforms,
+					/System/Library/Frameworks/,
+					/Users/nando/Qt/5.5/ios/lib,
+					/Users/nando/Qt/5.5/ios/qml/QtQuick.2,
+					/Users/nando/Qt/5.5/ios/qml/QtQuick/Controls,
+					/Users/nando/Qt/5.5/ios/qml/QtWebView,
+					/Users/nando/Qt/5.5/ios/qml/QtQuick/Window.2,
+					/Users/nando/Qt/5.5/ios/qml/QtQuick/Dialogs,
+					/Users/nando/Qt/5.5/ios/qml/Qt/labs/folderlistmodel,
+					/Users/nando/Qt/5.5/ios/qml/Qt/labs/settings,
+					/Users/nando/Qt/5.5/ios/qml/QtQuick/Dialogs/Private,
+					/Users/nando/Qt/5.5/ios/qml/QtQuick/Layouts,
+					/Users/nando/Qt/5.5/ios/qml/QtQuick/Extras,
+					/Users/nando/Qt/5.5/ios/qml/QtQml/Models.2,
+					/Users/nando/Qt/5.5/ios/plugins/iconengines,
+					/Users/nando/Qt/5.5/ios/plugins/imageformats,
+					/Users/nando/Qt/5.5/ios/plugins/qmltooling,
+					/Users/nando/Qt/5.5/ios/plugins/bearer,
+				);
+				OBJROOT = build/obj/;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = (
+					"-pipe",
+					"-fvisibility=hidden",
+					"-fpascal-strings",
+					"-fmessage-length=0",
+					"-Wno-trigraphs",
+					"-Wreturn-type",
+					"-Wparentheses",
+					"-Wswitch",
+					"-Wno-unused-parameter",
+					"-Wunused-variable",
+					"-Wunused-value",
+					"-Wno-shorten-64-to-32",
+					"-Wno-sign-conversion",
+					"-fexceptions",
+					"-fasm-blocks",
+					"-Wno-missing-field-initializers",
+					"-Wno-missing-prototypes",
+					"-Wno-implicit-atomic-properties",
+					"-Wformat",
+					"-Wno-missing-braces",
+					"-Wno-unused-function",
+					"-Wno-unused-label",
+					"-Wuninitialized",
+					"-Wno-unknown-pragmas",
+					"-Wno-shadow",
+					"-Wno-four-char-constants",
+					"-Wno-sign-compare",
+					"-Wpointer-sign",
+					"-Wno-newline-eof",
+					"-Wdeprecated-declarations",
+					"-Winvalid-offsetof",
+					"-Wno-conversion",
+					"-g",
+					"-Wall",
+					"-W",
+					"-fPIC",
+					"-DDARWIN_NO_CARBON",
+					"-DQT_NO_PRINTER",
+					"-DQT_NO_PRINTDIALOG",
+					"-DQT_QML_DEBUG",
+					"-DQT_QUICK_LIB",
+					"-DQT_SVG_LIB",
+					"-DQT_WIDGETS_LIB",
+					"-DQT_GUI_LIB",
+					"-DQT_QML_LIB",
+					"-DQT_NETWORK_LIB",
+					"-DQT_XML_LIB",
+					"-DQT_CORE_LIB",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-pipe",
+					"-fvisibility=hidden",
+					"-fpascal-strings",
+					"-fmessage-length=0",
+					"-Wno-trigraphs",
+					"-Wreturn-type",
+					"-Wparentheses",
+					"-Wswitch",
+					"-Wno-unused-parameter",
+					"-Wunused-variable",
+					"-Wunused-value",
+					"-Wno-shorten-64-to-32",
+					"-Wno-sign-conversion",
+					"-fexceptions",
+					"-fasm-blocks",
+					"-Wno-missing-field-initializers",
+					"-Wno-missing-prototypes",
+					"-Wno-implicit-atomic-properties",
+					"-Wformat",
+					"-Wno-missing-braces",
+					"-Wno-unused-function",
+					"-Wno-unused-label",
+					"-Wuninitialized",
+					"-Wno-unknown-pragmas",
+					"-Wno-shadow",
+					"-Wno-four-char-constants",
+					"-Wno-sign-compare",
+					"-Wpointer-sign",
+					"-Wno-newline-eof",
+					"-Wdeprecated-declarations",
+					"-Winvalid-offsetof",
+					"-Wno-conversion",
+					"-fvisibility-inlines-hidden",
+					"-Wno-non-virtual-dtor",
+					"-Wno-overloaded-virtual",
+					"-Wno-exit-time-destructors",
+					"-g",
+					"-std=c++11",
+					"-stdlib=libc++",
+					"-Wall",
+					"-W",
+					"-fPIC",
+					"-DDARWIN_NO_CARBON",
+					"-DQT_NO_PRINTER",
+					"-DQT_NO_PRINTDIALOG",
+					"-DQT_QML_DEBUG",
+					"-DQT_QUICK_LIB",
+					"-DQT_SVG_LIB",
+					"-DQT_WIDGETS_LIB",
+					"-DQT_GUI_LIB",
+					"-DQT_QML_LIB",
+					"-DQT_NETWORK_LIB",
+					"-DQT_XML_LIB",
+					"-DQT_CORE_LIB",
+				);
+				OTHER_LDFLAGS = (
+					"-headerpad_max_install_names",
+					"-stdlib=libc++",
+					"-u",
+					_qt_registerPlatformPlugin,
+					"-L/development/qtcreator-workspace/snipe/Snipe-App/../../build-snipe-iphoneos_clang_Qt_5_5_1_for_iOS-Debug/Snipe",
+					"-L/Users/nando/Qt/5.5/ios/plugins/platforms",
+					"-framework",
+					UIKit,
+					"-framework",
+					AssetsLibrary,
+					"-L/Users/nando/Qt/5.5/ios/lib",
+					"-framework",
+					OpenGLES,
+					"-L/Users/nando/Qt/5.5/ios/qml/QtQuick.2",
+					"-L/Users/nando/Qt/5.5/ios/qml/QtQuick/Controls",
+					"-L/Users/nando/Qt/5.5/ios/qml/QtWebView",
+					"-L/Users/nando/Qt/5.5/ios/qml/QtQuick/Window.2",
+					"-L/Users/nando/Qt/5.5/ios/qml/QtQuick/Dialogs",
+					"-L/Users/nando/Qt/5.5/ios/qml/Qt/labs/folderlistmodel",
+					"-L/Users/nando/Qt/5.5/ios/qml/Qt/labs/settings",
+					"-L/Users/nando/Qt/5.5/ios/qml/QtQuick/Dialogs/Private",
+					"-L/Users/nando/Qt/5.5/ios/qml/QtQuick/Layouts",
+					"-L/Users/nando/Qt/5.5/ios/qml/QtQuick/Extras",
+					"-L/Users/nando/Qt/5.5/ios/qml/QtQml/Models.2",
+					"-L/Users/nando/Qt/5.5/ios/plugins/iconengines",
+					"-L/Users/nando/Qt/5.5/ios/plugins/imageformats",
+					"-L/Users/nando/Qt/5.5/ios/plugins/qmltooling",
+					"-L/Users/nando/Qt/5.5/ios/plugins/bearer",
+					"-lz",
+					"-lm",
+				);
+				PRODUCT_NAME = "Snipe-App";
+				"QMAKE_MAC_SDK_PATH[sdk=iphoneos*]" = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk;
+				"QMAKE_MAC_SDK_PATH[sdk=iphonesimulator*]" = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.2.sdk;
+				"QMAKE_MAC_SDK_PLATFORM_PATH[sdk=iphoneos*]" = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform;
+				"QMAKE_MAC_SDK_PLATFORM_PATH[sdk=iphonesimulator*]" = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform;
+				QT_LIBRARY_SUFFIX = _debug;
+				"QT_LIBRARY_SUFFIX[sdk=iphonesimulator*]" = "_iphonesimulator$(QT_LIBRARY_SUFFIX)";
+				SDKROOT = iphoneos;
+				SYMROOT = "/development/qtcreator-workspace/build-snipe-iphoneos_clang_Qt_5_5_1_for_iOS-Debug/Snipe-App/";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6666AA5E688052234F6758D8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"ARCHS[sdk=iphoneos*]" = (
+					armv7,
+					arm64,
+				);
+				"ARCHS[sdk=iphonesimulator*]" = (
+					i386,
+					x86_64,
+				);
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_BITCODE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.sevenapp.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "Snipe-App";
+				PROVISIONING_PROFILE = "";
+				"QMAKE_MAC_SDK_PATH[sdk=iphoneos*]" = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk;
+				"QMAKE_MAC_SDK_PATH[sdk=iphonesimulator*]" = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.2.sdk;
+				"QMAKE_MAC_SDK_PLATFORM_PATH[sdk=iphoneos*]" = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform;
+				"QMAKE_MAC_SDK_PLATFORM_PATH[sdk=iphonesimulator*]" = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform;
+				QT_LIBRARY_SUFFIX = "";
+				"QT_LIBRARY_SUFFIX[sdk=iphonesimulator*]" = "_iphonesimulator$(QT_LIBRARY_SUFFIX)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		77418F46922677BB04ED38DD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"ARCHS[sdk=iphoneos*]" = (
+					armv7,
+					arm64,
+				);
+				"ARCHS[sdk=iphonesimulator*]" = (
+					i386,
+					x86_64,
+				);
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.sevenapp.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "Snipe-App";
+				PROVISIONING_PROFILE = "";
+				"QMAKE_MAC_SDK_PATH[sdk=iphoneos*]" = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk;
+				"QMAKE_MAC_SDK_PATH[sdk=iphonesimulator*]" = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.2.sdk;
+				"QMAKE_MAC_SDK_PLATFORM_PATH[sdk=iphoneos*]" = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform;
+				"QMAKE_MAC_SDK_PLATFORM_PATH[sdk=iphonesimulator*]" = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform;
+				QT_LIBRARY_SUFFIX = _debug;
+				"QT_LIBRARY_SUFFIX[sdk=iphonesimulator*]" = "_iphonesimulator$(QT_LIBRARY_SUFFIX)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6CC3B5D2136C7CD6A5CF5A59 /* Build configuration list for PBXNativeTarget "Snipe-App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				77418F46922677BB04ED38DD /* Debug */,
+				6666AA5E688052234F6758D8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		DAC4C1AA5EDEA1C85E9CA5E6 /* Build configuration list for PBXProject "Snipe-App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3AA6C32AC930069E80220CF1 /* Debug */,
+				339EE1B2CC4FC24589A0EA95 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6DB9C3763D02B1415CD9D565 /* Project object */;
+}

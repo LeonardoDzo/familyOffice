@@ -32,7 +32,7 @@ struct Record {
         self.type = type
     }
     
-    init(snapshot: FIRDataSnapshot) {
+    init(snapshot: DataSnapshot) {
         let snapshotValue = snapshot.value as! NSDictionary
         self.id = snapshot.key
         self.activity = service.UTILITY_SERVICE.exist(field: Record.kRecordActivykey, dictionary: snapshotValue)

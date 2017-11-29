@@ -9,13 +9,12 @@
 import UIKit
 import Firebase
 import ReSwift
-import ReSwiftRouter
 import Lightbox
 
 class EditItemViewController: UIViewController,UINavigationControllerDelegate,UIGestureRecognizerDelegate,DateProtocol,UITextViewDelegate,LightboxControllerPageDelegate,LightboxControllerDismissalDelegate {
     
     
-    var item:ToDoList.ToDoItem = ToDoList.ToDoItem(title: "", photoUrl: "", status: "Pendiente", endDate: "")
+    var item: ToDoList.ToDoItem = ToDoList.ToDoItem(title: "", photoUrl: "", status: "Pendiente", endDate: "")
     var imagePicker: UIImagePickerController!
     var endDate: String?
     var initialPhoto: String!
@@ -104,11 +103,11 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
         // Do any additional setup after loading the view.
     }
     
-    func tap(_ gestureRecognizer: UITapGestureRecognizer) -> Void {
+    @objc func tap(_ gestureRecognizer: UITapGestureRecognizer) -> Void {
         self.performSegue(withIdentifier: "toPickingDate", sender: nil)
     }
     
-    func photoTapped(_ gestureRecognizer: UITapGestureRecognizer) -> Void {
+    @objc func photoTapped(_ gestureRecognizer: UITapGestureRecognizer) -> Void {
         lightboxController = LightboxController(images: [LightboxImage(image: photo.image!)], startIndex: 0)
         
         lightboxController.pageDelegate = self
@@ -162,7 +161,7 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
         store.dispatch(UpdateToDoListItemAction(item:item))
     }
     
-    func save(sender: UIBarButtonItem){
+    @objc func save(sender: UIBarButtonItem){
         let title: String! = textFieldTitle.text
         if title == nil || title.isEmpty || textFieldTitle.textColor == UIColor.lightGray{
             service.ANIMATIONS.shakeTextField(txt: textFieldTitle)
@@ -177,9 +176,9 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
         var photoUrl:String = initialPhoto
         
         if tookPhoto {
-            let path = "users/\((store.state.UserState.user?.id)!)/images/\(photoName).png"
+            let path = "users/\((userStore?.id)!)/images/\(photoName).png"
             service.STORAGE_SERVICE.insert(path, value: (photo?.image)!, callback: { metadata in
-                if let metadata: FIRStorageMetadata = metadata as? FIRStorageMetadata{
+                if let metadata: StorageMetadata = metadata as? StorageMetadata{
                     if let downloadUrl = metadata.downloadURL()?.absoluteString{
                         photoUrl = downloadUrl
                         self.item.photoUrl = photoUrl
@@ -281,8 +280,8 @@ extension EditItemViewController: StoreSubscriber{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        store.subscribe(self){
-            state in state.ToDoListState
+        store.subscribe(self){ subcription in
+            subcription.select  { state in state.ToDoListState }
         }
     }
     

@@ -12,7 +12,7 @@ import ReSwift
 class AddQuestionViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
     var questions: [Question] = []
     
-    let user = store.state.UserState.user
+    let user = store.state.UserState.getUser()
     
     @IBOutlet var tableView: UITableView!
     @IBOutlet var questionTextField: UITextField!
@@ -97,7 +97,7 @@ class AddQuestionViewController: UIViewController, UITableViewDelegate, UITableV
     
     // MARK: - Keyboard
 
-    func keyboardWillShow(notification: Notification){
+    @objc func keyboardWillShow(notification: Notification){
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {
                 self.view.frame.origin.y -= keyboardSize.height
@@ -105,7 +105,7 @@ class AddQuestionViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
-    func keyboardWillHide(notification: Notification){
+    @objc func keyboardWillHide(notification: Notification){
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y != 0 {
                 self.view.frame.origin.y += keyboardSize.height
@@ -124,14 +124,19 @@ class AddQuestionViewController: UIViewController, UITableViewDelegate, UITableV
 
 extension AddQuestionViewController: StoreSubscriber {
     func addObservers() -> Void {
-        service.FAQ_SERVICE.initObservers(ref: "faq/\((user?.familyActive!)!)", actions: [.childAdded, .childRemoved, .childChanged])
+        verifyUser { (user, exist) in
+            if exist {
+                service.FAQ_SERVICE.initObservers(ref: "faq/\(user.familyActive!)", actions: [.childAdded, .childRemoved, .childChanged])
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         addObservers()
         store.subscribe(self){
-            subscription in subscription.FaqState
+            subcription in
+            subcription.select { state in state.FaqState}
         }
         NotificationCenter.default.addObserver(self, selector: #selector(AddQuestionViewController.keyboardWillShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AddQuestionViewController.keyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)

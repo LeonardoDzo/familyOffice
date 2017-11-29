@@ -10,7 +10,6 @@ import UIKit
 
 class ConfigurationEventTableViewController: UITableViewController {
     var event: Event!
-    let myID = service.USER_SERVICE.users[0].id
     @IBOutlet weak var alerLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
     override func viewDidLoad() {
@@ -27,7 +26,7 @@ class ConfigurationEventTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     override func viewWillAppear(_ animated: Bool) {
-        let member = event.members.first(where: {$0.id == myID})
+        let member = event.members.first(where: {$0.id == ""})
         statusLabel.text = member?.status
         alerLabel.text = member?.reminder
     }

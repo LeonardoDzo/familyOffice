@@ -13,5 +13,6 @@ class dayCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         self.clipsToBounds = true
         self.layer.cornerRadius = self.bounds.width/2
+        self.formatView()
     }
 }

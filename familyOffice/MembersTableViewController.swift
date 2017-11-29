@@ -111,15 +111,15 @@ class MembersTableViewController: UITableViewController,UISearchResultsUpdating 
 extension MembersTableViewController : StoreSubscriber {
     typealias StoreSubscriberStateType = UserState
     override func viewWillAppear(_ animated: Bool) {
+    
         store.subscribe(self){
-            state in
-            state.UserState
+            subcription in
+            subcription.select { state in state.UserState }
         }
         
-       
     }
     func newState(state: UserState) {
-        self.users = state.users
+        self.users = state.getUsers()
         self.tableView.reloadData()
     }
     

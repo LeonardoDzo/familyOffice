@@ -31,13 +31,14 @@ class AlbumViewController: UIViewController,UIGestureRecognizerDelegate, StoreSu
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        style_1()
         // Do any additional setup after loading the view.
         self.navigationItem.title = "Albums"
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.addImage))
-        addButton.tintColor = #colorLiteral(red: 1, green: 0.2940415765, blue: 0.02801861018, alpha: 1)
+
         self.navigationItem.rightBarButtonItem = addButton
         let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "LeftChevron"), style: .plain, target: self, action: #selector(self.back))
-        backButton.tintColor = #colorLiteral(red: 1, green: 0.2940415765, blue: 0.02801861018, alpha: 1)
+
         self.navigationItem.leftBarButtonItem = backButton
         let layout = GalleryLayout()
         layout.delegate = self
@@ -54,14 +55,14 @@ class AlbumViewController: UIViewController,UIGestureRecognizerDelegate, StoreSu
         lpgr.delaysTouchesBegan = true
         self.collectionImages.addGestureRecognizer(lpgr)
     }
-    func back() -> Void {
+    @objc func back() -> Void {
         _ = self.navigationController?.popViewController(animated: true)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    func addImage() {
+    @objc func addImage() {
         let picker = DKImagePickerController()
         picker.didSelectAssets = {(assets: [DKAsset]) in
             if assets.count > 0{
@@ -86,7 +87,9 @@ class AlbumViewController: UIViewController,UIGestureRecognizerDelegate, StoreSu
                                         let key = Constants.FirDatabase.REF.childByAutoId().key as String
                                         let imgAlbum: ImageAlbum = ImageAlbum(id: key, path: "", album: self.currentAlbum?.id, comments: [], reacts: [], uiimage: image,video: data)
                                         store.dispatch(InsertVideoAlbumAction(image: imgAlbum))
+
                                     }catch _ as NSError
+
                                     {
                                         self.view.makeToast("Error al subir video al album.", duration: 1.0, position: .center)
                                     }
@@ -114,11 +117,12 @@ class AlbumViewController: UIViewController,UIGestureRecognizerDelegate, StoreSu
                     }else{
                         item.fetchOriginalImageWithCompleteBlock({(image, data) in
                             if let img : UIImage = image{
-                                if image is UIImage{
+                                if image != nil {
                                     //let imageData = self.resizeImage(image: image!, scale: CGFloat.init(20))
                                     let imageData = image?.resizeImage()
                                     let key = Constants.FirDatabase.REF.childByAutoId().key as String
-                                    let imgAlbum: ImageAlbum = ImageAlbum(id: key, path: "", album: self.currentAlbum?.id, comments: [], reacts: [], uiimage: imageData!,video: nil, width: Double(img.size.width*img.scale), height: Double(img.size.height*img.scale))
+
+                                    let imgAlbum: ImageAlbum = ImageAlbum(id: key, path: "", album: self.currentAlbum?.id, comments: [], reacts: [], uiimage: imageData!,video: nil, width: Double(image!.size.width*image!.scale), height: Double(image!.size.height * img.scale))
                                     store.dispatch(InsertImagesAlbumAction(image: imgAlbum))
                                     self.imgesAlbum.append(ImageAlbum())
                                     self.collectionImages.reloadData()
@@ -148,8 +152,8 @@ extension AlbumViewController{
         super.viewWillAppear(true)
         if !(store.state.GalleryState.Album.id.isEmpty){
             store.subscribe(self){
-                state in
-                state.GalleryState
+                subcription in
+                subcription.select { state in state.GalleryState }
             }
             currentAlbum = store.state.GalleryState.Album
             self.navigationItem.title = currentAlbum?.title
@@ -238,7 +242,7 @@ extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSou
         return (currentAlbum?.ObjImages.count)!
     }
     
-    func handleLongPress(gestureRecognizer : UILongPressGestureRecognizer){
+    @objc func handleLongPress(gestureRecognizer : UILongPressGestureRecognizer){
         if (gestureRecognizer.state == UIGestureRecognizerState.began){
             let p = gestureRecognizer.location(in: self.collectionImages)
             if let indexPath: IndexPath = collectionImages.indexPathForItem(at: p){
@@ -247,11 +251,11 @@ extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSou
                 self.selectedItems[(cell.imageAlbum?.id)!] = cell
                 self.collectionView(self.collectionImages, didSelectItemAt: indexPath)
                 let deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(self.deleteImages))
-                deleteButton.tintColor = #colorLiteral(red: 1, green: 0.2940415765, blue: 0.02801861018, alpha: 1)
+      
                 let share = UIBarButtonItem(barButtonSystemItem: .action, target: self, action:#selector(self.ShareData))
-                share.tintColor = #colorLiteral(red: 1, green: 0.2940415765, blue: 0.02801861018, alpha: 1)
+        
                 let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelSelection))
-                cancelButton.tintColor = #colorLiteral(red: 1, green: 0.2940415765, blue: 0.02801861018, alpha: 1)
+     
                 self.navigationItem.leftBarButtonItem = cancelButton
                 self.navigationItem.rightBarButtonItems = [share, deleteButton]
             }
@@ -330,16 +334,16 @@ extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSou
             
             // Config controller
             controller.dynamicBackground = false
-            LightboxConfig.DeleteButton.enabled = true
-            LightboxConfig.InfoLabel.enabled = false
-            LightboxConfig.CloseButton.text = "Cerrar"
-            LightboxConfig.DeleteButton.text = "Eliminar"
-            LightboxConfig.loadImage = {
-                imageView, URL, completion in
-                // Custom image loading
-                imageView.loadImage(urlString: URL.absoluteString)
-                completion!(nil,imageView.image!)
-            }
+//            LightboxConfig.DeleteButton.enabled = true
+//            LightboxConfig.InfoLabel.enabled = false
+//            LightboxConfig.CloseButton.text = "Cerrar"
+//            LightboxConfig.DeleteButton.text = "Eliminar"
+//            LightboxConfig.loadImage = {
+//                imageView, URL, completion in
+//                // Custom image loading
+//                imageView.loadImage(urlString: URL.absoluteString)
+//                completion!(nil,imageView.image!)
+//            }
             controller.headerView.deleteButton.addTarget(self, action: #selector(deleteImage), for: .touchDown)
             
             // Present your controller.
@@ -358,7 +362,7 @@ extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSou
 //            height = img.height * width / img.width
 //        }
 //        
-//      	return CGSize(width: width, height: height)
+//          return CGSize(width: width, height: height)
 //    }
     
     func cancelSelection(){
@@ -374,7 +378,7 @@ extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSou
         self.navigationItem.leftBarButtonItem = backButton
 
     }
-    func ShareData(){
+    @objc func ShareData(){
         var imageToShare = [Any]()
         for item in self.selectedItems{
             if item.value.imageAlbum?.video == nil{
@@ -387,19 +391,19 @@ extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSou
         let activityViewController = UIActivityViewController(activityItems: imageToShare, applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
         // present the view controller
-        self.present(activityViewController, animated: true, completion: {_ in
+        self.present(activityViewController, animated: true, completion: { 
             self.cancelSelection()
         })
         
     }
-    func deleteImage() {
+    @objc func deleteImage() {
         let key: String! = self.controller.images[self.controller.currentPage].text
         if let image = self.imgesAlbum.first(where: {$0.id == key}){
             let action = DeleteImagesGalleryAction.init(album: [image])
             store.dispatch(action)
         }
     }
-    func deleteImages() {
+    @objc func deleteImages() {
         if self.selectedItems.count > 0 {
             let album = self.selectedItems.map({$0.value.imageAlbum!})
             let action = DeleteImagesGalleryAction.init(album: album)

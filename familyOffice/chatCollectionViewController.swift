@@ -23,15 +23,9 @@ class chatCollectionViewController: UICollectionViewController, UICollectionView
         // Register cell classes
         setupMenuBar()
         setupCollectionView()
-        
+        style_1()
         let logOutButton = UIBarButtonItem(title: "Nuevo", style: .plain, target: self, action:nil)
-        logOutButton.tintColor = #colorLiteral(red: 1, green: 0.1757333279, blue: 0.2568904757, alpha: 1)
         navigationItem.rightBarButtonItems = [logOutButton]
-        let nav = self.navigationController?.navigationBar
-        self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 1, green: 0.1757333279, blue: 0.2568904757, alpha: 1)
-        self.navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 1, green: 0.1757333279, blue: 0.2568904757, alpha: 1)
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.3137395978, green: 0.1694342792, blue: 0.5204931498, alpha: 1)]
-        
         
 
         // Do any additional setup after loading the view.

@@ -30,20 +30,16 @@ class StartViewController: UIViewController, GIDSignInUIDelegate, UITextFieldDel
     
     func webviewDidFinishLoad(_ : UIWebView){
         service.UTILITY_SERVICE.stopLoading(view: self.view)
+        
     }
     
     override func viewDidLoad() {
-        self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 1, green: 0.1757333279, blue: 0.2568904757, alpha: 1)
-        self.navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 1, green: 0.1757333279, blue: 0.2568904757, alpha: 1)
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.3137395978, green: 0.1694342792, blue: 0.5204931498, alpha: 1)]
-        
-        service.AUTH_SERVICE.isAuth()
+        style_1()
+        isAuth()
         super.viewDidLoad()
-        print(UIDevice().description)
         if(UIDevice.current.model == "Iphone 5s"){
             logo.frame.origin.y = logo.frame.origin.y-20
         }
-        
         GIDSignIn.sharedInstance().uiDelegate = self
         //Loading video
         let videoString:String? = Bundle.main.path(forResource: "background", ofType: "mp4")
@@ -55,7 +51,7 @@ class StartViewController: UIViewController, GIDSignInUIDelegate, UITextFieldDel
             player?.isMuted = true
             
             let playerLayer = AVPlayerLayer(player: player)
-            playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+            playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
             playerLayer.zPosition = -1
             
             playerLayer.frame = view.frame
@@ -82,7 +78,7 @@ class StartViewController: UIViewController, GIDSignInUIDelegate, UITextFieldDel
         service.UTILITY_SERVICE.enabledView()
     }
     
-    func videoDidReachEnd() {
+    @objc func videoDidReachEnd() {
         //now use seek to make current playback time to the specified time in this case (O)
         let duration : Int64 = 0
         let preferredTimeScale : Int32 = 1
@@ -100,14 +96,9 @@ class StartViewController: UIViewController, GIDSignInUIDelegate, UITextFieldDel
     
     @IBAction func signUp(_ sender: UIButton) {
         UIApplication.shared.beginIgnoringInteractionEvents()
-        self.performSegue(withIdentifier: "signUpSegue", sender: nil)
+        store.dispatch(RoutingAction(d: .signUp))
     }
     
-    func gotoView(view:String )  {
-        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let homeViewController : UIViewController = mainStoryboard.instantiateViewController(withIdentifier: view)
-        self.present(homeViewController, animated: true, completion: nil)
-    }
     //signin login
     @IBAction func handleSignIn(_ sender: UIButton) {
         guard let email = emailField.text, !email.isEmpty else{
@@ -119,7 +110,7 @@ class StartViewController: UIViewController, GIDSignInUIDelegate, UITextFieldDel
             return
         }
         service.UTILITY_SERVICE.disabledView()
-        store.dispatch(LoginAction(username: email, password: password))
+        store.dispatch(AuthSvc(.login(username: email, password: password)))
         
     }
     
@@ -131,16 +122,17 @@ class StartViewController: UIViewController, GIDSignInUIDelegate, UITextFieldDel
         alert.addAction(okAction)
         self.present(alert, animated: true, completion: nil)
     }
+    
 }
 
 extension StartViewController : StoreSubscriber {
-    
+   
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         store.subscribe(self) {
-            state in
-            state.UserState
+            subcription in
+            subcription.select { state in state.UserState }
         }
     }
     
@@ -148,12 +140,12 @@ extension StartViewController : StoreSubscriber {
         self.view.hideToastActivity()
         service.UTILITY_SERVICE.enabledView()
 
-        switch state.status {
+        switch state.user {
         case .failed:
             alert()
             break
-        case .finished:
-            self.gotoView(view: "mainView")
+        case .finished, .Finished(_):
+            self.gotoView(view: .preHome)
             break
         case .loading:
             self.view.makeToastActivity(.center)
@@ -218,11 +210,6 @@ extension StartViewController {
         UIView.setAnimationDuration(moveDuration)
         self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
         UIView.commitAnimations()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
     }
     
     func animateView(){

@@ -12,22 +12,22 @@ struct repeatEvent: repeatTypeEvent {
     static let kFrequency = "frequency"
     static let kDays = "days"
     static let kEnd = "endRepeat"
-    static let keach = "each"
+    static let kinterval = "interval"
     
-    var frequency: String!
-    var each: Int!
+    var frequency: Frequency!
+    var interval: Int!
     var days: [String]!
     var end: Int!
     
     init() {
         self.end = 0
         self.days = []
-        self.frequency = ""
-        self.each = 1
+        self.frequency = .never
+        self.interval = 0
     }
     
     init(snapshot: NSDictionary) {
-        self.frequency = snapshot.exist(field: repeatEvent.kFrequency)
+        self.frequency = Frequency(rawValue: snapshot.exist(field: repeatEvent.kFrequency)!)
         if let string : String = snapshot.exist(field: repeatEvent.kDays) {
             self.days = string.components(separatedBy: ",")
         }
@@ -37,7 +37,8 @@ struct repeatEvent: repeatTypeEvent {
     func toDictionary() -> NSDictionary {
         
         return [
-            repeatEvent.kFrequency : self.frequency,
+            repeatEvent.kFrequency : self.frequency.hashValue,
+            repeatEvent.kinterval : self.interval,
             repeatEvent.kEnd: self.end,
             repeatEvent.kDays : self.days.joined(separator: ",")
         ]

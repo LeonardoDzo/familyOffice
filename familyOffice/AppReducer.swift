@@ -8,23 +8,46 @@
 
 import Foundation
 import ReSwift
-import ReSwiftRouter
-struct AppReducer: Reducer {
     
-    func handleAction(action: Action, state: AppState?) -> AppState {
+    func appReducer(action: Action, state: AppState?) -> AppState {
+        var goalReducer = GoalReducer(state?.GoalsState)
+        var userState: UserState!
+        var famState: FamilyState!
+        var authState: AuthState!
+        if let useraction =  action as? UserS {
+            userState = useraction.handleAction(state: state?.UserState)
+        }else{
+            userState = state?.UserState != nil ? state?.UserState : UserState(users: .none, user: .none)
+        }
+        if let authAction = action as? AuthSvc{
+            authState = authAction.handleAction(state: state?.authState)
+        }else{
+            authState = state?.authState != nil ? state?.authState : AuthState(state: .none)
+        }
+
+        if  let familyAction = action as? FamilyS {
+            famState = familyAction.handleAction(state: state?.FamilyState)
+        }else{
+            famState = state?.FamilyState != nil ? state?.FamilyState : FamilyState(families: FamilyList(), status: .none)
+        }
         
+       
+
         return AppState(
-            GoalsState: GoalReducer().handleAction(action: action, state: state?.GoalsState),
-            FamilyState: FamilyReducer().handleAction(action: action, state: state?.FamilyState),
-            UserState: UserReducer().handleAction(action: action, state: state?.UserState),
+            routingState: routingReducer(action: action, state: state?.routingState),
+            authState: authState,
+            UserState:  userState,
+            GoalsState: goalReducer.handleAction(action: action),
+            FamilyState: famState,
             GalleryState: GalleryReducer().handleAction(action: action, state: state?.GalleryState),
             ToDoListState: ToDoListReducer().handleAction(action: action, state: state?.ToDoListState),
             ContactState: ContactReducer().handleAction(action: action, state: state?.ContactState),
             MedicineState: MedicineReducer().handleAction(action: action, state: state?.MedicineState),
             IllnessState: IllnessReducer().handleAction(action: action, state: state?.IllnessState),
             FaqState: FaqReducer().handleAction(action: action, state: state?.FaqState),
+            safeBoxState: SafeBoxReducer().handleAction(action: action, state: state?.safeBoxState),
             notifications: state?.notifications ?? []
         )
     }
     
-}
+

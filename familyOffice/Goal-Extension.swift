@@ -63,12 +63,12 @@ extension GoalBindable {
         }
         
         if let endDateDP  = self.endDateDP {
-            let date = Date(timeIntervalSince1970: TimeInterval(goal.endDate/1000))
+            let date = Date(timeIntervalSince1970: TimeInterval(goal.endDate!/1000))
             endDateDP.date = date
         }
 
         if let endDateLbl = self.endDateLbl {
-            let date = Date(timeIntervalSince1970: TimeInterval(goal.endDate/1000))
+            let date = Date(timeIntervalSince1970: TimeInterval(goal.endDate!/1000))
             endDateLbl.text =  date.string(with: .dayMonthAndYear2)
         }
 
@@ -76,8 +76,8 @@ extension GoalBindable {
             let date = Date(timeIntervalSince1970: TimeInterval(goal.startDate/1000))
             dateCreatedLbl.text = date.string(with: .dayMonthAndYear2)
         }
-        if let photo = self.photo, !goal.photo.isEmpty {
-            photo.loadImage(urlString: goal.photo)
+        if let photo = self.photo, !(goal.photo?.isEmpty)! {
+            photo.loadImage(urlString: goal.photo!)
         }
         
         if let creatorLbl = self.creatorLbl {
@@ -89,9 +89,9 @@ extension GoalBindable {
         
         if let doneSwitch = self.doneSwitch {
             if goal.type == 0 {
-                doneSwitch.isOn = goal.done
+                doneSwitch.isOn = goal.done ?? false
             }else{
-                doneSwitch.isOn = goal.members[(store.state.UserState.user?.id!)!]! > 0
+                doneSwitch.isOn = goal.members[(userStore?.id!)!]! > 0
             }
         }
         if let repeatSwitch = self.repeatSwitch {
@@ -105,7 +105,7 @@ extension GoalBindable {
         
         if let typeicon = self.typeicon {
             var ximage :UIImage!
-            if let value = GoalCategory(rawValue: goal.category){
+            if let value = GoalCategory(rawValue: goal.category!){
                 switch value {
                 case .sport:
                     ximage = #imageLiteral(resourceName: "sport")

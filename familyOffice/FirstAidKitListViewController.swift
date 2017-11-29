@@ -12,7 +12,7 @@ import Firebase
 
 class FirstAidKitListViewController: UIViewController,UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
     var medicines:[Medicine] = []
-    let familyID = store.state.UserState.user?.familyActive!
+    let familyID = store.state.UserState.getUser()?.familyActive!
     let settingLauncher = SettingLauncher()
     let searchController = UISearchController(searchResultsController: nil)
 
@@ -25,18 +25,13 @@ class FirstAidKitListViewController: UIViewController,UITableViewDelegate, UITab
         searchController.searchResultsUpdater = self
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.dimsBackgroundDuringPresentation = false
-        
-        let nav = self.navigationController?.navigationBar
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName:#colorLiteral(red: 0.2848778963, green: 0.2029544115, blue: 0.4734018445, alpha: 1)]
+        self.style_1()
         self.navigationItem.title = "Medicinas"
         
         tableView.tableHeaderView = searchController.searchBar
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.handleNew))
-        addButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         let moreButton = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_bar_more_button"), style: .plain, target: self, action:  #selector(self.handleMore(_:)))
-        moreButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
-        self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         
         self.navigationItem.rightBarButtonItems = [moreButton,addButton]
 
@@ -45,11 +40,11 @@ class FirstAidKitListViewController: UIViewController,UITableViewDelegate, UITab
     
     // MARK: - Botones
     
-    func handleNew() -> Void {
+    @objc func handleNew() -> Void {
        self.performSegue(withIdentifier: "newMedicine", sender: self)
     }
     
-    func handleMore(_ sender: Any){
+    @objc func handleMore(_ sender: Any){
         settingLauncher.showSetting()
     }
 
@@ -109,7 +104,8 @@ extension FirstAidKitListViewController: StoreSubscriber{
         service.MEDICINE_SERVICE.initObservers(ref: "medicines/\(familyID!)", actions: [.childAdded, .childChanged, .childRemoved])
         
         store.subscribe(self){
-            state in state.MedicineState
+            subcription in
+            subcription.select { state in state.MedicineState }
         }
     }
     

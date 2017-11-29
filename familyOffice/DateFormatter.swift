@@ -82,6 +82,31 @@ extension DateFormatter {
         formatter.setLocalizedDateFormatFromTemplate("MM yyyy")
         return formatter
     }()
+    @nonobjc static let year: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.setLocalizedDateFormatFromTemplate("yyyy")
+        return formatter
+    }()
+    @nonobjc static let month: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.setLocalizedDateFormatFromTemplate("MMM")
+        return formatter
+    }()
+    @nonobjc static let ddMMMyyyy: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.setLocalizedDateFormatFromTemplate("dd-MMM-yyyy")
+        return formatter
+    }()
+    @nonobjc static let MMMyyyy: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.setLocalizedDateFormatFromTemplate("MMM-yyyy")
+        return formatter
+    }()
+    @nonobjc static let MMddyyyy: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.setLocalizedDateFormatFromTemplate("MM dd yyyy")
+        return formatter
+    }()
 }
 extension Date {
     
@@ -99,6 +124,9 @@ extension Date {
         guard let date = formatter.date(from: string) else { return nil }
         self.init(timeIntervalSince1970: date.timeIntervalSince1970)
     }
+    init?(_ date: Int) {
+       self.init(timeIntervalSince1970: TimeInterval(date/1000))
+    }
     
     var monthYearLabel: String {
         let dateFormatter = DateFormatter()
@@ -107,5 +135,12 @@ extension Date {
     }
     func toMillis() -> Int! {
         return Int(self.timeIntervalSince1970 * 1000)
+    }
+    func startOfMonth() -> Date {
+        return Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: Calendar.current.startOfDay(for: self)))!
+    }
+    
+    func endOfMonth() -> Date {
+        return Calendar.current.date(byAdding: DateComponents(month: 1, day: -1), to: self.startOfMonth())!
     }
 }

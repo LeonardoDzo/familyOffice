@@ -12,7 +12,7 @@ import Firebase
 
 struct Constants {
     struct FirDatabase {
-        static let REF = FIRDatabase.database().reference(fromURL: "https://familyoffice-6017a.firebaseio.com/")
+        static let REF = Database.database().reference(fromURL: "https://familyoffice-63b4b.firebaseio.com/")
         static let REF_FAMILIES = REF.child("families")
         static let REF_USERS = REF.child("users")
         static let REF_ACTIVITY = REF.child("activityLog")
@@ -21,32 +21,30 @@ struct Constants {
     }
     
     struct FirStorage {
-        static let STORAGEREF = FIRStorage.storage().reference(forURL: "gs://familyoffice-6017a.appspot.com")
+        static let STORAGEREF = Storage.storage().reference(forURL: "gs://familyoffice-63b4b.appspot.com")
     }
     
     struct Services {
         static let ACTIVITYLOG_SERVICE = ActivityLogService.Instance()
         static let UTILITY_SERVICE = Utility.Instance()
-        static let AUTH_SERVICE = AuthService.Instance()
+       // static let AUTH_SERVICE = AuthService.Instance()
         static let ANIMATIONS = Animations.instance
         static let STORAGE_SERVICE = StorageService.Instance()
-        static let FAMILY_SERVICE = FamilyService.Instance()
-        static let USER_SERVICE = UserService.Instance()
         static let NOTIFICATION_SERVICE = NotificationService.Instance()
         static let ALERT_SERVICE = AlertService.Instance()
-        static let REF_SERVICE = RefHandle.Instance()
         static let HEALTH_SERVICE = HealthService.Instance()
         static let EVENT_SERVICE = EventService.Instance()
         static let GOAL_SERVICE = GoalService.Instance()
         static let GALLERY_SERVICE = GalleryService.Instance()
         static let IMAGEALBUM_SERVICE = ImageAlbumService.Instance()
-        static let USER_SVC = UserSvc.Instance()
+        //static let USER_SVC = UserSvc.Instance()
         static let FAMILY_SVC = FamilySvc.Instance()
         static let TODO_SERVICE = ToDoListService.Instance()
         static let CONTACT_SVC = ContactService.Instance()
         static let MEDICINE_SERVICE = MedicineService.Instance()
         static let ILLNESS_SERVICE = IllnessService.Instance()
         static let FAQ_SERVICE = FaqService.Instance()
+        static let SAFEBOX_SERVICE = SafeBoxService.Instance()
 
     }
     

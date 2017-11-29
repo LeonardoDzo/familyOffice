@@ -8,7 +8,6 @@
 
 import Foundation
 import Firebase
-
 struct User {
     
     static let kUserNameKey = "name"
@@ -77,7 +76,8 @@ struct User {
         self.id = ""
     }
     
-    init(snapshot: FIRDataSnapshot) {
+    
+    init(snapshot: DataSnapshot) {
         let snapshotValue = snapshot.value as! NSDictionary
         self.id = snapshot.key
         self.familyActive = service.UTILITY_SERVICE.exist(field: User.kUserFamilyActiveKey, dictionary: snapshotValue)
@@ -116,7 +116,7 @@ struct User {
         ]
     }
     
-    mutating func update(snapshot: FIRDataSnapshot){
+    mutating func update(snapshot: DataSnapshot){
         switch snapshot.key {
         case  User.kUserPhotoUrlKey:
             self.photoURL =  snapshot.value! as! String
@@ -175,6 +175,66 @@ extension UserModelBindable {
     // Bind
     
     func bind(userModel: User, filter: String = "") {
+        self.userModel = userModel
+        self.filter = filter
+        bind()
+    }
+    
+    func bind() {
+        
+        guard let userModel = self.userModel else {
+            return
+        }
+        
+        if let nameLabel = self.nameLabel {
+            nameLabel.text = userModel.name
+        }
+        if let phoneLbl = self.phoneLbl {
+            phoneLbl.text = userModel.phone
+        }
+        
+        
+        if let profileImage = self.profileImage {
+            if !userModel.photoURL.isEmpty {
+                profileImage.loadImage(urlString: userModel.photoURL, filter: filter)
+            }else{
+                profileImage.image = #imageLiteral(resourceName: "profile_default")
+            }
+        }
+        
+        
+    }
+}
+
+
+protocol UserEModelBindable: AnyObject {
+    var userModel: UserEntitie! { get set }
+    var filter: String! { get set}
+    var nameLabel: UILabel! {get}
+    var profileImage: UIImageViewX! {get}
+    var phoneLbl: UILabel! {get}
+}
+
+extension UserEModelBindable {
+    // Make the views optionals
+    
+    var nameLabel: UILabel! {
+        return nil
+    }
+    
+    var profileImage: UIImageViewX! {
+        return nil
+    }
+    
+    var phoneLbl : UILabel! {
+        return nil
+    }
+    
+    
+    
+    // Bind
+    
+    func bind(userModel: UserEntitie, filter: String = "") {
         self.userModel = userModel
         self.filter = filter
         bind()

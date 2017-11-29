@@ -15,17 +15,17 @@ extension FamilyCollectionViewController: StoreSubscriber {
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         store.subscribe(self) {
-            state in
-            state.FamilyState
+            subcription in
+            subcription.select { state in state.FamilyState }
         }
-        if (store.state.UserState.user?.families?.count == 0){
+        if (userStore?.families?.count == 0){
             self.performSegue(withIdentifier: "registerSegue", sender: nil)
         }
         
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-       store.unsubscribe(self)
+        store.unsubscribe(self)
     }
     
     func newState(state: FamilyState) {
@@ -34,14 +34,17 @@ extension FamilyCollectionViewController: StoreSubscriber {
         case .loading:
             self.view.makeToastActivity(.center)
             break
+        case .finished:
+            families = rManager.realm.objects(FamilyEntitie.self)
+            self.familyCollection.reloadData()
+            break
         default:
             break
         }
-        families = state.families.items
-        self.familyCollection.reloadData()
+        
     }
     
-    func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
+    @objc func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
         let point: CGPoint = gestureReconizer.location(in: self.familyCollection)
         let indexPath = self.familyCollection?.indexPathForItem(at: point)
         
@@ -61,15 +64,15 @@ extension FamilyCollectionViewController: StoreSubscriber {
                     }
                 }))
                 alert.addAction(UIAlertAction(title: "Cancelar", style: UIAlertActionStyle.cancel, handler: nil))
-                if(family.admin == FIRAuth.auth()?.currentUser?.uid){
-                    alert.addAction(UIAlertAction(title: "Eliminar", style: UIAlertActionStyle.destructive, handler:  { action in
-                        DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
-                            self.togglePendingDelete(family: family)
-                            //self.collectionView?.deleteItems(at: [indexPath!])
-                        }
-                        
-                    }))
-                }
+                
+                alert.addAction(UIAlertAction(title: "Eliminar", style: UIAlertActionStyle.destructive, handler:  { action in
+                    DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
+                        self.togglePendingDelete(family: family)
+                        //self.collectionView?.deleteItems(at: [indexPath!])
+                    }
+                    
+                }))
+                
                 // show the alert
                 self.present(alert, animated: true, completion: nil)
                 break
@@ -81,15 +84,15 @@ extension FamilyCollectionViewController: StoreSubscriber {
         }
     }
     
-    func toggleSelect(family: Family){
-       service.USER_SVC.selectFamily(family: family)
+    func toggleSelect(family: FamilyEntitie){
+        store.dispatch(UserS(.selectFamily(family: family)))
     }
     
-    func togglePendingDelete(family: Family) -> Void
+    func togglePendingDelete(family: FamilyEntitie) -> Void
     {
         store.dispatch(DeleteFamilyAction(fid: family.id))
     }
     
-
-
+    
+    
 }

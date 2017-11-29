@@ -13,7 +13,7 @@ class ImageAlbumService: RequestService{
         store.state.GalleryState.status = .failed
     }
 
-    var handles: [(String, UInt, FIRDataEventType)] = []
+    var handles: [(String, UInt, DataEventType)] = []
     var Album: Album?
     
     private init(){}
@@ -24,7 +24,7 @@ class ImageAlbumService: RequestService{
         return instance
     }
     
-    func initObserves(ref: String, actions: [FIRDataEventType]) -> Void {
+    func initObserves(ref: String, actions: [DataEventType]) -> Void {
         if(store.state.GalleryState.Album != nil){
             self.Album = store.state.GalleryState.Album
             for action in actions {
@@ -33,22 +33,22 @@ class ImageAlbumService: RequestService{
                     handle = Constants.FirDatabase.REF.child("images").queryOrdered(byChild: "album").queryEqual(toValue: self.Album?.id!).observe(action, with: ({
                         ref in
                         self.addHandle(handle, ref: "images", action: action)
-                        self.routing(snapshot: ref as! FIRDataSnapshot, action: action, ref: "images")
+                        self.routing(snapshot: ref, action: action, ref: "images")
                     }))
                 }
             }
         }
     }
     
-    func addHandle(_ handle: UInt, ref: String, action: FIRDataEventType) {
+    func addHandle(_ handle: UInt, ref: String, action: DataEventType) {
         self.handles.append((ref,handle,action))
     }
     
-    func inserted(ref: FIRDatabaseReference) {
-        store.state.UserState.status = .finished
+    func inserted(ref: DatabaseReference) {
+        //do something
     }
     
-    func routing(snapshot: FIRDataSnapshot, action: FIRDataEventType, ref: String) {
+    func routing(snapshot: DataSnapshot, action: DataEventType, ref: String) {
         switch action {
         case .childAdded:
             self.added(snapshot: snapshot)
@@ -80,13 +80,13 @@ class ImageAlbumService: RequestService{
             }
         })
     }
-    func add(snap: FIRDataSnapshot) {
+    func add(snap: DataSnapshot) {
         for item in snap.children{
-            self.added(snapshot: item as! FIRDataSnapshot)
+            self.added(snapshot: item as! DataSnapshot)
         }
         store.state.GalleryState.status = .finished
     }
-    func added(snapshot: FIRDataSnapshot) {
+    func added(snapshot: DataSnapshot) {
         let image = ImageAlbum(snap: snapshot)
         if !store.state.GalleryState.Album.ObjImages.contains(where: {$0.id == image.id}){
             store.state.GalleryState.Album.ObjImages.append(image)
@@ -94,7 +94,7 @@ class ImageAlbumService: RequestService{
             store.state.GalleryState.Gallery[service.GALLERY_SERVICE.refUserFamily!]?[array!] = store.state.GalleryState.Album
         }
     }
-    func removed(snapshot: FIRDataSnapshot) {
+    func removed(snapshot: DataSnapshot) {
         let image = ImageAlbum(snap: snapshot)
         if store.state.GalleryState.Album.ObjImages.contains(where: {$0.id == image.id}){
             let index = store.state.GalleryState.Album.ObjImages.index(where: {$0.id == image.id})
@@ -123,14 +123,14 @@ class ImageAlbumService: RequestService{
     func InsertImage(image: ImageAlbum) {
         var image: ImageAlbum! = image
         let reference: String = "images/\(image.id!)"
-        service.STORAGE_SERVICE.insert("\(reference)\(".jpg")", value: image.uiimage, callback: {metadata in
-            if let metadata: FIRStorageMetadata = metadata as? FIRStorageMetadata{
+        service.STORAGE_SERVICE.insert("\(reference)\(".jpg")", value: image.uiimage as Any, callback: {metadata in
+            if let metadata: StorageMetadata = metadata as? StorageMetadata{
                 image.path = metadata.downloadURL()?.absoluteString
                 service.IMAGEALBUM_SERVICE.insert(reference, value: image.toDictionary(), callback: {ref in
-                    if ref is FIRDatabaseReference{
+                    if ref is DatabaseReference{
                         let path: String! = "album/\(service.GALLERY_SERVICE.refUserFamily!)/\(image.album!)/images"
                         service.GALLERY_SERVICE.update(path!, value: [image.id as AnyHashable : true], callback: {response in
-                            if response is FIRDatabaseReference{
+                            if response is DatabaseReference{
                                 store.state.GalleryState.status = .Finished(image)
                             }
                         })
@@ -147,17 +147,17 @@ class ImageAlbumService: RequestService{
     func InsertVideo(image: ImageAlbum) {
         var image: ImageAlbum! = image
         let reference: String = "images/\(image.id!)"
-        service.STORAGE_SERVICE.insert("\(reference)\(".jpg")", value: image.uiimage, callback: {metadata in
-            if let metadata: FIRStorageMetadata = metadata as? FIRStorageMetadata{
+        service.STORAGE_SERVICE.insert("\(reference)\(".jpg")", value: image.uiimage as Any, callback: {metadata in
+            if let metadata: StorageMetadata = metadata as? StorageMetadata{
                 image.video = metadata.downloadURL()?.absoluteString
-                service.STORAGE_SERVICE.insert("\(reference)\(".m4v")", value: image.DataVideo, callback: {metadata in
-                    if let metadata: FIRStorageMetadata = metadata as? FIRStorageMetadata{
+                service.STORAGE_SERVICE.insert("\(reference)\(".m4v")", value: image.DataVideo as Any, callback: {metadata in
+                    if let metadata: StorageMetadata = metadata as? StorageMetadata{
                         image.path = metadata.downloadURL()?.absoluteString
                         service.IMAGEALBUM_SERVICE.insert(reference, value: image.toDictionary(), callback: {ref in
-                            if ref is FIRDatabaseReference{
+                            if ref is DatabaseReference{
                                 let path: String! = "album/\(service.GALLERY_SERVICE.refUserFamily!)/\(image.album!)/images"
                                 service.GALLERY_SERVICE.update(path!, value: [image.id as AnyHashable : true], callback: {response in
-                                    if response is FIRDatabaseReference{
+                                    if response is DatabaseReference{
                                         store.state.GalleryState.status = .Finished(image)
                                     }
                                 })

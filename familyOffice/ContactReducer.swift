@@ -9,7 +9,7 @@
 import Foundation
 import ReSwift
 
-struct ContactReducer: Reducer {
+struct ContactReducer{
     func handleAction(action: Action, state: ContactState?) -> ContactState {
         var state = state ?? ContactState(contacts: [:], status: .none)
         

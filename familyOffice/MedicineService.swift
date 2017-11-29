@@ -8,7 +8,7 @@
 
 import Foundation
 import FirebaseDatabase
-
+import Firebase
 class MedicineService: RequestService {
     
     func notExistSnapshot() {
@@ -16,14 +16,14 @@ class MedicineService: RequestService {
     }
     
     var medicines: [Medicine] = []
-    var handles: [(String, UInt, FIRDataEventType)] = []
+    var handles: [(String, UInt, DataEventType)] = []
     private init() {}
     
     static private let instance = MedicineService()
     
     public static func Instance() -> MedicineService { return instance }
     
-    func routing(snapshot: FIRDataSnapshot, action: FIRDataEventType, ref: String) {
+    func routing(snapshot: DataSnapshot, action: DataEventType, ref: String) {
         switch action {
         case .childAdded:
             self.added(snapshot:snapshot)
@@ -41,7 +41,7 @@ class MedicineService: RequestService {
         }
     }
     
-    func initObservers(ref: String, actions: [FIRDataEventType]) -> Void {
+    func initObservers(ref: String, actions: [DataEventType]) -> Void {
         for action in actions {
             if !handles.contains(where: {$0.0 == ref && $0.2 == action}){
                 self.child_action(ref: ref, action: action)
@@ -49,8 +49,8 @@ class MedicineService: RequestService {
         }
     }
     
-    func addHandle(_ handle: UInt, ref: String, action: FIRDataEventType) {
-        self.handles.append(ref, handle, action)
+    func addHandle(_ handle: UInt, ref: String, action: DataEventType) {
+        self.handles.append((ref, handle, action))
     }
     
     func removeHandles() {
@@ -60,8 +60,8 @@ class MedicineService: RequestService {
         self.handles.removeAll()
     }
     
-    func inserted(ref: FIRDatabaseReference) {
-        Constants.FirDatabase.REF_FAMILIES.child((store.state.UserState.user?.familyActive)!)
+    func inserted(ref: DatabaseReference) {
+        Constants.FirDatabase.REF_FAMILIES.child((userStore?.familyActive)!)
             .child("medicines").updateChildValues([ref.key:true])
         
         store.state.MedicineState.status = .none
@@ -69,19 +69,23 @@ class MedicineService: RequestService {
     
     func create(_ nMedicine: Medicine) -> Void{
         let medicine = nMedicine
-        let id = store.state.UserState.user!.familyActive!
-        let path = "medicines/\(id)/\(medicine.id!)"
-        
-        service.MEDICINE_SERVICE.insert(path, value: medicine.toDictionary(), callback: {ref in
-            if ref is FIRDatabaseReference {
-                store.state.MedicineState.medicines[id]?.append(medicine)
+        verifyUser { (user, exist) in
+            if exist {
+                let id = user.familyActive!
+                let path = "medicines/\(id)/\(medicine.id!)"
+                
+                service.MEDICINE_SERVICE.insert(path, value: medicine.toDictionary(), callback: {ref in
+                    if ref is DatabaseReference {
+                        store.state.MedicineState.medicines[id]?.append(medicine)
+                    }
+                })
             }
-        })
+        }
     }
 }
 
 extension MedicineService: repository {
-    func added(snapshot: FIRDataSnapshot) {
+    func added(snapshot: DataSnapshot) {
         let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
         let medicine = Medicine(snapshot: snapshot)
         
@@ -94,7 +98,7 @@ extension MedicineService: repository {
         }
     }
     
-    func updated(snapshot: FIRDataSnapshot, id: Any) {
+    func updated(snapshot: DataSnapshot, id: Any) {
         let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
         let medicine = Medicine(snapshot: snapshot)
         if let index = store.state.MedicineState.medicines[id]?.index(where: {$0.id == snapshot.key})  {
@@ -102,7 +106,7 @@ extension MedicineService: repository {
         }
     }
     
-    func removed(snapshot: FIRDataSnapshot) {
+    func removed(snapshot: DataSnapshot) {
         let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
         if let index = store.state.MedicineState.medicines[id]?.index(where: {$0.id == snapshot.key})  {
             store.state.MedicineState.medicines[id]?.remove(at: index)

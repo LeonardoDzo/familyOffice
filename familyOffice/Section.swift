@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Section {
+struct Section_Record {
     
     let date: String!
     var record : [Record] = []

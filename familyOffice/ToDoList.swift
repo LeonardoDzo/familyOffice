@@ -20,7 +20,7 @@ struct ToDoList{
         self.items = items
     }
     
-    init(snapshot: FIRDataSnapshot){
+    init(snapshot: DataSnapshot){
         let snapArray = snapshot.value as? NSArray
         self.init(array: snapArray ?? [])
     }
@@ -55,7 +55,7 @@ struct ToDoList{
             
         }
         
-        init(snapshot: FIRDataSnapshot){
+        init(snapshot: DataSnapshot){
             let dic = snapshot.value as! NSDictionary
             self.id  = snapshot.key
             self.title = service.UTILITY_SERVICE.exist(field: ToDoItem.titleKey, dictionary: dic)
@@ -67,7 +67,7 @@ struct ToDoList{
         func toDictionary() -> NSDictionary {
             return [
                 ToDoItem.titleKey: self.title,
-                ToDoItem.photoUrlKey: self.photoUrl,
+                ToDoItem.photoUrlKey: self.photoUrl as Any,
                 ToDoItem.endDateKey: self.endDate,
                 ToDoItem.statusKey: self.status
             ]

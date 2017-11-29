@@ -21,12 +21,12 @@ class FamilyViewController: UIViewController, UIGestureRecognizerDelegate, Famil
         membersTable.addGestureRecognizer(lpgr )
         membersTable.contentInset = UIEdgeInsetsMake(20, 0, 0, 0)
         
-        let addButton : UIBarButtonItem = UIBarButtonItem(title: "Agregar", style: UIBarButtonItemStyle.plain, target: self, action:#selector(addMemberScreen(sender:)))
+        let addButton : UIBarButtonItem = UIBarButtonItem(title: "Editar", style: UIBarButtonItemStyle.plain, target: self, action:#selector(addMemberScreen(sender:)))
         self.navigationItem.rightBarButtonItem = addButton
+        style_1()
         
-        let nav = self.navigationController?.navigationBar
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName: #colorLiteral(red: 0.3137395978, green: 0.1694342792, blue: 0.5204931498, alpha: 1)]
-        // Do any additional setup after loading the view.
+        Image.formatView()
+        membersTable.formatView()
     }
     
     
@@ -37,7 +37,7 @@ class FamilyViewController: UIViewController, UIGestureRecognizerDelegate, Famil
     }
     
     //Long press
-    func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
+    @objc func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
         let point: CGPoint = gestureReconizer.location(in: self.membersTable)
         let indexPath = self.membersTable?.indexPathForRow(at: point)
         
@@ -46,8 +46,8 @@ class FamilyViewController: UIViewController, UIGestureRecognizerDelegate, Famil
             case .began:
                 
                 let uid = family.members[(indexPath?.row)!]
-                if let user = service.USER_SVC.getUser(byId: uid) {
-                    if(user.id == FIRAuth.auth()?.currentUser?.uid){
+                if let user = store.state.UserState.findUser(byId: uid) {
+                    if(user.id == Auth.auth().currentUser?.uid){
                         break
                     }
                     // create the alert
@@ -57,17 +57,15 @@ class FamilyViewController: UIViewController, UIGestureRecognizerDelegate, Famil
                         self.performSegue(withIdentifier: "ProfileSegue", sender: user)
                     }))
                     alert.addAction(UIAlertAction(title: "Cancelar", style: UIAlertActionStyle.cancel, handler: nil))
-                    if(family?.admin == FIRAuth.auth()?.currentUser?.uid){
+                    if(family?.admin == Auth.auth().currentUser?.uid){
                         alert.addAction(UIAlertAction(title: "Remover de la familia", style: UIAlertActionStyle.destructive, handler:  { action in
                             DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
-                                //ELiminar usuario de la familia
-                                service.FAMILY_SERVICE.remove(snapshot: user.id, id: (self.family?.id!)!)
+                               //Delete USER
                             }
                         }))
                     }
                     // show the alert
                     self.present(alert, animated: true, completion: nil)
-
                 }
                 break
             case .ended:
@@ -88,8 +86,8 @@ class FamilyViewController: UIViewController, UIGestureRecognizerDelegate, Famil
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier=="editSegue"{
             let vc = segue.destination as! RegisterFamilyViewController
-            if sender is Family {
-                vc.bind(fam: sender as! Family)
+            if sender is FamilyEntitie {
+                vc.bind(fam: sender as! FamilyEntitie)
             }
         }else if segue.identifier == "ProfileSegue" {
             let viewController = segue.destination as! ProfileUserViewController
@@ -111,19 +109,13 @@ extension FamilyViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! FamilyMemberTableViewCell
         let uid = family.members[indexPath.row]
-        if let member = service.USER_SVC.getUser(byId: uid) {
-            cell.bind(userModel: member)
-            cell.adminlabel.isHidden = family.admin == member.familyActive ?
-                true : false
+        if let member = store.state.UserState.findUser(byId: uid){
         }else{
             let user = User()
-            cell.bind(userModel: user)
         }
         
         return cell
     }
-    
-
 }
 extension FamilyViewController : StoreSubscriber {
     typealias StoreSubscriberStateType = AppState
@@ -131,7 +123,6 @@ extension FamilyViewController : StoreSubscriber {
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.navigationItem.title = family?.name
-        self.bind()
         store.subscribe(self) {
             state in
             state
@@ -140,11 +131,12 @@ extension FamilyViewController : StoreSubscriber {
         service.FAMILY_SVC.valueSingleton(ref: ref)
     }
     
-    func addMemberScreen(sender: UIBarButtonItem) -> Void {
+    @objc func addMemberScreen(sender: UIBarButtonItem) -> Void {
         self.performSegue(withIdentifier: "editSegue", sender: family)
     }
     func newState(state: AppState) {
         family = state.FamilyState.families.family(fid: family.id)
+        self.bind()
         self.membersTable.reloadData()
     }
     override func viewWillDisappear(_ animated: Bool) {

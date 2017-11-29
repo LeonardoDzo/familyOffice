@@ -8,7 +8,6 @@
 
 import UIKit
 import ReSwift
-import ReSwiftRouter
 
 class IllnessDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var illness: Illness!
@@ -21,17 +20,11 @@ class IllnessDetailsViewController: UIViewController, UITableViewDelegate, UITab
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let nav = self.navigationController?.navigationBar
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName:#colorLiteral(red: 0.2848778963, green: 0.2029544115, blue: 0.4734018445, alpha: 1)]
+        style_1()
         self.navigationItem.title = "\(illness.name!)"
         
         let saveButton = UIBarButtonItem(title:"Editar", style: .plain, target: self, action: #selector(edit(sender:)))
-        saveButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         self.navigationItem.rightBarButtonItem = saveButton
-        self.navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
-        
-        self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         
         //No sé cómo hacer esto mejor :s o es viernes por la tarde y me anda valiendo jajaja
         self.fields[0].1 = illness.medicine
@@ -41,7 +34,7 @@ class IllnessDetailsViewController: UIViewController, UITableViewDelegate, UITab
         // Do any additional setup after loading the view.
     }
     
-    func edit(sender: UIBarButtonItem){
+    @objc func edit(sender: UIBarButtonItem){
         self.performSegue(withIdentifier: "editIllness", sender: nil)
     }
     
@@ -115,7 +108,7 @@ class IllnessDetailsViewController: UIViewController, UITableViewDelegate, UITab
      }
      */
     func addObservers() -> Void {
-        service.MEDICINE_SERVICE.initObservers(ref: "illnesses/\((user?.familyActive!))", actions: [ .childChanged])
+        service.MEDICINE_SERVICE.initObservers(ref: "illnesses/\((userStore?.familyActive)!)", actions: [ .childChanged])
     }
     
 }
@@ -126,8 +119,8 @@ extension IllnessDetailsViewController: StoreSubscriber{
         addObservers()
         
         store.subscribe(self) {
-            subscription in
-            subscription.IllnessState
+            subcription in
+            subcription.select { state in state.IllnessState }
         }
     }
     

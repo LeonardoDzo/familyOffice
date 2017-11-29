@@ -10,7 +10,7 @@ import FirebaseStorage.FIRStorage
 import FirebaseStorage.FIRStorageMetadata
 
 public class GalleryService : RequestService {
-    var handles: [(String, UInt, FIRDataEventType)] = []
+    var handles: [(String, UInt, DataEventType)] = []
 
     var albums: [Album] = []
     var saveAlbums: [String:[Album]] = [:]
@@ -25,13 +25,13 @@ public class GalleryService : RequestService {
         return instance
     }
 
-    func initObserves(ref: String, actions: [FIRDataEventType]) -> Void {
+    func initObserves(ref: String, actions: [DataEventType]) -> Void {
         store.state.GalleryState.status = .loading
         for action in actions {
             self.child_action(ref: ref, action: action)
         }
     }
-    func routing(snapshot: FIRDataSnapshot, action: FIRDataEventType, ref: String) {
+    func routing(snapshot: DataSnapshot, action: DataEventType, ref: String) {
         if(ref.components(separatedBy: "/")[0] == "images"){
             imageActions(snapshot: snapshot, action: action, ref: ref)
             return
@@ -53,7 +53,7 @@ public class GalleryService : RequestService {
             break
         }
     }
-    func imageActions (snapshot: FIRDataSnapshot, action: FIRDataEventType,ref: String)-> Void{
+    func imageActions (snapshot: DataSnapshot, action: DataEventType,ref: String)-> Void{
         switch action {
         case .childAdded:
             service.IMAGEALBUM_SERVICE.valueSingleton(ref: ref)
@@ -65,7 +65,7 @@ public class GalleryService : RequestService {
             break
         }
     }
-    func addHandle(_ handle: UInt, ref: String, action: FIRDataEventType) {
+    func addHandle(_ handle: UInt, ref: String, action: DataEventType) {
         self.handles.append((ref,handle,action))
     }
 
@@ -76,7 +76,7 @@ public class GalleryService : RequestService {
         self.handles.removeAll()
     }
 
-    func inserted(ref: FIRDatabaseReference) {
+    func inserted(ref: DatabaseReference) {
     }
     func delete(_ ref: String, callback: @escaping ((Any) -> Void)) {
     }
@@ -85,7 +85,7 @@ public class GalleryService : RequestService {
     }
 }
 extension GalleryService: repository {
-    func added(snapshot: FirebaseDatabase.FIRDataSnapshot) {
+    func added(snapshot: FirebaseDatabase.DataSnapshot) {
         let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
         let album = Album(snapshot: snapshot)
         
@@ -98,17 +98,17 @@ extension GalleryService: repository {
         }
     }
 
-    func add(value: FIRDataSnapshot) -> Void {
+    func add(value: DataSnapshot) -> Void {
         store.state.GalleryState.Gallery.removeAll()
         for item in value.children{
-            self.added(snapshot: item as! FIRDataSnapshot)
+            self.added(snapshot: item as! DataSnapshot)
         }
         store.state.GalleryState.status = .finished
     }
-    func updated(snapshot: FirebaseDatabase.FIRDataSnapshot, id: Any) {
+    func updated(snapshot: FirebaseDatabase.DataSnapshot, id: Any) {
     }
 
-    func removed(snapshot: FirebaseDatabase.FIRDataSnapshot) {
+    func removed(snapshot: FirebaseDatabase.DataSnapshot) {
         if let index = albums.index(where: {$0.id == snapshot.key}){
             self.albums.remove(at: index)
             
@@ -118,10 +118,10 @@ extension GalleryService: repository {
         var album = data.value(forKey: "album") as! Album
         if !(data.value(forKey: "file") is NSNull) {
             service.STORAGE_SERVICE.insert(data.value(forKey: "reference-img") as! String, value: data.value(forKey: "file") as Any, callback: { metadata in
-                if let meta = metadata as? FIRStorageMetadata{
+                if let meta = metadata as? StorageMetadata{
                     album.cover = (meta.downloadURL()?.absoluteString)!
                     service.GALLERY_SERVICE.insert(data.value(forKey: "reference") as! String, value: album.toDictionary(), callback: {reference in
-                        if let ref = reference as? FIRDatabaseReference{
+                        if let ref = reference as? DatabaseReference{
                             ref.observeSingleEvent(of: .value, with: {snapshot in
                                 callback("Guardado correctamente")
                             })
@@ -135,9 +135,9 @@ extension GalleryService: repository {
             })
         }else{
             service.GALLERY_SERVICE.insert(data.value(forKey: "reference") as! String, value: album.toDictionary(), callback: {reference in
-                if let ref = reference as? FIRDatabaseReference{
+                if let ref = reference as? DatabaseReference{
                     ref.observeSingleEvent(of: .value, with: {snapshot in
-                        let aux = Album(snapshot: snapshot)
+                        _ = Album(snapshot: snapshot)
                         callback("Guardado sin portada")
                     })
                 }else{

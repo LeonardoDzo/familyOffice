@@ -50,7 +50,7 @@ class InfoContactViewController: UIViewController, ContactBindible, UITabBarDele
         // Dispose of any resources that can be recreated.
     }
     override func viewWillAppear(_ animated: Bool) {
-        let key = store.state.UserState.user?.familyActive
+        let key = userStore?.familyActive
         if let xcontact = store.state.ContactState.contacts[key!]?.first(where: {$0.id == contact.id}) {
             self.bind(contact: xcontact)
         }else{
@@ -61,7 +61,7 @@ class InfoContactViewController: UIViewController, ContactBindible, UITabBarDele
         self.navigationController?.isNavigationBarHidden = false
     }
     
-    func tap(_ gestureRecognizer: UITapGestureRecognizer) -> Void {
+    @objc func tap(_ gestureRecognizer: UITapGestureRecognizer) -> Void {
         if (contact.address?.isEmpty)!{
             return
         }
@@ -124,7 +124,7 @@ class InfoContactViewController: UIViewController, ContactBindible, UITabBarDele
     }
     
     
-    func edit() -> Void {
+    @objc func edit() -> Void {
         performSegue(withIdentifier: "editSegue", sender: contact)
     }
     func sendSMSText(phoneNumber: String) {

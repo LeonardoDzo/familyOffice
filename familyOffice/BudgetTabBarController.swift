@@ -64,11 +64,11 @@ class BudgetTabBarController: UITabBarController {
     }
     */
     
-    func onBack(){
+    @objc func onBack(){
         self.dismiss(animated: true, completion: nil)
     }
     
-    func onMore(){
+    @objc func onMore(){
         settingLauncher.showSetting()
     }
 

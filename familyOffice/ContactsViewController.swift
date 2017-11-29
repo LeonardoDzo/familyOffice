@@ -33,12 +33,12 @@ class ContactsViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    func back() -> Void {
-        self.dismiss(animated: true, completion: nil)
+    @objc func back() -> Void {
+        _ = self.navigationController?.popViewController(animated: true)
     }
-    func add() -> Void {
+    @objc func add() -> Void {
         contactDelegate.selected(users: selected)
-        self.dismiss(animated: true, completion: nil)
+        back()
     }
     
     func getContacts() -> Void {
@@ -54,7 +54,7 @@ class ContactsViewController: UIViewController {
         self.users = []
         for item in contacts {
             for phone in item.phoneNumbers {
-                if phone.value.value(forKey: "digits") as? String  != store.state.UserState.user?.phone{
+                if phone.value.value(forKey: "digits") as? String  != userStore?.phone{
                     self.addMember(phone: phone.value.value(forKey: "digits") as! String )
                 }
                 
@@ -63,25 +63,17 @@ class ContactsViewController: UIViewController {
     }
     func addMember(phone: String) -> Void {
         
-        if let user = store.state.UserState.users.filter({$0.phone == phone}).first {
+        if let user = store.state.UserState.getUsers().filter({$0.phone == phone}).first {
             if !self.users.contains(where: {$0.id == user.id}) {
                 self.users.append(user)
                 self.tableView.insertRows(at: [NSIndexPath(row: self.users.count-1, section: 0) as IndexPath], with: .fade)
             }
         }else{
-            store.dispatch(GetUserAction(phone: phone))
+            let action = UserS()
+            action.action = .getbyPhone(phone: phone)
+            store.dispatch(action)
         }
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 extension ContactsViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -113,7 +105,7 @@ extension ContactsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let user = users[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! FamilyMemberTableViewCell
-        cell.bind(userModel: user)
+   
         if selected.contains(where: {$0.id == user.id}) {
             cell.accessoryType = .checkmark
         }else{
@@ -137,8 +129,8 @@ extension ContactsViewController: StoreSubscriber {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         store.subscribe(self) {
-            state in
-            state.UserState
+            subcription in
+            subcription.select { state in state.UserState }
         }
         selected = contactDelegate.users
         getContacts()
@@ -147,16 +139,15 @@ extension ContactsViewController: StoreSubscriber {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         store.unsubscribe(self)
-        store.state.UserState.status = .none
     }
     func newState(state: UserState) {
         self.view.hideToastActivity()
-        switch state.status {
+        switch state.users {
         case .loading:
             self.view.makeToastActivity(.center)
             break
-        case .Finished(let user as User):
-            users.append(user)
+        case .Finished(let users as [User]):
+            self.users.append(users.last!)
             self.tableView.reloadData()
             break
         default:

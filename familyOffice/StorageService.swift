@@ -50,7 +50,7 @@ class StorageService  {
     }
 }
 extension StorageService : RequestStorageSvc {
-    func inserted(metadata: FIRStorageMetadata, data: Data) {
+    func inserted(metadata: StorageMetadata, data: Data) {
         if let downloadURL = metadata.downloadURL()?.absoluteString {
             
             self.save(url: downloadURL, data: data)
