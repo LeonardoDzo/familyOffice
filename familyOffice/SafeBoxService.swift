@@ -16,7 +16,7 @@ class SafeBoxService: RequestService{
     
     var files: [SafeBoxFile] = []
     var handles: [(String,UInt,DataEventType)] = []
-    
+
     private init() {}
     
     static private let instance = SafeBoxService()
@@ -49,6 +49,7 @@ class SafeBoxService: RequestService{
     }
     
     func addHandle(_ handle: UInt, ref: String, action: DataEventType) {
+
         self.handles.append((ref, handle, action))
     }
     

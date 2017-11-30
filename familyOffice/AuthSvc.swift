@@ -107,7 +107,7 @@ class AuthSvc : Action, EventProtocol {
         }
     }
     func logOut(){
-        store.state = nil
+        
         rManager.deleteDatabase()
         try! Auth.auth().signOut()
     }

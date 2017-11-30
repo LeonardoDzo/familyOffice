@@ -9,6 +9,7 @@
 import Foundation
 import ReSwift
 
+
 struct InsertSafeBoxFileAction: Action {
 
     var safeBoxFile: SafeBoxFile!
@@ -16,15 +17,17 @@ struct InsertSafeBoxFileAction: Action {
         self.safeBoxFile = item
     }
 
+
 }
 
 struct UpdateSafeBoxFileAction: Action {
+
     var safeBoxFile: SafeBoxFile!
     init(item: SafeBoxFile){
         self.safeBoxFile = item
     }
-    
-   
+
+
 }
 
 struct DeleteSafeBoxFileAction: Action{
@@ -32,5 +35,4 @@ struct DeleteSafeBoxFileAction: Action{
     init(item: SafeBoxFile){
         self.safeBoxFile = item
     }
-
 }

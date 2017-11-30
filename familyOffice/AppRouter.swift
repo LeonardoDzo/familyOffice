@@ -34,6 +34,8 @@ enum RoutingDestination: String {
     case none = ""
 }
 extension RoutingDestination {
+
+
     func getStoryBoard() -> String {
         switch self {
         case .start, .signUp, .preHome, .homeSocial, .none:
@@ -46,4 +48,6 @@ extension RoutingDestination {
             return StoryBoard.calendar.rawValue
         }
     }
+    
+    
 }

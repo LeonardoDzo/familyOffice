@@ -175,7 +175,7 @@ extension FamilyBindable{
         }
     }
 }
-protocol FamilyEBindable: AnyObject {
+protocol FamilyEBindable: AnyObject, bind {
     var family: FamilyEntitie! {get set}
     var titleLbl: UIKit.UILabel! {get}
     var Image: CustomUIImageView! {get}
@@ -195,7 +195,12 @@ extension FamilyEBindable{
     var nameTxt: textFieldStyleController! {
         return nil
     }
-    //Bind Ninja
+    func bind(sender: Any?) {
+        if sender is FamilyEntitie {
+            bind(fam: sender as! FamilyEntitie)
+        }
+        
+    }
     func bind(fam: FamilyEntitie){
         self.family = fam
         bind()

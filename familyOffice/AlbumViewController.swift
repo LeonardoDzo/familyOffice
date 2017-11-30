@@ -87,7 +87,9 @@ class AlbumViewController: UIViewController,UIGestureRecognizerDelegate, StoreSu
                                         let key = Constants.FirDatabase.REF.childByAutoId().key as String
                                         let imgAlbum: ImageAlbum = ImageAlbum(id: key, path: "", album: self.currentAlbum?.id, comments: [], reacts: [], uiimage: image,video: data)
                                         store.dispatch(InsertVideoAlbumAction(image: imgAlbum))
+
                                     }catch _ as NSError
+
                                     {
                                         self.view.makeToast("Error al subir video al album.", duration: 1.0, position: .center)
                                     }
@@ -119,6 +121,7 @@ class AlbumViewController: UIViewController,UIGestureRecognizerDelegate, StoreSu
                                     //let imageData = self.resizeImage(image: image!, scale: CGFloat.init(20))
                                     let imageData = image?.resizeImage()
                                     let key = Constants.FirDatabase.REF.childByAutoId().key as String
+
                                     let imgAlbum: ImageAlbum = ImageAlbum(id: key, path: "", album: self.currentAlbum?.id, comments: [], reacts: [], uiimage: imageData!,video: nil, width: Double(image!.size.width*image!.scale), height: Double(image!.size.height * img.scale))
                                     store.dispatch(InsertImagesAlbumAction(image: imgAlbum))
                                     self.imgesAlbum.append(ImageAlbum())

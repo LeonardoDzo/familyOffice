@@ -51,7 +51,7 @@ extension CalendarViewController  {
     }
     
     @objc func gotoAddEvent() -> Void {
-        self.pushToView(view: .addEvent, sender: Event())
+        self.pushToView(view: .addEvent, sender:  Event())
     }
 }
 extension CalendarViewController : FSCalendarDelegate, FSCalendarDataSource {

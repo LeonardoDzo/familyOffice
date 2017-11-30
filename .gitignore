@@ -20,3 +20,6 @@ Pods/
 
 *.xcscheme
 *.xcscheme
+*.plist
+
+familyOffice\.xcworkspace/xcuserdata/

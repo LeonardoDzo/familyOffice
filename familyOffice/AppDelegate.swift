@@ -13,10 +13,12 @@ import GoogleSignIn
 import UserNotifications
 import ReSwift
 
+
 let store = Store<AppState>(
     reducer: appReducer,
     state: nil,
     middleware: [realmMiddleware] )
+
 
 let Userdefault = UserDefaults.standard
 @UIApplicationMain

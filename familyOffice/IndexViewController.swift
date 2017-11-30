@@ -319,6 +319,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
             let fileName = (fileNameTextField?.text)!
             let data = UIImagePNGRepresentation(newFile.resizeToLarge()) as NSData?
             let min_data = UIImagePNGRepresentation(newFile.resizeToSmall()) as NSData?
+
             Constants.FirStorage.STORAGEREF.child("users/\((userStore?.id)!)").child("safebox/\(fileName).png").putData(data! as Data, metadata: nil, completion: { metadata, error in
                 if error != nil{
                     print(error.debugDescription)
@@ -337,6 +338,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
                                 let newSafeBoxFile = SafeBoxFile(filename: "\(fileName).png", downloadUrl: downloadURL,thumbnail:download_min,parent: self.currentFolder)
                                 store.dispatch(InsertSafeBoxFileAction(item: newSafeBoxFile))
                                 store.subscribe(self){
+
                                     $0.select({ (s)  in
                                         s.safeBoxState
                                     }) //Cosa cochi que debo de hacer porque el imagePicker y el documentPicker desinscriben la vista
@@ -374,7 +376,9 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
                 print("Entered the completionHandler")
                 if err == nil {
                     
+
                     Constants.FirStorage.STORAGEREF.child("users/\((store.state.UserState.getUser()?.id)!)").child("safebox/\(fileName).\(outerURL.pathExtension)").putData(data!, metadata: nil, completion: { metadata, error in
+
                         if error != nil{
                             print(error.debugDescription)
                         }else{
@@ -386,9 +390,11 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
                                 let newSafeBoxFile = SafeBoxFile(filename: "\(fileName).\(outerURL.pathExtension)", downloadUrl: downloadURL, parent: self.currentFolder)
                                 store.dispatch(InsertSafeBoxFileAction(item: newSafeBoxFile))
                                 store.subscribe(self){
+
                                     $0.select {
                                         s in s.safeBoxState
                                     } //Cosa cochi que debo de hacer porque el imagePicker y el documentPicker desinscriben la vista
+
                                 }
                                 
                             }
@@ -443,6 +449,7 @@ extension IndexViewController: StoreSubscriber{
         service.SAFEBOX_SERVICE.initObservers(ref: "safebox/\(userId!)", actions: [.childAdded, .childChanged, .childRemoved])
         
         store.subscribe(self){
+
             $0.select {
                 s in s.safeBoxState
             }
@@ -600,6 +607,7 @@ extension IndexViewController: UIViewControllerPreviewingDelegate{
                 
                 store.dispatch(UpdateSafeBoxFileAction(item: file))
                 store.subscribe(self){
+
                     $0.select {
                         s in s.safeBoxState
                     }
@@ -621,6 +629,7 @@ extension IndexViewController: UIViewControllerPreviewingDelegate{
         detailVC.previewAct.append(UIPreviewAction(title: "Eliminar", style: .destructive , handler: { (UIPreviewAction, UIViewController) in
             store.dispatch(DeleteSafeBoxFileAction(item: self.files[indexPath.row]))
             store.subscribe(self){
+
                 $0.select {
                     s in s.safeBoxState
                 }

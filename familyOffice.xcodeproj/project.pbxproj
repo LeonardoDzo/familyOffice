@@ -1137,6 +1137,7 @@
 		02B876461E1C717A005E5473 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A45EDE3A1FCF861A00D95A48 /* FirstAidKid */,
 				02C855911FBE5096004D7BFB /* User */,
 				02C71A4A1F1E996C0017BB4C /* Family */,
 				04AFE3891F01DDD000D4ECA2 /* Gallery */,
@@ -1155,8 +1156,6 @@
 				8460D6531EAE598A007767CE /* SectionNotification.swift */,
 				843956D41F0B1BF4009E95FE /* Contact.swift */,
 				94FF53501F17E4FF001D9EE4 /* ToDoList.swift */,
-				949B52041F20230C001C7ABA /* Illness.swift */,
-				949B52061F202323001C7ABA /* Medicine.swift */,
 				94A070CC1F27E3BB0098860E /* Question.swift */,
 				8B2D85221F43D492007D18BE /* safeBoxFile.swift */,
 			);
@@ -1545,6 +1544,15 @@
 				94FF535E1F17E55B001D9EE4 /* ToDoListState.swift */,
 			);
 			name = State;
+			sourceTree = "<group>";
+		};
+		A45EDE3A1FCF861A00D95A48 /* FirstAidKid */ = {
+			isa = PBXGroup;
+			children = (
+				949B52041F20230C001C7ABA /* Illness.swift */,
+				949B52061F202323001C7ABA /* Medicine.swift */,
+			);
+			name = FirstAidKid;
 			sourceTree = "<group>";
 		};
 		A48DDA1E1F15409E0059D982 /* Budget */ = {
@@ -2036,6 +2044,7 @@
 				029F65971F15A95700C3A0A7 /* InfoContactViewController.swift in Sources */,
 				A48FD6DD1F143D2200832559 /* Budget.swift in Sources */,
 				02E33A641EBA71D0003BF787 /* ShowEventViewController.swift in Sources */,
+				02C06B431F3245F400FFF52B /* (null) in Sources */,
 				02C06B431F3245F400FFF52B /* (null) in Sources */,
 				02AD47E91FC4F381009E20E8 /* FamilyEntitie.swift in Sources */,
 				042693011F1448EB004356D6 /* ImageAlbumService.swift in Sources */,
