@@ -19,8 +19,8 @@ protocol DateProtocol: class {
     func selectedDate(date: Date) -> Void
 }
 protocol ContactsProtocol: class {
-    var users : [User]! {get set}
-    func selected(users: [User]) -> Void
+    var users : [UserEntitie]! {get set}
+    func selected(users: [UserEntitie]) -> Void
 }
 protocol repeatProtocol {
     var frequency : Frequency! {get set}

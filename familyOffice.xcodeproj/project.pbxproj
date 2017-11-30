@@ -35,7 +35,7 @@
 		023D2B501EC22A5100CA19FE /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023D2B4F1EC22A5100CA19FE /* Value.swift */; };
 		023DFBBB1EBBACBD000BEFFB /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023DFBBA1EBBACBD000BEFFB /* Location.swift */; };
 		023F9CEF1E1C39D300420217 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F9CEE1E1C39D300420217 /* AuthService.swift */; };
-		024104871E6F40C4002B8E1C /* FamilyCollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024104861E6F40C4002B8E1C /* FamilyCollectionExtension.swift */; };
+		0240C7D41FCE242E005B8774 /* EventEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0240C7D31FCE242E005B8774 /* EventEntity.swift */; };
 		0241048C1E6F4F23002B8E1C /* RepositoryClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0241048B1E6F4F23002B8E1C /* RepositoryClass.swift */; };
 		02421E301FBCCBC500ADDC71 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02421E2F1FBCCBC500ADDC71 /* GoogleService-Info.plist */; };
 		02441D9A1F16A3E500EA8202 /* CalendarOpenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02441D991F16A3E500EA8202 /* CalendarOpenViewController.swift */; };
@@ -62,7 +62,6 @@
 		026AE1061E3A93A9003B75BD /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026AE1051E3A93A9003B75BD /* User.swift */; };
 		026AF3781F06F0FC00EF6DCD /* GoalReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026AF3771F06F0FC00EF6DCD /* GoalReducer.swift */; };
 		026AF37E1F071F6400EF6DCD /* GoalMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026AF37D1F071F6400EF6DCD /* GoalMiddleware.swift */; };
-		026B72BA1F33A3F8000DBAD0 /* CustomRepeatTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026B72B91F33A3F8000DBAD0 /* CustomRepeatTableViewController.swift */; };
 		026F29AE1FCCD5EC0098C0AE /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026F29AD1FCCD5EC0098C0AE /* EventViewController.swift */; };
 		026F29B11FCCD91E0098C0AE /* CustomCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026F29B01FCCD91E0098C0AE /* CustomCells.swift */; };
 		0271DD4F1E2EB1FB002C101B /* FamilyMemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0271DD4E1E2EB1FB002C101B /* FamilyMemberTableViewCell.swift */; };
@@ -98,8 +97,6 @@
 		02954C5B1FBA77380057F809 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02382F151E1C210C0036FFC9 /* LaunchScreen.storyboard */; };
 		02954C5C1FBA77A40057F809 /* Faqs.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84CCA39C1F1B69D600B1C9D0 /* Faqs.storyboard */; };
 		02954C5D1FBA77F10057F809 /* Objectives.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 022CC44C1EF9C3F3009FA79C /* Objectives.storyboard */; };
-		02981B6D1EEB3CA400BA1BF4 /* EndRepeatEventTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02981B6C1EEB3CA400BA1BF4 /* EndRepeatEventTableViewController.swift */; };
-		029B7A471EDE3515006868A7 /* MembersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029B7A461EDE3515006868A7 /* MembersTableViewController.swift */; };
 		029CD0611F13172C00A29CBA /* UserSvc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029CD0601F13172C00A29CBA /* UserSvc.swift */; };
 		029CD0631F131EBC00A29CBA /* UserReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029CD0621F131EBC00A29CBA /* UserReducer.swift */; };
 		029CD0651F1327BD00A29CBA /* FamilySvc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029CD0641F1327BD00A29CBA /* FamilySvc.swift */; };
@@ -136,14 +133,10 @@
 		02B876451E1C677C005E5473 /* SingUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B876441E1C677C005E5473 /* SingUpViewController.swift */; };
 		02BC16ED1EE9C89000722689 /* repeatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BC16EC1EE9C89000722689 /* repeatModel.swift */; };
 		02BC16EF1EE9C8C100722689 /* memberEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BC16EE1EE9C8C100722689 /* memberEvent.swift */; };
-		02BC16F11EE9D80700722689 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BC16F01EE9D80700722689 /* MapViewController.swift */; };
-		02BC16F31EE9D85B00722689 /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BC16F21EE9D85B00722689 /* LocationSearchTable.swift */; };
 		02BC16F51EE9E32900722689 /* UIBarbutton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BC16F41EE9E32900722689 /* UIBarbutton.swift */; };
-		02BC16F71EEA2C9900722689 /* repeatEventTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BC16F61EEA2C9900722689 /* repeatEventTableViewController.swift */; };
 		02BD2D171E1F0D8B00A61A84 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BD2D161E1F0D8B00A61A84 /* HomeViewController.swift */; };
 		02BD2D1C1E1F16A700A61A84 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BD2D1B1E1F16A700A61A84 /* Utility.swift */; };
 		02C06B431F3245F400FFF52B /* (null) in Sources */ = {isa = PBXBuildFile; };
-		02C06B451F325D4500FFF52B /* Type_EventTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C06B441F325D4500FFF52B /* Type_EventTableViewController.swift */; };
 		02C17D271E424AD400EE7CFA /* ActivityLogService .swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C17D261E424AD400EE7CFA /* ActivityLogService .swift */; };
 		02C17D291E424F6A00EE7CFA /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C17D281E424F6A00EE7CFA /* Record.swift */; };
 		02C17D2B1E42796700EE7CFA /* recordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C17D2A1E42796700EE7CFA /* recordTableViewCell.swift */; };
@@ -180,7 +173,6 @@
 		02FA70641E707BAB0080AAEB /* ToastService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FA70631E707BAB0080AAEB /* ToastService.swift */; };
 		02FA70781F1955F00027E8B5 /* TimeLineCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FA70771F1955F00027E8B5 /* TimeLineCellTableViewCell.swift */; };
 		02FA707A1F1957E10027E8B5 /* GoalHistoryByUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FA70791F1957E10027E8B5 /* GoalHistoryByUserViewController.swift */; };
-		02FD90031EDCA7C300F76BA1 /* addEventTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FD90021EDCA7C300F76BA1 /* addEventTableViewController.swift */; };
 		042230DB1F1961B0005CBAC7 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042230DA1F1961B0005CBAC7 /* GalleryCollectionViewCell.swift */; };
 		042693011F1448EB004356D6 /* ImageAlbumService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042693001F1448EB004356D6 /* ImageAlbumService.swift */; };
 		04475B4E1F0ECCA800F257EA /* GalleryReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04475B4D1F0ECCA800F257EA /* GalleryReducer.swift */; };
@@ -344,7 +336,7 @@
 		023D2B4F1EC22A5100CA19FE /* Value.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Value.swift; sourceTree = "<group>"; };
 		023DFBBA1EBBACBD000BEFFB /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		023F9CEE1E1C39D300420217 /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AuthService.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		024104861E6F40C4002B8E1C /* FamilyCollectionExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FamilyCollectionExtension.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		0240C7D31FCE242E005B8774 /* EventEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventEntity.swift; sourceTree = "<group>"; };
 		0241048B1E6F4F23002B8E1C /* RepositoryClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryClass.swift; sourceTree = "<group>"; };
 		02421E2F1FBCCBC500ADDC71 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		02441D991F16A3E500EA8202 /* CalendarOpenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarOpenViewController.swift; sourceTree = "<group>"; };
@@ -372,7 +364,6 @@
 		026AE1051E3A93A9003B75BD /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		026AF3771F06F0FC00EF6DCD /* GoalReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalReducer.swift; sourceTree = "<group>"; };
 		026AF37D1F071F6400EF6DCD /* GoalMiddleware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalMiddleware.swift; sourceTree = "<group>"; };
-		026B72B91F33A3F8000DBAD0 /* CustomRepeatTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomRepeatTableViewController.swift; sourceTree = "<group>"; };
 		026F29AD1FCCD5EC0098C0AE /* EventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
 		026F29B01FCCD91E0098C0AE /* CustomCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCells.swift; sourceTree = "<group>"; };
 		0271DD4E1E2EB1FB002C101B /* FamilyMemberTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberTableViewCell.swift; sourceTree = "<group>"; };
@@ -395,8 +386,6 @@
 		028E0E321EDF4DFE00D5205B /* MemberInviteCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberInviteCollectionViewCell.swift; sourceTree = "<group>"; };
 		028E0E331EDF4DFE00D5205B /* MemberInviteCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MemberInviteCollectionViewCell.xib; sourceTree = "<group>"; };
 		028E20FE1EC0F1D1004D83B0 /* UILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
-		02981B6C1EEB3CA400BA1BF4 /* EndRepeatEventTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndRepeatEventTableViewController.swift; sourceTree = "<group>"; };
-		029B7A461EDE3515006868A7 /* MembersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MembersTableViewController.swift; sourceTree = "<group>"; };
 		029CD0601F13172C00A29CBA /* UserSvc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSvc.swift; sourceTree = "<group>"; };
 		029CD0621F131EBC00A29CBA /* UserReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserReducer.swift; sourceTree = "<group>"; };
 		029CD0641F1327BD00A29CBA /* FamilySvc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilySvc.swift; sourceTree = "<group>"; };
@@ -439,13 +428,9 @@
 		02B876441E1C677C005E5473 /* SingUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingUpViewController.swift; sourceTree = "<group>"; };
 		02BC16EC1EE9C89000722689 /* repeatModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = repeatModel.swift; sourceTree = "<group>"; };
 		02BC16EE1EE9C8C100722689 /* memberEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = memberEvent.swift; sourceTree = "<group>"; };
-		02BC16F01EE9D80700722689 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		02BC16F21EE9D85B00722689 /* LocationSearchTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchTable.swift; sourceTree = "<group>"; };
 		02BC16F41EE9E32900722689 /* UIBarbutton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBarbutton.swift; sourceTree = "<group>"; };
-		02BC16F61EEA2C9900722689 /* repeatEventTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = repeatEventTableViewController.swift; sourceTree = "<group>"; };
 		02BD2D161E1F0D8B00A61A84 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = HomeViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		02BD2D1B1E1F16A700A61A84 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
-		02C06B441F325D4500FFF52B /* Type_EventTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Type_EventTableViewController.swift; sourceTree = "<group>"; };
 		02C17D261E424AD400EE7CFA /* ActivityLogService .swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = "ActivityLogService .swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		02C17D281E424F6A00EE7CFA /* Record.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
 		02C17D2A1E42796700EE7CFA /* recordTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = recordTableViewCell.swift; sourceTree = "<group>"; };
@@ -484,7 +469,6 @@
 		02FA70631E707BAB0080AAEB /* ToastService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastService.swift; sourceTree = "<group>"; };
 		02FA70771F1955F00027E8B5 /* TimeLineCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLineCellTableViewCell.swift; sourceTree = "<group>"; };
 		02FA70791F1957E10027E8B5 /* GoalHistoryByUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalHistoryByUserViewController.swift; sourceTree = "<group>"; };
-		02FD90021EDCA7C300F76BA1 /* addEventTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = addEventTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		042230DA1F1961B0005CBAC7 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		042567851EFC34B8001EAC50 /* Gallery.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Gallery.storyboard; sourceTree = "<group>"; };
 		042693001F1448EB004356D6 /* ImageAlbumService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageAlbumService.swift; sourceTree = "<group>"; };
@@ -851,7 +835,6 @@
 		024104851E6F40A5002B8E1C /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				024104861E6F40C4002B8E1C /* FamilyCollectionExtension.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -959,7 +942,6 @@
 			isa = PBXGroup;
 			children = (
 				027391701E946CA100426331 /* cell */,
-				027391871E94736200426331 /* AddEvent */,
 				0272139E1E84478F001A144B /* CalendarViewController.swift */,
 				02E33A631EBA71D0003BF787 /* ShowEventViewController.swift */,
 				02C8087F1ED76979005BB8B1 /* ConfigurationEventTableViewController.swift */,
@@ -1006,21 +988,6 @@
 				028E0E331EDF4DFE00D5205B /* MemberInviteCollectionViewCell.xib */,
 			);
 			name = cell;
-			sourceTree = "<group>";
-		};
-		027391871E94736200426331 /* AddEvent */ = {
-			isa = PBXGroup;
-			children = (
-				02FD90021EDCA7C300F76BA1 /* addEventTableViewController.swift */,
-				029B7A461EDE3515006868A7 /* MembersTableViewController.swift */,
-				02BC16F01EE9D80700722689 /* MapViewController.swift */,
-				02BC16F21EE9D85B00722689 /* LocationSearchTable.swift */,
-				02BC16F61EEA2C9900722689 /* repeatEventTableViewController.swift */,
-				02981B6C1EEB3CA400BA1BF4 /* EndRepeatEventTableViewController.swift */,
-				02C06B441F325D4500FFF52B /* Type_EventTableViewController.swift */,
-				026B72B91F33A3F8000DBAD0 /* CustomRepeatTableViewController.swift */,
-			);
-			name = AddEvent;
 			sourceTree = "<group>";
 		};
 		02802DFD1EFC369600E12A84 /* Protocols */ = {
@@ -1203,6 +1170,7 @@
 				027213A81E848509001A144B /* Event.swift */,
 				02BC16EC1EE9C89000722689 /* repeatModel.swift */,
 				02BC16EE1EE9C8C100722689 /* memberEvent.swift */,
+				0240C7D31FCE242E005B8774 /* EventEntity.swift */,
 			);
 			name = Event;
 			sourceTree = "<group>";
@@ -2115,7 +2083,6 @@
 				02F50B231FBF797200285BEE /* AuthSvc.swift in Sources */,
 				0271DD4F1E2EB1FB002C101B /* FamilyMemberTableViewCell.swift in Sources */,
 				84CCA3961F1AB76F00B1C9D0 /* UIString.swift in Sources */,
-				02C06B451F325D4500FFF52B /* Type_EventTableViewController.swift in Sources */,
 				84C721211ED7502700381FB7 /* AddHealthViewController.swift in Sources */,
 				02BC16EF1EE9C8C100722689 /* memberEvent.swift in Sources */,
 				02C414BF1E95C70A00045459 /* DateFormatter.swift in Sources */,
@@ -2128,7 +2095,6 @@
 				A48FD6DB1F141E8C00832559 /* BudgetCollectionViewCell.swift in Sources */,
 				02C855901FBE20FC004D7BFB /* UIApplication.swift in Sources */,
 				021DB6B01F4BAF7900E216BE /* RequestAction.swift in Sources */,
-				02BC16F31EE9D85B00722689 /* LocationSearchTable.swift in Sources */,
 				02AD81521E4B963C0030B3DD /* memberSelectedCollectionViewCell.swift in Sources */,
 				9409641E1F28233300FB1F3A /* FAQSectionCell.swift in Sources */,
 				020A64FD1E81EE1A00F473A0 /* chatCollectionViewController.swift in Sources */,
@@ -2156,7 +2122,6 @@
 				8B18D7B41F4395C100E2B3F5 /* pendingQuestionCell.swift in Sources */,
 				02F15BB71E85ECE2008C26F8 /* chatModel.swift in Sources */,
 				02B1F93F1FC5E575002326CD /* UIViewAnchorPoint.swift in Sources */,
-				02BC16F11EE9D80700722689 /* MapViewController.swift in Sources */,
 				94FF53561F17E52B001D9EE4 /* ToDoItemCell.swift in Sources */,
 				02CE93261F1FDADB00D3B96E /* ContactsViewController.swift in Sources */,
 				94FF53611F17E562001D9EE4 /* ToDoListActions.swift in Sources */,
@@ -2185,7 +2150,6 @@
 				8452F5AB1E5F4F550064A964 /* ModuleCollectionViewCell.swift in Sources */,
 				02B1F93E1FC5E575002326CD /* UILabelX.swift in Sources */,
 				940964221F28242400FB1F3A /* QuestionCell.swift in Sources */,
-				029B7A471EDE3515006868A7 /* MembersTableViewController.swift in Sources */,
 				02CB7AAD1FBFA7F8005408F9 /* RealmManager.swift in Sources */,
 				024BCA811E6F1E2D00736F1A /* RequestService.swift in Sources */,
 				021DB6A81F4B785A00E216BE /* RoutingState.swift in Sources */,
@@ -2196,8 +2160,6 @@
 				02ADE5471FC4957500D05893 /* UserEntitie.swift in Sources */,
 				02441D9C1F16BECD00EA8202 /* GoalTableViewController.swift in Sources */,
 				045B648F1EFDD1F600F57BBD /* HomeGalleryViewController.swift in Sources */,
-				02FD90031EDCA7C300F76BA1 /* addEventTableViewController.swift in Sources */,
-				02981B6D1EEB3CA400BA1BF4 /* EndRepeatEventTableViewController.swift in Sources */,
 				02B876451E1C677C005E5473 /* SingUpViewController.swift in Sources */,
 				02802DFF1EFC36A900E12A84 /* FamilyProtocols.swift in Sources */,
 				8B359DE91F44B31900E6A97A /* SafeBoxReducer.swift in Sources */,
@@ -2237,6 +2199,7 @@
 				02AD47E71FC4F1F5009E20E8 /* FamilyS.swift in Sources */,
 				029CD0631F131EBC00A29CBA /* UserReducer.swift in Sources */,
 				94C110C31F267C3C00ABBA8B /* newIllnessViewController.swift in Sources */,
+				0240C7D41FCE242E005B8774 /* EventEntity.swift in Sources */,
 				02C808801ED76979005BB8B1 /* ConfigurationEventTableViewController.swift in Sources */,
 				843956D51F0B1BF4009E95FE /* Contact.swift in Sources */,
 				94A070CD1F27E3BB0098860E /* Question.swift in Sources */,
@@ -2259,7 +2222,6 @@
 				A4F65A2B1E985A4E00831BFD /* HealthOmniViewController_Categories.swift in Sources */,
 				02EABF571E312AE8008A7CA9 /* FamilyCollectionViewController.swift in Sources */,
 				02F50B1F1FBF681A00285BEE /* Reducer.swift in Sources */,
-				024104871E6F40C4002B8E1C /* FamilyCollectionExtension.swift in Sources */,
 				02F15BBA1E85F37A008C26F8 /* chatCellTableViewCell.swift in Sources */,
 				849C81C71E1D6D2F00FF3EE7 /* StartViewController.swift in Sources */,
 				A46D01781F31585F00071E16 /* GalleryLayout.swift in Sources */,
@@ -2271,7 +2233,6 @@
 				0275DBB71F27C68100E733E5 /* UITextField.swift in Sources */,
 				02BC16ED1EE9C89000722689 /* repeatModel.swift in Sources */,
 				A4EABA2A1E9551EA00D0D54E /* HealthOmniViewController_Members.swift in Sources */,
-				02BC16F71EEA2C9900722689 /* repeatEventTableViewController.swift in Sources */,
 				A44F5BEB1F1D44D200B840F3 /* RadarChartViewController.swift in Sources */,
 				A4F65A291E97F06800831BFD /* NewHealthElementTableViewController.swift in Sources */,
 				8BE66E261F50902D003AC45C /* MoveFileViewController.swift in Sources */,
@@ -2283,7 +2244,6 @@
 				848130161E85ECAD008B08B8 /* Styles.swift in Sources */,
 				02EABF591E312B67008A7CA9 /* FamilyCollectionViewCell.swift in Sources */,
 				02B1F93D1FC5E575002326CD /* UIButtonX.swift in Sources */,
-				026B72BA1F33A3F8000DBAD0 /* CustomRepeatTableViewController.swift in Sources */,
 				02C71A4C1F1E99840017BB4C /* FamilyList.swift in Sources */,
 				8421167C1E2860C000C6BD80 /* textFieldStyleController.swift in Sources */,
 				8BE66E281F5093CE003AC45C /* FolderTableViewCell.swift in Sources */,

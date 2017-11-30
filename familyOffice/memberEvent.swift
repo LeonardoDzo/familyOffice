@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 struct memberEvent {
     static let kId = "Id"
@@ -34,6 +35,36 @@ struct memberEvent {
         
     }
     
+    func statusImage() -> UIImage {
+        var image : UIImage!
+        
+        switch self.status {
+        case "Pendiente":
+            image = #imageLiteral(resourceName: "pendiente")
+            break
+        case "Aceptada":
+            image = #imageLiteral(resourceName: "Accept")
+            break
+        default:
+            image = #imageLiteral(resourceName: "Cancel")
+            break
+        }
+        return image
+    }
+}
+@objcMembers
+class memberEventEntity: Object, Codable, Serializable {
+
+    var id: String = ""
+    var status: String = "Pendiente"
+    var reminder: Int = 0
+    required convenience init(id:String, reminder: Int, status: String) {
+        self.init()
+        self.id = id
+        self.status = status
+        self.reminder = reminder
+    }
+
     func statusImage() -> UIImage {
         var image : UIImage!
         

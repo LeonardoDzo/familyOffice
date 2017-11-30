@@ -30,11 +30,7 @@ UINavigationControllerDelegate  {
         profileImage.loadImage(urlString: user.photoURL)
     }
     override func viewWillAppear(_ animated: Bool) {
-        getUser(closure: { (user) in
-            if user != nil {
-                self.user = user
-            }
-        })
+        user = getUser()
        
         store.subscribe(self) {
             $0.select({

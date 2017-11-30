@@ -867,14 +867,20 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3kZ-Bf-Z0P" customClass="CustomUIImageView" customModule="familyOffice" customModuleProvider="target">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3kZ-Bf-Z0P" customClass="UIImageViewX" customModule="familyOffice" customModuleProvider="target">
                                                             <rect key="frame" x="20" y="13" width="120" height="120"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="120" id="VuC-9H-yLZ"/>
                                                                 <constraint firstAttribute="width" constant="120" id="hXb-PC-OAZ"/>
                                                             </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                    <real key="value" value="8"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="popIn" value="YES"/>
+                                                            </userDefinedRuntimeAttributes>
                                                         </imageView>
-                                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="check-1" translatesAutoresizingMaskIntoConstraints="NO" id="Fpj-HA-gkh">
+                                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="check-1" translatesAutoresizingMaskIntoConstraints="NO" id="Fpj-HA-gkh" customClass="UIImageViewX" customModule="familyOffice" customModuleProvider="target">
                                                             <rect key="frame" x="120" y="108" width="30" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="end-JE-JmN"/>
@@ -887,6 +893,7 @@
                                                                 <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
                                                                     <color key="value" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="popIn" value="YES"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2yY-xM-ENH">

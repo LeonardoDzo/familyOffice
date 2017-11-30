@@ -27,14 +27,12 @@ func verifyUser( closure: @escaping (_ user: User, _ exist: Bool)->()) {
     }
 }
 
-func getUser( closure: @escaping (_ user: UserEntitie?)->()) {
-    DispatchQueue.main.async {
-        if let user = rManager.realm.object(ofType: UserEntitie.self, forPrimaryKey: Auth.auth().currentUser?.uid) {
-            closure(user)
-        }else{
-            closure(nil)
-        }
+func getUser () -> UserEntitie? {
+   
+    if let user = rManager.realm.object(ofType: UserEntitie.self, forPrimaryKey: Auth.auth().currentUser?.uid) {
+        return user
     }
+    return nil
 }
 
 func isAuth()  {

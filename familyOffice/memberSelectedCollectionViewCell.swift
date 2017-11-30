@@ -8,8 +8,9 @@
 
 import UIKit
 
-class memberSelectedCollectionViewCell: UICollectionViewCell, UserModelBindable {
-    var userModel: User?
+class memberSelectedCollectionViewCell: UICollectionViewCell, UserEModelBindable {
+    var userModel: UserEntitie!
+    
     var filter: String!
     @IBOutlet weak var profileImage: CustomUIImageView!
     @IBOutlet weak var nameLabel: UILabel!

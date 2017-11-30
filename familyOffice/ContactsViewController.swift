@@ -14,8 +14,9 @@ class ContactsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
     typealias StoreSubscriberStateType = UserState
-    var users = [User]()
-    var selected = [User]()
+    let family : FamilyEntitie! = nil
+    var users = [UserEntitie]()
+    var selected = [UserEntitie]()
     var contacts : [CNContact] = []
     weak var contactDelegate : ContactsProtocol!
     let IndexPathOfFirstRow = NSIndexPath(row: 0, section: 0)
@@ -27,6 +28,7 @@ class ContactsViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = add
         self.tableView.formatView()
         self.collectionView.formatView()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,7 +56,7 @@ class ContactsViewController: UIViewController {
         self.users = []
         for item in contacts {
             for phone in item.phoneNumbers {
-                if phone.value.value(forKey: "digits") as? String  != userStore?.phone{
+                if phone.value.value(forKey: "digits") as? String  != getUser()?.phone{
                     self.addMember(phone: phone.value.value(forKey: "digits") as! String )
                 }
                 
@@ -63,7 +65,7 @@ class ContactsViewController: UIViewController {
     }
     func addMember(phone: String) -> Void {
         
-        if let user = store.state.UserState.getUsers().filter({$0.phone == phone}).first {
+        if let user = rManager.realm.objects(UserEntitie.self).filter("phone = %@", phone).first {
             if !self.users.contains(where: {$0.id == user.id}) {
                 self.users.append(user)
                 self.tableView.insertRows(at: [NSIndexPath(row: self.users.count-1, section: 0) as IndexPath], with: .fade)
@@ -146,9 +148,10 @@ extension ContactsViewController: StoreSubscriber {
         case .loading:
             self.view.makeToastActivity(.center)
             break
-        case .Finished(let users as [User]):
-            self.users.append(users.last!)
-            self.tableView.reloadData()
+        case .Finished(let action as UserAction):
+            if case UserAction.getbyPhone(_) = action {
+                self.tableView.reloadData()
+            }
             break
         default:
             break

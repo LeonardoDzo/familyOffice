@@ -35,7 +35,7 @@ public enum EventStatus : Int {
     case canceled
 }
 
-enum eventType: Int, GDL90_Enum  {
+enum eventType: Int, GDL90_Enum, Codable  {
 
     case Default = 0, BirthDay, Meet
     var description: String {

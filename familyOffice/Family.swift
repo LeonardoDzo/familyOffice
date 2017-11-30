@@ -179,7 +179,7 @@ protocol FamilyEBindable: AnyObject {
     var family: FamilyEntitie! {get set}
     var titleLbl: UIKit.UILabel! {get}
     var Image: CustomUIImageView! {get}
-    var check: UIImageView! { get }
+    var check: UIImageViewX! { get }
     var nameTxt: textFieldStyleController! {get}
 }
 extension FamilyEBindable{
@@ -189,7 +189,7 @@ extension FamilyEBindable{
     var Image: CustomUIImageView!{
         return nil
     }
-    var check: UIKit.UIImageView!{
+    var check: UIImageViewX!{
         return nil
     }
     var nameTxt: textFieldStyleController! {
@@ -219,16 +219,19 @@ extension FamilyEBindable{
                 }else{
                     imageBackground.image = #imageLiteral(resourceName: "familyImage")
                 }
-            imageBackground.formatView()
-            imageBackground.contentMode = .scaleAspectFit
             
         }
         if let check = self.check{
-            if family.id == userStore?.familyActive {
-                check.isHidden = false
-            }else{
-                check.isHidden = true
+            if let user = rManager.realm.object(ofType: UserEntitie.self, forPrimaryKey: Auth.auth().currentUser?.uid) {
+                if family.id == user.familyActive {
+                    check.isHidden = false
+                    Image.layer.borderColor = #colorLiteral(red: 1, green: 0.2155154347, blue: 0.1931709349, alpha: 0.7450117371)
+                }else{
+                    check.isHidden = true
+                    Image.layer.borderColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 0.7920055651)
+                }
             }
+            
         }
     }
 }

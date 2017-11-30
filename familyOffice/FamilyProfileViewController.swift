@@ -34,6 +34,9 @@ class FamilyProfileViewController: UIViewController, FamilyEBindable {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func handleAddNewMember(_ sender: UIButton) {
+        self.pushToView(view: .contacts, sender: nil)
+    }
     
     @objc func editImage() -> Void {
         let alertController = UIAlertController(title: "Qué desea hacer?", message: nil, preferredStyle: .actionSheet)
