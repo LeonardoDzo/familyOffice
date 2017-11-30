@@ -142,7 +142,7 @@
 		02BC16F71EEA2C9900722689 /* repeatEventTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BC16F61EEA2C9900722689 /* repeatEventTableViewController.swift */; };
 		02BD2D171E1F0D8B00A61A84 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BD2D161E1F0D8B00A61A84 /* HomeViewController.swift */; };
 		02BD2D1C1E1F16A700A61A84 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BD2D1B1E1F16A700A61A84 /* Utility.swift */; };
-		02C06B431F3245F400FFF52B /* BuildFile in Sources */ = {isa = PBXBuildFile; };
+		02C06B431F3245F400FFF52B /* (null) in Sources */ = {isa = PBXBuildFile; };
 		02C06B451F325D4500FFF52B /* Type_EventTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C06B441F325D4500FFF52B /* Type_EventTableViewController.swift */; };
 		02C17D271E424AD400EE7CFA /* ActivityLogService .swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C17D261E424AD400EE7CFA /* ActivityLogService .swift */; };
 		02C17D291E424F6A00EE7CFA /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C17D281E424F6A00EE7CFA /* Record.swift */; };
@@ -1170,6 +1170,7 @@
 		02B876461E1C717A005E5473 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A45EDE3A1FCF861A00D95A48 /* FirstAidKid */,
 				02C855911FBE5096004D7BFB /* User */,
 				02C71A4A1F1E996C0017BB4C /* Family */,
 				04AFE3891F01DDD000D4ECA2 /* Gallery */,
@@ -1188,8 +1189,6 @@
 				8460D6531EAE598A007767CE /* SectionNotification.swift */,
 				843956D41F0B1BF4009E95FE /* Contact.swift */,
 				94FF53501F17E4FF001D9EE4 /* ToDoList.swift */,
-				949B52041F20230C001C7ABA /* Illness.swift */,
-				949B52061F202323001C7ABA /* Medicine.swift */,
 				94A070CC1F27E3BB0098860E /* Question.swift */,
 				8B2D85221F43D492007D18BE /* safeBoxFile.swift */,
 			);
@@ -1577,6 +1576,15 @@
 				94FF535E1F17E55B001D9EE4 /* ToDoListState.swift */,
 			);
 			name = State;
+			sourceTree = "<group>";
+		};
+		A45EDE3A1FCF861A00D95A48 /* FirstAidKid */ = {
+			isa = PBXGroup;
+			children = (
+				949B52041F20230C001C7ABA /* Illness.swift */,
+				949B52061F202323001C7ABA /* Medicine.swift */,
+			);
+			name = FirstAidKid;
 			sourceTree = "<group>";
 		};
 		A48DDA1E1F15409E0059D982 /* Budget */ = {
@@ -2068,7 +2076,7 @@
 				029F65971F15A95700C3A0A7 /* InfoContactViewController.swift in Sources */,
 				A48FD6DD1F143D2200832559 /* Budget.swift in Sources */,
 				02E33A641EBA71D0003BF787 /* ShowEventViewController.swift in Sources */,
-				02C06B431F3245F400FFF52B /* BuildFile in Sources */,
+				02C06B431F3245F400FFF52B /* (null) in Sources */,
 				02C06B431F3245F400FFF52B /* (null) in Sources */,
 				02AD47E91FC4F381009E20E8 /* FamilyEntitie.swift in Sources */,
 				042693011F1448EB004356D6 /* ImageAlbumService.swift in Sources */,

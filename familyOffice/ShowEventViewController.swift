@@ -41,7 +41,7 @@ class ShowEventViewController: UIViewController, EventBindable {
         self.performSegue(withIdentifier: "confEventSegue", sender: nil)
     }
     override func viewWillAppear(_ animated: Bool) {
-        self.bind(event: event!)
+        self.bind(sender: event!)
         
         self.collectionView.reloadData()
         NotificationCenter.default.addObserver(self, selector: #selector(self.observeActions), name: notCenter.USER_NOTIFICATION, object: nil)

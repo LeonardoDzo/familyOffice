@@ -144,8 +144,10 @@ struct Event {
     }
 }
 
-protocol EventBindable: AnyObject {
+protocol EventBindable: AnyObject, bind {
+    
     var event: Event! { get set }
+    
     var descriptionLabel: UILabel! {get}
     var startDateLbl: UILabel! {get}
     var endDateLbl: UILabel! {get}
@@ -161,9 +163,9 @@ protocol EventBindable: AnyObject {
     var memberCountLbl: UILabel! {get}
 }
 
-extension EventBindable {
+extension EventBindable  {
     // Make the views optionals
-    
+   
     var startDateLbl: UILabel! {return nil}
     var endDateLbl: UILabel! {return nil}
     var typeLbl: UILabel! {return nil}
@@ -179,6 +181,12 @@ extension EventBindable {
     var titleTxtField: UITextField! {return nil}
     
     // Bind
+    
+    func bind(sender: Any?) {
+        if sender is Event {
+            bind(event: sender as! Event)
+        }
+    }
     
     func bind(event: Event) {
         self.event = event

@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 import RealmSwift
 import Lightbox
+protocol bind {
+    func bind(sender: Any?) -> Void
+}
+
 extension UIViewController {
     
     func hideKeyboardWhenTappedAround() {
@@ -47,13 +51,11 @@ extension UIViewController {
         let viewcontroller : UIViewController = mainStoryboard.instantiateViewController(withIdentifier: view.rawValue)
         
         
+        if  let vc = viewcontroller as? bind {
+            vc.bind(sender: sender)
+        }
+        
         switch viewcontroller {
-        case let vc as FamilyProfileViewController:
-            var family = FamilyEntitie()
-            if sender != nil {
-                family = sender as! FamilyEntitie
-            }
-            vc.bind(fam: family)
         case let vc as FamilyViewController:
             var family : Family
             if sender == nil {
