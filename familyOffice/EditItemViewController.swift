@@ -165,7 +165,7 @@ class EditItemViewController: UIViewController,UINavigationControllerDelegate,UI
         let title: String! = textFieldTitle.text
         if title == nil || title.isEmpty || textFieldTitle.textColor == UIColor.lightGray{
             service.ANIMATIONS.shakeTextField(txt: textFieldTitle)
-            self.view.makeToast("Agrega un título", duration: 1.0, position: CGPoint(x: 200, y: 150))
+//            self.view.makeToast("Agrega un título", duration: 1.0, position: CGPoint(x: 200, y: 150))
             return
         }
         
@@ -293,9 +293,9 @@ extension EditItemViewController: StoreSubscriber{
     func toggleToDoState(message: String) -> Void {
         // No sé por qué ocupo mostrar un Toast primero, si no lo hago hace doble popViewController
         // y no hay mucho tiempo para andar viendo por qué. Por eso lo escondo en la posición 3000:110
-        self.view.makeToast(message, duration: 0.01, position: CGPoint(x: 3000.0, y: 110.0), title: "Mensaje:", image: nil, style: nil) { bool in
-            _ = self.navigationController?.popViewController(animated: true)
-        }
+        //        self.view.makeToast(message, duration: 0.01, position: CGPoint(x: 3000.0, y: 110.0), title: "Mensaje:", image: nil, style: nil) { bool in
+        //        _ = self.navigationController?.popViewController(animated: true)
+        //        }
     }
     
     func newState(state: ToDoListState){

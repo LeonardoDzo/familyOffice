@@ -63,7 +63,7 @@ class AddAlbumViewController: UIViewController, UIImagePickerControllerDelegate,
     
     @objc func createAlbum() -> Void {
         guard self.txtTitle.text != "" else{
-            self.view.makeToast("Agrega un título", duration: 1.0, position: CGPoint(x: 200, y: 150))
+//            self.view.makeToast("Agrega un título", duration: 1.0, position: CGPoint(x: 200, y: 150))
             return
         }
         let album:Album = Album.init(id: self.reference.key, cover: "", title: txtTitle.text!, images: [])
@@ -108,9 +108,9 @@ extension AddAlbumViewController{
         store.unsubscribe(self)
     }
     func toggleGalleryState(message: String) -> Void {
-        self.view.makeToast(message, duration: 0.5, position: CGPoint(x: 110.0, y: 110.0), title: "Mensaje:", image: nil, style: nil, completion: {bool in
-            _ = self.navigationController?.popViewController(animated: true)
-        })
+//        self.view.makeToast(message, duration: 0.5, position: CGPoint(x: 110.0, y: 110.0), title: "Mensaje:", image: nil, style: nil, completion: {bool in
+//            _ = self.navigationController?.popViewController(animated: true)
+//        })
     }
     func newState(state: GalleryState) {
         switch state.status{
