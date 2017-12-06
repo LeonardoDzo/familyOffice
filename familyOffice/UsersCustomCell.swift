@@ -15,7 +15,7 @@ import ReSwift
 //public class UsersController : UIViewController, UITableViewDelegate, UITableViewDataSource, TypedRowControllerType {
 //
 //
-//    public var row: RowOf<UserEntitie>!
+//    public var row: RowOf<UserEntity>!
 //
 //    public var onDismissCallback: ((UIViewController) -> ())?
 //
@@ -40,7 +40,7 @@ import ReSwift
 //        super.viewDidLoad()
 //        families = rManager.realm.objects(FamilyEntitie.self)
 //        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "usercell")
-//        let users = rManager.realm.objects(UserEntitie.self)
+//        let users = rManager.realm.objects(UserEntity.self)
 //        tableView.dataSource = self
 //        tableView.delegate = self
 //        notificationToken = users.observe { [weak self] (changes: RealmCollectionChange) in
@@ -75,7 +75,7 @@ import ReSwift
 //        let family = families[indexPath.section]
 //        let familyMemberId = family.members[indexPath.row].value
 //        cell.textLabel?.text = "Cargando..."
-//        if let user = rManager.realm.object(ofType: UserEntitie.self, forPrimaryKey: familyMemberId) {
+//        if let user = rManager.realm.object(ofType: UserEntity.self, forPrimaryKey: familyMemberId) {
 //             cell.textLabel?.text = user.name
 //             cell.imageView?.loadImage(urlString: user.photoURL)
 //        }else{

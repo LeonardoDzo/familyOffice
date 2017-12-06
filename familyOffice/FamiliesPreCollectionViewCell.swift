@@ -10,9 +10,9 @@ import UIKit
 
 class FamiliesPreCollectionViewCell: UICollectionViewCell, FamilyEBindable {
     var family: FamilyEntitie!
-    @IBOutlet weak var Image: CustomUIImageView!
     @IBOutlet weak var check: UIImageViewX!
     @IBOutlet weak var Title: UILabel!
+    @IBOutlet weak var photo: UIImageViewX!
     @IBOutlet weak var titleLbl: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()

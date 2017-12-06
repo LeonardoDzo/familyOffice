@@ -35,7 +35,7 @@ class FamilyProfileViewController: UIViewController, FamilyEBindable {
     }
     
     @IBAction func handleAddNewMember(_ sender: UIButton) {
-        self.pushToView(view: .contacts, sender: nil)
+        self.pushToView(view: .contacts, sender: self.family)
     }
     
     @objc func editImage() -> Void {
@@ -83,7 +83,7 @@ extension FamilyProfileViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! FamilyMemberTableViewCell
         let human = family.members[indexPath.row].value
-        if let member = rManager.realm.object(ofType: UserEntitie.self, forPrimaryKey: human) {
+        if let member = rManager.realm.object(ofType: UserEntity.self, forPrimaryKey: human) {
             cell.bind(userModel: member)
         }
 
@@ -108,7 +108,7 @@ extension FamilyProfileViewController: StoreSubscriber {
         case .loading:
             self.view.isUserInteractionEnabled = false
             break
-        case .Finished(let action as FamilyAction):
+        case .Finished(_ as FamilyAction):
             family = rManager.realm.object(ofType: FamilyEntitie.self, forPrimaryKey: family.id)
             self.bind()
             break

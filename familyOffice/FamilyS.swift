@@ -81,16 +81,24 @@ class FamilyS: Action, EventProtocol {
     }
     func update(family: FamilyEntitie) -> Void {
         let ref = "families/\(family.id)"
-        self.update(ref, value: family.toJSON()!, callback: { ref in
-            if ref is DatabaseReference {
-                rManager.save(objs: family)
-                self.status = .Finished(self.action)
-                store.dispatch(self)
-            }else{
-                self.status = .Failed(self.action)
-                store.dispatch(self)
-            }
-        })
+        if var famjson = family.toJSON() {
+            famjson["admins"] =  family.admins.toNSArrayByKey()
+            famjson["members"] = family.members.toNSArrayByKey()
+            self.update(ref, value: famjson, callback: { ref in
+                if ref is DatabaseReference {
+                    rManager.save(objs: family)
+                    self.status = .Finished(self.action)
+                    store.dispatch(self)
+                }else{
+                    self.status = .Failed(self.action)
+                    store.dispatch(self)
+                }
+            })
+        }else{
+            self.status = .Failed(self.action)
+            store.dispatch(self)
+        }
+        
     }
     func uploadFamily(img: UIImage, family: FamilyEntitie) -> Void {
         let imageName = NSUUID().uuidString

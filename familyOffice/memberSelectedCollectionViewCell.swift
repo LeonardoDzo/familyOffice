@@ -9,10 +9,10 @@
 import UIKit
 
 class memberSelectedCollectionViewCell: UICollectionViewCell, UserEModelBindable {
-    var userModel: UserEntitie!
+    var userModel: UserEntity!
     
     var filter: String!
-    @IBOutlet weak var profileImage: CustomUIImageView!
+    @IBOutlet weak var profileImage: UIImageViewX!
     @IBOutlet weak var nameLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()

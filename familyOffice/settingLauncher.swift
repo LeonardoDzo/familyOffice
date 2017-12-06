@@ -14,7 +14,7 @@ class SettingLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectio
     var fid = ""
     var families : Results<FamilyEntitie>!
     let blackView = UIView()
-    var user : UserEntitie!
+    var user : UserEntity!
     weak var handleFamily : HandleFamilySelected!
     let collectionView = { () -> UICollectionView in
         let layout = UICollectionViewFlowLayout()
@@ -25,7 +25,7 @@ class SettingLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectio
     
     func showSetting() {
         if user == nil {
-            user = rManager.realm.object(ofType: UserEntitie.self, forPrimaryKey: Auth.auth().currentUser?.uid)
+            user = rManager.realm.object(ofType: UserEntity.self, forPrimaryKey: Auth.auth().currentUser?.uid)
         }
         
         fid = user.familyActive

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -107,8 +107,8 @@
                                                     <constraint firstItem="I1k-hw-6Jb" firstAttribute="leading" secondItem="bUw-w4-tRX" secondAttribute="trailing" constant="-40" id="phV-QW-4PX"/>
                                                 </constraints>
                                                 <connections>
-                                                    <outlet property="Image" destination="bUw-w4-tRX" id="waR-wY-DQ7"/>
                                                     <outlet property="check" destination="I1k-hw-6Jb" id="uH1-sQ-omQ"/>
+                                                    <outlet property="photo" destination="bUw-w4-tRX" id="xV0-kP-VEd"/>
                                                     <outlet property="titleLbl" destination="WpI-Qy-uDQ" id="ROf-KT-8oy"/>
                                                 </connections>
                                             </collectionViewCell>
@@ -353,7 +353,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kXg-q0-CqZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3836" y="2204.3478260869565"/>
+            <point key="canvasLocation" x="2873" y="2080"/>
         </scene>
         <!--Contacts View Controller-->
         <scene sceneID="ccG-Z3-xto">
@@ -465,7 +465,7 @@
                                         </constraints>
                                         <connections>
                                             <outlet property="nameLabel" destination="KRn-Kf-DsN" id="SKm-jD-ZWv"/>
-                                            <outlet property="profileImage" destination="t4s-dR-QSn" id="YvB-g3-Can"/>
+                                            <outlet property="profileImage" destination="t4s-dR-QSn" id="WBu-aE-Smy"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -485,7 +485,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nAd-wx-nZ8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3836" y="2994"/>
+            <point key="canvasLocation" x="2873" y="2878"/>
         </scene>
         <!--Profile User View Controller-->
         <scene sceneID="gDo-hT-eaC">
@@ -690,7 +690,7 @@
         <image name="Cancel" width="50" height="50"/>
         <image name="Group" width="37" height="37"/>
         <image name="User" width="37" height="37"/>
-        <image name="add" width="114" height="114"/>
+        <image name="add" width="40" height="40"/>
         <image name="check-1" width="114" height="114"/>
         <image name="family_small" width="1160" height="660"/>
     </resources>

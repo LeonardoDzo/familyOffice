@@ -9,7 +9,7 @@
 import UIKit
 
 class FamilyMemberTableViewCell: UITableViewCell, UserEModelBindable {
-    var userModel: UserEntitie!
+    var userModel: UserEntity!
     var filter: String!
     @IBOutlet weak var adminlabel: UILabel!
     @IBOutlet weak var profileImage: UIImageViewX!
