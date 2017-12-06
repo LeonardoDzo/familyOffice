@@ -16,7 +16,7 @@ class AddAlbumViewController: UIViewController, UIImagePickerControllerDelegate,
     let picker = UIImagePickerController()
     let path: String = "album/" + service.GALLERY_SERVICE.refUserFamily!
     var reference: DatabaseReference = DatabaseReference()
-    var chosenImage: UIImage? = nil
+//    var chosenImage: UIImage? = nil
     var albums: [Album] = []
 
     @IBOutlet weak var txtTitle: UITextField!
