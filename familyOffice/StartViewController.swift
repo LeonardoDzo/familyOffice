@@ -145,7 +145,7 @@ extension StartViewController : StoreSubscriber {
             alert()
             break
         case .finished, .Finished(_):
-            self.gotoView(view: .preHome)
+            self.gotoView(view: .prehome, sender: getUser())
             break
         case .loading:
             self.view.makeToastActivity(.center)

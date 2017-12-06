@@ -178,18 +178,26 @@ extension FamilyBindable{
 protocol FamilyEBindable: AnyObject, bind {
     var family: FamilyEntitie! {get set}
     var titleLbl: UIKit.UILabel! {get}
-    var Image: CustomUIImageView! {get}
-    var check: UIImageView! { get }
+    var Image: UIImageViewX! {get}
+    var photo: UIImageViewX! {get}
+    var check: UIImageViewX! { get }
     var nameTxt: textFieldStyleController! {get}
+    var memberscount : UILabel! {get}
 }
 extension FamilyEBindable{
     var titleLbl: UIKit.UILabel!{
         return nil
     }
-    var Image: CustomUIImageView!{
+    var memberscount: UIKit.UILabel!{
         return nil
     }
-    var check: UIKit.UIImageView!{
+    var Image: UIImageViewX!{
+        return nil
+    }
+    var photo: UIImageViewX!{
+        return nil
+    }
+    var check: UIImageViewX!{
         return nil
     }
     var nameTxt: textFieldStyleController! {
@@ -213,6 +221,11 @@ extension FamilyEBindable{
            
             titleLabel.text = (family.name.isEmpty) ? "Sin título" : family.name
         }
+        if let memberscount = self.memberscount{
+            
+            memberscount.text = "\(family.members.count) integrantes"
+        }
+        
         if let nameTxt = self.nameTxt{
             
             nameTxt.text = (family.name.isEmpty) ? "" : family.name
@@ -224,16 +237,27 @@ extension FamilyEBindable{
                 }else{
                     imageBackground.image = #imageLiteral(resourceName: "familyImage")
                 }
-            imageBackground.formatView()
-            imageBackground.contentMode = .scaleAspectFit
+            
+        }
+        if let imageBackground = self.photo{
+            if(!(family.photoURL.isEmpty)){
+                imageBackground.loadImage(urlString: family.photoURL)
+            }else{
+                imageBackground.image = #imageLiteral(resourceName: "familyImage")
+            }
             
         }
         if let check = self.check{
-            if family.id == userStore?.familyActive {
-                check.isHidden = false
-            }else{
-                check.isHidden = true
+            if let user = rManager.realm.object(ofType: UserEntity.self, forPrimaryKey: Auth.auth().currentUser?.uid) {
+                if family.id == user.familyActive {
+                    check.isHidden = false
+                    photo.layer.borderColor = #colorLiteral(red: 1, green: 0.2155154347, blue: 0.1931709349, alpha: 0.7450117371)
+                }else{
+                    check.isHidden = true
+                    photo.layer.borderColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 0.7920055651)
+                }
             }
+            
         }
     }
 }

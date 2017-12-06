@@ -19,18 +19,14 @@ protocol DateProtocol: class {
     func selectedDate(date: Date) -> Void
 }
 protocol ContactsProtocol: class {
-    var users : [User]! {get set}
-    func selected(users: [User]) -> Void
+    var users : [UserEntity]! {get set}
+    func selected(users: [UserEntity]) -> Void
 }
 protocol repeatProtocol {
     var frequency : Frequency! {get set}
-   
-    var days : [String]! {get set}
-}
-
-protocol repeatTypeEvent: repeatProtocol {
-    var interval: Int! {get set}
-    var end : Int! {get set}
+    var interval: Int? {get set}
+    var end : Int? {get set}
+    var days : String? {get set}
 }
 
 protocol GDL90_Enum  {

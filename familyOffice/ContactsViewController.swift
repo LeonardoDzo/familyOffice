@@ -10,13 +10,16 @@ import UIKit
 import Contacts
 import ContactsUI
 import ReSwift
-class ContactsViewController: UIViewController {
+class ContactsViewController: UIViewController, FamilyEBindable {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
     typealias StoreSubscriberStateType = UserState
-    var users = [User]()
-    var selected = [User]()
+    var family : FamilyEntitie!
+    var users = [UserEntity]()
     var contacts : [CNContact] = []
+    
+    var phoneViews  = [(String,Bool)]()
+    
     weak var contactDelegate : ContactsProtocol!
     let IndexPathOfFirstRow = NSIndexPath(row: 0, section: 0)
     override func viewDidLoad() {
@@ -27,17 +30,18 @@ class ContactsViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = add
         self.tableView.formatView()
         self.collectionView.formatView()
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    @objc func back() -> Void {
+    @objc override func back() -> Void {
         _ = self.navigationController?.popViewController(animated: true)
     }
     @objc func add() -> Void {
-        contactDelegate.selected(users: selected)
+        store.dispatch(FamilyS(.update(family: self.family)))
         back()
     }
     
@@ -54,7 +58,7 @@ class ContactsViewController: UIViewController {
         self.users = []
         for item in contacts {
             for phone in item.phoneNumbers {
-                if phone.value.value(forKey: "digits") as? String  != userStore?.phone{
+                if let xphone = phone.value.value(forKey: "digits") as? String, xphone.count >= 10, xphone.suffix(10) != String(describing: getUser()?.phone){
                     self.addMember(phone: phone.value.value(forKey: "digits") as! String )
                 }
                 
@@ -63,15 +67,22 @@ class ContactsViewController: UIViewController {
     }
     func addMember(phone: String) -> Void {
         
-        if let user = store.state.UserState.getUsers().filter({$0.phone == phone}).first {
+        if !phoneViews.contains(where: {$0.0 == phone}) {
+            phoneViews.append((phone,false))
+        }
+        
+        if let user = rManager.realm.objects(UserEntity.self).filter("phone = %@", phone.suffix(10)).first {
             if !self.users.contains(where: {$0.id == user.id}) {
-                self.users.append(user)
-                self.tableView.insertRows(at: [NSIndexPath(row: self.users.count-1, section: 0) as IndexPath], with: .fade)
+                addUser(user)
             }
         }else{
-            let action = UserS()
-            action.action = .getbyPhone(phone: phone)
-            store.dispatch(action)
+            if var value = phoneViews.first(where: {$0.0 == phone}), !value.1, let index = phoneViews.index(where: {$0.0 == phone}){
+                value.1 = true
+                phoneViews[index] = value
+                DispatchQueue.main.async {
+                    store.dispatch(UserS(.getbyPhone(phone: phone)))
+                }
+            }
         }
     }
 }
@@ -80,16 +91,25 @@ extension ContactsViewController: UICollectionViewDelegate, UICollectionViewData
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return selected.count
+        return family.members.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellMember", for: indexPath) as! memberSelectedCollectionViewCell
-        let user = selected[indexPath.row]
-        cell.bind(userModel: user)
+        let uid = family.members[indexPath.row].value
+        if let user = rManager.realm.object(ofType: UserEntity.self, forPrimaryKey: uid) {
+            cell.bind(userModel: user)
+        }else{
+            cell.nameLabel.text = "Cargando..."
+            store.dispatch(UserS(.getbyId(uid: uid)))
+        }
+    
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selected.remove(at: indexPath.row)
+        try! rManager.realm.write {
+            family.members.remove(at: indexPath.row)
+        }
+        
         collectionView.deleteItems(at: [indexPath])
         self.tableView.reloadData()
     }
@@ -103,24 +123,28 @@ extension ContactsViewController: UITableViewDelegate, UITableViewDataSource {
         return users.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let user = users[indexPath.row]
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! FamilyMemberTableViewCell
-   
-        if selected.contains(where: {$0.id == user.id}) {
+        let user = users[indexPath.row]
+        if  family.members.contains(where: {$0.value == user.id}) {
             cell.accessoryType = .checkmark
         }else{
             cell.accessoryType = .none
         }
+        cell.bind(userModel: user)
         
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let user = users[indexPath.row]
-        if let index = selected.index(where: {$0.id == user.id}){
-            selected.remove(at: index)
-        }else{
-            selected.append(user)
+        try! rManager.realm.write {
+            if let index = family.members.index(where: {$0.value == user.id}){
+                family.members.remove(at: index)
+            }else{
+                family.members.append(RealmString(value: user.id))
+            }
         }
+        
         self.collectionView.reloadData()
         tableView.reloadRows(at: [indexPath], with: .fade)
     }
@@ -132,7 +156,6 @@ extension ContactsViewController: StoreSubscriber {
             subcription in
             subcription.select { state in state.UserState }
         }
-        selected = contactDelegate.users
         getContacts()
         showContacts()
     }
@@ -140,15 +163,31 @@ extension ContactsViewController: StoreSubscriber {
         super.viewWillDisappear(true)
         store.unsubscribe(self)
     }
+    fileprivate func addUser(_ user: UserEntity) {
+        self.users.append(user)
+        self.tableView.insertRows(at: [NSIndexPath(row: self.users.count-1, section: 0) as IndexPath], with: .fade)
+    }
+    
     func newState(state: UserState) {
         self.view.hideToastActivity()
-        switch state.users {
+        switch state.user {
         case .loading:
             self.view.makeToastActivity(.center)
             break
-        case .Finished(let users as [User]):
-            self.users.append(users.last!)
-            self.tableView.reloadData()
+        case .Finished(let action as UserAction):
+            switch action {
+            case .getbyId(_):
+                 self.tableView.reloadData()
+                 self.collectionView.reloadData()
+                break
+            case .getbyPhone(let phone):
+                self.addMember(phone: phone)
+                break
+            default:
+                break
+            }
+        case .Finished(let user as UserEntity):
+            addUser(user)
             break
         default:
             break

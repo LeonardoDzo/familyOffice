@@ -37,6 +37,14 @@ class RealmManager {
             realm.add(objs, update: true)
         })
     }
+    
+    func deteObject(objs: Object) {
+        try! realm.write({
+            // If update = true, objects that are already in the Realm will be
+            // updated instead of added a new.
+            realm.delete(objs)
+        })
+    }
     func save(objs: Object) {
         do{
             try! realm.write({

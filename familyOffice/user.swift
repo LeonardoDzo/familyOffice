@@ -207,18 +207,22 @@ extension UserModelBindable {
 }
 
 
-protocol UserEModelBindable: AnyObject {
-    var userModel: UserEntitie! { get set }
-    var filter: String! { get set}
+protocol UserEModelBindable: AnyObject, bind {
+    var userModel: UserEntity! { get set }
     var nameLabel: UILabel! {get}
+    var familycounterLbl: UILabel! {get}
     var profileImage: UIImageViewX! {get}
     var phoneLbl: UILabel! {get}
 }
 
-extension UserEModelBindable {
+extension UserEModelBindable  {
     // Make the views optionals
     
     var nameLabel: UILabel! {
+        return nil
+    }
+    
+    var familycounterLbl: UILabel! {
         return nil
     }
     
@@ -230,13 +234,16 @@ extension UserEModelBindable {
         return nil
     }
     
-    
+    func bind(sender: Any?) -> Void {
+        if sender is UserEntity {
+            bind(userModel: sender as! UserEntity)
+        }
+    }
     
     // Bind
     
-    func bind(userModel: UserEntitie, filter: String = "") {
+    func bind(userModel: UserEntity, filter: String = "") {
         self.userModel = userModel
-        self.filter = filter
         bind()
     }
     
@@ -247,7 +254,10 @@ extension UserEModelBindable {
         }
         
         if let nameLabel = self.nameLabel {
-            nameLabel.text = userModel.name
+            nameLabel.text = userModel.name.uppercased()
+        }
+        if let familycounterLbl = self.familycounterLbl {
+            familycounterLbl.text = userModel.families.count > 0 ? "\(userModel.families.count) FAMILIAS" : "SIN FAMILIAS"
         }
         if let phoneLbl = self.phoneLbl {
             phoneLbl.text = userModel.phone
@@ -256,7 +266,7 @@ extension UserEModelBindable {
         
         if let profileImage = self.profileImage {
             if !userModel.photoURL.isEmpty {
-                profileImage.loadImage(urlString: userModel.photoURL, filter: filter)
+                profileImage.loadImage(urlString: userModel.photoURL)
             }else{
                 profileImage.image = #imageLiteral(resourceName: "profile_default")
             }

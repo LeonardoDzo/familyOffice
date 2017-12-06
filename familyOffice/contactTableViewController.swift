@@ -53,9 +53,8 @@ class contactTableViewController: UITableViewController, StoreSubscriber{
         }
        
     }
-    @objc func back() -> Void {
-        self.dismiss(animated: true, completion: nil)
-    }
+
+    
     @objc func add() {
         
         performSegue(withIdentifier: "addContactSegue", sender: self)

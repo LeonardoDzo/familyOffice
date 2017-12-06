@@ -145,9 +145,9 @@ public class MapViewController : UIViewController, TypedRowControllerType, MKMap
         let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(MapViewController.tappedDone(_:)))
         button.title = "Done"
         let storyboard: UIStoryboard = UIStoryboard(name: "Calendar", bundle: nil)
-        let locationSearchTable = storyboard.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
-        resultSearchController = UISearchController(searchResultsController: locationSearchTable)
-        resultSearchController?.searchResultsUpdater = locationSearchTable
+        //let locationSearchTable = storyboard.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
+//        resultSearchController = UISearchController(searchResultsController: locationSearchTable)
+//        resultSearchController?.searchResultsUpdater = locationSearchTable
         let searchBar = resultSearchController!.searchBar
         searchBar.sizeToFit()
         searchBar.placeholder = "Buscar lugares"
@@ -155,8 +155,8 @@ public class MapViewController : UIViewController, TypedRowControllerType, MKMap
         resultSearchController?.hidesNavigationBarDuringPresentation = false
         resultSearchController?.dimsBackgroundDuringPresentation = true
         definesPresentationContext = true
-        locationSearchTable.mapView = mapView
-        locationSearchTable.handleMapSearchDelegate = self
+//        locationSearchTable.mapView = mapView
+//        locationSearchTable.handleMapSearchDelegate = self
         
         navigationItem.rightBarButtonItem = button
         
@@ -212,35 +212,35 @@ public class MapViewController : UIViewController, TypedRowControllerType, MKMap
         updateTitle()
     }
 }
-extension MapViewController: HandleMapSearch {
-    func dropPinZoomIn(_ placemark:MKPlacemark){
-        locationModel = Location(title: "", subtitle: "", latitude: 0, longitude: 0)
-        // cache the pin
-        
-        // clear existing pins
-        mapView.removeAnnotations(mapView.annotations)
-        //            let annotation = MKPointAnnotation()
-        //            annotation.coordinate = placemark.coordinate
-        //            annotation.title = placemark.name
-        //            if let city = placemark.locality,
-        //                let state = placemark.administrativeArea {
-        //                annotation.subtitle = "\(city) \(state)"
-        //                locationModel.title = placemark.name
-        //                locationModel.subtitle = "\(city) \(state)"
-        //            }
-        //            mapView.addAnnotation(annotation)
-        let span = MKCoordinateSpanMake(0.05, 0.05)
-        let region = MKCoordinateRegionMake(placemark.coordinate, span)
-        mapView.setRegion(region, animated: true)
-        locationModel.latitude = placemark.coordinate.latitude
-        locationModel.longitude = placemark.coordinate.longitude
-        
-    }
-    
-   
-    
-    
-}
+//extension MapViewController: HandleMapSearch {
+//    func dropPinZoomIn(_ placemark:MKPlacemark){
+//        locationModel = Location(title: "", subtitle: "", latitude: 0, longitude: 0)
+//        // cache the pin
+//
+//        // clear existing pins
+//        mapView.removeAnnotations(mapView.annotations)
+//        //            let annotation = MKPointAnnotation()
+//        //            annotation.coordinate = placemark.coordinate
+//        //            annotation.title = placemark.name
+//        //            if let city = placemark.locality,
+//        //                let state = placemark.administrativeArea {
+//        //                annotation.subtitle = "\(city) \(state)"
+//        //                locationModel.title = placemark.name
+//        //                locationModel.subtitle = "\(city) \(state)"
+//        //            }
+//        //            mapView.addAnnotation(annotation)
+//        let span = MKCoordinateSpanMake(0.05, 0.05)
+//        let region = MKCoordinateRegionMake(placemark.coordinate, span)
+//        mapView.setRegion(region, animated: true)
+//        locationModel.latitude = placemark.coordinate.latitude
+//        locationModel.longitude = placemark.coordinate.longitude
+//
+//    }
+//
+//
+//
+//
+//}
 func lookUpCurrentLocation(location: CLLocation, completionHandler: @escaping (CLPlacemark?)
     -> Void ) {
     // Use the last reported locat

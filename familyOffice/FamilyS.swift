@@ -50,10 +50,15 @@ class FamilyS: Action, EventProtocol {
     func delete(_ fid: String) {
         self.delete("families/\(fid)", callback: { deleted in
             if deleted {
-                store.state.FamilyState.status = .failed
+                if let family = rManager.realm.object(ofType: FamilyEntitie.self, forPrimaryKey: fid) {
+                    rManager.deteObject(objs: family)
+                }
+                self.status = .Finished(self.action)
             }else{
-                store.state.FamilyState.status = .finished
+                 self.status = .Failed(self.action)
+              
             }
+             store.dispatch(self)
         })
     }
     
@@ -76,16 +81,24 @@ class FamilyS: Action, EventProtocol {
     }
     func update(family: FamilyEntitie) -> Void {
         let ref = "families/\(family.id)"
-        self.update(ref, value: family.toJSON()!, callback: { ref in
-            if ref is DatabaseReference {
-                rManager.save(objs: family)
-                self.status = .Finished(self.action)
-                store.dispatch(self)
-            }else{
-                self.status = .Failed(self.action)
-                store.dispatch(self)
-            }
-        })
+        if var famjson = family.toJSON() {
+            famjson["admins"] =  family.admins.toNSArrayByKey()
+            famjson["members"] = family.members.toNSArrayByKey()
+            self.update(ref, value: famjson, callback: { ref in
+                if ref is DatabaseReference {
+                    rManager.save(objs: family)
+                    self.status = .Finished(self.action)
+                    store.dispatch(self)
+                }else{
+                    self.status = .Failed(self.action)
+                    store.dispatch(self)
+                }
+            })
+        }else{
+            self.status = .Failed(self.action)
+            store.dispatch(self)
+        }
+        
     }
     func uploadFamily(img: UIImage, family: FamilyEntitie) -> Void {
         let imageName = NSUUID().uuidString
@@ -157,12 +170,6 @@ extension FamilyS : RequestProtocol, RequestStorageSvc {
         let key : String = snapshot.key
         if let family = rManager.realm.object(ofType: FamilyEntitie.self, forPrimaryKey: key) {
             rManager.realm.delete(family)
-            //            if userStore?.familyActive == key {
-            //                if let family = store.state.FamilyState.families.items.first {
-            //                    // service.USER_SVC.selectFamily(family: family)
-            //                }
-            //
-            //            }
         }
         
     }

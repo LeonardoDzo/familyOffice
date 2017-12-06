@@ -58,7 +58,7 @@ class FaqsTableViewController: UIViewController, UITableViewDataSource,UITableVi
         self.performSegue(withIdentifier: "addSegue", sender: nil)
     }
     
-    @objc func back() -> Void {
+    @objc override func back() -> Void {
         self.dismiss(animated: true, completion: nil)
     }
     

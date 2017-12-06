@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import FirebaseDatabase
+import Firebase
 
 class FaqService: RequestService {
     func notExistSnapshot() {

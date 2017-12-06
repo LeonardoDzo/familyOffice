@@ -110,7 +110,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
         }
     }
     
-    func back() -> Void {
+    override func back() -> Void {
         if self.currentFolder == "root"{
             _ = self.navigationController?.popViewController(animated: true)
         }else{

@@ -28,7 +28,7 @@ struct SafeBoxFile{
         self.parent = "root"
         self.id = Constants.FirDatabase.REF.childByAutoId().key
     }
-    
+
     init(filename: String, downloadUrl: String, parent: String){
         self.filename = filename
         self.downloadUrl = downloadUrl

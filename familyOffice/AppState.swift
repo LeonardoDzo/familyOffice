@@ -37,7 +37,7 @@ enum Result<T> {
     case noFamilies
     case none
 }
-extension Result : description{
+extension Result : description {
 }
 
 extension Result {

@@ -45,10 +45,6 @@ class PDFViewController: UIViewController, WKUIDelegate {
     }
 
     
-    func back() -> Void {
-        _ = navigationController?.popViewController(animated: true)
-    }
-    
     var previewActions: [UIPreviewActionItem]{
         return self.previewAct
 //        return [

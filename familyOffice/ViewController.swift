@@ -26,6 +26,27 @@ extension UIViewController {
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
+    func setupBack() -> Void {
+        var backBtn :UIBarButtonItem!
+        if let _ = self.navigationController {
+            backBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "Home").maskWithColor(color: #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)), style: .plain, target: self, action: #selector(self.back3))
+        } else {
+            backBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "Home").maskWithColor(color: #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)), style: .plain, target: self, action: #selector(self.back3))
+        }
+        
+        self.navigationItem.leftBarButtonItem = backBtn
+    }
+    @objc func back3() -> Void {
+        if (navigationController?.popViewController(animated: true)) != nil {
+        }else{
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    @objc func back() -> Void {
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     func alertMessage(title: String, msg: String){
         let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -39,10 +60,23 @@ extension UIViewController {
         nav?.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
     }
     
-    func gotoView(view: RoutingDestination )  {
+    func gotoView(view: RoutingDestination, sender: Any? = nil )  {
         let mainStoryboard: UIStoryboard = UIStoryboard(name: view.getStoryBoard(), bundle: nil)
-        let homeViewController : UIViewController = mainStoryboard.instantiateViewController(withIdentifier: view.rawValue)
-        self.present(homeViewController, animated: true, completion: nil)
+        let viewcontroller : UIViewController = mainStoryboard.instantiateViewController(withIdentifier: view.rawValue)
+        
+        if let vc = viewcontroller as? bind {
+            vc.bind(sender: sender)
+        }
+        if let tb = viewcontroller as? UITabBarController {
+            tb.setupBack()
+            if let nv = tb.viewControllers?.first as? UINavigationController {
+                if let vc = nv.viewControllers.first as? bind {
+                    vc.bind(sender: sender)
+                }
+            }
+        }
+        
+        self.present(viewcontroller, animated: true, completion: nil)
     }
     
     
@@ -65,19 +99,36 @@ extension UIViewController {
             }
             vc.bind(fam: family)
         break
-        case let vc as ContactsViewController:
-            vc.contactDelegate = sender as! ContactsProtocol
-            break
-        case let vc as addEventTableViewController:
-           // vc.event = sender as! Event
-            break
         default:
             break
         }
         
-        self.navigationController?.pushViewController(viewcontroller, animated: true)
+        if let nav = self.navigationController {
+            nav.pushViewController(viewcontroller, animated: true)
+        }else{
+            let targetViewController = viewcontroller // this is that controller, that you want to be embedded in navigation controller
+            let targetNavigationController = UINavigationController(rootViewController: targetViewController)
+            
+            self.present(targetNavigationController, animated: true, completion: nil)
+        }
     }
-    
+    func popToView(view: RoutingDestination, sender: Any? = nil) -> Void {
+        
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: view.getStoryBoard(), bundle: nil)
+        let viewcontroller : UIViewController = mainStoryboard.instantiateViewController(withIdentifier: view.rawValue)
+        
+        if let nav = self.navigationController {
+              nav.popToViewController(viewcontroller, animated: true)
+        }else{
+            let targetViewController = viewcontroller // this is that controller, that you want to be embedded in navigation controller
+            let targetNavigationController = UINavigationController(rootViewController: targetViewController)
+            
+            self.present(targetNavigationController, animated: true, completion: nil)
+        }
+        
+      
+    }
+   
     func openNotification(data: Any? = nil) -> Void {
      
     }
