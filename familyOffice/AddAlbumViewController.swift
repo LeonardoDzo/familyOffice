@@ -41,7 +41,7 @@ class AddAlbumViewController: UIViewController, UIImagePickerControllerDelegate,
         style_1()
     }
     
-    @objc func back() -> Void {
+    @objc override func back() -> Void {
         _ = self.navigationController?.popViewController(animated: true)
     }
 

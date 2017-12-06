@@ -13,9 +13,9 @@
 //import ALCameraViewController
 //
 //class RegisterFamilyViewController: UIViewController, FamilyEBindable, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate, ContactsProtocol {
-//    var users: [UserEntitie]!
+//    var users: [UserEntity]!
 //    
-//    func selected(users: [UserEntitie]) {
+//    func selected(users: [UserEntity]) {
 //    }
 //    
 //    var family: FamilyEntitie! = FamilyEntitie()

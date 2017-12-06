@@ -191,7 +191,4 @@ extension GoalTableViewController {
     @objc func handleNew() -> Void {
         self.performSegue(withIdentifier: "addSegue", sender: nil)
     }
-    @objc func back() -> Void {
-        self.dismiss(animated: true, completion: nil)
-    }
 }

@@ -23,13 +23,15 @@ enum StoryBoard: String {
 enum RoutingDestination: String {
     case start = "StartViewController"
     case signUp = "SingUpViewController"
-    case preHome = "NavPreHome"
     case homeSocial = "TabBarControllerView",
          profileFamily = "FamilyProfileViewController",
          families = "FamilyCollectionViewController",
          contacts = "ContactsViewController",
          addEvent = "EventViewController",
-         personalData = "SetPersonalDataViewController"
+         prehome = "PreHomeViewController",
+        confView = "ConfiguracionesView",
+         personalData = "SetPersonalDataViewController",
+         mainCalendar = "mainnavCalendar"
     
     case none = ""
 }
@@ -38,13 +40,13 @@ extension RoutingDestination {
 
     func getStoryBoard() -> String {
         switch self {
-        case .start, .signUp, .preHome, .homeSocial, .none:
+        case .start, .signUp, .homeSocial, .none, .prehome:
             return StoryBoard.main.rawValue
         case .profileFamily,.families,.contacts:
             return StoryBoard.families.rawValue
-        case .personalData:
+        case .personalData, .confView:
             return StoryBoard.setting.rawValue
-        case .addEvent:
+        case .addEvent,.mainCalendar:
             return StoryBoard.calendar.rawValue
         }
     }

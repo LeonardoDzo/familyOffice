@@ -38,10 +38,7 @@ class FirstAidKitHomeViewController: UIViewController {
     }
     
     //MARK :- Botones
-    
-    @objc func back() -> Void {
-        self.dismiss(animated: true, completion: nil)
-    }
+
     
     @objc func handleMore(_ sender: Any) -> Void {
         settingLauncher.showSetting()

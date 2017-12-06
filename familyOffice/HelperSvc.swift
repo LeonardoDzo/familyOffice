@@ -27,9 +27,9 @@ func verifyUser( closure: @escaping (_ user: User, _ exist: Bool)->()) {
     }
 }
 
-func getUser () -> UserEntitie? {
+func getUser () -> UserEntity? {
    
-    if let user = rManager.realm.object(ofType: UserEntitie.self, forPrimaryKey: Auth.auth().currentUser?.uid) {
+    if let user = rManager.realm.object(ofType: UserEntity.self, forPrimaryKey: Auth.auth().currentUser?.uid) {
         return user
     }
     return nil
@@ -108,12 +108,18 @@ class MainFunctions : RequestProtocol {
         switch route[3] {
         case "users":
             let id = snapshot.ref.description().components(separatedBy: "/")[4]
-            if var val = rManager.realm.object(ofType: UserEntitie.self, forPrimaryKey: id)?.toJSON() {
+           
+            if  let user = rManager.realm.object(ofType: UserEntity.self, forPrimaryKey: id), var val =  user.toJSON() {
+                    val["families"] = user.families.toNSArrayByKey() ?? []
+                    val["events"] = user.events.toNSArrayByKey() ?? []
+                    val["tokens"] = user.tokens.toNSArrayByKey() ?? []
                     val[route[5]] = snapshot.value ?? ""
+                    print(val)
                     let user : NSDictionary = val as NSDictionary
                     if  let data = user.jsonToData() {
                         do {
-                            let editUser = try JSONDecoder().decode(UserEntitie.self, from: data)
+                            let editUser = try JSONDecoder().decode(UserEntity.self, from: data)
+                            
                             rManager.save(objs: editUser)
                             store.state.UserState.user = .finished
                         }catch let error {
