@@ -16,7 +16,7 @@ private let reuseIdentifier = "cell"
 
 class FamilyCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate  {
     @IBOutlet weak var mainView: UIView!
-    var families : Results<FamilyEntitie>!
+    var families : Results<FamilyEntity>!
     typealias StoreSubscriberStateType = FamilyState
     //Internal var
     var indexP : IndexPath? = nil
@@ -45,7 +45,7 @@ class FamilyCollectionViewController: UIViewController, UICollectionViewDelegate
         
         self.familyCollection.layer.cornerRadius = 8
         self.familyCollection.clipsToBounds = true
-        families = rManager.realm.objects(FamilyEntitie.self)
+        families = rManager.realm.objects(FamilyEntity.self)
         self.mainView.formatView()
         
     }
@@ -110,7 +110,7 @@ extension FamilyCollectionViewController: StoreSubscriber {
             self.view.makeToastActivity(.center)
             break
         case .finished:
-            families = rManager.realm.objects(FamilyEntitie.self)
+            families = rManager.realm.objects(FamilyEntity.self)
             self.familyCollection.reloadData()
             break
         case .Finished(let action as FamilyAction) :
@@ -158,11 +158,11 @@ extension FamilyCollectionViewController: StoreSubscriber {
         }
     }
     
-    func toggleSelect(family: FamilyEntitie){
+    func toggleSelect(family: FamilyEntity){
         store.dispatch(UserS(.selectFamily(family: family)))
     }
     
-    func togglePendingDelete(family: FamilyEntitie) -> Void
+    func togglePendingDelete(family: FamilyEntity) -> Void
     {
         store.dispatch(FamilyS(.delete(fid: family.id)))
     }

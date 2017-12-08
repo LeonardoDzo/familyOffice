@@ -14,7 +14,7 @@ class EventViewController: FormViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+   
         form +++ Section("")
                 <<< TextRow() { row in
                     row.title = "Titúlo"
@@ -25,18 +25,15 @@ class EventViewController: FormViewController {
                     row.placeholder = "Descripción"
                 }
                 <<< LocationRow(){
-                    $0.title = "LocationRow"
-                    $0.value = CLLocation(latitude: -34.91, longitude: -56.1646)
+                    $0.title = "Ubicación"
                     }
             +++
                 Section("")
                 <<< SwitchRow() { row in
-
                     row.title = "Todo el día"
                     row.tag = "allDay"
                     }
                 <<<  DateTimeRow() { row in
-                    
                     row.title = "Fecha de Inicio"
                     row.value = Date()
                     row.tag = "startDateTime"
@@ -133,6 +130,11 @@ class EventViewController: FormViewController {
                 }).onPresent({ (form, to) in
                     to.dismissOnSelection = true
                     to.dismissOnChange = false
+                })
+            <<< UsersRow(){
+                 $0.title = "Invitados"
+                }.onChange({ (row) in
+                    
                 })
     
     }

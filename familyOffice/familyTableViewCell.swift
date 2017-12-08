@@ -9,7 +9,7 @@
 import UIKit
 
 class familyTableViewCell: UITableViewCell, FamilyEBindable {
-    var family: FamilyEntitie!
+    var family: FamilyEntity!
     @IBOutlet weak var photo : UIImageViewX!
     @IBOutlet weak var titleLbl: UILabel!
     @IBOutlet weak var memberscount: UILabel!

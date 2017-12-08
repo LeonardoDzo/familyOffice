@@ -9,7 +9,7 @@
 import UIKit
 
 class FamiliesPreCollectionViewCell: UICollectionViewCell, FamilyEBindable {
-    var family: FamilyEntitie!
+    var family: FamilyEntity!
     @IBOutlet weak var check: UIImageViewX!
     @IBOutlet weak var Title: UILabel!
     @IBOutlet weak var photo: UIImageViewX!

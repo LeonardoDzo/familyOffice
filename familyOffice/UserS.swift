@@ -28,7 +28,7 @@ class UserS : Action, EventProtocol {
         self.fromView = RoutingDestination(rawValue: UIApplication.topViewController()?.restorationIdentifier ?? "" )
     }
     
-    func selectFamily(family: FamilyEntitie) -> Void {
+    func selectFamily(family: FamilyEntity) -> Void {
         Constants.FirDatabase.REF_USERS.child((Auth.auth().currentUser?.uid)!).updateChildValues(["familyActive" : family.id], withCompletionBlock: { (error, ref) in
                 if error == nil {
                     self.status = .Finished(self.action)

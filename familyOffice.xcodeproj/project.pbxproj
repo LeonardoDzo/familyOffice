@@ -32,7 +32,8 @@
 		022EC1D21E20078C0096A18B /* Family.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022EC1D11E20078C0096A18B /* Family.swift */; };
 		0233A4F71EFD8A5A00D01F5C /* Goal-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0233A4F61EFD8A5A00D01F5C /* Goal-Extension.swift */; };
 		0233A4F91EFDA33600D01F5C /* GoalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0233A4F81EFDA33600D01F5C /* GoalService.swift */; };
-		023796CF1FD071AD007FF309 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
+		023563211FD881730088CD92 /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023563201FD881730088CD92 /* LocationSearchTable.swift */; };
+		023796CF1FD071AD007FF309 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		02382F0D1E1C210C0036FFC9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02382F0C1E1C210C0036FFC9 /* AppDelegate.swift */; };
 		02382F2D1E1C210C0036FFC9 /* familyOfficeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02382F2C1E1C210C0036FFC9 /* familyOfficeUITests.swift */; };
 		023D2B501EC22A5100CA19FE /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023D2B4F1EC22A5100CA19FE /* Value.swift */; };
@@ -126,7 +127,7 @@
 		02ABAC401E6DE73A003780AB /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ABAC3F1E6DE73A003780AB /* UIImage.swift */; };
 		02ABAC421E6E02B5003780AB /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ABAC411E6E02B5003780AB /* Device.swift */; };
 		02AD47E71FC4F1F5009E20E8 /* FamilyS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AD47E61FC4F1F5009E20E8 /* FamilyS.swift */; };
-		02AD47E91FC4F381009E20E8 /* FamilyEntitie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AD47E81FC4F381009E20E8 /* FamilyEntitie.swift */; };
+		02AD47E91FC4F381009E20E8 /* FamilyEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AD47E81FC4F381009E20E8 /* FamilyEntity.swift */; };
 		02AD814D1E4B90B10030B3DD /* SelectedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AD814C1E4B90B10030B3DD /* SelectedTableViewCell.swift */; };
 		02AD81521E4B963C0030B3DD /* memberSelectedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AD81511E4B963C0030B3DD /* memberSelectedCollectionViewCell.swift */; };
 		02ADE5471FC4957500D05893 /* UserEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADE5461FC4957500D05893 /* UserEntity.swift */; };
@@ -327,6 +328,7 @@
 		022EC1D11E20078C0096A18B /* Family.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Family.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		0233A4F61EFD8A5A00D01F5C /* Goal-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Goal-Extension.swift"; sourceTree = "<group>"; };
 		0233A4F81EFDA33600D01F5C /* GoalService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalService.swift; sourceTree = "<group>"; };
+		023563201FD881730088CD92 /* LocationSearchTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTable.swift; sourceTree = "<group>"; };
 		02382F091E1C210C0036FFC9 /* familyOffice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = familyOffice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02382F0C1E1C210C0036FFC9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AppDelegate.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		02382F161E1C210C0036FFC9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -416,7 +418,7 @@
 		02ABAC3F1E6DE73A003780AB /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		02ABAC411E6E02B5003780AB /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		02AD47E61FC4F1F5009E20E8 /* FamilyS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyS.swift; sourceTree = "<group>"; };
-		02AD47E81FC4F381009E20E8 /* FamilyEntitie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyEntitie.swift; sourceTree = "<group>"; };
+		02AD47E81FC4F381009E20E8 /* FamilyEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyEntity.swift; sourceTree = "<group>"; };
 		02AD814C1E4B90B10030B3DD /* SelectedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedTableViewCell.swift; sourceTree = "<group>"; };
 		02AD81511E4B963C0030B3DD /* memberSelectedCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = memberSelectedCollectionViewCell.swift; sourceTree = "<group>"; };
 		02ADE5461FC4957500D05893 /* UserEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntity.swift; sourceTree = "<group>"; };
@@ -963,6 +965,7 @@
 				02BB5BBE1FD1EFD3009DC479 /* mainCalendarViewController.swift */,
 				020216EF1FD624AB00777F8C /* PreviewEventsViewController.swift */,
 				0268D9601FD7136200991876 /* AllEventsViewController.swift */,
+				023563201FD881730088CD92 /* LocationSearchTable.swift */,
 			);
 			name = Events;
 			sourceTree = "<group>";
@@ -1184,7 +1187,7 @@
 			children = (
 				022EC1D11E20078C0096A18B /* Family.swift */,
 				02C71A4B1F1E99840017BB4C /* FamilyList.swift */,
-				02AD47E81FC4F381009E20E8 /* FamilyEntitie.swift */,
+				02AD47E81FC4F381009E20E8 /* FamilyEntity.swift */,
 			);
 			name = Family;
 			sourceTree = "<group>";
@@ -2052,12 +2055,13 @@
 				029F65911F1541B300C3A0A7 /* ContactReducer.swift in Sources */,
 				029F65971F15A95700C3A0A7 /* InfoContactViewController.swift in Sources */,
 				A48FD6DD1F143D2200832559 /* Budget.swift in Sources */,
-				023796CF1FD071AD007FF309 /* BuildFile in Sources */,
-				02AD47E91FC4F381009E20E8 /* FamilyEntitie.swift in Sources */,
+				023796CF1FD071AD007FF309 /* (null) in Sources */,
+				02AD47E91FC4F381009E20E8 /* FamilyEntity.swift in Sources */,
 				042693011F1448EB004356D6 /* ImageAlbumService.swift in Sources */,
 				02B46A341E52908200CC7511 /* NotificationService.swift in Sources */,
 				940964261F296E1A00FB1F3A /* CQuestionCell.swift in Sources */,
 				941B59F41F211C730078EF9C /* MedicineReducer.swift in Sources */,
+				023563211FD881730088CD92 /* LocationSearchTable.swift in Sources */,
 				A46316B21E78C69E00E3F72C /* Health.swift in Sources */,
 				941B59FF1F214A4E0078EF9C /* IllnessesListViewController.swift in Sources */,
 				021DB6AA1F4B788500E216BE /* RoutingAction.swift in Sources */,

@@ -11,9 +11,15 @@ import UIKit
 import MapKit
 import Eureka
 
+protocol HandleMapSearch {
+    func dropPinZoomIn(placemark:MKPlacemark)
+}
+
+
+
 //MARK: LocationRow
 
-public final class LocationRow: OptionsRow<PushSelectorCell<CLLocation>>, PresenterRowType, RowType {
+public final class LocationRow: OptionsRow<PushSelectorCell<Location>>, PresenterRowType, RowType {
     
     public typealias PresenterRow = MapViewController
     
@@ -31,12 +37,9 @@ public final class LocationRow: OptionsRow<PushSelectorCell<CLLocation>>, Presen
         
         displayValueFor = {
             guard let location = $0 else { return "" }
-            let fmt = NumberFormatter()
-            fmt.maximumFractionDigits = 4
-            fmt.minimumFractionDigits = 4
-            let latitude = fmt.string(from: NSNumber(value: location.coordinate.latitude))!
-            let longitude = fmt.string(from: NSNumber(value: location.coordinate.longitude))!
-            return  "\(latitude), \(longitude)"
+            let title = location.title
+            let subtitle = location.subtitle
+            return  "\(title), \(subtitle)"
         }
     }
     
@@ -71,9 +74,9 @@ public final class LocationRow: OptionsRow<PushSelectorCell<CLLocation>>, Presen
 
 public class MapViewController : UIViewController, TypedRowControllerType, MKMapViewDelegate {
     
-    public var row: RowOf<CLLocation>!
+    public var row: RowOf<Location>!
     public var onDismissCallback: ((UIViewController) -> ())?
-    var locationModel: Location!
+    var selectedPin:MKPlacemark? = nil
     let locationManager = CLLocationManager()
     var resultSearchController:UISearchController? = nil
     
@@ -139,15 +142,18 @@ public class MapViewController : UIViewController, TypedRowControllerType, MKMap
         view.addSubview(mapView)
         
         mapView.delegate = self
-        mapView.addSubview(pinView)
-        mapView.layer.insertSublayer(ellipsisLayer, below: pinView.layer)
-        
+
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestLocation()
+
         let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(MapViewController.tappedDone(_:)))
         button.title = "Done"
         let storyboard: UIStoryboard = UIStoryboard(name: "Calendar", bundle: nil)
-        //let locationSearchTable = storyboard.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
-//        resultSearchController = UISearchController(searchResultsController: locationSearchTable)
-//        resultSearchController?.searchResultsUpdater = locationSearchTable
+        let locationSearchTable = storyboard.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
+        resultSearchController = UISearchController(searchResultsController: locationSearchTable)
+        resultSearchController?.searchResultsUpdater = locationSearchTable
         let searchBar = resultSearchController!.searchBar
         searchBar.sizeToFit()
         searchBar.placeholder = "Buscar lugares"
@@ -155,13 +161,13 @@ public class MapViewController : UIViewController, TypedRowControllerType, MKMap
         resultSearchController?.hidesNavigationBarDuringPresentation = false
         resultSearchController?.dimsBackgroundDuringPresentation = true
         definesPresentationContext = true
-//        locationSearchTable.mapView = mapView
-//        locationSearchTable.handleMapSearchDelegate = self
+        locationSearchTable.mapView = mapView
+        locationSearchTable.handleMapSearchDelegate = self
         
         navigationItem.rightBarButtonItem = button
         
         if let value = row.value {
-            let region = MKCoordinateRegionMakeWithDistance(value.coordinate, 400, 400)
+            let region = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2D(latitude: value.latitude, longitude: value.longitude), 100.0, 100.0)
             mapView.setRegion(region, animated: true)
         }
         else{
@@ -181,11 +187,28 @@ public class MapViewController : UIViewController, TypedRowControllerType, MKMap
     
     
     @objc func tappedDone(_ sender: UIBarButtonItem){
-        let target = mapView.convert(ellipsisLayer.position, toCoordinateFrom: mapView)
-        row.value = CLLocation(latitude: target.latitude, longitude: target.longitude)
-        onDismissCallback?(self)
+        if selectedPin != nil {
+            let loc = Location(selectedPin!)
+            row.value =    loc
+            onDismissCallback?(self)
+        }
     }
     
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
+            locationManager.requestLocation()
+        }
+    }
+    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            let span = MKCoordinateSpanMake(0.05, 0.05)
+            let region = MKCoordinateRegion(center: location.coordinate, span: span)
+            mapView.setRegion(region, animated: true)
+        }
+    }
+    public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+         print("error:: \(error)")
+    }
     func updateTitle(){
         let fmt = NumberFormatter()
         fmt.maximumFractionDigits = 4
@@ -211,36 +234,51 @@ public class MapViewController : UIViewController, TypedRowControllerType, MKMap
         })
         updateTitle()
     }
+    override public func viewWillDisappear(_ animated:Bool){
+        super.viewWillDisappear(animated)
+        self.applyMapViewMemoryFix()
+    }
+    
+    func applyMapViewMemoryFix(){
+        switch (self.mapView.mapType) {
+        case MKMapType.hybrid:
+            self.mapView.mapType = MKMapType.standard
+            break;
+        case MKMapType.standard:
+            self.mapView.mapType = MKMapType.hybrid
+            break;
+        default:
+            break;
+        }
+        self.mapView.showsUserLocation = false
+        self.mapView.delegate = nil
+        self.mapView.removeFromSuperview()
+        mapView.delegate = nil
+//        self.mapView = nil
+    }
+    deinit {
+         print("deinit called")
+    }
 }
-//extension MapViewController: HandleMapSearch {
-//    func dropPinZoomIn(_ placemark:MKPlacemark){
-//        locationModel = Location(title: "", subtitle: "", latitude: 0, longitude: 0)
-//        // cache the pin
-//
-//        // clear existing pins
-//        mapView.removeAnnotations(mapView.annotations)
-//        //            let annotation = MKPointAnnotation()
-//        //            annotation.coordinate = placemark.coordinate
-//        //            annotation.title = placemark.name
-//        //            if let city = placemark.locality,
-//        //                let state = placemark.administrativeArea {
-//        //                annotation.subtitle = "\(city) \(state)"
-//        //                locationModel.title = placemark.name
-//        //                locationModel.subtitle = "\(city) \(state)"
-//        //            }
-//        //            mapView.addAnnotation(annotation)
-//        let span = MKCoordinateSpanMake(0.05, 0.05)
-//        let region = MKCoordinateRegionMake(placemark.coordinate, span)
-//        mapView.setRegion(region, animated: true)
-//        locationModel.latitude = placemark.coordinate.latitude
-//        locationModel.longitude = placemark.coordinate.longitude
-//
-//    }
-//
-//
-//
-//
-//}
+extension MapViewController: HandleMapSearch, CLLocationManagerDelegate {
+    func dropPinZoomIn(placemark:MKPlacemark){
+        // cache the pin
+        selectedPin = placemark
+        // clear existing pins
+        mapView.removeAnnotations(mapView.annotations)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = placemark.coordinate
+        annotation.title = placemark.name
+        if let city = placemark.locality,
+            let state = placemark.administrativeArea {
+            annotation.subtitle = "\(city) \(state)"
+        }
+        mapView.addAnnotation(annotation)
+        let span = MKCoordinateSpanMake(0.05, 0.05)
+        let region = MKCoordinateRegionMake(placemark.coordinate, span)
+        mapView.setRegion(region, animated: true)
+    }
+}
 func lookUpCurrentLocation(location: CLLocation, completionHandler: @escaping (CLPlacemark?)
     -> Void ) {
     // Use the last reported locat

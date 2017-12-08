@@ -87,7 +87,7 @@ struct Goal   {
          self.list.enumerated().forEach({
             index, goal in
             if let value = follow?.value(forKey: String(goal.startDate)) as? NSDictionary {
-                if let map = value.jsonToData() {
+                if value.jsonToData() != nil {
                     let copy  = Goal()
                     self.list[index] = copy
                     if self.list[index].repeatGoalModel != nil {

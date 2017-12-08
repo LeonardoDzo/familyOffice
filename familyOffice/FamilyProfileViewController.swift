@@ -14,7 +14,7 @@ import ALCameraViewController
 
 class FamilyProfileViewController: UIViewController, FamilyEBindable {
     var notificationToken: NotificationToken? = nil
-    var family: FamilyEntitie!
+    var family: FamilyEntity!
     @IBOutlet weak var Image: CustomUIImageView!
     @IBOutlet weak var membersTable: UITableView!
     @IBOutlet weak var titleLbl: UILabel!
@@ -109,7 +109,7 @@ extension FamilyProfileViewController: StoreSubscriber {
             self.view.isUserInteractionEnabled = false
             break
         case .Finished(_ as FamilyAction):
-            family = rManager.realm.object(ofType: FamilyEntitie.self, forPrimaryKey: family.id)
+            family = rManager.realm.object(ofType: FamilyEntity.self, forPrimaryKey: family.id)
             self.bind()
             break
         default:

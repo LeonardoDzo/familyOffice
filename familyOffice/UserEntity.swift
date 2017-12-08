@@ -21,7 +21,7 @@ class RealmString: Object {
 }
 
 @objcMembers
-class UserEntity: Object, Codable, Serializable {
+public class UserEntity: Object, Codable, Serializable {
     dynamic var id: String = ""
     dynamic var email: String = "Sin email"
     dynamic var name : String = "Sin Nombre"
@@ -39,7 +39,7 @@ class UserEntity: Object, Codable, Serializable {
     var events = List<RealmString>()
     // var health: Health!
     
-    override static func primaryKey() -> String? {
+    override public static func primaryKey() -> String? {
         return "id"
     }
     
@@ -61,7 +61,7 @@ class UserEntity: Object, Codable, Serializable {
         case families, events, tokens
     }
     
-    convenience required init(from decoder: Decoder) throws {
+    convenience required public init(from decoder: Decoder) throws {
         self.init()
         let container = try decoder.container(keyedBy: Mykeys.self)
         let container2 = try decoder.container(keyedBy: CodingKeys.self)

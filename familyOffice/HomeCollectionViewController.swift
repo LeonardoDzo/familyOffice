@@ -86,7 +86,7 @@ class HomeCollectionViewController: UICollectionViewController, UICollectionView
     
     func reloadFamily() -> Void {
      
-        if let family = rManager.realm.object(ofType: FamilyEntitie.self, forPrimaryKey: getUser()?.familyActive) {
+        if let family = rManager.realm.object(ofType: FamilyEntity.self, forPrimaryKey: getUser()?.familyActive) {
             let view = FamilyTitleView.instanceFromNib()
             view.bind(fam: family)
             self.navigationItem.titleView = view
