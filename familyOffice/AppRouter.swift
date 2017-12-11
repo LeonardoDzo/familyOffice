@@ -35,7 +35,7 @@ enum RoutingDestination: String {
          mainCalendar = "mainnavCalendar"
     
     // first aid
-         illness = "IllnessTableViewController",
+    case illness = "IllnessTableViewController",
          addIllness = "NewIllnessFormController"
     case none = ""
 }

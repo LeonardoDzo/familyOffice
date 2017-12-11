@@ -100,7 +100,7 @@ extension IllnessSvc : RequestProtocol {
 extension IllnessSvc : Reducer {
     typealias StoreSubscriberStateType = IllnessState
     func handleAction(state: IllnessState?) -> IllnessState {
-        var state = state ?? IllnessState(illnesses: [:], status: .none, requests: [:])
+        var state = state ?? IllnessState(illnesses: [:], status: .none)
         state.status = self.status
         switch(status) {
         case .loading:

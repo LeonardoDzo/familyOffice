@@ -9,70 +9,92 @@
 import Foundation
 import ReSwift
 
-func getIllnessById(id: String) -> Store<AppState>.ActionCreator {
+let ILLNESSES_REF = Constants.FirDatabase.REF.child("illnesses")
+
+func getIllnessAction(familyId: String, byId id: String, uuid: String) -> Store<AppState>.ActionCreator {
     return { state, store in
-        store.dispatch(LoadingIllnessAction())
-        Constants.FirDatabase.REF.child("illness/\(id)")
+        store.dispatch(RequestAction.Loading(uuid: uuid))
+        ILLNESSES_REF.child("\(familyId)/\(id)")
             .observeSingleEvent(of: .value, with: { snapshot in
                 do {
-                    guard snapshot.exists() else { throw IllnessError.NotFound }
-                    guard let json = snapshot.value as? NSDictionary else { throw IllnessError.NotJson }
-                    guard let data = json.jsonToData() else { throw IllnessError.NotData }
+                    guard snapshot.exists() else { throw RequestError.NotFound }
+                    guard let json = snapshot.value as? NSDictionary else { throw RequestError.NotJson }
+                    json.setValue(familyId, forKey: "family")
+                    json.setValue(id, forKey: "id")
+                    guard let data = json.jsonToData() else { throw RequestError.NotData }
                     let entity = try JSONDecoder.decode(data, to: IllnessEntity.self)
                     rManager.save(objs: entity)
-                    store.dispatch(DoneIllnessAction())
+                    store.dispatch(RequestAction.Done(uuid: uuid))
                 } catch let err {
                     print(err)
-                    store.dispatch(ErrIllnessAction(err: err))
+                    store.dispatch(RequestAction.Error(err: err as! RequestError, uuid: uuid))
                 }
             })
         return nil
     }
 }
 
-func getIllnessByFamily(familyId: String) -> Store<AppState>.ActionCreator {
+func getIllnessesAction(byFamily familyId: String, uuid: String) -> Store<AppState>.ActionCreator {
     return { state, store in
-        store.dispatch(LoadingIllnessAction())
-        Constants.FirDatabase.REF.child("illness")
-            .queryOrdered(byChild: "family")
-            .queryEqual(toValue: familyId)
-            .observeSingleEvent(of: .value, with: { snapshot in
+        store.dispatch(RequestAction.Loading(uuid: uuid))
+        ILLNESSES_REF.child(familyId)
+            .observe(.value, with: { snapshot in
                 do {
-                    guard snapshot.exists() else { throw IllnessError.NotFound }
-                    guard let json = snapshot.value as? NSDictionary else { throw IllnessError.NotJson }
-                    guard let data = json.jsonToData() else { throw IllnessError.NotData }
+                    guard snapshot.exists() else { throw RequestError.NotFound }
+                    guard let json = snapshot.value as? NSDictionary else { throw RequestError.NotJson }
+                    json.forEach({ (key, val) in
+                        let dic = val as! NSDictionary
+                        dic.setValue(familyId, forKey: "family")
+                        dic.setValue(key, forKey: "id")
+                    })
+                    guard let data = json.jsonToData() else { throw RequestError.NotData }
                     let entities = try JSONDecoder.decode(data, to: [String: IllnessEntity].self)
                     rManager.saveObjects(objs: entities.values.filter({_ in true}))
-                    store.dispatch(DoneIllnessAction())
+                    store.dispatch(RequestAction.Done(uuid: uuid))
                 } catch let err {
                     print(err)
-                    store.dispatch(ErrIllnessAction(err: err))
+                    store.dispatch(RequestAction.Error(err: err as! RequestError, uuid: uuid))
                 }
             })
         return nil
     }
 }
 
-func newIllnessAction(illness: IllnessEntity) -> Store<AppState>.ActionCreator {
+func newIllnessAction(illness: IllnessEntity, uuid: String) -> Store<AppState>.ActionCreator {
     return { state, store in
-        store.dispatch(LoadingIllnessAction())
-        let child = Constants.FirDatabase.REF.child("illness").childByAutoId()
+        store.dispatch(RequestAction.Loading(uuid: uuid))
+        let child = ILLNESSES_REF.child(illness.family).childByAutoId()
         illness.id = child.key
         child.setValue(illness.toJSON())
         rManager.save(objs: illness)
-        store.dispatch(DoneIllnessAction())
+        store.dispatch(RequestAction.Done(uuid: uuid))
         return nil
     }
 }
 
-enum IllnessError: Error {
-    case NotFound, NotJson, NotData
+func editIllnessAction(illness: IllnessEntity, fields: IllnessEntity, uuid: String) -> Store<AppState>.ActionCreator {
+    return { state, store in
+        store.dispatch(RequestAction.Loading(uuid: uuid))
+        try! rManager.realm.write {
+            illness.name = fields.name
+            illness.dosage = fields.dosage
+            illness.medicine = fields.medicine
+            illness.moreInfo = fields.moreInfo
+        }
+        ILLNESSES_REF.child("\(illness.family)/\(illness.id)").setValue(illness.toJSON())
+        store.dispatch(RequestAction.Done(uuid: uuid))
+        return nil
+    }
 }
 
-struct LoadingIllnessAction: Action {}
-struct DoneIllnessAction: Action {}
-struct ErrIllnessAction: Action {
-    let err: Error
+func removeIllnessAction(illness: IllnessEntity, uuid: String) -> Store<AppState>.ActionCreator {
+    return { state, store in
+        store.dispatch(RequestAction.Loading(uuid: uuid))
+        ILLNESSES_REF.child("\(illness.family)/\(illness.id)").removeValue()
+        rManager.deteObject(objs: illness)
+        store.dispatch(RequestAction.Done(uuid: uuid))
+        return nil
+    }
 }
 
 struct InsertIllnessAction: Action {
