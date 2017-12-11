@@ -151,15 +151,20 @@ class IllnessViewController: UIViewController, UIScrollViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
-        cell?.textLabel?.text = pageControl.currentPage == 0
-            ? medicines[indexPath.row].name
-            : illnesses[indexPath.row].name
-        cell?.detailTextLabel?.text = pageControl.currentPage == 0
-            ? medicines[indexPath.row].moreInfo
-            : illnesses[indexPath.row].moreInfo
-        
-        return cell!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! FirstAidTableViewCell
+        if pageControl.currentPage == 0 {
+            cell.title.text = medicines[indexPath.row].name
+            cell.subtitle.text = medicines[indexPath.row].dosage
+            cell.desc.text = medicines[indexPath.row].indications + "\n" +
+                medicines[indexPath.row].restrictions + "\n" +
+                medicines[indexPath.row].moreInfo
+        } else {
+            cell.title.text = illnesses[indexPath.row].name
+            cell.subtitle.text = illnesses[indexPath.row].dosage
+            cell.desc.text = illnesses[indexPath.row].medicine + "\n" +
+                illnesses[indexPath.row].moreInfo
+        }
+        return cell
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -173,10 +178,18 @@ class IllnessViewController: UIViewController, UIScrollViewDelegate, UITableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView.isEditing {
             edit(indexPath)
+        } else {
+            tableView.beginUpdates()
+            tableView.endUpdates()
         }
     }
     
-
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if let cell = tableView.cellForRow(at: indexPath), cell.isSelected {
+            return 148
+        }
+        return 68
+    }
     
     /*
     // MARK: - Navigation

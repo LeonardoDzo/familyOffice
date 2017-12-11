@@ -279,6 +279,7 @@
 		A48DDA1F1F1541D90059D982 /* BudgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02595A381F14913E00627C46 /* BudgetViewController.swift */; };
 		A48FD6DB1F141E8C00832559 /* BudgetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48FD6DA1F141E8C00832559 /* BudgetCollectionViewCell.swift */; };
 		A48FD6DD1F143D2200832559 /* Budget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48FD6DC1F143D2200832559 /* Budget.swift */; };
+		A4C43C1C1FDF15EE00FECA82 /* FirstAidTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C43C1B1FDF15EE00FECA82 /* FirstAidTableViewCell.swift */; };
 		A4CF2C211FDA1EB400B5E084 /* RequestState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CF2C201FDA1EB400B5E084 /* RequestState.swift */; };
 		A4CF2C231FDA1EFA00B5E084 /* RequestReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CF2C221FDA1EFA00B5E084 /* RequestReducer.swift */; };
 		A4D585B81E8C8468005B8F1F /* HealthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D585B71E8C8468005B8F1F /* HealthService.swift */; };
@@ -596,6 +597,7 @@
 		A47F14B01E8B27DB00285CA8 /* Health.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Health.storyboard; sourceTree = "<group>"; };
 		A48FD6DA1F141E8C00832559 /* BudgetCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetCollectionViewCell.swift; sourceTree = "<group>"; };
 		A48FD6DC1F143D2200832559 /* Budget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Budget.swift; sourceTree = "<group>"; };
+		A4C43C1B1FDF15EE00FECA82 /* FirstAidTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstAidTableViewCell.swift; sourceTree = "<group>"; };
 		A4CF2C201FDA1EB400B5E084 /* RequestState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestState.swift; sourceTree = "<group>"; };
 		A4CF2C221FDA1EFA00B5E084 /* RequestReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestReducer.swift; sourceTree = "<group>"; };
 		A4D585B71E8C8468005B8F1F /* HealthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthService.swift; sourceTree = "<group>"; };
@@ -1457,6 +1459,7 @@
 		949B520A1F202C9B001C7ABA /* FirstAidKit */ = {
 			isa = PBXGroup;
 			children = (
+				A4C43C1A1FDF15C800FECA82 /* Cells */,
 				949B520D1F202CBF001C7ABA /* Actions */,
 				A45EDE3D1FD0728F00D95A48 /* _old */,
 				A4E650CE1FD7198C00332879 /* NewIllnessFormController.swift */,
@@ -1620,6 +1623,14 @@
 			children = (
 				A4EABA2B1E95626500D0D54E /* HealthMemberCollectionViewCell.swift */,
 				A4F0C0ED1E96FC8D00395F20 /* HealthCollectionViewCell.swift */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
+		A4C43C1A1FDF15C800FECA82 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				A4C43C1B1FDF15EE00FECA82 /* FirstAidTableViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -2061,6 +2072,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4C43C1C1FDF15EE00FECA82 /* FirstAidTableViewCell.swift in Sources */,
 				02811B331F06AE9E004231BE /* GoalViewController.swift in Sources */,
 				02C17D2B1E42796700EE7CFA /* recordTableViewCell.swift in Sources */,
 				0268D96E1FD7189E00991876 /* UIVisualEffectViewX.swift in Sources */,
