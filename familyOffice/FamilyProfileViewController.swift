@@ -15,17 +15,16 @@ import ALCameraViewController
 class FamilyProfileViewController: UIViewController, FamilyEBindable {
     var notificationToken: NotificationToken? = nil
     var family: FamilyEntity!
-    @IBOutlet weak var Image: CustomUIImageView!
-    @IBOutlet weak var membersTable: UITableView!
+    
     @IBOutlet weak var titleLbl: UILabel!
-    @IBOutlet weak var topView: UIView!
+    @IBOutlet weak var photo: UIImageViewX!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        store.state.FamilyState.status = .none
-        self.Image.editBtn()
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.editImage))
-        self.Image.addGestureRecognizer(tapGesture)
+        
+        let _ = UITapGestureRecognizer(target: self, action: #selector(self.editImage))
+        collectionView.register(UINib(nibName: "FamilyMember1Cell", bundle: nil), forCellWithReuseIdentifier: "CellMember")
         
     }
 
@@ -75,26 +74,34 @@ class FamilyProfileViewController: UIViewController, FamilyEBindable {
     
 
 }
-extension FamilyProfileViewController : UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return family != nil ? family.members.count : 0
-    }
+extension FamilyProfileViewController : UICollectionViewDataSource, UICollectionViewDelegate {
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! FamilyMemberTableViewCell
-        let human = family.members[indexPath.row].value
-        if let member = rManager.realm.object(ofType: UserEntity.self, forPrimaryKey: human) {
-            cell.bind(userModel: member)
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return family.members.count
+    }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CellMember", for: indexPath) as! FamilyMember1Cell
+        let uid = family.members[indexPath.row].value
+        cell.bind(id: uid)
+        if family.admins.contains(where: {$0.value == uid}) {
+            cell.isAdmin.isHidden = false
         }
-
         return cell
     }
-  
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let uid = family.members[indexPath.row].value
+        if let user = rManager.realm.object(ofType: UserEntity.self, forPrimaryKey: uid) {
+            self.pushToView(view: .profileView, sender: user)
+        }
+    }
 }
 extension FamilyProfileViewController: StoreSubscriber {
     typealias StoreSubscriberStateType = AppState
     override func viewWillAppear(_ animated: Bool) {
-
+        store.state.FamilyState.status = .none
         self.bind()
         store.subscribe(self) {
             $0.select({ (s) in
@@ -117,10 +124,9 @@ extension FamilyProfileViewController: StoreSubscriber {
         }
         
         switch state.UserState.user {
-            case .finished:
-                self.membersTable.reloadData()
+            case .finished, .Finished(_):
+                self.collectionView.reloadData()
             default:
-                self.membersTable.reloadData()
             break
         }
     }

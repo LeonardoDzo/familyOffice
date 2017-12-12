@@ -10,6 +10,8 @@ import Foundation
 import ReSwift
 import RealmSwift
 import Firebase
+
+
 enum FamilyAction : description{
     case insert(family: FamilyEntity),
     uploadImage(img: UIImage, family: FamilyEntity),
@@ -30,7 +32,7 @@ class FamilyS: Action, EventProtocol {
     var action: FamilyAction = .none
     
     var status: Result<Any> = .none
-    var id: String! = UUID().uuidString
+    var id: String!
     var fromView: RoutingDestination!
     
     init() {
@@ -39,6 +41,7 @@ class FamilyS: Action, EventProtocol {
     
     convenience init(_ action: FamilyAction) {
         self.init()
+        self.id = UUID().uuidString
         self.action = action
         status = .loading
         self.fromView = RoutingDestination(rawValue: UIApplication.topViewController()?.restorationIdentifier ?? "" )
@@ -191,7 +194,7 @@ extension FamilyS : Reducer {
         state.status = self.status
         switch self.status {
             
-        case .loading:
+        case .loading,  .Loading(_):
             
             switch self.action {
             case .insert(let family):

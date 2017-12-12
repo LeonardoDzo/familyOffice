@@ -116,11 +116,13 @@ extension List {
         }
         return nil
     }
-    func toNSArrayByKey() -> [String : Bool]? {
-        var dic : [String:Bool] = [:]
+    func toNSArrayByKey() -> [String : Any]? {
+        var dic : [String:Any] = [:]
         self.forEach({ (key ) in
             if let val = key as? RealmString {
                 dic[val.value] = true
+            }else if let val = key as? memberEventEntity {
+                dic[val.userId] = val.toJSON()!
             }
         })
         return dic

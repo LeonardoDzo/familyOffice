@@ -30,7 +30,7 @@ class EventEntity: Object, Codable, Serializable {
     dynamic var father: EventEntity? = nil
     dynamic var changesforAll = false
     var following = List<EventEntity>()
-    let members = List<memberEventEntity>()
+    var members = List<memberEventEntity>()
     
     let myEvents = List<EventEntity>()
     
@@ -76,11 +76,17 @@ class EventEntity: Object, Codable, Serializable {
         if let value = try arrayscont.decodeIfPresent([EventEntity].self, forKey: .followings) {
             self.following.append(objectsIn: value)
         }
-        
-        if let value = try arrayscont.decodeIfPresent([memberEventEntity].self, forKey: .members){
+      
+        if let value = try arrayscont.decodeIfPresent([String: memberEventEntity].self, forKey: .members)?.flatMap({ (_, member) -> memberEventEntity in
+            return member
+        }){
             self.members.append(objectsIn: value)
         }
         
+    }
+    
+    override public static func primaryKey() -> String? {
+        return "id"
     }
     
     override static func ignoredProperties() -> [String] {
@@ -174,6 +180,15 @@ class EventEntity: Object, Codable, Serializable {
         return next.toMillis()
     }
     
+     func todictionary() -> [String: Any]? {
+        if var json = self.toJSON() {
+            json["members"] = self.members.toNSArrayByKey() ?? ""
+            json["following"] = self.following.toNSArrayByKey() ?? ""
+            json["repeatmodel"] = self.repeatmodel?.toDictionary() ?? ""
+            return json
+        }
+        return nil
+    }
 }
 
 @objcMembers
@@ -205,6 +220,16 @@ class repeatEntity: Object, Codable, Serializable, repeatProtocol {
         }) {
             self._days.append(objectsIn: val)
         }
+    }
+    func toDictionary() -> [String:Any]? {
+        if var json = self.toJSON() {
+            let arrayString = self._days.map({ (rs) -> String in
+                return rs.value
+            })
+            json["days"] = arrayString.joined(separator: ",")
+            return json
+        }
+        return nil
     }
     
     override static func ignoredProperties() -> [String] {

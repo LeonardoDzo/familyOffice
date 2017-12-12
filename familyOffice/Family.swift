@@ -235,7 +235,7 @@ extension FamilyEBindable{
             if(!(family.photoURL.isEmpty)){
                     imageBackground.loadImage(urlString: family.photoURL)
                 }else{
-                    imageBackground.image = #imageLiteral(resourceName: "familyImage")
+                    imageBackground.image = #imageLiteral(resourceName: "background_family")
                 }
             
         }
@@ -243,7 +243,7 @@ extension FamilyEBindable{
             if(!(family.photoURL.isEmpty)){
                 imageBackground.loadImage(urlString: family.photoURL)
             }else{
-                imageBackground.image = #imageLiteral(resourceName: "familyImage")
+                imageBackground.image = #imageLiteral(resourceName: "background_family")
             }
             
         }

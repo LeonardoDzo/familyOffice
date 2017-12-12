@@ -14,6 +14,7 @@ import ReSwift
         var userState: UserState!
         var famState: FamilyState!
         var authState: AuthState!
+        var eventState: EventState!
         if let useraction =  action as? UserS {
             userState = useraction.handleAction(state: state?.UserState)
         }else{
@@ -31,6 +32,13 @@ import ReSwift
             famState = state?.FamilyState != nil ? state?.FamilyState : FamilyState(families: FamilyList(), status: .none)
         }
         
+        
+        if  let eventAction = action as? EventSvc {
+            eventState = eventAction.handleAction(state: state?.EventState)
+        }else{
+            eventState = state?.EventState != nil ? state?.EventState : EventState(status: .none)
+        }
+        
        
 
         return AppState(
@@ -39,6 +47,7 @@ import ReSwift
             UserState:  userState,
             GoalsState: goalReducer.handleAction(action: action),
             FamilyState: famState,
+            EventState: eventState,
             GalleryState: GalleryReducer().handleAction(action: action, state: state?.GalleryState),
             ToDoListState: ToDoListReducer().handleAction(action: action, state: state?.ToDoListState),
             ContactState: ContactReducer().handleAction(action: action, state: state?.ContactState),

@@ -29,8 +29,9 @@ enum RoutingDestination: String {
          contacts = "ContactsViewController",
          addEvent = "EventViewController",
          prehome = "PreHomeViewController",
-        confView = "ConfiguracionesView",
+         confView = "ConfiguracionesView",
          personalData = "SetPersonalDataViewController",
+         profileView = "ProfileUserViewController",
          mainCalendar = "mainnavCalendar"
     
     case none = ""
@@ -42,7 +43,7 @@ extension RoutingDestination {
         switch self {
         case .start, .signUp, .homeSocial, .none, .prehome:
             return StoryBoard.main.rawValue
-        case .profileFamily,.families,.contacts:
+        case .profileFamily,.families,.contacts, .profileView:
             return StoryBoard.families.rawValue
         case .personalData, .confView:
             return StoryBoard.setting.rawValue

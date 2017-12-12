@@ -120,7 +120,7 @@ extension AuthSvc : Reducer {
         var state = state ?? AuthState(state: .none)
         state.state = self.status
         switch status {
-        case .loading:
+        case .loading, .Loading(_):
             switch self.action {
             case .changePass(let pass, let oldPass):
                 self.changePassword(newPass: pass, oldPass: oldPass)

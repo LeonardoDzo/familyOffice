@@ -120,12 +120,6 @@ class UserS : Action, EventProtocol {
             }
         }
     }
-    
-    
-    func getDescription() -> String {
-        return "\(self.action.description) \(self.status.description)"
-    }
-    
 }
 
 extension UserS : RequestProtocol {
@@ -158,6 +152,10 @@ extension UserS : RequestProtocol {
                         
                         for fid in user.families  {
                            store.dispatch(FamilyS(.getbyId(fid: fid.value)))
+                        }
+                        
+                        for eid in user.events {
+                            store.dispatch(EventSvc(.get(byId: eid.value)))
                         }
                         
                         service.NOTIFICATION_SERVICE.removeHandles()
@@ -199,7 +197,7 @@ extension UserS : Reducer {
         var state = state ?? UserState(users: .none, user: .none)
         state.user = self.status
         switch status {
-        case .loading:
+        case .loading, .Loading(_):
            
             switch self.action {
                 
