@@ -50,7 +50,7 @@ class PreHomeViewController: UIViewController, UserEModelBindable {
         store.unsubscribe(self)
     }
     
-    func toggleSelect(family: FamilyEntitie){
+    func toggleSelect(family: FamilyEntity){
         store.dispatch(UserS( .selectFamily(family: family)))
     }
     func promptForAnswer() {
@@ -62,7 +62,7 @@ class PreHomeViewController: UIViewController, UserEModelBindable {
             guard let text = alertController.textFields?[0].text, !text.isEmpty else {
                 return
             }
-            let family = FamilyEntitie()
+            let family = FamilyEntity()
             family.name = text
             store.dispatch(FamilyS(.insert(family: family)))
             
@@ -131,7 +131,7 @@ extension PreHomeViewController : UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! familyTableViewCell
         let fid = userModel.families[indexPath.row].value
         
-        if let family = rManager.realm.object(ofType: FamilyEntitie.self, forPrimaryKey: fid) {
+        if let family = rManager.realm.object(ofType: FamilyEntity.self, forPrimaryKey: fid) {
             cell.bind(fam: family)
         }else{
             cell.titleLbl.text = "Cargando ..."
@@ -143,7 +143,7 @@ extension PreHomeViewController : UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let family = rManager.realm.object(ofType: FamilyEntitie.self, forPrimaryKey: userModel.families[indexPath.row].value) {
+        if let family = rManager.realm.object(ofType: FamilyEntity.self, forPrimaryKey: userModel.families[indexPath.row].value) {
              toggleSelect(family: family)
         }
     }

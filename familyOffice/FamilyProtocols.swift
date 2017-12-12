@@ -68,7 +68,20 @@ enum Frequency: Int, GDL90_Enum  {
             return nil
         }
     }
-    
+    var calendartype : Calendar.Component? {
+        switch self {
+        case .daily:
+            return Calendar.Component.day
+        case .monthly:
+            return Calendar.Component.weekOfMonth
+        case .weekly:
+            return  Calendar.Component.weekday
+        case .year:
+            return Calendar.Component.month
+        default:
+            return nil
+        }
+    }
     
 }
 extension Frequency : Codable {

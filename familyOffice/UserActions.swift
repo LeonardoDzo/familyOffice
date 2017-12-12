@@ -16,7 +16,7 @@ enum UserAction : description {
          set(user: User),
          update(user: UserEntity, img: UIImage?),
          create(user: UserEntity),
-         selectFamily(family: FamilyEntitie),
+         selectFamily(family: FamilyEntity),
          none
     
     init(){

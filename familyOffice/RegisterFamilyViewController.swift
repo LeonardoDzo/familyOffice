@@ -18,7 +18,7 @@
 //    func selected(users: [UserEntity]) {
 //    }
 //    
-//    var family: FamilyEntitie! = FamilyEntitie()
+//    var family: FamilyEntity! = FamilyEntity()
 //    var users: [User]! = []
 //    
 //    /// Variable para saber si cambio la foto o no para editar

@@ -1,5 +1,5 @@
 //
-//  FamilyEntitie.swift
+//  FamilyEntity.swift
 //  familyOffice
 //
 //  Created by Leonardo Durazo on 21/11/17.
@@ -11,7 +11,7 @@ import ReSwift
 import RealmSwift
 
 @objcMembers
-class FamilyEntitie : Object, Codable, Serializable {
+class FamilyEntity : Object, Codable, Serializable {
     dynamic var id : String = Constants.FirDatabase.REF.child("families").childByAutoId().key
     dynamic var name: String = ""
     dynamic var photoURL : String = ""

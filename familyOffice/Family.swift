@@ -176,7 +176,7 @@ extension FamilyBindable{
     }
 }
 protocol FamilyEBindable: AnyObject, bind {
-    var family: FamilyEntitie! {get set}
+    var family: FamilyEntity! {get set}
     var titleLbl: UIKit.UILabel! {get}
     var Image: UIImageViewX! {get}
     var photo: UIImageViewX! {get}
@@ -204,12 +204,12 @@ extension FamilyEBindable{
         return nil
     }
     func bind(sender: Any?) {
-        if sender is FamilyEntitie {
-            bind(fam: sender as! FamilyEntitie)
+        if sender is FamilyEntity {
+            bind(fam: sender as! FamilyEntity)
         }
         
     }
-    func bind(fam: FamilyEntitie){
+    func bind(fam: FamilyEntity){
         self.family = fam
         bind()
     }
@@ -235,7 +235,7 @@ extension FamilyEBindable{
             if(!(family.photoURL.isEmpty)){
                     imageBackground.loadImage(urlString: family.photoURL)
                 }else{
-                    imageBackground.image = #imageLiteral(resourceName: "familyImage")
+                    imageBackground.image = #imageLiteral(resourceName: "background_family")
                 }
             
         }
@@ -243,7 +243,7 @@ extension FamilyEBindable{
             if(!(family.photoURL.isEmpty)){
                 imageBackground.loadImage(urlString: family.photoURL)
             }else{
-                imageBackground.image = #imageLiteral(resourceName: "familyImage")
+                imageBackground.image = #imageLiteral(resourceName: "background_family")
             }
             
         }

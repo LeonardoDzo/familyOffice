@@ -16,7 +16,7 @@ struct AppState: StateType {
     var UserState: UserState
     var GoalsState : GoalState
     var FamilyState: FamilyState
-    
+    var EventState: EventState
     var GalleryState: GalleryState
     var ToDoListState: ToDoListState
     var ContactState: ContactState
@@ -29,7 +29,9 @@ struct AppState: StateType {
     var notifications = [NotificationModel]()
 }
 enum Result<T> {
+    
     case loading
+    case Loading(T)
     case failed
     case Failed(T)
     case finished
@@ -47,7 +49,7 @@ extension Result {
         }
         topController.view.hideToastActivity()
         switch self {
-        case .loading:
+        case .loading, .Loading(_):
             topController.view.makeToastActivity(.center)
             break
         case .failed, .Failed(_):

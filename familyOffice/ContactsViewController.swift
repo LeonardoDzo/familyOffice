@@ -14,7 +14,7 @@ class ContactsViewController: UIViewController, FamilyEBindable {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
     typealias StoreSubscriberStateType = UserState
-    var family : FamilyEntitie!
+    var family : FamilyEntity!
     var users = [UserEntity]()
     var contacts : [CNContact] = []
     

@@ -15,8 +15,19 @@ class memberEventEntity: Object, Codable, Serializable {
 
     dynamic var userId: String! = ""
     dynamic var status: EventStatus! = .none
-    dynamic var reminder: Int? = 0
+    dynamic var reminder: Int! = 0
     
+    private enum CodingKeys: String, CodingKey {
+        case userId,
+        status,
+        reminder
+    }
+    convenience required init(uid: String) {
+        self.init()
+        self.userId = uid
+        self.status = EventStatus.none
+        self.reminder = -1
+    }
 
     func statusImage() -> UIImage {
         var image : UIImage!

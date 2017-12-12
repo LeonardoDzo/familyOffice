@@ -20,11 +20,15 @@ protocol EventProtocol : EventConfig, EventDescription {
 }
 
 protocol EventDescription  {
-    func getDescription() -> String
     var status: Result<Any> {get set}
     var fromView: RoutingDestination! {get set}
     var id: String! {get set}
     
+}
+extension EventDescription {
+    func getDescription() -> String {
+        return self.status.description
+    }
 }
 
 @objcMembers

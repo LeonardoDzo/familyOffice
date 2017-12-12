@@ -16,7 +16,6 @@ let realmMiddleware: Middleware<Any> = { dispatch, getState in
         return { action in
             if let s = action as? EventDescription {
                 rManager.save(objs: EventProccess(builder: s))
-                print(rManager.getObjects(type: EventProccess.self))
             }
             // call next middleware
             return next(action)

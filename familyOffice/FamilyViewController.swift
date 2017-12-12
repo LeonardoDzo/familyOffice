@@ -89,7 +89,7 @@ class FamilyViewController: UIViewController, UIGestureRecognizerDelegate, Famil
         }else if segue.identifier == "ProfileSegue" {
             let viewController = segue.destination as! ProfileUserViewController
             if sender is User {
-                viewController.bind(userModel: sender as! User)
+                //viewController.bind(userModel: sender as! User)
             }
         }
     }
