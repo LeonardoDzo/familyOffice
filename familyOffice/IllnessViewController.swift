@@ -155,14 +155,14 @@ class IllnessViewController: UIViewController, UIScrollViewDelegate, UITableView
         if pageControl.currentPage == 0 {
             cell.title.text = medicines[indexPath.row].name
             cell.subtitle.text = medicines[indexPath.row].dosage
-            cell.desc.text = medicines[indexPath.row].indications + "\n" +
-                medicines[indexPath.row].restrictions + "\n" +
-                medicines[indexPath.row].moreInfo
+            cell.desc.text = "Indicaciones: " + medicines[indexPath.row].indications + "\n" +
+                "Restricciones: " + medicines[indexPath.row].restrictions + "\n" +
+                "Detalles: " + medicines[indexPath.row].moreInfo
         } else {
             cell.title.text = illnesses[indexPath.row].name
             cell.subtitle.text = illnesses[indexPath.row].dosage
-            cell.desc.text = illnesses[indexPath.row].medicine + "\n" +
-                illnesses[indexPath.row].moreInfo
+            cell.desc.text = "Medicina: " + illnesses[indexPath.row].medicine + "\n" +
+                "Detalles: " + illnesses[indexPath.row].moreInfo
         }
         return cell
     }
