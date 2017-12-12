@@ -10,10 +10,12 @@ import Foundation
 import ReSwift
 import RealmSwift
 import Firebase
+
+
 enum FamilyAction : description{
-    case insert(family: FamilyEntitie),
-    uploadImage(img: UIImage, family: FamilyEntitie),
-    update(family: FamilyEntitie),
+    case insert(family: FamilyEntity),
+    uploadImage(img: UIImage, family: FamilyEntity),
+    update(family: FamilyEntity),
     delete(fid: String),
     getbyId(fid: String),
     none
@@ -30,7 +32,7 @@ class FamilyS: Action, EventProtocol {
     var action: FamilyAction = .none
     
     var status: Result<Any> = .none
-    var id: String! = UUID().uuidString
+    var id: String!
     var fromView: RoutingDestination!
     
     init() {
@@ -39,6 +41,7 @@ class FamilyS: Action, EventProtocol {
     
     convenience init(_ action: FamilyAction) {
         self.init()
+        self.id = UUID().uuidString
         self.action = action
         status = .loading
         self.fromView = RoutingDestination(rawValue: UIApplication.topViewController()?.restorationIdentifier ?? "" )
@@ -50,14 +53,19 @@ class FamilyS: Action, EventProtocol {
     func delete(_ fid: String) {
         self.delete("families/\(fid)", callback: { deleted in
             if deleted {
-                store.state.FamilyState.status = .failed
+                if let family = rManager.realm.object(ofType: FamilyEntity.self, forPrimaryKey: fid) {
+                    rManager.deteObject(objs: family)
+                }
+                self.status = .Finished(self.action)
             }else{
-                store.state.FamilyState.status = .finished
+                 self.status = .Failed(self.action)
+              
             }
+             store.dispatch(self)
         })
     }
     
-    func create(family: FamilyEntitie) -> Void {
+    func create(family: FamilyEntity) -> Void {
         let ref = "families/\(family.id)"
         family.admins.append(RealmString(value: (Auth.auth().currentUser?.uid)!))
         family.members.append(RealmString(value: (Auth.auth().currentUser?.uid)!))
@@ -74,24 +82,32 @@ class FamilyS: Action, EventProtocol {
             })
         }
     }
-    func update(family: FamilyEntitie) -> Void {
+    func update(family: FamilyEntity) -> Void {
         let ref = "families/\(family.id)"
-        self.update(ref, value: family.toJSON()!, callback: { ref in
-            if ref is DatabaseReference {
-                rManager.save(objs: family)
-                self.status = .Finished(self.action)
-                store.dispatch(self)
-            }else{
-                self.status = .Failed(self.action)
-                store.dispatch(self)
-            }
-        })
+        if var famjson = family.toJSON() {
+            famjson["admins"] =  family.admins.toNSArrayByKey()
+            famjson["members"] = family.members.toNSArrayByKey()
+            self.update(ref, value: famjson, callback: { ref in
+                if ref is DatabaseReference {
+                    rManager.save(objs: family)
+                    self.status = .Finished(self.action)
+                    store.dispatch(self)
+                }else{
+                    self.status = .Failed(self.action)
+                    store.dispatch(self)
+                }
+            })
+        }else{
+            self.status = .Failed(self.action)
+            store.dispatch(self)
+        }
+        
     }
-    func uploadFamily(img: UIImage, family: FamilyEntitie) -> Void {
+    func uploadFamily(img: UIImage, family: FamilyEntity) -> Void {
         let imageName = NSUUID().uuidString
         self.uploadData("families/\(family.id)/images/\(imageName).jpg", value: img, callback: {(response) in
             if let metadata = response as? StorageMetadata {
-                if let editFamily = rManager.realm.object(ofType: FamilyEntitie.self, forPrimaryKey: family.id) {
+                if let editFamily = rManager.realm.object(ofType: FamilyEntity.self, forPrimaryKey: family.id) {
                     try! rManager.realm.write {
                         editFamily.photoURL = (metadata.downloadURL()?.absoluteString)!
                         editFamily.imageProfilePath = metadata.path!
@@ -131,9 +147,9 @@ extension FamilyS : RequestProtocol, RequestStorageSvc {
         do {
             if let dictionary = snapshot.value as? NSDictionary {
                 if let data = dictionary.jsonToData() {
-                    let family =  try JSONDecoder().decode(FamilyEntitie.self, from: data)
+                    let family =  try JSONDecoder().decode(FamilyEntity.self, from: data)
                     rManager.save(objs: family)
-                    print("Familias", FamilyEntitie.self)
+                    print("Familias", FamilyEntity.self)
                     self.status = .finished
                     store.dispatch(self)
                 }else{
@@ -155,14 +171,8 @@ extension FamilyS : RequestProtocol, RequestStorageSvc {
     }
     func removed(snapshot: DataSnapshot) {
         let key : String = snapshot.key
-        if let family = rManager.realm.object(ofType: FamilyEntitie.self, forPrimaryKey: key) {
+        if let family = rManager.realm.object(ofType: FamilyEntity.self, forPrimaryKey: key) {
             rManager.realm.delete(family)
-            //            if userStore?.familyActive == key {
-            //                if let family = store.state.FamilyState.families.items.first {
-            //                    // service.USER_SVC.selectFamily(family: family)
-            //                }
-            //
-            //            }
         }
         
     }
@@ -184,7 +194,7 @@ extension FamilyS : Reducer {
         state.status = self.status
         switch self.status {
             
-        case .loading:
+        case .loading,  .Loading(_):
             
             switch self.action {
             case .insert(let family):

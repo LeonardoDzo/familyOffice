@@ -28,8 +28,16 @@ class UserS : Action, EventProtocol {
         self.fromView = RoutingDestination(rawValue: UIApplication.topViewController()?.restorationIdentifier ?? "" )
     }
     
-    func selectFamily(family: FamilyEntitie) -> Void {
-        Constants.FirDatabase.REF_USERS.child((Auth.auth().currentUser?.uid)!).updateChildValues(["familyActive" : family.id])
+    func selectFamily(family: FamilyEntity) -> Void {
+        Constants.FirDatabase.REF_USERS.child((Auth.auth().currentUser?.uid)!).updateChildValues(["familyActive" : family.id], withCompletionBlock: { (error, ref) in
+                if error == nil {
+                    self.status = .Finished(self.action)
+                }else{
+                      self.status = .Failed(self.action)
+                }
+                store.dispatch(self)
+            })
+        
     }
     func getUsersByFamilyActive() -> Void {
         verifyUser { (user, exist) in
@@ -44,21 +52,24 @@ class UserS : Action, EventProtocol {
     }
     
     func getUser(byphone phone: String) -> Void {
+        let phone = phone.suffix(10)
         Constants.FirDatabase.REF_USERS.queryOrdered(byChild: "phone").queryEqual(toValue: phone).observeSingleEvent(of: .childAdded, with: {snapshot in
             if(snapshot.exists()){
-                let user = User(snapshot: snapshot)
-                self.status = .Finished(user)
+                
+                self.status = .Finished(self.action)
+                self.routing(snapshot: snapshot, action: .value, ref: "users/")
+            }else{
+                self.status = .Failed(self.action)
                 store.dispatch(self)
             }
         })
     }
-    func create(user: UserEntitie) -> Void {
+    func create(user: UserEntity) -> Void {
         
         if var userJson =  user.toJSON() {
             userJson["families"] = user.families.toNSArrayByKey(ofType: String.self) ?? []
             userJson["events"] = user.events.toNSArrayByKey(ofType: String.self) ?? []
             userJson["tokens"] = user.tokens.toNSArrayByKey(ofType: String.self) ?? []
-            
             self.insert("users/\(user.id)", value: userJson, callback: { ref in
                 if ref is DatabaseReference {
                     self.status = .Finished(user)
@@ -73,7 +84,7 @@ class UserS : Action, EventProtocol {
         }
     }
     
-    func update(user: UserEntitie, image: UIImage? ) -> Void {
+    func update(user: UserEntity, image: UIImage? ) -> Void {
         let user = user
         let ref = "users/\(user.id)"
         
@@ -109,12 +120,6 @@ class UserS : Action, EventProtocol {
             }
         }
     }
-    
-    
-    func getDescription() -> String {
-        return "\(self.action.description) \(self.status.description)"
-    }
-    
 }
 
 extension UserS : RequestProtocol {
@@ -124,7 +129,7 @@ extension UserS : RequestProtocol {
     func notExistSnapshot() {
         if case UserAction.getbyId(let uid) = self.action {
             if Auth.auth().currentUser?.uid == uid, let user = Auth.auth().currentUser {
-                let newuser = UserEntitie()
+                let newuser = UserEntity()
                 newuser.id = user.uid
                 newuser.name = user.displayName!
                 newuser.email = user.email!
@@ -137,7 +142,7 @@ extension UserS : RequestProtocol {
         do {
             if let snapshotValue = snapshot.value as? NSDictionary {
                 if let data = snapshotValue.jsonToData() {
-                    let user = try JSONDecoder().decode(UserEntitie.self, from: data)
+                    let user = try JSONDecoder().decode(UserEntity.self, from: data)
                     
                     self.status = .Finished(user)
                     rManager.save(objs: user)
@@ -147,6 +152,10 @@ extension UserS : RequestProtocol {
                         
                         for fid in user.families  {
                            store.dispatch(FamilyS(.getbyId(fid: fid.value)))
+                        }
+                        
+                        for eid in user.events {
+                            store.dispatch(EventSvc(.get(byId: eid.value)))
                         }
                         
                         service.NOTIFICATION_SERVICE.removeHandles()
@@ -188,7 +197,7 @@ extension UserS : Reducer {
         var state = state ?? UserState(users: .none, user: .none)
         state.user = self.status
         switch status {
-        case .loading:
+        case .loading, .Loading(_):
            
             switch self.action {
                 
@@ -220,7 +229,6 @@ extension UserS : Reducer {
                 break
             case .selectFamily(let family):
                 self.selectFamily(family: family)
-                rManager.save(objs: EventProccess(builder: self))
                 break
             case .none:
                 break
@@ -230,6 +238,7 @@ extension UserS : Reducer {
               state.user = self.status
             break
         case .finished, .Finished(_):
+            
               state.user = self.status
              break
          case .noFamilies, .none:

@@ -8,14 +8,11 @@
 
 import UIKit
 import Firebase
-struct Events {
-    var events: [Event]
-}
 
 class EventService {
-    public var events: [Event]
+    public var events: [EventEntity]
     var handles: [(String,UInt,DataEventType)] = []
-    private init(events: [Event]){
+    private init(events: [EventEntity]){
         self.events = events
     }
     
@@ -28,12 +25,7 @@ class EventService {
     private static let instance : EventService = EventService(events: [])
     
     func addEventlocal(snapshot: DataSnapshot) -> Void {
-        let event = Event.init(snapshot: snapshot)
-        
-        if !events.contains(where: {$0.id == event.id}){
-            events.append(event)
-            NotificationCenter.default.post(name: notCenter.SUCCESS_NOTIFICATION, object: event.id)
-        }
+       
     }
     func addEventToMember(uid: String, eid: String)-> Void {
         Constants.FirDatabase.REF_USERS.child("\(uid)/events").updateChildValues([eid:true])

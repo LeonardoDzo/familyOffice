@@ -19,7 +19,7 @@ enum GoalType: Int {
 }
 
 
-struct Goal: Serializable   {
+struct Goal   {
    
     
     typealias  g = Goal
@@ -57,7 +57,7 @@ struct Goal: Serializable   {
         self.startDate =  Date().toMillis()
         self.creator = (userStore?.id)!
         self.type = 0
-        self.repeatGoalModel = repeatGoal()
+        //self.repeatGoalModel = repeatGoal()
     }
     init(_ startDate: Int) {
         self.startDate = startDate
@@ -67,7 +67,7 @@ struct Goal: Serializable   {
     init(snapshot: DataSnapshot) throws {
         let snapshotValue = snapshot.value as! NSDictionary
         if let map = snapshotValue.jsonToData() {
-            self = try JSONDecoder().decode(Goal.self, from: map)
+           // self = try JSONDecoder().decode(Goal.self, from: map)
         }
         self.id = snapshot.key
         guard let follow = snapshotValue[g.kFollow] as? NSDictionary else {
@@ -87,9 +87,8 @@ struct Goal: Serializable   {
          self.list.enumerated().forEach({
             index, goal in
             if let value = follow?.value(forKey: String(goal.startDate)) as? NSDictionary {
-                
-                if let map = value.jsonToData() {
-                    let copy  = try! JSONDecoder().decode(Goal.self, from: map)
+                if value.jsonToData() != nil {
+                    let copy  = Goal()
                     self.list[index] = copy
                     if self.list[index].repeatGoalModel != nil {
                         follow?.setValue(nil, forKey: String(goal.startDate))
@@ -99,8 +98,6 @@ struct Goal: Serializable   {
                         updateGoals(follow: follow, date: self.list[index].startDate, repeatModel: self.list[index].repeatGoalModel!)
                     }
                 }
-              
-               
             }
         })
     }

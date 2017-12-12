@@ -8,15 +8,24 @@
 
 import Foundation
 import ReSwift
-import Firebase
 
+// Esto ya estaba aqui pero creo que no se usa
+//struct RequestAction: Action {
+//    var service: Any!
+//    var snapshot: DataSnapshot!
+//    init(service: RequestService, snapshot: DataSnapshot) {
+//        self.service = service
+//        self.snapshot = snapshot
+//    }
+//
+//}
 
-struct RequestAction: Action {
-    var service: Any!
-    var snapshot: DataSnapshot!
-    init(service: RequestService, snapshot: DataSnapshot) {
-        self.service = service
-        self.snapshot = snapshot
-    }
+enum RequestError : Error {
+    case NotFound, NotJson, NotData
+}
 
+enum RequestAction: Action {
+    case Loading(uuid: String)
+    case Done(uuid: String)
+    case Error(err: RequestError, uuid: String)
 }

@@ -12,10 +12,10 @@ import Firebase
 import ReSwift
 
 class UserPersonalFormViewController: FormViewController {
-    var user : UserEntitie!
+    var user : UserEntity!
     override func viewDidLoad() {
         super.viewDidLoad()
-        user = rManager.realm.object(ofType: UserEntitie.self, forPrimaryKey: Auth.auth().currentUser?.uid)
+        user = rManager.realm.object(ofType: UserEntity.self, forPrimaryKey: Auth.auth().currentUser?.uid)
         let addbtn = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.update))
         self.navigationItem.rightBarButtonItem = addbtn
    

@@ -2,10 +2,9 @@
 //  LocationSearchTable.swift
 //  familyOffice
 //
-//  Created by Leonardo Durazo on 08/06/17.
+//  Created by Leonardo Durazo on 06/12/17.
 //  Copyright © 2017 Leonardo Durazo. All rights reserved.
 //
-
 import UIKit
 import MapKit
 
@@ -14,7 +13,7 @@ class LocationSearchTable : UITableViewController {
     var matchingItems:[MKMapItem] = []
     var mapView: MKMapView? = nil
     
-    func parseAddress(_ selectedItem:MKPlacemark) -> String {
+    func parseAddress(selectedItem:MKPlacemark) -> String {
         // put a space between "4" and "Melrose Place"
         let firstSpace = (selectedItem.subThoroughfare != nil && selectedItem.thoroughfare != nil) ? " " : ""
         // put a comma between street and city/state
@@ -55,6 +54,8 @@ extension LocationSearchTable : UISearchResultsUpdating {
             self.tableView.reloadData()
         }
     }
+    
+   
 }
 
 extension LocationSearchTable {
@@ -63,10 +64,10 @@ extension LocationSearchTable {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let selectedItem = matchingItems[indexPath.row].placemark
         cell.textLabel?.text = selectedItem.name
-        cell.detailTextLabel?.text = parseAddress(selectedItem)
+        cell.detailTextLabel?.text = parseAddress(selectedItem: selectedItem)
         return cell
     }
 }
@@ -74,7 +75,7 @@ extension LocationSearchTable {
 extension LocationSearchTable {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedItem = matchingItems[indexPath.row].placemark
-        handleMapSearchDelegate?.dropPinZoomIn(selectedItem)
+        handleMapSearchDelegate?.dropPinZoomIn(placemark: selectedItem)
         dismiss(animated: true, completion: nil)
     }
 }

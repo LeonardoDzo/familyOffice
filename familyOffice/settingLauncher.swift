@@ -12,9 +12,9 @@ import Firebase
 
 class SettingLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate {
     var fid = ""
-    var families : Results<FamilyEntitie>!
+    var families : Results<FamilyEntity>!
     let blackView = UIView()
-    var user : UserEntitie!
+    var user : UserEntity!
     weak var handleFamily : HandleFamilySelected!
     let collectionView = { () -> UICollectionView in
         let layout = UICollectionViewFlowLayout()
@@ -25,11 +25,11 @@ class SettingLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectio
     
     func showSetting() {
         if user == nil {
-            user = rManager.realm.object(ofType: UserEntitie.self, forPrimaryKey: Auth.auth().currentUser?.uid)
+            user = rManager.realm.object(ofType: UserEntity.self, forPrimaryKey: Auth.auth().currentUser?.uid)
         }
         
         fid = user.familyActive
-        families = rManager.realm.objects(FamilyEntitie.self)
+        families = rManager.realm.objects(FamilyEntity.self)
         if let window = UIApplication.shared.keyWindow {
             blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
             blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))

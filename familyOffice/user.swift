@@ -206,38 +206,88 @@ extension UserModelBindable {
     }
 }
 
-
-protocol UserEModelBindable: AnyObject {
-    var userModel: UserEntitie! { get set }
-    var filter: String! { get set}
-    var nameLabel: UILabel! {get}
-    var profileImage: UIImageViewX! {get}
-    var phoneLbl: UILabel! {get}
+protocol Base {
+    var titleLbl : UILabel! {get}
+    var subtitleLbl : UILabel! {get}
+    var photo : UIImageViewX! {get}
+    
 }
 
-extension UserEModelBindable {
+
+protocol UserEModelBindable: AnyObject, bind, Base {
+    var userModel: UserEntity! { get set }
+    var nameLabel: UILabel! {get}
+    var phoneLbl: UILabel! {get}
+    var familycounterLbl: UILabel! {get}
+    var profileImage: UIImageViewX! {get}
+    var birthdaylbl: UILabel!  {get}
+    var bloodtypeLbl: UILabel!  {get}
+    var addressLbl: UILabel!  {get}
+    var rfcLbl: UILabel!  {get}
+    var nssLbl: UILabel! {get}
+}
+
+extension UserEModelBindable  {
     // Make the views optionals
     
     var nameLabel: UILabel! {
         return nil
     }
+    var addressLbl: UILabel! {
+        return nil
+    }
+    var titleLbl : UILabel! {
+        return nil
+    }
+    var birthdaylbl: UILabel! {
+        return nil
+    }
+    var bloodtypeLbl: UILabel! {
+        return nil
+    }
+    var rfcLbl: UILabel! {
+        return nil
+    }
+    var nssLbl: UILabel! {
+        return nil
+    }
+    var phoneLbl: UILabel! {
+        return nil
+    }
+    var subtitleLbl : UILabel! {
+        return nil
+    }
+    var photo : UIImageViewX! {
+        return nil
+    }
+    var familycounterLbl: UILabel! {
+        return nil
+    }
+    
     
     var profileImage: UIImageViewX! {
         return nil
     }
     
-    var phoneLbl : UILabel! {
-        return nil
+    
+    func bind(sender: Any?) -> Void {
+        if sender is UserEntity {
+            bind(userModel: sender as! UserEntity)
+        }
     }
-    
-    
     
     // Bind
     
-    func bind(userModel: UserEntitie, filter: String = "") {
+    func bind(userModel: UserEntity, filter: String = "") {
         self.userModel = userModel
-        self.filter = filter
         bind()
+    }
+    func bind(id: String) {
+        if let user = rManager.realm.object(ofType: UserEntity.self, forPrimaryKey: id) {
+            self.bind(userModel: user)
+        }else{
+            store.dispatch(UserS(.getbyId(uid: id)))
+        }
     }
     
     func bind() {
@@ -247,21 +297,53 @@ extension UserEModelBindable {
         }
         
         if let nameLabel = self.nameLabel {
-            nameLabel.text = userModel.name
+            nameLabel.text = userModel.name.uppercased()
+        }
+        if let titleLbl = self.titleLbl {
+            titleLbl.text = userModel.name.uppercased()
+        }
+        if let subtitle = self.subtitleLbl {
+            subtitle.text = userModel.phone
+        }
+        
+        if let photo = self.photo {
+            if !userModel.photoURL.isEmpty {
+                photo.loadImage(urlString: userModel.photoURL)
+            }else{
+                photo.backgroundColor = UIColor.gray
+            }
+        }
+        if let familycounterLbl = self.familycounterLbl {
+            familycounterLbl.text = userModel.families.count > 0 ? "\(userModel.families.count) FAMILIAS" : "SIN FAMILIAS"
         }
         if let phoneLbl = self.phoneLbl {
             phoneLbl.text = userModel.phone
         }
         
-        
         if let profileImage = self.profileImage {
             if !userModel.photoURL.isEmpty {
-                profileImage.loadImage(urlString: userModel.photoURL, filter: filter)
+                profileImage.loadImage(urlString: userModel.photoURL)
             }else{
                 profileImage.image = #imageLiteral(resourceName: "profile_default")
             }
         }
         
+        if let rfclbl = self.rfcLbl {
+            rfcLbl.text = self.userModel.rfc
+        }
+        if let nssLbl = self.nssLbl {
+            nssLbl.text = self.userModel.nss
+        }
+        if let bloodtypelbl = self.bloodtypeLbl {
+            bloodtypelbl.text = self.userModel.bloodtype
+        }
+        if let birthdaylbl = self.birthdaylbl {
+            birthdaylbl.text = "Sin capturar"
+            if self.userModel.birthday != "" {
+                  birthdaylbl.text = Date(timeIntervalSince1970: TimeInterval(Int(self.userModel.birthday)!/1000)).string(with: .ddMMMyyyy)
+            }
+          
+        }
         
     }
 }

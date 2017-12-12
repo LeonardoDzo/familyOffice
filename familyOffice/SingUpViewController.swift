@@ -91,7 +91,7 @@ class SingUpViewController: UIViewController, UITextFieldDelegate, GIDSignInUIDe
         
         Auth.auth().createUser(withEmail: email, password: pass) { (user, error) in
             if(error == nil){
-                var newuser = UserEntitie()
+                var newuser = UserEntity()
                 newuser.id = user!.uid
                 newuser.name = name
                 newuser.phone = phone

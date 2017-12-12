@@ -10,12 +10,13 @@ import UIKit
 import Firebase
 import Toast_Swift
 import RealmSwift
+import ReSwift
 
 private let reuseIdentifier = "cell"
 
 class FamilyCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate  {
     @IBOutlet weak var mainView: UIView!
-    var families : Results<FamilyEntitie>!
+    var families : Results<FamilyEntity>!
     typealias StoreSubscriberStateType = FamilyState
     //Internal var
     var indexP : IndexPath? = nil
@@ -33,17 +34,7 @@ class FamilyCollectionViewController: UIViewController, UICollectionViewDelegate
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier=="changeScreen" {
-            let viewController = segue.destination as! FamilyViewController
-            if sender is Family {
-                viewController.bind(fam: sender as! Family)
-            }
-        }
-    }
+
     
     func initialConf() -> Void {
         let lpgr = UILongPressGestureRecognizer(target: self, action:#selector(handleLongPress(gestureReconizer:)))
@@ -54,7 +45,7 @@ class FamilyCollectionViewController: UIViewController, UICollectionViewDelegate
         
         self.familyCollection.layer.cornerRadius = 8
         self.familyCollection.clipsToBounds = true
-        families = rManager.realm.objects(FamilyEntitie.self)
+        families = rManager.realm.objects(FamilyEntity.self)
         self.mainView.formatView()
         
     }
@@ -74,7 +65,7 @@ extension FamilyCollectionViewController {
         if(indexPath.row == families.count){
             
         }else{
-            self.performSegue(withIdentifier: "changeScreen", sender: families[indexPath.row])
+            self.pushToView(view: .profileFamily, sender: families[indexPath.row])
         }
     }
     
@@ -96,6 +87,88 @@ extension FamilyCollectionViewController {
     }
     
    
+}
+extension FamilyCollectionViewController: StoreSubscriber {
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        store.subscribe(self) {
+            subcription in
+            subcription.select { state in state.FamilyState }
+        }
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        store.unsubscribe(self)
+    }
+    
+    func newState(state: FamilyState) {
+        self.view.hideToastActivity()
+        switch state.status {
+        case .loading:
+            self.view.makeToastActivity(.center)
+            break
+        case .finished:
+            families = rManager.realm.objects(FamilyEntity.self)
+            self.familyCollection.reloadData()
+            break
+        case .Finished(let action as FamilyAction) :
+            if case FamilyAction.delete(_) = action {
+                self.familyCollection.reloadData()
+            }
+            break
+        default:
+            break
+        }
+        
+    }
+    
+    @objc func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
+        let point: CGPoint = gestureReconizer.location(in: self.familyCollection)
+        let indexPath = self.familyCollection?.indexPathForItem(at: point)
+        
+        if (indexPath != nil && (indexPath?.row)! < families.count) {
+            switch gestureReconizer.state {
+            case .began:
+                let family = families[(indexPath?.row)!]
+                
+                // create the alert
+                let alert = UIAlertController(title: family.name, message: "¿Qué deseas hacer?", preferredStyle: UIAlertControllerStyle.alert)
+                
+                // add the actions (buttons)
+                alert.addAction(UIAlertAction(title: "Seleccionar", style: UIAlertActionStyle.default, handler: {action in
+                        self.toggleSelect(family: family)
+                }))
+                alert.addAction(UIAlertAction(title: "Cancelar", style: UIAlertActionStyle.cancel, handler: nil))
+                
+                alert.addAction(UIAlertAction(title: "Eliminar", style: UIAlertActionStyle.destructive, handler:  { action in
+                    
+                        self.togglePendingDelete(family: family)
+                        //self.collectionView?.deleteItems(at: [indexPath!])
+                }))
+                // show the alert
+                self.present(alert, animated: true, completion: nil)
+                break
+            case .ended:
+                break
+            default:
+                break
+            }
+        }
+    }
+    
+    func toggleSelect(family: FamilyEntity){
+        store.dispatch(UserS(.selectFamily(family: family)))
+    }
+    
+    func togglePendingDelete(family: FamilyEntity) -> Void
+    {
+        store.dispatch(FamilyS(.delete(fid: family.id)))
+    }
+    
+    
+    
 }
 
 

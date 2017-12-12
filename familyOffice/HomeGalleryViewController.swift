@@ -52,7 +52,7 @@ class HomeGalleryViewController: UIViewController, UITabBarDelegate, HandleFamil
         self.tabBar.selectedItem = self.tabBar.items?[0]
         self.ChangeSelected()
     }
-    @objc func back() -> Void {
+    @objc override func back() -> Void {
         self.dismiss(animated: true, completion: nil)
     }
 

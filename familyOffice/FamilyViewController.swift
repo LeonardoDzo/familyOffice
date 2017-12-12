@@ -85,14 +85,11 @@ class FamilyViewController: UIViewController, UIGestureRecognizerDelegate, Famil
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier=="editSegue"{
-            let vc = segue.destination as! RegisterFamilyViewController
-            if sender is FamilyEntitie {
-                vc.bind(fam: sender as! FamilyEntitie)
-            }
+           
         }else if segue.identifier == "ProfileSegue" {
             let viewController = segue.destination as! ProfileUserViewController
             if sender is User {
-                viewController.bind(userModel: sender as! User)
+                //viewController.bind(userModel: sender as! User)
             }
         }
     }

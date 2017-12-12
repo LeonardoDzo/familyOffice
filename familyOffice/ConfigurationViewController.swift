@@ -11,30 +11,21 @@ import FirebaseAuth
 import ALCameraViewController
 import ReSwift
 class ConfigurationViewController: UIViewController, UIImagePickerControllerDelegate,
-UINavigationControllerDelegate  {
-    var user: UserEntitie!
-    @IBOutlet weak var profileImage: UIImageView!
+UINavigationControllerDelegate, UserEModelBindable  {
+    var userModel: UserEntity!
+    @IBOutlet weak var photo: UIImageView!
     @IBOutlet weak var containerView: UIView!
     let picker = UIImagePickerController()
     var chosenImage: UIImage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        user = rManager.realm.object(ofType: UserEntitie.self, forPrimaryKey: Auth.auth().currentUser?.uid)
-        self.profileImage.layer.cornerRadius = self.profileImage.frame.size.width/2
-        self.profileImage.clipsToBounds = true
+        self.setupBack()
         picker.delegate = self
         style_1()
         self.containerView.formatView()
-        self.profileImage.profileUser()
-        profileImage.loadImage(urlString: user.photoURL)
     }
     override func viewWillAppear(_ animated: Bool) {
-        getUser(closure: { (user) in
-            if user != nil {
-                self.user = user
-            }
-        })
        
         store.subscribe(self) {
             $0.select({
@@ -74,7 +65,7 @@ UINavigationControllerDelegate  {
                     self?.dismiss(animated: true, completion: nil)
                     return
                 }
-                store.dispatch( UserS(.update(user: (self?.user)!, img: image)))
+                store.dispatch( UserS(.update(user: (self?.userModel)!, img: image)))
                 self?.dismiss(animated: true, completion: nil)
             }
             
@@ -91,7 +82,7 @@ UINavigationControllerDelegate  {
                     self?.dismiss(animated: true, completion: nil)
                     return
                 }
-                store.dispatch( UserS(.update(user: (self?.user)!, img: image)))
+                store.dispatch( UserS(.update(user: (self?.userModel)!, img: image)))
                 self?.dismiss(animated: true, completion: nil)
             }
             
@@ -133,7 +124,7 @@ extension ConfigurationViewController : StoreSubscriber {
             self.view.makeToastActivity(.center)
             break
         case .Finished(_ as UserAction):
-            profileImage.loadImage(urlString: user.photoURL)
+            self.bind()
             break
         case .Failed(_ as UserAction):
             self.view.makeToast("Algo salio mal", duration: 3.0, position: .center)

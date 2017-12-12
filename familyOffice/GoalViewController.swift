@@ -84,7 +84,7 @@ class GoalViewController: UIViewController, StoreSubscriber, UITabBarDelegate, G
     @objc func handleEdit() -> Void {
         self.performSegue(withIdentifier: "addSegue", sender: goal)
     }
-    @objc func back() -> Void {
+    @objc override func back() -> Void {
         _ = self.navigationController?.popViewController(animated: true)
     }
     
