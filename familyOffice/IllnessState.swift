@@ -9,7 +9,7 @@
 import Foundation
 import ReSwift
 
-struct IllnessState: StateType{
+struct IllnessState: StateType {
     var illnesses: [String:[Illness]] = [:]
     var status : Result<Any> = .none
 }
