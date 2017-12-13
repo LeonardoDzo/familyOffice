@@ -55,7 +55,8 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
-                <outlet property="descriptionLbl" destination="UZl-T2-GI0" id="jbP-us-kvW"/>
+                <outlet property="backgroundType" destination="9l7-Yu-K64" id="ibN-Az-wh0"/>
+                <outlet property="detailsLbl" destination="UZl-T2-GI0" id="FU6-cx-PPY"/>
                 <outlet property="hourLbl" destination="IwH-zm-RDK" id="RpR-X3-fpK"/>
                 <outlet property="titleLbl" destination="znS-L9-kBL" id="0HS-di-N47"/>
             </connections>

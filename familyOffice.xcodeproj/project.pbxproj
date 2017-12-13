@@ -36,6 +36,7 @@
 		023796CF1FD071AD007FF309 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		02382F0D1E1C210C0036FFC9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02382F0C1E1C210C0036FFC9 /* AppDelegate.swift */; };
 		02382F2D1E1C210C0036FFC9 /* familyOfficeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02382F2C1E1C210C0036FFC9 /* familyOfficeUITests.swift */; };
+		023C980B1FE0B48C00070A21 /* EventBindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023C980A1FE0B48C00070A21 /* EventBindable.swift */; };
 		023D2B501EC22A5100CA19FE /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023D2B4F1EC22A5100CA19FE /* Value.swift */; };
 		023DFBBB1EBBACBD000BEFFB /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023DFBBA1EBBACBD000BEFFB /* Location.swift */; };
 		023F9CEF1E1C39D300420217 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F9CEE1E1C39D300420217 /* AuthService.swift */; };
@@ -140,8 +141,10 @@
 		02B7E7FA1E7C614A0082BAE7 /* settingLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B7E7F91E7C614A0082BAE7 /* settingLauncher.swift */; };
 		02B7E7FC1E7C7A0E0082BAE7 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B7E7FB1E7C7A0E0082BAE7 /* UIView.swift */; };
 		02B876451E1C677C005E5473 /* SingUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B876441E1C677C005E5473 /* SingUpViewController.swift */; };
+		02BAEFAD1FE192BF00ABBDBA /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BAEFAC1FE192BF00ABBDBA /* EventCell.swift */; };
+		02BAEFAF1FE1962B00ABBDBA /* RepeatEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BAEFAE1FE1962B00ABBDBA /* RepeatEntity.swift */; };
 		02BB5BBF1FD1EFD3009DC479 /* mainCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BB5BBE1FD1EFD3009DC479 /* mainCalendarViewController.swift */; };
-		02BC16EF1EE9C8C100722689 /* memberEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BC16EE1EE9C8C100722689 /* memberEvent.swift */; };
+		02BC16EF1EE9C8C100722689 /* MemberEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BC16EE1EE9C8C100722689 /* MemberEvent.swift */; };
 		02BC16F51EE9E32900722689 /* UIBarbutton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BC16F41EE9E32900722689 /* UIBarbutton.swift */; };
 		02BD2D1C1E1F16A700A61A84 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BD2D1B1E1F16A700A61A84 /* Utility.swift */; };
 		02C17D271E424AD400EE7CFA /* ActivityLogService .swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C17D261E424AD400EE7CFA /* ActivityLogService .swift */; };
@@ -343,6 +346,7 @@
 		02382F281E1C210C0036FFC9 /* familyOfficeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = familyOfficeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		02382F2C1E1C210C0036FFC9 /* familyOfficeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = familyOfficeUITests.swift; sourceTree = "<group>"; };
 		02382F2E1E1C210C0036FFC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		023C980A1FE0B48C00070A21 /* EventBindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventBindable.swift; sourceTree = "<group>"; };
 		023D2B4F1EC22A5100CA19FE /* Value.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Value.swift; sourceTree = "<group>"; };
 		023DFBBA1EBBACBD000BEFFB /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		023F9CEE1E1C39D300420217 /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AuthService.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -441,8 +445,10 @@
 		02B82AC41E8AE50B00E41E32 /* Calendar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Calendar.storyboard; sourceTree = "<group>"; };
 		02B82AC61E8AE52600E41E32 /* Chat.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
 		02B876441E1C677C005E5473 /* SingUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingUpViewController.swift; sourceTree = "<group>"; };
+		02BAEFAC1FE192BF00ABBDBA /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
+		02BAEFAE1FE1962B00ABBDBA /* RepeatEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatEntity.swift; sourceTree = "<group>"; };
 		02BB5BBE1FD1EFD3009DC479 /* mainCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainCalendarViewController.swift; sourceTree = "<group>"; };
-		02BC16EE1EE9C8C100722689 /* memberEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = memberEvent.swift; sourceTree = "<group>"; };
+		02BC16EE1EE9C8C100722689 /* MemberEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberEvent.swift; sourceTree = "<group>"; };
 		02BC16F41EE9E32900722689 /* UIBarbutton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBarbutton.swift; sourceTree = "<group>"; };
 		02BD2D1B1E1F16A700A61A84 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		02C17D261E424AD400EE7CFA /* ActivityLogService .swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = "ActivityLogService .swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -1021,6 +1027,7 @@
 				02B2D3141FD22FA2009D22ED /* PreviewEvent.xib */,
 				02F537BC1FD5C90900F916AD /* familyTableViewCell.swift */,
 				020216ED1FD61F6F00777F8C /* PreviewEvent.swift */,
+				02BAEFAC1FE192BF00ABBDBA /* EventCell.swift */,
 			);
 			name = cell;
 			sourceTree = "<group>";
@@ -1188,8 +1195,10 @@
 			children = (
 				023DFBBA1EBBACBD000BEFFB /* Location.swift */,
 				027213A81E848509001A144B /* Event.swift */,
-				02BC16EE1EE9C8C100722689 /* memberEvent.swift */,
+				02BC16EE1EE9C8C100722689 /* MemberEvent.swift */,
 				0240C7D31FCE242E005B8774 /* EventEntity.swift */,
+				023C980A1FE0B48C00070A21 /* EventBindable.swift */,
+				02BAEFAE1FE1962B00ABBDBA /* RepeatEntity.swift */,
 			);
 			name = Event;
 			sourceTree = "<group>";
@@ -2041,6 +2050,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02BAEFAF1FE1962B00ABBDBA /* RepeatEntity.swift in Sources */,
 				02811B331F06AE9E004231BE /* GoalViewController.swift in Sources */,
 				02C17D2B1E42796700EE7CFA /* recordTableViewCell.swift in Sources */,
 				0268D96E1FD7189E00991876 /* UIVisualEffectViewX.swift in Sources */,
@@ -2057,6 +2067,7 @@
 				02D19FAE1FBA25D200D4E9B3 /* Serializable.swift in Sources */,
 				02002BFB1E82074E007191CC /* BaseTableViewCell.swift in Sources */,
 				029F65931F15446100C3A0A7 /* ContactService.swift in Sources */,
+				02BAEFAD1FE192BF00ABBDBA /* EventCell.swift in Sources */,
 				02441D9A1F16A3E500EA8202 /* CalendarOpenViewController.swift in Sources */,
 				8B90F0001F5DD88A00C27513 /* ImageCollectionViewCell.swift in Sources */,
 				02F537BB1FD5C71F00F916AD /* PreHomeViewController.swift in Sources */,
@@ -2114,8 +2125,9 @@
 				0271DD4F1E2EB1FB002C101B /* FamilyMemberTableViewCell.swift in Sources */,
 				84CCA3961F1AB76F00B1C9D0 /* UIString.swift in Sources */,
 				84C721211ED7502700381FB7 /* AddHealthViewController.swift in Sources */,
-				02BC16EF1EE9C8C100722689 /* memberEvent.swift in Sources */,
+				02BC16EF1EE9C8C100722689 /* MemberEvent.swift in Sources */,
 				02C414BF1E95C70A00045459 /* DateFormatter.swift in Sources */,
+				023C980B1FE0B48C00070A21 /* EventBindable.swift in Sources */,
 				02F5EDC41ED4B9F500BCDF84 /* CGFloat.swift in Sources */,
 				0282DDA21F290D0000FBB31B /* NotificationsTableViewController.swift in Sources */,
 				02811B451F06EBDE004231BE /* GoalState.swift in Sources */,

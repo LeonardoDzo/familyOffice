@@ -122,7 +122,7 @@ extension List {
             if let val = key as? RealmString {
                 dic[val.value] = true
             }else if let val = key as? memberEventEntity {
-                dic[val.userId] = val.toJSON()!
+                dic[val.id] = val.toJSON()!
             }
         })
         return dic

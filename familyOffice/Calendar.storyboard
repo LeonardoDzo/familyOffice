@@ -38,6 +38,24 @@
             </objects>
             <point key="canvasLocation" x="-1024" y="3315"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="nhk-Ii-dmB">
+            <objects>
+                <viewController id="gW0-tS-mt1" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="sR4-UO-L8E"/>
+                        <viewControllerLayoutGuide type="bottom" id="Vrd-ng-4dF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="PVO-py-gac">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L5W-qQ-AZa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-990" y="4249"/>
+        </scene>
         <!--Event View Controller-->
         <scene sceneID="VXx-Zl-PSE">
             <objects>
@@ -107,7 +125,7 @@
                                 <color key="backgroundColor" red="0.98432296514511108" green="0.9843018651008606" blue="0.98430591821670532" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="100" id="rC3-83-HTS">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="100" id="rC3-83-HTS" customClass="EventCell" customModule="familyOffice" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rC3-83-HTS" id="oje-0N-vtY">
@@ -169,6 +187,11 @@
                                                 <constraint firstItem="bCj-3r-v1L" firstAttribute="leading" secondItem="qA2-m0-3vx" secondAttribute="leading" id="ztH-9O-fyl"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="dateLbl" destination="Fn5-Ks-21H" id="Nyd-JN-9A8"/>
+                                            <outlet property="detailsLbl" destination="qA2-m0-3vx" id="Nfp-Ar-Fkz"/>
+                                            <outlet property="titleLbl" destination="bCj-3r-v1L" id="28E-2R-vuI"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -206,7 +229,7 @@
             </objects>
             <point key="canvasLocation" x="-2786.4000000000001" y="3292.8035982008996"/>
         </scene>
-        <!--All Events View Controller-->
+        <!--Data Source-->
         <scene sceneID="cHU-5v-5UH">
             <objects>
                 <viewController storyboardIdentifier="AllEventsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="yUn-nN-Sy0" customClass="AllEventsViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
@@ -225,7 +248,7 @@
                                     <constraint firstAttribute="height" constant="316" id="Fa3-ci-uX2"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="150" id="oUt-7s-jjM">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="150" id="oUt-7s-jjM" customClass="EventCell" customModule="familyOffice" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="150"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oUt-7s-jjM" id="8t2-AY-bea">
@@ -302,6 +325,11 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="Xh2-zf-3sN" secondAttribute="bottom" constant="87" id="na2-xd-vyk"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="detailsLbl" destination="vXI-VG-KSf" id="1Mi-7l-dee"/>
+                                            <outlet property="hourLbl" destination="Xh2-zf-3sN" id="SOe-WP-NWo"/>
+                                            <outlet property="titleLbl" destination="fVp-5g-Qd8" id="67g-QV-adx"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -333,6 +361,10 @@
                                         <color key="value" red="0.45453980939999999" green="0.38150433820000001" blue="0.68841737690000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="dataSource" destination="yUn-nN-Sy0" id="dBR-xu-3yc"/>
+                                    <outlet property="delegate" destination="yUn-nN-Sy0" id="YXo-1y-H0u"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.98432296509999995" green="0.98430186509999995" blue="0.98430591820000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -347,6 +379,10 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="calendar_event" id="lDK-My-oyF"/>
+                    <connections>
+                        <outlet property="calendar" destination="Mc9-x9-5Dd" id="iBI-Av-Sjy"/>
+                        <outlet property="tableView" destination="8Xj-7o-bx4" id="KBx-IU-iPH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lFb-9F-4H4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

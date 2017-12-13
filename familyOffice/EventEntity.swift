@@ -14,14 +14,12 @@ import RealmSwift
 @objcMembers
 class EventEntity: Object, Codable, Serializable {
     
-    /// Required
     dynamic var id: String! = ""
-    dynamic var startdate: Int!  = 0
-    dynamic var enddate: Int! = 0
     
+   
     dynamic var location: Location? = nil
     dynamic var creator: String? = nil
-    dynamic var type: eventType? = nil
+    dynamic var eventtype: eventType! = .Default
     dynamic var repeatmodel: repeatEntity? = nil
     dynamic var title: String? = "sin título"
     dynamic var details: String? = nil
@@ -31,8 +29,10 @@ class EventEntity: Object, Codable, Serializable {
     dynamic var changesforAll = false
     var following = List<EventEntity>()
     var members = List<memberEventEntity>()
-    
     let myEvents = List<EventEntity>()
+    dynamic var startdate: Int = 0
+    dynamic var enddate: Int = 0
+    dynamic var admin = ""
     
     private enum CodingKeys: String, CodingKey {
         case title,
@@ -43,7 +43,7 @@ class EventEntity: Object, Codable, Serializable {
         priority,
         creator,
         repeatmodel,
-        type,
+        eventtype,
         id,
         location
     }
@@ -67,7 +67,7 @@ class EventEntity: Object, Codable, Serializable {
         self.creator = try container.decodeIfPresent(String.self, forKey: .creator)
         self.details = try container.decodeIfPresent(String.self, forKey: .details)
         self.repeatmodel = try container.decodeIfPresent(repeatEntity.self, forKey: .repeatmodel)
-        self.type = try container.decodeIfPresent(eventType.self, forKey: .type)
+        self.eventtype = (try container.decodeIfPresent(eventType.self, forKey: .eventtype))!
         self.isAllDay = try container.decodeIfPresent(Bool.self, forKey: .isAllDay)
         self.priority = try container.decodeIfPresent(Priority.self, forKey: .priority)
         self.title = try container.decodeIfPresent(String.self, forKey: .title)
@@ -82,17 +82,14 @@ class EventEntity: Object, Codable, Serializable {
         }){
             self.members.append(objectsIn: value)
         }
-        
+        if let val = repeatmodel?.frequency, case val = Frequency.never {
+            update(date: self.startdate, repeatModel: self.repeatmodel!)
+        }
     }
     
     override public static func primaryKey() -> String? {
         return "id"
     }
-    
-    override static func ignoredProperties() -> [String] {
-        return ["members", "following"]
-    }
-    
     
     func update(date: Int, repeatModel: repeatEntity) -> Void {
         self.createDates(repeatModel: repeatmodel!, startDate: date)
@@ -131,10 +128,10 @@ class EventEntity: Object, Codable, Serializable {
         }
     }
     
-    func createDates(repeatModel: repeatEntity, startDate: Int) {
+    func createDates(repeatModel: repeatEntity, startDate: Int, until: Int = 30) {
         var startDate : Int? = startDate
-        var i = 200
-        while startdate != -1 && i > 0 {
+        var i = until
+        while startdate != nil && i > 0 {
             let event = EventEntity()
             let difference = self.startdate - self.enddate
             startDate = nextDate(currentDate: startDate!, repeatM: repeatModel)
@@ -184,56 +181,10 @@ class EventEntity: Object, Codable, Serializable {
         if var json = self.toJSON() {
             json["members"] = self.members.toNSArrayByKey() ?? ""
             json["following"] = self.following.toNSArrayByKey() ?? ""
-            json["repeatmodel"] = self.repeatmodel?.toDictionary() ?? ""
+            json["repeatmodel"] = self.repeatmodel?.toDictionary() ?? nil
             return json
         }
         return nil
     }
 }
 
-@objcMembers
-class repeatEntity: Object, Codable, Serializable, repeatProtocol {
-    
-    var days: String?  = ""
-    let _days = List<RealmString>()
-    dynamic var frequency: Frequency! = .never
-    dynamic var interval: Int? = 0
-    dynamic var end: Int? = -1
-    
-    
-    private enum CodingKeys: String, CodingKey {
-        case days,
-        frequency,
-        interval,
-        end
-    }
-    
-    required convenience init(from decoder: Decoder) throws {
-        self.init()
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        frequency = try container.decode(Frequency.self, forKey: .frequency)
-        interval = try container.decodeIfPresent(Int.self, forKey: .interval)
-        end = try container.decodeIfPresent(Int.self, forKey: .end)
-        
-        if let val = try container.decodeIfPresent(String.self, forKey: .days)?.components(separatedBy: ",").map({ (key) -> RealmString in
-            return RealmString(value: key)
-        }) {
-            self._days.append(objectsIn: val)
-        }
-    }
-    func toDictionary() -> [String:Any]? {
-        if var json = self.toJSON() {
-            let arrayString = self._days.map({ (rs) -> String in
-                return rs.value
-            })
-            json["days"] = arrayString.joined(separator: ",")
-            return json
-        }
-        return nil
-    }
-    
-    override static func ignoredProperties() -> [String] {
-        return ["days"]
-    }
-    
-}

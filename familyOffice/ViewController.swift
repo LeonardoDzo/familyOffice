@@ -29,9 +29,9 @@ extension UIViewController {
     func setupBack() -> Void {
         var backBtn :UIBarButtonItem!
         if let _ = self.navigationController {
-            backBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "Home").maskWithColor(color: #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)), style: .plain, target: self, action: #selector(self.back3))
+            backBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "back-27x20").maskWithColor(color: #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)), style: .plain, target: self, action: #selector(self.back3))
         } else {
-            backBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "Home").maskWithColor(color: #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)), style: .plain, target: self, action: #selector(self.back3))
+            backBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "back-27x20").maskWithColor(color: #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)), style: .plain, target: self, action: #selector(self.back3))
         }
         
         self.navigationItem.leftBarButtonItem = backBtn

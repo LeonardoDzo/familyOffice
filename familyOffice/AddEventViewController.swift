@@ -52,7 +52,7 @@ class EventViewController: FormViewController {
                         return ((form.rowBy(tag: "allDay") as? SwitchRow)?.value ?? false)
                     })
                     }.onChange({ (row) in
-                        self.event.startdate = row.value?.toMillis()
+                        self.event.startdate = (row.value?.toMillis())!
                         if let eRow = self.form.rowBy(tag: "endDateTime") as? DateTimeRow {
                             eRow.updateCell()
                         }
@@ -66,11 +66,10 @@ class EventViewController: FormViewController {
                     row.title = "Fecha de fin"
                     row.tag = "endDateTime"
                     }.onChange({ (row) in
-                        self.event.enddate = row.value?.toMillis()
+                        self.event.enddate = (row.value?.toMillis())!
                     }).cellUpdate { (cell, row) in
                         let value  = (self.form.rowBy(tag: "startDateTime") as! DateTimeRow).value ?? Date()
                         cell.datePicker.minimumDate = value
-                        row.value = value
                 }
                 <<<  DateRow() { row in
                     row.hidden = Condition.function(["allDay"], { form in
@@ -81,7 +80,7 @@ class EventViewController: FormViewController {
                     row.tag = "startDate"
                     row.add(rule: RuleRequired())
                     }.onChange({ (row) in
-                        self.event.startdate = row.value?.toMillis()
+                        self.event.startdate = (row.value?.toMillis())!
                         if let eRow = self.form.rowBy(tag: "endDate") as? DateRow {
                             eRow.updateCell()
                         }
@@ -95,7 +94,7 @@ class EventViewController: FormViewController {
                     row.title = "Fecha de fin"
                     row.tag = "endDate"
                     }.onChange({ (row) in
-                        self.event.enddate = row.value?.toMillis()
+                        self.event.enddate = (row.value?.toMillis())!
                     }).cellUpdate { (cell, row) in
                         let value  = (self.form.rowBy(tag: "startDate") as! DateRow).value ?? Date()
                         row.value = value
@@ -144,7 +143,7 @@ class EventViewController: FormViewController {
                 row.selectorTitle = "Escogé un tipo de evento"
                 }.onChange({ (row) in
                     if row.isValid {
-                        self.event.type = row.value
+                        self.event.eventtype = row.value!
                         try! rManager.realm.write {
                             row.updateCell()
                         }
