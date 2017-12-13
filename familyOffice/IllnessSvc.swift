@@ -133,6 +133,8 @@ extension IllnessSvc : Reducer {
             break
         case .none:
             break
+        case .Loading(_):
+            break
         }
         return state
     }

@@ -2132,7 +2132,6 @@
 				029F65971F15A95700C3A0A7 /* InfoContactViewController.swift in Sources */,
 				A48FD6DD1F143D2200832559 /* Budget.swift in Sources */,
 				023796CF1FD071AD007FF309 /* (null) in Sources */,
-				02AD47E91FC4F381009E20E8 /* FamilyEntitie.swift in Sources */,
 				02AD47E91FC4F381009E20E8 /* FamilyEntity.swift in Sources */,
 				042693011F1448EB004356D6 /* ImageAlbumService.swift in Sources */,
 				02B46A341E52908200CC7511 /* NotificationService.swift in Sources */,
