@@ -11,26 +11,12 @@ let rManager = RealmManager.shared
 
 
 class RealmManager {
-    let config = Realm.Configuration(
-        
-        schemaVersion: 1,
-        
-        // Set the block which will be called automatically when opening a Realm with
-        // a schema version lower than the one set above
-        migrationBlock: { migration, oldSchemaVersion in
-            
-            if oldSchemaVersion == 1 {
-                migration.enumerateObjects(ofType: EventEntity.className(), { (old, new) in
-                    new?["startdate"] = 0
-                    new?["enddate"] = 0
-                })
-            }
-    })
+   
  
     var realm : Realm!
     
     private init(){
-        realm = try! Realm(configuration: config)
+        realm = try! Realm()
     }
     static let shared = RealmManager()
     

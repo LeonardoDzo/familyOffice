@@ -53,7 +53,7 @@
                             <outlet property="delegate" destination="aS8-LE-noq" id="0H9-43-muy"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Enfermedades" id="jbj-Yr-NB2"/>
+                    <tabBarItem key="tabBarItem" title="Enfermedades" image="Calendar" id="jbj-Yr-NB2"/>
                     <connections>
                         <segue destination="T4g-aN-FSq" kind="show" identifier="addIllness" id="fWs-bk-u7c"/>
                     </connections>
@@ -106,7 +106,7 @@
                             <outlet property="delegate" destination="ohV-Vw-3TT" id="brx-Tj-sVn"/>
                         </connections>
                     </collectionView>
-                    <tabBarItem key="tabBarItem" title="Medicamentos" id="5cA-QP-wcA"/>
+                    <tabBarItem key="tabBarItem" title="Medicamentos" image="DownChevron" id="5cA-QP-wcA"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E7a-oI-5ZD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -258,7 +258,7 @@
         <!--Navigation Controller-->
         <scene sceneID="YcZ-KE-O9G">
             <objects>
-                <navigationController id="yKp-Ch-424" sceneMemberID="viewController">
+                <navigationController useStoryboardIdentifierAsRestorationIdentifier="YES" id="yKp-Ch-424" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="00w-65-sVk">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -271,11 +271,28 @@
             </objects>
             <point key="canvasLocation" x="617" y="1483"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Navigation Controller-->
+        <scene sceneID="N4q-m0-a4B">
+            <objects>
+                <navigationController id="MXG-pc-sMG" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5xi-ue-N84">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="OwN-ti-0eo" kind="relationship" relationship="rootViewController" id="jmt-X3-1Ju"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Zq-M9-nma" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1701" y="-798"/>
+        </scene>
+        <!--Main Tab Bar Controller-->
         <scene sceneID="340-qM-gNt">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="OwN-ti-0eo" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tabbarfirstAidKit" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="OwN-ti-0eo" customClass="MainTabBarController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="3xO-KF-5uS"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="R4l-d0-Oke">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="49"/>
@@ -293,6 +310,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Calendar" width="60" height="60"/>
+        <image name="DownChevron" width="22" height="13"/>
         <image name="add" width="40" height="40"/>
     </resources>
 </document>

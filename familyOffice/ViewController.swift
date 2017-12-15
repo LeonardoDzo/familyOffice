@@ -14,6 +14,22 @@ protocol bind {
     func bind(sender: Any?) -> Void
 }
 
+enum StyleNavBar  {
+    case calendar,
+         firstaidkit
+}
+extension StyleNavBar {
+    func style() -> (UIColor, UIColor)? {
+        switch self {
+        case .calendar:
+            return (#colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1),#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
+        case .firstaidkit:
+            return (#colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1),#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
+        }
+    }
+}
+
+
 extension UIViewController {
     
     func hideKeyboardWhenTappedAround() {
@@ -26,6 +42,24 @@ extension UIViewController {
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
+    
+    func setStyle(_ style: StyleNavBar) -> Void {
+        if let value = style.style() {
+              self.navigationController?.navigationBar.barTintColor = value.0
+              self.navigationController?.navigationBar.tintColor = value.1
+        }
+    }
+    
+    func setupButtonback() -> Void {
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.navigationController?.setToolbarHidden(true, animated: true)
+        self.tabBarController?.tabBar.isHidden = true
+        let backBtn = UIButton(frame: CGRect(x: 10, y: 10, width: 40, height: 40))
+        backBtn.setImage( #imageLiteral(resourceName: "back-27x20").maskWithColor(color: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)), for: .normal)
+        backBtn.addTarget(self, action: #selector(self.back3), for: UIControlEvents.allEvents)
+        self.view.addSubview(backBtn)
+    }
+    
     func setupBack() -> Void {
         var backBtn :UIBarButtonItem!
         if let _ = self.navigationController {
@@ -38,9 +72,13 @@ extension UIViewController {
     }
     @objc func back3() -> Void {
         if (navigationController?.popViewController(animated: true)) != nil {
+           
         }else{
             self.dismiss(animated: true, completion: nil)
         }
+        self.tabBarController?.tabBar.isHidden = false
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.tabBarController?.navigationController?.setToolbarHidden(false, animated: true)
     }
     @objc func back() -> Void {
         

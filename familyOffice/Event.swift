@@ -41,9 +41,10 @@ public enum EventStatus : Int, Codable {
     case canceled
 }
 
-enum eventType: Int, GDL90_Enum, Codable  {
+@objc enum eventType: Int, GDL90_Enum, Codable, CustomStringConvertible  {
 
     case Default = 0, BirthDay, Meet
+    
     var description: String {
         switch self {
         case .BirthDay:

@@ -10,11 +10,11 @@ import RealmSwift
 class repeatEntity: Object, Codable, Serializable, repeatProtocol {
     
     var days: String?  = ""
-    let _days = List<RealmString>()
-    dynamic var frequency: Frequency! = .never
-    dynamic var interval: Int? = 0
-    dynamic var end: Int? = -1
     
+    dynamic var frequency: Frequency = .never
+    dynamic var interval: Int = 1
+    dynamic var end: Int = -1
+    let _days = List<RealmString>()
     
     private enum CodingKeys: String, CodingKey {
         case days,
@@ -26,15 +26,16 @@ class repeatEntity: Object, Codable, Serializable, repeatProtocol {
     required convenience init(from decoder: Decoder) throws {
         self.init()
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        frequency = try container.decode(Frequency.self, forKey: .frequency)
-        interval = try container.decodeIfPresent(Int.self, forKey: .interval)
-        end = try container.decodeIfPresent(Int.self, forKey: .end)
+        self.frequency = try container.decode(Frequency.self, forKey: .frequency)
+        self.interval = try container.decode(Int.self, forKey: .interval)
+        self.end = try container.decode(Int.self, forKey: .end)
         
         if let val = try container.decodeIfPresent(String.self, forKey: .days)?.components(separatedBy: ",").map({ (key) -> RealmString in
             return RealmString(value: key)
         }) {
             self._days.append(objectsIn: val)
         }
+ 
     }
     func toDictionary() -> [String:Any]? {
         if var json = self.toJSON() {

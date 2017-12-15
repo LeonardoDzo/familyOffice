@@ -38,11 +38,9 @@ extension RequestProtocol {
     func update(_ ref: String, value: [AnyHashable : Any], callback: @escaping ((Any) -> Void)) {
         Constants.FirDatabase.REF.child(ref).updateChildValues(value, withCompletionBlock: {(error, ref) in
             if error != nil {
-                print(error.debugDescription)
+                callback(false)
             }else {
-                DispatchQueue.main.async {
-                    callback(ref as DatabaseReference)
-                }
+                callback(ref as DatabaseReference)
             }
         })
     }

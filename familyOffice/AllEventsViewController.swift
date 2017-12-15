@@ -17,7 +17,10 @@ class AllEventsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+        
+        self.calendar.select(calendar.today, scrollToDate: true)
+        calendar(calendar, didSelect: Date(), at: .next)
+        calendar.setCurrentPage(calendar.today!, animated: true)
         // Do any additional setup after loading the view.
     }
 
@@ -27,10 +30,12 @@ class AllEventsViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-          self.calendar.select(Date())
+       
+        self.tabBarController?.navigationItem.title = "Todos los Eventos"
+        self.tabBarController?.navigationItem.rightBarButtonItem = nil
     }
 }
-extension AllEventsViewController : UITableViewDataSource {
+extension AllEventsViewController : UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -44,6 +49,10 @@ extension AllEventsViewController : UITableViewDataSource {
         cell.bind(sender: event)
         return cell
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let event = events[indexPath.row]
+        self.pushToView(view: .eventDetails, sender: event)
+    }
 }
 extension AllEventsViewController : FSCalendarDelegate, FSCalendarDataSource {
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
@@ -52,10 +61,16 @@ extension AllEventsViewController : FSCalendarDelegate, FSCalendarDataSource {
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         self.events = getEvents(date: date)
-        self.tableView.reloadData()
-        if monthPosition == .next || monthPosition == .previous {
-            calendar.setCurrentPage(date, animated: true)
+        if self.events.count == 0 {
+            let imageView = UIImageView()
+            imageView.image = #imageLiteral(resourceName: "background_no_events")
+            tableView.backgroundView = imageView
+            imageView.contentMode = .scaleAspectFill
+        }else{
+            self.tableView.backgroundView = UIView()
         }
+        tableView.tableFooterView = UIView()
+        self.tableView.reloadData()
     }
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         print("\(calendar.currentPage.string(with: .MMddyyyy))")

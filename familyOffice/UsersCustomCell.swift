@@ -12,7 +12,7 @@ import UIKit
 import RealmSwift
 import ReSwift
 
-public struct UserListSelected : Equatable {
+public struct UserListSelected : Equatable, CustomStringConvertible {
     
     public var list = [String]()
     
@@ -31,6 +31,9 @@ public struct UserListSelected : Equatable {
         
         return false
         
+    }
+    public var description: String {
+        return "\(list.count)"
     }
     
 }
@@ -52,7 +55,7 @@ public final class UsersRow: OptionsRow<PushSelectorCell<UserListSelected>>, Pre
         presentationMode = .show(controllerProvider: ControllerProvider.callback { return UsersController(){ _ in } }, onDismiss: { vc in _ = vc.navigationController?.popViewController(animated: true) })
         
         displayValueFor = {
-            guard let users = $0 else { return "" }
+            guard let users = $0 else { return "0" }
             return  "\(users.list.count)"
         }
     }
@@ -126,8 +129,8 @@ public class UsersController : UIViewController, UITableViewDelegate, UITableVie
         tableView.tableFooterView = UIView()
         let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(MapViewController.tappedDone(_:)))
         button.title = "Done"
-        
         navigationItem.rightBarButtonItem = button
+        
         notificationToken = users.observe { [weak self] (changes: RealmCollectionChange) in
             guard let tableView = self?.tableView else { return }
             switch changes {

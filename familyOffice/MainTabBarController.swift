@@ -12,7 +12,17 @@ class MainTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let str: String = self.restorationIdentifier {
+            switch str {
+            case "tabbarfirstAidKit":
+                self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+                self.setStyle(.firstaidkit)
+                self.setupBack()
+            default:
+                break
+            }
 
+        }
         // Do any additional setup after loading the view.
     }
 
