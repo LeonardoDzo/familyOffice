@@ -59,3 +59,21 @@ private func _messageReceived(snapshot: DataSnapshot, uuid: String) {
         store.dispatch(RequestAction.Error(err: err as! RequestError, uuid: uuid))
     }
 }
+
+private func _messagesReceived(snapshot: DataSnapshot, uuid: String) {
+    do {
+        if !snapshot.exists() { throw RequestError.NotFound }
+        guard let json = snapshot.value as? NSDictionary else { throw RequestError.NotJson }
+        var entities = [MessageEntity]()
+        json.forEach({ (key, value) in
+            let dic = value as! NSDictionary
+            dic.setValue(snapshot.key, forKey: "id")
+            dic.setValue(Date(dic["timestamp"] as! Int), forKey: "timestamp")
+            entities.append(MessageEntity(value: dic))
+        })
+        rManager.saveObjects(objs: entities)
+        store.dispatch(RequestAction.Done(uuid: uuid))
+    } catch let err {
+        store.dispatch(RequestAction.Error(err: err as! RequestError, uuid: uuid))
+    }
+}

@@ -57,7 +57,7 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LastMsg" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gTd-CT-MMO">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gTd-CT-MMO">
                                             <rect key="frame" x="88" y="40" width="271" height="14"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="14" id="W8b-Lb-Wjo"/>
@@ -66,7 +66,7 @@
                                             <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="msg:Time a.m." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Np-Jp-UH2">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Np-Jp-UH2">
                                             <rect key="frame" x="88.5" y="56" width="270.5" height="15"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="15" id="S6O-bD-mV1"/>
@@ -138,7 +138,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4zy-tA-ohn">
                                                     <rect key="frame" x="23" y="10" width="337" height="63"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h0P-q1-eGP">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h0P-q1-eGP">
                                                             <rect key="frame" x="32" y="10" width="297" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="9ev-KW-0Qu"/>
@@ -147,7 +147,7 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="20" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BQ8-ga-gIw">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="20" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BQ8-ga-gIw">
                                                             <rect key="frame" x="32" y="36" width="297" height="22"/>
                                                             <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
                                                             <nil key="textColor"/>
@@ -194,12 +194,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gvO-Lp-cMR">
                                 <rect key="frame" x="0.0" y="557" width="375" height="46"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4g6-qj-gbt">
-                                        <rect key="frame" x="8" y="8" width="309" height="30"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pgT-ec-kfS">
                                         <rect key="frame" x="325" y="8" width="42" height="30"/>
                                         <constraints>
@@ -210,16 +204,22 @@
                                             <action selector="onSend:" destination="sd2-sG-CPV" eventType="touchUpInside" id="TSE-at-RI2"/>
                                         </connections>
                                     </button>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="SEb-rT-vam">
+                                        <rect key="frame" x="8" y="8" width="309" height="30"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="send"/>
+                                    </textView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="pgT-ec-kfS" firstAttribute="leading" secondItem="4g6-qj-gbt" secondAttribute="trailing" constant="8" id="LbJ-yz-IeK"/>
-                                    <constraint firstAttribute="bottom" secondItem="4g6-qj-gbt" secondAttribute="bottom" constant="8" id="g3W-uK-boU"/>
+                                    <constraint firstItem="SEb-rT-vam" firstAttribute="top" secondItem="gvO-Lp-cMR" secondAttribute="top" constant="8" id="HPy-OB-CeB"/>
+                                    <constraint firstItem="SEb-rT-vam" firstAttribute="leading" secondItem="gvO-Lp-cMR" secondAttribute="leading" constant="8" id="Imj-Ig-cra"/>
                                     <constraint firstAttribute="height" constant="46" id="gMK-2k-ldl"/>
-                                    <constraint firstItem="4g6-qj-gbt" firstAttribute="top" secondItem="gvO-Lp-cMR" secondAttribute="top" constant="8" id="lS1-hl-Teb"/>
                                     <constraint firstAttribute="bottom" secondItem="pgT-ec-kfS" secondAttribute="bottom" constant="8" id="mNk-kp-p5O"/>
+                                    <constraint firstAttribute="bottom" secondItem="SEb-rT-vam" secondAttribute="bottom" constant="8" id="qXB-PN-hqz"/>
                                     <constraint firstItem="pgT-ec-kfS" firstAttribute="top" secondItem="gvO-Lp-cMR" secondAttribute="top" constant="8" id="r7p-Wh-Tkt"/>
-                                    <constraint firstItem="4g6-qj-gbt" firstAttribute="leading" secondItem="gvO-Lp-cMR" secondAttribute="leading" constant="8" id="vJv-Ot-1qS"/>
+                                    <constraint firstItem="pgT-ec-kfS" firstAttribute="leading" secondItem="SEb-rT-vam" secondAttribute="trailing" constant="8" id="tXK-xv-N79"/>
                                     <constraint firstAttribute="trailing" secondItem="pgT-ec-kfS" secondAttribute="trailing" constant="8" id="vh3-pj-Lhe"/>
                                 </constraints>
                             </view>
@@ -237,8 +237,9 @@
                     </view>
                     <connections>
                         <outlet property="bottomConstraint" destination="zIk-nr-ZUa" id="lY9-kW-tyT"/>
+                        <outlet property="heightLayoutView" destination="gMK-2k-ldl" id="JBd-fe-n4Y"/>
                         <outlet property="tableView" destination="IhX-pi-VoI" id="FEV-XF-svb"/>
-                        <outlet property="textField" destination="4g6-qj-gbt" id="hd1-z6-KLv"/>
+                        <outlet property="textField" destination="SEb-rT-vam" id="R9b-cm-uab"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FRB-Hz-7v2" userLabel="First Responder" sceneMemberID="firstResponder"/>

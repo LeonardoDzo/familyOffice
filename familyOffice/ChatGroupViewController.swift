@@ -12,7 +12,8 @@ import RealmSwift
 
 class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var textField: UITextView!
+    @IBOutlet weak var heightLayoutView: NSLayoutConstraint!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
     var group: GroupEntity!
@@ -29,6 +30,7 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
         // Do any additional setup after loading the view.
         tableView.dataSource = self
         tableView.delegate = self
+        textField.delegate = self
         messages = rManager.realm.objects(MessageEntity.self)
             .filter("groupId = '\(group.id)'")
             .sorted(byKeyPath: "timestamp", ascending: true)
@@ -46,8 +48,9 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func onSend(_ sender: UIButton) {
-        guard let text = textField.text else { return }
+    @IBAction func onSend(_ sender: Any) {
+        guard let text = textField.text, !text.isEmpty else { return }
+        view.endEditing(true)
         let message = MessageEntity(value: [
             "groupId": group.id,
             "remittent": user.id,
@@ -141,6 +144,12 @@ extension ChatGroupViewController : StoreSubscriber {
         store.subscribe(self)
         getMessagesUuid = UUID().uuidString
         store.dispatch(getAllMessagesAction(groupId: group.id, uuid: getMessagesUuid!))
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        let index = IndexPath(row: messages.count - 1, section: 0)
+        tableView.scrollToRow(at: index, at: .bottom, animated: false)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -151,7 +160,11 @@ extension ChatGroupViewController : StoreSubscriber {
         if let uuid = getMessagesUuid {
             switch state.requestState.requests[uuid] {
             case .finished?:
-                tableView.reloadData() //.reloadSections(IndexSet(integer: 0), with: .automatic)
+                if tableView.numberOfRows(inSection: 0) < messages.count {
+                    let index = IndexPath(row: messages.count - 1, section: 0)
+                    tableView.reloadData()
+                    tableView.scrollToRow(at: index, at: .bottom, animated: false)
+                }
                 break
             default:
                 break
@@ -160,9 +173,9 @@ extension ChatGroupViewController : StoreSubscriber {
         if let uuid = createMessageUuid {
             switch state.requestState.requests[uuid] {
             case .finished?:
-                tableView.reloadData() //.reloadSections(IndexSet(integer: 0), with: .automatic)
-                let indexPath = IndexPath(row: messages.count - 1, section: 0)
-                tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+//                tableView.reloadData() //.reloadSections(IndexSet(integer: 0), with: .automatic)
+//                let indexPath = IndexPath(row: messages.count - 1, section: 0)
+//                tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
                 break
             default:
                 break
@@ -180,4 +193,30 @@ extension ChatGroupViewController : StoreSubscriber {
         }
     }
     
+}
+
+extension ChatGroupViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        let val = heightLayoutView.constant - textView.frame.size.height
+        let fixedWidth = textView.frame.size.width
+        textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
+        let newSize = textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
+        var newFrame = textView.frame
+        newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
+        textView.frame = newFrame
+        heightLayoutView.constant = CGFloat(textView.frame.height + val)
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool
+    {
+        if(text == "\n")
+        {
+            onSend(textView)
+            return false
+        }
+        else
+        {
+            return true
+        }
+    }
 }
