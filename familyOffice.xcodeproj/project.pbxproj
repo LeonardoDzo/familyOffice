@@ -268,6 +268,7 @@
 		94FF53611F17E562001D9EE4 /* ToDoListActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FF53601F17E562001D9EE4 /* ToDoListActions.swift */; };
 		94FF53651F17E583001D9EE4 /* EditItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FF53641F17E583001D9EE4 /* EditItemViewController.swift */; };
 		94FF53671F17E58E001D9EE4 /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FF53661F17E58E001D9EE4 /* ItemDetailViewController.swift */; };
+		A40F64551FE42A3300837EA0 /* ChatGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F64541FE42A3300837EA0 /* ChatGroupCell.swift */; };
 		A44D91AF1E947F2700880D50 /* HealthOmniViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44D91AE1E947F2700880D50 /* HealthOmniViewController.swift */; };
 		A44F5BE71F1D421100B840F3 /* LineChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44F5BE61F1D421100B840F3 /* LineChartViewController.swift */; };
 		A44F5BE91F1D42D300B840F3 /* BudgetTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44F5BE81F1D42D300B840F3 /* BudgetTabBarController.swift */; };
@@ -595,6 +596,7 @@
 		94FF53641F17E583001D9EE4 /* EditItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditItemViewController.swift; sourceTree = "<group>"; };
 		94FF53661F17E58E001D9EE4 /* ItemDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
 		A368C0BD312ACC29BADACF16 /* Pods-familyOffice.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-familyOffice.release.xcconfig"; path = "Pods/Target Support Files/Pods-familyOffice/Pods-familyOffice.release.xcconfig"; sourceTree = "<group>"; };
+		A40F64541FE42A3300837EA0 /* ChatGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGroupCell.swift; sourceTree = "<group>"; };
 		A44D4E5D1F0481CD00323B87 /* Budget.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Budget.storyboard; sourceTree = "<group>"; };
 		A44D91AE1E947F2700880D50 /* HealthOmniViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthOmniViewController.swift; sourceTree = "<group>"; };
 		A44F5BE61F1D421100B840F3 /* LineChartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineChartViewController.swift; sourceTree = "<group>"; };
@@ -1669,6 +1671,7 @@
 			isa = PBXGroup;
 			children = (
 				A4B0E1201FE1BF8E002742E5 /* ChatMessageBaseCell.swift */,
+				A40F64541FE42A3300837EA0 /* ChatGroupCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -2147,6 +2150,7 @@
 				02002BFB1E82074E007191CC /* BaseTableViewCell.swift in Sources */,
 				A457D0A71FD87CB2007E6FED /* IllnessViewController.swift in Sources */,
 				029F65931F15446100C3A0A7 /* ContactService.swift in Sources */,
+				A40F64551FE42A3300837EA0 /* ChatGroupCell.swift in Sources */,
 				02441D9A1F16A3E500EA8202 /* CalendarOpenViewController.swift in Sources */,
 				8B90F0001F5DD88A00C27513 /* ImageCollectionViewCell.swift in Sources */,
 				02F537BB1FD5C71F00F916AD /* PreHomeViewController.swift in Sources */,

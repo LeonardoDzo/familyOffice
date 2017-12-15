@@ -64,3 +64,24 @@ extension Result {
         }
     }
 }
+
+
+func ==<T>(lhs: Result<T>, rhs: Result<T>) -> Bool where T: Equatable {
+    switch (lhs, rhs) {
+    case (.loading, .loading),
+         (.failed, .failed),
+         (.finished, .finished),
+         (.noFamilies, .noFamilies),
+         (.none, .none):
+        return true
+    case let (.Loading(a), .Loading(b)):
+        return a == b
+    case let (.Failed(a), .Failed(b)):
+        return a == b
+    default: return false
+    }
+}
+
+func !=<T>(lhs: Result<T>, rhs: Result<T>) -> Bool where T: Equatable {
+    return !(lhs == rhs)
+}

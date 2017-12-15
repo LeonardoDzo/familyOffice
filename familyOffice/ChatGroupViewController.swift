@@ -13,6 +13,7 @@ import RealmSwift
 class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
     var group: GroupEntity!
     var messages: Results<MessageEntity>!
@@ -20,7 +21,7 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
     var user = getUser()!
     var getMessagesUuid: String?
     var createMessageUuid: String?
-    var reqs = [String: Result<Any>]()
+    var reqs = [String: Result<Int>]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,12 +31,14 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
         tableView.delegate = self
         messages = rManager.realm.objects(MessageEntity.self)
             .filter("groupId = '\(group.id)'")
+            .sorted(byKeyPath: "timestamp", ascending: true)
         var ids = [String]()
         group.members.forEach { (rstr) in
             ids.append("'\(rstr.value)'")
         }
         users = rManager.realm.objects(UserEntity.self)
             .filter("id IN {\(ids.joined(separator: ", "))}")
+        title = group.title
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,11 +58,46 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
         store.dispatch(createMessageAction(entity: message, uuid: createMessageUuid!))
     }
     
+    func registerKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow(sender:)),
+                                               name: NSNotification.Name.UIKeyboardWillShow,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide(sender:)),
+                                               name: NSNotification.Name.UIKeyboardWillHide,
+                                               object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func keyboardWillShow(sender: NSNotification) {
+        let info = sender.userInfo!
+        let keyboardSize = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.height
+        bottomConstraint.constant = keyboardSize - bottomLayoutGuide.length
+        
+        let duration: TimeInterval = (info[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
+        
+        UIView.animate(withDuration: duration) {
+            self.view.layoutIfNeeded()
+            let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
+            self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        }
+    }
+    
+    @objc func keyboardWillHide(sender: NSNotification) {
+        let info = sender.userInfo!
+        let duration: TimeInterval = (info[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
+        bottomConstraint.constant = 0
+        
+        UIView.animate(withDuration: duration) { self.view.layoutIfNeeded() }
+    }
     
     // MARK: TableView
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        print(messages)
         return 1
     }
     
@@ -77,7 +115,7 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
             }
             return cell
         }
-        cell.bind(message: message, user: user, mine: message.remittent == user.id)
+        cell.bind(message: message, user: user, mine: self.user.id == user.id)
         return cell
     }
     
@@ -89,6 +127,8 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
         let message = messages[indexPath.row]
         return cell.calcHeight(text: message.text, width: width)
     }
+    
+    
 
 }
 
@@ -97,6 +137,7 @@ extension ChatGroupViewController : StoreSubscriber {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        registerKeyboardNotifications()
         store.subscribe(self)
         getMessagesUuid = UUID().uuidString
         store.dispatch(getAllMessagesAction(groupId: group.id, uuid: getMessagesUuid!))
@@ -108,30 +149,34 @@ extension ChatGroupViewController : StoreSubscriber {
     
     func newState(state: AppState) {
         if let uuid = getMessagesUuid {
-            switchReq(state: state.requestState, uuid: uuid)
+            switch state.requestState.requests[uuid] {
+            case .finished?:
+                tableView.reloadData() //.reloadSections(IndexSet(integer: 0), with: .automatic)
+                break
+            default:
+                break
+            }
         }
         if let uuid = createMessageUuid {
-            switchReq(state: state.requestState, uuid: uuid)
+            switch state.requestState.requests[uuid] {
+            case .finished?:
+                tableView.reloadData() //.reloadSections(IndexSet(integer: 0), with: .automatic)
+                let indexPath = IndexPath(row: messages.count - 1, section: 0)
+                tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+                break
+            default:
+                break
+            }
         }
         switch state.UserState.user {
         case .Finished(let action as UserAction):
             switch action {
             case .getbyId(let userId):
                 reqs[userId] = .finished
-                tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+                tableView.reloadData()
             default: break
             }
         default: break
-        }
-    }
-    
-    func switchReq(state: RequestState, uuid: String) {
-        switch state.requests[uuid] {
-        case .finished?:
-            tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
-            break
-        default:
-            break
         }
     }
     

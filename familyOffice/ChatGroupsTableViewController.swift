@@ -15,6 +15,7 @@ class ChatGroupsTableViewController: UITableViewController {
     var getGroupsReqId: String?
     let user = getUser()!
     var groups: Results<GroupEntity>!
+    var lastMessages = [String: Result<MessageEntity>]()
     var selectedGroupIndex: Int?
 
     override func viewDidLoad() {
@@ -47,12 +48,26 @@ class ChatGroupsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ChatGroupCell
         let group = groups[indexPath.row]
+        guard let msgId = group.lastMessage else {
+            cell.bind(group: group)
+            return cell
+        }
+        let msgResult = lastMessages[msgId]
+        var msg: MessageEntity? = nil
+        switch msgResult {
+        case nil:
+            lastMessages[msgId] = .loading
+            store.dispatch(getMessageAction(messageId: msgId, uuid: msgId))
+            break
+        case .Finished(let m)?:
+            msg = m
+            break
+        default: break
+        }
         // Configure the cell...
-        cell.textLabel?.text = group.title
-        cell.detailTextLabel?.text = group.lastMessage ?? ""
-        cell.imageView?.loadImage(urlString: group.coverPhoto)
+        cell.bind(group: group, lastMessage: msg)
         return cell
     }
     
@@ -128,15 +143,25 @@ extension ChatGroupsTableViewController: StoreSubscriber {
     
     func newState(state: RequestState) {
         guard let uuid = getGroupsReqId else { return }
+        var reload = false
         switch state.requests[uuid] {
-        case .loading?:
-            break
         case .finished?:
-            tableView.reloadSections(IndexSet(integer: 0), with: .fade)
-            break
-        case .Failed(_)?:
+            reload = true
             break
         default: break
+        }
+        
+        lastMessages.forEach { (key, _) in
+            switch state.requests[key] {
+            case .finished?:
+                let msg = rManager.realm.objects(MessageEntity.self).filter("id = '\(key)'").first!
+                lastMessages[key] = .Finished(msg)
+                reload = true
+            default: break
+            }
+        }
+        if reload {
+            tableView.reloadData()
         }
     }
 }
