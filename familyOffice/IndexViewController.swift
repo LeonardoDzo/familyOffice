@@ -24,6 +24,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
     var currentFolderId = "root"
     
     @IBOutlet weak var searchBarFiles: UISearchBar!
+    @IBOutlet weak var tabBar: UITabBar!
     
     var lightboxController = LightboxController()
     var imagePicker: UIImagePickerController!
@@ -33,11 +34,15 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
     override func viewDidLoad() {
         super.viewDidLoad()
         hideKeyboardWhenTappedAround()
+        
+        tabBar.selectedItem = tabBar.items![0]
+        
         let barButton = UIBarButtonItem(title: "Atras", style: .plain, target: self, action: #selector(self.back))
         let newButton = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_bar_more_button"), style: .plain, target: self, action: #selector(self.handleMore))
+        
         self.navigationItem.leftBarButtonItem = barButton
         self.navigationItem.rightBarButtonItem = newButton
-        // Do any additional setup after loading the view.
+        
         let nav = self.navigationController?.navigationBar
         nav?.barTintColor = #colorLiteral(red: 0.9598663449, green: 0.7208504081, blue: 0.1197796389, alpha: 1)
         self.title = "Caja fuerte"
@@ -683,3 +688,44 @@ extension IndexViewController: UIViewControllerPreviewingDelegate{
     }
 }
 
+extension IndexViewController: UITabBarDelegate {
+    func isImage(file: SafeBoxFile) {
+        let ext = NSString(string: file.filename).pathExtension
+        return ext == "png" || ext == "jpg" || ext == "gif"
+    }
+    
+    func isFolder(file: SafeBoxFile) {
+        let ext = NSString(string: file.filename).pathExtension
+        return ext == ""
+    }
+    
+//    func filterByTabBar(file: SafeBoxFile) {
+//        switch tabBar.selectedItem?.tag! {
+//        case 0:
+//            
+//        }
+//    }
+    
+    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        switch item.tag {
+        case 0:
+            self.files = getFiles()
+            break
+        case 1:
+            self.files = getFiles().filter({ (file) -> Bool in
+                let ext = NSString(string: file.filename).pathExtension
+                return !isImage(file: file)
+            })
+            break
+        case 2:
+            self.files = getFiles().filter({ (file) -> Bool in
+                let ext = NSString(string: file.filename).pathExtension
+                return isImage(file: file) || isFolder(file: file)
+            })
+            break
+        default:
+            break
+        }
+        self.filesCollectionView.reloadData()
+    }
+}

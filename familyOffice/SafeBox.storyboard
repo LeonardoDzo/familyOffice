@@ -16,18 +16,18 @@
         <!--Navigation Controller-->
         <scene sceneID="QOw-1j-lxb">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jaa-YJ-IuZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="ESd-h1-9UQ" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="wBz-wo-oTw">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="mxy-Dr-eHS" kind="relationship" relationship="rootViewController" id="1wH-kK-ys2"/>
+                        <segue destination="SU9-tn-u9W" kind="relationship" relationship="rootViewController" id="NKD-PU-ovB"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Jaa-YJ-IuZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3777" y="2414"/>
+            <point key="canvasLocation" x="-3647" y="1811"/>
         </scene>
         <!--Safe Box View Controller-->
         <scene sceneID="gJo-CB-db5">
@@ -82,12 +82,12 @@
                     <size key="freeformSize" width="365" height="667"/>
                     <connections>
                         <outlet property="passwordStackView" destination="eGM-tu-vbC" id="tBb-t8-k75"/>
-                        <segue destination="SU9-tn-u9W" kind="show" identifier="successSegue" id="oTy-aP-RBq"/>
+                        <segue destination="ESd-h1-9UQ" kind="showDetail" identifier="successSegue" action="showViewController:sender:" id="Gy8-ca-1QA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="udW-2N-ep2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2914" y="2414"/>
+            <point key="canvasLocation" x="-4530" y="1800"/>
         </scene>
         <!--Index View Controller-->
         <scene sceneID="jHr-94-Iue">
@@ -277,21 +277,27 @@
                                     <outlet property="delegate" destination="SU9-tn-u9W" id="Qwh-nv-OET"/>
                                 </connections>
                             </searchBar>
-                            <tabBar contentMode="scaleToFill" fixedFrame="YES" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="AwX-VH-Qgr">
-                                <rect key="frame" x="3" y="595" width="375" height="49"/>
+                            <tabBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AwX-VH-Qgr">
+                                <rect key="frame" x="0.0" y="618" width="375" height="49"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <items>
-                                    <tabBarItem systemItem="favorites" id="BK6-wc-kLy"/>
-                                    <tabBarItem systemItem="more" id="jIo-Sg-oYv"/>
+                                    <tabBarItem title="Todos" id="BK6-wc-kLy"/>
+                                    <tabBarItem tag="1" title="Archivos" id="jIo-Sg-oYv"/>
+                                    <tabBarItem tag="2" title="Imágenes" id="iRb-iq-YTa"/>
                                 </items>
+                                <connections>
+                                    <outlet property="delegate" destination="SU9-tn-u9W" id="iQA-cx-Fm6"/>
+                                </connections>
                             </tabBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="xfz-Jm-N59"/>
                     <connections>
                         <outlet property="filesCollectionView" destination="ouo-v5-KwJ" id="SyE-ek-hF8"/>
                         <outlet property="searchBarFiles" destination="QGM-W8-Fue" id="VWt-39-TS2"/>
+                        <outlet property="tabBar" destination="AwX-VH-Qgr" id="RV1-SM-uo5"/>
                         <segue destination="O0Q-J7-i8Q" kind="show" identifier="openPDFSegue" id="deh-xq-iYl"/>
                         <segue destination="wVH-HR-nL2" kind="show" identifier="showDirTree" id="9LZ-iY-2Ah"/>
                     </connections>
