@@ -689,12 +689,12 @@ extension IndexViewController: UIViewControllerPreviewingDelegate{
 }
 
 extension IndexViewController: UITabBarDelegate {
-    func isImage(file: SafeBoxFile) {
+    func isImage(file: SafeBoxFile) -> Bool {
         let ext = NSString(string: file.filename).pathExtension
         return ext == "png" || ext == "jpg" || ext == "gif"
     }
     
-    func isFolder(file: SafeBoxFile) {
+    func isFolder(file: SafeBoxFile) -> Bool {
         let ext = NSString(string: file.filename).pathExtension
         return ext == ""
     }
