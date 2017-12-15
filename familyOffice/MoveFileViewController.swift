@@ -9,36 +9,38 @@
 import UIKit
 
 class MoveFileViewController: UIViewController {
-    let userId = store.state.UserState.getUser()?.id!
+    let userId = getUser()?.id
 
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var filesTreeLbl: UILabel!
     
     var folders:[SafeBoxFile] = []
     var currentFolder:String!
+    var currentFolderId:String!
     var tree:[String]!
     var file:SafeBoxFile!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        style_1()
-        self.navigationItem.title = "Mover a..."
+        self.currentFolder = self.tree[self.tree.count - 1]
+        
+        let nav = self.navigationController?.navigationBar
+        nav?.barTintColor = #colorLiteral(red: 0.9598663449, green: 0.7208504081, blue: 0.1197796389, alpha: 1)
+        self.title = "Mover a \(self.currentFolder! == "root" ? "Caja fuerte" : self.currentFolder!)"
+        nav?.titleTextAttributes = [NSAttributedStringKey.foregroundColor:#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)]
+        nav?.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         
         let moveButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.moveFile))
-        moveButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
         self.navigationItem.rightBarButtonItems = [moveButton]
         
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
         swipeRight.direction = UISwipeGestureRecognizerDirection.right
         self.tableView.addGestureRecognizer(swipeRight)
 
-        self.currentFolder = self.tree[self.tree.count - 1]
+        
         
         folders = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({NSString(string: $0.filename).pathExtension == "" && $0.parent == self.currentFolder && $0.id != file.id}) ?? []
-        
-        filesTreeLbl.text = tree.joined(separator: "/")
         
         // Do any additional setup after loading the view.
     }
@@ -54,8 +56,9 @@ class MoveFileViewController: UIViewController {
                 if(self.currentFolder != "root"){
                     _ = self.tree.popLast()
                     self.currentFolder = self.tree[self.tree.count - 1]
-                    self.folders = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({NSString(string: $0.filename).pathExtension == "" && $0.parent == self.currentFolder  && $0.id != file.id}) ?? []
-                    filesTreeLbl.text = tree.joined(separator: "/")
+                    self.currentFolderId = store.state.safeBoxState.safeBoxFiles[userId!]?.first(where: {$0.filename == self.currentFolder && $0.type == "folder"})?.id ?? "root"
+                    self.title = "Mover a \(self.currentFolder!)"
+                    self.folders = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({NSString(string: $0.filename).pathExtension == "" && $0.parent == self.currentFolderId  && $0.id != file.id}) ?? []
                     self.tableView.reloadData()
                 }
                 break
@@ -77,7 +80,7 @@ class MoveFileViewController: UIViewController {
         }))
         
         alert.addAction(UIAlertAction(title: "Aceptar", style: .default, handler: { (UIAlertAction) in
-            self.file.parent = self.currentFolder
+            self.file.parent = self.currentFolderId
             store.dispatch(UpdateSafeBoxFileAction(item: self.file))
             _ = self.navigationController?.popViewController(animated: true)
         }))
@@ -116,9 +119,10 @@ extension MoveFileViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.currentFolder = self.folders[indexPath.row].filename!
-        self.folders = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({NSString(string: $0.filename).pathExtension == "" && $0.parent == self.currentFolder  && $0.id != file.id}) ?? []
+        self.currentFolderId = self.folders[indexPath.row].id!
+        self.title = "Mover a \(self.currentFolder!)"
+        self.folders = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({NSString(string: $0.filename).pathExtension == "" && $0.parent == self.currentFolderId  && $0.id != file.id}) ?? []
         self.tree.append(self.currentFolder)
-        filesTreeLbl.text = tree.joined(separator: "/")
         self.tableView.reloadData()
     }
     

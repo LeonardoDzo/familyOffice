@@ -285,6 +285,7 @@
 		A4F65A271E97F05100831BFD /* EditHealthTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F65A261E97F05100831BFD /* EditHealthTableViewController.swift */; };
 		A4F65A291E97F06800831BFD /* NewHealthElementTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F65A281E97F06800831BFD /* NewHealthElementTableViewController.swift */; };
 		A4F65A2B1E985A4E00831BFD /* HealthOmniViewController_Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F65A2A1E985A4E00831BFD /* HealthOmniViewController_Categories.swift */; };
+		C370FA7D1FE050B50041955C /* SafeBoxFileEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370FA7C1FE050B50041955C /* SafeBoxFileEntity.swift */; };
 		E79B83E3D41E585C918BF70E /* Pods_familyOfficeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD19817A770CBDB00B3EEA4E /* Pods_familyOfficeUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -598,6 +599,7 @@
 		A4F65A261E97F05100831BFD /* EditHealthTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditHealthTableViewController.swift; sourceTree = "<group>"; };
 		A4F65A281E97F06800831BFD /* NewHealthElementTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewHealthElementTableViewController.swift; sourceTree = "<group>"; };
 		A4F65A2A1E985A4E00831BFD /* HealthOmniViewController_Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = HealthOmniViewController_Categories.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		C370FA7C1FE050B50041955C /* SafeBoxFileEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeBoxFileEntity.swift; sourceTree = "<group>"; };
 		DC93B265672C16B76DC460C5 /* Pods-familyOfficeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-familyOfficeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-familyOfficeUITests/Pods-familyOfficeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		ED81E71591D6C8DF115F8C7C /* Pods-familyOfficeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-familyOfficeUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-familyOfficeUITests/Pods-familyOfficeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F751F4D4C559739C01888513 /* Pods-familyOfficeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-familyOfficeTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-familyOfficeTests/Pods-familyOfficeTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1158,6 +1160,7 @@
 		02B876461E1C717A005E5473 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C370FA7B1FE04F2A0041955C /* SafeBox */,
 				A45EDE3A1FCF861A00D95A48 /* FirstAidKid */,
 				02C855911FBE5096004D7BFB /* User */,
 				02C71A4A1F1E996C0017BB4C /* Family */,
@@ -1178,7 +1181,6 @@
 				843956D41F0B1BF4009E95FE /* Contact.swift */,
 				94FF53501F17E4FF001D9EE4 /* ToDoList.swift */,
 				94A070CC1F27E3BB0098860E /* Question.swift */,
-				8B2D85221F43D492007D18BE /* safeBoxFile.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1625,6 +1627,15 @@
 				84C721221ED7697200381FB7 /* AddViewController.swift */,
 			);
 			name = Health;
+			sourceTree = "<group>";
+		};
+		C370FA7B1FE04F2A0041955C /* SafeBox */ = {
+			isa = PBXGroup;
+			children = (
+				8B2D85221F43D492007D18BE /* safeBoxFile.swift */,
+				C370FA7C1FE050B50041955C /* SafeBoxFileEntity.swift */,
+			);
+			name = SafeBox;
 			sourceTree = "<group>";
 		};
 		D7D4EDD66F99B7E0DF32EE1F /* Pods */ = {
@@ -2098,6 +2109,7 @@
 				029CD0651F1327BD00A29CBA /* FamilySvc.swift in Sources */,
 				026AF37E1F071F6400EF6DCD /* GoalMiddleware.swift in Sources */,
 				94FF53671F17E58E001D9EE4 /* ItemDetailViewController.swift in Sources */,
+				C370FA7D1FE050B50041955C /* SafeBoxFileEntity.swift in Sources */,
 				8471A2521E2D8C5100EC9FD7 /* ConfigProfile.swift in Sources */,
 				8B2D85211F43CB4C007D18BE /* FileCollectionViewCell.swift in Sources */,
 				84FFCB8F1F01A74C006EDFA1 /* contactTableViewController.swift in Sources */,
