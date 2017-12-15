@@ -93,7 +93,6 @@ class MainFunctions : RequestProtocol {
                         store.dispatch(FamilyS(.getbyId(fid: route[6])))
                         break
                     case "events":
-                         store.dispatch(EventSvc(.get(byId: route[6])))
                         break
                     default:
                         break
@@ -145,7 +144,6 @@ class MainFunctions : RequestProtocol {
                 store.dispatch(FamilyS(.delete(fid: route[6])))
                 break
             case "events":
-                
                 break
             default:
                 break

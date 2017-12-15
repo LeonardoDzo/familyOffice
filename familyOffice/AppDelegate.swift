@@ -149,6 +149,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
         let deviceTokenString = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
         print("-------------------------")
         print(deviceTokenString)
+        
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
@@ -183,7 +184,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
     @objc func tokenRefreshNotification(_ notification: NSNotification) {
         if let refreshedToken = InstanceID.instanceID().token() {
             print("InstanceID token: \(refreshedToken)")
-            Userdefault.set(refreshedToken, forKey: "token")
             service.NOTIFICATION_SERVICE.token = refreshedToken
         }
         
@@ -195,7 +195,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
         Messaging.messaging().connect { (error) in
             if (error != nil) {
                 print("Unable to connect with FCM. \(String(describing: error))")
-              
             } else {
                 print("Connected to FCM.")
             }

@@ -9,7 +9,7 @@
 import UIKit
 
 @IBDesignable
-class UIImageViewX: CustomUIImageView{
+class UIImageViewX: CustomUIImageView {
     
     // MARK: - Properties
     

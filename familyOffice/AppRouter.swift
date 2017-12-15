@@ -17,8 +17,7 @@ enum StoryBoard: String {
     families = "Families",
     setting = "Settings",
     health = "Health",
-    toDoList = "ToDoList",
-    firstaid = "FirstAidKit"
+    toDoList = "ToDoList"
 }
 
 enum RoutingDestination: String {
@@ -33,12 +32,8 @@ enum RoutingDestination: String {
          confView = "ConfiguracionesView",
          personalData = "SetPersonalDataViewController",
          profileView = "ProfileUserViewController",
-         mainCalendar = "mainnavCalendar",
-         eventDetails = "EventDetailsViewController"
+         mainCalendar = "mainnavCalendar"
     
-    // first aid
-    case illness = "IllnessTableViewController",
-         addIllness = "NewIllnessFormController"
     case none = ""
 }
 extension RoutingDestination {
@@ -52,10 +47,8 @@ extension RoutingDestination {
             return StoryBoard.families.rawValue
         case .personalData, .confView:
             return StoryBoard.setting.rawValue
-        case .addEvent,.mainCalendar, .eventDetails:
+        case .addEvent,.mainCalendar:
             return StoryBoard.calendar.rawValue
-        case .illness, .addIllness:
-            return StoryBoard.firstaid.rawValue
         }
     }
     

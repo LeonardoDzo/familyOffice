@@ -12,10 +12,7 @@ import Firebase
 
 struct IllnessReducer{
     func handleAction(action: Action, state: IllnessState?) -> IllnessState {
-        var state = IllnessState(
-            illnesses: state?.illnesses ?? [:],
-            status: state?.status ?? .none
-        )
+        var state = state ?? IllnessState(illnesses: [:], status: .none)
         switch action {
         case let action as InsertIllnessAction:
             if action.illness == nil{

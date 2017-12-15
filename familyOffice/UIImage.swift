@@ -113,7 +113,7 @@ extension UIImageView {
     
 
 }
-class CustomUIImageView: SpringImageView {
+class CustomUIImageView: UIImageView {
     var urlString: String?
     private var activityIndicator: UIActivityIndicatorView!
     
@@ -184,7 +184,7 @@ class CustomUIImageView: SpringImageView {
     }
     
     
-    override func showLoading() {
+    func showLoading() {
         
         if (activityIndicator == nil) {
             activityIndicator = createActivityIndicator()
@@ -195,7 +195,7 @@ class CustomUIImageView: SpringImageView {
     
    
     
-    override func hideLoading() {
+    func hideLoading() {
         activityIndicator.stopAnimating()
     }
     

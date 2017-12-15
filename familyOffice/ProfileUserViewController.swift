@@ -13,12 +13,15 @@ class ProfileUserViewController: UIViewController, UserEModelBindable{
     var userModel: UserEntity!
     @IBOutlet weak var titleLbl: UILabel!
     @IBOutlet weak var photo: UIImageViewX!
-    @IBOutlet weak var confBtn: UIButton!
-    
-    @IBOutlet weak var infoView: UIView!
+    @IBOutlet weak var phoneLbl: UILabel!
+    @IBOutlet weak var addressLbl: UILabel!
+    @IBOutlet weak var birthdaylbl: UILabel!
+    @IBOutlet weak var bloodtypeLbl: UILabel!
+    @IBOutlet weak var nssLbl: UILabel!
+    @IBOutlet weak var rfcLbl: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+       
         // Do any additional setup after loading the view.
     }
     
@@ -28,22 +31,11 @@ class ProfileUserViewController: UIViewController, UserEModelBindable{
     }
     override func viewWillAppear(_ animated: Bool) {
        self.bind()
-        if !userModel.isUserLogged() {
-            confBtn.isHidden = true
-        }
-       self.setupButtonback()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier ==  "infoSegue" {
-            if let vc = segue.destination as? InfoUserViewController {
-                vc.bind(userModel: self.userModel)
-            }
-        }
-    }
 }
 
 

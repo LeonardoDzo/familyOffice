@@ -55,7 +55,6 @@ import ReSwift
             IllnessState: IllnessReducer().handleAction(action: action, state: state?.IllnessState),
             FaqState: FaqReducer().handleAction(action: action, state: state?.FaqState),
             safeBoxState: SafeBoxReducer().handleAction(action: action, state: state?.safeBoxState),
-            requestState: requestReducer(action: action, state: state?.requestState),
             notifications: state?.notifications ?? []
         )
     }

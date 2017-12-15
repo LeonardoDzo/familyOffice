@@ -23,16 +23,16 @@ protocol ContactsProtocol: class {
     func selected(users: [UserEntity]) -> Void
 }
 protocol repeatProtocol {
-    var frequency : Frequency {get set}
-    var interval: Int {get set}
-    var end : Int {get set}
+    var frequency : Frequency! {get set}
+    var interval: Int? {get set}
+    var end : Int? {get set}
     var days : String? {get set}
 }
 
 protocol GDL90_Enum  {
     var description: String { get }
 }
- @objc enum Frequency: Int, GDL90_Enum, CustomStringConvertible {
+enum Frequency: Int, GDL90_Enum  {
     case never
     case daily
     case weekly
@@ -73,9 +73,9 @@ protocol GDL90_Enum  {
         case .daily:
             return Calendar.Component.day
         case .monthly:
-            return Calendar.Component.month
+            return Calendar.Component.weekOfMonth
         case .weekly:
-            return  Calendar.Component.weekOfMonth
+            return  Calendar.Component.weekday
         case .year:
             return Calendar.Component.month
         default:

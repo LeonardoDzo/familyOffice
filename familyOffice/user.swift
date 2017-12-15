@@ -317,7 +317,7 @@ extension UserEModelBindable  {
             familycounterLbl.text = userModel.families.count > 0 ? "\(userModel.families.count) FAMILIAS" : "SIN FAMILIAS"
         }
         if let phoneLbl = self.phoneLbl {
-            phoneLbl.text = !userModel.phone.isEmpty ? self.userModel.phone : "Sin capturar"
+            phoneLbl.text = userModel.phone
         }
         
         if let profileImage = self.profileImage {
@@ -329,13 +329,13 @@ extension UserEModelBindable  {
         }
         
         if let rfclbl = self.rfcLbl {
-            rfclbl.text = !self.userModel.rfc.isEmpty ? self.userModel.rfc : "Sin capturar"
+            rfcLbl.text = self.userModel.rfc
         }
         if let nssLbl = self.nssLbl {
-            nssLbl.text = !self.userModel.nss.isEmpty ? self.userModel.nss : "Sin capturar"
+            nssLbl.text = self.userModel.nss
         }
         if let bloodtypelbl = self.bloodtypeLbl {
-            bloodtypelbl.text = !self.userModel.bloodtype.isEmpty ? self.userModel.bloodtype : "Sin capturar"
+            bloodtypelbl.text = self.userModel.bloodtype
         }
         if let birthdaylbl = self.birthdaylbl {
             birthdaylbl.text = "Sin capturar"

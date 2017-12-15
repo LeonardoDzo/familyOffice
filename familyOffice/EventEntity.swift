@@ -14,14 +14,16 @@ import RealmSwift
 @objcMembers
 class EventEntity: Object, Codable, Serializable {
     
+    /// Required
     dynamic var id: String! = ""
+    dynamic var startdate: Int!  = 0
+    dynamic var enddate: Int! = 0
     
-   
     dynamic var location: Location? = nil
     dynamic var creator: String? = nil
-    dynamic var eventtype: eventType = .Default
+    dynamic var type: eventType? = nil
     dynamic var repeatmodel: repeatEntity? = nil
-    dynamic var title = ""
+    dynamic var title: String? = "sin título"
     dynamic var details: String? = nil
     dynamic var isAllDay: Bool? = nil
     dynamic var priority: Priority? = nil
@@ -29,11 +31,8 @@ class EventEntity: Object, Codable, Serializable {
     dynamic var changesforAll = false
     var following = List<EventEntity>()
     var members = List<memberEventEntity>()
+    
     let myEvents = List<EventEntity>()
-    let admins = List<RealmString>()
-    dynamic var startdate: Int = 0
-    dynamic var enddate: Int = 0
-    dynamic var admin = ""
     
     private enum CodingKeys: String, CodingKey {
         case title,
@@ -44,15 +43,14 @@ class EventEntity: Object, Codable, Serializable {
         priority,
         creator,
         repeatmodel,
-        eventtype,
+        type,
         id,
         location
     }
     
     private enum ArraysKeys: String, CodingKey {
         case members,
-        followings,
-        admins
+        followings
     }
     
     convenience required init(from decoder: Decoder) throws {
@@ -69,10 +67,10 @@ class EventEntity: Object, Codable, Serializable {
         self.creator = try container.decodeIfPresent(String.self, forKey: .creator)
         self.details = try container.decodeIfPresent(String.self, forKey: .details)
         self.repeatmodel = try container.decodeIfPresent(repeatEntity.self, forKey: .repeatmodel)
-        self.eventtype = (try container.decodeIfPresent(eventType.self, forKey: .eventtype))!
+        self.type = try container.decodeIfPresent(eventType.self, forKey: .type)
         self.isAllDay = try container.decodeIfPresent(Bool.self, forKey: .isAllDay)
         self.priority = try container.decodeIfPresent(Priority.self, forKey: .priority)
-        self.title = try container.decode(String.self, forKey: .title)
+        self.title = try container.decodeIfPresent(String.self, forKey: .title)
         self.location = try container.decodeIfPresent(Location.self, forKey: .location)
         
         if let value = try arrayscont.decodeIfPresent([EventEntity].self, forKey: .followings) {
@@ -84,22 +82,20 @@ class EventEntity: Object, Codable, Serializable {
         }){
             self.members.append(objectsIn: value)
         }
-        if let val = try arrayscont.decodeIfPresent([String: Bool].self, forKey: .admins)?.map({ (key, _ ) -> RealmString in
-            return RealmString(value: key)
-        }) {
-            self.admins.append(objectsIn: val)
-        }
+        
     }
     
     override public static func primaryKey() -> String? {
         return "id"
     }
     
-    func update(date: Int, repeatM: repeatEntity) -> Void {
-        guard repeatM.frequency.rawValue != 0 else{
-            return
-        }
-        self.createDates(repeatM: repeatM, startDate: date)
+    override static func ignoredProperties() -> [String] {
+        return ["members", "following"]
+    }
+    
+    
+    func update(date: Int, repeatModel: repeatEntity) -> Void {
+        self.createDates(repeatModel: repeatmodel!, startDate: date)
         
         guard following.count > 0 else {
             return
@@ -124,7 +120,7 @@ class EventEntity: Object, Codable, Serializable {
                                     self.myEvents.remove(at: index)
                                     rManager.deteObject(objs: self.myEvents[index])
                                 }
-                                update(date: event.startdate, repeatM: event.repeatmodel!)
+                                update(date: event.startdate, repeatModel: event.repeatmodel!)
                             }
                         }catch let error {
                             print(error.localizedDescription)
@@ -135,24 +131,19 @@ class EventEntity: Object, Codable, Serializable {
         }
     }
     
-    func createDates(repeatM: repeatEntity, startDate: Int, until: Int = 30) {
+    func createDates(repeatModel: repeatEntity, startDate: Int) {
         var startDate : Int? = startDate
-        var i = until
-        let difference = self.enddate - self.startdate
-        while startDate != nil && i > 0 {
+        var i = 200
+        while startdate != -1 && i > 0 {
             let event = EventEntity()
-            startDate = nextDate(currentDate: startDate!, repeatM: repeatM)
+            let difference = self.startdate - self.enddate
+            startDate = nextDate(currentDate: startDate!, repeatM: repeatModel)
             if startDate != nil {
                 event.id = self.id + String(startDate!)
                 event.startdate = startDate!
                 event.enddate = startDate! + difference
                 event.father = self
-              
-                try! rManager.realm.write {
-                    self.myEvents.append(event)
-                }
-                
-               
+                self.myEvents.append(event)
                 i-=1
             }
             
@@ -163,41 +154,86 @@ class EventEntity: Object, Codable, Serializable {
         guard repeatM != nil else { return nil }
         
         let calendar = Calendar.current
-        var next = Date(currentDate)
-        //let days = repeatM?._days.map({$0.value.isEmpty ? calendar.component(.weekday, from: next) : Int($0.value)!}) ?? []
-
-
+        var next = Date(timeIntervalSince1970: TimeInterval(currentDate/1000))
+        let days = repeatmodel?._days.map({$0.value.isEmpty ? calendar.component(.weekday, from: next) : Int($0.value)!}) ?? []
+        var nextDay = -1
         if let type = repeatM?.frequency.calendartype  {
-            next = calendar.date(byAdding: type, value: 1, to: next!)!
+            nextDay = calendar.component(type, from: next)
         }
-//        if nextDay != -1 {
-//            var closestBiggerDay = days.first(where: {$0 > nextDay})
-//            if closestBiggerDay == nil  {
-//                closestBiggerDay = (days.count > 0 ? days[0] : 0)  + 7
-//            }
-//            let dayDifference = closestBiggerDay! - nextDay
-//            interval *= dayDifference
-//        }
-        if var end = Date((repeatM?.end)!) {
-            let hour = 23 - calendar.component(.hour, from: end)
-            end.addTimeInterval(TimeInterval(60*60*hour))
-            if let n = next?.toMillis(), n > end.toMillis(){
-                return nil
+        var interval = 0
+        interval = (repeatM?.frequency.value!)!
+        if nextDay != -1 {
+            var closestBiggerDay = days.first(where: {$0 > nextDay})
+            if closestBiggerDay == nil  {
+                closestBiggerDay = (days.count > 0 ? days[0] : 0)  + 7
             }
-            return next?.toMillis()
+            let dayDifference = closestBiggerDay! - nextDay
+            interval *= dayDifference
         }
-       
-        return nil
+        next.addTimeInterval(TimeInterval(interval))
+        var end = Date((repeatM?.end!)!)!
+        let hour = 23 - calendar.component(.hour, from: end)
+        end.addTimeInterval(TimeInterval(60*60*hour))
+        if next.toMillis() > end.toMillis(){
+            return nil
+        }
+        return next.toMillis()
     }
     
      func todictionary() -> [String: Any]? {
         if var json = self.toJSON() {
             json["members"] = self.members.toNSArrayByKey() ?? ""
             json["following"] = self.following.toNSArrayByKey() ?? ""
-            json["repeatmodel"] = self.repeatmodel?.toDictionary() ?? nil
-            json["admins"] = self.admins.toNSArrayByKey() ?? nil
+            json["repeatmodel"] = self.repeatmodel?.toDictionary() ?? ""
             return json
         }
         return nil
     }
+}
+
+@objcMembers
+class repeatEntity: Object, Codable, Serializable, repeatProtocol {
+    
+    var days: String?  = ""
+    let _days = List<RealmString>()
+    dynamic var frequency: Frequency! = .never
+    dynamic var interval: Int? = 0
+    dynamic var end: Int? = -1
+    
+    
+    private enum CodingKeys: String, CodingKey {
+        case days,
+        frequency,
+        interval,
+        end
+    }
+    
+    required convenience init(from decoder: Decoder) throws {
+        self.init()
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        frequency = try container.decode(Frequency.self, forKey: .frequency)
+        interval = try container.decodeIfPresent(Int.self, forKey: .interval)
+        end = try container.decodeIfPresent(Int.self, forKey: .end)
+        
+        if let val = try container.decodeIfPresent(String.self, forKey: .days)?.components(separatedBy: ",").map({ (key) -> RealmString in
+            return RealmString(value: key)
+        }) {
+            self._days.append(objectsIn: val)
+        }
+    }
+    func toDictionary() -> [String:Any]? {
+        if var json = self.toJSON() {
+            let arrayString = self._days.map({ (rs) -> String in
+                return rs.value
+            })
+            json["days"] = arrayString.joined(separator: ",")
+            return json
+        }
+        return nil
+    }
+    
+    override static func ignoredProperties() -> [String] {
+        return ["days"]
+    }
+    
 }

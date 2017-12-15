@@ -168,10 +168,6 @@ extension UserS : RequestProtocol {
                     let ref = "\(ref_users(uid: user.id))"
                     sharedMains.removeHandles(ref: ref)
                     sharedMains.initObserves(ref:ref, actions: [.childChanged])
-                    if let refreshedToken = InstanceID.instanceID().token() {
-                         store.dispatch(UserS(.updateToken(token: refreshedToken)))
-                    }
-                    
                 }
             }
         }catch let error {
@@ -191,20 +187,6 @@ extension UserS : RequestProtocol {
         self.status = .loading
         store.dispatch(self)
     }
-    
-    func update(_ token: String) {
-        if let user = familyOffice.getUser() {
-            self.update("users/\(user.id)/tokens", value: [token: true], callback: { (error) in
-                if error is DatabaseReference {
-                    self.status = .Finished(self.action)
-                }else{
-                    self.status = .Failed(self.action)
-                }
-            })
-            
-        }
-    }
-
 
 }
 
@@ -241,9 +223,6 @@ extension UserS : Reducer {
                 break
             case .update(let user, let img):
                 self.update(user: user, image: img)
-                break
-            case .updateToken(let token):
-                self.update(token)
                 break
             case .create(let user):
                 self.create(user: user)

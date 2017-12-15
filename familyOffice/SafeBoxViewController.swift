@@ -34,8 +34,11 @@ class SafeBoxViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier=="successSegue" {
-            let viewController = segue.destination as! IndexViewController
-            viewController.flag = true
+            if let nvController = segue.destination as? UINavigationController {
+                if let vcController = nvController.childViewControllers.first as? IndexViewController {
+                    vcController.flag = true
+                }
+            }
         }
     }
 }

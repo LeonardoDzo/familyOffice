@@ -13,18 +13,18 @@ import RealmSwift
 @objcMembers
 class memberEventEntity: Object, Codable, Serializable {
 
-    dynamic var id: String! = ""
+    dynamic var userId: String! = ""
     dynamic var status: EventStatus! = .none
     dynamic var reminder: Int! = 0
     
     private enum CodingKeys: String, CodingKey {
-        case id,
+        case userId,
         status,
         reminder
     }
     convenience required init(uid: String) {
         self.init()
-        self.id = uid
+        self.userId = uid
         self.status = EventStatus.none
         self.reminder = -1
     }

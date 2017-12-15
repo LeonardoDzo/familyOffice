@@ -58,7 +58,7 @@ public class UserEntity: Object, Codable, Serializable {
     }
 
     private enum Mykeys: String, CodingKey {
-        case families, events, tokens, fcm
+        case families, events, tokens
     }
     
     convenience required public init(from decoder: Decoder) throws {
@@ -78,18 +78,21 @@ public class UserEntity: Object, Codable, Serializable {
         address = try container2.decode(String.self, forKey: .address)
         bloodtype = try container2.decode(String.self, forKey: .bloodtype)
         
-        if let val = try container.decodeIfPresent([String: Bool].self, forKey: .families)?.getKeysRealmString{
+        if let val = try container.decodeIfPresent([String: Bool].self, forKey: .families)?.map({ (key, _ ) -> RealmString in
+            return RealmString(value: key)
+        }) {
             self.families.append(objectsIn: val)
         }
     
-        if let val = try container.decodeIfPresent([String: Bool].self, forKey: .events)?.getKeysRealmString {
+        if let val = try container.decodeIfPresent([String: Bool].self, forKey: .events)?.map({ (key, _) -> RealmString in
+              return RealmString(value: key)
+        }) {
             self.events.append(objectsIn: val)
         }
         
-        if let val = try container.decodeIfPresent([String: Bool].self, forKey: .tokens)?.getKeysRealmString {
-            self.tokens.append(objectsIn: val)
-        }
-        if let val = try container.decodeIfPresent([String: Bool].self, forKey: .tokens)?.getKeysRealmString {
+        if let val = try container.decodeIfPresent([String: Bool].self, forKey: .tokens)?.map({ (key, _) -> RealmString in
+            return RealmString(value: key)
+        }) {
             self.tokens.append(objectsIn: val)
         }
     }
@@ -119,7 +122,7 @@ extension List {
             if let val = key as? RealmString {
                 dic[val.value] = true
             }else if let val = key as? memberEventEntity {
-                dic[val.id] = val.toJSON()!
+                dic[val.userId] = val.toJSON()!
             }
         })
         return dic
