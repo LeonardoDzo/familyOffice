@@ -81,6 +81,7 @@ extension RequestStorageSvc {
         }
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
+        metadata.contentEncoding = "gzip"
         Constants.FirStorage.STORAGEREF.child(ref).putData(uploadData, metadata: metadata) { metadata, error in
             if (error != nil) {
                 print(error.debugDescription)

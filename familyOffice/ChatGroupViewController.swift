@@ -148,8 +148,11 @@ extension ChatGroupViewController : StoreSubscriber {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        let index = IndexPath(row: messages.count - 1, section: 0)
-        tableView.scrollToRow(at: index, at: .bottom, animated: false)
+        let row = messages.count
+        if row > 0 {
+            let index = IndexPath(row: messages.count - 1, section: 0)
+            tableView.scrollToRow(at: index, at: .bottom, animated: false)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {

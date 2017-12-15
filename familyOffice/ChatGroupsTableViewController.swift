@@ -14,25 +14,26 @@ class ChatGroupsTableViewController: UITableViewController {
     
     var getGroupsReqId: String?
     let user = getUser()!
-    var groups: Results<GroupEntity>!
+    var groups: [GroupEntity] = []
     var lastMessages = [String: Result<MessageEntity>]()
     var selectedGroupIndex: Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupBack()
-        groups = rManager.realm.objects(GroupEntity.self)
-            .filter("familyId = '\(user.familyActive)'")
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        let editButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onAdd))
+        self.navigationItem.rightBarButtonItem = editButtonItem
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @objc func onAdd() {
+        let ctrl = NewChatGroupForm()
+        show(ctrl, sender: self)
     }
 
     // MARK: - Table view data source
@@ -74,6 +75,29 @@ class ChatGroupsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         selectedGroupIndex = indexPath.row
         return indexPath
+    }
+    
+    func queryGroups() {
+        groups = rManager.realm.objects(GroupEntity.self)
+            .filter("familyId = '\(user.familyActive)'")
+            .sorted(by: { (g1, g2) -> Bool in
+                var t1 = g1.createdAt, t2 = g2.createdAt
+                if let id1 = g1.lastMessage, let r1 = lastMessages[id1] {
+                    switch r1 {
+                    case .Finished(let m1):
+                        t1 = m1.timestamp
+                    default: break
+                    }
+                }
+                if let id2 = g2.lastMessage, let r2 = lastMessages[id2] {
+                    switch r2 {
+                    case .Finished(let m2):
+                        t2 = m2.timestamp
+                    default: break
+                    }
+                }
+                return t1 > t2
+            })
     }
 
     /*
@@ -147,6 +171,7 @@ extension ChatGroupsTableViewController: StoreSubscriber {
         switch state.requests[uuid] {
         case .finished?:
             reload = true
+            queryGroups()
             break
         default: break
         }
@@ -156,6 +181,7 @@ extension ChatGroupsTableViewController: StoreSubscriber {
             case .finished?:
                 let msg = rManager.realm.objects(MessageEntity.self).filter("id = '\(key)'").first!
                 lastMessages[key] = .Finished(msg)
+                queryGroups()
                 reload = true
             default: break
             }
