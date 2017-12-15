@@ -1032,16 +1032,7 @@
                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                     <real key="value" value="8"/>
                                                 </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="animation" value="pop"/>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="scaleX">
-                                                    <real key="value" value="0.01"/>
-                                                </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="scaleY">
-                                                    <real key="value" value="0.01"/>
-                                                </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="duration">
-                                                    <real key="value" value="0.80000000000000004"/>
-                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="popIn" value="YES"/>
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
                                     </subviews>

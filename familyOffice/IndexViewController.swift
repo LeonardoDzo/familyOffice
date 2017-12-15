@@ -15,13 +15,13 @@ import Photos
 
 class IndexViewController: UIViewController, UICollectionViewDataSource,UINavigationControllerDelegate, UICollectionViewDelegate,UIDocumentMenuDelegate,UIDocumentPickerDelegate,LightboxControllerPageDelegate,LightboxControllerDismissalDelegate,UIGestureRecognizerDelegate  {
     
-    @IBOutlet weak var dirTreeLbl: UILabel!
     var flag = false
     var files:[SafeBoxFile] = []
-    var userId = store.state.UserState.getUser()?.id
+    var userId = getUser()?.id
     var player:AVPlayer!
+    var folders = ["root"]
     var currentFolder = "root"
-    var directoriesTree = ["","root"]
+    var currentFolderId = "root"
     
     @IBOutlet weak var searchBarFiles: UISearchBar!
     
@@ -32,13 +32,51 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let barButton = UIBarButtonItem(title: "Atras", style: .plain, target: self, action: #selector(self.handleBack))
+        hideKeyboardWhenTappedAround()
+        let barButton = UIBarButtonItem(title: "Atras", style: .plain, target: self, action: #selector(self.back))
+        let newButton = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_bar_more_button"), style: .plain, target: self, action: #selector(self.handleMore))
         self.navigationItem.leftBarButtonItem = barButton
+        self.navigationItem.rightBarButtonItem = newButton
         // Do any additional setup after loading the view.
-        style_1()
+        let nav = self.navigationController?.navigationBar
+        nav?.barTintColor = #colorLiteral(red: 0.9598663449, green: 0.7208504081, blue: 0.1197796389, alpha: 1)
+        self.title = "Caja fuerte"
+        nav?.titleTextAttributes = [NSAttributedStringKey.foregroundColor:#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)]
+        nav?.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        
+        let longPressEvent = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPressOnCell(gesture:)))
+        longPressEvent.minimumPressDuration = 0.5
+        self.filesCollectionView.addGestureRecognizer(longPressEvent)
+        
+        if( traitCollection.forceTouchCapability == .available){
+            registerForPreviewing(with: self, sourceView: self.filesCollectionView)
+        } else {
+            _ = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPressOnCell))
+        }
     }
     
-    func handleLongPressOnCell(gesture: UILongPressGestureRecognizer){
+    @objc func handleMore() {
+        let alert = UIAlertController(title: "Acciones", message: "¿Qué desea realizar?", preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Nuevo archivo", style: .default , handler: { (action) in
+            self.handleNew()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Nueva carpeta", style: .default , handler: { (action) in
+            self.newFolder()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cambiar vista?", style: .default, handler: { (action) in
+        }))
+        alert.addAction(UIAlertAction(title: "Cancelar", style: .destructive, handler: nil))
+        
+        alert.modalPresentationStyle = UIModalPresentationStyle.currentContext
+        
+        present(alert, animated: true) {
+        }
+    }
+    
+    @objc func handleLongPressOnCell(gesture: UILongPressGestureRecognizer){
 //        if gesture.state != UIGestureRecognizerState.ended {
 //            return
 //        }
@@ -52,26 +90,6 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
                 let alert = UIAlertController(title: file.filename, message: "¿Qué acción desea realizar?", preferredStyle: .actionSheet)
                 
                 alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
-                
-//                alert.addAction((UIAlertAction(title: "Renombrar", style: .default, handler: { (action) in
-//                    let alert = UIAlertController(title: "Renombrar", message: "", preferredStyle: .alert)
-//                    
-//                    alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
-//                    
-//                    alert.addAction(UIAlertAction(title: "Aceptar", style: .default, handler: { (_alert) in
-//                        let fileNameTextField = alert.textFields?[0]
-//                        file.filename = fileNameTextField?.text
-//                        
-//                        store.dispatch(UpdateSafeBoxFileAction(item: file))
-//                    }))
-//                    
-//                    alert.addTextField { (textField : UITextField!) -> Void in
-//                        textField.placeholder = "Nuevo nombre"
-//                    }
-//                    
-//                    self.present(alert, animated: true, completion:nil)
-//
-//                })))
                 
                 alert.addAction(UIAlertAction(title: "Mover", style: .default, handler: { (action) in
                     self.performSegue(withIdentifier: "showDirTree", sender: file)
@@ -114,14 +132,12 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
         if self.currentFolder == "root"{
             _ = self.navigationController?.popViewController(animated: true)
         }else{
-            self.directoriesTree.popLast()
-            self.currentFolder = self.directoriesTree[self.directoriesTree.count - 1]
-            print(self.directoriesTree)
-            self.dirTreeLbl.text = directoriesTree.joined(separator: "/")
-            print("Current Folder: \(self.currentFolder)")
-            files = (store.state.safeBoxState.safeBoxFiles[userId!]?.filter({$0.parent == self.currentFolder}))!
+            self.currentFolder = self.folders.popLast()!
+            let folder = self.files.first(where: {$0.filename == self.currentFolder})
+            self.currentFolderId = folder?.id ?? "root"
+            self.title = self.currentFolder == "root" ? "Caja fuerte" : self.currentFolder
+            files = getFiles()
             self.filesCollectionView.reloadData()
-
         }
         
     }
@@ -141,7 +157,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
             
             let fileName = (fileNameTextField?.text)!
             
-            let newSafeBoxFile = SafeBoxFile(filename: fileName, downloadUrl: "", parent: self.currentFolder)
+            let newSafeBoxFile = SafeBoxFile(filename: fileName, downloadUrl: "", parent: self.currentFolderId, type: "folder")
             store.dispatch(InsertSafeBoxFileAction(item: newSafeBoxFile))
         }))
         
@@ -188,9 +204,6 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    @objc func handleBack() {
-        self.dismiss(animated: true, completion: nil)
-    }
     
     //MARK: - CollectionView
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -210,7 +223,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
                 let cell = filesCollectionView.dequeueReusableCell(withReuseIdentifier: "safeboxFolderID", for: indexPath) as! FolderCollectionViewCell
                 cell.folderNameLabel.text = file.filename
                 return cell
-            case "png":
+            case "png", "jpg", "jpeg":
                 let cell = filesCollectionView.dequeueReusableCell(withReuseIdentifier: "safeboxImageID", for: indexPath) as! ImageCollectionViewCell
                 cell.imageNameLabel.text = file.filename
                 cell.imgView.loadImage(urlString: file.downloadUrl!)
@@ -219,6 +232,18 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
                 let cell = filesCollectionView.dequeueReusableCell(withReuseIdentifier: "safeboxFileID", for: indexPath) as! FileCollectionViewCell
                 cell.fileNameLabel.text = file.filename
                 cell.fileExtLabel.text = ext.pathExtension
+                let color: UIColor
+                switch ext.pathExtension {
+                case "docx", "doc":
+                    color = UIColor.SafeBox.docx
+                case "gsheet", "xls", "xlsx":
+                    color = UIColor.SafeBox.xlsx
+                case "pdf":
+                    color = UIColor.SafeBox.pdf
+                default:
+                    color = UIColor.gray
+                }
+                cell.bgView.backgroundColor = color
                 return cell
         }
     }
@@ -226,10 +251,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let fileNameString = self.files[indexPath.row].filename as NSString
-        if(fileNameString.pathExtension.lowercased() == "pdf" || fileNameString.pathExtension.lowercased() == "docx" || fileNameString.pathExtension.lowercased() == "xlsx" || fileNameString.pathExtension.lowercased() == "pptx" || fileNameString.pathExtension.lowercased() == "mp3" ){
-            
-            self.performSegue(withIdentifier: "openPDFSegue", sender: nil)
-        }else if(fileNameString.pathExtension.lowercased() == "jpg" || fileNameString.pathExtension.lowercased() == "png" || fileNameString.pathExtension.lowercased() == "gif"){
+        if(fileNameString.pathExtension.lowercased() == "jpg" || fileNameString.pathExtension.lowercased() == "png" || fileNameString.pathExtension.lowercased() == "gif"){
             var aux = 0
             var index = 0
             let images:[LightboxImage] = self.files.filter({$0.thumbnail != ""}).map({ (file) -> LightboxImage in
@@ -274,13 +296,15 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
             present(lightboxController, animated: true, completion: nil)
 
         }else if(fileNameString.pathExtension.lowercased() == ""){
+            self.folders.append(self.currentFolder)
+            self.currentFolderId = self.files[indexPath.row].id!
             self.currentFolder = fileNameString as String
-            self.directoriesTree.append(fileNameString as String)
-            self.dirTreeLbl.text = directoriesTree.joined(separator: "/")
-            print(self.directoriesTree)
+            self.title = self.currentFolder == "root" ? "Caja fuerte" : self.currentFolder
             print("Current Folder: \(self.currentFolder)")
-            files = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({$0.parent == self.currentFolder}) ?? []
+            files = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({$0.parent == self.currentFolderId}) ?? []
             filesCollectionView.reloadData()
+        }else {
+            self.performSegue(withIdentifier: "openPDFSegue", sender: nil)
         }
         self.searchBarFiles.text = ""
     }
@@ -297,7 +321,8 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
 //            print(selectedFile)
             let view = segue.destination as! MoveFileViewController
             view.file = selectedFile
-            view.tree = self.directoriesTree
+            view.tree = self.folders
+            view.currentFolderId = self.currentFolderId
         }
     }
     
@@ -320,11 +345,11 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
             let data = UIImagePNGRepresentation(newFile.resizeToLarge()) as NSData?
             let min_data = UIImagePNGRepresentation(newFile.resizeToSmall()) as NSData?
 
-            Constants.FirStorage.STORAGEREF.child("users/\((userStore?.id)!)").child("safebox/\(fileName).png").putData(data! as Data, metadata: nil, completion: { metadata, error in
+            Constants.FirStorage.STORAGEREF.child("users/\((getUser()?.id)!)").child("safebox/\(fileName).png").putData(data! as Data, metadata: nil, completion: { metadata, error in
                 if error != nil{
                     print(error.debugDescription)
                 }else{
-                    Constants.FirStorage.STORAGEREF.child("users/\((userStore?.id)!)").child("safebox/\(fileName)_small.png").putData(min_data! as Data, metadata: nil, completion: { md, err in
+                    Constants.FirStorage.STORAGEREF.child("users/\((getUser()?.id)!)").child("safebox/\(fileName)_small.png").putData(min_data! as Data, metadata: nil, completion: { md, err in
                         if err != nil{
                             print(err.debugDescription)
                         }
@@ -335,7 +360,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
                             if let download_min = md?.downloadURL()?.absoluteString{
                                 StorageService.Instance().save(url: download_min, data: min_data as Data?)
                                 //Save to database
-                                let newSafeBoxFile = SafeBoxFile(filename: "\(fileName).png", downloadUrl: downloadURL,thumbnail:download_min,parent: self.currentFolder)
+                                let newSafeBoxFile = SafeBoxFile(filename: "\(fileName).png", downloadUrl: downloadURL,thumbnail:download_min,parent: self.currentFolderId, type: "file")
                                 store.dispatch(InsertSafeBoxFileAction(item: newSafeBoxFile))
                                 store.subscribe(self){
 
@@ -369,6 +394,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
             let fileNameTextField = alert.textFields?[0]
             
             fileName = (fileNameTextField?.text)!
+            let userId = getUser()?.id
             
             let fileURL = NSURL(string: "\(outerURL)")
             let request = NSURLRequest(url: fileURL! as URL)
@@ -377,7 +403,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
                 if err == nil {
                     
 
-                    Constants.FirStorage.STORAGEREF.child("users/\((store.state.UserState.getUser()?.id)!)").child("safebox/\(fileName).\(outerURL.pathExtension)").putData(data!, metadata: nil, completion: { metadata, error in
+                    Constants.FirStorage.STORAGEREF.child("users/\((userId)!)").child("safebox/\(fileName).\(outerURL.pathExtension)").putData(data!, metadata: nil, completion: { metadata, error in
 
                         if error != nil{
                             print(error.debugDescription)
@@ -387,7 +413,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
                                 downloadURL = downloadUrl
                                 
                                 //Save to database
-                                let newSafeBoxFile = SafeBoxFile(filename: "\(fileName).\(outerURL.pathExtension)", downloadUrl: downloadURL, parent: self.currentFolder)
+                                let newSafeBoxFile = SafeBoxFile(filename: "\(fileName).\(outerURL.pathExtension)", downloadUrl: downloadURL, parent: self.currentFolderId, type: "file")
                                 store.dispatch(InsertSafeBoxFileAction(item: newSafeBoxFile))
                                 store.subscribe(self){
 
@@ -440,6 +466,12 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
     func lightboxController(_ controller: LightboxController, didMoveToPage page: Int) {
         //        self.selectedImage = page
     }
+    
+    func getFiles() -> [SafeBoxFile] {
+        let folders = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({$0.type == "folder" && $0.parent == self.currentFolderId}).sorted(by: { (a, b) -> Bool in return a.filename < b.filename}) ?? []
+        let newFiles = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({$0.type == "file" && $0.parent == self.currentFolderId}).sorted(by: { (a, b) -> Bool in return a.filename < b.filename}) ?? []
+        return folders + newFiles
+    }
 }
 
 extension IndexViewController: StoreSubscriber{
@@ -462,7 +494,7 @@ extension IndexViewController: StoreSubscriber{
         store.state.safeBoxState.status = .none
         store.unsubscribe(self)
         service.SAFEBOX_SERVICE.removeHandles()
-
+        
         
         NotificationCenter.default.removeObserver(self, name: notCenter.BACKGROUND_NOTIFICATION, object: nil);
     }
@@ -484,8 +516,7 @@ extension IndexViewController: StoreSubscriber{
         default:
             break
         }
-        
-        files = state.safeBoxFiles[userId!]?.filter({$0.parent == self.currentFolder}) ?? []
+        files = self.getFiles()
         self.filesCollectionView.reloadData()
     }
     
@@ -513,7 +544,7 @@ extension IndexViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if(!(searchBar.text?.isEmpty)!){
             //reload your data source if necessary
-            files = files.filter({$0.filename.lowercased().contains(searchBar.text!.lowercased()) && $0.parent == self.currentFolder})
+            files = files.filter({$0.filename.lowercased().contains(searchBar.text!.lowercased()) && $0.parent == self.currentFolderId})
             filesCollectionView.reloadData()
         }else{
             files = store.state.safeBoxState.safeBoxFiles[userId!] ?? []
@@ -526,18 +557,17 @@ extension IndexViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if(searchText.isEmpty){
             //reload your data source if necessary
-            files = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({$0.parent == self.currentFolder}) ?? []
-            print(files.count)
+            files = self.getFiles()
             filesCollectionView.reloadData()
         }else{
-            files = files.filter({$0.filename.lowercased().contains(searchBar.text!.lowercased()) && $0.parent == self.currentFolder})
+            files = files.filter({$0.filename.lowercased().contains(searchBar.text!.lowercased()) && $0.parent == self.currentFolderId})
             filesCollectionView.reloadData()
         }
         
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        files = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({$0.parent == self.currentFolder}) ?? []
+        files = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({$0.parent == self.currentFolderId}) ?? []
         filesCollectionView.reloadData()
     }
     
@@ -547,7 +577,7 @@ extension IndexViewController: UISearchBarDelegate {
 extension IndexViewController: UIViewControllerPreviewingDelegate{
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         guard let indexPath = filesCollectionView?.indexPathForItem(at: location) else {return nil}
-        
+        print(indexPath)
         guard let cell = filesCollectionView?.cellForItem(at: indexPath) else {return nil}
         
         guard let detailVC = storyboard?.instantiateViewController(withIdentifier: "PDFViewController") as? PDFViewController else {return nil}
@@ -652,4 +682,3 @@ extension IndexViewController: UIViewControllerPreviewingDelegate{
         
     }
 }
-

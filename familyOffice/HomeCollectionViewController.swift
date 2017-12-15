@@ -34,7 +34,7 @@ class HomeCollectionViewController: UICollectionViewController, UICollectionView
         super.viewDidLoad()
         let changeFam = UIBarButtonItem(image: #imageLiteral(resourceName: "changeFam"), style: .plain, target: self, action: #selector(self.changefam))
         self.navigationItem.rightBarButtonItem = changeFam
-        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.prefersLargeTitles = false
     }
 
     override func didReceiveMemoryWarning() {
