@@ -1042,6 +1042,7 @@
                                                 <userDefinedRuntimeAttribute type="number" keyPath="duration">
                                                     <real key="value" value="0.80000000000000004"/>
                                                 </userDefinedRuntimeAttribute>
+
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
                                     </subviews>

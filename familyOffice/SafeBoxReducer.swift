@@ -43,7 +43,7 @@ struct SafeBoxReducer {
     }
     
     func insertSafeBoxFile(_ item: SafeBoxFile) -> Void {
-        let id = userStore?.id!
+        let id = getUser()?.id
         let path = "safebox/\(id!)/\(item.id!)"
         print(path)
         service.SAFEBOX_SERVICE.insert(path, value: item.toDictionary(), callback: {ref in
@@ -57,7 +57,7 @@ struct SafeBoxReducer {
     }
     
     func updateSafeBoxFile(_ item: SafeBoxFile) -> Void {
-        let id = userStore?.id!
+        let id = getUser()?.id
         let path = "safebox/\(id!)/\(item.id!)"
         service.SAFEBOX_SERVICE.update(path, value: item.toDictionary() as! [AnyHashable : Any], callback: { ref in
             if ref is DatabaseReference {
@@ -72,7 +72,7 @@ struct SafeBoxReducer {
     }
     
     func deleteSafeBoxFile(_ item: SafeBoxFile) -> Void {
-        let id = userStore?.id!
+        let id = getUser()?.id
         let path = "safebox/\(id!)/\(item.id!)"
         service.SAFEBOX_SERVICE.delete(path) { (Any) in
             if let index = store.state.safeBoxState.safeBoxFiles[id!]?.index(where: {$0.id! == item.id! }){
