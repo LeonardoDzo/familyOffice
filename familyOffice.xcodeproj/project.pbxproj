@@ -2309,7 +2309,6 @@
 				A4B0E12D1FE20A7D002742E5 /* MessagesActions.swift in Sources */,
 				A48FD6DD1F143D2200832559 /* Budget.swift in Sources */,
 				02D845D21FE2FFA00086DD0C /* DesignableTextView.swift in Sources */,
-				A48FD6DD1F143D2200832559 /* Budget.swift in Sources */,
 				02D845BF1FE2FFA00086DD0C /* ImageLoader.swift in Sources */,
 				023796CF1FD071AD007FF309 /* BuildFile in Sources */,
 				02AD47E91FC4F381009E20E8 /* FamilyEntity.swift in Sources */,

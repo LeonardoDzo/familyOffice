@@ -35,6 +35,9 @@ class ChatGroupCell: UITableViewCell {
         if let msg = lastMessage {
             lastMsg.text = msg.text
             msgTime.text = msg.timestamp.string(with: DateFormatter.hourAndMin)
+        } else {
+            lastMsg.text = ""
+            msgTime.text = ""
         }
     }
 
