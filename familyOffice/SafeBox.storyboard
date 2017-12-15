@@ -16,6 +16,7 @@
         <!--Navigation Controller-->
         <scene sceneID="QOw-1j-lxb">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jaa-YJ-IuZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="ESd-h1-9UQ" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="wBz-wo-oTw">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -25,7 +26,6 @@
                         <segue destination="mxy-Dr-eHS" kind="relationship" relationship="rootViewController" id="1wH-kK-ys2"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Jaa-YJ-IuZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3777" y="2414"/>
         </scene>
