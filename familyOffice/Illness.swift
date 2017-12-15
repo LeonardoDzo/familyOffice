@@ -9,7 +9,7 @@
 import Foundation
 import Firebase
 
-struct Illness{
+struct Illness {
     static let illKey = "aidi"
     static let illNameKey = "nombre"
     static let illMedicineKey = "medicine"

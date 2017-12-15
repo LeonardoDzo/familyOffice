@@ -42,15 +42,10 @@ class FamilyEntity : Object, Codable, Serializable {
         name = try container2.decode(String.self, forKey: .name)
         photoURL = try container2.decode(String.self, forKey: .photoURL)
         imageProfilePath = try container2.decode(String.self, forKey: .imageProfilePath)
-        if let val = try container.decodeIfPresent([String: Bool].self, forKey: .admins)?.map({ (key, _ ) -> RealmString in
-            return RealmString(value: key)
-        }) {
+        if let val = try container.decodeIfPresent([String: Bool].self, forKey: .admins)?.getKeysRealmString {
             self.admins.append(objectsIn: val)
         }
-        
-        if let val = try container.decodeIfPresent([String: Bool].self, forKey: .members)?.map({ (key, _) -> RealmString in
-            return RealmString(value: key)
-        }) {
+        if let val = try container.decodeIfPresent([String: Bool].self, forKey: .members)?.getKeysRealmString {
             self.members.append(objectsIn: val)
         }
         

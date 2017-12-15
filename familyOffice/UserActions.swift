@@ -17,6 +17,7 @@ enum UserAction : description {
          update(user: UserEntity, img: UIImage?),
          create(user: UserEntity),
          selectFamily(family: FamilyEntity),
+         updateToken(token: String),
          none
     
     init(){

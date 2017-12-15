@@ -54,6 +54,10 @@ extension EventSvc : RequestProtocol {
                     let event = try JSONDecoder().decode(EventEntity.self, from: data)
                     self.status = .Finished(action)
                     rManager.save(objs: event)
+                    if event.repeatmodel != nil {
+                        event.update(date: event.startdate, repeatM: event.repeatmodel!)
+                        print(event.myEvents)
+                    }
                     store.dispatch(self)
                 }
             }
@@ -75,6 +79,9 @@ extension EventSvc : RequestProtocol {
     
     func create(event: EventEntity)  -> Void {
         let newevent = event
+        if let id = getUser()?.id {
+            newevent.admins.append(RealmString(value: id))
+        }
         newevent.id = Constants.FirDatabase.REF.childByAutoId().key
         let reference = "events/\(event.id!)"
         if let json = event.todictionary() {
