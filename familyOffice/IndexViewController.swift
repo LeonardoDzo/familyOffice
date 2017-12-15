@@ -134,8 +134,8 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
     }
     
     override func back() -> Void {
-        if self.currentFolder == "root"{
-            _ = self.navigationController?.popViewController(animated: true)
+        if self.currentFolderId == "root"{
+            self.dismiss(animated: true, completion: nil)
         }else{
             self.currentFolder = self.folders.popLast()!
             let folder = self.files.first(where: {$0.filename == self.currentFolder})
