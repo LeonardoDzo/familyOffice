@@ -683,3 +683,47 @@ extension IndexViewController: UIViewControllerPreviewingDelegate{
     }
 }
 
+<<<<<<< HEAD
+=======
+extension IndexViewController: UITabBarDelegate {
+    func isImage(file: SafeBoxFile) {
+        let ext = NSString(string: file.filename).pathExtension
+        return ext == "png" || ext == "jpg" || ext == "gif"
+    }
+    
+    func isFolder(file: SafeBoxFile) {
+        let ext = NSString(string: file.filename).pathExtension
+        return ext == ""
+    }
+    
+//    func filterByTabBar(file: SafeBoxFile) {
+//        switch tabBar.selectedItem?.tag! {
+//        case 0:
+//            
+//        }
+//    }
+    
+    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        switch item.tag {
+        case 0:
+            self.files = getFiles()
+            break
+        case 1:
+            self.files = getFiles().filter({ (file) -> Bool in
+                let ext = NSString(string: file.filename).pathExtension
+                return !isImage(file: file)
+            })
+            break
+        case 2:
+            self.files = getFiles().filter({ (file) -> Bool in
+                let ext = NSString(string: file.filename).pathExtension
+                return isImage(file: file) || isFolder(file: file)
+            })
+            break
+        default:
+            break
+        }
+        self.filesCollectionView.reloadData()
+    }
+}
+>>>>>>> parent of e6ef5da... valor devuelto en metodos aux
