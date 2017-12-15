@@ -23,11 +23,11 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="mxy-Dr-eHS" kind="relationship" relationship="rootViewController" id="1wH-kK-ys2"/>
+                        <segue destination="SU9-tn-u9W" kind="relationship" relationship="rootViewController" id="xEm-Zy-Sxe"/>
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="-3777" y="2414"/>
+            <point key="canvasLocation" x="-3854" y="1964"/>
         </scene>
         <!--Safe Box View Controller-->
         <scene sceneID="gJo-CB-db5">
@@ -82,7 +82,7 @@
                     <size key="freeformSize" width="365" height="667"/>
                     <connections>
                         <outlet property="passwordStackView" destination="eGM-tu-vbC" id="tBb-t8-k75"/>
-                        <segue destination="SU9-tn-u9W" kind="show" identifier="successSegue" id="oTy-aP-RBq"/>
+                        <segue destination="ESd-h1-9UQ" kind="showDetail" identifier="successSegue" action="showViewController:sender:" id="AUc-0l-XZp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="udW-2N-ep2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -278,7 +278,7 @@
                                 </connections>
                             </searchBar>
                             <tabBar contentMode="scaleToFill" fixedFrame="YES" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="AwX-VH-Qgr">
-                                <rect key="frame" x="3" y="595" width="375" height="49"/>
+                                <rect key="frame" x="0.0" y="618" width="375" height="49"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <items>
@@ -289,6 +289,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="qjw-gD-POu"/>
                     <connections>
                         <outlet property="filesCollectionView" destination="ouo-v5-KwJ" id="SyE-ek-hF8"/>
                         <outlet property="searchBarFiles" destination="QGM-W8-Fue" id="VWt-39-TS2"/>
