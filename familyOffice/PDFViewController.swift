@@ -18,9 +18,7 @@ class PDFViewController: UIViewController, WKUIDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "LeftChevron"), style: .plain, target: self, action: #selector(self.back))
-        self.navigationItem.leftBarButtonItem = backButton
-        backButton.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
+        self.setupBack()
         
         let myURL = URL(string: file.downloadUrl!)
         let myRequest = URLRequest(url: myURL!)

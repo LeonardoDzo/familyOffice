@@ -27,6 +27,8 @@ class IllnessViewController: UIViewController, UIScrollViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+        self.setStyle(.firstaidkit)
         self.setupBack()
         // Do any additional setup after loading the view.
         scrollView.delegate = self

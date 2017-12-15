@@ -8,11 +8,12 @@
 
 import UIKit
 
-class PreviewEvent: UIView {
-
+class PreviewEvent: UIView, EventEBindable{
+    var event: EventEntity!
     @IBOutlet weak var hourLbl: UILabel!
     @IBOutlet weak var titleLbl: UILabel!
-    @IBOutlet weak var descriptionLbl: UILabel!
+    @IBOutlet weak var detailsLbl: UILabel!
+    @IBOutlet weak var backgroundType: UIImageView!
     
     class func instanceFromNib() -> UIView {
         return UINib(nibName: "PreviewEvent", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! UIView

@@ -11,10 +11,12 @@ let rManager = RealmManager.shared
 
 
 class RealmManager {
+   
+ 
+    var realm : Realm!
     
-    var realm = try! Realm()
     private init(){
-        
+        realm = try! Realm()
     }
     static let shared = RealmManager()
     

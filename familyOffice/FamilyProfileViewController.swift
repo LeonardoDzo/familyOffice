@@ -24,6 +24,7 @@ class FamilyProfileViewController: UIViewController, FamilyEBindable {
         super.viewDidLoad()
         
         let _ = UITapGestureRecognizer(target: self, action: #selector(self.editImage))
+        
         collectionView.register(UINib(nibName: "FamilyMember1Cell", bundle: nil), forCellWithReuseIdentifier: "CellMember")
         
     }
@@ -102,6 +103,7 @@ extension FamilyProfileViewController: StoreSubscriber {
     typealias StoreSubscriberStateType = AppState
     override func viewWillAppear(_ animated: Bool) {
         store.state.FamilyState.status = .none
+        self.setupButtonback()
         self.bind()
         store.subscribe(self) {
             $0.select({ (s) in
