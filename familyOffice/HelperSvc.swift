@@ -43,16 +43,16 @@ func isAuth()  {
             checkUserAgainstDatabase(completion: {(success, error ) in
                 if success {
                     if !view {
-                        rManager.deleteDatabase()
                         store.dispatch(UserS(.getbyId(uid: (user?.uid)!)))
                         view = !view
                     }
                 }else{
-                    store.dispatch(AuthSvc(.logout))
+                    if case .loading = store.state.authState.state {
+                    }else{
+                        store.dispatch(AuthSvc(.logout))
+                    }
                 }
             })
-        }else{
-            store.dispatch(AuthSvc(.logout))
         }
     }
 }

@@ -91,6 +91,7 @@ class AuthSvc : Action, EventProtocol {
             if((error) != nil){
                 self.status = .Failed(error.debugDescription)
             }else{
+                rManager.deleteDatabase()
                 self.status = .finished
             }
             store.dispatch(self)
@@ -101,15 +102,19 @@ class AuthSvc : Action, EventProtocol {
             if((error) != nil){
                 self.status = .Failed(error.debugDescription)
             }else{
+                rManager.deleteDatabase()
                 self.status = .finished
             }
             store.dispatch(self)
         }
     }
     func logOut(){
-        
-        rManager.deleteDatabase()
         try! Auth.auth().signOut()
+        self.status = .Finished(action)
+        store.state.authState.state = self.status
+        if let top = UIApplication.topViewController() {
+            top.popToView(view: .start)
+        }
     }
     
 }
@@ -141,8 +146,6 @@ extension AuthSvc : Reducer {
             break
         case .finished, .Finished(_):
             if case .changePass(_,_) = self.action {
-            }else{
-                store.dispatch(UserS(.getbyId(uid: (Auth.auth().currentUser?.uid)!)))
             }
             break
         case .noFamilies, .none:

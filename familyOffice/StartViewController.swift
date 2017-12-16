@@ -96,7 +96,7 @@ class StartViewController: UIViewController, GIDSignInUIDelegate, UITextFieldDel
     
     @IBAction func signUp(_ sender: UIButton) {
         UIApplication.shared.beginIgnoringInteractionEvents()
-        store.dispatch(RoutingAction(d: .signUp))
+        self.pushToView(view: .signUp)
     }
     
     //signin login
@@ -123,12 +123,15 @@ class StartViewController: UIViewController, GIDSignInUIDelegate, UITextFieldDel
         self.present(alert, animated: true, completion: nil)
     }
     
+  
+  
 }
 
 extension StartViewController : StoreSubscriber {
    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        store.state.authState.state = .finished
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         store.subscribe(self) {
             subcription in
@@ -138,8 +141,16 @@ extension StartViewController : StoreSubscriber {
     
     func newState(state: UserState) {
         self.view.hideToastActivity()
-        service.UTILITY_SERVICE.enabledView()
-
+        self.view.isUserInteractionEnabled = true
+        switch store.state.authState.state {
+            case .loading:
+                self.view.isUserInteractionEnabled = false
+                self.view.makeToastActivity(.center)
+            break
+            default:
+            break
+        }
+        
         switch state.user {
         case .failed:
             alert()

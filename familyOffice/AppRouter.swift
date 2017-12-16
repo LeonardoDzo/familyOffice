@@ -23,7 +23,7 @@ enum StoryBoard: String {
 
 enum RoutingDestination: String {
     case start = "StartViewController"
-    case signUp = "SingUpViewController"
+    case signUp = "SingUPViewController"
     case homeSocial = "TabBarControllerView",
          profileFamily = "FamilyProfileViewController",
          families = "FamilyCollectionViewController",

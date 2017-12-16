@@ -33,7 +33,7 @@ class EventEntity: Object, Codable, Serializable {
     let admins = List<RealmString>()
     dynamic var startdate: Int = 0
     dynamic var enddate: Int = 0
-    dynamic var admin = ""
+
     
     private enum CodingKeys: String, CodingKey {
         case title,
@@ -151,8 +151,6 @@ class EventEntity: Object, Codable, Serializable {
                 try! rManager.realm.write {
                     self.myEvents.append(event)
                 }
-                
-               
                 i-=1
             }
             
