@@ -144,7 +144,7 @@ extension UserS : RequestProtocol {
                 if let data = snapshotValue.jsonToData() {
                     let user = try JSONDecoder().decode(UserEntity.self, from: data)
                     
-                    self.status = .Finished(user)
+                    self.status = .Finished(action)
                     rManager.save(objs: user)
                     store.dispatch(self)
                     

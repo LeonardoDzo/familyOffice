@@ -21,7 +21,7 @@ import ReSwift
 //}
 
 enum RequestError : Error {
-    case NotFound, NotJson, NotData
+    case NotFound, NotJson, NotData, CouldNotWrite
 }
 
 enum RequestAction: Action {
