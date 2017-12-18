@@ -24,6 +24,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
     var currentFolderId = "root"
     
     @IBOutlet weak var searchBarFiles: UISearchBar!
+    @IBOutlet weak var tabBar: UITabBar!
     
     var lightboxController = LightboxController()
     var imagePicker: UIImagePickerController!
@@ -33,10 +34,14 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
     override func viewDidLoad() {
         super.viewDidLoad()
         hideKeyboardWhenTappedAround()
+        
         let barButton = UIBarButtonItem(title: "Atras", style: .plain, target: self, action: #selector(self.back))
         let newButton = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_bar_more_button"), style: .plain, target: self, action: #selector(self.handleMore))
         self.navigationItem.leftBarButtonItem = barButton
         self.navigationItem.rightBarButtonItem = newButton
+        
+        tabBar.selectedItem = tabBar.items?[0]
+        
         // Do any additional setup after loading the view.
         let nav = self.navigationController?.navigationBar
         nav?.barTintColor = #colorLiteral(red: 0.9598663449, green: 0.7208504081, blue: 0.1197796389, alpha: 1)
@@ -130,7 +135,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
     
     override func back() -> Void {
         if self.currentFolder == "root"{
-            _ = self.navigationController?.popViewController(animated: true)
+            self.dismiss(animated: true, completion: nil)
         }else{
             self.currentFolder = self.folders.popLast()!
             let folder = self.files.first(where: {$0.filename == self.currentFolder})
@@ -301,7 +306,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
             self.currentFolder = fileNameString as String
             self.title = self.currentFolder == "root" ? "Caja fuerte" : self.currentFolder
             print("Current Folder: \(self.currentFolder)")
-            files = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({$0.parent == self.currentFolderId}) ?? []
+            files = self.getFiles()
             filesCollectionView.reloadData()
         }else {
             self.performSegue(withIdentifier: "openPDFSegue", sender: nil)
@@ -467,9 +472,13 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
         //        self.selectedImage = page
     }
     
+    
+    
     func getFiles() -> [SafeBoxFile] {
-        let folders = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({$0.type == "folder" && $0.parent == self.currentFolderId}).sorted(by: { (a, b) -> Bool in return a.filename < b.filename}) ?? []
-        let newFiles = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({$0.type == "file" && $0.parent == self.currentFolderId}).sorted(by: { (a, b) -> Bool in return a.filename < b.filename}) ?? []
+        let selectedTabBarItem = self.tabBar.selectedItem?.tag
+        print(selectedTabBarItem!)
+        let folders = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({$0.type == "folder" && $0.parent == self.currentFolderId && self.filterByTabBar(selectedItem: selectedTabBarItem!, file: $0)}).sorted(by: { (a, b) -> Bool in return a.filename < b.filename}) ?? []
+        let newFiles = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({$0.type == "file" && $0.parent == self.currentFolderId && self.filterByTabBar(selectedItem: selectedTabBarItem!, file: $0)}).sorted(by: { (a, b) -> Bool in return a.filename < b.filename}) ?? []
         return folders + newFiles
     }
 }
@@ -680,5 +689,52 @@ extension IndexViewController: UIViewControllerPreviewingDelegate{
         
         show(viewControllerToCommit, sender: self)
         
+    }
+}
+
+extension IndexViewController: UITabBarDelegate {
+    func isImage(file: SafeBoxFile) -> Bool {
+        let ext = NSString(string: file.filename).pathExtension
+        return ext == "png" || ext == "jpg" || ext == "gif"
+    }
+    
+    func isFolder(file: SafeBoxFile) -> Bool{
+        let ext = NSString(string: file.filename).pathExtension
+        return ext == ""
+    }
+    
+    func filterByTabBar(selectedItem: Int, file: SafeBoxFile) -> Bool {
+        switch selectedItem {
+        case 0:
+            return true
+        case 1:
+            return !self.isImage(file: file)
+        case 2:
+            return self.isImage(file: file) || self.isFolder(file: file)
+        default: return true
+        }
+    }
+    
+    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        switch item.tag {
+        case 0:
+            self.files = getFiles()
+            break
+        case 1:
+            self.files = getFiles().filter({ (file) -> Bool in
+                let ext = NSString(string: file.filename).pathExtension
+                return !isImage(file: file)
+            })
+            break
+        case 2:
+            self.files = getFiles().filter({ (file) -> Bool in
+                let ext = NSString(string: file.filename).pathExtension
+                return isImage(file: file) || isFolder(file: file)
+            })
+            break
+        default:
+            break
+        }
+        self.filesCollectionView.reloadData()
     }
 }

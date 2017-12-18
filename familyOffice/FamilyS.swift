@@ -149,7 +149,8 @@ extension FamilyS : RequestProtocol, RequestStorageSvc {
                 if let data = dictionary.jsonToData() {
                     let family =  try JSONDecoder().decode(FamilyEntity.self, from: data)
                     rManager.save(objs: family)
-                    print("Familias", FamilyEntity.self)
+                    let ref = ref_family(family.id)
+                    sharedMains.initObserves(ref:ref, actions: [.childChanged])
                     self.status = .finished
                     store.dispatch(self)
                 }else{

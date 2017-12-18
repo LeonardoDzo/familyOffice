@@ -50,4 +50,25 @@ class FamilyEntity : Object, Codable, Serializable {
         }
         
     }
+    func update(snap: [String: Any]) -> Bool{
+        do {
+            var family : [String: Any]? = nil
+            if var val = self.toJSON() {
+                val["admins"] = self.admins.toNSArrayByKey() ?? []
+                val["members"] = self.members.toNSArrayByKey() ?? []
+                family = val
+                family?.update(other: snap)
+                if let data = family?.jsonToData() {
+                    let editFamily = try JSONDecoder().decode(FamilyEntity.self, from: data)
+                    rManager.save(objs: editFamily)
+                    return true
+                }
+            }
+        }catch let error {
+            print(error)
+            return false
+        }
+        return false
+        
+    }
 }

@@ -30,7 +30,8 @@ class PreHomeViewController: UIViewController, UserEModelBindable {
         super.didReceiveMemoryWarning()
     }
     @IBAction func handleConf(_ sender: UIButtonX) {
-        self.pushToView(view: .confView, sender: getUser())
+        
+        self.pushToView(view: .profileView, sender: getUser())
     }
     
 
