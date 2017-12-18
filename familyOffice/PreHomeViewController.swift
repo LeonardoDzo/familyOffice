@@ -84,6 +84,9 @@ class PreHomeViewController: UIViewController, UserEModelBindable {
         //finally presenting the dialog box
         self.present(alertController, animated: true, completion: nil)
     }
+    @IBAction func handleAddFamily(_ sender: UIButtonX) {
+        promptForAnswer()
+    }
     @IBAction func logout(_ sender: Any) {
         store.dispatch(AuthSvc(.logout))
     }

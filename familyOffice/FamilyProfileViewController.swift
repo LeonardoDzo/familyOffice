@@ -35,7 +35,7 @@ class FamilyProfileViewController: UIViewController, FamilyEBindable {
     }
     
     @IBAction func handleAddNewMember(_ sender: UIButton) {
-        self.pushToView(view: .contacts, sender: self.family)
+        self.gotoView(view: .contacts, sender: self.family, navigation: true)
     }
     
     @objc func editImage() -> Void {
