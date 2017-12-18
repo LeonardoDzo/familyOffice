@@ -113,24 +113,24 @@ class MainFunctions : RequestProtocol {
         case "users":
             let id = snapshot.ref.description().components(separatedBy: "/")[4]
            
-            if  let user = rManager.realm.object(ofType: UserEntity.self, forPrimaryKey: id), var val =  user.toJSON() {
-                    val["families"] = user.families.toNSArrayByKey() ?? []
-                    val["events"] = user.events.toNSArrayByKey() ?? []
-                    val["tokens"] = user.tokens.toNSArrayByKey() ?? []
-                    val[route[5]] = snapshot.value ?? ""
-                    print(val)
-                    let user : NSDictionary = val as NSDictionary
-                    if  let data = user.jsonToData() {
-                        do {
-                            let editUser = try JSONDecoder().decode(UserEntity.self, from: data)
-                            
-                            rManager.save(objs: editUser)
-                            store.state.UserState.user = .finished
-                        }catch let error {
-                            print(error)
-                        }
+            if  let user = rManager.realm.object(ofType: UserEntity.self, forPrimaryKey: id) {
+                if let val = snapshot.value {
+                    let snapshot : Dictionary<String, Any> = [route[5]: val ]
+                    if user.update(snap: snapshot) {
+                        store.state.UserState.user = .finished
                     }
-                
+                }
+            }
+            break
+        case "families":
+            let id = snapshot.ref.description().components(separatedBy: "/")[4]
+            if let family = rManager.realm.object(ofType: FamilyEntity.self, forPrimaryKey: id) {
+                if let val = snapshot.value {
+                    let snapshot : Dictionary<String, Any> = [route[5]: val ]
+                    if family.update(snap: snapshot) {
+                        store.state.FamilyState.status = .finished
+                    }
+                }
             }
             break
         default:

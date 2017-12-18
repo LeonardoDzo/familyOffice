@@ -53,7 +53,7 @@ class PreviewEventsViewController: UIViewController {
            
             backgroundnoevents.image = #imageLiteral(resourceName: "background_no_events")
             self.view.addSubview(backgroundnoevents)
-            backgroundnoevents.contentMode = .center
+            backgroundnoevents.contentMode = .scaleAspectFit
         }
         self.tableView.reloadData()
     }

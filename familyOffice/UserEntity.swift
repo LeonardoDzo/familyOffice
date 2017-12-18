@@ -101,6 +101,28 @@ public class UserEntity: Object, Codable, Serializable {
     func isUserLogged() -> Bool {
         return Auth.auth().currentUser?.uid == self.id
     }
+    func update(snap: [String: Any]) -> Bool{
+        do {
+        var user : [String: Any]? = nil
+        if var val = self.toJSON() {
+            val["families"] = self.families.toNSArrayByKey() ?? []
+            val["events"] = self.events.toNSArrayByKey() ?? []
+            val["tokens"] = self.tokens.toNSArrayByKey() ?? []
+            user = val
+            user?.update(other: snap)
+            if let data = user?.jsonToData() {
+                let editUser = try JSONDecoder().decode(UserEntity.self, from: data)
+                rManager.save(objs: editUser)
+                return true
+            }
+        }
+        } catch let error {
+            print(error)
+            return false
+        }
+        return false
+            
+    }
 }
 
 extension List {
@@ -139,5 +161,3 @@ extension NSArray {
         return try? JSONSerialization.jsonObject(with: data!) as! [String:Any]
     }
 }
-
-

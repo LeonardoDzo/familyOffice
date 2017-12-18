@@ -65,11 +65,7 @@ extension UIViewController {
     
     func setupBack() -> Void {
         var backBtn :UIBarButtonItem!
-        if let _ = self.navigationController {
-            backBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "back-27x20").maskWithColor(color: #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)), style: .plain, target: self, action: #selector(self.back3))
-        } else {
-            backBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "back-27x20").maskWithColor(color: #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)), style: .plain, target: self, action: #selector(self.back3))
-        }
+        backBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "back-27x20").maskWithColor(color: #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)), style: .plain, target: self, action: #selector(self.back3))
         
         self.navigationItem.leftBarButtonItem = backBtn
     }
@@ -101,12 +97,16 @@ extension UIViewController {
         nav?.tintColor = #colorLiteral(red: 1, green: 0.2793949573, blue: 0.1788432287, alpha: 1)
     }
     
-    func gotoView(view: RoutingDestination, sender: Any? = nil )  {
+    func gotoView(view: RoutingDestination, sender: Any? = nil, navigation: Bool? = false)  {
         let mainStoryboard: UIStoryboard = UIStoryboard(name: view.getStoryBoard(), bundle: nil)
-        let viewcontroller : UIViewController = mainStoryboard.instantiateViewController(withIdentifier: view.rawValue)
+        var viewcontroller : UIViewController = mainStoryboard.instantiateViewController(withIdentifier: view.rawValue)
         
         if let vc = viewcontroller as? bind {
             vc.bind(sender: sender)
+        }
+        if let flag = navigation, flag {
+            viewcontroller = UINavigationController(rootViewController: viewcontroller)
+            
         }
         if let tb = viewcontroller as? UITabBarController {
             tb.setupBack()

@@ -129,10 +129,26 @@ class IllnessViewController: UIViewController, UIScrollViewDelegate, UITableView
         setPage(page)
     }
     
+    fileprivate func setbackground(_ page: Int) {
+        let count = page == 0 ?  medicines.count : illnesses.count
+        let img = page == 0 ?  #imageLiteral(resourceName: "background_no_medicine") : #imageLiteral(resourceName: "background_no_disease")
+        if  count == 0 {
+            let imageView = UIImageView()
+            imageView.image = img
+            self.tableView.backgroundView = imageView
+            imageView.contentMode = .scaleAspectFill
+        }else {
+            self.tableView.backgroundView = UIView()
+        }
+    }
+    
     func setPage(_ page: Int) {
         if (pageControl.currentPage == page) { return }
         addLabel.text = labels[page]
         pageControl.currentPage = page
+        
+        setbackground(page)
+        tableView.tableFooterView = UIView()
         tableView.reloadSections(IndexSet(arrayLiteral: 0), with: UITableViewRowAnimation.fade)
     }
     
@@ -217,6 +233,7 @@ extension IllnessViewController: StoreSubscriber {
         getMedicinesUuid = UUID().uuidString
         store.dispatch(getIllnessesAction(byFamily: self.familyId, uuid: getIllnessUuid!))
         store.dispatch(getMedicinesAction(byFamily: self.familyId, uuid: getMedicinesUuid!))
+        setPage(0)
         tableView.reloadData()
     }
     
@@ -241,6 +258,7 @@ extension IllnessViewController: StoreSubscriber {
             illnesses = rManager.realm.objects(IllnessEntity.self)
                 .filter("family == '\(self.familyId)'")
                 .map({$0})
+            
             self.tableView.reloadData()
         default:
             break;

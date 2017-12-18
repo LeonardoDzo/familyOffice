@@ -20,10 +20,14 @@ class InfoUserViewController: UITableViewController, UserEModelBindable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.bind()
         // Do any additional setup after loading the view.
     }
-
+    override func viewWillAppear(_ animated: Bool) {
+        if userModel == nil {
+            self.userModel = getUser()
+        }
+        self.bind()
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

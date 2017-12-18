@@ -155,9 +155,6 @@ extension UserS : RequestProtocol {
                             store.dispatch(EventSvc(.get(byId: eid.value)))
                         }
                         
-                        service.NOTIFICATION_SERVICE.removeHandles()
-                        service.NOTIFICATION_SERVICE.initObserves(ref: "notifications/\(user.id)", actions: [.childAdded])
-                       
                         let ref = "\(ref_users(uid: user.id))/families"
                         sharedMains.removeHandles(ref: ref)
                         sharedMains.initObserves(ref:ref, actions: [.childAdded, .childRemoved])
@@ -165,14 +162,12 @@ extension UserS : RequestProtocol {
                         let refevents = "\(ref_users(uid: user.id))/events"
                         sharedMains.removeHandles(ref: refevents)
                         sharedMains.initObserves(ref:refevents, actions: [.childAdded, .childRemoved])
+                        if let refreshedToken = InstanceID.instanceID().token() {
+                            store.dispatch(UserS(.updateToken(token: refreshedToken)))
+                        }
                     }
                     let ref = "\(ref_users(uid: user.id))"
-                    sharedMains.removeHandles(ref: ref)
                     sharedMains.initObserves(ref:ref, actions: [.childChanged])
-                    if let refreshedToken = InstanceID.instanceID().token() {
-                         store.dispatch(UserS(.updateToken(token: refreshedToken)))
-                    }
-                    
                 }
             }
         }catch let error {

@@ -198,7 +198,7 @@ extension UserModelBindable {
             if !userModel.photoURL.isEmpty {
                 profileImage.loadImage(urlString: userModel.photoURL, filter: filter)
             }else{
-                profileImage.image = #imageLiteral(resourceName: "profile_default")
+                profileImage.image = #imageLiteral(resourceName: "user-default")
             }
         }
         
@@ -310,7 +310,7 @@ extension UserEModelBindable  {
             if !userModel.photoURL.isEmpty {
                 photo.loadImage(urlString: userModel.photoURL)
             }else{
-                photo.backgroundColor = UIColor.gray
+                photo.image = #imageLiteral(resourceName: "user-default")
             }
         }
         if let familycounterLbl = self.familycounterLbl {
@@ -324,7 +324,7 @@ extension UserEModelBindable  {
             if !userModel.photoURL.isEmpty {
                 profileImage.loadImage(urlString: userModel.photoURL)
             }else{
-                profileImage.image = #imageLiteral(resourceName: "profile_default")
+                profileImage.image = #imageLiteral(resourceName: "user-default")
             }
         }
         

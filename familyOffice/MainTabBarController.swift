@@ -21,7 +21,12 @@ class MainTabBarController: UITabBarController {
             case "tabbarchat":
                 self.setStyle(.chat)
                 break
+            case "TabBarControllerView":
+                self.tabBar.items?.last?.title = "Perfil"
+                self.tabBar.items?.last?.image = #imageLiteral(resourceName: "Setting")
+                break
             default:
+                
                 break
             }
 
@@ -29,6 +34,8 @@ class MainTabBarController: UITabBarController {
         self.setupBack()
         // Do any additional setup after loading the view.
     }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
