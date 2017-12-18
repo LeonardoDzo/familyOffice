@@ -931,6 +931,14 @@
             </objects>
             <point key="canvasLocation" x="-573" y="2227"/>
         </scene>
+        <!--Insurance-->
+        <scene sceneID="aVV-dE-haN">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Insurance" id="368-ru-su7" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="R8d-ic-YJ7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1172" y="2162"/>
+        </scene>
         <!--MainGallery-->
         <scene sceneID="PLU-vO-g1m">
             <objects>
@@ -1059,6 +1067,7 @@
                         <segue destination="FyI-zj-JMa" kind="show" identifier="chatSegue" id="iIJ-77-fhy"/>
                         <segue destination="N9s-zB-AeD" kind="show" identifier="firstAidKitSegue" id="CV3-nO-XG6"/>
                         <segue destination="c5f-M5-x9f" kind="show" identifier="calendarSegue" id="4Io-dl-6FP"/>
+                        <segue destination="368-ru-su7" kind="show" identifier="insuranceSegue" id="ZqL-bq-wXe"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jJ7-ys-so0" userLabel="First Responder" sceneMemberID="firstResponder"/>
