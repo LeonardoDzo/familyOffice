@@ -96,7 +96,7 @@ class StartViewController: UIViewController, GIDSignInUIDelegate, UITextFieldDel
     
     @IBAction func signUp(_ sender: UIButton) {
         UIApplication.shared.beginIgnoringInteractionEvents()
-        store.dispatch(RoutingAction(d: .signUp))
+        self.pushToView(view: .signUp)
     }
     
     //signin login
