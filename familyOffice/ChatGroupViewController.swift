@@ -23,6 +23,7 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
     var getMessagesUuid: String?
     var createMessageUuid: String?
     var reqs = [String: Result<Int>]()
+    let myTitleView = FamilyTitleView.instanceFromNib()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +41,9 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
         }
         users = rManager.realm.objects(UserEntity.self)
             .filter("id IN {\(ids.joined(separator: ", "))}")
-        title = group.title
+        setTitle()
+        myTitleView.titleLbl.textColor = UIColor.white
+        self.navigationItem.titleView = myTitleView
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,15 +53,15 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
     
     @IBAction func onSend(_ sender: Any) {
         guard let text = textField.text, !text.isEmpty else { return }
-        view.endEditing(true)
+        createMessageUuid = UUID().uuidString
         let message = MessageEntity(value: [
+            "id": createMessageUuid!,
             "groupId": group.id,
             "remittent": user.id,
             "text": text
         ])
         textField.text = ""
-        createMessageUuid = UUID().uuidString
-        store.dispatch(createMessageAction(entity: message, uuid: createMessageUuid!))
+        store.dispatch(createMessageAction(entity: message, uuid: message.id))
     }
     
     func registerKeyboardNotifications() {
@@ -100,6 +103,24 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
         UIView.animate(withDuration: duration) { self.view.layoutIfNeeded() }
     }
     
+    func setTitle() {
+        myTitleView.photo.image = #imageLiteral(resourceName: "background_family")
+        if !group.isGroup {
+            let otherUser = group.members.first { self.user.id != $0.value }
+            if let user = rManager.realm.objects(UserEntity.self).filter("id = '\(otherUser!.value)'").first {
+                myTitleView.titleLbl.text = user.name
+                if !user.photoURL.isEmpty {
+                    myTitleView.photo.loadImage(urlString: user.photoURL)
+                }
+            }
+        } else {
+            myTitleView.titleLbl.text = group.title
+            if !group.coverPhoto.isEmpty {
+                myTitleView.photo.loadImage(urlString: group.coverPhoto)
+            }
+        }
+    }
+    
     // MARK: TableView
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -133,7 +154,14 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
         return cell.calcHeight(text: message.text, width: width)
     }
     
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        return messages[indexPath.row].status == MessageStatus.Failed.rawValue ? indexPath : nil
+    }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let msg = messages[indexPath.row]
+        store.dispatch(createMessageAction(entity: msg, uuid: msg.id))
+    }
 
 }
 
@@ -165,11 +193,11 @@ extension ChatGroupViewController : StoreSubscriber {
         if let uuid = getMessagesUuid {
             switch state.requestState.requests[uuid] {
             case .finished?:
-                if tableView.numberOfRows(inSection: 0) < messages.count {
-                    let index = IndexPath(row: messages.count - 1, section: 0)
-                    tableView.reloadData()
-                    tableView.scrollToRow(at: index, at: .bottom, animated: false)
-                }
+                tableView.reloadData()
+//                if tableView.numberOfRows(inSection: 0) < messages.count {
+                let index = IndexPath(row: messages.count - 1, section: 0)
+                tableView.scrollToRow(at: index, at: .bottom, animated: false)
+//                }
                 break
             default:
                 break
@@ -191,6 +219,7 @@ extension ChatGroupViewController : StoreSubscriber {
             switch action {
             case .getbyId(let userId):
                 reqs[userId] = .finished
+                setTitle()
                 tableView.reloadData()
             default: break
             }

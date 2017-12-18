@@ -37,11 +37,27 @@ func getMessageAction(messageId: String, uuid: String) -> Store<AppState>.Action
 func createMessageAction(entity: MessageEntity, uuid: String) -> Store<AppState>.ActionCreator {
     return { state, store in
         store.dispatch(RequestAction.Loading(uuid: uuid))
-        let child = MESSAGES_REF.childByAutoId()
-        entity.id = child.key
-        child.setValue(entity.toJSON())
-        rManager.save(objs: entity)
-        store.dispatch(RequestAction.Done(uuid: uuid))
+        let child = MESSAGES_REF.child(entity.id)
+        do {
+            try rManager.realm.write {
+                entity.status = MessageStatus.Pending.rawValue
+                rManager.realm.add(entity, update: true)
+            }
+        } catch {
+            store.dispatch(RequestAction.Error(err: RequestError.CouldNotWrite, uuid: uuid))
+            return nil
+        }
+        child.setValue(entity.toJSON(), withCompletionBlock: { err, _ in
+            do {
+                try rManager.realm.write {
+                    let hasError = err != nil
+                    entity.status = hasError ? MessageStatus.Failed.rawValue : MessageStatus.Sent.rawValue
+                    store.dispatch(RequestAction.Done(uuid: uuid))
+                }
+            } catch {
+                store.dispatch(RequestAction.Error(err: RequestError.CouldNotWrite, uuid: uuid))
+            }
+        })
         return nil
     }
 }
@@ -52,6 +68,8 @@ private func _messageReceived(snapshot: DataSnapshot, uuid: String) {
         guard let json = snapshot.value as? NSDictionary else { throw RequestError.NotJson }
         json.setValue(snapshot.key, forKey: "id")
         json.setValue(Date(json["timestamp"] as! Int), forKey: "timestamp")
+        let localMsg = rManager.realm.objects(MessageEntity.self).first(where: { $0.id == snapshot.key})
+        json.setValue(localMsg?.status ?? MessageStatus.Sent.rawValue, forKey: "status")
         let entity = MessageEntity(value: json)
         rManager.save(objs: entity)
         store.dispatch(RequestAction.Done(uuid: uuid))
@@ -69,6 +87,7 @@ private func _messagesReceived(snapshot: DataSnapshot, uuid: String) {
             let dic = value as! NSDictionary
             dic.setValue(snapshot.key, forKey: "id")
             dic.setValue(Date(dic["timestamp"] as! Int), forKey: "timestamp")
+            dic.setValue(true, forKey: "sent")
             entities.append(MessageEntity(value: dic))
         })
         rManager.saveObjects(objs: entities)
