@@ -23,6 +23,7 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
     var getMessagesUuid: String?
     var createMessageUuid: String?
     var reqs = [String: Result<Int>]()
+    let myTitleView = FamilyTitleView.instanceFromNib()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +41,9 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
         }
         users = rManager.realm.objects(UserEntity.self)
             .filter("id IN {\(ids.joined(separator: ", "))}")
-        title = group.title
+        setTitle()
+        myTitleView.titleLbl.textColor = UIColor.white
+        self.navigationItem.titleView = myTitleView
     }
 
     override func didReceiveMemoryWarning() {
@@ -98,6 +101,24 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
         bottomConstraint.constant = 0
         
         UIView.animate(withDuration: duration) { self.view.layoutIfNeeded() }
+    }
+    
+    func setTitle() {
+        myTitleView.photo.image = #imageLiteral(resourceName: "background_family")
+        if !group.isGroup {
+            let otherUser = group.members.first { self.user.id != $0.value }
+            if let user = rManager.realm.objects(UserEntity.self).filter("id = '\(otherUser!.value)'").first {
+                myTitleView.titleLbl.text = user.name
+                if !user.photoURL.isEmpty {
+                    myTitleView.photo.loadImage(urlString: user.photoURL)
+                }
+            }
+        } else {
+            myTitleView.titleLbl.text = group.title
+            if !group.coverPhoto.isEmpty {
+                myTitleView.photo.loadImage(urlString: group.coverPhoto)
+            }
+        }
     }
     
     // MARK: TableView
@@ -191,6 +212,7 @@ extension ChatGroupViewController : StoreSubscriber {
             switch action {
             case .getbyId(let userId):
                 reqs[userId] = .finished
+                setTitle()
                 tableView.reloadData()
             default: break
             }

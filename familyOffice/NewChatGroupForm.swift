@@ -38,7 +38,7 @@ class NewChatGroupForm : FormViewController {
                 $0.validationOptions = .validatesOnChange
             } <<< ImageRow() {
                 $0.title = "Foto de grupo"
-                $0.sourceTypes = [.PhotoLibrary, .SavedPhotosAlbum]
+                $0.sourceTypes = [.PhotoLibrary, .SavedPhotosAlbum, .Camera]
                 $0.clearAction = .yes(style: .destructive)
                 $0.tag = "photo"
             }

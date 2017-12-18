@@ -86,30 +86,30 @@ extension GroupBindible {
         }()
         
         if let groupImg = groupImg {
+            groupImg.image = #imageLiteral(resourceName: "background_family")
             if !group.coverPhoto.isEmpty {
                 groupImg.loadImage(urlString: group.coverPhoto)
             } else if !group.isGroup {
                 if user != nil {
                     groupImg.loadImage(urlString: user.photoURL)
                 }
-            }else{
-                groupImg.image = #imageLiteral(resourceName: "background_family")
             }
             
         }
         if let groupName = groupName {
+            groupName.text = "Cargando..."
             if group.isGroup {
                 groupName.text = group.title
             }else if !group.isGroup{
                 if user != nil {
                      groupName.text = user.name
-                }else{
-                     groupName.text = "Cargando..."
                 }
             }
         }
         if let lastMsg = lastMsg, let msgTime = msgTime {
             guard let msgId = group.lastMessage else {
+                lastMsg.text = ""
+                msgTime.text = ""
                 return
             }
             if let msg = rManager.realm.objects(MessageEntity.self).filter("id = '\(msgId)'").first {

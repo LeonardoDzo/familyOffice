@@ -23,7 +23,7 @@ class ChatGroupsTableViewController: UITableViewController {
         self.setupBack()
         
         let editButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onAdd))
-        self.navigationItem.rightBarButtonItem = editButtonItem
+        self.tabBarController?.navigationItem.rightBarButtonItem = editButtonItem
     }
 
     override func didReceiveMemoryWarning() {

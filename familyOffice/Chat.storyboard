@@ -48,10 +48,10 @@
             </objects>
             <point key="canvasLocation" x="-1650" y="3084"/>
         </scene>
-        <!--chat-->
+        <!--Chats-->
         <scene sceneID="FmC-U1-oGB">
             <objects>
-                <tableViewController storyboardIdentifier="ChatnotGroups" useStoryboardIdentifierAsRestorationIdentifier="YES" id="dg8-oe-g7Q" customClass="ChatGroupsTableViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ChatnotGroups" title="Chats" useStoryboardIdentifierAsRestorationIdentifier="YES" id="dg8-oe-g7Q" customClass="ChatGroupsTableViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="81" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="htW-iO-k0c">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -135,7 +135,7 @@
         <!--Miembros-->
         <scene sceneID="Bo9-aP-Ij8">
             <objects>
-                <tableViewController id="alc-xy-q7E" customClass="MembersChatTableViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Miembros" id="alc-xy-q7E" customClass="MembersChatTableViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="bBV-s7-4xZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -161,10 +161,10 @@
             </objects>
             <point key="canvasLocation" x="-735" y="3327"/>
         </scene>
-        <!--Chats-->
+        <!--Grupos-->
         <scene sceneID="w0o-Fp-xsg">
             <objects>
-                <tableViewController storyboardIdentifier="GroupsChat" title="Chats" useStoryboardIdentifierAsRestorationIdentifier="YES" id="KQ9-N1-hYz" customClass="ChatGroupsTableViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="GroupsChat" title="Grupos" useStoryboardIdentifierAsRestorationIdentifier="YES" id="KQ9-N1-hYz" customClass="ChatGroupsTableViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="81" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Uo5-F0-9C2">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -242,7 +242,7 @@
                     <tabBarItem key="tabBarItem" title="Grupos" image="groups-conference" id="q3t-xo-mQv">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
-                    <navigationItem key="navigationItem" title="Chats" id="G23-P8-2IT"/>
+                    <navigationItem key="navigationItem" title="Grupos" id="G23-P8-2IT"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1MN-5K-CiH" userLabel="First Responder" sceneMemberID="firstResponder"/>
