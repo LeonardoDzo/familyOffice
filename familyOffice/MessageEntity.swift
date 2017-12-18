@@ -9,6 +9,10 @@
 import Foundation
 import RealmSwift
 
+enum MessageStatus: Int {
+    case Pending = 0, Sent = 1, Seen = 2, Failed = -1
+}
+
 @objcMembers
 class MessageEntity: Object, Serializable {
     
@@ -19,7 +23,7 @@ class MessageEntity: Object, Serializable {
     dynamic var text: String = ""
     dynamic var type: String = ""
     dynamic var timestamp: Date = Date()
-    dynamic var seen: Bool = false
+    dynamic var status: Int = MessageStatus.Pending.rawValue
     dynamic var parent: String?
     
     override static func primaryKey() -> String? {
@@ -34,7 +38,7 @@ class MessageEntity: Object, Serializable {
             "text": text,
             "type": type,
             "timestamp": timestamp.toMillis(),
-            "seen": seen,
+            "status": status
         ] as [String : Any]
         if let parent = self.parent { json["parent"] = parent }
         return json

@@ -53,15 +53,15 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
     
     @IBAction func onSend(_ sender: Any) {
         guard let text = textField.text, !text.isEmpty else { return }
-        view.endEditing(true)
+        createMessageUuid = UUID().uuidString
         let message = MessageEntity(value: [
+            "id": createMessageUuid!,
             "groupId": group.id,
             "remittent": user.id,
             "text": text
         ])
         textField.text = ""
-        createMessageUuid = UUID().uuidString
-        store.dispatch(createMessageAction(entity: message, uuid: createMessageUuid!))
+        store.dispatch(createMessageAction(entity: message, uuid: message.id))
     }
     
     func registerKeyboardNotifications() {
@@ -154,7 +154,14 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
         return cell.calcHeight(text: message.text, width: width)
     }
     
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        return messages[indexPath.row].status == MessageStatus.Failed.rawValue ? indexPath : nil
+    }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let msg = messages[indexPath.row]
+        store.dispatch(createMessageAction(entity: msg, uuid: msg.id))
+    }
 
 }
 
@@ -186,11 +193,11 @@ extension ChatGroupViewController : StoreSubscriber {
         if let uuid = getMessagesUuid {
             switch state.requestState.requests[uuid] {
             case .finished?:
-                if tableView.numberOfRows(inSection: 0) < messages.count {
-                    let index = IndexPath(row: messages.count - 1, section: 0)
-                    tableView.reloadData()
-                    tableView.scrollToRow(at: index, at: .bottom, animated: false)
-                }
+                tableView.reloadData()
+//                if tableView.numberOfRows(inSection: 0) < messages.count {
+                let index = IndexPath(row: messages.count - 1, section: 0)
+                tableView.scrollToRow(at: index, at: .bottom, animated: false)
+//                }
                 break
             default:
                 break

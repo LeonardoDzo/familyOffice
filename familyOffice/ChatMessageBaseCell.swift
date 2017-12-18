@@ -12,11 +12,13 @@ class ChatMessageBaseCell: UITableViewCell {
 
     let mineColor = UIColor(hex: "#e3e3e3")
     let otherColor = UIColor.white
+    let errColor = UIColor.red
 
     @IBOutlet weak var userImg: UIImageView!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var bubbleView: UIView!
     @IBOutlet weak var msgTextLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -35,6 +37,10 @@ class ChatMessageBaseCell: UITableViewCell {
     
     func bind(message: MessageEntity, user: UserEntity, mine: Bool) {
         msgTextLabel.text = message.text
+        timeLabel.text = message.timestamp.string(with: DateFormatter.hourAndMin)
+        userName.textColor = UIColor.black
+        msgTextLabel.textColor = UIColor.black
+        timeLabel.textColor = UIColor.black
         if !mine {
             userName.text = user.name
             userName.textAlignment = .left
@@ -48,10 +54,24 @@ class ChatMessageBaseCell: UITableViewCell {
             bubbleView.backgroundColor = mineColor
             userImg.image = nil
         }
+        switch MessageStatus(rawValue: message.status) {
+        case .Pending?:
+            bubbleView.alpha = 0.5
+        case .Sent?:
+            bubbleView.alpha = 1
+            break
+        case .Failed?:
+            bubbleView.backgroundColor = errColor
+            userName.textColor = UIColor.white
+            msgTextLabel.textColor = UIColor.white
+            timeLabel.textColor = UIColor.white
+            break
+        default: break
+        }
     }
     
     func calcHeight(text: String, width: CGFloat) -> CGFloat {
-        return text.height(withConstrainedWidth: width, font: msgTextLabel.font) + 70
+        return text.height(withConstrainedWidth: width, font: msgTextLabel.font) + 85
     }
 
 }

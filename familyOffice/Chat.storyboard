@@ -261,19 +261,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IhX-pi-VoI">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IhX-pi-VoI">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="621"/>
                                 <color key="backgroundColor" red="0.9523342252" green="0.97245591880000004" blue="0.98510509729999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="83" id="TwW-dV-Uy7" customClass="ChatMessageBaseCell" customModule="familyOffice" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="83"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="102" id="TwW-dV-Uy7" customClass="ChatMessageBaseCell" customModule="familyOffice" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="102"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TwW-dV-Uy7" id="pG0-9p-Qfn">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="83"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="102"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4zy-tA-ohn">
-                                                    <rect key="frame" x="23" y="10" width="337" height="63"/>
+                                                    <rect key="frame" x="23" y="10" width="337" height="82"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h0P-q1-eGP">
                                                             <rect key="frame" x="32" y="10" width="297" height="21"/>
@@ -285,21 +285,33 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="20" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BQ8-ga-gIw">
-                                                            <rect key="frame" x="32" y="36" width="297" height="22"/>
+                                                            <rect key="frame" x="32" y="36" width="297" height="21"/>
                                                             <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6C5-ki-C8m">
+                                                            <rect key="frame" x="32" y="62" width="297" height="15"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="15" id="skF-ev-AHh"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstItem="BQ8-ga-gIw" firstAttribute="leading" secondItem="4zy-tA-ohn" secondAttribute="leading" constant="32" id="26i-Xc-GgX"/>
                                                         <constraint firstItem="h0P-q1-eGP" firstAttribute="top" secondItem="4zy-tA-ohn" secondAttribute="top" constant="10" id="6Ve-xb-XwX"/>
-                                                        <constraint firstAttribute="bottom" secondItem="BQ8-ga-gIw" secondAttribute="bottom" constant="5" id="FPf-h7-Tzu"/>
+                                                        <constraint firstItem="BQ8-ga-gIw" firstAttribute="top" secondItem="h0P-q1-eGP" secondAttribute="bottom" constant="5" id="Cw8-j3-Bag"/>
+                                                        <constraint firstItem="6C5-ki-C8m" firstAttribute="top" secondItem="BQ8-ga-gIw" secondAttribute="bottom" constant="5" id="DSN-RS-vZG"/>
+                                                        <constraint firstAttribute="bottom" secondItem="6C5-ki-C8m" secondAttribute="bottom" constant="5" id="HfH-yf-aZS"/>
                                                         <constraint firstAttribute="trailing" secondItem="h0P-q1-eGP" secondAttribute="trailing" constant="8" id="K6E-29-ndm"/>
-                                                        <constraint firstAttribute="trailing" secondItem="BQ8-ga-gIw" secondAttribute="trailing" constant="8" id="OYJ-mh-B3e"/>
-                                                        <constraint firstItem="BQ8-ga-gIw" firstAttribute="top" secondItem="h0P-q1-eGP" secondAttribute="bottom" constant="5" id="Sjw-rQ-kXm"/>
+                                                        <constraint firstAttribute="trailing" secondItem="BQ8-ga-gIw" secondAttribute="trailing" constant="8" id="Lml-wO-PLt"/>
+                                                        <constraint firstAttribute="trailing" secondItem="6C5-ki-C8m" secondAttribute="trailing" constant="8" id="TBf-Wm-h2v"/>
+                                                        <constraint firstItem="BQ8-ga-gIw" firstAttribute="leading" secondItem="4zy-tA-ohn" secondAttribute="leading" constant="32" id="cq3-xs-R3Q"/>
                                                         <constraint firstItem="h0P-q1-eGP" firstAttribute="leading" secondItem="4zy-tA-ohn" secondAttribute="leading" constant="32" id="qnA-jM-dXJ"/>
+                                                        <constraint firstItem="6C5-ki-C8m" firstAttribute="leading" secondItem="4zy-tA-ohn" secondAttribute="leading" constant="32" id="rRf-ke-wLp"/>
                                                     </constraints>
                                                 </view>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fJO-3G-X7k">
@@ -322,6 +334,7 @@
                                         <connections>
                                             <outlet property="bubbleView" destination="4zy-tA-ohn" id="KSP-fS-Epj"/>
                                             <outlet property="msgTextLabel" destination="BQ8-ga-gIw" id="wHG-Gb-XU7"/>
+                                            <outlet property="timeLabel" destination="6C5-ki-C8m" id="rqi-vB-Zw6"/>
                                             <outlet property="userImg" destination="fJO-3G-X7k" id="V3r-HP-U8N"/>
                                             <outlet property="userName" destination="h0P-q1-eGP" id="HYD-yk-00a"/>
                                         </connections>
