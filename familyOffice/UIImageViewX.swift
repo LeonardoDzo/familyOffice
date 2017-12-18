@@ -36,6 +36,14 @@ class UIImageViewX: CustomUIImageView{
         }
     }
     
+    @IBInspectable public var filter: UIColor = UIColor.clear {
+        didSet {
+            let view = UIView(frame: frame)
+            view.backgroundColor = filter
+            addSubview(view)
+        }
+    }
+    
     @IBInspectable var pulseDelay: Double = 0.0
     
     @IBInspectable var popIn: Bool = false

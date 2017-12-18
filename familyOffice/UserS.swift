@@ -123,20 +123,11 @@ class UserS : Action, EventProtocol {
 }
 
 extension UserS : RequestProtocol {
+    func notExistSnapshot(ref: String) {
+    }
+    
     func removed(snapshot: DataSnapshot) {
         
-    }
-    func notExistSnapshot() {
-        if case UserAction.getbyId(let uid) = self.action {
-            if Auth.auth().currentUser?.uid == uid, let user = Auth.auth().currentUser {
-                let newuser = UserEntity()
-                newuser.id = user.uid
-                newuser.name = user.displayName!
-                newuser.email = user.email!
-                newuser.photoURL = user.photoURL?.absoluteString ?? ""
-                store.dispatch(UserS(.create(user: newuser)))
-            }
-        }
     }
     func added(snapshot: DataSnapshot) {
         do {
@@ -154,6 +145,12 @@ extension UserS : RequestProtocol {
                            store.dispatch(FamilyS(.getbyId(fid: fid.value)))
                         }
                         
+                        if user.events.isEmpty {
+                            let events = rManager.realm.objects(EventEntity.self)
+                            try! rManager.realm.write {
+                                  rManager.realm.delete(events)
+                            }
+                        }
                         for eid in user.events {
                             store.dispatch(EventSvc(.get(byId: eid.value)))
                         }
@@ -164,6 +161,10 @@ extension UserS : RequestProtocol {
                         let ref = "\(ref_users(uid: user.id))/families"
                         sharedMains.removeHandles(ref: ref)
                         sharedMains.initObserves(ref:ref, actions: [.childAdded, .childRemoved])
+                        
+                        let refevents = "\(ref_users(uid: user.id))/events"
+                        sharedMains.removeHandles(ref: refevents)
+                        sharedMains.initObserves(ref:refevents, actions: [.childAdded, .childRemoved])
                     }
                     let ref = "\(ref_users(uid: user.id))"
                     sharedMains.removeHandles(ref: ref)

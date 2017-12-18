@@ -43,16 +43,16 @@ func isAuth()  {
             checkUserAgainstDatabase(completion: {(success, error ) in
                 if success {
                     if !view {
-                        rManager.deleteDatabase()
                         store.dispatch(UserS(.getbyId(uid: (user?.uid)!)))
                         view = !view
                     }
                 }else{
-                    store.dispatch(AuthSvc(.logout))
+                    if case .loading = store.state.authState.state {
+                    }else{
+                        store.dispatch(AuthSvc(.logout))
+                    }
                 }
             })
-        }else{
-            store.dispatch(AuthSvc(.logout))
         }
     }
 }
@@ -70,6 +70,9 @@ func checkUserAgainstDatabase(completion: @escaping (_ success: Bool, _ error: N
 }
 let sharedMains = MainFunctions.sharedInstance
 class MainFunctions : RequestProtocol {
+    func notExistSnapshot(ref: String) {
+    }
+    
     var handles = [(String, UInt, DataEventType)]()
     
     static let sharedInstance = MainFunctions()
@@ -145,7 +148,7 @@ class MainFunctions : RequestProtocol {
                 store.dispatch(FamilyS(.delete(fid: route[6])))
                 break
             case "events":
-                
+                EventSvc().removeHandles(ref: snapshot.ref.description())
                 break
             default:
                 break

@@ -66,6 +66,9 @@ class SafeBoxService: RequestService{
 }
 
 extension SafeBoxService: repository {
+    func notExistSnapshot(ref: String) {
+    }
+    
     func added(snapshot: DataSnapshot) {
         let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
         let safeBoxFile = SafeBoxFile(snapshot: snapshot)

@@ -11,6 +11,9 @@ import Firebase
 
 class FaqService: RequestService {
     func notExistSnapshot() {
+    }
+    
+    func notExistSnapshot(ref: String) {
         
     }
     

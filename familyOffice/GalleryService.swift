@@ -10,6 +10,10 @@ import FirebaseStorage.FIRStorage
 import FirebaseStorage.FIRStorageMetadata
 
 public class GalleryService : RequestService {
+    func notExistSnapshot() {
+        store.state.GalleryState.status = .failed
+    }
+    
     var handles: [(String, UInt, DataEventType)] = []
 
     var albums: [Album] = []
@@ -80,8 +84,8 @@ public class GalleryService : RequestService {
     }
     func delete(_ ref: String, callback: @escaping ((Any) -> Void)) {
     }
-    func notExistSnapshot() {
-        store.state.GalleryState.status = .failed
+    func notExistSnapshot(ref: String) {
+        
     }
 }
 extension GalleryService: repository {

@@ -18,6 +18,10 @@ class RealmString: Object {
         self.init()
         self.value = value
     }
+    convenience required init(_ id: String) {
+        self.init()
+        self.value = id
+    }
 }
 
 @objcMembers

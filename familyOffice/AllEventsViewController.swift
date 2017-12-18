@@ -30,7 +30,7 @@ class AllEventsViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-       
+        self.calendar.reloadData()
         self.tabBarController?.navigationItem.title = "Todos los Eventos"
         self.tabBarController?.navigationItem.rightBarButtonItem = nil
     }

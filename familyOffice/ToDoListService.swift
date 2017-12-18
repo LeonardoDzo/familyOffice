@@ -70,6 +70,10 @@ class ToDoListService: RequestService{
 }
 
 extension ToDoListService: repository{
+    func notExistSnapshot(ref: String) {
+        
+    }
+    
     func added(snapshot: DataSnapshot) {
         let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
         let item = ToDoList.ToDoItem(snapshot: snapshot)

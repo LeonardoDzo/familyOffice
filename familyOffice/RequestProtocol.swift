@@ -50,7 +50,7 @@ extension RequestProtocol {
             if(snapshot.exists()){
                 self.routing(snapshot: snapshot, action: action, ref: ref)
             }else{
-                self.notExistSnapshot()
+                self.notExistSnapshot(ref: ref)
             }
         }, withCancel: {(error) in
             print(error.localizedDescription)
@@ -63,7 +63,7 @@ extension RequestProtocol {
             if snapshot.exists(){
                 self.routing(snapshot: snapshot, action: .value, ref: ref)
             }else{
-                self.notExistSnapshot()
+                self.notExistSnapshot(ref: ref)
             }
         }, withCancel: {(error) in
             print(error.localizedDescription)

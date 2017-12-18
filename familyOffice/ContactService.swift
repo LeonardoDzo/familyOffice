@@ -106,6 +106,10 @@ extension ContactService : RequestService {
     }
 }
 extension ContactService: repository {
+    func notExistSnapshot(ref: String) {
+        
+    }
+    
     func added(snapshot: DataSnapshot) {
         let id = snapshot.ref.description().components(separatedBy: "/")[4].decodeUrl()
         let contact = Contact(snapshot: snapshot)

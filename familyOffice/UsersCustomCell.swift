@@ -12,7 +12,7 @@ import UIKit
 import RealmSwift
 import ReSwift
 
-public struct UserListSelected : Equatable, CustomStringConvertible {
+public struct UserListSelected : Equatable {
     
     public var list = [String]()
     
@@ -56,7 +56,7 @@ public final class UsersRow: OptionsRow<PushSelectorCell<UserListSelected>>, Pre
         
         displayValueFor = {
             guard let users = $0 else { return "0" }
-            return  "\(users.list.count)"
+            return  users.description
         }
     }
     

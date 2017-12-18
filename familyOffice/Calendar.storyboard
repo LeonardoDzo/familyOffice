@@ -50,38 +50,49 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hFk-pH-jsr">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hFk-pH-jsr" customClass="UIImageViewX" customModule="familyOffice" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="169"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="169" id="lZ7-Zt-Mf0"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="filter">
+                                        <color key="value" red="0.23531121120000001" green="0.39074818859999999" blue="0.54561730590000002" alpha="0.57766651995305163" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="5M4-2c-HJv">
                                 <rect key="frame" x="16" y="177" width="343" height="317"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wwo-Yv-pjC">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wwo-Yv-pjC" userLabel="detailsStack">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="91"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="N43-0v-mCV">
                                                 <rect key="frame" x="0.0" y="0.0" width="343" height="79"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="delete" translatesAutoresizingMaskIntoConstraints="NO" id="Jaq-3i-a3R">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="signal" translatesAutoresizingMaskIntoConstraints="NO" id="Jaq-3i-a3R" customClass="UIImageViewX" customModule="familyOffice" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="19.5" width="40" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="40" id="3rn-G9-QBH"/>
                                                             <constraint firstAttribute="height" constant="40" id="Bht-WJ-Th8"/>
                                                         </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="maskColor">
+                                                                <color key="value" red="0.23531121120000001" green="0.39074818859999999" blue="0.54561730590000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
                                                     </imageView>
-                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="cri-nR-xsC">
+                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cri-nR-xsC">
                                                         <rect key="frame" x="64" y="0.0" width="279" height="79"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="79" id="3Ph-ow-Zyo"/>
                                                             <constraint firstAttribute="width" constant="279" id="bEp-pE-FTX"/>
                                                         </constraints>
-                                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                        <color key="textColor" red="0.23531121120000001" green="0.39074818859999999" blue="0.54561730590000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                        <dataDetectorType key="dataDetectorTypes" phoneNumber="YES"/>
                                                     </textView>
                                                 </subviews>
                                             </stackView>
@@ -104,18 +115,23 @@
                                             <constraint firstItem="N43-0v-mCV" firstAttribute="top" secondItem="wwo-Yv-pjC" secondAttribute="top" id="xJq-cc-41d"/>
                                         </constraints>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="dG5-J4-MKl">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="dG5-J4-MKl" userLabel="locationStack">
                                         <rect key="frame" x="0.0" y="101" width="343" height="144"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="adq-EJ-yDX">
                                                 <rect key="frame" x="0.0" y="0.0" width="343" height="132"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location" translatesAutoresizingMaskIntoConstraints="NO" id="0Uq-MD-3Dl" customClass="UIImageViewX" customModule="familyOffice" customModuleProvider="target">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location-1" translatesAutoresizingMaskIntoConstraints="NO" id="0Uq-MD-3Dl" customClass="UIImageViewX" customModule="familyOffice" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="6wy-BT-zYX"/>
                                                             <constraint firstAttribute="width" constant="40" id="tB0-h6-uz3"/>
                                                         </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="maskColor">
+                                                                <color key="value" red="0.23531121120000001" green="0.39074818859999999" blue="0.54561730590000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
                                                     </imageView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="86d-PJ-iqV">
                                                         <rect key="frame" x="50" y="0.0" width="293" height="132"/>
@@ -126,7 +142,7 @@
                                                                     <constraint firstAttribute="height" constant="20" id="Ipo-df-Hn2"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                                <nil key="textColor"/>
+                                                                <color key="textColor" red="0.23531121120000001" green="0.39074818859999999" blue="0.54561730590000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="nnJ-nq-RYR">
@@ -157,18 +173,23 @@
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="sDn-Cx-dZh">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="sDn-Cx-dZh" userLabel="membersStack">
                                         <rect key="frame" x="0.0" y="255" width="343" height="62"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="FTd-tp-M96">
                                                 <rect key="frame" x="0.0" y="0.0" width="343" height="50"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="familyImage" translatesAutoresizingMaskIntoConstraints="NO" id="BW0-7Q-yka">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="members" translatesAutoresizingMaskIntoConstraints="NO" id="BW0-7Q-yka" customClass="UIImageViewX" customModule="familyOffice" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="40" id="MNg-B9-eRQ"/>
                                                             <constraint firstAttribute="height" constant="40" id="uDN-Vc-8Dd"/>
                                                         </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="maskColor">
+                                                                <color key="value" red="0.23531121120000001" green="0.39074818859999999" blue="0.54561730590000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
                                                     </imageView>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Un6-aK-Ic4">
                                                         <rect key="frame" x="50" y="0.0" width="293" height="50"/>
@@ -277,8 +298,11 @@
                         <outlet property="backgroundType" destination="hFk-pH-jsr" id="aUg-zI-bCI"/>
                         <outlet property="collectionView" destination="Un6-aK-Ic4" id="Jz6-gp-dZo"/>
                         <outlet property="dateLbl" destination="SET-NC-9Wy" id="NpT-0I-eHR"/>
+                        <outlet property="detailsStack" destination="wwo-Yv-pjC" id="fbj-pq-Gj0"/>
                         <outlet property="detailsTxtV" destination="cri-nR-xsC" id="59r-9t-8Xr"/>
+                        <outlet property="locationstack" destination="dG5-J4-MKl" id="zqN-rI-WPK"/>
                         <outlet property="mapView" destination="nnJ-nq-RYR" id="jPd-fM-38q"/>
+                        <outlet property="membersStack" destination="sDn-Cx-dZh" id="2nQ-cV-SUu"/>
                         <outlet property="titleLbl" destination="uBf-7v-Vt0" id="99z-tT-Iuw"/>
                     </connections>
                 </viewController>
@@ -689,10 +713,10 @@
     <resources>
         <image name="add_event" width="29" height="29"/>
         <image name="calendar_event" width="29" height="29"/>
-        <image name="delete" width="76" height="76"/>
-        <image name="familyImage" width="76" height="76"/>
         <image name="home_event" width="29" height="29"/>
-        <image name="location" width="76" height="76"/>
+        <image name="location-1" width="57" height="57"/>
+        <image name="members" width="57" height="57"/>
         <image name="notification-50" width="29" height="29"/>
+        <image name="signal" width="57" height="57"/>
     </resources>
 </document>

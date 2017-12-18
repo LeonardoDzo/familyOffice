@@ -23,6 +23,7 @@
 		0215F4EA1E3FCDD400AC01D3 /* PersonalDataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215F4E91E3FCDD400AC01D3 /* PersonalDataTableViewCell.swift */; };
 		02191F451FE34A63000294F0 /* InfoUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02191F441FE34A63000294F0 /* InfoUserViewController.swift */; };
 		02191F471FE35A72000294F0 /* FamilyEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02191F461FE35A72000294F0 /* FamilyEditViewController.swift */; };
+		021A48F41FE6233200EC8EBC /* MembersChatTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021A48F31FE6233200EC8EBC /* MembersChatTableViewController.swift */; };
 		021DB69D1F4B5F1A00E216BE /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021DB69C1F4B5F1A00E216BE /* AppRouter.swift */; };
 		021DB6A81F4B785A00E216BE /* RoutingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021DB6A71F4B785A00E216BE /* RoutingState.swift */; };
 		021DB6AA1F4B788500E216BE /* RoutingAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021DB6A91F4B788500E216BE /* RoutingAction.swift */; };
@@ -31,10 +32,11 @@
 		0224341A1F1D41EB0057A0D0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022434191F1D41EB0057A0D0 /* ViewController.swift */; };
 		0226C8E21E3C217D007968BA /* ConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0226C8E11E3C217D007968BA /* ConfigurationViewController.swift */; };
 		022EC1D21E20078C0096A18B /* Family.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022EC1D11E20078C0096A18B /* Family.swift */; };
+		022F63B81FE46F34009CC002 /* SignUPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022F63B71FE46F34009CC002 /* SignUPViewController.swift */; };
 		0233A4F71EFD8A5A00D01F5C /* Goal-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0233A4F61EFD8A5A00D01F5C /* Goal-Extension.swift */; };
 		0233A4F91EFDA33600D01F5C /* GoalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0233A4F81EFDA33600D01F5C /* GoalService.swift */; };
 		023563211FD881730088CD92 /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023563201FD881730088CD92 /* LocationSearchTable.swift */; };
-		023796CF1FD071AD007FF309 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
+		023796CF1FD071AD007FF309 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		02382F0D1E1C210C0036FFC9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02382F0C1E1C210C0036FFC9 /* AppDelegate.swift */; };
 		02382F2D1E1C210C0036FFC9 /* familyOfficeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02382F2C1E1C210C0036FFC9 /* familyOfficeUITests.swift */; };
 		023C980B1FE0B48C00070A21 /* EventBindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023C980A1FE0B48C00070A21 /* EventBindable.swift */; };
@@ -379,6 +381,7 @@
 		0215F4E91E3FCDD400AC01D3 /* PersonalDataTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalDataTableViewCell.swift; sourceTree = "<group>"; };
 		02191F441FE34A63000294F0 /* InfoUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoUserViewController.swift; sourceTree = "<group>"; };
 		02191F461FE35A72000294F0 /* FamilyEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyEditViewController.swift; sourceTree = "<group>"; };
+		021A48F31FE6233200EC8EBC /* MembersChatTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembersChatTableViewController.swift; sourceTree = "<group>"; };
 		021DB69C1F4B5F1A00E216BE /* AppRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
 		021DB6A71F4B785A00E216BE /* RoutingState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutingState.swift; sourceTree = "<group>"; };
 		021DB6A91F4B788500E216BE /* RoutingAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutingAction.swift; sourceTree = "<group>"; };
@@ -388,6 +391,7 @@
 		0226C8E11E3C217D007968BA /* ConfigurationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ConfigurationViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		022CC44C1EF9C3F3009FA79C /* Objectives.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Objectives.storyboard; sourceTree = "<group>"; };
 		022EC1D11E20078C0096A18B /* Family.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Family.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		022F63B71FE46F34009CC002 /* SignUPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUPViewController.swift; sourceTree = "<group>"; };
 		0233A4F61EFD8A5A00D01F5C /* Goal-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Goal-Extension.swift"; sourceTree = "<group>"; };
 		0233A4F81EFDA33600D01F5C /* GoalService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalService.swift; sourceTree = "<group>"; };
 		023563201FD881730088CD92 /* LocationSearchTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTable.swift; sourceTree = "<group>"; };
@@ -765,6 +769,7 @@
 				A4B0E1131FE0986B002742E5 /* ChatGroupsTableViewController.swift */,
 				A4B0E1151FE0A24E002742E5 /* ChatGroupViewController.swift */,
 				A40F64561FE4676400837EA0 /* NewChatGroupForm.swift */,
+				021A48F31FE6233200EC8EBC /* MembersChatTableViewController.swift */,
 			);
 			name = chat;
 			sourceTree = "<group>";
@@ -1443,6 +1448,7 @@
 				02AB00461E1DD0AB0098411C /* RegisterFamilyViewController.swift */,
 				02CE93251F1FDADB00D3B96E /* ContactsViewController.swift */,
 				027CC9C01F29390A005A48A6 /* MainTabBarController.swift */,
+				022F63B71FE46F34009CC002 /* SignUPViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -2310,7 +2316,7 @@
 				A48FD6DD1F143D2200832559 /* Budget.swift in Sources */,
 				02D845D21FE2FFA00086DD0C /* DesignableTextView.swift in Sources */,
 				02D845BF1FE2FFA00086DD0C /* ImageLoader.swift in Sources */,
-				023796CF1FD071AD007FF309 /* BuildFile in Sources */,
+				023796CF1FD071AD007FF309 /* (null) in Sources */,
 				02AD47E91FC4F381009E20E8 /* FamilyEntity.swift in Sources */,
 				02D8459B1FE2EF3C0086DD0C /* Collections.swift in Sources */,
 				042693011F1448EB004356D6 /* ImageAlbumService.swift in Sources */,
@@ -2391,6 +2397,7 @@
 				026F29AE1FCCD5EC0098C0AE /* AddEventViewController.swift in Sources */,
 				0268D9611FD7136200991876 /* AllEventsViewController.swift in Sources */,
 				02002BF71E820589007191CC /* GroupsTableViewCell.swift in Sources */,
+				021A48F41FE6233200EC8EBC /* MembersChatTableViewController.swift in Sources */,
 				02D845DA1FE310660086DD0C /* EventDetailsViewController.swift in Sources */,
 				02DFD5591EC2810300DA7486 /* Event.swift in Sources */,
 				02F50B1B1FBF64AF00285BEE /* UserS.swift in Sources */,
@@ -2478,6 +2485,7 @@
 				8B2D85231F43D492007D18BE /* safeBoxFile.swift in Sources */,
 				02ABAC401E6DE73A003780AB /* UIImage.swift in Sources */,
 				02441D9E1F16BF4200EA8202 /* GoalSectionTableViewCell.swift in Sources */,
+				022F63B81FE46F34009CC002 /* SignUPViewController.swift in Sources */,
 				02D845C51FE2FFA00086DD0C /* DesignableTextFieldSpring.swift in Sources */,
 				04475B541F0ED55500F257EA /* GalleryActions.swift in Sources */,
 				02AD814D1E4B90B10030B3DD /* SelectedTableViewCell.swift in Sources */,

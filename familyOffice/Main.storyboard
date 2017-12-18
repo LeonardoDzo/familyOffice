@@ -200,6 +200,24 @@
             </objects>
             <point key="canvasLocation" x="461.60000000000002" y="-1147.3763118440781"/>
         </scene>
+        <!--SignUP View Controller-->
+        <scene sceneID="Cd4-x8-fo5">
+            <objects>
+                <viewController storyboardIdentifier="SignUPViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="OWo-ml-sDC" customClass="SignUPViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wKl-8j-1he"/>
+                        <viewControllerLayoutGuide type="bottom" id="rqC-aP-zWt"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="WD5-yJ-De8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nvs-6I-7ct" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="447" y="-1925"/>
+        </scene>
         <!--Sing Up View Controller-->
         <scene sceneID="CeM-YR-5gn">
             <objects>
@@ -857,6 +875,9 @@
                                                 <integer key="value" value="1"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="logout:" destination="72w-1Q-fBQ" eventType="touchUpInside" id="OeS-o7-qgE"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cerrar Sesión" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T3P-Nx-ery">
                                         <rect key="frame" x="0.0" y="25" width="73" height="11"/>

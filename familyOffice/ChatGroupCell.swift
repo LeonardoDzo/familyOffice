@@ -8,7 +8,8 @@
 
 import UIKit
 
-class ChatGroupCell: UITableViewCell {
+class ChatGroupCell: UITableViewCell, GroupBindible{
+    var group: GroupEntity!
     @IBOutlet weak var groupImg: UIImageView!
     @IBOutlet weak var groupName: UILabel!
     @IBOutlet weak var lastMsg: UILabel!
@@ -25,20 +26,20 @@ class ChatGroupCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func bind(group: GroupEntity, lastMessage: MessageEntity? = nil) {
-        if !group.coverPhoto.isEmpty {
-            groupImg.loadImage(urlString: group.coverPhoto)
-        } else {
-            groupImg.image = #imageLiteral(resourceName: "background_family")
-        }
-        groupName.text = group.title
-        if let msg = lastMessage {
-            lastMsg.text = msg.text
-            msgTime.text = msg.timestamp.string(with: DateFormatter.hourAndMin)
-        } else {
-            lastMsg.text = ""
-            msgTime.text = ""
-        }
-    }
+//    func bind(group: GroupEntity, lastMessage: MessageEntity? = nil) {
+//        if !group.coverPhoto.isEmpty {
+//            groupImg.loadImage(urlString: group.coverPhoto)
+//        } else {
+//            groupImg.image = #imageLiteral(resourceName: "background_family")
+//        }
+//        groupName.text = group.title
+//        if let msg = lastMessage {
+//            lastMsg.text = msg.text
+//            msgTime.text = msg.timestamp.string(with: DateFormatter.hourAndMin)
+//        } else {
+//            lastMsg.text = ""
+//            msgTime.text = ""
+//        }
+//    }
 
 }
