@@ -16,7 +16,6 @@
         <!--Navigation Controller-->
         <scene sceneID="QOw-1j-lxb">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Jaa-YJ-IuZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="ESd-h1-9UQ" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="wBz-wo-oTw">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -26,6 +25,7 @@
                         <segue destination="SU9-tn-u9W" kind="relationship" relationship="rootViewController" id="xEm-Zy-Sxe"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jaa-YJ-IuZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3854" y="1964"/>
         </scene>
@@ -277,14 +277,18 @@
                                     <outlet property="delegate" destination="SU9-tn-u9W" id="Qwh-nv-OET"/>
                                 </connections>
                             </searchBar>
-                            <tabBar contentMode="scaleToFill" fixedFrame="YES" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="AwX-VH-Qgr">
+                            <tabBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AwX-VH-Qgr">
                                 <rect key="frame" x="0.0" y="618" width="375" height="49"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <items>
-                                    <tabBarItem systemItem="favorites" id="BK6-wc-kLy"/>
-                                    <tabBarItem systemItem="more" id="jIo-Sg-oYv"/>
+                                    <tabBarItem title="Todos" image="safebox-all-files" id="BK6-wc-kLy"/>
+                                    <tabBarItem tag="1" title="Archivos" image="Safebox-file-icon" id="jIo-Sg-oYv"/>
+                                    <tabBarItem tag="2" title="Imágenes" image="safebox-image-icon" id="G2h-DD-O2V"/>
                                 </items>
+                                <connections>
+                                    <outlet property="delegate" destination="SU9-tn-u9W" id="bts-7T-b0r"/>
+                                </connections>
                             </tabBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -293,6 +297,7 @@
                     <connections>
                         <outlet property="filesCollectionView" destination="ouo-v5-KwJ" id="SyE-ek-hF8"/>
                         <outlet property="searchBarFiles" destination="QGM-W8-Fue" id="VWt-39-TS2"/>
+                        <outlet property="tabBar" destination="AwX-VH-Qgr" id="5TP-Kb-EHK"/>
                         <segue destination="O0Q-J7-i8Q" kind="show" identifier="openPDFSegue" id="deh-xq-iYl"/>
                         <segue destination="wVH-HR-nL2" kind="show" identifier="showDirTree" id="9LZ-iY-2Ah"/>
                     </connections>
@@ -407,7 +412,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Safebox-file-icon" width="512" height="512"/>
+        <image name="Safebox-file-icon" width="21" height="21"/>
         <image name="Safebox-folder-icon" width="512" height="512"/>
+        <image name="safebox-all-files" width="21" height="21"/>
+        <image name="safebox-image-icon" width="24" height="24"/>
     </resources>
 </document>
