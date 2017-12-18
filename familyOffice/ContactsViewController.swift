@@ -17,19 +17,17 @@ class ContactsViewController: UIViewController, FamilyEBindable {
     var family : FamilyEntity!
     var users = [UserEntity]()
     var contacts : [CNContact] = []
-    
+    var members = [RealmString]()
     var phoneViews  = [(String,Bool)]()
     
     weak var contactDelegate : ContactsProtocol!
     let IndexPathOfFirstRow = NSIndexPath(row: 0, section: 0)
     override func viewDidLoad() {
         super.viewDidLoad()
-        let back = UIBarButtonItem(image: #imageLiteral(resourceName: "DownChevron"), style: .plain, target: self, action: #selector(self.back))
+        self.setupBack()
         let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.add))
-        self.navigationItem.leftBarButtonItem = back
         self.navigationItem.rightBarButtonItem = add
-        self.tableView.formatView()
-        self.collectionView.formatView()
+       
         
     }
 
@@ -72,7 +70,7 @@ class ContactsViewController: UIViewController, FamilyEBindable {
         }
         
         if let user = rManager.realm.objects(UserEntity.self).filter("phone = %@", phone.suffix(10)).first {
-            if !self.users.contains(where: {$0.id == user.id}) {
+            if !self.users.contains(where: {$0.id == user.id}), user.id != getUser()?.id {
                 addUser(user)
             }
         }else{
@@ -91,11 +89,12 @@ extension ContactsViewController: UICollectionViewDelegate, UICollectionViewData
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return family.members.count
+        return members.count
+        
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellMember", for: indexPath) as! memberSelectedCollectionViewCell
-        let uid = family.members[indexPath.row].value
+        let uid = members[indexPath.row].value
         if let user = rManager.realm.object(ofType: UserEntity.self, forPrimaryKey: uid) {
             cell.bind(userModel: user)
         }else{
@@ -106,8 +105,13 @@ extension ContactsViewController: UICollectionViewDelegate, UICollectionViewData
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        try! rManager.realm.write {
-            family.members.remove(at: indexPath.row)
+        let uid = members[indexPath.row].value
+        if let index = family.members.index(where: {$0.value == uid}) {
+            try! rManager.realm.write {
+                family.members.remove(at: index)
+                members = family.members.filter({$0.value != getUser()?.id})
+            }
+            
         }
         
         collectionView.deleteItems(at: [indexPath])
@@ -143,6 +147,7 @@ extension ContactsViewController: UITableViewDelegate, UITableViewDataSource {
             }else{
                 family.members.append(RealmString(value: user.id))
             }
+            members = family.members.filter({$0.value != getUser()?.id})
         }
         
         self.collectionView.reloadData()
@@ -158,6 +163,16 @@ extension ContactsViewController: StoreSubscriber {
         }
         getContacts()
         showContacts()
+        users = []
+        if users.count == 0 {
+            let imageView = UIImageView()
+            imageView.image = #imageLiteral(resourceName: "background_no_users")
+            self.tableView.backgroundView = imageView
+            imageView.contentMode = .scaleAspectFit
+        }else {
+            self.tableView.backgroundView = UIView()
+        }
+        self.tableView.tableFooterView = UIView()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
