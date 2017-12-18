@@ -23,7 +23,7 @@ enum StoryBoard: String {
 
 enum RoutingDestination: String {
     case start = "StartViewController"
-    case signUp = "SingUPViewController"
+    case signUp = "SignUPViewController"
     case homeSocial = "TabBarControllerView",
          profileFamily = "FamilyProfileViewController",
          families = "FamilyCollectionViewController",
@@ -34,7 +34,8 @@ enum RoutingDestination: String {
          personalData = "SetPersonalDataViewController",
          profileView = "ProfileUserViewController",
          mainCalendar = "mainnavCalendar",
-         eventDetails = "EventDetailsViewController"
+         eventDetails = "EventDetailsViewController",
+         chat = "ChatGroupViewController"
     
     // first aid
     case illness = "IllnessTableViewController",
@@ -56,6 +57,8 @@ extension RoutingDestination {
             return StoryBoard.calendar.rawValue
         case .illness, .addIllness:
             return StoryBoard.firstaid.rawValue
+        case .chat:
+            return StoryBoard.chat.rawValue
         }
     }
     

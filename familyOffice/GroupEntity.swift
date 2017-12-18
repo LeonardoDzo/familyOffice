@@ -19,9 +19,10 @@ class GroupEntity: Object, Serializable {
     dynamic var messages = List<RealmString>()
     dynamic var lastMessage: String? = nil
     dynamic var createdAt: Date = Date()
+    dynamic var isGroup = true
     
     private enum CodingKeys: String, CodingKey {
-        case id, familyId, title, coverPhoto, lastMessage, createdAt
+        case id, familyId, title, coverPhoto, lastMessage, createdAt, isGroup
     }
     
     override static func primaryKey() -> String? {
@@ -39,7 +40,8 @@ class GroupEntity: Object, Serializable {
             "members": membersDic,
             "coverPhoto": coverPhoto,
             "messages": msgsDic,
-            "createdAt": createdAt.toMillis()
+            "createdAt": createdAt.toMillis(),
+            "isGroup" : isGroup
             ] as [String : Any]
         if let lastMessage = self.lastMessage {
             json["lastMessage"] = lastMessage
@@ -47,3 +49,77 @@ class GroupEntity: Object, Serializable {
         return json
     }
 }
+protocol GroupBindible: AnyObject, bind {
+    var group: GroupEntity! {get set}
+    var groupImg: UIImageView! {get}
+    var groupName: UILabel! {get}
+    var lastMsg: UILabel! {get}
+    var msgTime: UILabel! {get}
+    
+}
+extension GroupBindible {
+    var groupImg: UIImageView! {return nil}
+    var groupName: UILabel! {return nil}
+    var lastMsg: UILabel! {return nil}
+    var msgTime: UILabel! {return nil}
+    
+    func bind(sender: Any?) {
+        if sender is GroupEntity {
+            self.group = sender as! GroupEntity
+            self.bind()
+        }
+    }
+    
+    func bind() -> Void {
+        guard let group = self.group else { return  }
+        let user : UserEntity! = {
+            if !group.isGroup {
+                if let mid = group.members.first(where: {$0.value != getUser()?.id})?.value {
+                    if let user = rManager.realm.object(ofType: UserEntity.self, forPrimaryKey: mid) {
+                        return user
+                    }else{
+                        store.dispatch(UserS(.getbyId(uid: mid)))
+                    }
+                }
+            }
+            return nil
+        }()
+        
+        if let groupImg = groupImg {
+            if !group.coverPhoto.isEmpty {
+                groupImg.loadImage(urlString: group.coverPhoto)
+            } else if !group.isGroup {
+                if user != nil {
+                    groupImg.loadImage(urlString: user.photoURL)
+                }
+            }else{
+                groupImg.image = #imageLiteral(resourceName: "background_family")
+            }
+            
+        }
+        if let groupName = groupName {
+            if group.isGroup {
+                groupName.text = group.title
+            }else if !group.isGroup{
+                if user != nil {
+                     groupName.text = user.name
+                }else{
+                     groupName.text = "Cargando..."
+                }
+            }
+        }
+        if let lastMsg = lastMsg, let msgTime = msgTime {
+            guard let msgId = group.lastMessage else {
+                return
+            }
+            if let msg = rManager.realm.objects(MessageEntity.self).filter("id = '\(msgId)'").first {
+                lastMsg.text = msg.text
+                msgTime.text = msg.timestamp.string(with: DateFormatter.hourAndMin)
+            }else{
+                store.dispatch(getMessageAction(messageId: msgId, uuid: msgId))
+
+            }
+        }
+    }
+}
+

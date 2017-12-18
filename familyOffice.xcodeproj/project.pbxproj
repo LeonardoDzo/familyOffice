@@ -23,6 +23,7 @@
 		0215F4EA1E3FCDD400AC01D3 /* PersonalDataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215F4E91E3FCDD400AC01D3 /* PersonalDataTableViewCell.swift */; };
 		02191F451FE34A63000294F0 /* InfoUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02191F441FE34A63000294F0 /* InfoUserViewController.swift */; };
 		02191F471FE35A72000294F0 /* FamilyEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02191F461FE35A72000294F0 /* FamilyEditViewController.swift */; };
+		021A48F41FE6233200EC8EBC /* MembersChatTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021A48F31FE6233200EC8EBC /* MembersChatTableViewController.swift */; };
 		021DB69D1F4B5F1A00E216BE /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021DB69C1F4B5F1A00E216BE /* AppRouter.swift */; };
 		021DB6A81F4B785A00E216BE /* RoutingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021DB6A71F4B785A00E216BE /* RoutingState.swift */; };
 		021DB6AA1F4B788500E216BE /* RoutingAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021DB6A91F4B788500E216BE /* RoutingAction.swift */; };
@@ -380,6 +381,7 @@
 		0215F4E91E3FCDD400AC01D3 /* PersonalDataTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalDataTableViewCell.swift; sourceTree = "<group>"; };
 		02191F441FE34A63000294F0 /* InfoUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoUserViewController.swift; sourceTree = "<group>"; };
 		02191F461FE35A72000294F0 /* FamilyEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyEditViewController.swift; sourceTree = "<group>"; };
+		021A48F31FE6233200EC8EBC /* MembersChatTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembersChatTableViewController.swift; sourceTree = "<group>"; };
 		021DB69C1F4B5F1A00E216BE /* AppRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
 		021DB6A71F4B785A00E216BE /* RoutingState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutingState.swift; sourceTree = "<group>"; };
 		021DB6A91F4B788500E216BE /* RoutingAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutingAction.swift; sourceTree = "<group>"; };
@@ -767,6 +769,7 @@
 				A4B0E1131FE0986B002742E5 /* ChatGroupsTableViewController.swift */,
 				A4B0E1151FE0A24E002742E5 /* ChatGroupViewController.swift */,
 				A40F64561FE4676400837EA0 /* NewChatGroupForm.swift */,
+				021A48F31FE6233200EC8EBC /* MembersChatTableViewController.swift */,
 			);
 			name = chat;
 			sourceTree = "<group>";
@@ -2394,6 +2397,7 @@
 				026F29AE1FCCD5EC0098C0AE /* AddEventViewController.swift in Sources */,
 				0268D9611FD7136200991876 /* AllEventsViewController.swift in Sources */,
 				02002BF71E820589007191CC /* GroupsTableViewCell.swift in Sources */,
+				021A48F41FE6233200EC8EBC /* MembersChatTableViewController.swift in Sources */,
 				02D845DA1FE310660086DD0C /* EventDetailsViewController.swift in Sources */,
 				02DFD5591EC2810300DA7486 /* Event.swift in Sources */,
 				02F50B1B1FBF64AF00285BEE /* UserS.swift in Sources */,

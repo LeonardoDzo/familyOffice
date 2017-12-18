@@ -138,7 +138,7 @@ extension FamilyS : RequestProtocol, RequestStorageSvc {
         
     }
     
-    func notExistSnapshot() {
+    func notExistSnapshot(ref: String) {
         
     }
     

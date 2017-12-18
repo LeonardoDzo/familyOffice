@@ -9,9 +9,32 @@
 import UIKit
 import Eureka
 import CoreLocation
-
+import Toast_Swift
 class EventViewController: FormViewController {
     var event = EventEntity()
+    fileprivate func setinzerosdate(_ date: inout Date) {
+        if (self.form.rowBy(tag: "allDay") as? SwitchRow)?.value ?? false {
+            let calendar = Calendar.current
+            let hour = calendar.component(.hour, from: date) * -1
+            let minutes = calendar.component(.minute, from: date) * -1
+            date = calendar.date(byAdding: .hour, value: (hour ), to: date)!
+            date = calendar.date(byAdding: .minute, value: (minutes), to: date)!
+        }
+        
+    }
+    
+    fileprivate func setinenddate(_ date: inout Date) {
+        if (self.form.rowBy(tag: "allDay") as? SwitchRow)?.value ?? false {
+            let calendar = Calendar.current
+            let hour = calendar.component(.hour, from: date) * -1
+            let minutes = calendar.component(.minute, from: date) * -1
+            date = calendar.date(byAdding: .hour, value: (hour ), to: date)!
+            date = calendar.date(byAdding: .minute, value: (minutes), to: date)!
+            date = date.addingTimeInterval(TimeInterval(23*60))
+        }
+        
+    }
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -38,9 +61,10 @@ class EventViewController: FormViewController {
                 $0.title = "Ubicación"
                 }.onChange({ (row) in
                     self.event.location = row.value
+                    row.updateCell()
                 })
             +++
-            Section("")
+            Section("Fecha y Hora")
             <<< SwitchRow() { row in
                 row.title = "Todo el día"
                 row.tag = "allDay"
@@ -49,64 +73,34 @@ class EventViewController: FormViewController {
                     self.event.isAllDay = row.value
                 })
             <<<  DateTimeRow() { row in
-                row.title = "Fecha de Inicio"
-                row.value = Date()
+                row.title = "Inicio"
                 row.tag = "startDateTime"
-                
                 row.add(rule: RuleRequired())
-                row.value = Date(event.startdate)
-                row.hidden = Condition.function(["allDay"], { form in
-                    return ((form.rowBy(tag: "allDay") as? SwitchRow)?.value ?? false)
-                })
+                row.value = event.startdate == 0 ?  Date() : Date(event.startdate)
                 }.onChange({ (row) in
                     self.event.startdate = (row.value?.toMillis())!
+                    self.setinzerosdate(&row.value!)
                     if let eRow = self.form.rowBy(tag: "endDateTime") as? DateTimeRow {
                         eRow.updateCell()
                     }
                     
+                }).cellUpdate({ (cell, row) in
+                    if row.value == nil {
+                        row.value = Date()
+                    }
+                    self.setinzerosdate(&row.value!)
                 })
             <<<  DateTimeRow() { row in
-                row.hidden = Condition.function(["allDay"], { form in
-                    return ((form.rowBy(tag: "allDay") as? SwitchRow)?.value ?? false)
-                })
                 row.add(rule: RuleRequired())
-                row.title = "Fecha de fin"
+                row.title = "Fin"
                 row.tag = "endDateTime"
-                row.value = Date(event.enddate)
+                 row.value = event.enddate == 0 ?  Date() : Date(event.enddate)
                 }.onChange({ (row) in
                     self.event.enddate = (row.value?.toMillis())!
+                    self.setinenddate(&row.value!)
                 }).cellUpdate { (cell, row) in
                     let value  = (self.form.rowBy(tag: "startDateTime") as! DateTimeRow).value ?? Date()
-                    cell.datePicker.minimumDate = value
-            }
-            <<<  DateRow() { row in
-                row.hidden = Condition.function(["allDay"], { form in
-                    return !((form.rowBy(tag: "allDay") as? SwitchRow)?.value ?? false)
-                })
-                row.value = Date()
-                row.title = "Fecha de Inicio"
-                row.tag = "startDate"
-                row.value = Date(event.startdate)
-                row.add(rule: RuleRequired())
-                }.onChange({ (row) in
-                    self.event.startdate = (row.value?.toMillis())!
-                    if let eRow = self.form.rowBy(tag: "endDate") as? DateRow {
-                        eRow.updateCell()
-                    }
-                    
-                })
-            <<<  DateRow() { row in
-                row.hidden = Condition.function(["allDay"], { form in
-                    return !((form.rowBy(tag: "allDay") as? SwitchRow)?.value ?? false)
-                })
-                row.value = Date()
-                row.title = "Fecha de fin"
-                row.tag = "endDate"
-                row.value = Date(event.enddate)
-                }.onChange({ (row) in
-                    self.event.enddate = (row.value?.toMillis())!
-                }).cellUpdate { (cell, row) in
-                    let value  = (self.form.rowBy(tag: "startDate") as! DateRow).value ?? Date()
+                    self.setinenddate(&row.value!)
                     row.value = value
                     cell.datePicker.minimumDate = value
             }
@@ -130,7 +124,7 @@ class EventViewController: FormViewController {
                 })
             <<< DateRow() { row in
                 row.title = "Terminar"
-                row.value = Date(self.event.enddate)
+                row.value = Date()
                 row.hidden = Condition.function(["frequency"], { form in
                     
                     if let xrow = (form.rowBy(tag: "frequency") as? PushRow<Frequency>?)??.value {
@@ -146,10 +140,8 @@ class EventViewController: FormViewController {
                 }.onChange({ (row) in
                     self.event.repeatmodel?.end = (row.value?.toMillis())!
                 }).cellUpdate { (cell, row) in
-                    let value  = self.event.enddate
-                    row.minimumDate = Date(value)
-                    row.value = Date(value)
-            }
+                    row.minimumDate = Date(self.event.enddate)
+                }
             +++ Section()
             <<< PushRow<eventType>() { row in
                 row.title = "Tipo"
@@ -177,6 +169,7 @@ class EventViewController: FormViewController {
                     }) {
                         self.event.members.append(objectsIn: members)
                     }
+                    row.updateCell()
                 })
         
     }
@@ -188,7 +181,17 @@ class EventViewController: FormViewController {
     }
     
     @objc func save() -> Void {
-        store.dispatch(EventSvc(.save(event: self.event)))
+        let errors = form.validate()
+        
+        if errors.count == 0  {
+            store.dispatch(EventSvc(.save(event: self.event)))
+            event = EventEntity()
+            tableView.reloadData()
+        } else {
+            let t = ToastStyle()
+            self.view.makeToast("\(errors.description)", duration: 5.0, point: self.view.center, title: "Errores", image: nil, style: t, completion: nil)
+        }
+    
     }
     
     

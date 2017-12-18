@@ -8,6 +8,7 @@
 
 import Foundation
 
-struct AuthState {
+struct AuthState   {
+    
     var state : Result<Any> = .none
 }

@@ -20,8 +20,12 @@ class EventDetailsViewController: UIViewController, EventEBindable {
     @IBOutlet weak var dateLbl: UILabel!
     @IBOutlet weak var titleLbl: UILabel!
     
+    @IBOutlet weak var locationstack: UIStackView!
+    @IBOutlet weak var membersStack: UIStackView!
+    @IBOutlet weak var detailsStack: UIStackView!
+    
     override func viewDidLoad() {
-        super.viewDidLoad()
+       super.viewDidLoad()
        self.setupButtonback()
         self.event.members.forEach { (member) in
             if let _ = rManager.realm.object(ofType: UserEntity.self, forPrimaryKey: member.id) {
@@ -55,6 +59,9 @@ extension EventDetailsViewController : StoreSubscriber {
     typealias StoreSubscriberStateType = EventState
     override func viewWillAppear(_ animated: Bool) {
         self.bind()
+        if event.location == nil, event.father?.location == nil {
+            locationstack.isHidden = true
+        }
         store.subscribe(self) {
             $0.select({ (s)  in
                 s.EventState

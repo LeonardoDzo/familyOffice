@@ -125,6 +125,10 @@ extension FamilySvc: RequestService {
 }
 
 extension FamilySvc: repository {
+    func notExistSnapshot(ref: String) {
+        
+    }
+    
     func added(snapshot: DataSnapshot) {
         let family : Family = Family(snapshot: snapshot)
         if !store.state.FamilyState.families.hasEqualContent(family){

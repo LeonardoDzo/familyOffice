@@ -33,6 +33,7 @@ enum AuthAction: description  {
     login(username: String, password: String),
     loginWithCredentials(credential: AuthCredential),
     logout,
+    registerUser(user: UserEntity, pass: String),
     none
     init(){
         self = .none
@@ -121,6 +122,20 @@ class AuthSvc : Action, EventProtocol {
 extension AuthSvc : Reducer {
     typealias StoreSubscriberStateType = AuthState
 
+    fileprivate func registerUser(_ user: UserEntity, _ pass: String) {
+        let newuser = user
+        Auth.auth().createUser(withEmail: user.email, password: pass) { (user, error) in
+            if(error == nil){
+                newuser.id = user!.uid
+                self.status = .Finished(self.action)
+                store.dispatch(UserS(UserAction.create(user: newuser)))
+            }else{
+                self.status = .Failed(self.action)
+            }
+            store.dispatch(self)
+        }
+    }
+    
     func handleAction(state: AuthState?) -> AuthState {
         var state = state ?? AuthState(state: .none)
         state.state = self.status
@@ -135,6 +150,9 @@ extension AuthSvc : Reducer {
                 break
             case .loginWithCredentials(let credential):
                 self.login(credential: credential)
+                break
+            case .registerUser(let user, let pass):
+                registerUser(user, pass)
                 break
             case .none:
                 break

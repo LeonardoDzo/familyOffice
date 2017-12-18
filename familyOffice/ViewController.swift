@@ -1,4 +1,4 @@
-//
+  //
 //  ViewController.swift
 //  familyOffice
 //
@@ -16,7 +16,8 @@ protocol bind {
 
 enum StyleNavBar  {
     case calendar,
-         firstaidkit
+         firstaidkit,
+         chat
 }
 extension StyleNavBar {
     func style() -> (UIColor, UIColor)? {
@@ -25,6 +26,8 @@ extension StyleNavBar {
             return (#colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1),#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
         case .firstaidkit:
             return (#colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1),#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
+        case .chat:
+            return (#colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1),#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
         }
     }
 }
@@ -137,6 +140,11 @@ extension UIViewController {
             }
             vc.bind(fam: family)
         break
+        case let vc as ChatGroupViewController:
+            if sender is  GroupEntity {
+                vc.group = sender as! GroupEntity
+            }
+            break
         default:
             break
         }

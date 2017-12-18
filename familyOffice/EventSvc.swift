@@ -56,7 +56,6 @@ extension EventSvc : RequestProtocol {
                     rManager.save(objs: event)
                     if event.repeatmodel != nil {
                         event.update(date: event.startdate, repeatM: event.repeatmodel!)
-                        print(event.myEvents)
                     }
                     store.dispatch(self)
                 }
@@ -74,7 +73,20 @@ extension EventSvc : RequestProtocol {
     func removed(snapshot: DataSnapshot) {
     }
     
-    func notExistSnapshot() {
+    fileprivate func removeEventsLocal(_ ref: String) {
+        if let id = ref.components(separatedBy: "/").last {
+            if let event = rManager.realm.object(ofType: EventEntity.self, forPrimaryKey: id) {
+                try! rManager.realm.write {
+                    rManager.realm.delete(event.myEvents)
+                    rManager.realm.delete(event)
+                }
+            }
+            
+        }
+    }
+    
+    func notExistSnapshot(ref: String) {
+        removeEventsLocal(ref)
     }
     
     func create(event: EventEntity)  -> Void {
@@ -88,7 +100,11 @@ extension EventSvc : RequestProtocol {
             self.insert(reference, value: json, callback: { (ref) in
                 if ref is DatabaseReference {
                     self.status = .Finished(self.action)
-                    rManager.save(objs: newevent)
+//                    rManager.save(objs: newevent)
+//                    if newevent.repeatmodel != nil {
+//                        newevent.update(date: newevent.startdate, repeatM: newevent.repeatmodel!)
+//                    }
+                     store.dispatch(self)
                 }
             })
         }

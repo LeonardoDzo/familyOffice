@@ -99,6 +99,12 @@ class EventEntity: Object, Codable, Serializable {
         guard repeatM.frequency.rawValue != 0 else{
             return
         }
+        
+        let removeevents = rManager.realm.objects(EventEntity.self).filter("father = %@ AND startdate >= %@", self, date)
+        try! rManager.realm.write {
+            rManager.realm.delete(removeevents)
+        }
+        
         self.createDates(repeatM: repeatM, startDate: date)
         
         guard following.count > 0 else {
@@ -149,7 +155,9 @@ class EventEntity: Object, Codable, Serializable {
                 event.father = self
               
                 try! rManager.realm.write {
-                    self.myEvents.append(event)
+                    if !self.myEvents.contains(event) {
+                        self.myEvents.append(event)
+                    }
                 }
                 i-=1
             }

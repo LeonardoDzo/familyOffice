@@ -10,8 +10,12 @@ import Foundation
 import FirebaseDatabase
 import Firebase
 class MedicineService: RequestService {
-    
     func notExistSnapshot() {
+        
+    }
+    
+    
+    func notExistSnapshot(ref: String) {
         
     }
     
