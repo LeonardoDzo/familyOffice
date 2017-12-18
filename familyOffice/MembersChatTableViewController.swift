@@ -81,9 +81,10 @@ class MembersChatTableViewController: UITableViewController {
         if group == nil {
             group = GroupEntity()
      
-            group?.id = UUID().uuidString
+            let myId = getUser()!.id
+            group?.id = "\(family.id)-\(uid < myId ? uid : myId)-\(uid < myId ? myId : uid)"
             group?.members.append(RealmString(uid))
-            group?.members.append(RealmString((getUser()?.id)!))
+            group?.members.append(RealmString(myId))
             group?.familyId = family.id
             group?.isGroup = false
             store.dispatch(createGroupAction(group: group, uuid: group.id))
