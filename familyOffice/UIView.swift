@@ -36,17 +36,17 @@ extension UIView {
     }
     
     func editBtn() {
-        let view = UIView(frame: CGRect(x:self.frame.width - 20, y: self.frame.height - 20, width: 20, height: 20))
-        view.backgroundColor = #colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 0.7917380137)
+        let view = UIView(frame: CGRect(x:self.frame.width - 30, y: self.frame.height - 30, width: 30, height: 30))
+        view.backgroundColor = #colorLiteral(red: 0.3621918559, green: 0.3622578681, blue: 0.3621831834, alpha: 0.5574567195)
         view.clipsToBounds = true
         view.layer.cornerRadius = 5
-      
+        
         let btnEdit = UIImageView()
-        btnEdit.frame.size = CGSize(width: 15, height: 15)
+        btnEdit.frame.size = CGSize(width: 30, height: 30)
         btnEdit.frame.origin = view.bounds.origin
         btnEdit.frame.origin.x += 2
         btnEdit.frame.origin.y += 2
-        btnEdit.image = #imageLiteral(resourceName: "edit").maskWithColor(color: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))
+        btnEdit.image = #imageLiteral(resourceName: "edit_image")
         view.addSubview(btnEdit)
         self.addSubview(view)
     }
