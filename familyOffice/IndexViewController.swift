@@ -480,6 +480,16 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
         let folders = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({$0.type == "folder" && $0.parent == self.currentFolderId && self.filterByTabBar(selectedItem: selectedTabBarItem!, file: $0)}).sorted(by: { (a, b) -> Bool in return a.filename < b.filename}) ?? []
         let newFiles = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({$0.type == "file" && $0.parent == self.currentFolderId && self.filterByTabBar(selectedItem: selectedTabBarItem!, file: $0)}).sorted(by: { (a, b) -> Bool in return a.filename < b.filename}) ?? []
         let total = folders + newFiles
+        
+        let backgroundnoevents = UIImageView(frame: self.view.frame)
+        backgroundnoevents.tag = 100
+        if total.count == 0 {
+            backgroundnoevents.image = #imageLiteral(resourceName: "no-files")
+            self.filesCollectionView.backgroundView = backgroundnoevents
+            backgroundnoevents.contentMode = .center
+        } else {
+            self.filesCollectionView.backgroundView = nil
+        }
         return total
     }
 }
@@ -527,13 +537,6 @@ extension IndexViewController: StoreSubscriber{
             break
         }
         files = self.getFiles()
-        let backgroundnoevents = UIImageView(frame: self.view.frame)
-        backgroundnoevents.tag = 100
-        if files.count == 0 {
-            backgroundnoevents.image = #imageLiteral(resourceName: "no-files")
-            self.view.addSubview(backgroundnoevents)
-            backgroundnoevents.contentMode = .center
-        }
         self.filesCollectionView.reloadData()
     }
     

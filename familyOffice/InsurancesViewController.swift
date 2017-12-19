@@ -101,10 +101,13 @@ extension InsurancesViewController: StoreSubscriber {
         let backgroundnoevents = UIImageView(frame: self.view.frame)
         backgroundnoevents.tag = 100
         insurances = state.insurances[(user?.familyActive)!]?.filter({$0.type == self.filter}) ?? []
+        print(state.status)
         if insurances.count == 0 {
-            backgroundnoevents.image = #imageLiteral(resourceName: "background_no_events")
-            self.view.addSubview(backgroundnoevents)
+            backgroundnoevents.image = #imageLiteral(resourceName: "no-insurances")
+            self.tableView.backgroundView = backgroundnoevents
             backgroundnoevents.contentMode = .center
+        } else {
+            self.tableView.backgroundView = nil
         }
         tableView.reloadData()
     }
