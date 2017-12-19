@@ -140,6 +140,7 @@ class IllnessViewController: UIViewController, UIScrollViewDelegate, UITableView
         }else {
             self.tableView.backgroundView = UIView()
         }
+         tableView.tableFooterView = UIView()
     }
     
     func setPage(_ page: Int) {
@@ -148,7 +149,7 @@ class IllnessViewController: UIViewController, UIScrollViewDelegate, UITableView
         pageControl.currentPage = page
         
         setbackground(page)
-        tableView.tableFooterView = UIView()
+       
         tableView.reloadSections(IndexSet(arrayLiteral: 0), with: UITableViewRowAnimation.fade)
     }
     
@@ -234,6 +235,7 @@ extension IllnessViewController: StoreSubscriber {
         store.dispatch(getIllnessesAction(byFamily: self.familyId, uuid: getIllnessUuid!))
         store.dispatch(getMedicinesAction(byFamily: self.familyId, uuid: getMedicinesUuid!))
         setPage(0)
+        setbackground(0)
         tableView.reloadData()
     }
     

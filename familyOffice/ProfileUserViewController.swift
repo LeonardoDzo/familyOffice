@@ -32,8 +32,8 @@ class ProfileUserViewController: UIViewController, UserEModelBindable{
         if !userModel.isUserLogged() {
             confBtn.isHidden = true
         }else{
-            callBtn.isHidden = true
-            msgBtn.isHidden = true
+//            callBtn.isHidden = true
+//            msgBtn.isHidden = true
         }
         
         if  tabBarController?.restorationIdentifier != "TabBarControllerView" || (tabBarController?.tabBar.isHidden)! {
