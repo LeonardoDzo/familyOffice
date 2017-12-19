@@ -14,6 +14,8 @@ class ProfileUserViewController: UIViewController, UserEModelBindable{
     @IBOutlet weak var titleLbl: UILabel!
     @IBOutlet weak var photo: UIImageViewX!
     @IBOutlet weak var confBtn: UIButton!
+    @IBOutlet weak var msgBtn: UIButton!
+    @IBOutlet weak var callBtn: UIButton!
     
     @IBOutlet weak var infoView: UIView!
     override func viewDidLoad() {
@@ -29,6 +31,9 @@ class ProfileUserViewController: UIViewController, UserEModelBindable{
        self.bind()
         if !userModel.isUserLogged() {
             confBtn.isHidden = true
+        }else{
+            callBtn.isHidden = true
+            msgBtn.isHidden = true
         }
         
         if  tabBarController?.restorationIdentifier != "TabBarControllerView" || (tabBarController?.tabBar.isHidden)! {

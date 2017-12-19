@@ -24,9 +24,11 @@ class FamilyProfileViewController: UIViewController, FamilyEBindable {
         super.viewDidLoad()
         
         let _ = UITapGestureRecognizer(target: self, action: #selector(self.editImage))
-        
+        photo.editBtn()
+        photo.isUserInteractionEnabled = true
+        photo.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.editImage)))
         collectionView.register(UINib(nibName: "FamilyMember1Cell", bundle: nil), forCellWithReuseIdentifier: "CellMember")
-        
+       
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,18 +44,11 @@ class FamilyProfileViewController: UIViewController, FamilyEBindable {
         let alertController = UIAlertController(title: "Qué desea hacer?", message: nil, preferredStyle: .actionSheet)
         
         let sendButton = UIAlertAction(title: "Cambiar foto", style: .default, handler: { (action) -> Void in
-            let cropping = CroppingParameters(isEnabled: true, allowResizing: true, allowMoving: true, minimumSize: CGSize(width: 80, height: 80))
-          
-
-            /// Provides an image picker wrapped inside a UINavigationController instance
-            let imagePickerViewController = CameraViewController.imagePickerViewController(croppingParameters:cropping) { [weak self] image, asset in
+            self.selectImage(completion: { (image) in
                 if image != nil {
-                    store.dispatch(FamilyS(FamilyAction.uploadImage(img: image!, family: (self?.family)!)))
+                    store.dispatch(FamilyS(FamilyAction.uploadImage(img: image!, family: (self.family)!)))
                 }
-                self?.dismiss(animated: true, completion: nil)
-            }
-            
-            self.present(imagePickerViewController, animated: true, completion: nil)
+            })
         })
         let seeButton = UIAlertAction(title: "Ver foto", style: .default, handler: { (action) -> Void in
             if self.Image != nil, self.Image.image != nil {
@@ -105,12 +100,66 @@ extension FamilyProfileViewController: StoreSubscriber {
         store.state.FamilyState.status = .none
         self.setupButtonback()
         self.bind()
+        titleLbl.sizeToFit()
+        
         store.subscribe(self) {
             $0.select({ (s) in
                 s
             })
         }
     }
+    fileprivate func addEditBtn() {
+        if let v = self.view.viewWithTag(100) {
+            v.removeFromSuperview()
+        }
+        let btnEdit = titleLbl.editView()
+        btnEdit.tag = 100
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.edittitle))
+        btnEdit.addGestureRecognizer(tap)
+        btnEdit.isUserInteractionEnabled = true
+        titleLbl.isUserInteractionEnabled = true
+        titleLbl.addGestureRecognizer(tap)
+        self.view.addSubview(btnEdit)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        addEditBtn()
+    }
+    
+   @objc func edittitle() -> Void {
+        let alertController = UIAlertController(title: "Editar nombre de familia:", message: "Ingresa el nombre de la familia", preferredStyle: .alert)
+        
+        //the confirm action taking the inputs
+        let confirmAction = UIAlertAction(title: "Actualizar", style: .default) { (_) in
+            
+            guard let text = alertController.textFields?[0].text, !text.isEmpty else {
+                return
+            }
+            try! rManager.realm.write {
+                self.family.name = text
+            }
+            store.dispatch(FamilyS(.update(family: self.family)))
+            
+        }
+        
+        //the cancel action doing nothing
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+        
+        //adding textfields to our dialog box
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Nombre de la familia"
+            textField.text = self.family.name
+        }
+        
+        //adding the action to dialogbox
+        alertController.addAction(confirmAction)
+        alertController.addAction(cancelAction)
+        
+        //finally presenting the dialog box
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    
     func newState(state: AppState) {
         self.view.isUserInteractionEnabled = true
         switch state.FamilyState.status {
@@ -120,6 +169,7 @@ extension FamilyProfileViewController: StoreSubscriber {
         case .Finished(_ as FamilyAction):
             family = rManager.realm.object(ofType: FamilyEntity.self, forPrimaryKey: family.id)
             self.bind()
+            addEditBtn()
             break
         default:
             break

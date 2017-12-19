@@ -63,7 +63,7 @@ extension FamilyCollectionViewController {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if(indexPath.row == families.count){
-            
+            self.promptForAnswer()
         }else{
             self.pushToView(view: .profileFamily, sender: families[indexPath.row])
         }
@@ -85,7 +85,36 @@ extension FamilyCollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "addCell", for: indexPath) as! addCell
         return cell
     }
-    
+    func promptForAnswer() {
+        let alertController = UIAlertController(title: "Crear Familia", message: "Ingresa el nombre de la familia", preferredStyle: .alert)
+        
+        //the confirm action taking the inputs
+        let confirmAction = UIAlertAction(title: "Crear", style: .default) { (_) in
+            
+            guard let text = alertController.textFields?[0].text, !text.isEmpty else {
+                return
+            }
+            let family = FamilyEntity()
+            family.name = text
+            store.dispatch(FamilyS(.insert(family: family)))
+            
+        }
+        
+        //the cancel action doing nothing
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+        
+        //adding textfields to our dialog box
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Nombre de la familia"
+        }
+        
+        //adding the action to dialogbox
+        alertController.addAction(confirmAction)
+        alertController.addAction(cancelAction)
+        
+        //finally presenting the dialog box
+        self.present(alertController, animated: true, completion: nil)
+    }
    
 }
 extension FamilyCollectionViewController: StoreSubscriber {
@@ -96,6 +125,8 @@ extension FamilyCollectionViewController: StoreSubscriber {
             subcription in
             subcription.select { state in state.FamilyState }
         }
+        families = rManager.realm.objects(FamilyEntity.self)
+        self.familyCollection.reloadData()
         
     }
     
@@ -116,6 +147,8 @@ extension FamilyCollectionViewController: StoreSubscriber {
         case .Finished(let action as FamilyAction) :
             if case FamilyAction.delete(_) = action {
                 self.familyCollection.reloadData()
+            }else if case let .insert(f) = action {
+                self.pushToView(view: .profileFamily, sender: f)
             }
             break
         default:
