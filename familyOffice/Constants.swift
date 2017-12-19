@@ -45,6 +45,7 @@ struct Constants {
         static let ILLNESS_SERVICE = IllnessService.Instance()
         static let FAQ_SERVICE = FaqService.Instance()
         static let SAFEBOX_SERVICE = SafeBoxService.Instance()
+        static let INSURANCE_SERVICE = InsuranceService.Instance()
 
     }
     
