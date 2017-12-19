@@ -55,10 +55,10 @@ extension InsuranceMainViewController: UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            self.filter = "cars"
+            self.filter = "car"
             break
         case 1:
-            self.filter = "homes"
+            self.filter = "home"
             break
         case 2:
             self.filter = "medical"
