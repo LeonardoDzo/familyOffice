@@ -17,7 +17,8 @@ protocol bind {
 enum StyleNavBar  {
     case calendar,
          firstaidkit,
-         chat
+         chat,
+         insurance
 }
 extension StyleNavBar {
     func style() -> (UIColor, UIColor)? {
@@ -28,7 +29,11 @@ extension StyleNavBar {
             return (#colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1),#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
         case .chat:
             return (#colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1),#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
+        case .insurance:
+            return (#colorLiteral(red: 0.07450980392, green: 0.3215686275, blue: 0.2039215686, alpha: 1),#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
         }
+        
+        
     }
 }
 

@@ -11,8 +11,8 @@ import MapKit
 import ReSwift
 class EventDetailsViewController: UIViewController, EventEBindable {
     var event: EventEntity!
-    
-    @IBOutlet weak var backgroundType: UIImageView!
+    var members = [memberEventEntity]()
+    @IBOutlet weak var backgroundType: UIImageViewX!
     @IBOutlet weak var detailsTxtV: UITextView!
     @IBOutlet weak var addressLbl: UILabel!
     @IBOutlet weak var mapView: MKMapView!
@@ -27,7 +27,14 @@ class EventDetailsViewController: UIViewController, EventEBindable {
     override func viewDidLoad() {
        super.viewDidLoad()
        self.setupButtonback()
-        self.event.members.forEach { (member) in
+        members.removeAll()
+        if event.members.count > 0 {
+            members.append(contentsOf:  event.members)
+        }else if event.father != nil {
+            members.append(contentsOf:  (event.father?.members)!)
+        }
+        
+        self.members.forEach { (member) in
             if let _ = rManager.realm.object(ofType: UserEntity.self, forPrimaryKey: member.id) {
             }else{
                 store.dispatch(UserS(.getbyId(uid: member.id)))
@@ -43,11 +50,13 @@ class EventDetailsViewController: UIViewController, EventEBindable {
 }
 extension EventDetailsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return event.members.count
+
+        
+        return  members.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! memberEntityCollectionCell
-        if let mid = event.members[indexPath.row].id {
+        if let mid = self.members[indexPath.row].id {
             if let user = rManager.realm.object(ofType: UserEntity.self, forPrimaryKey: mid) {
                 cell.bind(sender: user)
             }

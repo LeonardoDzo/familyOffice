@@ -11,7 +11,7 @@ import ReSwift
 import UIKit
 protocol EventEBindable: AnyObject, bind {
     var event: EventEntity! {get set}
-    var backgroundType : UIImageView! {get}
+    var backgroundType : UIImageViewX! {get}
     var dateLbl: UILabel! {get}
     var hourLbl: UILabel! {get}
     var titleLbl : UILabel! {get}
@@ -22,7 +22,7 @@ protocol EventEBindable: AnyObject, bind {
 extension EventEBindable  {
     
     var dateLbl: UILabel! {return nil}
-    var backgroundType : UIImageView! {return nil}
+    var backgroundType : UIImageViewX! {return nil}
     var hourLbl: UILabel! {return nil}
     var titleLbl : UILabel! {return nil}
     var detailsLbl: UILabel! {return nil}
@@ -75,7 +75,7 @@ extension EventEBindable  {
             AddressLbl.text =  locationString
         }
         if let backgroundView = self.backgroundType {
-             let type = self.event.eventtype
+            var type = self.event.eventtype
             switch type{
             case .Meet:
                 backgroundView.image = #imageLiteral(resourceName: "busines-sbackground")

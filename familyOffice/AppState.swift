@@ -25,6 +25,7 @@ struct AppState: StateType {
     var FaqState: FaqState
     var safeBoxState: SafeBoxState
     var requestState: RequestState
+    var insuranceState: InsuranceState
     
     var notifications = [NotificationModel]()
 }

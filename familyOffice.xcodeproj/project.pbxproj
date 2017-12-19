@@ -343,6 +343,15 @@
 		A4F65A271E97F05100831BFD /* EditHealthTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F65A261E97F05100831BFD /* EditHealthTableViewController.swift */; };
 		A4F65A291E97F06800831BFD /* NewHealthElementTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F65A281E97F06800831BFD /* NewHealthElementTableViewController.swift */; };
 		A4F65A2B1E985A4E00831BFD /* HealthOmniViewController_Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F65A2A1E985A4E00831BFD /* HealthOmniViewController_Categories.swift */; };
+		C335EC7A1FE7FDDB00FAB884 /* Insurance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C335EC791FE7FDDB00FAB884 /* Insurance.swift */; };
+		C335EC7E1FE82E7D00FAB884 /* InsuranteState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C335EC7D1FE82E7D00FAB884 /* InsuranteState.swift */; };
+		C335EC811FE82EF600FAB884 /* InsuranceActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C335EC801FE82EF600FAB884 /* InsuranceActions.swift */; };
+		C335EC841FE8304B00FAB884 /* InsuranceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C335EC831FE8304B00FAB884 /* InsuranceService.swift */; };
+		C335EC861FE837ED00FAB884 /* Insurance.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C335EC851FE837ED00FAB884 /* Insurance.storyboard */; };
+		C335EC891FE83D7100FAB884 /* InsuranceReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C335EC881FE83D7100FAB884 /* InsuranceReducer.swift */; };
+		C335EC8B1FE8456600FAB884 /* InsuranceMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C335EC8A1FE8456600FAB884 /* InsuranceMainViewController.swift */; };
+		C335EC8E1FE84D3600FAB884 /* InsuranceTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C335EC8D1FE84D3600FAB884 /* InsuranceTypeCell.swift */; };
+		C335EC901FE8553D00FAB884 /* InsurancesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C335EC8F1FE8553D00FAB884 /* InsurancesViewController.swift */; };
 		C370FA7D1FE050B50041955C /* SafeBoxFileEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370FA7C1FE050B50041955C /* SafeBoxFileEntity.swift */; };
 		E79B83E3D41E585C918BF70E /* Pods_familyOfficeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD19817A770CBDB00B3EEA4E /* Pods_familyOfficeUITests.framework */; };
 /* End PBXBuildFile section */
@@ -714,6 +723,15 @@
 		A4F65A261E97F05100831BFD /* EditHealthTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditHealthTableViewController.swift; sourceTree = "<group>"; };
 		A4F65A281E97F06800831BFD /* NewHealthElementTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewHealthElementTableViewController.swift; sourceTree = "<group>"; };
 		A4F65A2A1E985A4E00831BFD /* HealthOmniViewController_Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = HealthOmniViewController_Categories.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		C335EC791FE7FDDB00FAB884 /* Insurance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Insurance.swift; sourceTree = "<group>"; };
+		C335EC7D1FE82E7D00FAB884 /* InsuranteState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsuranteState.swift; sourceTree = "<group>"; };
+		C335EC801FE82EF600FAB884 /* InsuranceActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsuranceActions.swift; sourceTree = "<group>"; };
+		C335EC831FE8304B00FAB884 /* InsuranceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsuranceService.swift; sourceTree = "<group>"; };
+		C335EC851FE837ED00FAB884 /* Insurance.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Insurance.storyboard; sourceTree = "<group>"; };
+		C335EC881FE83D7100FAB884 /* InsuranceReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsuranceReducer.swift; sourceTree = "<group>"; };
+		C335EC8A1FE8456600FAB884 /* InsuranceMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsuranceMainViewController.swift; sourceTree = "<group>"; };
+		C335EC8D1FE84D3600FAB884 /* InsuranceTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsuranceTypeCell.swift; sourceTree = "<group>"; };
+		C335EC8F1FE8553D00FAB884 /* InsurancesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsurancesViewController.swift; sourceTree = "<group>"; };
 		C370FA7C1FE050B50041955C /* SafeBoxFileEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeBoxFileEntity.swift; sourceTree = "<group>"; };
 		DC93B265672C16B76DC460C5 /* Pods-familyOfficeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-familyOfficeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-familyOfficeUITests/Pods-familyOfficeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		ED81E71591D6C8DF115F8C7C /* Pods-familyOfficeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-familyOfficeUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-familyOfficeUITests/Pods-familyOfficeUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -939,6 +957,7 @@
 				02F50B221FBF797200285BEE /* AuthSvc.swift */,
 				02AD47E61FC4F1F5009E20E8 /* FamilyS.swift */,
 				02B588C31FDEFDFF00565A56 /* EventSvc.swift */,
+				C335EC831FE8304B00FAB884 /* InsuranceService.swift */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -1194,6 +1213,7 @@
 		0290591F1E78B9AA005F760C /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				C335EC7B1FE82E6700FAB884 /* Insurance */,
 				0275ADF31FD725220048B3FB /* HomeCollectionViewController.swift */,
 				949B520A1F202C9B001C7ABA /* FirstAidKit */,
 				84CCA3971F1B688D00B1C9D0 /* Faqs */,
@@ -1290,6 +1310,7 @@
 			isa = PBXGroup;
 			children = (
 				A4B0E10E1FE072DA002742E5 /* Chat */,
+				C335EC781FE7FDB800FAB884 /* Insurance */,
 				C370FA7B1FE04F2A0041955C /* SafeBox */,
 				A45EDE3A1FCF861A00D95A48 /* FirstAidKid */,
 				02C855911FBE5096004D7BFB /* User */,
@@ -1376,6 +1397,7 @@
 				94FF53521F17E516001D9EE4 /* ToDoList.storyboard */,
 				02382F151E1C210C0036FFC9 /* LaunchScreen.storyboard */,
 				A45EDE3E1FD0737A00D95A48 /* FirstAidKit.storyboard */,
+				C335EC851FE837ED00FAB884 /* Insurance.storyboard */,
 			);
 			name = Storyboard;
 			sourceTree = "<group>";
@@ -1849,6 +1871,59 @@
 			name = Health;
 			sourceTree = "<group>";
 		};
+		C335EC781FE7FDB800FAB884 /* Insurance */ = {
+			isa = PBXGroup;
+			children = (
+				C335EC791FE7FDDB00FAB884 /* Insurance.swift */,
+			);
+			name = Insurance;
+			sourceTree = "<group>";
+		};
+		C335EC7B1FE82E6700FAB884 /* Insurance */ = {
+			isa = PBXGroup;
+			children = (
+				C335EC8C1FE84D1600FAB884 /* cells */,
+				C335EC871FE83D5800FAB884 /* Reducer */,
+				C335EC7F1FE82EE800FAB884 /* Actions */,
+				C335EC7C1FE82E7200FAB884 /* State */,
+				C335EC8A1FE8456600FAB884 /* InsuranceMainViewController.swift */,
+				C335EC8F1FE8553D00FAB884 /* InsurancesViewController.swift */,
+			);
+			name = Insurance;
+			sourceTree = "<group>";
+		};
+		C335EC7C1FE82E7200FAB884 /* State */ = {
+			isa = PBXGroup;
+			children = (
+				C335EC7D1FE82E7D00FAB884 /* InsuranteState.swift */,
+			);
+			name = State;
+			sourceTree = "<group>";
+		};
+		C335EC7F1FE82EE800FAB884 /* Actions */ = {
+			isa = PBXGroup;
+			children = (
+				C335EC801FE82EF600FAB884 /* InsuranceActions.swift */,
+			);
+			name = Actions;
+			sourceTree = "<group>";
+		};
+		C335EC871FE83D5800FAB884 /* Reducer */ = {
+			isa = PBXGroup;
+			children = (
+				C335EC881FE83D7100FAB884 /* InsuranceReducer.swift */,
+			);
+			name = Reducer;
+			sourceTree = "<group>";
+		};
+		C335EC8C1FE84D1600FAB884 /* cells */ = {
+			isa = PBXGroup;
+			children = (
+				C335EC8D1FE84D3600FAB884 /* InsuranceTypeCell.swift */,
+			);
+			name = cells;
+			sourceTree = "<group>";
+		};
 		C370FA7B1FE04F2A0041955C /* SafeBox */ = {
 			isa = PBXGroup;
 			children = (
@@ -2037,6 +2112,7 @@
 				02954C5A1FBA77380057F809 /* ToDoList.storyboard in Resources */,
 				02954C5B1FBA77380057F809 /* LaunchScreen.storyboard in Resources */,
 				0260CF9D1FDB058B007FB6E0 /* FamilyMember1Cell.xib in Resources */,
+				C335EC861FE837ED00FAB884 /* Insurance.storyboard in Resources */,
 				02B2D3151FD22FA2009D22ED /* PreviewEvent.xib in Resources */,
 				04AFE38D1F03246000D4ECA2 /* Assets.xcassets in Resources */,
 			);
@@ -2306,6 +2382,7 @@
 				02F537BB1FD5C71F00F916AD /* PreHomeViewController.swift in Sources */,
 				A40F64571FE4676400837EA0 /* NewChatGroupForm.swift in Sources */,
 				02CF79AB1EAEC4B200E13056 /* EventService.swift in Sources */,
+				C335EC811FE82EF600FAB884 /* InsuranceActions.swift in Sources */,
 				94C110C51F2688DC00ABBA8B /* IllnessDetailsViewController.swift in Sources */,
 				02D2C0D11E6747AE007A6798 /* References.swift in Sources */,
 				9418C5A81F22D2B400F08BB5 /* InformationViewCell.swift in Sources */,
@@ -2322,6 +2399,7 @@
 				042693011F1448EB004356D6 /* ImageAlbumService.swift in Sources */,
 				02D845C41FE2FFA00086DD0C /* BlurView.swift in Sources */,
 				02B46A341E52908200CC7511 /* NotificationService.swift in Sources */,
+				C335EC7E1FE82E7D00FAB884 /* InsuranteState.swift in Sources */,
 				940964261F296E1A00FB1F3A /* CQuestionCell.swift in Sources */,
 				941B59F41F211C730078EF9C /* MedicineReducer.swift in Sources */,
 				023563211FD881730088CD92 /* LocationSearchTable.swift in Sources */,
@@ -2338,6 +2416,8 @@
 				02B7E7FA1E7C614A0082BAE7 /* settingLauncher.swift in Sources */,
 				02D845D81FE2FFA00086DD0C /* AsyncImageView.swift in Sources */,
 				0224341A1F1D41EB0057A0D0 /* ViewController.swift in Sources */,
+				C335EC891FE83D7100FAB884 /* InsuranceReducer.swift in Sources */,
+				C335EC8E1FE84D3600FAB884 /* InsuranceTypeCell.swift in Sources */,
 				02D845CB1FE2FFA00086DD0C /* SpringTextField.swift in Sources */,
 				A4D585B81E8C8468005B8F1F /* HealthService.swift in Sources */,
 				02ABAC421E6E02B5003780AB /* Device.swift in Sources */,
@@ -2387,6 +2467,7 @@
 				02C855901FBE20FC004D7BFB /* UIApplication.swift in Sources */,
 				021DB6B01F4BAF7900E216BE /* RequestAction.swift in Sources */,
 				02AD81521E4B963C0030B3DD /* memberSelectedCollectionViewCell.swift in Sources */,
+				C335EC7A1FE7FDDB00FAB884 /* Insurance.swift in Sources */,
 				02D845D31FE2FFA00086DD0C /* AutoTextView.swift in Sources */,
 				02D845D61FE2FFA00086DD0C /* LoadingView.swift in Sources */,
 				0268D9721FD7189E00991876 /* UIViewControllerX.swift in Sources */,
@@ -2407,6 +2488,7 @@
 				020216EE1FD61F6F00777F8C /* PreviewEvent.swift in Sources */,
 				A44D91AF1E947F2700880D50 /* HealthOmniViewController.swift in Sources */,
 				94FF535F1F17E55B001D9EE4 /* ToDoListState.swift in Sources */,
+				C335EC841FE8304B00FAB884 /* InsuranceService.swift in Sources */,
 				0215F4E81E3FBCCD00AC01D3 /* PasswordChangeViewController.swift in Sources */,
 				04475B521F0ED27200F257EA /* GalleryState.swift in Sources */,
 				020A30951E2DA4440024B1FB /* FamilyViewController.swift in Sources */,
@@ -2425,6 +2507,7 @@
 				94FF53561F17E52B001D9EE4 /* ToDoItemCell.swift in Sources */,
 				02CE93261F1FDADB00D3B96E /* ContactsViewController.swift in Sources */,
 				0275ADF41FD725220048B3FB /* HomeCollectionViewController.swift in Sources */,
+				C335EC8B1FE8456600FAB884 /* InsuranceMainViewController.swift in Sources */,
 				02D845C31FE2FFA00086DD0C /* SoundPlayer.swift in Sources */,
 				94FF53611F17E562001D9EE4 /* ToDoListActions.swift in Sources */,
 				0260CF9C1FDB058B007FB6E0 /* FamilyMember1Cell.swift in Sources */,
@@ -2464,6 +2547,7 @@
 				02AB00471E1DD0AB0098411C /* RegisterFamilyViewController.swift in Sources */,
 				02ADE5471FC4957500D05893 /* UserEntity.swift in Sources */,
 				A4B0E1211FE1BF8E002742E5 /* ChatMessageBaseCell.swift in Sources */,
+				C335EC901FE8553D00FAB884 /* InsurancesViewController.swift in Sources */,
 				02441D9C1F16BECD00EA8202 /* GoalTableViewController.swift in Sources */,
 				045B648F1EFDD1F600F57BBD /* HomeGalleryViewController.swift in Sources */,
 				02B876451E1C677C005E5473 /* SingUpViewController.swift in Sources */,
