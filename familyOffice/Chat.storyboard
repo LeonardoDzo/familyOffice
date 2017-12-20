@@ -156,13 +156,57 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="x2C-KK-etr">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="81" id="ruS-AY-hS4" customClass="MemberTableViewCell" customModule="familyOffice" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="81"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="x2C-KK-etr" id="Un6-To-DiB">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ruS-AY-hS4" id="2kA-hh-66z">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="80.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rEX-Jv-PSW" customClass="UIImageViewX" customModule="familyOffice" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="80.5" height="80.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="rEX-Jv-PSW" secondAttribute="height" multiplier="1:1" id="AmO-h1-DRy"/>
+                                                <constraint firstAttribute="height" constant="80.5" id="Brg-nf-By7"/>
+                                                <constraint firstAttribute="width" constant="80.5" id="m7b-k2-uWq"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nombre" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sKl-Gb-oc4">
+                                            <rect key="frame" x="88" y="11" width="271" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="lcE-gQ-bnJ"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Saq-hK-Smo">
+                                            <rect key="frame" x="88" y="40" width="271" height="14"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="14" id="27T-If-xrg"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Saq-hK-Smo" firstAttribute="top" secondItem="sKl-Gb-oc4" secondAttribute="bottom" constant="8" id="22a-GG-SrP"/>
+                                        <constraint firstItem="rEX-Jv-PSW" firstAttribute="leading" secondItem="2kA-hh-66z" secondAttribute="leading" id="2yO-Ww-9XF"/>
+                                        <constraint firstItem="rEX-Jv-PSW" firstAttribute="top" secondItem="2kA-hh-66z" secondAttribute="top" id="5v2-Cx-cyo"/>
+                                        <constraint firstItem="Saq-hK-Smo" firstAttribute="trailing" secondItem="2kA-hh-66z" secondAttribute="trailingMargin" id="FP8-hs-n0p"/>
+                                        <constraint firstItem="sKl-Gb-oc4" firstAttribute="top" secondItem="2kA-hh-66z" secondAttribute="topMargin" id="IIq-Vx-eMe"/>
+                                        <constraint firstItem="sKl-Gb-oc4" firstAttribute="leading" secondItem="rEX-Jv-PSW" secondAttribute="trailing" constant="8" id="eWg-Ks-t63"/>
+                                        <constraint firstItem="Saq-hK-Smo" firstAttribute="leading" secondItem="rEX-Jv-PSW" secondAttribute="trailing" constant="8" id="lsE-Iw-ggE"/>
+                                        <constraint firstItem="sKl-Gb-oc4" firstAttribute="trailing" secondItem="2kA-hh-66z" secondAttribute="trailingMargin" id="pJU-iO-tZZ"/>
+                                        <constraint firstAttribute="bottom" secondItem="rEX-Jv-PSW" secondAttribute="bottom" id="zvV-ZD-jv4"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="phoneLbl" destination="Saq-hK-Smo" id="ah2-VZ-93w"/>
+                                    <outlet property="profileImage" destination="rEX-Jv-PSW" id="0yT-Ox-yB9"/>
+                                    <outlet property="titleLbl" destination="sKl-Gb-oc4" id="zuQ-yu-6so"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -174,7 +218,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D32-Xv-5Rv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-735" y="3327"/>
+            <point key="canvasLocation" x="-735.20000000000005" y="3326.9865067466271"/>
         </scene>
         <!--Grupos-->
         <scene sceneID="w0o-Fp-xsg">
