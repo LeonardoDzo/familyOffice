@@ -160,8 +160,21 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
         return days.count
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return days[section].string(with: DateFormatter.dayMonthAndYear)
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView()
+        let date = days[section].string(with: DateFormatter.ddMMMyyyy)
+        let titleView = UILabelX(text: date)
+        titleView.backgroundColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 0.5925460188)
+        titleView.sizeToFit()
+        titleView.clipsToBounds = true
+        titleView.textAlignment = .center
+        titleView.font = UIFont.systemFont(ofSize: 12)
+        titleView.cornerRadius = 8
+        titleView.frame.origin.x = self.tableView.frame.midX - CGFloat(titleView.bounds.size.width/2)
+        view.addSubview(titleView)
+        return view
+        
+        //return ChatSectionHeaderView(tableFrame: tableView.frame, text: days[section].string(with: DateFormatter.dayMonthAndYear))
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -216,9 +229,7 @@ extension ChatGroupViewController : StoreSubscriber {
     
     override func viewDidAppear(_ animated: Bool) {
         if messages.count > 0 {
-            let contentHeight = tableView.contentSize.height
-            let frameHeight = tableView.frame.height
-            tableView.contentOffset.y = max(contentHeight - frameHeight, 0)
+            tableView.scrollToBottom(animated: true)
         }
     }
     
@@ -235,9 +246,9 @@ extension ChatGroupViewController : StoreSubscriber {
                 if lastSection >= 0 {
                     rows = tableView.numberOfRows(inSection: lastSection)
                 }
+                setDays()
                 tableView.reloadData()
                 if rows != tableView.numberOfRows(inSection: lastSection) {
-                    setDays()
                     tableView.scrollToBottom(animated: true)
                 }
                 store.dispatch(RequestAction.Processed(uuid: uuid))
@@ -249,8 +260,8 @@ extension ChatGroupViewController : StoreSubscriber {
         if let uuid = createMessageUuid {
             switch state.requestState.requests[uuid] {
             case .finished?:
-                tableView.reloadData()
                 setDays()
+                tableView.reloadData()
                 tableView.scrollToBottom(animated: true)
                 store.dispatch(RequestAction.Processed(uuid: uuid))
                 break
