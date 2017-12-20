@@ -515,12 +515,6 @@
                                     <constraint firstItem="41D-Jg-PQa" firstAttribute="centerY" secondItem="znU-Gb-hNX" secondAttribute="centerY" constant="5.5" id="z3Q-4Z-Zrd"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                                        <color key="value" red="0.36223070550000003" green="0.36223070550000003" blue="0.36223070550000003" alpha="0.55745671949999998" colorSpace="custom" customColorSpace="displayP3"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                                        <real key="value" value="2"/>
-                                    </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetY">
                                         <real key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
