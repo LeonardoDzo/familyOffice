@@ -22,6 +22,7 @@ struct User {
     static let kUserAddressKey = "address"
     static let kUserRFCKey = "rfc"
     static let kUserNSSKey = "nss"
+    static let kUserSafeBoxPwdKey = "safeboxPwd"
     static let kUserBloodTypeKey = "bloodType"
     static let kUserTokensFCMeKey = "tokensFCM"
     static let kUserHealthKey = "health"
@@ -37,6 +38,7 @@ struct User {
     var curp : String!
     var birthday: String!
     var address : String!
+    var safeboxPwd : String! = ""
     var bloodtype: String!
     var tokens: NSDictionary? = nil
     var events: [String]? = []
@@ -53,13 +55,14 @@ struct User {
         self.curp = ""
         self.birthday = ""
         self.address = ""
+        self.safeboxPwd = ""
         self.bloodtype = ""
         self.tokens = nil
         self.health = nil
         self.id = ""
     }
 
-    init(id: String, name: String, phone: String,  photoURL: String, families: NSDictionary, familyActive: String, rfc: String, nss: String, curp: String, birth: String, address: String, bloodtype: String, health: NSArray) {
+    init(id: String, name: String, phone: String,  photoURL: String, families: NSDictionary, familyActive: String, rfc: String, nss: String, curp: String, birth: String, address: String, safeboxPwd: String, bloodtype: String, health: NSArray) {
         self.name = name
         self.phone = phone
         self.photoURL = photoURL
@@ -70,6 +73,7 @@ struct User {
         self.curp = curp
         self.birthday = birth
         self.address = address
+        self.safeboxPwd = safeboxPwd
         self.bloodtype = bloodtype
         self.tokens = nil
         self.health = Health(array: health)
@@ -97,6 +101,7 @@ struct User {
         self.bloodtype = service.UTILITY_SERVICE.exist(field: User.kUserBloodTypeKey, dictionary: snapshotValue)
         self.families = service.UTILITY_SERVICE.exist(field: User.kUserFamiliesKey, dictionary: snapshotValue)
         self.phone = service.UTILITY_SERVICE.exist(field: User.kUserPhoneKey, dictionary: snapshotValue)
+        self.safeboxPwd = service.UTILITY_SERVICE.exist(field: User.kUserSafeBoxPwdKey, dictionary: snapshotValue)
         self.tokens = service.UTILITY_SERVICE.exist(field: User.kUserTokensFCMeKey, dictionary: snapshotValue)
         self.events = service.UTILITY_SERVICE.exist(field: User.kEventKey, dictionary: snapshotValue)
     }
@@ -111,6 +116,7 @@ struct User {
             User.kUserNSSKey: self.nss!,
             User.kUserBloodTypeKey: self.bloodtype!,
             User.kUserPhoneKey : self.phone!,
+            User.kUserSafeBoxPwdKey : self.safeboxPwd!,
             User.kUserBirthdayKey : self.birthday!,
             User.kUserHealthKey : self.health.toDictionary()
         ]
