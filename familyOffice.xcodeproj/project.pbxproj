@@ -357,6 +357,7 @@
 		C335EC901FE8553D00FAB884 /* InsurancesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C335EC8F1FE8553D00FAB884 /* InsurancesViewController.swift */; };
 		C335EC921FE86AEF00FAB884 /* InsuranceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C335EC911FE86AEF00FAB884 /* InsuranceCell.swift */; };
 		C335EC941FE8E5A000FAB884 /* InsurancesPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C335EC931FE8E5A000FAB884 /* InsurancesPolicyViewController.swift */; };
+		C335EC961FEAF45E00FAB884 /* SafeboxPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C335EC951FEAF45E00FAB884 /* SafeboxPasswordViewController.swift */; };
 		C370FA7D1FE050B50041955C /* SafeBoxFileEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370FA7C1FE050B50041955C /* SafeBoxFileEntity.swift */; };
 		E79B83E3D41E585C918BF70E /* Pods_familyOfficeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD19817A770CBDB00B3EEA4E /* Pods_familyOfficeUITests.framework */; };
 /* End PBXBuildFile section */
@@ -742,6 +743,7 @@
 		C335EC8F1FE8553D00FAB884 /* InsurancesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsurancesViewController.swift; sourceTree = "<group>"; };
 		C335EC911FE86AEF00FAB884 /* InsuranceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsuranceCell.swift; sourceTree = "<group>"; };
 		C335EC931FE8E5A000FAB884 /* InsurancesPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsurancesPolicyViewController.swift; sourceTree = "<group>"; };
+		C335EC951FEAF45E00FAB884 /* SafeboxPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeboxPasswordViewController.swift; sourceTree = "<group>"; };
 		C370FA7C1FE050B50041955C /* SafeBoxFileEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeBoxFileEntity.swift; sourceTree = "<group>"; };
 		DC93B265672C16B76DC460C5 /* Pods-familyOfficeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-familyOfficeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-familyOfficeUITests/Pods-familyOfficeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		ED81E71591D6C8DF115F8C7C /* Pods-familyOfficeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-familyOfficeUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-familyOfficeUITests/Pods-familyOfficeUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -828,6 +830,7 @@
 				0226C8E11E3C217D007968BA /* ConfigurationViewController.swift */,
 				0215F4E71E3FBCCD00AC01D3 /* PasswordChangeViewController.swift */,
 				0214C7E41FC8F44F00CDCA57 /* UserPersonalFormViewController.swift */,
+				C335EC951FEAF45E00FAB884 /* SafeboxPasswordViewController.swift */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -2418,6 +2421,7 @@
 				023796CF1FD071AD007FF309 /* (null) in Sources */,
 				02AD47E91FC4F381009E20E8 /* FamilyEntity.swift in Sources */,
 				02D8459B1FE2EF3C0086DD0C /* Collections.swift in Sources */,
+				C335EC961FEAF45E00FAB884 /* SafeboxPasswordViewController.swift in Sources */,
 				042693011F1448EB004356D6 /* ImageAlbumService.swift in Sources */,
 				02D845C41FE2FFA00086DD0C /* BlurView.swift in Sources */,
 				02B46A341E52908200CC7511 /* NotificationService.swift in Sources */,

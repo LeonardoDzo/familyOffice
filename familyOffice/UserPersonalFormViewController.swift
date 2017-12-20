@@ -80,7 +80,7 @@ class UserPersonalFormViewController: FormViewController {
             
             <<< TextRow() { row in
                 row.title = "NSS"
-                row.placeholder = "Númerod e seguro social"
+                row.placeholder = "Número de seguro social"
                 row.value = user.nss
                 row.add(rule: RuleExactLength(exactLength: 11))
                 }.cellUpdate { cell, row in
@@ -137,7 +137,7 @@ class UserPersonalFormViewController: FormViewController {
                 row.title = "Tipo de Sangre"
                 row.options = ["A+","A-","O+","O-","B+","B-","AB+","AB-"]
                 row.value = user.bloodtype
-                row.selectorTitle = "Escogé un tipo de sangre"
+                row.selectorTitle = "Escoge un tipo de sangre"
                 }.onChange({ (row) in
                     if row.isValid {
                         try! rManager.realm.write {
@@ -149,6 +149,23 @@ class UserPersonalFormViewController: FormViewController {
                     to.dismissOnSelection = true
                     to.dismissOnChange = false
                 })
+        
+        +++ Section("Caja fuerte")
+            <<< TextRow() { row in
+                row.title = "Contraseña"
+                row.placeholder = "RFC"
+                row.value = "******"
+                
+                }.cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = .red
+                    }else{
+                        try! rManager.realm.write {
+                            self.user.rfc = row.value ?? ""
+                        }
+                    }
+        }
+        
         navigationOptions = RowNavigationOptions.Enabled.union(.StopDisabledRow)
         // Enables smooth scrolling on navigation to off-screen rows
         animateScroll = true

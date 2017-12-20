@@ -1,4 +1,4 @@
-//
+ //
 //  MembersChatTableViewController.swift
 //  familyOffice
 //
@@ -51,16 +51,15 @@ class MembersChatTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! MemberTableViewCell
+        
         let uid = members[indexPath.row]
+        cell.profileImage.hideToastActivity()
         if let user = rManager.realm.object(ofType: UserEntity.self, forPrimaryKey: uid) {
-            cell.textLabel?.text = user.name
-            cell.detailTextLabel?.text = user.phone
-            cell.imageView?.loadImage(urlString: user.photoURL)
-            cell.imageView?.circleImage()
+            cell.bind(sender: user)
         }else{
-            cell.textLabel?.text = "Cargando ..."
-            cell.imageView?.makeToastActivity(.center)
+            cell.titleLbl.text = "Cargando ..."
+            cell.profileImage.makeToastActivity(.center)
         }
 
         return cell
@@ -89,11 +88,8 @@ class MembersChatTableViewController: UITableViewController {
             group?.isGroup = false
             store.dispatch(createGroupAction(group: group, uuid: group.id))
         }else{
-            print(group)
             self.pushToView(view: .chat, sender: group)
         }
-        
-     
     }
 
 }
@@ -125,6 +121,7 @@ extension MembersChatTableViewController: StoreSubscriber {
             default: return
             }
         }
+        self.tableView.reloadSections(IndexSet(integer: 0), with: .fade)
         
     }
 }
