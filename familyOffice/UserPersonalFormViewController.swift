@@ -154,7 +154,7 @@ class UserPersonalFormViewController: FormViewController {
             <<< TextRow() { row in
                 row.title = "Contraseña"
                 row.placeholder = "RFC"
-                row.value = "123456"
+                row.value = "******"
                 
                 }.cellUpdate { cell, row in
                     if !row.isValid {

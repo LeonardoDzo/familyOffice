@@ -45,6 +45,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
         // Do any additional setup after loading the view.
         let nav = self.navigationController?.navigationBar
         nav?.barTintColor = #colorLiteral(red: 0.9598663449, green: 0.7208504081, blue: 0.1197796389, alpha: 1)
+        tabBar.tintColor = #colorLiteral(red: 0.9598663449, green: 0.7208504081, blue: 0.1197796389, alpha: 1)
         self.title = "Caja fuerte"
         nav?.titleTextAttributes = [NSAttributedStringKey.foregroundColor:#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)]
         nav?.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
@@ -71,8 +72,8 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
             self.newFolder()
         }))
         
-        alert.addAction(UIAlertAction(title: "Cambiar vista?", style: .default, handler: { (action) in
-        }))
+//        alert.addAction(UIAlertAction(title: "Cambiar vista?", style: .default, handler: { (action) in
+//        }))
         alert.addAction(UIAlertAction(title: "Cancelar", style: .destructive, handler: nil))
         
         alert.modalPresentationStyle = UIModalPresentationStyle.currentContext
@@ -327,6 +328,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
             let view = segue.destination as! MoveFileViewController
             view.file = selectedFile
             view.tree = self.folders
+            view.currentFolder = self.currentFolder
             view.currentFolderId = self.currentFolderId
         }
     }

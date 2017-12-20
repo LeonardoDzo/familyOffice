@@ -49,7 +49,7 @@ struct SafeBoxReducer {
         service.SAFEBOX_SERVICE.insert(path, value: item.toDictionary(), callback: {ref in
             if ref is DatabaseReference{
                 if(NSString(string: item.filename).pathExtension != ""){
-                    store.state.safeBoxState.safeBoxFiles[id!]?.append(item)
+//                    store.state.safeBoxState.safeBoxFiles[id!]?.append(item)
                 }
                 store.state.safeBoxState.status = .finished
             }

@@ -21,7 +21,9 @@ class MoveFileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.currentFolder = self.tree[self.tree.count - 1]
+//        self.currentFolder = self.tree[self.tree.count - 1]
+        print(self.currentFolder)
+        print(self.currentFolderId)
         
         let nav = self.navigationController?.navigationBar
         nav?.barTintColor = #colorLiteral(red: 0.9598663449, green: 0.7208504081, blue: 0.1197796389, alpha: 1)
