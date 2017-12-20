@@ -325,6 +325,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
         }else if segue.identifier == "showDirTree" {
             let selectedFile = sender as! SafeBoxFile
 //            print(selectedFile)
+            self.title = "Cancelar"
             let view = segue.destination as! MoveFileViewController
             view.file = selectedFile
             view.tree = self.folders
@@ -501,7 +502,7 @@ extension IndexViewController: StoreSubscriber{
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateFlag), name: notCenter.BACKGROUND_NOTIFICATION, object: nil)
         verify()
         service.SAFEBOX_SERVICE.initObservers(ref: "safebox/\(userId!)", actions: [.childAdded, .childChanged, .childRemoved])
-        
+        self.title = "Caja fuerte"
         store.subscribe(self){
 
             $0.select {

@@ -59,7 +59,7 @@ class MoveFileViewController: UIViewController {
                     _ = self.tree.popLast()
                     self.currentFolder = self.tree[self.tree.count - 1]
                     self.currentFolderId = store.state.safeBoxState.safeBoxFiles[userId!]?.first(where: {$0.filename == self.currentFolder && $0.type == "folder"})?.id ?? "root"
-                    self.title = "Mover a \(self.currentFolder!)"
+                    self.title = "Mover a \(self.currentFolder! == "root" ? "Caja fuerte" : self.currentFolder!)"
                     self.folders = store.state.safeBoxState.safeBoxFiles[userId!]?.filter({NSString(string: $0.filename).pathExtension == "" && $0.parent == self.currentFolderId  && $0.id != file.id}) ?? []
                     self.tableView.reloadData()
                 }
