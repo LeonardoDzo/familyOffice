@@ -9,12 +9,15 @@
 import UIKit
 
 class recordTableViewCell: UITableViewCell, NotificationBindible {
+
+    
+    
     var notification: NotificationModel!
     
     @IBOutlet weak var titleLbl: UILabel!
     @IBOutlet weak var dateLbl: UILabel!
     @IBOutlet weak var img: CustomUIImageView!
-    @IBOutlet weak var typeImg: CustomUIImageView!
+    @IBOutlet weak var typeImg: UIImageViewX!
     
     override func awakeFromNib() {
         super.awakeFromNib()
