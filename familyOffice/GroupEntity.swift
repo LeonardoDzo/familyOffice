@@ -127,8 +127,10 @@ extension GroupBindible {
             if !group.coverPhoto.isEmpty {
                 groupImg.loadImage(urlString: group.coverPhoto)
             } else if !group.isGroup {
-                if user != nil {
+                if user != nil && !user.photoURL.isEmpty {
                     groupImg.loadImage(urlString: user.photoURL)
+                } else {
+                    groupImg.image = #imageLiteral(resourceName: "user-default")
                 }
             }
             
