@@ -16,13 +16,14 @@ import FirebaseStorage
 class NewChatGroupForm : FormViewController {
     
     var group = GroupEntity()
+    var createUuid: String?
     var editUuid: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let button = UIBarButtonItem(
-            title: "Crear",
+            title: !group.id.isEmpty ? "Editar" : "Crear",
             style: .done,
             target: self,
             action: #selector(self.done)
@@ -36,29 +37,40 @@ class NewChatGroupForm : FormViewController {
                 $0.add(rule: RuleRequired())
                 $0.tag = "title"
                 $0.validationOptions = .validatesOnChange
+                $0.value = group.title
             } <<< ImageRow() {
                 $0.title = "Foto de grupo"
                 $0.sourceTypes = [.PhotoLibrary, .SavedPhotosAlbum, .Camera]
                 $0.clearAction = .yes(style: .destructive)
                 $0.tag = "photo"
+                if let cacheImage = imageCache.object(forKey: group.coverPhoto as AnyObject) {
+                    $0.value = cacheImage as? UIImage
+                }
             }
             <<< UsersRow() {
                 $0.title = "Miembros"
                 $0.tag = "members"
+                $0.value = UserListSelected(list: group.members.map({ $0.id }))
             }
     }
     
     @objc func done(_ sender: Any) {
         let values = form.values()
-        group.title = values["title"] as! String
-        group.id = UUID().uuidString
-        group.familyId = getUser()!.familyActive
-        group.createdAt = Date()
+        let _group = GroupEntity()
+        _group.title = values["title"] as! String
+        _group.id = UUID().uuidString
+        _group.familyId = getUser()!.familyActive
+        _group.createdAt = Date()
         let membersArray = values["members"] as! UserListSelected
         membersArray.list.forEach({ userId in
-            group.members.append(TimestampEntity(value: [userId, Date()]))
+            _group.members.append(TimestampEntity(value: [userId, Date()]))
         })
-        store.dispatch(createGroupAction(group: group, uuid: group.id))
+        createUuid = UUID().uuidString
+        if group.id.isEmpty {
+            store.dispatch(createGroupAction(group: _group, uuid: createUuid!))
+        } else {
+            store.dispatch(editGroupAction(group: group, fields: _group, uuid: createUuid!))
+        }
     }
     
     func uploadImage() {
@@ -94,8 +106,8 @@ extension NewChatGroupForm: StoreSubscriber {
     }
     
     func newState(state: RequestState) {
-        if !group.id.isEmpty {
-            switch state.requests[group.id] {
+        if let uuid = createUuid {
+            switch state.requests[uuid] {
             case .finished?:
                 uploadImage()
                 break

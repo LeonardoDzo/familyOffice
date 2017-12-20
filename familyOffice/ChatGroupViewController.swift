@@ -47,6 +47,9 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
         tableView.scrollToBottom(animated: true)
         myTitleView.titleLbl.textColor = UIColor.white
         self.navigationItem.titleView = myTitleView
+        
+        let button = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(self.edit))
+        self.navigationItem.rightBarButtonItem = button
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,6 +68,12 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
         ])
         textField.text = ""
         store.dispatch(createMessageAction(entity: message, uuid: message.id))
+    }
+    
+    @objc func edit() {
+        let ctrl = NewChatGroupForm()
+        ctrl.group = self.group
+        show(ctrl, sender: self)
     }
     
     func registerKeyboardNotifications() {

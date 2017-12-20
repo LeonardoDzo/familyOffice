@@ -46,6 +46,25 @@ func createGroupAction(group: GroupEntity, uuid: String) -> Store<AppState>.Acti
     }
 }
 
+func editGroupAction(group: GroupEntity, fields: GroupEntity, uuid: String) -> Store<AppState>.ActionCreator {
+    return { state, store in
+        do {
+            store.dispatch(RequestAction.Loading(uuid: uuid))
+            let child = GROUPS_REF.child(group.id)
+            try rManager.realm.write {
+                group.coverPhoto = fields.coverPhoto
+                group.members = fields.members
+                group.title = fields.title
+            }
+            child.setValue(group.toJSON())
+            store.dispatch(RequestAction.Done(uuid: uuid))
+        } catch {
+            store.dispatch(RequestAction.Error(err: RequestError.CouldNotWrite, uuid: uuid))
+        }
+        return nil
+    }
+}
+
 func addPhotoGroupAction(group: GroupEntity, photoUrl: String, uuid: String) -> Store<AppState>.ActionCreator {
     return { state, store in
         do {
