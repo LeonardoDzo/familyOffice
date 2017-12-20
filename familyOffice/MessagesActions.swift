@@ -20,7 +20,7 @@ func getAllMessagesAction(groupId: String, uuid: String) -> Store<AppState>.Acti
             .observe(.childAdded, with: { _messageReceived(snapshot: $0, uuid: uuid)})
         MESSAGES_REF.queryOrdered(byChild: "groupId")
             .queryEqual(toValue: groupId)
-            .observe(.childChanged, with: { _messagesChanged(snapshot: $0, uuid: uuid)})
+            .observe(.childChanged, with: { _messageReceived(snapshot: $0, uuid: uuid)})
         return nil
     }
 }
@@ -64,7 +64,6 @@ func createMessageAction(entity: MessageEntity, uuid: String) -> Store<AppState>
 
 private func _messageReceived(snapshot: DataSnapshot, uuid: String) {
     do {
-        print("added", snapshot.key)
         if !snapshot.exists() { throw RequestError.NotFound }
         guard let json = snapshot.value as? NSDictionary else { throw RequestError.NotJson }
         json.setValue(snapshot.key, forKey: "id")
@@ -78,10 +77,6 @@ private func _messageReceived(snapshot: DataSnapshot, uuid: String) {
     } catch let err {
         store.dispatch(RequestAction.Error(err: err as! RequestError, uuid: uuid))
     }
-}
-
-private func _messagesChanged(snapshot: DataSnapshot, uuid: String) {
-    print("changed",snapshot.key)
 }
 
 private func _messagesReceived(snapshot: DataSnapshot, uuid: String) {
