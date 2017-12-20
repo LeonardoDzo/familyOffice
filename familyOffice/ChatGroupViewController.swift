@@ -124,6 +124,8 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
                 myTitleView.titleLbl.text = user.name
                 if !user.photoURL.isEmpty {
                     myTitleView.photo.loadImage(urlString: user.photoURL)
+                } else {
+                    myTitleView.photo.image = #imageLiteral(resourceName: "user-default")
                 }
             }
         } else {
