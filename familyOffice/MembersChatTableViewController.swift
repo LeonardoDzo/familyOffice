@@ -73,7 +73,7 @@ class MembersChatTableViewController: UITableViewController {
         group = rManager.realm.objects(GroupEntity.self).filter("familyId = %@ AND isGroup == false", family.id).filter { (group) -> Bool in
             if group.members.count == 2 {
                 var flag = false
-                flag = group.members.contains(where: {$0.value == getUser()?.id}) && group.members.contains(where: {$0.value == uid})
+                flag = group.members.contains(where: {$0.id == getUser()?.id}) && group.members.contains(where: {$0.id == uid})
                 return flag
             }
             return false
@@ -83,8 +83,8 @@ class MembersChatTableViewController: UITableViewController {
      
             let myId = getUser()!.id
             group?.id = "\(family.id)-\(uid < myId ? uid : myId)-\(uid < myId ? myId : uid)"
-            group?.members.append(RealmString(uid))
-            group?.members.append(RealmString(myId))
+            group?.members.append(TimestampEntity(value: [uid, Date()]))
+            group?.members.append(TimestampEntity(value: [myId, Date()]))
             group?.familyId = family.id
             group?.isGroup = false
             store.dispatch(createGroupAction(group: group, uuid: group.id))
@@ -108,6 +108,7 @@ extension MembersChatTableViewController: StoreSubscriber {
         store.subscribe(self) { store in
             store.select({ $0.requestState })
         }
+        self.tabBarController?.title = "Miembros"
     }
     
     override func viewWillDisappear(_ animated: Bool) {

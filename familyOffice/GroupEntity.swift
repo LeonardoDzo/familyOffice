@@ -8,15 +8,22 @@
 
 import Foundation
 import RealmSwift
+import FirebaseDatabase
+
+@objcMembers
+class TimestampEntity: Object, Serializable {
+    dynamic var id: String = ""
+    dynamic var time: Date = Date()
+}
 
 @objcMembers
 class GroupEntity: Object, Serializable {
     dynamic var id: String = ""
     dynamic var familyId: String = ""
     dynamic var title: String = ""
-    dynamic var members = List<RealmString>()
+    dynamic var members = List<TimestampEntity>()
     dynamic var coverPhoto: String = ""
-    dynamic var messages = List<RealmString>()
+    dynamic var messages = List<TimestampEntity>()
     dynamic var lastMessage: String? = nil
     dynamic var createdAt: Date = Date()
     dynamic var isGroup = true
@@ -29,11 +36,30 @@ class GroupEntity: Object, Serializable {
         return "id"
     }
     
+    class func fromJSON(key: String, json: NSDictionary) -> GroupEntity {
+        json.setValue(key, forKey: "id")
+        let members = json["members"] as! NSDictionary
+        var membersR = [NSDictionary]()
+        members.forEach({ (key, time) in
+            membersR.append(["id": key, "time": Date(time as? Int ?? 1)!])
+        })
+        json.setValue(membersR, forKey: "members")
+        let messages = json["messages"] as? NSDictionary ?? [:]
+        var messagesR = [NSDictionary]()
+        messages.forEach { (key, time) in
+            messagesR.append(["id": key, "time": Date(time as? Int ?? 1)!])
+        }
+        json.setValue(messagesR, forKey: "messages")
+        let createdAt = json["createdAt"] as! Int
+        json.setValue(Date(createdAt), forKey: "createdAt")
+        return GroupEntity(value: json)
+    }
+    
     func toJSON() -> [String : Any]? {
-        var membersDic = [String:Bool]()
-        var msgsDic = [String:Bool]()
-        members.forEach({ membersDic[$0.value] = true })
-        messages.forEach({ msgsDic[$0.value] = true})
+        var membersDic = [String:Int]()
+        var msgsDic = [String:Int]()
+        members.forEach({ membersDic[$0.id] = $0.time.toMillis() })
+        messages.forEach({ msgsDic[$0.id] = $0.time.toMillis() })
         var json = [
             "familyId": familyId,
             "title": title,
@@ -48,6 +74,14 @@ class GroupEntity: Object, Serializable {
         }
         return json
     }
+    
+    func unseen(forUser user: String) -> Int {
+        guard let member = members.first(where: { $0.id == user }) else {
+            return -1
+        }
+        let predicate = NSPredicate(format: "time > %@", member.time as CVarArg)
+        return messages.filter(predicate).count
+    }
 }
 protocol GroupBindible: AnyObject, bind {
     var group: GroupEntity! {get set}
@@ -55,6 +89,7 @@ protocol GroupBindible: AnyObject, bind {
     var groupName: UILabel! {get}
     var lastMsg: UILabel! {get}
     var msgTime: UILabel! {get}
+    var unseen: UILabel! { get }
     
 }
 extension GroupBindible {
@@ -62,6 +97,7 @@ extension GroupBindible {
     var groupName: UILabel! {return nil}
     var lastMsg: UILabel! {return nil}
     var msgTime: UILabel! {return nil}
+    var unseen: UILabel! { return nil }
     
     func bind(sender: Any?) {
         if sender is GroupEntity {
@@ -72,9 +108,10 @@ extension GroupBindible {
     
     func bind() -> Void {
         guard let group = self.group else { return  }
+        let me = getUser()!
         let user : UserEntity! = {
             if !group.isGroup {
-                if let mid = group.members.first(where: {$0.value != getUser()?.id})?.value {
+                if let mid = group.members.first(where: {$0.id != getUser()?.id})?.id {
                     if let user = rManager.realm.object(ofType: UserEntity.self, forPrimaryKey: mid) {
                         return user
                     }else{
@@ -107,17 +144,28 @@ extension GroupBindible {
             }
         }
         if let lastMsg = lastMsg, let msgTime = msgTime {
-            guard let msgId = group.lastMessage else {
-                lastMsg.text = ""
-                msgTime.text = ""
-                return
+            lastMsg.text = ""
+            msgTime.text = ""
+            if let msgId = group.lastMessage {
+                if let msg = rManager.realm.objects(MessageEntity.self).filter("id = '\(msgId)'").first {
+                    if let usr = rManager.realm.objects(UserEntity.self).filter("id = '\(msg.remittent)'").first {
+                        lastMsg.text = "\(usr.id == me.id ? "Tu" : usr.name): \(msg.text)"
+                        msgTime.text = msg.timestamp.string(with: DateFormatter.hourAndMin)
+                    } else {
+                        store.dispatch(UserS(.getbyId(uid: msg.remittent)))
+                    }
+                }else{
+                    store.dispatch(getMessageAction(messageId: msgId, uuid: msgId))
+                }
             }
-            if let msg = rManager.realm.objects(MessageEntity.self).filter("id = '\(msgId)'").first {
-                lastMsg.text = msg.text
-                msgTime.text = msg.timestamp.string(with: DateFormatter.hourAndMin)
-            }else{
-                store.dispatch(getMessageAction(messageId: msgId, uuid: msgId))
-
+        }
+        if let unseen = unseen {
+            let count = group.unseen(forUser: me.id)
+            if count > 0 {
+                unseen.alpha = 1
+                unseen.text = "\(count)"
+            } else {
+                unseen.alpha = 0
             }
         }
     }
