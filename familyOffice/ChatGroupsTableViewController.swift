@@ -112,7 +112,7 @@ class ChatGroupsTableViewController: UITableViewController {
             groups = groups.filter { (group) -> Bool in
                 if group.members.count == 2 {
                     var flag = false
-                    flag = group.members.contains(where: {$0.value == getUser()?.id})
+                    flag = group.members.contains(where: {$0.id == getUser()?.id})
                     return flag
                 }
                 return false
@@ -135,13 +135,19 @@ class ChatGroupsTableViewController: UITableViewController {
 extension ChatGroupsTableViewController: StoreSubscriber {
     typealias StoreSubscriberStateType = RequestState
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         store.subscribe(self) { store in
             store.select({ $0.requestState })
         }
         getGroupsReqId = UUID().uuidString
         store.dispatch(getAllGroupsAction(familyId: user.familyActive, uuid: getGroupsReqId!))
+        tableView.reloadData()
+        if self.restorationIdentifier == "GroupsChat" {
+            self.tabBarController?.title = "Grupos"
+        } else {
+            self.tabBarController?.title = "Chats"
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {

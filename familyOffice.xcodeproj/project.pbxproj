@@ -324,6 +324,7 @@
 		A48DDA1F1F1541D90059D982 /* BudgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02595A381F14913E00627C46 /* BudgetViewController.swift */; };
 		A48FD6DB1F141E8C00832559 /* BudgetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48FD6DA1F141E8C00832559 /* BudgetCollectionViewCell.swift */; };
 		A48FD6DD1F143D2200832559 /* Budget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48FD6DC1F143D2200832559 /* Budget.swift */; };
+		A49216351FE9B8150013360A /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49216341FE9B8150013360A /* UITableView.swift */; };
 		A4B0E1101FE07355002742E5 /* MessageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B0E10F1FE07355002742E5 /* MessageEntity.swift */; };
 		A4B0E1121FE07369002742E5 /* GroupEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B0E1111FE07369002742E5 /* GroupEntity.swift */; };
 		A4B0E1141FE0986B002742E5 /* ChatGroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B0E1131FE0986B002742E5 /* ChatGroupsTableViewController.swift */; };
@@ -695,6 +696,7 @@
 		A47F14B01E8B27DB00285CA8 /* Health.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Health.storyboard; sourceTree = "<group>"; };
 		A48FD6DA1F141E8C00832559 /* BudgetCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetCollectionViewCell.swift; sourceTree = "<group>"; };
 		A48FD6DC1F143D2200832559 /* Budget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Budget.swift; sourceTree = "<group>"; };
+		A49216341FE9B8150013360A /* UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
 		A4B0E10F1FE07355002742E5 /* MessageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageEntity.swift; sourceTree = "<group>"; };
 		A4B0E1111FE07369002742E5 /* GroupEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupEntity.swift; sourceTree = "<group>"; };
 		A4B0E1131FE0986B002742E5 /* ChatGroupsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGroupsTableViewController.swift; sourceTree = "<group>"; };
@@ -1267,6 +1269,7 @@
 				02C8558F1FBE20FC004D7BFB /* UIApplication.swift */,
 				A4B0E1221FE1C187002742E5 /* NSAttributedString.swift */,
 				02D8459A1FE2EF3C0086DD0C /* Collections.swift */,
+				A49216341FE9B8150013360A /* UITableView.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -2571,6 +2574,7 @@
 				849C4A921E6DEA5D0065CFBD /* HeaderHomeView.swift in Sources */,
 				949B52141F203DAA001C7ABA /* MedicineActions.swift in Sources */,
 				84D51B1D1EA6ACE3006829F7 /* Section.swift in Sources */,
+				A49216351FE9B8150013360A /* UITableView.swift in Sources */,
 				02F537BD1FD5C90900F916AD /* familyTableViewCell.swift in Sources */,
 				02D845DC1FE316430086DD0C /* memberEntityCollectionCell.swift in Sources */,
 				02D845BB1FE2FFA00086DD0C /* DesignableImageView.swift in Sources */,

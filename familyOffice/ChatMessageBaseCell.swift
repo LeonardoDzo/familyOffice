@@ -13,6 +13,7 @@ class ChatMessageBaseCell: UITableViewCell {
     let mineColor = UIColor(hex: "#e3e3e3")
     let otherColor = UIColor.white
     let errColor = UIColor.red
+    let userColors = [UIColor.orange, UIColor.purple, UIColor.blue, UIColor.red, UIColor.magenta]
 
     @IBOutlet weak var userImg: UIImageView!
     @IBOutlet weak var userName: UILabel!
@@ -35,7 +36,12 @@ class ChatMessageBaseCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func bind(message: MessageEntity, user: UserEntity, mine: Bool) {
+    func bind(message: MessageEntity, group: GroupEntity) {
+        guard let user = rManager.realm.objects(UserEntity.self).filter("id == '\(message.remittent)'").first else {
+            return
+        }
+        let mine = user.id == getUser()!.id
+        let userIndex = group.members.index(matching: "id == '\(user.id)'")!
         msgTextLabel.text = message.text
         timeLabel.text = message.timestamp.string(with: DateFormatter.hourAndMin)
         userName.textColor = UIColor.black
@@ -44,11 +50,12 @@ class ChatMessageBaseCell: UITableViewCell {
         if !mine {
             userName.text = user.name
             userName.textAlignment = .left
+            userName.textColor = userColors[userIndex % userColors.count]
             msgTextLabel.textAlignment = .left
             bubbleView.backgroundColor = otherColor
             userImg.loadImage(urlString: user.photoURL)
         } else {
-            userName.text = "Yo"
+            userName.text = ""
             userName.textAlignment = .right
             msgTextLabel.textAlignment = .right
             bubbleView.backgroundColor = mineColor
@@ -70,8 +77,9 @@ class ChatMessageBaseCell: UITableViewCell {
         }
     }
     
-    func calcHeight(text: String, width: CGFloat) -> CGFloat {
-        return text.height(withConstrainedWidth: width, font: msgTextLabel.font) + 85
+    func calcHeight(message: MessageEntity, width: CGFloat) -> CGFloat {
+        let mine = message.remittent == getUser()!.id
+        return message.text.height(withConstrainedWidth: width, font: msgTextLabel.font) + (mine ? 65 : 85)
     }
 
 }

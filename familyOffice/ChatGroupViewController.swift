@@ -18,6 +18,7 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
     
     var group: GroupEntity!
     var messages: Results<MessageEntity>!
+    var days: [Date] = []
     var users: Results<UserEntity>!
     var user = getUser()!
     var getMessagesUuid: String?
@@ -32,16 +33,18 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
         tableView.dataSource = self
         tableView.delegate = self
         textField.delegate = self
+        tableView.contentMode = .bottom
         messages = rManager.realm.objects(MessageEntity.self)
             .filter("groupId = '\(group.id)'")
             .sorted(byKeyPath: "timestamp", ascending: true)
         var ids = [String]()
         group.members.forEach { (rstr) in
-            ids.append("'\(rstr.value)'")
+            ids.append("'\(rstr.id)'")
         }
         users = rManager.realm.objects(UserEntity.self)
-            .filter("id IN {\(ids.joined(separator: ", "))}")
         setTitle()
+        setDays()
+        tableView.scrollToBottom(animated: true)
         myTitleView.titleLbl.textColor = UIColor.white
         self.navigationItem.titleView = myTitleView
     }
@@ -89,8 +92,9 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
         UIView.animate(withDuration: duration) {
             self.view.layoutIfNeeded()
             if self.messages.count > 0 {
-                let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
-                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+                let contentHeight = self.tableView.contentSize.height
+                let frameHeight = self.tableView.frame.height
+                self.tableView.contentOffset.y = max(contentHeight - frameHeight, 0)
             }
         }
     }
@@ -106,8 +110,8 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
     func setTitle() {
         myTitleView.photo.image = #imageLiteral(resourceName: "background_family")
         if !group.isGroup {
-            let otherUser = group.members.first { self.user.id != $0.value }
-            if let user = rManager.realm.objects(UserEntity.self).filter("id = '\(otherUser!.value)'").first {
+            let otherUser = group.members.first { self.user.id != $0.id }
+            if let user = rManager.realm.objects(UserEntity.self).filter("id = '\(otherUser!.id)'").first {
                 myTitleView.titleLbl.text = user.name
                 if !user.photoURL.isEmpty {
                     myTitleView.photo.loadImage(urlString: user.photoURL)
@@ -121,27 +125,51 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
         }
     }
     
+    func setDays() {
+        days = []
+        messages.forEach { msg in
+            let date = msg.timestamp.midnight()
+            if !days.contains(where: { $0 == date }) {
+                days.append(date)
+            }
+        }
+    }
+    
+    func messagesInSection(section: Int) -> Results<MessageEntity> {
+        let today = days[section]
+        var pred = NSPredicate(format: "timestamp > %@", today as CVarArg)
+        if section < days.count - 1 {
+            let tomorrow = days[section+1]
+            pred = NSPredicate(format: "timestamp > %@ AND timestamp <= %@", today as CVarArg, tomorrow as CVarArg)
+        }
+        return messages.filter(pred)
+    }
+    
     // MARK: TableView
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return days.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return days[section].string(with: DateFormatter.dayMonthAndYear)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messages.count
+        return messagesInSection(section: section).count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! ChatMessageBaseCell
-        let message = messages[indexPath.row]
-        guard let user = users.filter("id = '\(message.remittent)'").first else {
+        let message = messagesInSection(section: indexPath.section)[indexPath.row]
+        guard users.filter("id = '\(message.remittent)'").count > 0 else {
             if reqs[message.remittent] == nil {
                 store.dispatch(UserS(.getbyId(uid: message.remittent)))
                 reqs[message.remittent] = Result.loading
             }
             return cell
         }
-        cell.bind(message: message, user: user, mine: self.user.id == user.id)
+        cell.bind(message: message, group: group)
         return cell
     }
     
@@ -151,7 +179,7 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
         }
         let width = tableView.frame.width
         let message = messages[indexPath.row]
-        return cell.calcHeight(text: message.text, width: width)
+        return cell.calcHeight(message: message, width: width)
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
@@ -174,14 +202,14 @@ extension ChatGroupViewController : StoreSubscriber {
         store.subscribe(self)
         getMessagesUuid = UUID().uuidString
         store.dispatch(getAllMessagesAction(groupId: group.id, uuid: getMessagesUuid!))
-        
+        store.dispatch(seenGroupAction(group: group, member: user.id, uuid: UUID().uuidString))
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        let row = messages.count
-        if row > 0 {
-            let index = IndexPath(row: messages.count - 1, section: 0)
-            tableView.scrollToRow(at: index, at: .bottom, animated: false)
+        if messages.count > 0 {
+            let contentHeight = tableView.contentSize.height
+            let frameHeight = tableView.frame.height
+            tableView.contentOffset.y = max(contentHeight - frameHeight, 0)
         }
     }
     
@@ -193,11 +221,17 @@ extension ChatGroupViewController : StoreSubscriber {
         if let uuid = getMessagesUuid {
             switch state.requestState.requests[uuid] {
             case .finished?:
+                let lastSection = tableView.numberOfSections - 1
+                var rows = -1
+                if lastSection >= 0 {
+                    rows = tableView.numberOfRows(inSection: lastSection)
+                }
                 tableView.reloadData()
-//                if tableView.numberOfRows(inSection: 0) < messages.count {
-                let index = IndexPath(row: messages.count - 1, section: 0)
-                tableView.scrollToRow(at: index, at: .bottom, animated: false)
-//                }
+                if rows != tableView.numberOfRows(inSection: lastSection) {
+                    setDays()
+                    tableView.scrollToBottom(animated: true)
+                }
+                store.dispatch(RequestAction.Processed(uuid: uuid))
                 break
             default:
                 break
@@ -206,9 +240,10 @@ extension ChatGroupViewController : StoreSubscriber {
         if let uuid = createMessageUuid {
             switch state.requestState.requests[uuid] {
             case .finished?:
-//                tableView.reloadData() //.reloadSections(IndexSet(integer: 0), with: .automatic)
-//                let indexPath = IndexPath(row: messages.count - 1, section: 0)
-//                tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+                tableView.reloadData()
+                setDays()
+                tableView.scrollToBottom(animated: true)
+                store.dispatch(RequestAction.Processed(uuid: uuid))
                 break
             default:
                 break

@@ -21,17 +21,9 @@ func getAllGroupsAction(familyId: String, uuid: String) -> Store<AppState>.Actio
                     guard snapshot.exists() else { throw RequestError.NotFound }
                     guard let json = snapshot.value as? NSDictionary else { throw RequestError.NotJson }
                     var entities = [GroupEntity]()
-                    json.forEach({ key, val in
-                        let dic = val as! NSDictionary
-                        dic.setValue(key, forKey: "id")
-                        let members = dic["members"] as! NSDictionary
-                        dic.setValue(members.allKeys.map({ RealmString(value: [$0]) }), forKey: "members")
-                        let messages = dic["messages"] as? NSDictionary ?? [:]
-                        dic.setValue(messages.allKeys.map({ RealmString(value: [$0]) }), forKey: "messages")
-                        let createdAt = dic["createdAt"] as! Int
-                        dic.setValue(Date(createdAt), forKey: "createdAt")
-                        entities.append(GroupEntity(value: dic))
-                    })
+                    json.forEach { (key, val) in
+                        entities.append(GroupEntity.fromJSON(key: key as! String, json: val as! NSDictionary))
+                    }
                     rManager.saveObjects(objs: entities)
                     store.dispatch(RequestAction.Done(uuid: uuid))
                 } catch let err {
@@ -57,14 +49,33 @@ func createGroupAction(group: GroupEntity, uuid: String) -> Store<AppState>.Acti
 func addPhotoGroupAction(group: GroupEntity, photoUrl: String, uuid: String) -> Store<AppState>.ActionCreator {
     return { state, store in
         do {
-        store.dispatch(RequestAction.Loading(uuid: uuid))
-        let child = GROUPS_REF.child(group.id)
-        try rManager.realm.write {
-            group.coverPhoto = photoUrl
+            store.dispatch(RequestAction.Loading(uuid: uuid))
+            let child = GROUPS_REF.child(group.id)
+            try rManager.realm.write {
+                group.coverPhoto = photoUrl
+            }
+            child.setValue(group.toJSON())
+//            rManager.save(objs: group)
+            store.dispatch(RequestAction.Done(uuid: uuid))
+        } catch {
+            store.dispatch(RequestAction.Error(err: RequestError.CouldNotWrite, uuid: uuid))
         }
-        child.setValue(group.toJSON())
-        rManager.save(objs: group)
-        store.dispatch(RequestAction.Done(uuid: uuid))
+        return nil
+    }
+}
+
+func seenGroupAction(group: GroupEntity, member: String, uuid: String) -> Store<AppState>.ActionCreator {
+    return { state, store in
+        do {
+            store.dispatch(RequestAction.Loading(uuid: uuid))
+            let child = GROUPS_REF.child(group.id)
+            try rManager.realm.write {
+                let member = group.members.first(where: { $0.id == member })
+                member?.time = Date()
+            }
+            child.setValue(group.toJSON())
+//            rManager.save(objs: group)
+            store.dispatch(RequestAction.Done(uuid: uuid))
         } catch {
             store.dispatch(RequestAction.Error(err: RequestError.CouldNotWrite, uuid: uuid))
         }

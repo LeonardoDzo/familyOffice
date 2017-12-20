@@ -56,7 +56,7 @@ class NewChatGroupForm : FormViewController {
         group.createdAt = Date()
         let membersArray = values["members"] as! UserListSelected
         membersArray.list.forEach({ userId in
-            group.members.append(RealmString(value: [userId]))
+            group.members.append(TimestampEntity(value: [userId, Date()]))
         })
         store.dispatch(createGroupAction(group: group, uuid: group.id))
     }

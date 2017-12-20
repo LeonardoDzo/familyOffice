@@ -20,6 +20,8 @@ func requestReducer(action: Action, state: RequestState?) -> RequestState {
         break
     case RequestAction.Error(let err, let uuid):
         state.requests[uuid] = .Failed(err)
+    case RequestAction.Processed(let uuid):
+        state.requests[uuid] = .none
     default:
         break
     }

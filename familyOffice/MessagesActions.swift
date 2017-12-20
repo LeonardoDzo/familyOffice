@@ -29,7 +29,7 @@ func getMessageAction(messageId: String, uuid: String) -> Store<AppState>.Action
     return { state, store in
         store.dispatch(RequestAction.Loading(uuid: uuid))
         MESSAGES_REF.child(messageId)
-            .observe(.value, with: { _messageReceived(snapshot: $0, uuid: uuid) })
+            .observeSingleEvent(of: .value, with: { _messageReceived(snapshot: $0, uuid: uuid) })
         return nil
     }
 }

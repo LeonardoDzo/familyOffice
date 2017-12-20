@@ -148,4 +148,10 @@ extension Date {
     func endOfMonth() -> Date {
         return Calendar.current.date(byAdding: DateComponents(month: 1, day: -1), to: self.startOfMonth())!
     }
+    
+    func midnight() -> Date {
+        let gregorian = Calendar(identifier: .gregorian)
+        let components = gregorian.dateComponents([.year, .month, .day], from: self)
+        return gregorian.date(from: components)!
+    }
 }
