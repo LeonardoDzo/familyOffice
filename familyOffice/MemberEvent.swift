@@ -14,8 +14,8 @@ import RealmSwift
 class memberEventEntity: Object, Codable, Serializable {
 
     dynamic var id: String! = ""
-    dynamic var status: EventStatus! = .none
-    dynamic var reminder: Int! = 0
+    dynamic var status: EventStatus = .none
+    dynamic var reminder: Int = 0
     
     private enum CodingKeys: String, CodingKey {
         case id,
