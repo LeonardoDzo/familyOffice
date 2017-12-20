@@ -18,6 +18,7 @@ protocol EventEBindable: AnyObject, bind {
     var detailsTxtV: UITextView! {get}
     var detailsLbl: UILabel! {get}
     var addressLbl: UILabel! {get}
+    var statusBtns: [UIButtonX]! {get}
 }
 extension EventEBindable  {
     
@@ -28,7 +29,7 @@ extension EventEBindable  {
     var detailsLbl: UILabel! {return nil}
     var detailsTxtV: UITextView! {return nil}
     var addressLbl: UILabel! {return nil}
-    
+    var statusBtns: [UIButtonX]! {return nil}
     func bind(sender: Any?) {
         if sender is EventEntity {
             self.event = sender as! EventEntity
@@ -65,6 +66,25 @@ extension EventEBindable  {
                 hourLbl.text =  "\(Date(event.startdate)!.string(with: .hourAndDate)) - \(Date(event.enddate)!.string(with: .MMMddHHmm))"
             }
         }
+        if (statusBtns) != nil {
+            var status : EventStatus!
+            if let member = event.members.first(where: {$0.id == getUser()?.id}) {
+                status = member.status
+            }else if event.father != nil, let member = event.father?.members.first(where: {$0.id == getUser()?.id}){
+                status = member.status
+            }
+            if status != nil {
+                statusBtns.forEach({ (btn) in
+                    if btn.restorationIdentifier! == status.description {
+                    
+                        btn.maskColor = status.color
+                    }else{
+                        btn.maskColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+                    }
+                })
+            }
+        }
+        
         if let AddressLbl = self.addressLbl {
             var locationString = "No se especificó ubicación"
             if event.location != nil, let location = event.location?.title {
@@ -75,7 +95,7 @@ extension EventEBindable  {
             AddressLbl.text =  locationString
         }
         if let backgroundView = self.backgroundType {
-            var type = self.event.eventtype
+            let type = self.event.eventtype
             switch type{
             case .Meet:
                 backgroundView.image = #imageLiteral(resourceName: "busines-sbackground")
