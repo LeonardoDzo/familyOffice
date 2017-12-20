@@ -58,7 +58,9 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     @IBAction func onSend(_ sender: Any) {
-        guard let text = textField.text, !text.isEmpty else { return }
+        guard var text = textField.text else { return }
+        text = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        if text.isEmpty { return; }
         createMessageUuid = UUID().uuidString
         let message = MessageEntity(value: [
             "id": createMessageUuid!,
@@ -249,7 +251,7 @@ extension ChatGroupViewController : StoreSubscriber {
                 }
                 setDays()
                 tableView.reloadData()
-                if rows != tableView.numberOfRows(inSection: lastSection) {
+                if lastSection < 0 || rows != tableView.numberOfRows(inSection: lastSection) {
                     tableView.scrollToBottom(animated: true)
                 }
                 store.dispatch(RequestAction.Processed(uuid: uuid))
