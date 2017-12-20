@@ -99,9 +99,13 @@ class EventViewController: FormViewController {
                     self.event.enddate = (row.value?.toMillis())!
                     self.setinenddate(&row.value!)
                 }).cellUpdate { (cell, row) in
+                    
                     let value  = (self.form.rowBy(tag: "startDateTime") as! DateTimeRow).value ?? Date()
+    
                     self.setinenddate(&row.value!)
-                    row.value = value
+                    if row.value == nil {
+                         row.value = value
+                    }
                     cell.datePicker.minimumDate = value
             }
             <<< PushRow<Frequency>() { row in

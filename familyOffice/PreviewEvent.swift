@@ -13,7 +13,7 @@ class PreviewEvent: UIView, EventEBindable{
     @IBOutlet weak var hourLbl: UILabel!
     @IBOutlet weak var titleLbl: UILabel!
     @IBOutlet weak var detailsLbl: UILabel!
-    @IBOutlet weak var backgroundType: UIImageView!
+    @IBOutlet weak var backgroundType: UIImageViewX!
     
     class func instanceFromNib() -> UIView {
         return UINib(nibName: "PreviewEvent", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! UIView

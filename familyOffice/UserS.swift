@@ -124,6 +124,18 @@ class UserS : Action, EventProtocol {
 
 extension UserS : RequestProtocol {
     func notExistSnapshot(ref: String) {
+        if let user = Auth.auth().currentUser, isRegisterWithCredentials {
+            if ref == "users/\(user.uid)" {
+                let newuser = UserEntity()
+                newuser.id = user.uid
+                newuser.name = user.displayName ?? "Sin nombre"
+                newuser.email = user.email!
+                newuser.photoURL = user.photoURL?.absoluteString ?? ""
+                newuser.phone = user.phoneNumber ?? ""
+                store.dispatch(UserS(.create(user: newuser)))
+            }
+        }
+        
     }
     
     func removed(snapshot: DataSnapshot) {

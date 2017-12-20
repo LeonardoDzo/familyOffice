@@ -17,7 +17,6 @@ class PreviewEventsViewController: UIViewController {
     var events : Results<EventEntity>!
     override func viewDidLoad() {
         scrollView.isPagingEnabled = true
-        loadData()
         super.viewDidLoad()
 
     }
@@ -59,9 +58,11 @@ class PreviewEventsViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         self.view.reloadInputViews()
-        loadData()
         self.tabBarController?.navigationItem.title = "Eventos de hoy"
         self.tabBarController?.navigationItem.rightBarButtonItem = nil
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        loadData()
     }
 }
 extension PreviewEventsViewController: UIScrollViewDelegate {

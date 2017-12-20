@@ -163,7 +163,7 @@ extension ContactsViewController: StoreSubscriber {
         }
         getContacts()
         showContacts()
-        users = []
+        members = family.members.filter({$0.value != getUser()?.id})
         if users.count == 0 {
             let imageView = UIImageView()
             imageView.image = #imageLiteral(resourceName: "background_no_users")

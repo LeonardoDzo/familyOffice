@@ -15,8 +15,13 @@
             <rect key="frame" x="0.0" y="0.0" width="429" height="245"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_events" translatesAutoresizingMaskIntoConstraints="NO" id="9l7-Yu-K64">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_events" translatesAutoresizingMaskIntoConstraints="NO" id="9l7-Yu-K64" customClass="UIImageViewX" customModule="familyOffice" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="429" height="245"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="filter">
+                            <color key="value" red="0.36223070550000003" green="0.36223070550000003" blue="0.36223070550000003" alpha="0.55745671949999998" colorSpace="custom" customColorSpace="displayP3"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </imageView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="Gwy-s2-fJB">
                     <rect key="frame" x="20" y="124" width="193.5" height="78"/>

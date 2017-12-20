@@ -153,7 +153,7 @@ class EventEntity: Object, Codable, Serializable {
                 event.startdate = startDate!
                 event.enddate = startDate! + difference
                 event.father = self
-              
+                event.eventtype = self.eventtype
                 try! rManager.realm.write {
                     if !self.myEvents.contains(event) {
                         self.myEvents.append(event)

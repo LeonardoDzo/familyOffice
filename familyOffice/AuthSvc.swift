@@ -10,7 +10,7 @@ import Foundation
 import ReSwift
 import Firebase
 import RealmSwift
-
+var isRegisterWithCredentials = false
 protocol description {
 }
 extension description {
@@ -99,6 +99,7 @@ class AuthSvc : Action, EventProtocol {
         }
     }
     func login(credential:AuthCredential){
+        isRegisterWithCredentials = true
         Auth.auth().signIn(with: credential ) { (user, error) in
             if((error) != nil){
                 self.status = .Failed(error.debugDescription)
@@ -124,6 +125,7 @@ extension AuthSvc : Reducer {
 
     fileprivate func registerUser(_ user: UserEntity, _ pass: String) {
         let newuser = user
+        isRegisterWithCredentials = false
         Auth.auth().createUser(withEmail: user.email, password: pass) { (user, error) in
             if(error == nil){
                 newuser.id = user!.uid

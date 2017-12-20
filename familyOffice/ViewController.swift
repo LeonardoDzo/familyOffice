@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import RealmSwift
 import Lightbox
+import ALCameraViewController
 protocol bind {
     func bind(sender: Any?) -> Void
 }
@@ -17,7 +18,8 @@ protocol bind {
 enum StyleNavBar  {
     case calendar,
          firstaidkit,
-         chat
+         chat,
+         insurance
 }
 extension StyleNavBar {
     func style() -> (UIColor, UIColor)? {
@@ -28,7 +30,11 @@ extension StyleNavBar {
             return (#colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1),#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
         case .chat:
             return (#colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1),#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
+        case .insurance:
+            return (#colorLiteral(red: 0.07450980392, green: 0.3215686275, blue: 0.2039215686, alpha: 1),#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
         }
+        
+        
     }
 }
 
@@ -82,6 +88,50 @@ extension UIViewController {
     @objc func back() -> Void {
         
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func selectImage( completion: @escaping (UIImage?) -> Void) {
+        let croppingEnabled = true
+        let actionSheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
+        
+        actionSheet.addAction(UIAlertAction(title: "Camara", style: .default, handler: { (action: UIAlertAction) in
+            let croppingEnabled = true
+            let cameraViewController = CameraViewController(croppingParameters: CroppingParameters(isEnabled: croppingEnabled, allowResizing: true, allowMoving: true)) { [weak self] image, asset in
+                
+                guard image != nil else {
+                    self?.dismiss(animated: true, completion: nil)
+                    completion(nil)
+                    return
+                }
+                completion(image)
+                self?.dismiss(animated: true, completion: nil)
+            }
+            
+            self.present(cameraViewController, animated: true, completion: nil)
+            
+            
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Galería", style: .default, handler: { (action: UIAlertAction) in
+            
+            /// Provides an image picker wrapped inside a UINavigationController instance
+            let imagePickerViewController = CameraViewController.imagePickerViewController(croppingParameters: CroppingParameters(isEnabled: croppingEnabled, allowResizing: true, allowMoving: true)) { [weak self] image, asset in
+                guard image != nil else {
+                    completion(nil)
+                    self?.dismiss(animated: true, completion: nil)
+                    return
+                }
+               completion(image)
+                self?.dismiss(animated: true, completion: nil)
+            }
+            
+            self.present(imagePickerViewController, animated: true, completion: nil)
+            
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(actionSheet, animated: true, completion: nil)
     }
     
     func alertMessage(title: String, msg: String){

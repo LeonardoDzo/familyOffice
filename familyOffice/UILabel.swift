@@ -28,5 +28,10 @@ extension UILabel {
         let xdate = Date(timeIntervalSince1970: TimeInterval(date/1000))
         self.text = xdate.string(with: formatter)
     }
-    
+   
+    func editView() -> UIButton {
+        let btn = UIButton(frame: CGRect(x: self.frame.origin.x +  self.bounds.size.width, y:  self.frame.origin.y + 5, width: 20, height: 20))
+        btn.setImage(#imageLiteral(resourceName: "pencil-50").maskWithColor(color: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)), for: .normal)
+        return btn
+    }
 }
