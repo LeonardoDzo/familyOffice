@@ -68,7 +68,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DESCRIPCION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SET-NC-9Wy">
-                                <rect key="frame" x="16" y="108.5" width="343" height="16"/>
+                                <rect key="frame" x="16" y="108.5" width="343" height="16.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -274,14 +274,101 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wpI-5k-yVf" customClass="UIViewX" customModule="familyOffice" customModuleProvider="target">
+                                <rect key="frame" x="88" y="152" width="200" height="40"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="2Gx-lp-gyu" userLabel="statusStack">
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="40"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="confirmed" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f7A-8O-YOU" customClass="UIButtonX" customModule="familyOffice" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="ZL4-Gb-HzN"/>
+                                                    <constraint firstAttribute="width" constant="40" id="u3N-OW-u4U"/>
+                                                </constraints>
+                                                <state key="normal" image="icons8-ok"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="maskColor">
+                                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="handleAction:" destination="gW0-tS-mt1" eventType="touchUpInside" id="0X9-LW-50B"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="tentative" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QTC-2N-ujf" customClass="UIButtonX" customModule="familyOffice" customModuleProvider="target">
+                                                <rect key="frame" x="80" y="0.0" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="I1e-XQ-lXj"/>
+                                                    <constraint firstAttribute="width" constant="40" id="yx0-fI-4OQ"/>
+                                                </constraints>
+                                                <state key="normal" image="icons8-clock"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="maskColor">
+                                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="handleAction:" destination="gW0-tS-mt1" eventType="touchUpInside" id="WV8-sj-tm0"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="canceled" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iKz-N3-Xhb" customClass="UIButtonX" customModule="familyOffice" customModuleProvider="target">
+                                                <rect key="frame" x="160" y="0.0" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="7SY-Jn-j1f"/>
+                                                    <constraint firstAttribute="width" constant="40" id="DXa-20-kpB"/>
+                                                </constraints>
+                                                <state key="normal" image="Cancel"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="maskColor">
+                                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="handleAction:" destination="gW0-tS-mt1" eventType="touchUpInside" id="ko1-zm-SHy"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="iKz-N3-Xhb" firstAttribute="top" secondItem="2Gx-lp-gyu" secondAttribute="top" id="0Zf-QU-IJ8"/>
+                                            <constraint firstItem="f7A-8O-YOU" firstAttribute="leading" secondItem="2Gx-lp-gyu" secondAttribute="leading" id="7qj-hc-nha"/>
+                                            <constraint firstItem="f7A-8O-YOU" firstAttribute="top" secondItem="2Gx-lp-gyu" secondAttribute="top" id="GBE-Pi-CjP"/>
+                                            <constraint firstAttribute="bottom" secondItem="iKz-N3-Xhb" secondAttribute="bottom" id="QVw-9t-ta6"/>
+                                            <constraint firstAttribute="trailing" secondItem="iKz-N3-Xhb" secondAttribute="trailing" id="XLT-rh-Z8V"/>
+                                            <constraint firstItem="QTC-2N-ujf" firstAttribute="leading" secondItem="f7A-8O-YOU" secondAttribute="trailing" constant="40" id="fzh-VB-czZ"/>
+                                            <constraint firstAttribute="bottom" secondItem="f7A-8O-YOU" secondAttribute="bottom" id="hYv-Lg-AZv"/>
+                                            <constraint firstItem="iKz-N3-Xhb" firstAttribute="leading" secondItem="QTC-2N-ujf" secondAttribute="trailing" constant="40" id="y7S-Le-3rc"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.7157828978542472" green="0.76246121193527649" blue="0.76618701219558716" alpha="0.51551496478873238" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstItem="2Gx-lp-gyu" firstAttribute="top" secondItem="wpI-5k-yVf" secondAttribute="top" id="5aq-qM-sgw"/>
+                                    <constraint firstAttribute="width" constant="200" id="9f8-8g-dL4"/>
+                                    <constraint firstItem="2Gx-lp-gyu" firstAttribute="leading" secondItem="wpI-5k-yVf" secondAttribute="leading" id="erp-FW-mTq"/>
+                                    <constraint firstAttribute="height" constant="40" id="jEW-MO-Rt0"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="duration">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="fadeIn"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="wpI-5k-yVf" firstAttribute="centerX" secondItem="PVO-py-gac" secondAttribute="centerX" id="6V0-QC-dUB"/>
                             <constraint firstAttribute="trailingMargin" secondItem="SET-NC-9Wy" secondAttribute="trailing" id="ILk-DO-He1"/>
                             <constraint firstItem="SET-NC-9Wy" firstAttribute="centerX" secondItem="PVO-py-gac" secondAttribute="centerX" id="J49-vr-8sn"/>
                             <constraint firstItem="uBf-7v-Vt0" firstAttribute="centerX" secondItem="PVO-py-gac" secondAttribute="centerX" id="Jr5-Mf-Bth"/>
                             <constraint firstItem="uBf-7v-Vt0" firstAttribute="leading" secondItem="PVO-py-gac" secondAttribute="leadingMargin" constant="10" id="Jsc-BS-Rhe"/>
                             <constraint firstItem="hFk-pH-jsr" firstAttribute="leading" secondItem="PVO-py-gac" secondAttribute="leading" id="L9t-Kw-PqI"/>
+                            <constraint firstItem="wpI-5k-yVf" firstAttribute="top" secondItem="SET-NC-9Wy" secondAttribute="bottom" constant="27" id="MIO-0H-KdA"/>
                             <constraint firstItem="5M4-2c-HJv" firstAttribute="trailing" secondItem="PVO-py-gac" secondAttribute="trailingMargin" id="MtD-br-MlY"/>
                             <constraint firstItem="5M4-2c-HJv" firstAttribute="leading" secondItem="PVO-py-gac" secondAttribute="leadingMargin" id="QBN-9I-5zu"/>
                             <constraint firstAttribute="trailingMargin" secondItem="uBf-7v-Vt0" secondAttribute="trailing" constant="10" id="ThS-XE-AiH"/>
@@ -290,6 +377,7 @@
                             <constraint firstItem="hFk-pH-jsr" firstAttribute="top" secondItem="PVO-py-gac" secondAttribute="top" id="dVT-aV-HhK"/>
                             <constraint firstAttribute="trailing" secondItem="hFk-pH-jsr" secondAttribute="trailing" id="hKf-6C-Hvi"/>
                             <constraint firstItem="5M4-2c-HJv" firstAttribute="top" secondItem="hFk-pH-jsr" secondAttribute="bottom" constant="8" id="klb-iX-JWN"/>
+                            <constraint firstItem="5M4-2c-HJv" firstAttribute="top" secondItem="wpI-5k-yVf" secondAttribute="bottom" constant="11" id="nBg-h7-MP8"/>
                             <constraint firstItem="SET-NC-9Wy" firstAttribute="top" secondItem="uBf-7v-Vt0" secondAttribute="bottom" constant="8" symbolic="YES" id="vYf-0e-ifB"/>
                         </constraints>
                     </view>
@@ -303,7 +391,11 @@
                         <outlet property="locationstack" destination="dG5-J4-MKl" id="zqN-rI-WPK"/>
                         <outlet property="mapView" destination="nnJ-nq-RYR" id="jPd-fM-38q"/>
                         <outlet property="membersStack" destination="sDn-Cx-dZh" id="2nQ-cV-SUu"/>
+                        <outlet property="statusView" destination="wpI-5k-yVf" id="4fR-aV-l7u"/>
                         <outlet property="titleLbl" destination="uBf-7v-Vt0" id="99z-tT-Iuw"/>
+                        <outletCollection property="statusBtns" destination="iKz-N3-Xhb" collectionClass="NSMutableArray" id="Ipd-pX-6f0"/>
+                        <outletCollection property="statusBtns" destination="QTC-2N-ujf" collectionClass="NSMutableArray" id="AkE-Ys-LkY"/>
+                        <outletCollection property="statusBtns" destination="f7A-8O-YOU" collectionClass="NSMutableArray" id="bP8-0i-utB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L5W-qQ-AZa" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -711,10 +803,13 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Cancel" width="50" height="50"/>
         <image name="add_event" width="29" height="29"/>
         <image name="busines-sbackground" width="750" height="500"/>
         <image name="calendar_event" width="29" height="29"/>
         <image name="home_event" width="29" height="29"/>
+        <image name="icons8-clock" width="60" height="60"/>
+        <image name="icons8-ok" width="60" height="60"/>
         <image name="location-1" width="57" height="57"/>
         <image name="members" width="57" height="57"/>
         <image name="notification-50" width="29" height="29"/>

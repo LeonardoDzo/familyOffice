@@ -20,20 +20,23 @@ class EventDetailsViewController: UIViewController, EventEBindable {
     @IBOutlet weak var dateLbl: UILabel!
     @IBOutlet weak var titleLbl: UILabel!
     
+    @IBOutlet var statusBtns: [UIButtonX]!
+    
+    @IBOutlet weak var statusView: UIViewX!
     @IBOutlet weak var locationstack: UIStackView!
     @IBOutlet weak var membersStack: UIStackView!
     @IBOutlet weak var detailsStack: UIStackView!
     
     override func viewDidLoad() {
-       super.viewDidLoad()
-       self.setupButtonback()
+        super.viewDidLoad()
+        self.setupButtonback()
         members.removeAll()
         if event.members.count > 0 {
             members.append(contentsOf:  event.members)
         }else if event.father != nil {
             members.append(contentsOf:  (event.father?.members)!)
         }
-        
+        statusView.animate()
         self.members.forEach { (member) in
             if let _ = rManager.realm.object(ofType: UserEntity.self, forPrimaryKey: member.id) {
             }else{
@@ -41,16 +44,85 @@ class EventDetailsViewController: UIViewController, EventEBindable {
             }
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func handleAction(_ sender: UIButtonX) {
+        try! rManager.realm.write {
+            var member = event.members.first(where: {$0.id == getUser()?.id})
+            if member == nil, (event.father != nil) {
+                member = event.father?.members.first(where: {$0.id == getUser()?.id})
+            }
+            if let me = member, let status = sender.restorationIdentifier {
+                switch status {
+                case "confirmed":
+                    me.status = .confirmed
+                    break
+                case "tentative":
+                    me.status = .tentative
+                    break
+                case "canceled":
+                    me.status = .canceled
+                    break
+                default:
+                    me.status = .none
+                    break
+                }
+                if let index = event.members.index(where: {$0.id == me.id})  {
+                    event.members[index] = me
+                }else{
+                    event.members.append(member!)
+                }
+                self.bind()
+                saveforthis()
+            }
+        }
+        
+    }
+    func saveforthis() -> Void {
+        let alertController = UIAlertController(title: "Aplicar cambios para?", message: "", preferredStyle: .actionSheet)
+        
+        let sendButton = UIAlertAction(title: "Solo Este", style: .default, handler: { (action) -> Void in
+            //self.safeForAll(false)
+        })
+        let deleteButton = UIAlertAction(title: "Para todos los siguientes", style: .default, handler: { (action) -> Void in
+            //self.safeForAll(true)
+        })
+        
+        
+        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in
+            print("Cancel button tapped")
+        })
+        
+        
+        alertController.addAction(sendButton)
+        alertController.addAction(deleteButton)
+        alertController.addAction(cancelButton)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func safeForAll(_ flag: Bool) -> Void {
+        try! rManager.realm.write {
+            self.event.changesforAll = flag
+            if event.father != nil {
+                if let index = self.event.father?.following.index(where: {$0.id == self.event.id}) {
+                    event.father?.following[index] = self.event
+                }else{
+                    event.father?.following.append(self.event)
+                }
+            }
+            event.father?.update(date: self.event.startdate, repeatM: (self.event.father?.repeatmodel)!)
+        }
+        self.collectionView.reloadData()
+    }
 }
 extension EventDetailsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-
+        
         
         return  members.count
     }
@@ -59,6 +131,8 @@ extension EventDetailsViewController: UICollectionViewDataSource {
         if let mid = self.members[indexPath.row].id {
             if let user = rManager.realm.object(ofType: UserEntity.self, forPrimaryKey: mid) {
                 cell.bind(sender: user)
+                cell.profileImage.layer.borderWidth = 2
+                cell.profileImage.layer.borderColor = self.members[indexPath.row].status.color.cgColor
             }
         }
         return cell
@@ -83,6 +157,6 @@ extension EventDetailsViewController : StoreSubscriber {
     }
     override func viewWillDisappear(_ animated: Bool) {
         store.unsubscribe(self)
-       
+        
     }
 }

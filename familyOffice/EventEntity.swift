@@ -16,7 +16,7 @@ class EventEntity: Object, Codable, Serializable {
     
     dynamic var id: String! = ""
     
-   
+    
     dynamic var location: Location? = nil
     dynamic var creator: String? = nil
     dynamic var eventtype: eventType = .Default
@@ -33,7 +33,7 @@ class EventEntity: Object, Codable, Serializable {
     let admins = List<RealmString>()
     dynamic var startdate: Int = 0
     dynamic var enddate: Int = 0
-
+    
     
     private enum CodingKeys: String, CodingKey {
         case title,
@@ -78,7 +78,7 @@ class EventEntity: Object, Codable, Serializable {
         if let value = try arrayscont.decodeIfPresent([EventEntity].self, forKey: .followings) {
             self.following.append(objectsIn: value)
         }
-      
+        
         if let value = try arrayscont.decodeIfPresent([String: memberEventEntity].self, forKey: .members)?.flatMap({ (_, member) -> memberEventEntity in
             return member
         }){
@@ -104,7 +104,6 @@ class EventEntity: Object, Codable, Serializable {
         try! rManager.realm.write {
             rManager.realm.delete(removeevents)
         }
-        
         self.createDates(repeatM: repeatM, startDate: date)
         
         guard following.count > 0 else {
@@ -138,7 +137,9 @@ class EventEntity: Object, Codable, Serializable {
                     }
                 }
             }
+            
         }
+        
     }
     
     func createDates(repeatM: repeatEntity, startDate: Int, until: Int = 30) {
@@ -171,19 +172,19 @@ class EventEntity: Object, Codable, Serializable {
         let calendar = Calendar.current
         var next = Date(currentDate)
         //let days = repeatM?._days.map({$0.value.isEmpty ? calendar.component(.weekday, from: next) : Int($0.value)!}) ?? []
-
-
+        
+        
         if let type = repeatM?.frequency.calendartype  {
             next = calendar.date(byAdding: type, value: 1, to: next!)!
         }
-//        if nextDay != -1 {
-//            var closestBiggerDay = days.first(where: {$0 > nextDay})
-//            if closestBiggerDay == nil  {
-//                closestBiggerDay = (days.count > 0 ? days[0] : 0)  + 7
-//            }
-//            let dayDifference = closestBiggerDay! - nextDay
-//            interval *= dayDifference
-//        }
+        //        if nextDay != -1 {
+        //            var closestBiggerDay = days.first(where: {$0 > nextDay})
+        //            if closestBiggerDay == nil  {
+        //                closestBiggerDay = (days.count > 0 ? days[0] : 0)  + 7
+        //            }
+        //            let dayDifference = closestBiggerDay! - nextDay
+        //            interval *= dayDifference
+        //        }
         if var end = Date((repeatM?.end)!) {
             let hour = 23 - calendar.component(.hour, from: end)
             end.addTimeInterval(TimeInterval(60*60*hour))
@@ -192,11 +193,11 @@ class EventEntity: Object, Codable, Serializable {
             }
             return next?.toMillis()
         }
-       
+        
         return nil
     }
     
-     func todictionary() -> [String: Any]? {
+    func todictionary() -> [String: Any]? {
         if var json = self.toJSON() {
             json["members"] = self.members.toNSArrayByKey() ?? ""
             json["following"] = self.following.toNSArrayByKey() ?? ""
