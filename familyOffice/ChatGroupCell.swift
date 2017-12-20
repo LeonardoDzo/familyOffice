@@ -14,6 +14,7 @@ class ChatGroupCell: UITableViewCell, GroupBindible{
     @IBOutlet weak var groupName: UILabel!
     @IBOutlet weak var lastMsg: UILabel!
     @IBOutlet weak var msgTime: UILabel!
+    @IBOutlet weak var unseen: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

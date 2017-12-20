@@ -28,4 +28,5 @@ enum RequestAction: Action {
     case Loading(uuid: String)
     case Done(uuid: String)
     case Error(err: RequestError, uuid: String)
+    case Processed(uuid: String)
 }
