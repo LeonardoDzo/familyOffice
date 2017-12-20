@@ -154,4 +154,12 @@ extension Date {
         let components = gregorian.dateComponents([.year, .month, .day], from: self)
         return gregorian.date(from: components)!
     }
+    
+    func isToday() -> Bool {
+        return Date().midnight() == self.midnight()
+    }
+    
+    func isYesterday() -> Bool {
+        return Date().midnight().toMillis() - 1000*60*60*24 == self.midnight().toMillis()
+    }
 }

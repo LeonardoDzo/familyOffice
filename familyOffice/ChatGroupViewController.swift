@@ -161,18 +161,17 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView()
-        let date = days[section].string(with: DateFormatter.ddMMMyyyy)
-        let titleView = UILabelX(text: date)
-        titleView.backgroundColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 0.5925460188)
-        titleView.sizeToFit()
-        titleView.clipsToBounds = true
+//        let view = UIView()
+        let date = days[section]
+        var datestring = date.string(with: DateFormatter.ddMMMyyyy).uppercased()
+        if date.isToday() { datestring = "HOY" }
+        else if date.isYesterday() { datestring = "AYER" }
+        let titleView = UILabelX(text: datestring)
+        titleView.backgroundColor = UIColor(hex: "#b8d5e2")
         titleView.textAlignment = .center
+        titleView.textColor = UIColor.white
         titleView.font = UIFont.systemFont(ofSize: 12)
-        titleView.cornerRadius = 8
-        titleView.frame.origin.x = self.tableView.frame.midX - CGFloat(titleView.bounds.size.width/2)
-        view.addSubview(titleView)
-        return view
+        return titleView
         
         //return ChatSectionHeaderView(tableFrame: tableView.frame, text: days[section].string(with: DateFormatter.dayMonthAndYear))
     }

@@ -68,6 +68,7 @@ private func _messageReceived(snapshot: DataSnapshot, uuid: String) {
         guard let json = snapshot.value as? NSDictionary else { throw RequestError.NotJson }
         json.setValue(snapshot.key, forKey: "id")
         json.setValue(Date(json["timestamp"] as! Int), forKey: "timestamp")
+        json.setValue(1, forKey: "status")
         let localMsg = rManager.realm.objects(MessageEntity.self).first(where: { $0.id == snapshot.key})
         json.setValue(localMsg?.status ?? MessageStatus.Sent.rawValue, forKey: "status")
         let entity = MessageEntity(value: json)
