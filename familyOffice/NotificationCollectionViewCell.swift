@@ -8,7 +8,12 @@
 
 import UIKit
 
-class NotificationCollectionViewCell: UICollectionViewCell {
+class NotificationCollectionViewCell: UICollectionViewCell, NotificationBindible {
 
+    var notification: NotificationModel!
+    @IBOutlet weak var titleLbl: UILabel!
+    @IBOutlet weak var bodyLbl: UILabel!
+    @IBOutlet weak var typeImg: UIImageViewX!
+    @IBOutlet weak var dateLbl: UILabel!
     
 }

@@ -18,7 +18,7 @@ let store = Store<AppState>(
     reducer: appReducer,
     state: nil,
     middleware: [realmMiddleware] )
-
+var notificationarray = [NotificationModel]()
 
 let Userdefault = UserDefaults.standard
 @UIApplicationMain
@@ -52,6 +52,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
             application.registerUserNotificationSettings(settings)
         }
         
+        if let notification = launchOptions?[.remoteNotification] as? [String: AnyObject] {
+            // 2
+            let aps = notification["aps"] as! [String: AnyObject]
+            print(aps)
+        }
+        
+    UNUserNotificationCenter.current().getDeliveredNotifications(completionHandler: { (notifications) in
+            notifications.enumerated().forEach({ (index, notification) in
+                let not = NotificationModel(notifiaction: notification)
+                notificationarray.append(not)
+            })
+        })
+       
+
+        
         application.registerForRemoteNotifications()
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
@@ -63,10 +78,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
         if let _ = launchOptions {
             let info = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification]
             if (info != nil) {
+                
                 Userdefault.set(info, forKey: "notification")
             }
         }
         
+        if let data = Userdefault.value(forKey: "notification") {
+            print("info",data)
+        }
         
         
         
@@ -86,23 +105,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
                      fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        if let type : String = userInfo["type"] as? String {
-            
-            switch Int(type)! {
-            case 7:
-                if let id = userInfo["id"] as? String {
-                    var family = Family()
-                    family.id = id
-                    let route = RoutingDestination(rawValue: userInfo["view"] as! String)!
-                    top?.pushToView(view: route, sender: family)
-                }else{
-                    top?.pushToView(view: RoutingDestination(rawValue: userInfo["view"] as! String)!)
-                }
-                break
-            default:
-                break
-            }
-        }
+        print("Notf",userInfo)
         
     }
     var top: UIViewController? {

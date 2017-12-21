@@ -9,6 +9,7 @@
 import Foundation
 import Firebase
 import RealmSwift
+import UserNotifications
 
 @objc enum Notification_Type: Int{
     case event,
@@ -90,6 +91,32 @@ class NotificationModel : Object {
         }
         
     }
+    convenience required init(notifiaction: UNNotification) {
+        self.init()
+        let content = notifiaction.request.content
+        
+        self.id = notifiaction.request.identifier
+        
+        
+        self.title = content.title
+        self.body = content.body
+        self.timestamp = notifiaction.date.toMillis()
+
+        content.userInfo.forEach({ (key, value) in
+            if let k = key as? String, k != "user", value is String {
+                let v = getType(k)
+                if case Notification_Type.none = v {
+                }else{
+                    self.type = v
+                    self.value = value as! String
+                }
+            }
+        })
+    }
+    
+    override public static func primaryKey() -> String? {
+        return "id"
+    }
     
     func getType(_ key: String) -> Notification_Type {
         switch key {
@@ -138,8 +165,8 @@ extension NotificationBindible {
             bodyLbl.textColor = notification.type.color
         }
         if let dateLbl = self.dateLbl {
-            let date = Date(timeIntervalSince1970: TimeInterval(notification.timestamp/1000))
-            dateLbl.text = date.string(with: .dayMonthAndYear2)
+            let date = Date(notification.timestamp)
+            dateLbl.text = date?.string(with: .MMMddHHmm)
         }
         if let typeImg = self.typeImg {
             typeImg.image = notification.type.img
