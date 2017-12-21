@@ -244,6 +244,7 @@ extension ChatGroupViewController : StoreSubscriber {
         if let uuid = getMessagesUuid {
             switch state.requestState.requests[uuid] {
             case .finished?:
+                store.dispatch(RequestAction.Processed(uuid: uuid))
                 let lastSection = tableView.numberOfSections - 1
                 var rows = -1
                 if lastSection >= 0 {
@@ -254,7 +255,11 @@ extension ChatGroupViewController : StoreSubscriber {
                 if lastSection < 0 || rows != tableView.numberOfRows(inSection: lastSection) {
                     tableView.scrollToBottom(animated: true)
                 }
-                store.dispatch(RequestAction.Processed(uuid: uuid))
+                let lastMsg = messages.last!
+                let lastSeen = group.members.first(where: { $0.id == user.id })!.time
+                if lastMsg.remittent != user.id && lastMsg.timestamp > lastSeen {
+                    store.dispatch(seenGroupAction(group: group, member: user.id, uuid: UUID().uuidString))
+                }
                 break
             default:
                 break

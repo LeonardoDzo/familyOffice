@@ -90,24 +90,7 @@ class ChatGroupsTableViewController: UITableViewController {
         let flag = str == "GroupsChat" ? true : false
         groups = rManager.realm.objects(GroupEntity.self)
             .filter("familyId = '\(user.familyActive)' AND isGroup == \(flag)")
-            .sorted(by: { (g1, g2) -> Bool in
-                var t1 = g1.createdAt, t2 = g2.createdAt
-                if let id1 = g1.lastMessage, let r1 = lastMessages[id1] {
-                    switch r1 {
-                    case .Finished(let m1):
-                        t1 = m1.timestamp
-                    default: break
-                    }
-                }
-                if let id2 = g2.lastMessage, let r2 = lastMessages[id2] {
-                    switch r2 {
-                    case .Finished(let m2):
-                        t2 = m2.timestamp
-                    default: break
-                    }
-                }
-                return t1 > t2
-            })
+            .sorted(by: self.groupSorter)
         if !flag {
             groups = groups.filter { (group) -> Bool in
                 if group.members.count == 2 {
@@ -116,10 +99,31 @@ class ChatGroupsTableViewController: UITableViewController {
                     return flag
                 }
                 return false
-            }
+            }.sorted(by: self.groupSorter)
         }
         tableView.reloadData()
         tableView.tableFooterView = UIView()
+    }
+    
+    func groupSorter(g1: GroupEntity, g2: GroupEntity) -> Bool {
+        return groupOrder(group: g1) > groupOrder(group: g2)
+    }
+    
+    func groupOrder(group: GroupEntity) -> Date {
+        guard let messageId = group.lastMessage else {
+            return group.createdAt
+        }
+        if let message = rManager.realm.objects(MessageEntity.self).first(where: { $0.id == messageId }) {
+            return message.timestamp
+        }
+        if let messageResult = lastMessages[messageId] {
+            switch messageResult {
+            case .Finished(let message):
+                return message.timestamp
+            default: break
+            }
+        }
+        return group.createdAt
     }
 
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
