@@ -322,6 +322,7 @@
 		A45EDE4A1FD09C4900D95A48 /* IllnessAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45EDE491FD09C4900D95A48 /* IllnessAction.swift */; };
 		A46316B21E78C69E00E3F72C /* Health.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46316B11E78C69E00E3F72C /* Health.swift */; };
 		A46D01781F31585F00071E16 /* GalleryLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46D01771F31585F00071E16 /* GalleryLayout.swift */; };
+		A48B8E9B1FEC2A6F008C9B2C /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48B8E9A1FEC2A6F008C9B2C /* CGRect.swift */; };
 		A48DDA1F1F1541D90059D982 /* BudgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02595A381F14913E00627C46 /* BudgetViewController.swift */; };
 		A48FD6DB1F141E8C00832559 /* BudgetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48FD6DA1F141E8C00832559 /* BudgetCollectionViewCell.swift */; };
 		A48FD6DD1F143D2200832559 /* Budget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48FD6DC1F143D2200832559 /* Budget.swift */; };
@@ -709,6 +710,7 @@
 		A46316B11E78C69E00E3F72C /* Health.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Health.swift; sourceTree = "<group>"; };
 		A46D01771F31585F00071E16 /* GalleryLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryLayout.swift; sourceTree = "<group>"; };
 		A47F14B01E8B27DB00285CA8 /* Health.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Health.storyboard; sourceTree = "<group>"; };
+		A48B8E9A1FEC2A6F008C9B2C /* CGRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
 		A48FD6DA1F141E8C00832559 /* BudgetCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetCollectionViewCell.swift; sourceTree = "<group>"; };
 		A48FD6DC1F143D2200832559 /* Budget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Budget.swift; sourceTree = "<group>"; };
 		A49216341FE9B8150013360A /* UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
@@ -1310,6 +1312,7 @@
 				A4B0E1221FE1C187002742E5 /* NSAttributedString.swift */,
 				02D8459A1FE2EF3C0086DD0C /* Collections.swift */,
 				A49216341FE9B8150013360A /* UITableView.swift */,
+				A48B8E9A1FEC2A6F008C9B2C /* CGRect.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -2598,6 +2601,7 @@
 				02D845C91FE2FFA00086DD0C /* SpringView.swift in Sources */,
 				024EF9AA1E834B6A00F5B4DF /* IndexViewController.swift in Sources */,
 				8B2D85231F43D492007D18BE /* safeBoxFile.swift in Sources */,
+				A48B8E9B1FEC2A6F008C9B2C /* CGRect.swift in Sources */,
 				02ABAC401E6DE73A003780AB /* UIImage.swift in Sources */,
 				02441D9E1F16BF4200EA8202 /* GoalSectionTableViewCell.swift in Sources */,
 				022F63B81FE46F34009CC002 /* SignUPViewController.swift in Sources */,

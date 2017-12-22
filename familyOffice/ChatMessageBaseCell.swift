@@ -20,6 +20,8 @@ class ChatMessageBaseCell: UITableViewCell {
     @IBOutlet weak var bubbleView: UIView!
     @IBOutlet weak var msgTextLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet var leftConstraint: NSLayoutConstraint!
+    @IBOutlet var rightConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -50,15 +52,23 @@ class ChatMessageBaseCell: UITableViewCell {
         if !mine {
             userName.text = user.name
             userName.textAlignment = .left
-            userName.textColor = userColors[userIndex % userColors.count]
             msgTextLabel.textAlignment = .left
+            userName.textColor = userColors[userIndex % userColors.count]
             bubbleView.backgroundColor = otherColor
-            userImg.loadImage(urlString: user.photoURL)
+            rightConstraint.isActive = false
+            leftConstraint.isActive = true
+            if user.photoURL.isEmpty {
+                userImg.image = #imageLiteral(resourceName: "user-default")
+            } else {
+                userImg.loadImage(urlString: user.photoURL)
+            }
         } else {
             userName.text = ""
             userName.textAlignment = .right
             msgTextLabel.textAlignment = .right
             bubbleView.backgroundColor = mineColor
+            leftConstraint.isActive = false
+            rightConstraint.isActive = true
             userImg.image = nil
         }
         switch MessageStatus(rawValue: message.status) {
