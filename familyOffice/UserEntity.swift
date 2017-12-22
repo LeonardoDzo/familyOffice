@@ -36,7 +36,7 @@ public class UserEntity: Object, Codable, Serializable {
     dynamic var nss : String = ""
     dynamic var curp : String = ""
     dynamic var birthday: String = ""
-//    dynamic var safeboxPwd: String = ""
+    dynamic var safeboxPwd: String = ""
     dynamic var address : String = ""
     dynamic var bloodtype: String = ""
     var families = List<RealmString>()
@@ -58,7 +58,7 @@ public class UserEntity: Object, Codable, Serializable {
              curp,
              birthday,
              address,
-//             safeboxPwd,
+             safeboxPwd,
              bloodtype,
              familyActive
     }
@@ -81,7 +81,7 @@ public class UserEntity: Object, Codable, Serializable {
         nss = try container2.decode(String.self, forKey: .nss)
         curp = try container2.decode(String.self, forKey: .curp)
         birthday = try container2.decode(String.self, forKey: .birthday)
-//        safeboxPwd = try container2.decode(String.self, forKey: .safeboxPwd)
+        safeboxPwd = try container2.decode(String.self, forKey: .safeboxPwd)
         address = try container2.decode(String.self, forKey: .address)
         bloodtype = try container2.decode(String.self, forKey: .bloodtype)
         
