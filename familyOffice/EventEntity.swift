@@ -95,50 +95,65 @@ class EventEntity: Object, Codable, Serializable {
         return "id"
     }
     
-    func update(date: Int, repeatM: repeatEntity) -> Void {
-        guard repeatM.frequency.rawValue != 0 else{
-            return
-        }
-        
-        let removeevents = rManager.realm.objects(EventEntity.self).filter("father = %@ AND startdate >= %@", self, date)
-        try! rManager.realm.write {
-            rManager.realm.delete(removeevents)
-        }
-        self.createDates(repeatM: repeatM, startDate: date)
-        
-        guard following.count > 0 else {
-            return
-        }
-        var changes : [String:Any] = [:]
-        self.myEvents.enumerated().forEach { (index, event) in
-            
-            if var json = event.toJSON() {
-                json.update(other: changes)
-                rManager.save(objs: event)
-                if let val = following.first(where: {$0.id == event.id})?.toJSON() {
-                    json.update(other: val)
-                    if let data = json.jsonToData() {
-                        do {
-                            let event = try JSONDecoder().decode(EventEntity.self, from: data)
-                            if event.changesforAll {
-                                changes = json
-                            }
-                            rManager.save(objs: event)
-                            if event.repeatmodel != nil {
-                                for index in (index+1)..<self.myEvents.count {
-                                    self.myEvents.remove(at: index)
-                                    rManager.deteObject(objs: self.myEvents[index])
-                                }
-                                update(date: event.startdate, repeatM: event.repeatmodel!)
-                            }
-                        }catch let error {
-                            print(error.localizedDescription)
-                        }
-                    }
-                }
+    func update(date: Int, repeatM: repeatEntity?) -> Void {
+        let father = self.father == nil ? self : self.father
+        if repeatM != nil {
+            guard repeatM?.frequency.rawValue != 0 else{
+                return
             }
             
+            let removeevents = rManager.realm.objects(EventEntity.self).filter("father = %@ AND startdate >= %@", father!, date)
+            try! rManager.realm.write {
+                rManager.realm.delete(removeevents)
+            }
+            self.createDates(repeatM: repeatM!, startDate: date)
+
         }
+        guard let parent = father, parent.following.count > 0 else {
+            return
+        }
+        parent.following.filter("startdate > %@", date).forEach({ (event) in
+            self.updateEvents(following: event)
+        })
+        
+        
+    }
+    
+    func updateEvents(following: EventEntity) {
+        let father = self.father == nil ? self : self.father
+        guard let parent = father else {
+            return
+        }
+        
+            parent.myEvents.filter("startdate >= %@", following.startdate).enumerated().forEach { (index, event) in
+                if var json = event.toJSON() {
+                    
+                    if following.changesforAll || event.id == following.id {
+                        let id = event.id
+                        let startdate = event.startdate
+                        let enddate = event.enddate
+                        if let eventwithchanges = following.todictionary() {
+                            json.update(other: eventwithchanges)
+                            json["id"] = id
+                            json["startdate"] = startdate
+                            json["enddate"] = enddate
+                            
+                            if let data = json.jsonToData() {
+                                let eventchanged = try! JSONDecoder().decode(EventEntity.self, from: data)
+                                eventchanged.father = parent
+                                
+                                rManager.save(objs: eventchanged)
+                            }
+                        }
+                    }
+                    if event.repeatmodel != nil {
+                        self.update(date: event.startdate, repeatM: event.repeatmodel!)
+                    }
+                }
+                
+            }
+
+
         
     }
     
@@ -156,7 +171,9 @@ class EventEntity: Object, Codable, Serializable {
                 event.father = self
                 event.eventtype = self.eventtype
                 try! rManager.realm.write {
-                    if !self.myEvents.contains(event) {
+                    if let index = self.myEvents.index(where: {$0.id == event.id}) {
+                        self.myEvents[index] = event
+                    }else{
                         self.myEvents.append(event)
                     }
                 }

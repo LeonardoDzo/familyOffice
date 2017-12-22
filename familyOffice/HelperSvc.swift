@@ -43,6 +43,7 @@ func isAuth()  {
             checkUserAgainstDatabase(completion: {(success, error ) in
                 if success {
                     if !view {
+                        rManager.deleteDatabase()
                         store.dispatch(UserS(.getbyId(uid: (user?.uid)!)))
                         view = !view
                     }

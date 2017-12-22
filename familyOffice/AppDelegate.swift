@@ -105,7 +105,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
                      fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        print("Notf",userInfo)
+        let not = NotificationModel(dic: userInfo)
+        rManager.save(objs: not)
         
     }
     var top: UIViewController? {

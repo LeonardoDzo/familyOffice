@@ -8,12 +8,18 @@
 
 import UIKit
 
-class NotificationCollectionViewCell: UICollectionViewCell, NotificationBindible {
+class NotificationCell: UITableViewCell, NotificationBindible {
+    
+    
 
     var notification: NotificationModel!
     @IBOutlet weak var titleLbl: UILabel!
-    @IBOutlet weak var bodyLbl: UILabel!
+    @IBOutlet weak var bodyTxtV: UITextView!
     @IBOutlet weak var typeImg: UIImageViewX!
     @IBOutlet weak var dateLbl: UILabel!
     
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
 }

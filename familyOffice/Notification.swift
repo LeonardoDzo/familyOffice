@@ -42,7 +42,7 @@ import UserNotifications
         case .event:
             return #imageLiteral(resourceName: "Calendar").maskWithColor(color: self.color)!
         case .family:
-            return #imageLiteral(resourceName: "familyImage").maskWithColor(color: self.color)!
+            return #imageLiteral(resourceName: "members").maskWithColor(color: self.color)!
         default:
             return #imageLiteral(resourceName: "icons8-jingle_bell")
         }
@@ -51,7 +51,7 @@ import UserNotifications
     var color : UIColor {
         switch self {
         case .event:
-            return UIColor.yellow
+            return #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
         case .family:
             return UIColor.black
         default:
@@ -80,7 +80,7 @@ class NotificationModel : Object {
             self.title = notification.exist(field: "title")
             self.body = notification.exist(field: "body")
         }
-       
+      
         if let data = snapshotValue["data"] as? NSDictionary {
             data.forEach({ (key, value) in
                 if let k = key as? String, k != "user", value is String {
@@ -101,17 +101,45 @@ class NotificationModel : Object {
         self.title = content.title
         self.body = content.body
         self.timestamp = notifiaction.date.toMillis()
-
         content.userInfo.forEach({ (key, value) in
             if let k = key as? String, k != "user", value is String {
                 let v = getType(k)
                 if case Notification_Type.none = v {
                 }else{
+                    
+                    
                     self.type = v
                     self.value = value as! String
                 }
             }
         })
+    }
+    convenience required init(dic: [AnyHashable: Any]) {
+        self.init()
+        if let aps = dic["aps"] as? NSDictionary, let content =  aps["alert"] as? NSDictionary{
+            if let id = dic["gcm.message_id"] as? String {
+                self.id =  id
+            }
+            
+            
+            if let title = content["title"] as? String {
+                self.title = title
+            }
+            if let body = content["body"] as? String {
+                self.body = body
+            }
+            self.timestamp = Date().toMillis()
+            dic.forEach({ (key, value) in
+                if let k = key as? String, k != "alert", value is String {
+                    let v = getType(k)
+                    if case Notification_Type.none = v {
+                    }else{
+                        self.type = v
+                        self.value = value as! String
+                    }
+                }
+            })
+        }
     }
     
     override public static func primaryKey() -> String? {
@@ -138,6 +166,7 @@ protocol NotificationBindible: AnyObject {
     var titleLbl: UILabel! {get}
     var bodyLbl: UILabel! {get}
     var dateLbl: UILabel! {get}
+    var bodyTxtV: UITextView! {get}
     var img: CustomUIImageView! {get}
     var typeImg: UIImageViewX! {get}
 }
@@ -147,7 +176,7 @@ extension NotificationBindible {
     var img: CustomUIImageView! {return nil}
     var typeImg: CustomUIImageView! {return nil}
     var bodyLbl: UILabel! {return nil}
-    
+    var bodyTxtV: UITextView! {return nil}
     func bind(_ not: NotificationModel) -> Void {
         self.notification = not
         bind()
@@ -164,9 +193,22 @@ extension NotificationBindible {
             bodyLbl.text = notification.body
             bodyLbl.textColor = notification.type.color
         }
+        if let bodyTxtV = self.bodyTxtV {
+            bodyTxtV.text = notification.body
+            bodyTxtV.textColor = notification.type.color
+        }
         if let dateLbl = self.dateLbl {
-            let date = Date(notification.timestamp)
-            dateLbl.text = date?.string(with: .MMMddHHmm)
+            if let date = Date(notification.timestamp) {
+                if date.isToday() {
+                    dateLbl.text = date.string(with: .hourAndMin)
+                }else if date.isYesterday() {
+                    dateLbl.text = "Ayer"
+                }else{
+                    dateLbl.text = date.string(with: .ddMMMyyyy)
+                }
+            }
+            
+            
         }
         if let typeImg = self.typeImg {
             typeImg.image = notification.type.img
