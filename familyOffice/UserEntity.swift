@@ -149,6 +149,8 @@ extension List {
                 dic[val.value] = true
             }else if let val = key as? memberEventEntity {
                 dic[val.id] = val.toJSON()!
+            }else if let val = key as? EventEntity {
+                dic[val.id] = val.todictionary()
             }
         })
         return dic

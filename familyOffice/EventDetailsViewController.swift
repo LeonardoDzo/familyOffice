@@ -19,9 +19,7 @@ class EventDetailsViewController: UIViewController, EventEBindable {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var dateLbl: UILabel!
     @IBOutlet weak var titleLbl: UILabel!
-    
     @IBOutlet var statusBtns: [UIButtonX]!
-    
     @IBOutlet weak var statusView: UIViewX!
     @IBOutlet weak var locationstack: UIStackView!
     @IBOutlet weak var membersStack: UIStackView!
@@ -31,19 +29,16 @@ class EventDetailsViewController: UIViewController, EventEBindable {
         members.removeAll()
         if event.members.count > 0 {
             members.append(contentsOf:  event.members)
-        }else if event.father != nil {
-            members.append(contentsOf:  (event.father?.members)!)
         }
-        if event.members.count < (event.father?.members.count)! {
-           
-           // members.append()
+        
+        if event.father != nil {
+            event.father?.members.forEach({ (member) in
+                if !members.contains(where: {$0.id == member.id}) {
+                     members.append(member)
+                }
+            })
         }
-        self.members.forEach { (member) in
-            if let _ = rManager.realm.object(ofType: UserEntity.self, forPrimaryKey: member.id) {
-            }else{
-                store.dispatch(UserS(.getbyId(uid: member.id)))
-            }
-        }
+        
     }
     
     override func viewDidLoad() {
@@ -60,11 +55,16 @@ class EventDetailsViewController: UIViewController, EventEBindable {
     
     @IBAction func handleAction(_ sender: UIButtonX) {
         try! rManager.realm.write {
+            
             var member = event.members.first(where: {$0.id == getUser()?.id})
-            if member == nil{
-                let newmember = memberEventEntity(uid: (getUser()?.id)!)
-                member = newmember
+            if event.father != nil {
+                if member != nil{
+                    rManager.realm.delete(member!)
+                }
+                
             }
+            let newmember = memberEventEntity(uid: (getUser()?.id)!)
+            member = newmember
             
             if let me = member, let status = sender.restorationIdentifier {
                 switch status {
@@ -81,7 +81,6 @@ class EventDetailsViewController: UIViewController, EventEBindable {
                     me.status = .none
                     break
                 }
-               
                 
                 if let index = event.members.index(where: {$0.id == me.id})  {
                     event.members[index] = me
@@ -128,8 +127,9 @@ class EventDetailsViewController: UIViewController, EventEBindable {
                 }
             }
         }
-        event.updateEvents(following: self.event)
-        self.collectionView.reloadData()
+        let father = self.event.father != nil ? self.event.father  : self.event
+        store.dispatch(EventSvc(.update(event: father!)))
+        
     }
 }
 extension EventDetailsViewController: UICollectionViewDataSource {
@@ -165,6 +165,7 @@ extension EventDetailsViewController : StoreSubscriber {
         }
     }
     func newState(state: EventState) {
+        reloadMembers()
         self.collectionView.reloadData()
         
     }

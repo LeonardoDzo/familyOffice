@@ -43,7 +43,6 @@ func isAuth()  {
             checkUserAgainstDatabase(completion: {(success, error ) in
                 if success {
                     if !view {
-                        rManager.deleteDatabase()
                         store.dispatch(UserS(.getbyId(uid: (user?.uid)!)))
                         view = !view
                     }
@@ -133,6 +132,10 @@ class MainFunctions : RequestProtocol {
                     }
                 }
             }
+            break
+        case "events":
+            let id = snapshot.ref.description().components(separatedBy: "/")[4]
+            store.dispatch(EventSvc(.get(byId: id)))
             break
         default:
             break

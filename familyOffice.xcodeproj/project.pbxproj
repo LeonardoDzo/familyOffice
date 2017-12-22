@@ -14,6 +14,7 @@
 		020216EE1FD61F6F00777F8C /* PreviewEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020216ED1FD61F6F00777F8C /* PreviewEvent.swift */; };
 		020216F01FD624AB00777F8C /* PreviewEventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020216EF1FD624AB00777F8C /* PreviewEventsViewController.swift */; };
 		020540971E552A13000741CC /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020540961E552A13000741CC /* Notification.swift */; };
+		020993821FED8E96002F8C38 /* EventsNotificationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020993811FED8E96002F8C38 /* EventsNotificationTableViewController.swift */; };
 		02099EB21F59F6D6004CA889 /* memberEventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02099EB11F59F6D6004CA889 /* memberEventTableViewCell.swift */; };
 		020A30951E2DA4440024B1FB /* FamilyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020A30941E2DA4440024B1FB /* FamilyViewController.swift */; };
 		020A64F91E81A8AF00F473A0 /* menuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020A64F81E81A8AF00F473A0 /* menuBar.swift */; };
@@ -388,6 +389,7 @@
 		020216ED1FD61F6F00777F8C /* PreviewEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewEvent.swift; sourceTree = "<group>"; };
 		020216EF1FD624AB00777F8C /* PreviewEventsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewEventsViewController.swift; sourceTree = "<group>"; };
 		020540961E552A13000741CC /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Notification.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		020993811FED8E96002F8C38 /* EventsNotificationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsNotificationTableViewController.swift; sourceTree = "<group>"; };
 		02099EB11F59F6D6004CA889 /* memberEventTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = memberEventTableViewCell.swift; sourceTree = "<group>"; };
 		020A30941E2DA4440024B1FB /* FamilyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FamilyViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		020A64F81E81A8AF00F473A0 /* menuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = menuBar.swift; sourceTree = "<group>"; };
@@ -1146,6 +1148,7 @@
 				020216EF1FD624AB00777F8C /* PreviewEventsViewController.swift */,
 				0268D9601FD7136200991876 /* AllEventsViewController.swift */,
 				023563201FD881730088CD92 /* LocationSearchTable.swift */,
+				020993811FED8E96002F8C38 /* EventsNotificationTableViewController.swift */,
 				02D845D91FE310660086DD0C /* EventDetailsViewController.swift */,
 			);
 			name = Events;
@@ -2515,6 +2518,7 @@
 				02F50B1B1FBF64AF00285BEE /* UserS.swift in Sources */,
 				045F4A0F1F0DB8D000B483C9 /* AlbumViewController.swift in Sources */,
 				028CD36B1EFB447600DEC001 /* typeiconCollectionViewCell.swift in Sources */,
+				020993821FED8E96002F8C38 /* EventsNotificationTableViewController.swift in Sources */,
 				02FA707A1F1957E10027E8B5 /* GoalHistoryByUserViewController.swift in Sources */,
 				020216EE1FD61F6F00777F8C /* PreviewEvent.swift in Sources */,
 				A44D91AF1E947F2700880D50 /* HealthOmniViewController.swift in Sources */,

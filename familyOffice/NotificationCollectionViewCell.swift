@@ -13,10 +13,10 @@ class NotificationCell: UITableViewCell, NotificationBindible {
     
 
     var notification: NotificationModel!
-    @IBOutlet weak var titleLbl: UILabel!
     @IBOutlet weak var bodyTxtV: UITextView!
     @IBOutlet weak var typeImg: UIImageViewX!
     @IBOutlet weak var dateLbl: UILabel!
+    @IBOutlet weak var titleLbl: UILabel!
     
     
     override func awakeFromNib() {

@@ -10,7 +10,6 @@ import UIKit
 import ReSwift
 private let reuseIdentifier = "Cell"
 
-
 class homesBtn {
     var image: UIImage!
     var color: UIColor!

@@ -15,3 +15,7 @@ func ref_users(uid: String) -> String {
 func ref_family(_ fid: String) -> String {
     return  "families/\(fid)"
 }
+
+func ref_events(_ eid: String) -> String {
+    return  "events/\(eid)"
+}

@@ -52,6 +52,8 @@ extension EventSvc : RequestProtocol {
             if let snapshotValue = snapshot.value as? NSDictionary {
                 if let data = snapshotValue.jsonToData() {
                     let event = try JSONDecoder().decode(EventEntity.self, from: data)
+                    let ref = ref_events(event.id)
+                    sharedMains.initObserves(ref:ref, actions: [.childChanged])
                     self.status = .Finished(action)
                     rManager.save(objs: event)
                     if event.repeatmodel != nil {
@@ -109,6 +111,20 @@ extension EventSvc : RequestProtocol {
             })
         }
     }
+    func update(_ event:EventEntity) {
+        let reference = ref_events(event.id)
+        if let json = event.todictionary() {
+            self.update(reference, value: json) { (res) in
+                if res is DatabaseReference {
+                    self.status = .Finished(self.action)
+                }else{
+                    self.status = .Failed(self.action)
+                }
+            
+            }
+        }
+       
+    }
 }
 extension EventSvc: Reducer {
     typealias StoreSubscriberStateType = EventState
@@ -121,6 +137,9 @@ extension EventSvc: Reducer {
             switch self.action {
                 case .save(let event):
                     self.create(event: event)
+                break
+                case .update(let event):
+                    self.update(event)
                 break
                 case .get(let Id):
                     self.valueSingleton(ref: "events/\(Id)")

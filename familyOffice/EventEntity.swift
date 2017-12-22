@@ -26,7 +26,7 @@ class EventEntity: Object, Codable, Serializable {
     dynamic var isAllDay: Bool? = nil
     dynamic var priority: Priority? = nil
     dynamic var father: EventEntity? = nil
-    dynamic var changesforAll = false
+    dynamic var changesforAll: Bool = false
     var following = List<EventEntity>()
     var members = List<memberEventEntity>()
     let myEvents = List<EventEntity>()
@@ -40,6 +40,7 @@ class EventEntity: Object, Codable, Serializable {
         details,
         startdate,
         enddate,
+        changesforAll,
         isAllDay,
         priority,
         creator,
@@ -64,7 +65,7 @@ class EventEntity: Object, Codable, Serializable {
         self.id = try container.decode(String.self, forKey: .id)
         self.startdate = try container.decode(Int.self, forKey: .startdate)
         self.enddate = try container.decode(Int.self, forKey: .enddate)
-        
+        self.changesforAll = try container.decode(Bool.self, forKey: .changesforAll)
         //Optionals
         self.creator = try container.decodeIfPresent(String.self, forKey: .creator)
         self.details = try container.decodeIfPresent(String.self, forKey: .details)
@@ -112,7 +113,7 @@ class EventEntity: Object, Codable, Serializable {
         guard let parent = father, parent.following.count > 0 else {
             return
         }
-        parent.following.filter("startdate > %@", date).forEach({ (event) in
+        parent.following.filter("startdate >= %@", date).forEach({ (event) in
             self.updateEvents(following: event)
         })
         
@@ -127,7 +128,6 @@ class EventEntity: Object, Codable, Serializable {
         
             parent.myEvents.filter("startdate >= %@", following.startdate).enumerated().forEach { (index, event) in
                 if var json = event.toJSON() {
-                    
                     if following.changesforAll || event.id == following.id {
                         let id = event.id
                         let startdate = event.startdate

@@ -15,7 +15,8 @@ import UserNotifications
     case event,
     goal,
     gallery,
-    safeb,
+    safebox,
+    chat,
     contacts,
     firstAidKit,
     properties,
@@ -33,6 +34,10 @@ import UserNotifications
             return "event"
         case .family:
             return "family"
+        case .chat:
+            return "chat"
+        case .safebox:
+            return "safebox"
         default:
             return ""
         }
@@ -43,6 +48,10 @@ import UserNotifications
             return #imageLiteral(resourceName: "Calendar").maskWithColor(color: self.color)!
         case .family:
             return #imageLiteral(resourceName: "members").maskWithColor(color: self.color)!
+        case .chat:
+            return #imageLiteral(resourceName: "chat").maskWithColor(color: self.color)!
+        case .safebox:
+            return #imageLiteral(resourceName: "safeBox").maskWithColor(color: self.color)!
         default:
             return #imageLiteral(resourceName: "icons8-jingle_bell")
         }
@@ -51,9 +60,11 @@ import UserNotifications
     var color : UIColor {
         switch self {
         case .event:
+            return #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+        case .chat:
+            return #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+        case .safebox:
             return #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
-        case .family:
-            return UIColor.black
         default:
             return UIColor.black
             
@@ -71,7 +82,8 @@ class NotificationModel : Object {
     dynamic var value: String = ""
     dynamic var type: Notification_Type = .none
     dynamic var body = ""
-    
+    dynamic var seen = false
+    dynamic var lastupdated = 0
     convenience required init(snapshot: DataSnapshot) {
         self.init()
         let snapshotValue = snapshot.value as! NSDictionary
@@ -187,15 +199,12 @@ extension NotificationBindible {
         }
         if let titleLbl = self.titleLbl {
             titleLbl.text = notification.title
-            titleLbl.textColor = notification.type.color
         }
         if let bodyLbl = self.bodyLbl {
             bodyLbl.text = notification.body
-            bodyLbl.textColor = notification.type.color
         }
         if let bodyTxtV = self.bodyTxtV {
             bodyTxtV.text = notification.body
-            bodyTxtV.textColor = notification.type.color
         }
         if let dateLbl = self.dateLbl {
             if let date = Date(notification.timestamp) {
@@ -210,6 +219,7 @@ extension NotificationBindible {
             
             
         }
+        
         if let typeImg = self.typeImg {
             typeImg.image = notification.type.img
         }
