@@ -36,7 +36,7 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
         tableView.contentMode = .bottom
         messages = rManager.realm.objects(MessageEntity.self)
             .filter("groupId = '\(group.id)'")
-            .sorted(byKeyPath: "timestamp", ascending: true)w
+            .sorted(byKeyPath: "timestamp", ascending: true)
         var ids = [String]()
         group.members.forEach { (rstr) in
             ids.append("'\(rstr.id)'")
