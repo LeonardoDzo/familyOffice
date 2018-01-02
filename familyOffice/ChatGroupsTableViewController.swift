@@ -17,6 +17,10 @@ class ChatGroupsTableViewController: UITableViewController {
     var groups: [GroupEntity] = []
     var lastMessages = [String: Result<MessageEntity>]()
     var selectedGroupIndex: Int?
+    
+    var hasFamilyGroups: Bool {
+        return self.restorationIdentifier! == "GroupsChat" ? true : false
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,18 +44,44 @@ class ChatGroupsTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return hasFamilyGroups ? user.families.count : 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return groups.count
+        if !hasFamilyGroups {
+            return groups.count
+            
+        }
+        var fam = user.familyActive
+        if section != 0 {
+            let fams: [RealmString] = user.families.filter({ $0.value != fam })
+            fam = fams[section - 1].value
+        }
+        return groups.filter({ $0.familyId == fam }).count
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if !hasFamilyGroups { return nil }
+        var famId = user.familyActive
+        if section != 0 {
+            let fams: [RealmString] = user.families.filter({ $0.value != famId })
+            famId = fams[section - 1].value
+        }
+        return rManager.realm.objects(FamilyEntity.self).first(where: { $0.id == famId })?.name
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ChatGroupCell
-        
-        let group = groups[indexPath.row]
+        var group = groups[indexPath.row]
+        if hasFamilyGroups {
+            var fam = user.familyActive
+            if indexPath.section != 0 {
+                let fams: [RealmString] = user.families.filter({ $0.value != fam })
+                fam = fams[indexPath.section - 1].value
+            }
+            group = groups.filter({ $0.familyId == fam })[indexPath.row]
+        }
         cell.bind(sender: group)
 //        guard let msgId = group.lastMessage else {
 //            cell.bind(group: group)
@@ -75,7 +105,15 @@ class ChatGroupsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let group = self.groups[indexPath.row]
+        var group = groups[indexPath.row]
+        if hasFamilyGroups {
+            var fam = user.familyActive
+            if indexPath.section != 0 {
+                let fams: [RealmString] = user.families.filter({ $0.value != fam })
+                fam = fams[indexPath.section - 1].value
+            }
+            group = groups.filter({ $0.familyId == fam })[indexPath.row]
+        }
         self.pushToView(view: .chat, sender: group)
     }
     
@@ -86,23 +124,17 @@ class ChatGroupsTableViewController: UITableViewController {
 //    }
     
     func queryGroups() {
-        let str: String = self.restorationIdentifier!
-        let flag = str == "GroupsChat" ? true : false
         groups = rManager.realm.objects(GroupEntity.self)
-            .filter("familyId = '\(user.familyActive)' AND isGroup == \(flag)")
             .sorted(by: self.groupSorter)
-        if !flag {
-            groups = groups.filter { (group) -> Bool in
-                if group.members.count == 2 {
-                    var flag = false
-                    flag = group.members.contains(where: {$0.id == getUser()?.id})
-                    return flag
-                }
-                return false
-            }.sorted(by: self.groupSorter)
-        }
-        tableView.reloadData()
-        tableView.tableFooterView = UIView()
+            .filter({ group in
+                if !hasFamilyGroups {
+                    if group.isGroup { return false }
+                    if group.lastMessage == nil { return false }
+                } else if !group.isGroup { return false }
+                return group.members.contains(where: { $0.id == user.id })
+            })
+//        tableView.reloadData()
+//        tableView.tableFooterView = UIView()
     }
     
     func groupSorter(g1: GroupEntity, g2: GroupEntity) -> Bool {
@@ -145,7 +177,7 @@ extension ChatGroupsTableViewController: StoreSubscriber {
             store.select({ $0.requestState })
         }
         getGroupsReqId = UUID().uuidString
-        store.dispatch(getAllGroupsAction(familyId: user.familyActive, uuid: getGroupsReqId!))
+        store.dispatch(getAllGroupsAction(uuid: getGroupsReqId!))
         tableView.reloadData()
         if self.restorationIdentifier == "GroupsChat" {
             self.tabBarController?.title = "Grupos"
@@ -165,8 +197,7 @@ extension ChatGroupsTableViewController: StoreSubscriber {
         switch state.requests[uuid] {
         case .finished?:
             reload = true
-            queryGroups()
-            
+            store.dispatch(RequestAction.Processed(uuid: uuid))
             break
         default: break
         }
@@ -176,12 +207,13 @@ extension ChatGroupsTableViewController: StoreSubscriber {
             case .finished?:
                 let msg = rManager.realm.objects(MessageEntity.self).filter("id = '\(key)'").first!
                 lastMessages[key] = .Finished(msg)
-                queryGroups()
+                store.dispatch(RequestAction.Processed(uuid: key))
                 reload = true
             default: break
             }
         }
         if reload {
+            queryGroups()
             tableView.reloadData()
         }
     }
