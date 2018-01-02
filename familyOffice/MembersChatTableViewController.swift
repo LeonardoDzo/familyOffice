@@ -54,12 +54,10 @@ class MembersChatTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! MemberTableViewCell
         
         let uid = members[indexPath.row]
-        cell.profileImage.hideToastActivity()
         if let user = rManager.realm.object(ofType: UserEntity.self, forPrimaryKey: uid) {
             cell.bind(sender: user)
         }else{
             cell.titleLbl.text = "Cargando ..."
-            cell.profileImage.makeToastActivity(.center)
         }
 
         return cell
