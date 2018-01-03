@@ -133,6 +133,10 @@ class MainFunctions : RequestProtocol {
                 }
             }
             break
+        case "events":
+            let id = snapshot.ref.description().components(separatedBy: "/")[4]
+            store.dispatch(EventSvc(.get(byId: id)))
+            break
         default:
             break
         }

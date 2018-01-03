@@ -11,12 +11,10 @@ import ReSwift
 
 let GROUPS_REF = Constants.FirDatabase.REF.child("groups")
 
-func getAllGroupsAction(familyId: String, uuid: String) -> Store<AppState>.ActionCreator {
+func getAllGroupsAction(uuid: String) -> Store<AppState>.ActionCreator {
     return { state, store in
         store.dispatch(RequestAction.Loading(uuid: uuid))
-        GROUPS_REF.queryOrdered(byChild: "familyId")
-            .queryEqual(toValue: familyId)
-            .observe(.value, with: { snapshot in
+        GROUPS_REF.observe(.value, with: { snapshot in
                 do {
                     guard snapshot.exists() else { throw RequestError.NotFound }
                     guard let json = snapshot.value as? NSDictionary else { throw RequestError.NotJson }

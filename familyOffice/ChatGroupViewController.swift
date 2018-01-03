@@ -48,8 +48,10 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
         myTitleView.titleLbl.textColor = UIColor.white
         self.navigationItem.titleView = myTitleView
         
-        let button = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(self.edit))
-        self.navigationItem.rightBarButtonItem = button
+        if group.isGroup {
+            let button = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(self.edit))
+            self.navigationItem.rightBarButtonItem = button
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -185,7 +187,7 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! ChatMessageBaseCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ChatMessageBaseCell
         let message = messagesInSection(section: indexPath.section)[indexPath.row]
         guard users.filter("id = '\(message.remittent)'").count > 0 else {
             if reqs[message.remittent] == nil {
@@ -244,6 +246,7 @@ extension ChatGroupViewController : StoreSubscriber {
         if let uuid = getMessagesUuid {
             switch state.requestState.requests[uuid] {
             case .finished?:
+                store.dispatch(RequestAction.Processed(uuid: uuid))
                 let lastSection = tableView.numberOfSections - 1
                 var rows = -1
                 if lastSection >= 0 {
@@ -254,7 +257,11 @@ extension ChatGroupViewController : StoreSubscriber {
                 if lastSection < 0 || rows != tableView.numberOfRows(inSection: lastSection) {
                     tableView.scrollToBottom(animated: true)
                 }
-                store.dispatch(RequestAction.Processed(uuid: uuid))
+                let lastMsg = messages.last!
+                let lastSeen = group.members.first(where: { $0.id == user.id })!.time
+                if lastMsg.remittent != user.id && lastMsg.timestamp > lastSeen {
+                    store.dispatch(seenGroupAction(group: group, member: user.id, uuid: UUID().uuidString))
+                }
                 break
             default:
                 break
@@ -288,10 +295,10 @@ extension ChatGroupViewController : StoreSubscriber {
 }
 
 extension ChatGroupViewController: UITextViewDelegate {
+    
     func textViewDidChange(_ textView: UITextView) {
         let val = heightLayoutView.constant - textView.frame.size.height
         let fixedWidth = textView.frame.size.width
-        textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
         let newSize = textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
         var newFrame = textView.frame
         newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
@@ -301,14 +308,11 @@ extension ChatGroupViewController: UITextViewDelegate {
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool
     {
-        if(text == "\n")
+        let r = text == "\n"
+        if(r)
         {
             onSend(textView)
-            return false
         }
-        else
-        {
-            return true
-        }
+        return !r
     }
 }

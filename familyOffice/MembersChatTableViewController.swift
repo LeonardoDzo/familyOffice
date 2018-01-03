@@ -54,12 +54,10 @@ class MembersChatTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! MemberTableViewCell
         
         let uid = members[indexPath.row]
-        cell.profileImage.hideToastActivity()
         if let user = rManager.realm.object(ofType: UserEntity.self, forPrimaryKey: uid) {
             cell.bind(sender: user)
         }else{
             cell.titleLbl.text = "Cargando ..."
-            cell.profileImage.makeToastActivity(.center)
         }
 
         return cell
@@ -69,19 +67,19 @@ class MembersChatTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let uid = members[indexPath.row]
-        group = rManager.realm.objects(GroupEntity.self).filter("familyId = %@ AND isGroup == false", family.id).filter { (group) -> Bool in
-            if group.members.count == 2 {
+        group = rManager.realm.objects(GroupEntity.self).first { group in
+            if !group.isGroup {
                 var flag = false
                 flag = group.members.contains(where: {$0.id == getUser()?.id}) && group.members.contains(where: {$0.id == uid})
                 return flag
             }
             return false
-        }.first
+        }
         if group == nil {
             group = GroupEntity()
      
             let myId = getUser()!.id
-            group?.id = "\(family.id)-\(uid < myId ? uid : myId)-\(uid < myId ? myId : uid)"
+            group?.id = "\(uid < myId ? uid : myId)-\(uid < myId ? myId : uid)"
             group?.members.append(TimestampEntity(value: [uid, Date()]))
             group?.members.append(TimestampEntity(value: [myId, Date()]))
             group?.familyId = family.id

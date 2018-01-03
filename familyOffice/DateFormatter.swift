@@ -94,7 +94,7 @@ extension DateFormatter {
     }()
     @nonobjc static let ddMMMyyyy: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.setLocalizedDateFormatFromTemplate("dd-MMM-yyyy")
+        formatter.setLocalizedDateFormatFromTemplate("dd MMM yyyy")
         return formatter
     }()
     @nonobjc static let MMMddHHmm: DateFormatter = {
@@ -150,16 +150,18 @@ extension Date {
     }
     
     func midnight() -> Date {
-        let gregorian = Calendar(identifier: .gregorian)
+        let gregorian = Calendar.current
         let components = gregorian.dateComponents([.year, .month, .day], from: self)
         return gregorian.date(from: components)!
     }
     
     func isToday() -> Bool {
-        return Date().midnight() == self.midnight()
+        let gregorian = Calendar.current
+        return gregorian.isDateInToday(self)
     }
     
     func isYesterday() -> Bool {
-        return Date().midnight().toMillis() - 1000*60*60*24 == self.midnight().toMillis()
+        let gregorian = Calendar.current
+        return gregorian.isDateInYesterday(self)
     }
 }

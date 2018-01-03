@@ -152,7 +152,13 @@ extension GroupBindible {
                 if let msg = rManager.realm.objects(MessageEntity.self).filter("id = '\(msgId)'").first {
                     if let usr = rManager.realm.objects(UserEntity.self).filter("id = '\(msg.remittent)'").first {
                         lastMsg.text = "\(usr.id == me.id ? "Tu" : usr.name): \(msg.text)"
-                        msgTime.text = msg.timestamp.string(with: DateFormatter.hourAndMin)
+                        if msg.timestamp.isToday() {
+                            msgTime.text = msg.timestamp.string(with: DateFormatter.hourAndMin)
+                        } else if msg.timestamp.isYesterday() {
+                            msgTime.text = "AYER"
+                        } else {
+                            msgTime.text = msg.timestamp.string(with: DateFormatter.ddMMMyyyy)
+                        }
                     } else {
                         store.dispatch(UserS(.getbyId(uid: msg.remittent)))
                     }

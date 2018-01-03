@@ -1,23 +1,22 @@
 //
-//  NotificationViewController.swift
+//  EventsNotificationTableViewController.swift
 //  familyOffice
 //
-//  Created by Leonardo Durazo on 20/12/17.
+//  Created by Leonardo Durazo on 22/12/17.
 //  Copyright © 2017 Leonardo Durazo. All rights reserved.
 //
 
 import UIKit
 import RealmSwift
+class EventsNotificationTableViewController: UITableViewController {
 
-class NotificationViewController: UIViewController {
     var notificationToken: NotificationToken? = nil
-    @IBOutlet weak var tableView: UITableView!
     var notifications : Results<NotificationModel>!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
@@ -28,7 +27,7 @@ class NotificationViewController: UIViewController {
             rManager.saveObjects(objs: notificationarray)
         }
         tableView.tableFooterView = UIView()
-        notifications = rManager.realm.objects(NotificationModel.self).sorted(byKeyPath: "timestamp", ascending: false)
+        notifications = rManager.realm.objects(NotificationModel.self).filter("type = %@", Notification_Type.event.rawValue).sorted(byKeyPath: "timestamp", ascending: false)
         
         if notifications.count == 0 {
             let imageView = UIImageViewX()
@@ -64,18 +63,14 @@ class NotificationViewController: UIViewController {
         }
         self.tableView.reloadData()
     }
-    
-    
-}
 
-extension NotificationViewController : UITableViewDataSource, UITableViewDelegate {
-    func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return notifications != nil ? notifications.count : 0
     }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! NotificationCell
         let notification = notifications[indexPath.row]
         print(notification)
@@ -88,12 +83,12 @@ extension NotificationViewController : UITableViewDataSource, UITableViewDelegat
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-         let notification = notifications[indexPath.row]
-         try! rManager.realm.write {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let notification = notifications[indexPath.row]
+        try! rManager.realm.write {
             notification.seen = true
             self.tableView.reloadRows(at: [indexPath], with: .fade)
+            
         }
     }
 }
-

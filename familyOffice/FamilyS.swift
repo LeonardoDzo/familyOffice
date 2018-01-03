@@ -139,7 +139,11 @@ extension FamilyS : RequestProtocol, RequestStorageSvc {
     }
     
     func notExistSnapshot(ref: String) {
-        
+        if let id = ref.components(separatedBy: "/").last {
+            if let family = rManager.realm.object(ofType: FamilyEntity.self, forPrimaryKey: id) {
+                rManager.deteObject(objs: family)
+            }
+        }
     }
     
     
