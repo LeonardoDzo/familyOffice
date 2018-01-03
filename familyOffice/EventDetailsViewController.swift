@@ -11,6 +11,7 @@ import MapKit
 import ReSwift
 class EventDetailsViewController: UIViewController, EventEBindable {
     var event: EventEntity!
+    var previewActions: [UIPreviewAction] = []
     var members = [memberEventEntity]()
     @IBOutlet weak var backgroundType: UIImageViewX!
     @IBOutlet weak var detailsTxtV: UITextView!
@@ -46,6 +47,9 @@ class EventDetailsViewController: UIViewController, EventEBindable {
         self.setupButtonback()
         statusView.animate()
         reloadMembers()
+      
+        
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -53,8 +57,11 @@ class EventDetailsViewController: UIViewController, EventEBindable {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func handleEdit(_ sender: UIButton) {
+        self.pushToView(view: .addEvent, sender: self.event)
+    }
     @IBAction func handleAction(_ sender: UIButtonX) {
-        try! rManager.realm.write {
+      try! rManager.realm.write {
             
             var member = event.members.first(where: {$0.id == getUser()?.id})
             if event.father != nil {
@@ -88,12 +95,12 @@ class EventDetailsViewController: UIViewController, EventEBindable {
                     event.members.append(me)
                 }
                 self.bind()
-                saveforthis()
+                saveforthis(self)
             }
         }
         
     }
-    func saveforthis() -> Void {
+    func saveforthis(_ ctrl: UIViewController) -> Void {
         let alertController = UIAlertController(title: "Aplicar cambios para?", message: "", preferredStyle: .actionSheet)
         
         let sendButton = UIAlertAction(title: "Solo Este", style: .default, handler: { (action) -> Void in
@@ -113,7 +120,7 @@ class EventDetailsViewController: UIViewController, EventEBindable {
         alertController.addAction(deleteButton)
         alertController.addAction(cancelButton)
         
-        self.present(alertController, animated: true, completion: nil)
+        ctrl.present(alertController, animated: true, completion: nil)
     }
     
     func safeForAll(_ flag: Bool) -> Void {
@@ -129,13 +136,11 @@ class EventDetailsViewController: UIViewController, EventEBindable {
         }
         let father = self.event.father != nil ? self.event.father  : self.event
         store.dispatch(EventSvc(.update(event: father!)))
-        
     }
+
 }
 extension EventDetailsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        
         return  members.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -157,7 +162,6 @@ extension EventDetailsViewController : StoreSubscriber {
         if event.location == nil, event.father?.location == nil {
             locationstack.isHidden = true
         }
-        print(self.event)
         store.subscribe(self) {
             $0.select({ (s)  in
                 s.EventState

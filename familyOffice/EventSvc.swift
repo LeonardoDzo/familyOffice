@@ -111,6 +111,7 @@ extension EventSvc : RequestProtocol {
             })
         }
     }
+    
     func update(_ event:EventEntity) {
         let reference = ref_events(event.id)
         if let json = event.todictionary() {
@@ -120,9 +121,10 @@ extension EventSvc : RequestProtocol {
                 }else{
                     self.status = .Failed(self.action)
                 }
-            
+                store.dispatch(self)
             }
         }
+        
        
     }
 }
