@@ -44,7 +44,7 @@ class ChatGroupsTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return hasFamilyGroups ? user.families.count : 1
+        return hasFamilyGroups ? user.families.count + 1 : 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -53,20 +53,26 @@ class ChatGroupsTableViewController: UITableViewController {
             return groups.count
             
         }
+        if section == 0 {
+            return groups.count > 5 ? 5 : groups.count
+        }
         var fam = user.familyActive
-        if section != 0 {
+        if section > 1 {
             let fams: [RealmString] = user.families.filter({ $0.value != fam })
-            fam = fams[section - 1].value
+            fam = fams[section - 2].value
         }
         return groups.filter({ $0.familyId == fam }).count
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if !hasFamilyGroups { return nil }
+        if section == 0 {
+            return "Mas recientes"
+        }
         var famId = user.familyActive
-        if section != 0 {
+        if section > 1 {
             let fams: [RealmString] = user.families.filter({ $0.value != famId })
-            famId = fams[section - 1].value
+            famId = fams[section - 2].value
         }
         return rManager.realm.objects(FamilyEntity.self).first(where: { $0.id == famId })?.name
     }
@@ -74,11 +80,11 @@ class ChatGroupsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ChatGroupCell
         var group = groups[indexPath.row]
-        if hasFamilyGroups {
+        if hasFamilyGroups && indexPath.section != 0 {
             var fam = user.familyActive
-            if indexPath.section != 0 {
+            if indexPath.section > 1 {
                 let fams: [RealmString] = user.families.filter({ $0.value != fam })
-                fam = fams[indexPath.section - 1].value
+                fam = fams[indexPath.section - 2].value
             }
             group = groups.filter({ $0.familyId == fam })[indexPath.row]
         }
