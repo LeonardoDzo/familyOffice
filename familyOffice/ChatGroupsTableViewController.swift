@@ -25,9 +25,7 @@ class ChatGroupsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupBack()
-        
-        let editButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onAdd))
-        self.tabBarController?.navigationItem.rightBarButtonItem = editButtonItem
+    
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,44 +42,38 @@ class ChatGroupsTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return hasFamilyGroups ? user.families.count : 1
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if !hasFamilyGroups {
-            return groups.count
-            
-        }
-        var fam = user.familyActive
-        if section != 0 {
-            let fams: [RealmString] = user.families.filter({ $0.value != fam })
-            fam = fams[section - 1].value
-        }
-        return groups.filter({ $0.familyId == fam }).count
+        return groups.count
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if !hasFamilyGroups { return nil }
-        var famId = user.familyActive
-        if section != 0 {
-            let fams: [RealmString] = user.families.filter({ $0.value != famId })
-            famId = fams[section - 1].value
-        }
-        return rManager.realm.objects(FamilyEntity.self).first(where: { $0.id == famId })?.name
-    }
+//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        if !hasFamilyGroups { return nil }
+//        if section == 0 {
+//            return "Mas recientes"
+//        }
+//        var famId = user.familyActive
+//        if section > 1 {
+//            let fams: [RealmString] = user.families.filter({ $0.value != famId })
+//            famId = fams[section - 2].value
+//        }
+//        return rManager.realm.objects(FamilyEntity.self).first(where: { $0.id == famId })?.name
+//    }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ChatGroupCell
-        var group = groups[indexPath.row]
-        if hasFamilyGroups {
-            var fam = user.familyActive
-            if indexPath.section != 0 {
-                let fams: [RealmString] = user.families.filter({ $0.value != fam })
-                fam = fams[indexPath.section - 1].value
-            }
-            group = groups.filter({ $0.familyId == fam })[indexPath.row]
-        }
+        let group = groups[indexPath.row]
+//        if hasFamilyGroups && indexPath.section != 0 {
+//            var fam = user.familyActive
+//            if indexPath.section > 1 {
+//                let fams: [RealmString] = user.families.filter({ $0.value != fam })
+//                fam = fams[indexPath.section - 2].value
+//            }
+//            group = groups.filter({ $0.familyId == fam })[indexPath.row]
+//        }
         cell.bind(sender: group)
 //        guard let msgId = group.lastMessage else {
 //            cell.bind(group: group)
@@ -105,15 +97,15 @@ class ChatGroupsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var group = groups[indexPath.row]
-        if hasFamilyGroups {
-            var fam = user.familyActive
-            if indexPath.section != 0 {
-                let fams: [RealmString] = user.families.filter({ $0.value != fam })
-                fam = fams[indexPath.section - 1].value
-            }
-            group = groups.filter({ $0.familyId == fam })[indexPath.row]
-        }
+        let group = groups[indexPath.row]
+//        if hasFamilyGroups {
+//            var fam = user.familyActive
+//            if indexPath.section != 0 {
+//                let fams: [RealmString] = user.families.filter({ $0.value != fam })
+//                fam = fams[indexPath.section - 1].value
+//            }
+//            group = groups.filter({ $0.familyId == fam })[indexPath.row]
+//        }
         self.pushToView(view: .chat, sender: group)
     }
     
@@ -184,11 +176,20 @@ extension ChatGroupsTableViewController: StoreSubscriber {
         } else {
             self.tabBarController?.title = "Chats"
         }
+        
+        if hasFamilyGroups {
+            let editButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.onAdd))
+            self.tabBarController?.navigationItem.rightBarButtonItem = editButtonItem
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         store.unsubscribe(self)
+        
+        if hasFamilyGroups {
+            self.tabBarController?.navigationItem.rightBarButtonItem = nil
+        }
     }
     
     func newState(state: RequestState) {

@@ -15,6 +15,7 @@ import FirebaseStorage
 
 class NewChatGroupForm : FormViewController {
     
+    let user = getUser()!
     var group = GroupEntity()
     var createUuid: String?
     var editUuid: String?
@@ -23,22 +24,38 @@ class NewChatGroupForm : FormViewController {
         super.viewDidLoad()
         
         let button = UIBarButtonItem(
-            title: !group.id.isEmpty ? "Editar" : "Crear",
+            title: "Listo",
             style: .done,
             target: self,
             action: #selector(self.done)
         )
-//        button.isEnabled = false
+        button.isEnabled = !group.id.isEmpty
         self.navigationItem.rightBarButtonItem = button
         
         form +++ Section()
-            <<< TextRow() {
+            <<< PushRow<FamilyEntity>() {
+                $0.disabled = Condition.function([], { _ in !self.group.id.isEmpty })
+                $0.title = "Familia"
+                $0.selectorTitle = "Selecciona una familia"
+                $0.tag = "family"
+                $0.options = rManager.realm.objects(FamilyEntity.self).map({ $0 })
+                $0.value = rManager.realm.object(ofType: FamilyEntity.self, forPrimaryKey: group.familyId)
+                $0.validationOptions = .validatesOnChange
+            }.onChange({ pushRow in
+                let usersRow = self.form.rowBy(tag: "members") as! UsersRow
+                usersRow.familyId = pushRow.value?.id
+                usersRow.value = UserListSelected()
+                button.isEnabled = self.form.validate(includeHidden: true).count == 0
+            }) <<< TextRow() {
                 $0.title = "Nombre"
                 $0.add(rule: RuleRequired())
                 $0.tag = "title"
                 $0.validationOptions = .validatesOnChange
                 $0.value = group.title
-            } <<< ImageRow() {
+            }.onChange({ nameRow in
+                let errs = self.form.validate(includeHidden: true)
+                button.isEnabled = errs.count == 0
+            }) <<< ImageRow() {
                 $0.title = "Foto de grupo"
                 $0.sourceTypes = [.PhotoLibrary, .SavedPhotosAlbum, .Camera]
                 $0.clearAction = .yes(style: .destructive)
@@ -46,12 +63,23 @@ class NewChatGroupForm : FormViewController {
                 if let cacheImage = imageCache.object(forKey: group.coverPhoto as AnyObject) {
                     $0.value = cacheImage as? UIImage
                 }
-            }
-            <<< UsersRow() {
+            } <<< UsersRow() {
+                $0.hidden = Condition.function(["family"], { form in
+                    return (form.rowBy(tag: "family") as? PushRow<FamilyEntity>)?.value == nil
+                })
+                $0.familyId = group.familyId
                 $0.title = "Miembros"
                 $0.tag = "members"
                 $0.value = UserListSelected(list: group.members.map({ $0.id }))
-            }
+                $0.validationOptions = .validatesOnChange
+                var rules = RuleSet<UserListSelected>()
+                rules.add(rule: RuleClosure<UserListSelected> { rowValue in
+                    return rowValue!.list.count < 2 ? ValidationError(msg: "2 o mas miembros requeridos") : nil
+                })
+                $0.add(ruleSet: rules)
+                }.onChange({ nameRow in
+                    button.isEnabled = self.form.validate(includeHidden: true).count == 0
+                })
     }
     
     @objc func done(_ sender: Any) {
@@ -59,7 +87,8 @@ class NewChatGroupForm : FormViewController {
         let _group = GroupEntity()
         _group.title = values["title"] as! String
         _group.id = UUID().uuidString
-        _group.familyId = getUser()!.familyActive
+        let fam = values["family"] as! FamilyEntity
+        _group.familyId = fam.id
         _group.createdAt = Date()
         let membersArray = values["members"] as! UserListSelected
         membersArray.list.forEach({ userId in

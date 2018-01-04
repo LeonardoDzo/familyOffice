@@ -71,4 +71,8 @@ class FamilyEntity : Object, Codable, Serializable {
         return false
         
     }
+    
+    override var description: String {
+        return self.name
+    }
 }
