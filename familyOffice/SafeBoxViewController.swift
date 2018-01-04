@@ -61,12 +61,11 @@ extension SafeBoxViewController: PasswordInputCompleteProtocol {
             validationFail()
         }
     }
-    
 }
 
 private extension SafeBoxViewController {
     func validation(_ input: String) -> Bool {
-        return input == "123456"
+        return input == getUser()?.safeboxPwd
     }
     
     func validationSuccess() {

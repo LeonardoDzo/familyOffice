@@ -35,7 +35,8 @@ enum RoutingDestination: String {
          profileView = "ProfileUserViewController",
          mainCalendar = "mainnavCalendar",
          eventDetails = "EventDetailsViewController",
-         chat = "ChatGroupViewController"
+         chat = "ChatGroupViewController",
+         setSafeboxPwd = "SetSafeboxPassword"
     
     // first aid
     case illness = "IllnessTableViewController",
@@ -51,7 +52,7 @@ extension RoutingDestination {
             return StoryBoard.main.rawValue
         case .profileFamily,.families,.contacts:
             return StoryBoard.families.rawValue
-        case .personalData, .confView,  .profileView:
+        case .personalData, .confView,  .profileView, .setSafeboxPwd:
             return StoryBoard.setting.rawValue
         case .addEvent,.mainCalendar, .eventDetails:
             return StoryBoard.calendar.rawValue

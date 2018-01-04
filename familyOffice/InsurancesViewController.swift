@@ -71,7 +71,9 @@ extension InsurancesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "policyPreview", sender: self.insurances[indexPath.row])
+        if self.insurances[indexPath.row].downloadUrl != "" {
+            self.performSegue(withIdentifier: "policyPreview", sender: self.insurances[indexPath.row])
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -82,6 +84,9 @@ extension InsurancesViewController: UITableViewDelegate, UITableViewDataSource {
         cell.telephoneLbl.text = "Teléfono: \(insurance.telephone!)"
         cell.attachment.image =  cell.attachment.image?.imageWithColor(tintColor: #colorLiteral(red: 0.07450980392, green: 0.3215686275, blue: 0.2039215686, alpha: 1))
         cell.attachment.isHidden = insurance.downloadUrl == ""
+        
+        cell.isUserInteractionEnabled = false
+        
         return cell
     }
 }
@@ -89,7 +94,8 @@ extension InsurancesViewController: UITableViewDelegate, UITableViewDataSource {
 extension InsurancesViewController: StoreSubscriber {
     typealias StoreSubscriberStateType = InsuranceState
     override func viewWillAppear(_ animated: Bool) {
-        service.INSURANCE_SERVICE.initObservers(ref: "insurances/\((user?.familyActive)!)", actions: [.childAdded, .childChanged, .childRemoved])
+        print((user?.id)!)
+        service.INSURANCE_SERVICE.initObservers(ref: "insurances/\((user?.id)!)", actions: [.childAdded, .childChanged, .childRemoved])
         
         store.subscribe(self){
             subcription in
@@ -100,7 +106,7 @@ extension InsurancesViewController: StoreSubscriber {
     func newState(state: InsuranceState) {
         let backgroundnoevents = UIImageView(frame: self.view.frame)
         backgroundnoevents.tag = 100
-        insurances = state.insurances[(user?.familyActive)!]?.filter({$0.type == self.filter}) ?? []
+        insurances = state.insurances[(user?.id)!]?.filter({$0.type == self.filter}) ?? []
         print(state.status)
         if insurances.count == 0 {
             backgroundnoevents.image = #imageLiteral(resourceName: "no-insurances")

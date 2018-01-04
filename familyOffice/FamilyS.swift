@@ -198,9 +198,7 @@ extension FamilyS : Reducer {
         var state = state ?? FamilyState(families: FamilyList(), status: .none)
         state.status = self.status
         switch self.status {
-            
         case .loading,  .Loading(_):
-            
             switch self.action {
             case .insert(let family):
                 self.create(family: family)

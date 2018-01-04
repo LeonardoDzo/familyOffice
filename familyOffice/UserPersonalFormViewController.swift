@@ -20,6 +20,7 @@ class UserPersonalFormViewController: FormViewController {
       
     
         self.setupBack()
+        self.hideKeyboardWhenTappedAround()
         self.navigationItem.rightBarButtonItem = addbtn
         
         
@@ -151,20 +152,21 @@ class UserPersonalFormViewController: FormViewController {
                 })
         
         +++ Section("Caja fuerte")
-            <<< TextRow() { row in
-                row.title = "Contraseña"
-                row.placeholder = "RFC"
-                row.value = "******"
+            <<< LabelRow() { row in
+                row.title = "Cambiar contraseña"
                 
-                }.cellUpdate { cell, row in
-                    if !row.isValid {
-                        cell.titleLabel?.textColor = .red
-                    }else{
-                        try! rManager.realm.write {
-                            self.user.rfc = row.value ?? ""
-                        }
-                    }
-        }
+                }.onCellSelection({ (cell, row) in
+                    self.gotoView(view: .setSafeboxPwd, sender: nil, navigation: true)
+                })
+//                .cellUpdate { cell, row in
+//                    if !row.isValid {
+//                        cell.titleLabel?.textColor = .red
+//                    }else{
+//                        try! rManager.realm.write {
+//                            self.user.rfc = row.value ?? ""
+//                        }
+//                    }
+//        }
         
         navigationOptions = RowNavigationOptions.Enabled.union(.StopDisabledRow)
         // Enables smooth scrolling on navigation to off-screen rows
@@ -172,6 +174,8 @@ class UserPersonalFormViewController: FormViewController {
         // Leaves 20pt of space between the keyboard and the highlighted row after scrolling to an off screen row
         rowKeyboardSpacing = 20
     }
+
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

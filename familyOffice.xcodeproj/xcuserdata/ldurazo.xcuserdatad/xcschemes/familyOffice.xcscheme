@@ -20,6 +20,34 @@
                ReferencedContainer = "container:familyOffice.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "NO"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "02382F1C1E1C210C0036FFC9"
+               BuildableName = "familyOfficeTests.xctest"
+               BlueprintName = "familyOfficeTests"
+               ReferencedContainer = "container:familyOffice.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "NO"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "02382F271E1C210C0036FFC9"
+               BuildableName = "familyOfficeUITests.xctest"
+               BlueprintName = "familyOfficeUITests"
+               ReferencedContainer = "container:familyOffice.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -29,26 +57,6 @@
       language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "02382F1C1E1C210C0036FFC9"
-               BuildableName = "familyOfficeTests.xctest"
-               BlueprintName = "familyOfficeTests"
-               ReferencedContainer = "container:familyOffice.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "02382F271E1C210C0036FFC9"
-               BuildableName = "familyOfficeUITests.xctest"
-               BlueprintName = "familyOfficeUITests"
-               ReferencedContainer = "container:familyOffice.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

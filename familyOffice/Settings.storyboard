@@ -22,9 +22,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
-                    <connections>
-                        <segue destination="xo3-aw-uVg" kind="show" identifier="password" id="0IF-KX-36w"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rOB-cx-r8j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -33,7 +30,7 @@
         <!--Safebox Password View Controller-->
         <scene sceneID="YIg-Wo-2PI">
             <objects>
-                <viewController id="xo3-aw-uVg" customClass="SafeboxPasswordViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SetSafeboxPassword" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xo3-aw-uVg" customClass="SafeboxPasswordViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="a3l-mF-dYs"/>
                         <viewControllerLayoutGuide type="bottom" id="aAG-Zj-4p7"/>
@@ -41,8 +38,38 @@
                     <view key="view" contentMode="scaleToFill" id="gem-48-Jtc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="5Uv-71-TuC">
+                                <rect key="frame" x="66" y="310.5" width="243" height="45.5"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="xkZ-jD-ehb">
+                                        <rect key="frame" x="32" y="0.0" width="179" height="45.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contraseña" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="6bm-Ic-IOq">
+                                                <rect key="frame" x="0.0" y="0.0" width="179" height="45.5"/>
+                                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="38"/>
+                                                <color key="textColor" red="0.22978240250000001" green="0.1063450351" blue="0.49486315250000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="xkZ-jD-ehb" firstAttribute="leading" secondItem="5Uv-71-TuC" secondAttribute="leading" constant="32" id="cvU-RG-2rE"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="5Uv-71-TuC" secondAttribute="trailing" constant="50" id="7Fk-DN-QYL"/>
+                            <constraint firstItem="5Uv-71-TuC" firstAttribute="leading" secondItem="gem-48-Jtc" secondAttribute="leadingMargin" constant="50" id="H9Q-Fg-dLN"/>
+                            <constraint firstItem="5Uv-71-TuC" firstAttribute="centerY" secondItem="gem-48-Jtc" secondAttribute="centerY" id="HAz-qm-tne"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="stack" destination="5Uv-71-TuC" id="O7d-di-q6n"/>
+                        <outlet property="titleLbl" destination="6bm-Ic-IOq" id="AQo-44-EtA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xUv-Xp-jEM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

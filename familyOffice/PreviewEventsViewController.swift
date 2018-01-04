@@ -9,16 +9,24 @@
 import UIKit
 import RealmSwift
 
+
 class PreviewEventsViewController: UIViewController {
+    
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var tableView: UITableView!
     var contentWith: CGFloat = 0.0
     var events : Results<EventEntity>!
+    var eventSelected : EventEntity!
     override func viewDidLoad() {
         scrollView.isPagingEnabled = true
         super.viewDidLoad()
-
+        if traitCollection.forceTouchCapability == UIForceTouchCapability.available {
+            registerForPreviewing(with: self, sourceView: self.tableView)
+        }else{
+            print("NO SOPORTA 3D TOUCH")
+        }
+    
     }
 
     override func didReceiveMemoryWarning() {
@@ -64,12 +72,45 @@ class PreviewEventsViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         loadData()
     }
+  
+    
 }
 extension PreviewEventsViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let page = scrollView.contentOffset.x / scrollView.frame.size.width
         pageControl.currentPage = Int(page)
     }
+}
+extension PreviewEventsViewController: UIViewControllerPreviewingDelegate  {
+  
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        if let indexpath = self.tableView.indexPathForRow(at: location) {
+            eventSelected = events[indexpath.row]
+            let vc = self.getController(.eventDetails, eventSelected) as! EventDetailsViewController
+            let accept = UIPreviewAction(title: "Aceptar", style: .selected, handler: { (UIPreviewAction, UIViewController) in
+                vc.handleAction(vc.statusBtns[2])
+                vc.saveforthis(self)
+            })
+            let pending = UIPreviewAction(title: "Pendiente", style: .selected, handler: { (UIPreviewAction, UIViewController) in
+                vc.handleAction(vc.statusBtns[1])
+                vc.saveforthis(self)
+            })
+            let reject = UIPreviewAction(title: "Rechazar", style: .selected, handler: { (UIPreviewAction, UIViewController) in
+                vc.handleAction(vc.statusBtns[0])
+                vc.saveforthis(self)
+            })
+            vc.previewActions.append(contentsOf: [accept,pending,reject])
+            
+            return vc
+        }
+        return nil
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        self.pushToView(view: .eventDetails, sender: eventSelected)
+    }
+    
+    
 }
 extension PreviewEventsViewController : UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
