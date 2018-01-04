@@ -48,7 +48,7 @@ public final class UsersRow: OptionsRow<PushSelectorCell<UserListSelected>>, Pre
     /// Will be called before the presentation occurs.
     open var onPresentCallback: ((FormViewController, PresenterRow) -> Void)?
     
-    
+    open var familyId: String?
     
     public required init(tag: String?) {
         super.init(tag: tag)
@@ -119,8 +119,15 @@ public class UsersController : UIViewController, UITableViewDelegate, UITableVie
         let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
         let displayWidth: CGFloat = self.view.frame.width
         let displayHeight: CGFloat = self.view.frame.height
-            userList = row.value ?? UserListSelected()
+        userList = row.value ?? UserListSelected()
+        let myId = getUser()!.id
+        if !userList.list.contains(myId) {
+            userList.list.append(getUser()!.id)
+        }
         families = rManager.realm.objects(FamilyEntity.self)
+        if let row = row as? UsersRow, let fam = row.familyId {
+            families = families.filter("id == '\(fam)'")
+        }
         tableView = UITableView(frame: CGRect(x: 0, y: barHeight, width: displayWidth, height: displayHeight - barHeight))
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "usercell")
         let users = rManager.realm.objects(UserEntity.self)
@@ -172,6 +179,13 @@ public class UsersController : UIViewController, UITableViewDelegate, UITableVie
         }
         self.tableView.reloadData()
         
+    }
+    
+    public func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        let family = families[indexPath.section]
+        let familyMemberId = family.members[indexPath.row].value
+        if familyMemberId == getUser()!.id { return nil }
+        return indexPath
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -90,7 +90,7 @@ protocol GroupBindible: AnyObject, bind {
     var lastMsg: UILabel! {get}
     var msgTime: UILabel! {get}
     var unseen: UILabel! { get }
-    
+    var famName: UILabel! { get }
 }
 extension GroupBindible {
     var groupImg: UIImageView! {return nil}
@@ -98,6 +98,7 @@ extension GroupBindible {
     var lastMsg: UILabel! {return nil}
     var msgTime: UILabel! {return nil}
     var unseen: UILabel! { return nil }
+    var famName: UILabel! { return nil }
     
     func bind(sender: Any?) {
         if sender is GroupEntity {
@@ -174,6 +175,11 @@ extension GroupBindible {
                 unseen.text = "\(count)"
             } else {
                 unseen.alpha = 0
+            }
+        }
+        if let famName = famName {
+            if let fam = rManager.realm.objects(FamilyEntity.self).first(where: { $0.id == group.familyId }) {
+                famName.text = fam.name
             }
         }
     }

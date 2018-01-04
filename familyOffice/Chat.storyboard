@@ -237,36 +237,36 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NvB-0f-ElT">
-                                            <rect key="frame" x="0.0" y="0.0" width="80.5" height="80.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="81" height="81"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="NvB-0f-ElT" secondAttribute="height" multiplier="1:1" id="GUV-Me-KWy"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GroupName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="riN-Ra-RNm">
-                                            <rect key="frame" x="88" y="11" width="271" height="21"/>
+                                            <rect key="frame" x="89" y="11" width="159" height="21"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="21" id="K8y-7m-d8o"/>
+                                                <constraint firstAttribute="width" constant="159" id="P2t-bY-aKt"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gTd-CT-MMO">
-                                            <rect key="frame" x="88" y="40" width="271" height="14"/>
+                                            <rect key="frame" x="88" y="57" width="271" height="14"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="14" id="W8b-Lb-Wjo"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Np-Jp-UH2">
-                                            <rect key="frame" x="88.5" y="56" width="270.5" height="15"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="15" id="S6O-bD-mV1"/>
+                                                <constraint firstAttribute="height" constant="14" id="GIA-Q6-k2e"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" red="0.092073911130000005" green="0.72170343940000004" blue="0.95539512429999995" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Np-Jp-UH2">
+                                            <rect key="frame" x="89" y="37" width="270" height="15"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="15" id="rEV-18-a3I"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="efC-em-L03">
@@ -276,31 +276,43 @@
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fam" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EMN-Hp-hBh">
+                                            <rect key="frame" x="256" y="14" width="103" height="16"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="16" id="AZ7-PZ-k9R"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="efC-em-L03" secondAttribute="bottom" id="6KO-wp-AcP"/>
-                                        <constraint firstAttribute="bottom" secondItem="NvB-0f-ElT" secondAttribute="bottom" id="91L-jk-ION"/>
-                                        <constraint firstItem="gTd-CT-MMO" firstAttribute="trailing" secondItem="pUz-Cg-2BF" secondAttribute="trailingMargin" id="Cco-X1-kLV"/>
-                                        <constraint firstItem="efC-em-L03" firstAttribute="top" secondItem="pUz-Cg-2BF" secondAttribute="top" id="HtZ-cX-scH"/>
-                                        <constraint firstItem="NvB-0f-ElT" firstAttribute="top" secondItem="pUz-Cg-2BF" secondAttribute="top" id="Iht-Rv-1Mh"/>
-                                        <constraint firstItem="riN-Ra-RNm" firstAttribute="leading" secondItem="NvB-0f-ElT" secondAttribute="trailing" constant="8" id="VeU-C7-DVh"/>
-                                        <constraint firstItem="riN-Ra-RNm" firstAttribute="top" secondItem="pUz-Cg-2BF" secondAttribute="topMargin" id="YM6-WE-4bF"/>
-                                        <constraint firstItem="efC-em-L03" firstAttribute="leading" secondItem="pUz-Cg-2BF" secondAttribute="leading" id="YRd-Ww-FDB"/>
-                                        <constraint firstItem="1Np-Jp-UH2" firstAttribute="trailing" secondItem="pUz-Cg-2BF" secondAttribute="trailingMargin" id="Z7R-Zw-IXw"/>
-                                        <constraint firstItem="gTd-CT-MMO" firstAttribute="top" secondItem="riN-Ra-RNm" secondAttribute="bottom" constant="8" id="eWM-KE-ReP"/>
-                                        <constraint firstItem="riN-Ra-RNm" firstAttribute="leading" secondItem="efC-em-L03" secondAttribute="trailing" constant="8" id="jt5-OW-fVI"/>
-                                        <constraint firstItem="1Np-Jp-UH2" firstAttribute="top" secondItem="gTd-CT-MMO" secondAttribute="bottom" constant="2" id="lIE-cC-Tze"/>
-                                        <constraint firstItem="NvB-0f-ElT" firstAttribute="leading" secondItem="pUz-Cg-2BF" secondAttribute="leading" id="oBJ-bN-4tH"/>
-                                        <constraint firstItem="1Np-Jp-UH2" firstAttribute="leading" secondItem="NvB-0f-ElT" secondAttribute="trailing" constant="8" id="pHK-5b-lp3"/>
-                                        <constraint firstItem="gTd-CT-MMO" firstAttribute="leading" secondItem="NvB-0f-ElT" secondAttribute="trailing" constant="8" id="sJU-IN-ggD"/>
-                                        <constraint firstItem="riN-Ra-RNm" firstAttribute="trailing" secondItem="pUz-Cg-2BF" secondAttribute="trailingMargin" id="xzr-To-7cg"/>
+                                        <constraint firstItem="gTd-CT-MMO" firstAttribute="trailing" secondItem="pUz-Cg-2BF" secondAttribute="trailingMargin" id="37d-ig-B11"/>
+                                        <constraint firstItem="EMN-Hp-hBh" firstAttribute="trailing" secondItem="pUz-Cg-2BF" secondAttribute="trailingMargin" id="4R4-WC-pyh"/>
+                                        <constraint firstItem="EMN-Hp-hBh" firstAttribute="top" secondItem="pUz-Cg-2BF" secondAttribute="topMargin" constant="3" id="CKr-sg-kRU"/>
+                                        <constraint firstItem="NvB-0f-ElT" firstAttribute="bottom" secondItem="efC-em-L03" secondAttribute="bottom" id="ExC-dS-JRQ"/>
+                                        <constraint firstItem="EMN-Hp-hBh" firstAttribute="leading" secondItem="riN-Ra-RNm" secondAttribute="trailing" constant="8" id="GCK-WT-d6a"/>
+                                        <constraint firstAttribute="trailing" secondItem="1Np-Jp-UH2" secondAttribute="trailing" constant="16" id="GaK-Jr-Mty"/>
+                                        <constraint firstItem="NvB-0f-ElT" firstAttribute="top" secondItem="pUz-Cg-2BF" secondAttribute="top" id="OfQ-NJ-fYI"/>
+                                        <constraint firstItem="NvB-0f-ElT" firstAttribute="leading" secondItem="pUz-Cg-2BF" secondAttribute="leading" id="RNs-x4-09i"/>
+                                        <constraint firstItem="riN-Ra-RNm" firstAttribute="top" secondItem="pUz-Cg-2BF" secondAttribute="topMargin" id="Swr-9l-1O7"/>
+                                        <constraint firstItem="NvB-0f-ElT" firstAttribute="centerX" secondItem="efC-em-L03" secondAttribute="centerX" id="VN4-NK-M81"/>
+                                        <constraint firstItem="riN-Ra-RNm" firstAttribute="leading" secondItem="NvB-0f-ElT" secondAttribute="trailing" constant="8" id="WUW-Vk-zAb"/>
+                                        <constraint firstItem="NvB-0f-ElT" firstAttribute="leading" secondItem="efC-em-L03" secondAttribute="leading" id="cY1-JL-yxF"/>
+                                        <constraint firstItem="NvB-0f-ElT" firstAttribute="top" secondItem="efC-em-L03" secondAttribute="top" id="hal-u5-wvC"/>
+                                        <constraint firstItem="gTd-CT-MMO" firstAttribute="leading" secondItem="efC-em-L03" secondAttribute="trailing" constant="8" symbolic="YES" id="iSS-O7-Imd"/>
+                                        <constraint firstItem="1Np-Jp-UH2" firstAttribute="leading" secondItem="NvB-0f-ElT" secondAttribute="trailing" constant="8" symbolic="YES" id="wf9-Mh-fe3"/>
+                                        <constraint firstItem="NvB-0f-ElT" firstAttribute="centerY" secondItem="pUz-Cg-2BF" secondAttribute="centerY" id="wtb-aH-7fm"/>
+                                        <constraint firstItem="gTd-CT-MMO" firstAttribute="top" secondItem="1Np-Jp-UH2" secondAttribute="bottom" constant="5" id="xgI-Qi-rbd"/>
+                                        <constraint firstItem="1Np-Jp-UH2" firstAttribute="top" secondItem="riN-Ra-RNm" secondAttribute="bottom" constant="5" id="zYZ-4J-zLR"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="famName" destination="EMN-Hp-hBh" id="A03-Wv-n63"/>
                                     <outlet property="groupImg" destination="NvB-0f-ElT" id="FdX-ud-xsN"/>
                                     <outlet property="groupName" destination="riN-Ra-RNm" id="kfr-mC-FMz"/>
-                                    <outlet property="lastMsg" destination="gTd-CT-MMO" id="RZx-9M-VmC"/>
-                                    <outlet property="msgTime" destination="1Np-Jp-UH2" id="IU0-mX-1Cg"/>
+                                    <outlet property="lastMsg" destination="1Np-Jp-UH2" id="K1v-wt-hCG"/>
+                                    <outlet property="msgTime" destination="gTd-CT-MMO" id="HTx-cH-zJJ"/>
                                     <outlet property="unseen" destination="efC-em-L03" id="QK7-fg-GeX"/>
                                 </connections>
                             </tableViewCell>
