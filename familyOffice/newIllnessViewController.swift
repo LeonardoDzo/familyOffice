@@ -73,7 +73,7 @@ class NewIllnessViewController: UIViewController {
             print(self.illness)
             store.dispatch(UpdateIllnessAction(illness: self.illness))
         }else{
-            self.illness = Illness(name: iName, medicine: iMedicine, dosage: iDosage, moreInfo: iMoreInfo)
+            self.illness = Illness(name: iName, medicine: iMedicine, dosage: iDosage, moreInfo: iMoreInfo, type: 0)
             store.dispatch(InsertIllnessAction(illness: self.illness))
         }
         

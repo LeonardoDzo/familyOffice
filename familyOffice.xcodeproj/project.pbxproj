@@ -361,6 +361,8 @@
 		C335EC941FE8E5A000FAB884 /* InsurancesPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C335EC931FE8E5A000FAB884 /* InsurancesPolicyViewController.swift */; };
 		C335EC961FEAF45E00FAB884 /* SafeboxPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C335EC951FEAF45E00FAB884 /* SafeboxPasswordViewController.swift */; };
 		C370FA7D1FE050B50041955C /* SafeBoxFileEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370FA7C1FE050B50041955C /* SafeBoxFileEntity.swift */; };
+		C3F8834E1FFD7443003DA359 /* FirstAidKitMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F8834D1FFD7443003DA359 /* FirstAidKitMainViewController.swift */; };
+		C3F883501FFD7468003DA359 /* FirstAidKitCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F8834F1FFD7468003DA359 /* FirstAidKitCell.swift */; };
 		E79B83E3D41E585C918BF70E /* Pods_familyOfficeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD19817A770CBDB00B3EEA4E /* Pods_familyOfficeUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -749,6 +751,8 @@
 		C335EC931FE8E5A000FAB884 /* InsurancesPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsurancesPolicyViewController.swift; sourceTree = "<group>"; };
 		C335EC951FEAF45E00FAB884 /* SafeboxPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeboxPasswordViewController.swift; sourceTree = "<group>"; };
 		C370FA7C1FE050B50041955C /* SafeBoxFileEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeBoxFileEntity.swift; sourceTree = "<group>"; };
+		C3F8834D1FFD7443003DA359 /* FirstAidKitMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstAidKitMainViewController.swift; sourceTree = "<group>"; };
+		C3F8834F1FFD7468003DA359 /* FirstAidKitCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstAidKitCell.swift; sourceTree = "<group>"; };
 		DC93B265672C16B76DC460C5 /* Pods-familyOfficeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-familyOfficeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-familyOfficeUITests/Pods-familyOfficeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		ED81E71591D6C8DF115F8C7C /* Pods-familyOfficeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-familyOfficeUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-familyOfficeUITests/Pods-familyOfficeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F751F4D4C559739C01888513 /* Pods-familyOfficeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-familyOfficeTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-familyOfficeTests/Pods-familyOfficeTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1679,6 +1683,7 @@
 				A45EDE3D1FD0728F00D95A48 /* _old */,
 				A4E650CE1FD7198C00332879 /* NewIllnessFormController.swift */,
 				A457D0A61FD87CB2007E6FED /* IllnessViewController.swift */,
+				C3F8834D1FFD7443003DA359 /* FirstAidKitMainViewController.swift */,
 			);
 			name = FirstAidKit;
 			sourceTree = "<group>";
@@ -1874,6 +1879,7 @@
 			isa = PBXGroup;
 			children = (
 				A4C43C1B1FDF15EE00FECA82 /* FirstAidTableViewCell.swift */,
+				C3F8834F1FFD7468003DA359 /* FirstAidKitCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -2643,6 +2649,7 @@
 				A45EDE461FD080B600D95A48 /* MedicineEntity.swift in Sources */,
 				02C17D271E424AD400EE7CFA /* ActivityLogService .swift in Sources */,
 				A4E650CF1FD7198C00332879 /* NewIllnessFormController.swift in Sources */,
+				C3F883501FFD7468003DA359 /* FirstAidKitCell.swift in Sources */,
 				8B18D7B61F4395CD00E2B3F5 /* PendingQuestionsTableViewController.swift in Sources */,
 				0215F4EA1E3FCDD400AC01D3 /* PersonalDataTableViewCell.swift in Sources */,
 				A45EDE4A1FD09C4900D95A48 /* IllnessAction.swift in Sources */,
@@ -2694,6 +2701,7 @@
 				849C4A921E6DEA5D0065CFBD /* HeaderHomeView.swift in Sources */,
 				949B52141F203DAA001C7ABA /* MedicineActions.swift in Sources */,
 				84D51B1D1EA6ACE3006829F7 /* Section.swift in Sources */,
+				C3F8834E1FFD7443003DA359 /* FirstAidKitMainViewController.swift in Sources */,
 				A49216351FE9B8150013360A /* UITableView.swift in Sources */,
 				02F537BD1FD5C90900F916AD /* familyTableViewCell.swift in Sources */,
 				02D845DC1FE316430086DD0C /* memberEntityCollectionCell.swift in Sources */,

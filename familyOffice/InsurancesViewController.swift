@@ -71,7 +71,7 @@ extension InsurancesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if self.insurances[indexPath.row].downloadUrl != "" {
+        if insurances[indexPath.row].downloadUrl != "" {
             self.performSegue(withIdentifier: "policyPreview", sender: self.insurances[indexPath.row])
         }
     }
@@ -81,11 +81,10 @@ extension InsurancesViewController: UITableViewDelegate, UITableViewDataSource {
         let insurance = self.insurances[indexPath.row]
         cell.nameLbl.text = insurance.name
         cell.policyLbl.text = "Póliza: \(insurance.policy!)"
-        cell.telephoneLbl.text = "Teléfono: \(insurance.telephone!)"
+        cell.phoneTextView.text = "\(insurance.telephone!)"
+        
         cell.attachment.image =  cell.attachment.image?.imageWithColor(tintColor: #colorLiteral(red: 0.07450980392, green: 0.3215686275, blue: 0.2039215686, alpha: 1))
         cell.attachment.isHidden = insurance.downloadUrl == ""
-        
-        cell.isUserInteractionEnabled = false
         
         return cell
     }

@@ -44,7 +44,7 @@ class IndexViewController: UIViewController, UICollectionViewDataSource,UINaviga
         
         // Do any additional setup after loading the view.
         let nav = self.navigationController?.navigationBar
-        nav?.barTintColor = #colorLiteral(red: 0.9598663449, green: 0.7208504081, blue: 0.1197796389, alpha: 1)
+        self.setStyle(.safebox)
         tabBar.tintColor = #colorLiteral(red: 0.9598663449, green: 0.7208504081, blue: 0.1197796389, alpha: 1)
         self.title = "Caja fuerte"
         nav?.titleTextAttributes = [NSAttributedStringKey.foregroundColor:#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)]
