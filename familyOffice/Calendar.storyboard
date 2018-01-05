@@ -412,6 +412,16 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="animation" value="fadeIn"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aEH-8r-gR6" customClass="UIButtonX" customModule="familyOffice" customModuleProvider="target">
+                                <rect key="frame" x="313" y="9" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Editar">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="handleEdit:" destination="gW0-tS-mt1" eventType="touchUpInside" id="xfL-5q-x1Z"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -458,7 +468,7 @@
         <!--Event View Controller-->
         <scene sceneID="VXx-Zl-PSE">
             <objects>
-                <viewController storyboardIdentifier="EventViewController" id="jDm-vK-KNL" customClass="EventViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EventViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jDm-vK-KNL" customClass="EventViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7DM-I5-Y4v"/>
                         <viewControllerLayoutGuide type="bottom" id="H2g-Tn-o43"/>

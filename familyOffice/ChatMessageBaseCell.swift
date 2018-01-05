@@ -43,7 +43,7 @@ class ChatMessageBaseCell: UITableViewCell {
             return
         }
         let mine = user.id == getUser()!.id
-        let userIndex = group.members.index(matching: "id == '\(user.id)'")!
+        let userIndex = group.members.index(matching: "id == '\(user.id)'") ?? 0
         msgTextLabel.text = message.text
         timeLabel.text = message.timestamp.string(with: DateFormatter.hourAndMin)
         userName.textColor = UIColor.black

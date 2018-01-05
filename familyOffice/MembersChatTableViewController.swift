@@ -9,19 +9,22 @@
 import UIKit
 import ReSwift
 class MembersChatTableViewController: UITableViewController {
+    
+    let user = getUser()!
     var group : GroupEntity! = nil
-    var family : FamilyEntity!
-    var members = [String]()
     
     fileprivate func loadFamily() {
-        family = rManager.realm.object(ofType: FamilyEntity.self, forPrimaryKey: getUser()?.familyActive)
-        if family != nil {
-            family.members.forEach({ (rs) in
-                store.dispatch(UserS(.getbyId(uid: rs.value)))
-            })
-        }
-        members = family.members.filter({$0.value != getUser()?.id}).map({ (rs) -> String in
-            return rs.value
+        var membersIds = Set<String>()
+        membersIds.insert(user.id)
+        user.families.forEach({ famId in
+            if let family = rManager.realm.object(ofType: FamilyEntity.self, forPrimaryKey: famId.value) {
+                family.members.forEach({ (rs) in
+                    if !membersIds.contains(rs.value) {
+                        store.dispatch(UserS(.getbyId(uid: rs.value)))
+                        membersIds.insert(rs.value)
+                    }
+                })
+            }
         })
         self.tableView.reloadData()
     }
@@ -41,23 +44,33 @@ class MembersChatTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return user.families.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return members.count
+        let famId = user.families[section].value
+        let fam = rManager.realm.objects(FamilyEntity.self).first(where: { $0.id == famId })
+        return (fam?.members.count ?? 1) - 1
     }
-
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let famId = user.families[section].value
+        let fam = rManager.realm.objects(FamilyEntity.self).first(where: { $0.id == famId })
+        return fam?.name
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! MemberTableViewCell
         
-        let uid = members[indexPath.row]
+        cell.titleLbl.text = "Cargando ..."
+        let famId = user.families[indexPath.section].value
+        guard let fam = rManager.realm.objects(FamilyEntity.self).first(where: { $0.id == famId }) else {
+            return cell
+        }
+        let uid = fam.members.filter("value != '\(user.id)'")[indexPath.row].value
         if let user = rManager.realm.object(ofType: UserEntity.self, forPrimaryKey: uid) {
             cell.bind(sender: user)
-        }else{
-            cell.titleLbl.text = "Cargando ..."
         }
 
         return cell
@@ -66,11 +79,15 @@ class MembersChatTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let uid = members[indexPath.row]
+        let famId = user.families[indexPath.section].value
+        guard let fam = rManager.realm.objects(FamilyEntity.self).first(where: { $0.id == famId }) else {
+            return
+        }
+        let uid = fam.members.filter("value != '\(user.id)'")[indexPath.row].value
         group = rManager.realm.objects(GroupEntity.self).first { group in
             if !group.isGroup {
                 var flag = false
-                flag = group.members.contains(where: {$0.id == getUser()?.id}) && group.members.contains(where: {$0.id == uid})
+                flag = group.members.contains(where: {$0.id == user.id}) && group.members.contains(where: {$0.id == uid})
                 return flag
             }
             return false
@@ -78,11 +95,11 @@ class MembersChatTableViewController: UITableViewController {
         if group == nil {
             group = GroupEntity()
      
-            let myId = getUser()!.id
+            let myId = user.id
             group?.id = "\(uid < myId ? uid : myId)-\(uid < myId ? myId : uid)"
             group?.members.append(TimestampEntity(value: [uid, Date()]))
             group?.members.append(TimestampEntity(value: [myId, Date()]))
-            group?.familyId = family.id
+            group?.familyId = famId
             group?.isGroup = false
             store.dispatch(createGroupAction(group: group, uuid: group.id))
         }else{

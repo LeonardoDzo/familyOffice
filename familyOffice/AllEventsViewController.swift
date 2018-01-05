@@ -14,13 +14,18 @@ class AllEventsViewController: UIViewController {
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var tableView: UITableView!
     var events : Results<EventEntity>!
-    
+    var eventSelected: EventEntity!
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.calendar.select(calendar.today, scrollToDate: true)
         calendar(calendar, didSelect: Date(), at: .next)
         calendar.setCurrentPage(calendar.today!, animated: true)
+        if traitCollection.forceTouchCapability == UIForceTouchCapability.available {
+            registerForPreviewing(with: self, sourceView: self.tableView)
+        }else{
+            print("NO SOPORTA 3D TOUCH")
+        }
         // Do any additional setup after loading the view.
     }
 
@@ -54,6 +59,37 @@ extension AllEventsViewController : UITableViewDataSource, UITableViewDelegate {
         self.pushToView(view: .eventDetails, sender: event)
     }
 }
+extension AllEventsViewController: UIViewControllerPreviewingDelegate  {
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        if let indexpath = self.tableView.indexPathForRow(at: location) {
+            eventSelected = events[indexpath.row]
+            let vc = self.getController(.eventDetails, eventSelected) as! EventDetailsViewController
+            let accept = UIPreviewAction(title: "Aceptar", style: .selected, handler: { (UIPreviewAction, UIViewController) in
+                vc.handleAction(vc.statusBtns[2])
+                vc.saveforthis(self)
+            })
+            let pending = UIPreviewAction(title: "Pendiente", style: .selected, handler: { (UIPreviewAction, UIViewController) in
+                vc.handleAction(vc.statusBtns[1])
+                vc.saveforthis(self)
+            })
+            let reject = UIPreviewAction(title: "Rechazar", style: .selected, handler: { (UIPreviewAction, UIViewController) in
+                vc.handleAction(vc.statusBtns[0])
+                vc.saveforthis(self)
+            })
+            vc.previewActions.append(contentsOf: [accept,pending,reject])
+            
+            return vc
+        }
+        return nil
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        self.pushToView(view: .eventDetails, sender: eventSelected)
+    }
+    
+    
+}
 extension AllEventsViewController : FSCalendarDelegate, FSCalendarDataSource {
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
         self.view.layoutIfNeeded()
@@ -84,6 +120,6 @@ extension AllEventsViewController : FSCalendarDelegate, FSCalendarDataSource {
         let todayDate =  Date(string: date.string(with: .ddMMMyyyy), formatter: .ddMMMyyyy)
         let today = todayDate?.toMillis()
         let todayend = todayDate?.addingTimeInterval(23*60*60).toMillis()
-        return rManager.realm.objects(EventEntity.self).filter("startdate >= %@ AND startdate <= %@",today ?? 0, todayend ?? 0)
+        return rManager.realm.objects(EventEntity.self).filter("startdate >= %@ AND enddate <= %@",today ?? 0, todayend ?? 0)
     }
 }

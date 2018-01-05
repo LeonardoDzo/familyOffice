@@ -43,6 +43,7 @@ extension StyleNavBar {
 
 
 extension UIViewController {
+   
     
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
@@ -61,6 +62,7 @@ extension UIViewController {
               self.navigationController?.navigationBar.tintColor = value.1
         }
     }
+
     
     func setupButtonback() -> Void {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
@@ -172,9 +174,7 @@ extension UIViewController {
         
         self.present(viewcontroller, animated: true, completion: nil)
     }
-    
-    
-    func pushToView(view: RoutingDestination, sender: Any? = nil) -> Void {
+    func getController(_ view: RoutingDestination, _ sender: Any? = nil) -> UIViewController? {
         let mainStoryboard: UIStoryboard = UIStoryboard(name: view.getStoryBoard(), bundle: nil)
         let viewcontroller : UIViewController = mainStoryboard.instantiateViewController(withIdentifier: view.rawValue)
         
@@ -187,12 +187,12 @@ extension UIViewController {
         case let vc as FamilyViewController:
             var family : Family
             if sender == nil {
-                return
+                return nil
             }else{
                 family = sender as! Family
             }
             vc.bind(fam: family)
-        break
+            break
         case let vc as ChatGroupViewController:
             if sender is  GroupEntity {
                 vc.group = sender as! GroupEntity
@@ -202,14 +202,21 @@ extension UIViewController {
             break
         }
         
-        if let nav = self.navigationController {
-            nav.pushViewController(viewcontroller, animated: true)
-        }else{
-            let targetViewController = viewcontroller // this is that controller, that you want to be embedded in navigation controller
-            let targetNavigationController = UINavigationController(rootViewController: targetViewController)
-            
-            self.present(targetNavigationController, animated: true, completion: nil)
+        return viewcontroller
+    }
+    
+    func pushToView(view: RoutingDestination, sender: Any? = nil) -> Void {
+        if let viewcontroller = getController(view, sender) {
+            if let nav = self.navigationController {
+                nav.pushViewController(viewcontroller, animated: true)
+            }else{
+                let targetViewController = viewcontroller // this is that controller, that you want to be embedded in navigation controller
+                let targetNavigationController = UINavigationController(rootViewController: targetViewController)
+                
+                self.present(targetNavigationController, animated: true, completion: nil)
+            }
         }
+        
     }
     func popToView(view: RoutingDestination, sender: Any? = nil) -> Void {
         
