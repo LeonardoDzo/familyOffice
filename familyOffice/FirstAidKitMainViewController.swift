@@ -14,9 +14,11 @@ class FirstAidKitMainViewController: UIViewController {
     var illnesses: [IllnessEntity] = []
     var getIllnessUuid: String?
     let user = getUser()
-    
     @IBOutlet weak var tabBar: UITabBar!
     @IBOutlet weak var tableView: UITableView!
+    var rowActions: [UITableViewRowAction]!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         hideKeyboardWhenTappedAround()
@@ -28,9 +30,15 @@ class FirstAidKitMainViewController: UIViewController {
         tabBar.selectedItem = tabBar.items![0]
         tabBar.tintColor = #colorLiteral(red: 0.5490196078, green: 0.5294117647, blue: 0.7843137255, alpha: 1)
         
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.handleNew))
+        let editButton = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(self.showEditing))
         
-        self.navigationItem.rightBarButtonItems = [addButton]
+        self.navigationItem.rightBarButtonItem = editButton
+        
+        tableView.allowsSelectionDuringEditing = true
+        rowActions = [
+            UITableViewRowAction(style: .normal, title: "Editar", handler: {_, i in self.edit(i)}),
+            UITableViewRowAction(style: .destructive, title: "Eliminar", handler: {_, i in self.remove(i)})
+        ]
 
         // Do any additional setup after loading the view.
     }
@@ -40,11 +48,41 @@ class FirstAidKitMainViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @objc func showEditing(sender: UIBarButtonItem)
+    {
+        if(self.tableView.isEditing)
+        {
+            self.tableView.setEditing(false, animated: true)
+            self.navigationItem.rightBarButtonItem?.title = "Editar"
+        }
+        else
+        {
+            self.tableView.setEditing(true, animated: true)
+            self.navigationItem.rightBarButtonItem?.title = "Listo"
+        }
+    }
+    
     func handleNew(){
         let ctrl = NewIllnessFormController()
         ctrl.entity = IllnessEntity()
         ctrl.action = .Create
         show(ctrl, sender: self)
+    }
+    
+    func edit(_ indexPath: IndexPath) {
+        print("??")
+        let ctrl = NewIllnessFormController()
+        ctrl.action = .Update
+        ctrl.entity = illnesses[indexPath.row]
+        show(ctrl, sender: self)
+        tableView.setEditing(false, animated: true)
+        self.navigationItem.rightBarButtonItem?.title = "Edit"
+    }
+    
+    func remove(_ indexPath: IndexPath) {
+        let entity = illnesses.remove(at: indexPath.row)
+        store.dispatch(removeIllnessAction(illness: entity, uuid: UUID().uuidString))
+        
     }
     
     func setIllnesses() {
@@ -53,15 +91,19 @@ class FirstAidKitMainViewController: UIViewController {
     }
     
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "details"{
+            if let illness = sender as? IllnessEntity {
+                let vc = segue.destination as! FirstAidKitDetailsViewController
+                vc.illness = illness
+            }
+        }
     }
-    */
+ 
 
 }
 
@@ -75,7 +117,19 @@ extension FirstAidKitMainViewController: UITableViewDelegate, UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        if tableView.isEditing {
+            edit(indexPath)
+        } else {
+            self.performSegue(withIdentifier: "details", sender: self.illnesses[indexPath.row] )
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        return tableView.isEditing ? rowActions : [rowActions[1]]
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -187,6 +241,9 @@ extension FirstAidKitMainViewController: UITabBarDelegate {
         case 1, 2:
             self.illnesses = rManager.realm.objects(IllnessEntity.self).filter("family == '\((self.user?.familyActive)!)'").map({$0}).filter({$0.type == item.tag - 1})
             break
+        case 3:
+            self.handleNew()
+            tabBar.selectedItem = tabBar.items![0]
         default: break
         }
         self.tableView.reloadData()

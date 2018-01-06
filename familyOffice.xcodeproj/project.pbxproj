@@ -360,6 +360,8 @@
 		C335EC921FE86AEF00FAB884 /* InsuranceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C335EC911FE86AEF00FAB884 /* InsuranceCell.swift */; };
 		C335EC941FE8E5A000FAB884 /* InsurancesPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C335EC931FE8E5A000FAB884 /* InsurancesPolicyViewController.swift */; };
 		C335EC961FEAF45E00FAB884 /* SafeboxPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C335EC951FEAF45E00FAB884 /* SafeboxPasswordViewController.swift */; };
+		C3635AE120001BDB00C8C35B /* MedicineTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3635AE020001BDB00C8C35B /* MedicineTagCell.swift */; };
+		C365A94C1FFFF3AB00AB76BB /* FirstAidKitDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C365A94B1FFFF3AB00AB76BB /* FirstAidKitDetailsViewController.swift */; };
 		C370FA7D1FE050B50041955C /* SafeBoxFileEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C370FA7C1FE050B50041955C /* SafeBoxFileEntity.swift */; };
 		C3F8834E1FFD7443003DA359 /* FirstAidKitMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F8834D1FFD7443003DA359 /* FirstAidKitMainViewController.swift */; };
 		C3F883501FFD7468003DA359 /* FirstAidKitCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F8834F1FFD7468003DA359 /* FirstAidKitCell.swift */; };
@@ -750,6 +752,8 @@
 		C335EC911FE86AEF00FAB884 /* InsuranceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsuranceCell.swift; sourceTree = "<group>"; };
 		C335EC931FE8E5A000FAB884 /* InsurancesPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsurancesPolicyViewController.swift; sourceTree = "<group>"; };
 		C335EC951FEAF45E00FAB884 /* SafeboxPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeboxPasswordViewController.swift; sourceTree = "<group>"; };
+		C3635AE020001BDB00C8C35B /* MedicineTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicineTagCell.swift; sourceTree = "<group>"; };
+		C365A94B1FFFF3AB00AB76BB /* FirstAidKitDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstAidKitDetailsViewController.swift; sourceTree = "<group>"; };
 		C370FA7C1FE050B50041955C /* SafeBoxFileEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeBoxFileEntity.swift; sourceTree = "<group>"; };
 		C3F8834D1FFD7443003DA359 /* FirstAidKitMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstAidKitMainViewController.swift; sourceTree = "<group>"; };
 		C3F8834F1FFD7468003DA359 /* FirstAidKitCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstAidKitCell.swift; sourceTree = "<group>"; };
@@ -1684,6 +1688,7 @@
 				A4E650CE1FD7198C00332879 /* NewIllnessFormController.swift */,
 				A457D0A61FD87CB2007E6FED /* IllnessViewController.swift */,
 				C3F8834D1FFD7443003DA359 /* FirstAidKitMainViewController.swift */,
+				C365A94B1FFFF3AB00AB76BB /* FirstAidKitDetailsViewController.swift */,
 			);
 			name = FirstAidKit;
 			sourceTree = "<group>";
@@ -1880,6 +1885,7 @@
 			children = (
 				A4C43C1B1FDF15EE00FECA82 /* FirstAidTableViewCell.swift */,
 				C3F8834F1FFD7468003DA359 /* FirstAidKitCell.swift */,
+				C3635AE020001BDB00C8C35B /* MedicineTagCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -2481,6 +2487,7 @@
 				022EC1D21E20078C0096A18B /* Family.swift in Sources */,
 				940964181F28138A00FB1F3A /* FaqState.swift in Sources */,
 				A4EABA2C1E95626500D0D54E /* HealthMemberCollectionViewCell.swift in Sources */,
+				C3635AE120001BDB00C8C35B /* MedicineTagCell.swift in Sources */,
 				941B59FB1F213C3D0078EF9C /* FirstAidKitCellView.swift in Sources */,
 				949B52121F202D1D001C7ABA /* IllnessState.swift in Sources */,
 				024BCA831E6F237900736F1A /* Proccess.swift in Sources */,
@@ -2691,6 +2698,7 @@
 				848130161E85ECAD008B08B8 /* Styles.swift in Sources */,
 				02EABF591E312B67008A7CA9 /* FamilyCollectionViewCell.swift in Sources */,
 				02D845CC1FE2FFA00086DD0C /* DesignableView.swift in Sources */,
+				C365A94C1FFFF3AB00AB76BB /* FirstAidKitDetailsViewController.swift in Sources */,
 				02C71A4C1F1E99840017BB4C /* FamilyList.swift in Sources */,
 				8421167C1E2860C000C6BD80 /* textFieldStyleController.swift in Sources */,
 				8BE66E281F5093CE003AC45C /* FolderTableViewCell.swift in Sources */,

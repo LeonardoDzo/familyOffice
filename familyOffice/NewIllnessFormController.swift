@@ -18,8 +18,10 @@ class NewIllnessFormController: FormViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(entity)
         // done button
         if let illness = entity as? IllnessEntity {
+            print(illness)
             let doneButton = UIBarButtonItem(title: "Guardar", style: UIBarButtonItemStyle.plain, target: self, action:#selector(self.saveIllness))
             self.navigationItem.rightBarButtonItem = doneButton
             form +++ Section()
@@ -31,9 +33,11 @@ class NewIllnessFormController: FormViewController {
                     $0.title = "Tipo"
                     $0.selectorTitle = "Selecciona el tipo"
                     $0.options = ["Dolor","Enfermedad"]
-                    $0.value = illness.type > 1 ? "Enfermedad" : illness.type == 0 ? "Dolor" : ""
+                    $0.value = illness.type == 1 ? "Enfermedad" : illness.type == 0 ? "Dolor" : ""
                     }.onChange({ (row) in
-                        illness.type = row.value == "Enfermedad" ? 1 : 0
+                        try! rManager.realm.write {
+                            illness.type = row.value == "Enfermedad" ? 1 : 0
+                        }
                     })
         } else if let medicine = entity as? MedicineEntity {
             let doneButton = UIBarButtonItem(title: "Guardar", style: UIBarButtonItemStyle.plain, target: self, action:#selector(self.saveMedicine))
