@@ -154,11 +154,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5xE-j0-eQx">
+                                <rect key="frame" x="33" y="131" width="1" height="434"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cmX-n6-WFh">
                                 <rect key="frame" x="46" y="144" width="313" height="156"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="M" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="74N-8e-Uj7">
@@ -196,26 +201,26 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="VJa-iD-bKa">
-                                    <size key="itemSize" width="137" height="52"/>
+                                    <size key="itemSize" width="238" height="27"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="medicine" id="wRM-yr-7M7" customClass="MedicineTagCell" customModule="familyOffice" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="137" height="52"/>
+                                        <rect key="frame" x="34.5" y="0.0" width="238" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="137" height="52"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="238" height="27"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" minimumFontSize="8" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eIq-YC-yJN">
-                                                    <rect key="frame" x="5" y="7" width="128" height="37"/>
+                                                    <rect key="frame" x="5" y="7" width="229" height="12.5"/>
                                                     <attributedString key="attributedText">
                                                         <fragment content="Label">
                                                             <attributes>
                                                                 <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <font key="NSFont" size="29" name=".AppleSystemUIFont"/>
+                                                                <font key="NSFont" size="19" name=".AppleSystemUIFont"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
@@ -226,7 +231,6 @@
                                         </view>
                                         <color key="backgroundColor" red="0.50196078431372548" green="0.81960784313725488" blue="0.70980392156862748" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstItem="eIq-YC-yJN" firstAttribute="centerX" secondItem="wRM-yr-7M7" secondAttribute="centerX" id="7TS-fx-aVr"/>
                                             <constraint firstItem="eIq-YC-yJN" firstAttribute="top" secondItem="wRM-yr-7M7" secondAttribute="top" constant="7.5" id="Bwo-qL-SDr"/>
                                             <constraint firstAttribute="bottom" secondItem="eIq-YC-yJN" secondAttribute="bottom" constant="7.5" id="i5S-0c-qas"/>
                                             <constraint firstAttribute="trailing" secondItem="eIq-YC-yJN" secondAttribute="trailing" constant="4" id="ioI-Cb-tXJ"/>

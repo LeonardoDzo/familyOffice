@@ -80,8 +80,17 @@ class FirstAidKitMainViewController: UIViewController {
     }
     
     func remove(_ indexPath: IndexPath) {
-        let entity = illnesses.remove(at: indexPath.row)
-        store.dispatch(removeIllnessAction(illness: entity, uuid: UUID().uuidString))
+        let alert = UIAlertController(title: "Eliminar", message: "¿Estás seguro que deseas eliminar \(self.illnesses[indexPath.row].name)?", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Eliminar", style: .destructive, handler: { (action) in
+            let entity = self.illnesses.remove(at: indexPath.row)
+            store.dispatch(removeIllnessAction(illness: entity, uuid: UUID().uuidString))
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
+        
         
     }
     

@@ -22,6 +22,7 @@ class FirstAidKitDetailsViewController: UIViewController {
         self.title = illness.name
         
         self.descriptionLbl.text = illness.dosage
+        self.descriptionLbl.sizeToFit()
 
         // Do any additional setup after loading the view.
     }
@@ -61,16 +62,14 @@ extension FirstAidKitDetailsViewController: UICollectionViewDelegate, UICollecti
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "medicine", for: indexPath) as! MedicineTagCell
         cell.nameLbl.adjustsFontSizeToFitWidth = true
         cell.nameLbl.text = labels[indexPath.row].uppercased()
+        cell.nameLbl.sizeToFit()
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let label = UILabel(text: self.labels[indexPath.row].uppercased())
-        label.sizeToFit()
-        let width = label.frame.width
-        print("\(label.text), \(width)")
-        return CGSize(width: width, height: 42)
-    }
-    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        let width = self.labels[indexPath.row].size(OfFont: UIFont.systemFont(ofSize: 22)).width
+//        print("width para una celda: \(width)")
+//        return CGSize(width: width, height: 42)
+//    }
     
 }

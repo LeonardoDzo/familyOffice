@@ -54,6 +54,7 @@ class InsurancesViewController: UIViewController {
         if segue.identifier == "policyPreview" {
             let insurance = sender as! Insurance
             let vc = segue.destination as! InsurancesPolicyViewController
+            vc.title = insurance.name!
             vc.insurance = insurance
         }
     }

@@ -28,7 +28,6 @@ class NewIllnessFormController: FormViewController {
                 <<< createTextRow(title: "Nombre", tag: "name", value: illness.name)
                 <<< createTextRow(title: "Dosis", tag: "dosage", value: illness.dosage)
                 <<< createTextRow(title: "Medicina", tag: "medicine", value: illness.medicine)
-//                <<< createTextRow(title: "Mas información", tag: "moreInfo", value: illness.moreInfo)
                 <<< AlertRow<String>() {
                     $0.title = "Tipo"
                     $0.selectorTitle = "Selecciona el tipo"
