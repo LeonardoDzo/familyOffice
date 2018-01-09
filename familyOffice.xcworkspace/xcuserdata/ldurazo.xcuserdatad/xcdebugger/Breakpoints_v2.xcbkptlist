@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "familyOffice/UserS.swift"
-            timestampString = "535392863.425415"
+            timestampString = "537222086.9751821"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "150"
@@ -154,13 +154,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "familyOffice/ChatGroupsTableViewController.swift"
-            timestampString = "535258711.068406"
+            timestampString = "537222086.975382"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "159"
             endingLineNumber = "159"
-            landmarkName = "viewWillDisappear(_:)"
-            landmarkType = "7">
+            landmarkName = "ChatGroupsTableViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -175,7 +175,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "68"
             endingLineNumber = "68"
-            landmarkName = "bind(sender:)"
+            landmarkName = "toJSON()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

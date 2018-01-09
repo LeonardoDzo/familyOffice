@@ -28,7 +28,7 @@ class NotificationViewController: UIViewController {
             rManager.saveObjects(objs: notificationarray)
         }
         tableView.tableFooterView = UIView()
-        notifications = rManager.realm.objects(NotificationModel.self).sorted(byKeyPath: "timestamp", ascending: false)
+        notifications = rManager.realm.objects(NotificationModel.self).filter("type != %@", Notification_Type.chat.rawValue).sorted(byKeyPath: "timestamp", ascending: false)
         
         if notifications.count == 0 {
             let imageView = UIImageViewX()
@@ -94,6 +94,32 @@ extension NotificationViewController : UITableViewDataSource, UITableViewDelegat
             notification.seen = true
             self.tableView.reloadRows(at: [indexPath], with: .fade)
         }
+        rManager.save(objs: notification)
+        gotoNotification(notification)
+        
     }
 }
 
+
+func gotoNotification(_ not: NotificationModel) -> Void {
+    var route: RoutingDestination!
+    var sender: Any!
+    
+    switch not.type {
+        case .chat:
+            if let group = rManager.realm.object(ofType: GroupEntity.self, forPrimaryKey: not.value) {
+                sender = group
+                route = .chat
+            }
+            break
+        default:
+            break
+    }
+    if route != nil {
+        if let top =  UIApplication.topViewController() {
+            pendingNotification = nil
+            top.pushToView(view: route,  sender: sender)
+        }
+    }
+    
+}

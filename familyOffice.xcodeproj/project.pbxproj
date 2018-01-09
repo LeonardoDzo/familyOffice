@@ -1248,8 +1248,8 @@
 		0290591F1E78B9AA005F760C /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				C335EC7B1FE82E6700FAB884 /* Insurance */,
 				0275ADF31FD725220048B3FB /* HomeCollectionViewController.swift */,
+				C335EC7B1FE82E6700FAB884 /* Insurance */,
 				949B520A1F202C9B001C7ABA /* FirstAidKit */,
 				84CCA3971F1B688D00B1C9D0 /* Faqs */,
 				94FF53541F17E51E001D9EE4 /* todolist */,

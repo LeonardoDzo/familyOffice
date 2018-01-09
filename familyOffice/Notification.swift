@@ -164,6 +164,8 @@ class NotificationModel : Object {
             return .event
         case  "family":
             return .family
+        case "chat":
+            return .chat
         default:
             return .none
         }

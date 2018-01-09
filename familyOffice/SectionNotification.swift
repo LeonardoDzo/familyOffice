@@ -14,10 +14,8 @@ struct SectionNotification {
     var record : [NotificationModel] = []
     
     init(date: String, record: Array<NotificationModel>) {
-        
         self.date = date
         self.record = record
-        
     }
     
     
