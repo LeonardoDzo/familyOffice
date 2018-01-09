@@ -75,24 +75,13 @@ class ChatGroupsTableViewController: UITableViewController {
 //            group = groups.filter({ $0.familyId == fam })[indexPath.row]
 //        }
         cell.bind(sender: group)
-//        guard let msgId = group.lastMessage else {
-//            cell.bind(group: group)
-//            return cell
-//        }
-//        let msgResult = lastMessages[msgId]
-//        var msg: MessageEntity? = nil
-//        switch msgResult {
-//        case nil:
-//            lastMessages[msgId] = .loading
-//            store.dispatch(getMessageAction(messageId: msgId, uuid: msgId))
-//            break
-//        case .Finished(let m)?:
-//            msg = m
-//            break
-//        default: break
-//        }
-//        // Configure the cell...
-//        cell.bind(group: group, lastMessage: msg)
+        guard let msgId = group.lastMessage else {
+            return cell
+        }
+        if lastMessages[msgId] == nil {
+            lastMessages[msgId] = .loading
+            store.dispatch(getMessageAction(messageId: msgId, uuid: msgId))
+        }
         return cell
     }
     
