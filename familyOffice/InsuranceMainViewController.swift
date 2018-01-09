@@ -79,23 +79,20 @@ extension InsuranceMainViewController: UICollectionViewDelegate, UICollectionVie
         switch indexPath.row {
         case 0:
             cell.image.image = #imageLiteral(resourceName: "insurances-cars")
-            cell.image.tintColor = #colorLiteral(red: 0.5019607843, green: 0.8196078431, blue: 0.7098039216, alpha: 1)
             break
         case 1:
             cell.image.image = #imageLiteral(resourceName: "insurances-homes")
-            cell.image.tintColor = #colorLiteral(red: 0.5019607843, green: 0.8196078431, blue: 0.7098039216, alpha: 1)
             break
         case 2:
             cell.image.image = #imageLiteral(resourceName: "insurances-med")
-            cell.image.tintColor = #colorLiteral(red: 0.5019607843, green: 0.8196078431, blue: 0.7098039216, alpha: 1)
             break
         case 3:
             cell.image.image = #imageLiteral(resourceName: "insurances-lifes")
-            cell.image.tintColor = #colorLiteral(red: 0.5019607843, green: 0.8196078431, blue: 0.7098039216, alpha: 1)
             break
         default:
             break;
         }
+//        cell.image.image = cell.image.image?.maskWithColor(color: #colorLiteral(red: 0.1137254902, green: 0.7176470588, blue: 0.4352941176, alpha: 1))
         return cell
     }
 }

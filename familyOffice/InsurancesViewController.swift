@@ -84,7 +84,7 @@ extension InsurancesViewController: UITableViewDelegate, UITableViewDataSource {
         cell.policyLbl.text = "Póliza: \(insurance.policy!)"
         cell.phoneTextView.text = "\(insurance.telephone!)"
         
-        cell.attachment.image =  cell.attachment.image?.imageWithColor(tintColor: #colorLiteral(red: 0.07450980392, green: 0.3215686275, blue: 0.2039215686, alpha: 1))
+        cell.attachment.image =  cell.attachment.image?.imageWithColor(tintColor: #colorLiteral(red: 0.1137254902, green: 0.7176470588, blue: 0.4352941176, alpha: 1))
         cell.attachment.isHidden = insurance.downloadUrl == ""
         
         return cell

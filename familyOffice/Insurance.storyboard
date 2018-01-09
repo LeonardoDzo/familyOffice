@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -34,29 +35,38 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ZPo-sv-yUq">
-                                <rect key="frame" x="16" y="81" width="343" height="566"/>
+                                <rect key="frame" x="16" y="81" width="359" height="566"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Xs6-bJ-Vjd">
-                                    <size key="itemSize" width="130" height="130"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="20" id="Xs6-bJ-Vjd">
+                                    <size key="itemSize" width="160" height="160"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="insuranceTypeCell" id="Esg-NZ-Ckc" customClass="InsuranceTypeCell" customModule="familyOffice" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="130" height="130"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="130" height="130"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UEk-sA-lQy" customClass="UIImageViewX" customModule="familyOffice" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="130" height="130"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" red="0.87625184170000003" green="0.8784568197" blue="0.83994134590000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="1"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                             </subviews>
                                         </view>
+                                        <color key="tintColor" red="0.11372549019607843" green="0.71764705882352942" blue="0.43529411764705883" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <outlet property="image" destination="UEk-sA-lQy" id="ENj-Xg-2f1"/>
                                         </connections>
@@ -128,36 +138,54 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hBR-zf-fSR">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hBR-zf-fSR">
                                                     <rect key="frame" x="0.0" y="3" width="2" height="63"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" red="0.054117642343044281" green="0.32481133937835693" blue="0.19591081142425537" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" red="0.11372549019607843" green="0.71764705882352942" blue="0.43529411764705883" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="2" id="Glk-hf-YbH"/>
+                                                    </constraints>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MuH-w3-Qsc">
-                                                    <rect key="frame" x="11" y="4" width="321" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MuH-w3-Qsc">
+                                                    <rect key="frame" x="11" y="4" width="269" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="269" id="YWf-WR-wQT"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="insurances-attachment" translatesAutoresizingMaskIntoConstraints="NO" id="0LF-Wh-HpN">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="insurances-attachment" translatesAutoresizingMaskIntoConstraints="NO" id="0LF-Wh-HpN">
                                                     <rect key="frame" x="288" y="15" width="40" height="40"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="tintColor" red="0.23921568630000001" green="0.39607843139999999" blue="0.52156862749999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="40" id="JXi-Sy-QM5"/>
+                                                    </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lEO-yy-gPG">
-                                                    <rect key="frame" x="11" y="24" width="317" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lEO-yy-gPG">
+                                                    <rect key="frame" x="11" y="24" width="269" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="hBR-zf-fSR" firstAttribute="top" secondItem="yc6-JM-nYz" secondAttribute="top" id="1lS-fT-VED"/>
+                                                <constraint firstItem="0LF-Wh-HpN" firstAttribute="top" secondItem="gAI-Rh-9bV" secondAttribute="topMargin" constant="4" id="2Ry-AB-nAj"/>
+                                                <constraint firstItem="0LF-Wh-HpN" firstAttribute="leading" secondItem="MuH-w3-Qsc" secondAttribute="trailing" constant="8" symbolic="YES" id="3Vt-wy-FrM"/>
+                                                <constraint firstItem="0LF-Wh-HpN" firstAttribute="trailing" secondItem="gAI-Rh-9bV" secondAttribute="trailingMargin" id="5Ab-Nf-gJa"/>
+                                                <constraint firstItem="0LF-Wh-HpN" firstAttribute="centerY" secondItem="yc6-JM-nYz" secondAttribute="centerY" id="5Eh-Dt-zH1"/>
                                                 <constraint firstAttribute="bottom" secondItem="yc6-JM-nYz" secondAttribute="bottom" constant="4" id="Aij-Yo-5pr"/>
+                                                <constraint firstItem="0LF-Wh-HpN" firstAttribute="centerY" secondItem="hBR-zf-fSR" secondAttribute="centerY" id="Gns-b6-UC2"/>
+                                                <constraint firstItem="MuH-w3-Qsc" firstAttribute="top" secondItem="gAI-Rh-9bV" secondAttribute="topMargin" constant="-7" id="HEy-Io-sls"/>
+                                                <constraint firstItem="MuH-w3-Qsc" firstAttribute="leading" secondItem="hBR-zf-fSR" secondAttribute="trailing" constant="9" id="SFY-eT-IcL"/>
                                                 <constraint firstAttribute="trailing" secondItem="yc6-JM-nYz" secondAttribute="trailing" id="TYz-rU-qp4"/>
+                                                <constraint firstItem="0LF-Wh-HpN" firstAttribute="centerY" secondItem="lEO-yy-gPG" secondAttribute="centerY" id="g46-tQ-637"/>
+                                                <constraint firstItem="0LF-Wh-HpN" firstAttribute="leading" secondItem="lEO-yy-gPG" secondAttribute="trailing" constant="8" symbolic="YES" id="g85-A7-EeG"/>
                                                 <constraint firstItem="yc6-JM-nYz" firstAttribute="leading" secondItem="gAI-Rh-9bV" secondAttribute="leading" id="gZx-8b-09O"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="MuH-w3-Qsc" secondAttribute="bottom" constant="34" id="lZz-nR-INP"/>
+                                                <constraint firstItem="hBR-zf-fSR" firstAttribute="leading" secondItem="yc6-JM-nYz" secondAttribute="leading" id="oZ9-9D-CDc"/>
                                                 <constraint firstItem="yc6-JM-nYz" firstAttribute="top" secondItem="gAI-Rh-9bV" secondAttribute="top" constant="3" id="qfd-gQ-Zmf"/>
+                                                <constraint firstItem="MuH-w3-Qsc" firstAttribute="leading" secondItem="lEO-yy-gPG" secondAttribute="leading" id="svV-oM-zBa"/>
                                             </constraints>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
