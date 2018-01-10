@@ -55,6 +55,34 @@ class ProfileUserViewController: UIViewController, UserEModelBindable{
     @IBAction func logoutBtnPressed(_ sender: Any) {
         store.dispatch(AuthSvc(.logout))
     }
+    @IBAction func msgBtnPressed(_ sender: Any) {
+        var controller = ChatGroupViewController()
+        let user = getUser()
+        let uid = userModel.id
+        let myId = (user?.id)!
+        var group : GroupEntity! = nil
+        
+        group = rManager.realm.objects(GroupEntity.self).first { group in
+            if !group.isGroup {
+                var flag = false
+                flag = group.members.contains(where: {$0.id == myId}) && group.members.contains(where: {$0.id == uid})
+                return flag
+            }
+            return false
+        }
+        if group == nil {
+            group = GroupEntity()
+            
+            group?.id = "\(uid < myId ? uid : myId)-\(uid < myId ? myId : uid)"
+            group?.members.append(TimestampEntity(value: [uid, Date()]))
+            group?.members.append(TimestampEntity(value: [myId, Date()]))
+            group?.familyId = (user?.familyActive)!
+            group?.isGroup = false
+//            store.dispatch(createGroupAction(group: group, uuid: group.id))
+        }else{
+            self.pushToView(view: .chat, sender: group)
+        }
+    }
     
     @IBAction func callBtnPressed(_ sender: Any) {
         if let url = URL(string: "tel://\(userModel.phone)"), UIApplication.shared.canOpenURL(url) {
