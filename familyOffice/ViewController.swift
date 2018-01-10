@@ -57,6 +57,7 @@ extension UIViewController {
     }
     
     func setStyle(_ style: StyleNavBar) -> Void {
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
         if let value = style.style() {
               self.navigationController?.navigationBar.barTintColor = value.0
               self.navigationController?.navigationBar.tintColor = value.1
