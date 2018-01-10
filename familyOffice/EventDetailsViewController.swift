@@ -11,6 +11,8 @@ import MapKit
 import ReSwift
 class EventDetailsViewController: UIViewController, EventEBindable {
     var event: EventEntity!
+    let locationManager = CLLocationManager()
+    var myLocation : CLLocationCoordinate2D!
     var previewActions: [UIPreviewAction] = []
     var members = [memberEventEntity]()
     @IBOutlet weak var backgroundType: UIImageViewX!
@@ -47,9 +49,19 @@ class EventDetailsViewController: UIViewController, EventEBindable {
         self.setupButtonback()
         statusView.animate()
         reloadMembers()
-      
+        self.locationManager.requestAlwaysAuthorization()
         
+        // For use in foreground
+        self.locationManager.requestWhenInUseAuthorization()
         
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.directionTapped))
+        addressLbl.isUserInteractionEnabled = true
+        addressLbl.addGestureRecognizer(tap)
     }
     
     override func didReceiveMemoryWarning() {
@@ -60,9 +72,8 @@ class EventDetailsViewController: UIViewController, EventEBindable {
     @IBAction func handleEdit(_ sender: UIButton) {
         self.pushToView(view: .addEvent, sender: self.event)
     }
-    @IBAction func handleAction(_ sender: UIButtonX) {
+    @IBAction func handleAction(_ sender: UIButtonX, _ ctrl : UIViewController?) {
       try! rManager.realm.write {
-            
             var member = event.members.first(where: {$0.id == getUser()?.id})
             if event.father != nil {
                 if member != nil{
@@ -95,7 +106,17 @@ class EventDetailsViewController: UIViewController, EventEBindable {
                     event.members.append(me)
                 }
                 self.bind()
-                saveforthis(self)
+                
+            }
+        }
+        if let father = self.event.father != nil ? self.event.father  : self.event {
+            //0 hace referencia a que jamás se repetira este evento
+            let freq = father.repeatmodel?.frequency.rawValue ?? 0
+            if  0  ==  freq {
+                store.dispatch(EventSvc(.update(event: father)))
+            }else{
+                let xctrl = ctrl ?? self
+                saveforthis(xctrl)
             }
         }
         
@@ -139,7 +160,7 @@ class EventDetailsViewController: UIViewController, EventEBindable {
     }
 
 }
-extension EventDetailsViewController: UICollectionViewDataSource {
+extension EventDetailsViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return  members.count
     }
@@ -154,19 +175,65 @@ extension EventDetailsViewController: UICollectionViewDataSource {
         }
         return cell
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let mid = self.members[indexPath.row].id, let user = rManager.realm.object(ofType: UserEntity.self, forPrimaryKey: mid) {
+                 self.pushToView(view: .profileView, sender: user)
+        
+        }
+        
+    }
 }
 extension EventDetailsViewController : StoreSubscriber {
     typealias StoreSubscriberStateType = EventState
     override func viewWillAppear(_ animated: Bool) {
         self.bind()
-        if event.location == nil, event.father?.location == nil {
+        let location = event.location == nil ? event.father?.location : event.location
+        if location == nil {
             locationstack.isHidden = true
+        }else{
+            let span = MKCoordinateSpanMake(0.05, 0.05)
+            let coordinate = CLLocationCoordinate2D(latitude: location!.latitude, longitude: location!.longitude)
+            let region = MKCoordinateRegion(center: coordinate, span: span)
+            mapView.removeAnnotations(mapView.annotations)
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = coordinate
+            annotation.title = location!.title
+            annotation.subtitle = location?.subtitle ?? ""
+            annotation.forwardingTarget(for: #selector(self.directionTapped))
+            mapView.addAnnotation(annotation)
+            mapView.setRegion(region, animated: true)
         }
         store.subscribe(self) {
             $0.select({ (s)  in
                 s.EventState
             })
         }
+    }
+    
+    @objc func directionTapped() {
+        let openMapsActionSheet = UIAlertController(title: "Open in Maps", message: "Choose a maps application", preferredStyle: .actionSheet)
+        openMapsActionSheet.addAction(UIAlertAction(title: "Apple Maps", style: .default, handler: { (action: UIAlertAction!) -> Void in
+            let placemark = MKPlacemark(coordinate: (self.mapView.annotations.first?.coordinate)!, addressDictionary: nil)
+            let item = MKMapItem(placemark: placemark)
+            let options = [MKLaunchOptionsDirectionsModeKey:
+                MKLaunchOptionsDirectionsModeDriving,
+                           MKLaunchOptionsShowsTrafficKey: true] as [String : Any]
+           item.openInMaps(launchOptions: options)
+        }))
+        
+        let latitud = String(self.mapView.annotations.first!.coordinate.latitude)
+        let longitude = String(self.mapView.annotations.first!.coordinate.longitude)
+        
+        openMapsActionSheet.addAction(UIAlertAction(title: "Google Maps", style: .default, handler: { (action: UIAlertAction!) -> Void in
+            if (UIApplication.shared.canOpenURL(NSURL(string:"comgooglemaps://")! as URL)) {
+                UIApplication.shared.open(URL(string:
+                    "comgooglemaps://?saddr=\(self.myLocation.latitude),\(self.myLocation.longitude)&daddr=\(latitud),\(longitude)")!, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.open(URL(string: "http://maps.google.com/maps?saddr=\(self.myLocation.latitude),\(self.myLocation.longitude)&daddr=\(latitud),\(longitude)&directionsmode=driving")!, options: [:], completionHandler: nil)
+            }
+        }))
+        openMapsActionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(openMapsActionSheet, animated: true, completion: nil)
     }
     func newState(state: EventState) {
         reloadMembers()
@@ -176,5 +243,10 @@ extension EventDetailsViewController : StoreSubscriber {
     override func viewWillDisappear(_ animated: Bool) {
         store.unsubscribe(self)
         
+    }
+}
+extension EventDetailsViewController : CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        myLocation = manager.location?.coordinate
     }
 }
