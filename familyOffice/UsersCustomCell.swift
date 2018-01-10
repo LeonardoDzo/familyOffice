@@ -116,8 +116,7 @@ public class UsersController : UIViewController, UITableViewDelegate, UITableVie
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        self.navigationController?.setToolbarHidden(false, animated: true)
+        
         let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
         let displayWidth: CGFloat = self.view.frame.width
         let displayHeight: CGFloat = self.view.frame.height
@@ -157,7 +156,10 @@ public class UsersController : UIViewController, UITableViewDelegate, UITableVie
         tableView.isMultipleTouchEnabled = true
         self.view.addSubview(tableView)
     }
-    
+    public override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationController?.setToolbarHidden(false, animated: true)
+    }
     @objc func tappedDone(_ sender: UIBarButtonItem){
         if userList != row.value {
             row.value = userList

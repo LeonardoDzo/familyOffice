@@ -107,6 +107,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
         let not = NotificationModel(dic: userInfo)
         
         rManager.save(objs: not)
+        let state = UIApplication.shared.applicationState
+        
+        if pendingNotification == nil, state == .inactive {
+            gotoNotification(not)
+            
+        }
         
     }
     var top: UIViewController? {

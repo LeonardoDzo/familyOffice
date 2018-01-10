@@ -28,8 +28,6 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupBack()
-        self.setStyle(.chat)
         // Do any additional setup after loading the view.
         tableView.dataSource = self
         tableView.delegate = self
@@ -232,6 +230,9 @@ extension ChatGroupViewController : StoreSubscriber {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.setStyle(.chat)
+        self.setupBack()
         registerKeyboardNotifications()
         store.subscribe(self)
         getMessagesUuid = UUID().uuidString
