@@ -20,8 +20,11 @@ class ProfileUserViewController: UIViewController, UserEModelBindable{
     @IBOutlet weak var logoutBtn: UIButton!
     
     @IBOutlet weak var infoView: UIView!
+    
+    var group : GroupEntity! = nil
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tabBarController?.tabBar.isHidden = true
         // Do any additional setup after loading the view.
     }
     
@@ -42,14 +45,14 @@ class ProfileUserViewController: UIViewController, UserEModelBindable{
         store.subscribe(self) {
             state in
             state.select({ (s) in
-                s.authState
+                s
             })
         }
         
-        if  tabBarController?.restorationIdentifier != "TabBarControllerView" || (tabBarController?.tabBar.isHidden)! {
-            self.setupButtonback()
-        }
-       
+        self.tabBarController?.tabBar.isHidden = true
+            
+        
+        self.setupButtonback()
     }
     
     @IBAction func logoutBtnPressed(_ sender: Any) {
@@ -60,7 +63,7 @@ class ProfileUserViewController: UIViewController, UserEModelBindable{
         let user = getUser()
         let uid = userModel.id
         let myId = (user?.id)!
-        var group : GroupEntity! = nil
+        
         
         group = rManager.realm.objects(GroupEntity.self).first { group in
             if !group.isGroup {
@@ -78,7 +81,7 @@ class ProfileUserViewController: UIViewController, UserEModelBindable{
             group?.members.append(TimestampEntity(value: [myId, Date()]))
             group?.familyId = (user?.familyActive)!
             group?.isGroup = false
-//            store.dispatch(createGroupAction(group: group, uuid: group.id))
+            store.dispatch(createGroupAction(group: group, uuid: group.id))
         }else{
             self.pushToView(view: .chat, sender: group)
         }
@@ -111,14 +114,23 @@ class ProfileUserViewController: UIViewController, UserEModelBindable{
 }
 
 extension ProfileUserViewController: StoreSubscriber {
-    typealias StoreSubscriberStateType = AuthState
+    typealias StoreSubscriberStateType = AppState
     
-    func newState(state: AuthState) {
-        switch state.state {
+    func newState(state: AppState) {
+        switch state.authState.state {
         case .Finished(let action as AuthAction):
             self.dismiss(animated: true, completion: nil)
             break
         default: break
+        }
+        
+        if group != nil, !group.id.isEmpty {
+            switch state.requestState.requests[group.id] {
+            case .finished?:
+                self.pushToView(view: .chat, sender: group)
+                break
+            default: break
+            }
         }
         
     }
