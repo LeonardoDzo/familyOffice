@@ -149,6 +149,7 @@
 		02BAEFAD1FE192BF00ABBDBA /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BAEFAC1FE192BF00ABBDBA /* EventCell.swift */; };
 		02BAEFAF1FE1962B00ABBDBA /* RepeatEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BAEFAE1FE1962B00ABBDBA /* RepeatEntity.swift */; };
 		02BB5BBF1FD1EFD3009DC479 /* mainCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BB5BBE1FD1EFD3009DC479 /* mainCalendarViewController.swift */; };
+		02BB9BA2200563DC0040D857 /* ImageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BB9BA1200563DC0040D857 /* ImageEntity.swift */; };
 		02BC16EF1EE9C8C100722689 /* MemberEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BC16EE1EE9C8C100722689 /* MemberEvent.swift */; };
 		02BC16F51EE9E32900722689 /* UIBarbutton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BC16F41EE9E32900722689 /* UIBarbutton.swift */; };
 		02BD2D1C1E1F16A700A61A84 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BD2D1B1E1F16A700A61A84 /* Utility.swift */; };
@@ -531,6 +532,7 @@
 		02BAEFAC1FE192BF00ABBDBA /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		02BAEFAE1FE1962B00ABBDBA /* RepeatEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatEntity.swift; sourceTree = "<group>"; };
 		02BB5BBE1FD1EFD3009DC479 /* mainCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainCalendarViewController.swift; sourceTree = "<group>"; };
+		02BB9BA1200563DC0040D857 /* ImageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEntity.swift; sourceTree = "<group>"; };
 		02BC16EE1EE9C8C100722689 /* MemberEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberEvent.swift; sourceTree = "<group>"; };
 		02BC16F41EE9E32900722689 /* UIBarbutton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBarbutton.swift; sourceTree = "<group>"; };
 		02BD2D1B1E1F16A700A61A84 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
@@ -1369,6 +1371,7 @@
 				843956D41F0B1BF4009E95FE /* Contact.swift */,
 				94FF53501F17E4FF001D9EE4 /* ToDoList.swift */,
 				94A070CC1F27E3BB0098860E /* Question.swift */,
+				02BB9BA1200563DC0040D857 /* ImageEntity.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -2532,6 +2535,7 @@
 				045F4A0F1F0DB8D000B483C9 /* AlbumViewController.swift in Sources */,
 				028CD36B1EFB447600DEC001 /* typeiconCollectionViewCell.swift in Sources */,
 				020993821FED8E96002F8C38 /* EventsNotificationTableViewController.swift in Sources */,
+				02BB9BA2200563DC0040D857 /* ImageEntity.swift in Sources */,
 				02FA707A1F1957E10027E8B5 /* GoalHistoryByUserViewController.swift in Sources */,
 				020216EE1FD61F6F00777F8C /* PreviewEvent.swift in Sources */,
 				A44D91AF1E947F2700880D50 /* HealthOmniViewController.swift in Sources */,

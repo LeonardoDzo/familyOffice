@@ -255,6 +255,7 @@ class EventViewController: FormViewController, EventEBindable {
                 })
             <<< UsersRow(){
                 $0.title = "Invitados"
+                $0.tag = "UsersRow"
                 }.onChange({ (row) in
                     self.formChanged()
                     row.updateCell()

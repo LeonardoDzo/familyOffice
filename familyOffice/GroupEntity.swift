@@ -50,7 +50,7 @@ class GroupEntity: Object, Serializable {
             messagesR.append(["id": key, "time": Date(time as? Int ?? 1)!])
         }
         json.setValue(messagesR, forKey: "messages")
-        let createdAt = json["createdAt"] as! Int
+        let createdAt = json["createdAt"] as? Int ?? 0
         json.setValue(Date(createdAt), forKey: "createdAt")
         return GroupEntity(value: json)
     }

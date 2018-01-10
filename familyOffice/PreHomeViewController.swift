@@ -90,6 +90,7 @@ class PreHomeViewController: UIViewController, UserEModelBindable {
     @IBAction func logout(_ sender: Any) {
         store.dispatch(AuthSvc(.logout))
     }
+    
 }
 extension PreHomeViewController : StoreSubscriber {
     
@@ -132,6 +133,10 @@ extension PreHomeViewController : StoreSubscriber {
             }
             break
         default: break
+
+        
+        if pendingNotification != nil {
+            gotoNotification(pendingNotification)
         }
     }
     

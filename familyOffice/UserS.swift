@@ -149,9 +149,11 @@ extension UserS : RequestProtocol {
                     
                     self.status = .Finished(action)
                     rManager.save(objs: user)
-                    store.dispatch(self)
+                    
                     
                     if user.isUserLogged() {
+                        
+                        store.dispatch(getAllGroupsAction(uuid: UUID().uuidString))
                         
                         for fid in user.families  {
                            store.dispatch(FamilyS(.getbyId(fid: fid.value)))
@@ -170,7 +172,7 @@ extension UserS : RequestProtocol {
                         let ref = "\(ref_users(uid: user.id))/families"
                         sharedMains.removeHandles(ref: ref)
                         sharedMains.initObserves(ref:ref, actions: [.childAdded, .childRemoved])
-                        
+                       
                         let refevents = "\(ref_users(uid: user.id))/events"
                         sharedMains.removeHandles(ref: refevents)
                         sharedMains.initObserves(ref:refevents, actions: [.childAdded, .childRemoved])
@@ -181,6 +183,7 @@ extension UserS : RequestProtocol {
                     let ref = "\(ref_users(uid: user.id))"
                     sharedMains.initObserves(ref:ref, actions: [.childChanged])
                 }
+                store.dispatch(self)
             }
         }catch let error {
             print(error)
