@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ReSwift
 
 class ProfileUserViewController: UIViewController, UserEModelBindable{
  
@@ -16,6 +17,7 @@ class ProfileUserViewController: UIViewController, UserEModelBindable{
     @IBOutlet weak var confBtn: UIButton!
     @IBOutlet weak var msgBtn: UIButton!
     @IBOutlet weak var callBtn: UIButton!
+    @IBOutlet weak var logoutBtn: UIButton!
     
     @IBOutlet weak var infoView: UIView!
     override func viewDidLoad() {
@@ -31,9 +33,17 @@ class ProfileUserViewController: UIViewController, UserEModelBindable{
        self.bind()
         if !userModel.isUserLogged() {
             confBtn.isHidden = true
+            logoutBtn.isHidden = true
         }else{
-//            callBtn.isHidden = true
-//            msgBtn.isHidden = true
+            callBtn.isHidden = true
+            msgBtn.isHidden = true
+        }
+        
+        store.subscribe(self) {
+            state in
+            state.select({ (s) in
+                s.authState
+            })
         }
         
         if  tabBarController?.restorationIdentifier != "TabBarControllerView" || (tabBarController?.tabBar.isHidden)! {
@@ -42,7 +52,22 @@ class ProfileUserViewController: UIViewController, UserEModelBindable{
        
     }
     
+    @IBAction func logoutBtnPressed(_ sender: Any) {
+        store.dispatch(AuthSvc(.logout))
+    }
+    
+    @IBAction func callBtnPressed(_ sender: Any) {
+        if let url = URL(string: "tel://\(userModel.phone)"), UIApplication.shared.canOpenURL(url) {
+            if #available(iOS 10, *) {
+                UIApplication.shared.open(url)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
+        store.unsubscribe(self)
     }
     
     @IBAction func handleGoConfig(_ sender: Any) {
@@ -54,6 +79,20 @@ class ProfileUserViewController: UIViewController, UserEModelBindable{
                 vc.bind(userModel: self.userModel)
             }
         }
+    }
+}
+
+extension ProfileUserViewController: StoreSubscriber {
+    typealias StoreSubscriberStateType = AuthState
+    
+    func newState(state: AuthState) {
+        switch state.state {
+        case .Finished(let action as AuthAction):
+            self.dismiss(animated: true, completion: nil)
+            break
+        default: break
+        }
+        
     }
 }
 

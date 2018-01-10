@@ -122,6 +122,17 @@ extension PreHomeViewController : StoreSubscriber {
         default:
             break
         }
+        switch store.state.authState.state {
+        case .loading: // hotfix, si luego explota, el neto del 9 de enero del 2018 dice hola
+            self.dismiss(animated: true, completion: nil)
+            break
+        case .Finished(let action as AuthAction):
+            if let top = UIApplication.topViewController() {
+                top.popToView(view: .start)
+            }
+            break
+        default: break
+        }
     }
     
 }
