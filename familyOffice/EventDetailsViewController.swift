@@ -46,7 +46,7 @@ class EventDetailsViewController: UIViewController, EventEBindable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupButtonback()
+        
         statusView.animate()
         reloadMembers()
         self.locationManager.requestAlwaysAuthorization()
@@ -187,6 +187,7 @@ extension EventDetailsViewController : StoreSubscriber {
     typealias StoreSubscriberStateType = EventState
     override func viewWillAppear(_ animated: Bool) {
         self.bind()
+        self.setupButtonback()
         let location = event.location == nil ? event.father?.location : event.location
         if location == nil {
             locationstack.isHidden = true
