@@ -142,7 +142,7 @@ public class MapViewController : UIViewController, TypedRowControllerType, MKMap
         view.addSubview(mapView)
         
         mapView.delegate = self
-
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
