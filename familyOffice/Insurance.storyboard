@@ -34,9 +34,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ZPo-sv-yUq">
-                                <rect key="frame" x="16" y="81" width="359" height="566"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ZPo-sv-yUq">
+                                <rect key="frame" x="16" y="82.5" width="343" height="566"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="20" id="Xs6-bJ-Vjd">
                                     <size key="itemSize" width="160" height="160"/>
@@ -79,6 +78,12 @@
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="7z3-4f-xvA" firstAttribute="bottom" secondItem="ZPo-sv-yUq" secondAttribute="bottom" constant="18.5" id="1mj-9a-BF6"/>
+                            <constraint firstItem="ZPo-sv-yUq" firstAttribute="top" secondItem="7z3-4f-xvA" secondAttribute="top" constant="18.5" id="QBJ-Ng-zOQ"/>
+                            <constraint firstItem="7z3-4f-xvA" firstAttribute="trailing" secondItem="ZPo-sv-yUq" secondAttribute="trailing" constant="16" id="ai7-YN-tGz"/>
+                            <constraint firstItem="ZPo-sv-yUq" firstAttribute="leading" secondItem="7z3-4f-xvA" secondAttribute="leading" constant="16" id="jMy-Z7-QF4"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="7z3-4f-xvA"/>
                     </view>
                     <navigationItem key="navigationItem" id="qxw-kw-myd"/>
@@ -114,14 +119,14 @@
                                                     <rect key="frame" x="0.0" y="3" width="343" height="63"/>
                                                     <subviews>
                                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="6600000000" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Yo3-D5-V8y">
-                                                            <rect key="frame" x="68" y="34" width="98" height="26"/>
+                                                            <rect key="frame" x="74" y="34" width="98" height="26"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                         </textView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Teléfono:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0yl-3b-jwe">
-                                                            <rect key="frame" x="11" y="39" width="60" height="21"/>
+                                                            <rect key="frame" x="11" y="39" width="69" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <nil key="textColor"/>
