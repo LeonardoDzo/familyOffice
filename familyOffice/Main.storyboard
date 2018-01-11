@@ -918,6 +918,10 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="byD-ht-sSW" secondAttribute="trailing" id="aFa-v3-3hO"/>
+                                    <constraint firstItem="byD-ht-sSW" firstAttribute="leading" secondItem="uqz-ug-DOP" secondAttribute="leading" id="uK1-Jl-xRJ"/>
+                                </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="1Pn-XK-PdU">
                                 <rect key="frame" x="264" y="189" width="73" height="36"/>
