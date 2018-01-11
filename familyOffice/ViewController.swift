@@ -88,6 +88,7 @@ extension UIViewController {
             self.dismiss(animated: true, completion: nil)
         }
         self.tabBarController?.tabBar.isHidden = false
+        self.navigationController?.tabBarController?.tabBar.isHidden = false
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.tabBarController?.navigationController?.setToolbarHidden(false, animated: true)
     }

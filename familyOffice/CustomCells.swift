@@ -184,7 +184,8 @@ public class MapViewController : UIViewController, TypedRowControllerType, MKMap
         pinView.center = CGPoint(x: center.x, y: center.y - (pinView.bounds.height/2))
         ellipsisLayer.position = center
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-            self.navigationController?.setToolbarHidden(false, animated: true)
+//        self.navigationController?.setNavigationBarHidden(false, animated: true)
+//            self.navigationController?.setToolbarHidden(false, animated: true)
         
     }
     

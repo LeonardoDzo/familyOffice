@@ -15,6 +15,7 @@ class EventDetailsViewController: UIViewController, EventEBindable {
     var myLocation : CLLocationCoordinate2D!
     var previewActions: [UIPreviewAction] = []
     var members = [memberEventEntity]()
+    var ctrl: UIViewController!
     @IBOutlet weak var backgroundType: UIImageViewX!
     @IBOutlet weak var detailsTxtV: UITextView!
     @IBOutlet weak var addressLbl: UILabel!
@@ -27,6 +28,7 @@ class EventDetailsViewController: UIViewController, EventEBindable {
     @IBOutlet weak var locationstack: UIStackView!
     @IBOutlet weak var membersStack: UIStackView!
     @IBOutlet weak var detailsStack: UIStackView!
+    @IBOutlet weak var editBtn: UIButtonX!
     
     fileprivate func reloadMembers() {
         members.removeAll()
@@ -46,7 +48,22 @@ class EventDetailsViewController: UIViewController, EventEBindable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        let accept = UIPreviewAction(title: "Aceptar", style: .selected, handler: { (UIPreviewAction, UIViewController) in
+            self.handleAction(self.statusBtns[2])
+        })
+        let pending = UIPreviewAction(title: "Pendiente", style: .selected, handler: { (UIPreviewAction, UIViewController) in
+            self.handleAction(self.statusBtns[1])
+        })
+        let reject = UIPreviewAction(title: "Rechazar", style: .selected, handler: { (UIPreviewAction, UIViewController) in
+            self.handleAction(self.statusBtns[0])
+        })
+        let delete = UIPreviewAction(title: "Eliminar", style: .destructive, handler: { (UIPreviewAction, UIViewController) in
+            self.deleteEvent()
+        })
+        self.previewActions.append(contentsOf: [accept,pending,reject])
+        if self.event.admins.contains(where: {$0.value == getUser()?.id}) {
+            self.previewActions.append(delete)
+        }
         statusView.animate()
         reloadMembers()
         self.locationManager.requestAlwaysAuthorization()
@@ -72,7 +89,73 @@ class EventDetailsViewController: UIViewController, EventEBindable {
     @IBAction func handleEdit(_ sender: UIButton) {
         self.pushToView(view: .addEvent, sender: self.event)
     }
-    @IBAction func handleAction(_ sender: UIButtonX, _ ctrl : UIViewController?) {
+    
+    fileprivate func deleteEvent() {
+         let father = self.event.getFather()
+        //0 hace referencia a que jamás se repetira este evento
+        let freq = father?.repeatmodel?.frequency.rawValue ?? 0
+        if  0 == freq {
+            store.dispatch(EventSvc(.delete(eid: father!)))
+        }else{
+            deleteJustThis()
+        }
+        
+       
+    }
+    
+    func deleteJustThis() -> Void {
+        let father = self.event.getFather()
+        let alertController = UIAlertController(title: " Cuales desea eliminar?", message: "", preferredStyle: .actionSheet)
+        
+        let sendButton = UIAlertAction(title: "Solo Este", style: .destructive, handler: { (action) -> Void in
+//            if self.event.isChild() {
+//                try! rManager.realm.write {
+//                    self.event.isDeleted = true
+//                }
+//                rManager.save(objs: self.event)
+//               // store.dispatch(EventSvc(.update(event: father)))
+//
+//            }else{
+//                if let event = rManager.realm.objects(EventEntity.self).filter("father = %@", father).sorted(byKeyPath: "startdate").first {
+//
+//                    try! rManager.realm.write {
+//                        self.event.startdate = event.startdate
+//                        self.event.enddate = event.enddate
+//                    }
+//                    rManager.save(objs: father)
+//                   // store.dispatch(EventSvc(.update(event: father)))
+//                }
+//
+        //}
+        })
+        let deleteButton = UIAlertAction(title: "Todos los siguientes", style: .destructive, handler: { (action) -> Void in
+            
+//            if self.event.isChild() {
+//                try! rManager.realm.write {
+//                    father.repeatmodel?.end = self.event.enddate
+//                }
+//              //  store.dispatch(EventSvc(.update(event: father)))
+//            }else{
+//              //  store.dispatch(EventSvc(.delete(eid: father)))
+//            }
+        })
+        
+        
+        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in
+            print("Cancel button tapped")
+        })
+        
+        
+        alertController.addAction(sendButton)
+        alertController.addAction(deleteButton)
+        alertController.addAction(cancelButton)
+        let xctrl = ctrl ?? self
+        xctrl.present(alertController, animated: true, completion: nil)
+        
+        
+    }
+    
+    @IBAction func handleAction(_ sender: UIButtonX) {
       try! rManager.realm.write {
             var member = event.members.first(where: {$0.id == getUser()?.id})
             if event.father != nil {
@@ -112,16 +195,15 @@ class EventDetailsViewController: UIViewController, EventEBindable {
         if let father = self.event.father != nil ? self.event.father  : self.event {
             //0 hace referencia a que jamás se repetira este evento
             let freq = father.repeatmodel?.frequency.rawValue ?? 0
-            if  0  ==  freq {
+            if  0 == freq {
                 store.dispatch(EventSvc(.update(event: father)))
             }else{
-                let xctrl = ctrl ?? self
-                saveforthis(xctrl)
+                saveforthis()
             }
         }
         
     }
-    func saveforthis(_ ctrl: UIViewController) -> Void {
+    func saveforthis() -> Void {
         let alertController = UIAlertController(title: "Aplicar cambios para?", message: "", preferredStyle: .actionSheet)
         
         let sendButton = UIAlertAction(title: "Solo Este", style: .default, handler: { (action) -> Void in
@@ -140,8 +222,10 @@ class EventDetailsViewController: UIViewController, EventEBindable {
         alertController.addAction(sendButton)
         alertController.addAction(deleteButton)
         alertController.addAction(cancelButton)
+        let xctrl = ctrl ?? self
+        xctrl.present(alertController, animated: true, completion: nil)
         
-        ctrl.present(alertController, animated: true, completion: nil)
+       
     }
     
     func safeForAll(_ flag: Bool) -> Void {
@@ -182,28 +266,35 @@ extension EventDetailsViewController: UICollectionViewDataSource, UICollectionVi
         }
         
     }
+    
+    
 }
 extension EventDetailsViewController : StoreSubscriber {
     typealias StoreSubscriberStateType = EventState
+    fileprivate func pin(_ location: Location?) {
+        let span = MKCoordinateSpanMake(0.05, 0.05)
+        let coordinate = CLLocationCoordinate2D(latitude: location!.latitude, longitude: location!.longitude)
+        let region = MKCoordinateRegion(center: coordinate, span: span)
+        mapView.removeAnnotations(mapView.annotations)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        annotation.title = location!.title
+        annotation.subtitle = location?.subtitle ?? ""
+        annotation.forwardingTarget(for: #selector(self.directionTapped))
+        mapView.addAnnotation(annotation)
+        mapView.setRegion(region, animated: true)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.bind()
         self.setupButtonback()
-        let location = event.location == nil ? event.father?.location : event.location
-        if location == nil {
-            locationstack.isHidden = true
-        }else{
-            let span = MKCoordinateSpanMake(0.05, 0.05)
-            let coordinate = CLLocationCoordinate2D(latitude: location!.latitude, longitude: location!.longitude)
-            let region = MKCoordinateRegion(center: coordinate, span: span)
-            mapView.removeAnnotations(mapView.annotations)
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = coordinate
-            annotation.title = location!.title
-            annotation.subtitle = location?.subtitle ?? ""
-            annotation.forwardingTarget(for: #selector(self.directionTapped))
-            mapView.addAnnotation(annotation)
-            mapView.setRegion(region, animated: true)
+        
+        
+        let details = event.details == nil ? event.father?.details : event.details
+        if  (details?.isEmpty)! {
+            detailsStack.isHidden = true
         }
+        self.editBtn.isHidden = self.event.admins.contains(where: {$0.value == getUser()?.id}) ? false : true
         store.subscribe(self) {
             $0.select({ (s)  in
                 s.EventState
@@ -238,6 +329,13 @@ extension EventDetailsViewController : StoreSubscriber {
     }
     func newState(state: EventState) {
         reloadMembers()
+        self.bind()
+        let location = event.location == nil ? event.father?.location : event.location
+        if location == nil {
+            locationstack.isHidden = true
+        }else{
+            pin(location)
+        }
         self.collectionView.reloadData()
         
     }

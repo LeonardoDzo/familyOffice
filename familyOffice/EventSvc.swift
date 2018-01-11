@@ -52,6 +52,7 @@ extension EventSvc : RequestProtocol {
             if let snapshotValue = snapshot.value as? NSDictionary {
                 if let data = snapshotValue.jsonToData() {
                     let event = try JSONDecoder().decode(EventEntity.self, from: data)
+                    event.father = nil
                     let ref = ref_events(event.id)
                     sharedMains.initObserves(ref:ref, actions: [.childChanged])
                     self.status = .Finished(action)
@@ -78,10 +79,11 @@ extension EventSvc : RequestProtocol {
     fileprivate func removeEventsLocal(_ ref: String) {
         if let id = ref.components(separatedBy: "/").last {
             if let event = rManager.realm.object(ofType: EventEntity.self, forPrimaryKey: id) {
-                try! rManager.realm.write {
-                    rManager.realm.delete(event.myEvents)
-                    rManager.realm.delete(event)
-                }
+                let events = rManager.realm.objects(EventEntity.self).filter("father = %@", event)
+                rManager.realm.delete(events)
+                rManager.realm.delete(event)
+                
+                
             }
             
         }
@@ -124,8 +126,17 @@ extension EventSvc : RequestProtocol {
                 store.dispatch(self)
             }
         }
+    }
+    func delete(_ event:EventEntity) {
+        let reference = ref_events(event.id)
+        self.delete(reference, callback: { (error) in
+            if error {
+                rManager.deteObject(objs: event)
+            }else{
+                print("algo salio mal")
+            }
+        })
         
-       
     }
 }
 extension EventSvc: Reducer {
@@ -145,6 +156,9 @@ extension EventSvc: Reducer {
                 break
                 case .get(let Id):
                     self.valueSingleton(ref: "events/\(Id)")
+                break
+                case .delete(let event):
+                   // self.delete(event)
                 break
                 default:
                     break

@@ -52,10 +52,10 @@ extension EventEBindable  {
             }
         }
         if let detailLbl = self.detailsLbl {
-            detailLbl.text = event.details ??  event.father?.details ?? "Sin detalles"
+            detailLbl.text = event.details
         }
         if let detailTxV =  self.detailsTxtV {
-            detailTxV.text = event.details ??  event.father?.details ?? "Sin detalles"
+            detailTxV.text = event.details
         }
         if let hourLbl = self.hourLbl {
             let start = Date(event.startdate)?.string(with: .ddMMMyyyy)

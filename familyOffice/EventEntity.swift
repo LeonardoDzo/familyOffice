@@ -22,11 +22,12 @@ class EventEntity: Object, Codable, Serializable {
     dynamic var eventtype: eventType = .Default
     dynamic var repeatmodel: repeatEntity? = nil
     dynamic var title = ""
-    dynamic var details: String? = nil
+    dynamic var details: String = ""
     dynamic var isAllDay: Bool? = nil
     dynamic var priority: Priority? = nil
     dynamic var father: EventEntity? = nil
     dynamic var changesforAll: Bool = false
+    dynamic var isDeleted: Bool = false
     var following = List<EventEntity>()
     var members = List<memberEventEntity>()
     let myEvents = List<EventEntity>()
@@ -34,6 +35,14 @@ class EventEntity: Object, Codable, Serializable {
     dynamic var startdate: Int = 0
     dynamic var enddate: Int = 0
     
+    func isChild() -> Bool {
+     
+        return self.father == nil ? true : self.father!.id != self.id
+    }
+    
+    func getFather() -> EventEntity? {
+        return isChild() ? self.father : self
+    }
     
     private enum CodingKeys: String, CodingKey {
         case title,
@@ -47,7 +56,8 @@ class EventEntity: Object, Codable, Serializable {
         repeatmodel,
         eventtype,
         id,
-        location
+        location,
+        isDeleted
     }
     
     private enum ArraysKeys: String, CodingKey {
@@ -66,9 +76,10 @@ class EventEntity: Object, Codable, Serializable {
         self.startdate = try container.decode(Int.self, forKey: .startdate)
         self.enddate = try container.decode(Int.self, forKey: .enddate)
         self.changesforAll = try container.decode(Bool.self, forKey: .changesforAll)
+        self.isDeleted = try container.decodeIfPresent(Bool.self, forKey: .isDeleted) ?? false
         //Optionals
         self.creator = try container.decodeIfPresent(String.self, forKey: .creator)
-        self.details = try container.decodeIfPresent(String.self, forKey: .details)
+        self.details = try container.decodeIfPresent(String.self, forKey: .details) ?? ""
         self.repeatmodel = try container.decodeIfPresent(repeatEntity.self, forKey: .repeatmodel)
         self.eventtype = (try container.decodeIfPresent(eventType.self, forKey: .eventtype))!
         self.isAllDay = try container.decodeIfPresent(Bool.self, forKey: .isAllDay)
@@ -90,6 +101,7 @@ class EventEntity: Object, Codable, Serializable {
         if let val = try arrayscont.decodeIfPresent([String: Bool].self, forKey: .admins)?.getKeysRealmString {
             self.admins.append(objectsIn: val)
         }
+        self.father = nil
     }
     
     override public static func primaryKey() -> String? {
@@ -102,12 +114,19 @@ class EventEntity: Object, Codable, Serializable {
             guard repeatM?.frequency.rawValue != 0 else{
                 return
             }
+            print(self.isChild())
+            //CAMBIAR FORMA DE ELIMINAR
             let removeevents = rManager.realm.objects(EventEntity.self).filter("father = %@ AND startdate >= %@", father!, date)
-            try! rManager.realm.write {
-                rManager.realm.delete(removeevents)
-            }
-            self.createDates(repeatM: repeatM!, startDate: date)
+            removeevents.forEach({ (event) in
+                if event.id != self.id {
+                    try! rManager.realm.write {
+                        rManager.realm.delete(event)
+                    }
+                }
+            })
             
+            print(self)
+            self.createDates(repeatM: repeatM!, startDate: date)
         }
         guard let parent = father, parent.following.count > 0 else {
             return
@@ -156,6 +175,7 @@ class EventEntity: Object, Codable, Serializable {
     func createDates(repeatM: repeatEntity, startDate: Int, until: Int = 30) {
         var startDate : Int? = startDate
         var i = until
+        print(self)
         let difference = self.enddate - self.startdate
         while startDate != nil && i > 0 {
             startDate = nextDate(currentDate: startDate!, repeatM: repeatM)

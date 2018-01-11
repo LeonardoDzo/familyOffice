@@ -158,7 +158,12 @@ public class UsersController : UIViewController, UITableViewDelegate, UITableVie
     }
     public override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-        self.navigationController?.setToolbarHidden(false, animated: true)
+//        self.navigationController?.setToolbarHidden(false, animated: true)
+//        self.tabBarController?.tabBar.isHidden = true
+//        self.navigationController?.tabBarController?.tabBar.isHidden = true
+    }
+    public override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     @objc func tappedDone(_ sender: UIBarButtonItem){
         if userList != row.value {

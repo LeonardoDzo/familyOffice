@@ -147,15 +147,14 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </imageView>
-                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cri-nR-xsC">
+                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cri-nR-xsC">
                                                         <rect key="frame" x="64" y="0.0" width="279" height="79"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="79" id="3Ph-ow-Zyo"/>
                                                             <constraint firstAttribute="width" constant="279" id="bEp-pE-FTX"/>
                                                         </constraints>
-                                                        <color key="textColor" red="0.23531121120000001" green="0.39074818859999999" blue="0.54561730590000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <attributedString key="attributedText"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                         <dataDetectorType key="dataDetectorTypes" phoneNumber="YES"/>
                                                     </textView>
@@ -346,7 +345,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="handleAction::" destination="gW0-tS-mt1" eventType="touchUpInside" id="yyo-Hf-9Dm"/>
+                                                    <action selector="handleAction:" destination="gW0-tS-mt1" eventType="touchUpInside" id="wOi-UG-KET"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="tentative" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QTC-2N-ujf" customClass="UIButtonX" customModule="familyOffice" customModuleProvider="target">
@@ -362,7 +361,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="handleAction::" destination="gW0-tS-mt1" eventType="touchUpInside" id="Gpr-PX-AOe"/>
+                                                    <action selector="handleAction:" destination="gW0-tS-mt1" eventType="touchUpInside" id="fuW-ve-XX8"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="canceled" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iKz-N3-Xhb" customClass="UIButtonX" customModule="familyOffice" customModuleProvider="target">
@@ -378,7 +377,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="handleAction::" destination="gW0-tS-mt1" eventType="touchUpInside" id="yIO-ZZ-jI0"/>
+                                                    <action selector="handleAction:" destination="gW0-tS-mt1" eventType="touchUpInside" id="SaT-Vg-xNy"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -451,6 +450,7 @@
                         <outlet property="dateLbl" destination="SET-NC-9Wy" id="NpT-0I-eHR"/>
                         <outlet property="detailsStack" destination="wwo-Yv-pjC" id="fbj-pq-Gj0"/>
                         <outlet property="detailsTxtV" destination="cri-nR-xsC" id="59r-9t-8Xr"/>
+                        <outlet property="editBtn" destination="aEH-8r-gR6" id="Ucg-Sk-fwI"/>
                         <outlet property="locationstack" destination="dG5-J4-MKl" id="zqN-rI-WPK"/>
                         <outlet property="mapView" destination="nnJ-nq-RYR" id="jPd-fM-38q"/>
                         <outlet property="membersStack" destination="sDn-Cx-dZh" id="2nQ-cV-SUu"/>

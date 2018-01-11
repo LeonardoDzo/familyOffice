@@ -38,7 +38,7 @@ class GroupEntity: Object, Serializable {
     
     class func fromJSON(key: String, json: NSDictionary) -> GroupEntity {
         json.setValue(key, forKey: "id")
-        let members = json["members"] as! NSDictionary
+        let members = json["members"] as? NSDictionary  ?? [:]
         var membersR = [NSDictionary]()
         members.forEach({ (key, time) in
             membersR.append(["id": key, "time": Date(time as? Int ?? 1)!])

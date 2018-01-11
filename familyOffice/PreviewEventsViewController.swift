@@ -85,18 +85,11 @@ extension PreviewEventsViewController: UIViewControllerPreviewingDelegate  {
   
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         if let indexpath = self.tableView.indexPathForRow(at: location) {
+            
             eventSelected = events[indexpath.row]
             let vc = self.getController(.eventDetails, eventSelected) as! EventDetailsViewController
-            let accept = UIPreviewAction(title: "Aceptar", style: .selected, handler: { (UIPreviewAction, UIViewController) in
-                vc.handleAction(vc.statusBtns[2], self)
-            })
-            let pending = UIPreviewAction(title: "Pendiente", style: .selected, handler: { (UIPreviewAction, UIViewController) in
-                vc.handleAction(vc.statusBtns[1], self)
-            })
-            let reject = UIPreviewAction(title: "Rechazar", style: .selected, handler: { (UIPreviewAction, UIViewController) in
-                vc.handleAction(vc.statusBtns[0], self)
-            })
-            vc.previewActions.append(contentsOf: [accept,pending,reject])
+            vc.ctrl = self
+            
             
             return vc
         }

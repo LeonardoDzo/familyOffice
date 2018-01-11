@@ -63,15 +63,17 @@ class EventViewController: FormViewController, EventEBindable {
             endrepeatRow?.minimumDate = Date(self.event.enddate)
             let typeRow = self.form.rowBy(tag: "type") as? PushRow<eventType>
             self.event.eventtype = typeRow?.value ?? .Default
-            if self.event.id.isEmpty {
-                let usersRow = self.form.rowBy(tag: "UsersRow") as? UsersRow
-                self.event.members.removeAll()
-                if let members = usersRow?.value?.list.map({ (uid) -> memberEventEntity in
-                    return memberEventEntity(uid: uid)
-                }) {
-                    self.event.members.append(objectsIn: members)
-                }
+            let usersRow = self.form.rowBy(tag: "UsersRow") as? UsersRow
+            self.event.members.removeAll()
+            if let members = usersRow?.value?.list.map({ (uid) -> memberEventEntity in
+                return memberEventEntity(uid: uid)
+            }) {
+                self.event.members.append(objectsIn: members)
             }
+            if self.event.members.count == 0 {
+                self.event.members.append(memberEventEntity(uid: (getUser()?.id)!))
+            }
+            
             
         }
         
@@ -102,8 +104,11 @@ class EventViewController: FormViewController, EventEBindable {
             <<< LocationRow(){
                 $0.title = "Ubicación"
                 $0.tag = "location"
+                $0.value = self.event.location
                 }.onChange({ (row) in
-                    self.event.location = row.value
+                    try! rManager.realm.write {
+                        self.event.location = row.value
+                    }
                     row.updateCell()
                 })
             +++
@@ -203,7 +208,7 @@ class EventViewController: FormViewController, EventEBindable {
                 row.title = "Repetir"
                 row.options = [.never,.daily,.weekly, .monthly, .year]
                 row.value = self.event.repeatmodel?.frequency ?? .never
-                row.tag = "repeat"
+                row.tag = "frequency"
                 row.selectorTitle = ""
                 }.onChange({ (row) in
                     if row.isValid {
@@ -256,6 +261,7 @@ class EventViewController: FormViewController, EventEBindable {
             <<< UsersRow(){
                 $0.title = "Invitados"
                 $0.tag = "UsersRow"
+                $0.value = UserListSelected(list: self.event.members.map({$0.id}))
                 }.onChange({ (row) in
                     self.formChanged()
                     row.updateCell()
@@ -270,14 +276,16 @@ class EventViewController: FormViewController, EventEBindable {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         if event.id.isEmpty {
+            self.tabBarController?.tabBar.isHidden = false
             event.repeatmodel = repeatEntity()
             let addBtn = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.save))
             self.tabBarController?.navigationItem.rightBarButtonItem = addBtn
             self.tabBarController?.navigationItem.title = "Nuevo Evento"
         }else{
-            self.navigationController?.setNavigationBarHidden(false, animated: true)
-            self.navigationController?.setToolbarHidden(false, animated: true)
+//            self.navigationController?.setNavigationBarHidden(false, animated: true)
+//            self.navigationController?.setToolbarHidden(false, animated: true)
             self.setStyle(.calendar)
             self.setupBack()
             let addBtn = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(self.save))
