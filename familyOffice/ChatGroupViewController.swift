@@ -43,7 +43,8 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
         users = rManager.realm.objects(UserEntity.self)
         setTitle()
         setDays()
-        tableView.scrollToBottom(animated: true)
+        tableView.reloadData()
+//        tableView.scrollToBottom(animated: true)
         myTitleView.titleLbl.textColor = UIColor.white
         self.navigationItem.titleView = myTitleView
         let result = rManager.realm.objects(NotificationModel.self).filter("type = %@ AND seen = %@ AND value = %@", Notification_Type.chat.rawValue, false, group.id)
@@ -53,11 +54,13 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
             }
             rManager.save(objs: notification)
         }
-        if group.isGroup {
+        let isFamilyGroup = rManager.realm.object(ofType: FamilyEntity.self, forPrimaryKey: group.id) != nil
+        if group.isGroup && !isFamilyGroup {
             let button = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(self.edit))
             self.navigationItem.rightBarButtonItem = button
         }
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -238,11 +241,14 @@ extension ChatGroupViewController : StoreSubscriber {
         getMessagesUuid = UUID().uuidString
         store.dispatch(getAllMessagesAction(groupId: group.id, uuid: getMessagesUuid!))
         store.dispatch(seenGroupAction(group: group, member: user.id, uuid: UUID().uuidString))
+        if messages.count > 0 {
+            tableView.scrollToBottom(animated: false)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         if messages.count > 0 {
-            tableView.scrollToBottom(animated: true)
+            tableView.scrollToBottom(animated: false)
         }
     }
     
