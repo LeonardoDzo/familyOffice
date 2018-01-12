@@ -18,6 +18,7 @@ class IllnessEntity : Object, Serializable {
     dynamic var medicine: String = ""
     dynamic var dosage: String = ""
     dynamic var moreInfo: String = ""
+    dynamic var type: Int = -1
     
     override static func primaryKey() -> String? {
         return "id"
@@ -28,7 +29,8 @@ class IllnessEntity : Object, Serializable {
             "name": name,
             "moreInfo": moreInfo,
             "medicine": medicine,
-            "dosage": dosage
+            "dosage": dosage,
+            "type": type
         ]
     }
     

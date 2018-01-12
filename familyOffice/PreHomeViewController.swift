@@ -90,6 +90,7 @@ class PreHomeViewController: UIViewController, UserEModelBindable {
     @IBAction func logout(_ sender: Any) {
         store.dispatch(AuthSvc(.logout))
     }
+    
 }
 extension PreHomeViewController : StoreSubscriber {
     
@@ -121,6 +122,20 @@ extension PreHomeViewController : StoreSubscriber {
             break
         default:
             break
+        }
+        switch store.state.authState.state {
+            case .loading: // hotfix, si luego explota, el neto del 9 de enero del 2018 dice hola
+                self.dismiss(animated: true, completion: nil)
+                break
+            case .Finished(_ as AuthAction):
+                if let top = UIApplication.topViewController() {
+                    top.popToView(view: .start)
+                }
+                break
+            default: break
+            }
+        if pendingNotification != nil {
+            gotoNotification(pendingNotification)
         }
     }
     

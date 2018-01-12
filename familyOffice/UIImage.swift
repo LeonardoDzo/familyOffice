@@ -6,7 +6,7 @@
 //  Copyright © 2017 Leonardo Durazo. All rights reserved.
 //
 import UIKit
-
+import RealmSwift
 let imageCache = NSCache<AnyObject, AnyObject>()
 let imageBWCache = NSCache<AnyObject, AnyObject>()
 
@@ -56,6 +56,8 @@ extension UIImageView {
             return
         }
         
+       
+        
         URLSession.shared.dataTask(with: url, completionHandler: {(data, response, error) in
             if error != nil {
                 print(error?.localizedDescription as Any)
@@ -70,12 +72,14 @@ extension UIImageView {
                     }
                     if let downloadImage = UIImage.init(data: decompressedData) {
                         imageCache.setObject(downloadImage, forKey: urlString as AnyObject)
+                        
                         self.image = nil
                         self.image = downloadImage
                         
                         self.verifyFilter(filter: filter, urlString: urlString)
                     }
             }
+            
         }).resume()
     }
     @objc func verifyFilter(filter: String, urlString: String) -> Void {
@@ -135,6 +139,22 @@ class CustomUIImageView: SpringImageView {
             return
         }
         
+        if let img = rManager.realm.object(ofType: ImageEntity.self, forPrimaryKey: url.absoluteString) {
+            let decompressedData: Data
+            if (img.data.isGzipped) {
+                decompressedData = try! img.data.gunzipped()
+            } else {
+                decompressedData = img.data
+            }
+            if let downloadImage = UIImage.init(data: decompressedData) {
+                imageCache.setObject(downloadImage, forKey: urlString as AnyObject)
+                self.image = nil
+                self.image = downloadImage
+                self.hideLoading()
+                return
+            }
+        }
+        
         URLSession.shared.dataTask(with: url, completionHandler: {(data, response, error) in
             if error != nil {
                 print(error?.localizedDescription as Any)
@@ -151,9 +171,13 @@ class CustomUIImageView: SpringImageView {
                     imageCache.setObject(downloadImage, forKey: urlString as AnyObject)
                     if urlString == self.urlString{
                         self.image = downloadImage
+                        let model = ImageEntity()
+                        model.id = url.absoluteString
+                        model.data = data ?? Data()
+                        rManager.save(objs: model)
                         self.hideLoading()
                     }
-                    self.verifyFilter(filter: filter, urlString: urlString)
+                  
                 }
             }
         }).resume()

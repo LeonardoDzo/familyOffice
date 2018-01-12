@@ -153,17 +153,23 @@
                                                     <constraint firstAttribute="width" constant="50" id="jWU-1M-sGP"/>
                                                 </constraints>
                                                 <state key="normal" image="call_icon"/>
+                                                <connections>
+                                                    <action selector="callBtnPressed:" destination="qgS-T6-VhM" eventType="touchUpInside" id="Afl-nF-iKH"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i0X-3m-zZh">
-                                                <rect key="frame" x="129" y="0.0" width="60" height="60"/>
+                                                <rect key="frame" x="90" y="0.0" width="60" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="60" id="M4g-IT-z1O"/>
                                                     <constraint firstAttribute="height" constant="60" id="b3r-t2-eOd"/>
                                                 </constraints>
                                                 <state key="normal" image="chat_icon"/>
+                                                <connections>
+                                                    <action selector="msgBtnPressed:" destination="qgS-T6-VhM" eventType="touchUpInside" id="ghN-cx-8MY"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lM3-Rm-qFF">
-                                                <rect key="frame" x="250" y="0.0" width="85" height="60"/>
+                                                <rect key="frame" x="172.5" y="0.0" width="85" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="IHa-y0-2vv"/>
                                                     <constraint firstAttribute="width" constant="85" id="vcg-Hg-2Ub"/>
@@ -171,6 +177,17 @@
                                                 <state key="normal" image="setting_icon"/>
                                                 <connections>
                                                     <action selector="handleGoConfig:" destination="qgS-T6-VhM" eventType="touchUpInside" id="sFV-2i-JRq"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ssU-q0-kNL">
+                                                <rect key="frame" x="285" y="0.0" width="50" height="60"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="60" id="LTb-9b-4d5"/>
+                                                    <constraint firstAttribute="width" constant="50" id="NZM-Jv-1Y5"/>
+                                                </constraints>
+                                                <state key="normal" image="logout_icon"/>
+                                                <connections>
+                                                    <action selector="logoutBtnPressed:" destination="qgS-T6-VhM" eventType="touchUpInside" id="uEF-8x-YB7"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -239,6 +256,7 @@
                         <outlet property="callBtn" destination="KcM-Ec-Ke4" id="LEy-mx-JHs"/>
                         <outlet property="confBtn" destination="lM3-Rm-qFF" id="iw0-ae-HCK"/>
                         <outlet property="infoView" destination="IgY-ok-cCK" id="MbP-IG-gjA"/>
+                        <outlet property="logoutBtn" destination="ssU-q0-kNL" id="9cD-me-Abq"/>
                         <outlet property="msgBtn" destination="i0X-3m-zZh" id="TNn-oS-Mit"/>
                         <outlet property="photo" destination="4XP-xI-lsW" id="ybq-j0-shZ"/>
                         <outlet property="titleLbl" destination="koW-kG-j3J" id="ny0-hc-bAf"/>
@@ -266,16 +284,21 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phone_profile" translatesAutoresizingMaskIntoConstraints="NO" id="aV5-BS-Pa5">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phone_profile" translatesAutoresizingMaskIntoConstraints="NO" id="aV5-BS-Pa5" customClass="UIImageViewX" customModule="familyOffice" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="44" height="44.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="44" id="ETF-Qv-q5w"/>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="PXl-DV-531"/>
                                                         <constraint firstAttribute="width" constant="44" id="mnd-tZ-DXJ"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LMj-MY-1Vb">
-                                                    <rect key="frame" x="52" y="12" width="315" height="21"/>
+                                                    <rect key="frame" x="52" y="12.5" width="315" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -301,13 +324,18 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location_profile" translatesAutoresizingMaskIntoConstraints="NO" id="onq-nb-Vbh">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location_profile" translatesAutoresizingMaskIntoConstraints="NO" id="onq-nb-Vbh" customClass="UIImageViewX" customModule="familyOffice" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="44" height="44.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="44" id="RZb-Zc-Gy9"/>
                                                         <constraint firstAttribute="height" constant="44" id="lTA-fd-gse"/>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="s2c-cu-jgF"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sin capturar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KCL-XK-5He">
                                                     <rect key="frame" x="52" y="12.5" width="315" height="21"/>
@@ -336,13 +364,18 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="birthday_profile" translatesAutoresizingMaskIntoConstraints="NO" id="og6-ZY-QVw">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="birthday_profile" translatesAutoresizingMaskIntoConstraints="NO" id="og6-ZY-QVw" customClass="UIImageViewX" customModule="familyOffice" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="44" height="44.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="ASW-dm-fcE"/>
                                                         <constraint firstAttribute="height" constant="44" id="efK-ce-3VK"/>
                                                         <constraint firstAttribute="width" constant="44" id="gey-cR-0bl"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Mu-bJ-mV7">
                                                     <rect key="frame" x="52" y="12" width="315" height="21"/>
@@ -498,6 +531,7 @@
         <image name="call_icon" width="84" height="108"/>
         <image name="chat_icon" width="115" height="108"/>
         <image name="location_profile" width="91" height="91"/>
+        <image name="logout_icon" width="84" height="108"/>
         <image name="nss_profile" width="91" height="91"/>
         <image name="phone_profile" width="91" height="91"/>
         <image name="rfc_profile" width="91" height="91"/>

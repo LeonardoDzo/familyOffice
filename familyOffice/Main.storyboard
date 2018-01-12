@@ -918,6 +918,10 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="byD-ht-sSW" secondAttribute="trailing" id="aFa-v3-3hO"/>
+                                    <constraint firstItem="byD-ht-sSW" firstAttribute="leading" secondItem="uqz-ug-DOP" secondAttribute="leading" id="uK1-Jl-xRJ"/>
+                                </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="1Pn-XK-PdU">
                                 <rect key="frame" x="264" y="189" width="73" height="36"/>
@@ -1128,15 +1132,41 @@
                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="popIn" value="YES"/>
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
+                                        <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tlo-f3-CQM" customClass="UILabelX" customModule="familyOffice" customModuleProvider="target">
+                                            <rect key="frame" x="80" y="0.0" width="20" height="20"/>
+                                            <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="20" id="lEK-qq-mbQ"/>
+                                                <constraint firstAttribute="width" constant="20" id="wt5-re-AI8"/>
+                                            </constraints>
+                                            <attributedString key="attributedText">
+                                                <fragment content="0">
+                                                    <attributes>
+                                                        <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <font key="NSFont" size="9" name=".SFNSText"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="5"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </label>
                                     </subviews>
                                 </view>
                                 <constraints>
                                     <constraint firstItem="5JW-sB-R8f" firstAttribute="leading" secondItem="LK8-kG-NJc" secondAttribute="leading" id="3GM-dK-cLJ"/>
+                                    <constraint firstItem="Tlo-f3-CQM" firstAttribute="top" secondItem="LK8-kG-NJc" secondAttribute="top" id="Cqa-xk-0De"/>
                                     <constraint firstAttribute="trailing" secondItem="5JW-sB-R8f" secondAttribute="trailing" id="Dhm-wH-7Wc"/>
                                     <constraint firstItem="5JW-sB-R8f" firstAttribute="top" secondItem="LK8-kG-NJc" secondAttribute="top" id="Yfz-S0-1aF"/>
+                                    <constraint firstAttribute="trailing" secondItem="Tlo-f3-CQM" secondAttribute="trailing" id="afL-xX-VMn"/>
                                     <constraint firstAttribute="bottom" secondItem="5JW-sB-R8f" secondAttribute="bottom" id="fPE-PM-p18"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="badge" destination="Tlo-f3-CQM" id="dBS-dy-G0k"/>
                                     <outlet property="icon" destination="5JW-sB-R8f" id="cUH-FD-jeW"/>
                                 </connections>
                             </collectionViewCell>
@@ -1157,7 +1187,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jJ7-ys-so0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="801" y="1759"/>
+            <point key="canvasLocation" x="800.79999999999995" y="1758.1709145427287"/>
         </scene>
         <!--Budget-->
         <scene sceneID="xTq-es-99M">

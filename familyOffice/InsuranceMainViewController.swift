@@ -92,6 +92,7 @@ extension InsuranceMainViewController: UICollectionViewDelegate, UICollectionVie
         default:
             break;
         }
+//        cell.image.image = cell.image.image?.maskWithColor(color: #colorLiteral(red: 0.1137254902, green: 0.7176470588, blue: 0.4352941176, alpha: 1))
         return cell
     }
 }

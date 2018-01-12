@@ -19,7 +19,7 @@ let store = Store<AppState>(
     state: nil,
     middleware: [realmMiddleware] )
 var notificationarray = [NotificationModel]()
-
+var pendingNotification : NotificationModel!
 let Userdefault = UserDefaults.standard
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUserNotificationCenterDelegate {
@@ -53,20 +53,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
         }
         
         if let notification = launchOptions?[.remoteNotification] as? [String: AnyObject] {
-            // 2
-            let aps = notification["aps"] as! [String: AnyObject]
-            print(aps)
+            let not = NotificationModel(dic: notification)
+            pendingNotification = not
         }
         
-    UNUserNotificationCenter.current().getDeliveredNotifications(completionHandler: { (notifications) in
+        UNUserNotificationCenter.current().getDeliveredNotifications(completionHandler: { (notifications) in
             notifications.enumerated().forEach({ (index, notification) in
                 let not = NotificationModel(notifiaction: notification)
                 notificationarray.append(not)
             })
         })
        
-
-        
+        rManager.saveObjects(objs: notificationarray)
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
         application.registerForRemoteNotifications()
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
@@ -106,7 +105,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
                      fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         let not = NotificationModel(dic: userInfo)
+        
         rManager.save(objs: not)
+        let state = UIApplication.shared.applicationState
+        
+        if pendingNotification == nil, state == .inactive {
+            gotoNotification(not)
+            
+        }
         
     }
     var top: UIViewController? {

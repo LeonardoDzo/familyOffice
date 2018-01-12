@@ -15,18 +15,21 @@ struct Illness {
     static let illMedicineKey = "medicine"
     static let illDosageKey = "dosis"
     static let illMoreInfoKey = "masinfo"
+    static let illTypeKey = "type"
     
     var id: String?
     var name: String!
     var medicine: String!
     var dosage: String!
     var moreInfo: String!
+    var type: Int!
     
-    init(name: String, medicine: String, dosage: String, moreInfo: String){
+    init(name: String, medicine: String, dosage: String, moreInfo: String, type: Int){
         self.name = name
         self.medicine = medicine
         self.dosage = dosage
         self.moreInfo = moreInfo
+        self.type = type
         self.id = Constants.FirDatabase.REF.child("illnesses").childByAutoId().key
     }
     
@@ -42,6 +45,7 @@ struct Illness {
         self.medicine = service.UTILITY_SERVICE.exist(field: Illness.illMedicineKey, dictionary: dic)
         self.dosage = service.UTILITY_SERVICE.exist(field: Illness.illDosageKey, dictionary: dic)
         self.moreInfo = service.UTILITY_SERVICE.exist(field: Illness.illMoreInfoKey, dictionary: dic)
+        self.type = service.UTILITY_SERVICE.exist(field: Illness.illTypeKey, dictionary: dic)
     }
     
     func toDictionary() -> NSDictionary {
@@ -49,7 +53,8 @@ struct Illness {
             Illness.illNameKey: self.name,
             Illness.illMedicineKey: self.medicine,
             Illness.illDosageKey: self.dosage,
-            Illness.illMoreInfoKey: self.moreInfo
+            Illness.illMoreInfoKey: self.moreInfo,
+            Illness.illTypeKey: self.type
         ]
     }
     

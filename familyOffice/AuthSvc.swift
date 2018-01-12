@@ -114,9 +114,6 @@ class AuthSvc : Action, EventProtocol {
         try! Auth.auth().signOut()
         self.status = .Finished(action)
         store.state.authState.state = self.status
-        if let top = UIApplication.topViewController() {
-            top.popToView(view: .start)
-        }
     }
     
 }

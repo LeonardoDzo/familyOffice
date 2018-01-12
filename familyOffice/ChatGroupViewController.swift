@@ -28,7 +28,6 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
         tableView.dataSource = self
         tableView.delegate = self
@@ -47,7 +46,13 @@ class ChatGroupViewController: UIViewController, UITableViewDataSource, UITableV
         tableView.scrollToBottom(animated: true)
         myTitleView.titleLbl.textColor = UIColor.white
         self.navigationItem.titleView = myTitleView
-        
+        let result = rManager.realm.objects(NotificationModel.self).filter("type = %@ AND seen = %@ AND value = %@", Notification_Type.chat.rawValue, false, group.id)
+        result.forEach { (notification) in
+            try! rManager.realm.write {
+                notification.seen = true
+            }
+            rManager.save(objs: notification)
+        }
         if group.isGroup {
             let button = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(self.edit))
             self.navigationItem.rightBarButtonItem = button
@@ -225,6 +230,9 @@ extension ChatGroupViewController : StoreSubscriber {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.setStyle(.chat)
+        self.setupBack()
         registerKeyboardNotifications()
         store.subscribe(self)
         getMessagesUuid = UUID().uuidString

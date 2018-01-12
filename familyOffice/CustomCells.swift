@@ -142,7 +142,7 @@ public class MapViewController : UIViewController, TypedRowControllerType, MKMap
         view.addSubview(mapView)
         
         mapView.delegate = self
-
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
@@ -179,10 +179,13 @@ public class MapViewController : UIViewController, TypedRowControllerType, MKMap
     
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        self.setupBack()
         let center = mapView.convert(mapView.centerCoordinate, toPointTo: pinView)
         pinView.center = CGPoint(x: center.x, y: center.y - (pinView.bounds.height/2))
         ellipsisLayer.position = center
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+            self.navigationController?.setToolbarHidden(false, animated: true)
+        
     }
     
     

@@ -9,21 +9,23 @@
 import UIKit
 import ReSwift
 private let reuseIdentifier = "Cell"
-
+import RealmSwift
 class homesBtn {
     var image: UIImage!
     var color: UIColor!
     var segue = ""
-    init(_ img: UIImage, _ color: UIColor, _ segue: String) {
+    var type : Notification_Type! = .none
+    init(_ img: UIImage, _ color: UIColor, _ segue: String, _ type : Notification_Type = .none) {
         self.image = img
         self.color = color
         self.segue = segue
+        self.type = type
     }
 }
 
 class HomeCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-
-    var btnsArray = [homesBtn(#imageLiteral(resourceName: "Calendar"), #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1),"calendarSegue"), homesBtn(#imageLiteral(resourceName: "chat"), #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), "chatSegue"), homesBtn(#imageLiteral(resourceName: "safeBox"), #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1), "safeBoxSegue"), homesBtn(#imageLiteral(resourceName: "insurance"),#colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1),"insuranceSegue"), homesBtn(#imageLiteral(resourceName: "FirstKit"), #colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1),"firstAidKitSegue")]
+    var notificationToken: NotificationToken? = nil
+    var btnsArray = [homesBtn(#imageLiteral(resourceName: "Calendar"), #colorLiteral(red: 1, green: 0.2901960784, blue: 0.3529411765, alpha: 1),"calendarSegue",Notification_Type.event ), homesBtn(#imageLiteral(resourceName: "chat"), #colorLiteral(red: 0.01568627451, green: 0.7019607843, blue: 0.9960784314, alpha: 1), "chatSegue", Notification_Type.chat), homesBtn(#imageLiteral(resourceName: "safeBox"), #colorLiteral(red: 0.9607843137, green: 0.7215686275, blue: 0.1176470588, alpha: 1), "safeBoxSegue",Notification_Type.safebox), homesBtn(#imageLiteral(resourceName: "insurance"),#colorLiteral(red: 0.1137254902, green: 0.7176470588, blue: 0.4352941176, alpha: 1),"insuranceSegue", Notification_Type.insurance), homesBtn(#imageLiteral(resourceName: "FirstKit"), #colorLiteral(red: 0.5490196078, green: 0.5294117647, blue: 0.7843137255, alpha: 1),"firstAidKitSegue", Notification_Type.firstAidKit)]
     lazy var settingLauncher : SettingLauncher = {
         let launcher = SettingLauncher()
         return launcher
@@ -42,7 +44,16 @@ class HomeCollectionViewController: UICollectionViewController, UICollectionView
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    override func viewDidAppear(_ animated: Bool) {
+        let results = rManager.realm.objects(NotificationModel.self)
+        notificationToken = results.observe { [weak self] (_ ) in
+            self?.btnsArray.enumerated().forEach({ (i, _) in
+                let cell = self?.collectionView?.cellForItem(at: IndexPath(item: i, section: 0)) as! homesCollectionViewCell
+                cell.verifyNotifications(results)
+            })
+        }
+    }
+    
     @objc func changefam() -> Void {
          settingLauncher.showSetting()
     }
@@ -61,10 +72,10 @@ class HomeCollectionViewController: UICollectionViewController, UICollectionView
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! homesCollectionViewCell
         let btn = btnsArray[indexPath.row]
+        cell.btn = btn
         cell.tag = indexPath.row
         cell.icon.image = btn.image
         cell.icon.backgroundColor = btn.color
-        
         // Configure the cell
     
         return cell
@@ -112,6 +123,7 @@ extension  HomeCollectionViewController : StoreSubscriber {
     
     override func viewWillDisappear(_ animated: Bool) {
         store.unsubscribe(self)
+        notificationToken?.invalidate()
     }
     
 }

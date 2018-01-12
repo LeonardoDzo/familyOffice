@@ -18,15 +18,26 @@ class NewIllnessFormController: FormViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(entity)
         // done button
         if let illness = entity as? IllnessEntity {
+            print(illness)
             let doneButton = UIBarButtonItem(title: "Guardar", style: UIBarButtonItemStyle.plain, target: self, action:#selector(self.saveIllness))
             self.navigationItem.rightBarButtonItem = doneButton
             form +++ Section()
                 <<< createTextRow(title: "Nombre", tag: "name", value: illness.name)
                 <<< createTextRow(title: "Dosis", tag: "dosage", value: illness.dosage)
                 <<< createTextRow(title: "Medicina", tag: "medicine", value: illness.medicine)
-                <<< createTextRow(title: "Mas información", tag: "moreInfo", value: illness.moreInfo)
+                <<< AlertRow<String>() {
+                    $0.title = "Tipo"
+                    $0.selectorTitle = "Selecciona el tipo"
+                    $0.options = ["Dolor","Enfermedad"]
+                    $0.value = illness.type == 1 ? "Enfermedad" : illness.type == 0 ? "Dolor" : ""
+                    }.onChange({ (row) in
+                        try! rManager.realm.write {
+                            illness.type = row.value == "Enfermedad" ? 1 : 0
+                        }
+                    })
         } else if let medicine = entity as? MedicineEntity {
             let doneButton = UIBarButtonItem(title: "Guardar", style: UIBarButtonItemStyle.plain, target: self, action:#selector(self.saveMedicine))
             self.navigationItem.rightBarButtonItem = doneButton
@@ -60,7 +71,8 @@ class NewIllnessFormController: FormViewController {
         _illness.name = values["name"] as! String
         _illness.dosage = values["dosage"] as! String
         _illness.medicine = values["medicine"] as! String
-        _illness.moreInfo = values["moreInfo"] as! String
+        _illness.moreInfo = ""
+        _illness.type = illness.type
         newIllnessUuid = UUID().uuidString
         if action == .Create {
             store.dispatch(newIllnessAction(illness: _illness, uuid: newIllnessUuid!))
