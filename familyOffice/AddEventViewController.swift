@@ -35,46 +35,27 @@ class EventViewController: FormViewController, EventEBindable {
         }
     }
     
-    fileprivate func formChanged() {
+    fileprivate func formChanged(_ tag: String) {
         try! rManager.realm.write {
-            let titleRow: TextRow? = form.rowBy(tag: "title")
-            self.event.title = titleRow?.value ?? ""
-            let detailsRow: TextRow? = form.rowBy(tag: "datails")
-            self.event.details = detailsRow?.value ?? ""
-            let locationRow: LocationRow? = form.rowBy(tag: "location")
-            self.event.location = locationRow?.value
-            let isAllDayRow: SwitchRow? = form.rowBy(tag: "allday")
-            self.event.isAllDay = isAllDayRow?.value ?? false
-            if self.event.isAllDay! {
-                let startDateRow = self.form.rowBy(tag: "startDate") as? DateRow
-                self.event.startdate = startDateRow?.value?.toMillis() ?? Date().toMillis()
-                let endDateRow = self.form.rowBy(tag: "endDate") as? DateRow
-                self.event.enddate = endDateRow?.value?.toMillis() ?? Date().toMillis()
-            }else{
-                let startDateRow = self.form.rowBy(tag: "startDateTime") as? DateTimeRow
-                self.event.startdate = startDateRow?.value?.toMillis() ?? Date().toMillis()
-                let endDateRow = self.form.rowBy(tag: "endDateTime") as? DateTimeRow
-                self.event.enddate = endDateRow?.value?.toMillis() ?? Date().toMillis()
+            let valuesDictionary = form.values()
+            let value = valuesDictionary[tag]
+            switch tag {
+                case "title":
+                    self.event.title = value as! String
+                    break
+                case "details":
+                    self.event.details = value as! String
+                    break
+                case "location":
+                    self.event.location = value as? Location ?? nil
+                    break
+                case "title":
+                    title = value as? String
+                    break
+                
+                default:
+                    break
             }
-            let repeatRow = self.form.rowBy(tag: "frequency") as? PushRow<Frequency>
-            self.event.repeatmodel?.frequency = repeatRow?.value ?? .never
-            let endrepeatRow = self.form.rowBy(tag: "endRepeat") as? DateRow
-            self.event.repeatmodel?.end = (endrepeatRow?.value?.toMillis()) ?? Date().toMillis()
-            endrepeatRow?.minimumDate = Date(self.event.enddate)
-            let typeRow = self.form.rowBy(tag: "type") as? PushRow<eventType>
-            self.event.eventtype = typeRow?.value ?? .Default
-            let usersRow = self.form.rowBy(tag: "UsersRow") as? UsersRow
-            self.event.members.removeAll()
-            if let members = usersRow?.value?.list.map({ (uid) -> memberEventEntity in
-                return memberEventEntity(uid: uid)
-            }) {
-                self.event.members.append(objectsIn: members)
-            }
-            if self.event.members.count == 0 {
-                self.event.members.append(memberEventEntity(uid: (getUser()?.id)!))
-            }
-            
-            
         }
         
     }
@@ -90,7 +71,7 @@ class EventViewController: FormViewController, EventEBindable {
                 row.tag = "title"
                 row.value = event.title
                 }.onChange({ (row) in
-                    self.formChanged()
+                    self.formChanged(row.tag!)
                 })
             
             <<< TextRow(){ row in
@@ -99,16 +80,14 @@ class EventViewController: FormViewController, EventEBindable {
                 row.value = event.details
                 row.tag = "details"
                 }.onChange({ (row) in
-                    self.formChanged()
+                    self.formChanged(row.tag!)
                 })
             <<< LocationRow(){
                 $0.title = "Ubicación"
                 $0.tag = "location"
                 $0.value = self.event.location
                 }.onChange({ (row) in
-                    try! rManager.realm.write {
-                        self.event.location = row.value
-                    }
+                    self.formChanged(row.tag!)
                     row.updateCell()
                 })
             +++
@@ -118,7 +97,7 @@ class EventViewController: FormViewController, EventEBindable {
                 row.tag = "allDay"
                 row.value = event.isAllDay ?? false
                 }.onChange({ (row) in
-                    self.formChanged()
+                    self.formChanged(row.tag!)
                 })
             <<<  DateTimeRow() { row in
                 row.title = "Inicio"
@@ -210,12 +189,15 @@ class EventViewController: FormViewController, EventEBindable {
                 row.value = self.event.repeatmodel?.frequency ?? .never
                 row.tag = "frequency"
                 row.selectorTitle = ""
+                
+                self.navigationController?.setNavigationBarHidden(false, animated: true)
                 }.onChange({ (row) in
                     if row.isValid {
                         self.formChanged()
                         row.updateCell()
                     }
                 }).onPresent({ (form, to) in
+                    to.navigationController?.setNavigationBarHidden(false, animated: true)
                     to.dismissOnSelection = true
                     to.dismissOnChange = false
                 })
@@ -236,7 +218,9 @@ class EventViewController: FormViewController, EventEBindable {
                     return false
                 })
                 }.onChange({ (row) in
-                    self.event.repeatmodel?.end = (row.value?.toMillis())!
+                    try! rManager.realm.write {
+                        self.event.repeatmodel?.end = (row.value?.toMillis())!
+                    }
                 }).cellUpdate { (cell, row) in
                     row.minimumDate = Date(self.event.enddate)
             }
@@ -266,7 +250,9 @@ class EventViewController: FormViewController, EventEBindable {
                     self.formChanged()
                     row.updateCell()
                 })
-        
+        navigationOptions = RowNavigationOptions.Enabled.union(.StopDisabledRow)
+        animateScroll = true
+        rowKeyboardSpacing = 20
     }
     
     override func didReceiveMemoryWarning() {
@@ -284,8 +270,8 @@ class EventViewController: FormViewController, EventEBindable {
             self.tabBarController?.navigationItem.rightBarButtonItem = addBtn
             self.tabBarController?.navigationItem.title = "Nuevo Evento"
         }else{
-//            self.navigationController?.setNavigationBarHidden(false, animated: true)
-//            self.navigationController?.setToolbarHidden(false, animated: true)
+            //            self.navigationController?.setNavigationBarHidden(false, animated: true)
+            //            self.navigationController?.setToolbarHidden(false, animated: true)
             self.setStyle(.calendar)
             self.setupBack()
             let addBtn = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(self.save))
