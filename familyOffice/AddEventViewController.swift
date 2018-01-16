@@ -35,35 +35,80 @@ class EventViewController: FormViewController, EventEBindable {
         }
     }
     
-    fileprivate func formChanged(_ tag: String) {
+    fileprivate func searchKey(_ key: String, _ value: Any?) {
+        switch key {
+        case "title":
+            self.event.title = value as! String
+            break
+        case "details":
+            self.event.details = value as! String
+            break
+        case "location":
+            self.event.location = value as? Location ?? nil
+            break
+        case "allDay":
+            self.event.isAllDay = value as? Bool ?? false
+            break
+        case "startDateTime", "startDate":
+            self.event.startdate = (value as? Date)?.toMillis() ?? Date().toMillis()
+            break
+        case "endDateTime", "endDate":
+            self.event.enddate = (value as? Date)?.toMillis() ?? Date().toMillis()
+            break
+//        case "frequency":
+//            self.event.repeatmodel?.frequency = value as? Frequency ?? Frequency.never
+//            break
+//        case "endRepeat":
+//            let val = value as? Date
+//            self.event.repeatmodel?.end = (val)?.toMillis() ?? self.event.enddate
+//            break
+        case "type":
+            self.event.eventtype = value as? eventType ?? eventType.Default
+            break
+        case "users":
+            let list  = (value as? UserListSelected)?.list ?? [(getUser()?.id)!]
+            
+            self.event.members.forEach({ (member) in
+                if !list.contains(member.id) {
+                    rManager.realm.delete(member)
+                }
+            })
+            
+            list.forEach({ (uid) in
+                if !self.event.members.contains(where: {$0.id == uid}) {
+                    self.event.members.append(memberEventEntity(uid: uid))
+                }
+            })
+            
+            break
+        default:
+            break
+        }
+    }
+    
+    fileprivate func formSave() {
         try! rManager.realm.write {
             let valuesDictionary = form.values()
-            let value = valuesDictionary[tag]
-            switch tag {
-                case "title":
-                    self.event.title = value as! String
-                    break
-                case "details":
-                    self.event.details = value as! String
-                    break
-                case "location":
-                    self.event.location = value as? Location ?? nil
-                    break
-                case "title":
-                    title = value as? String
-                    break
-                
-                default:
-                    break
-            }
+            valuesDictionary.forEach({ (key, value) in
+                searchKey(key, value)
+            })
         }
-        
     }
     
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        try! rManager.realm.write {
+            let members = self.event.members.map({$0.id})
+            if members.count == 0 {
+                self.event.members.append(memberEventEntity(uid: getUser()!.id))
+            }
+            if event.repeatmodel == nil {
+                self.event.repeatmodel = repeatEntity()
+            }
+        }
+       
         form +++ Section("")
             <<< TextRow() { row in
                 row.title = "Titúlo"
@@ -71,7 +116,7 @@ class EventViewController: FormViewController, EventEBindable {
                 row.tag = "title"
                 row.value = event.title
                 }.onChange({ (row) in
-                    self.formChanged(row.tag!)
+                    //self.formChanged(row.tag!)
                 })
             
             <<< TextRow(){ row in
@@ -80,14 +125,14 @@ class EventViewController: FormViewController, EventEBindable {
                 row.value = event.details
                 row.tag = "details"
                 }.onChange({ (row) in
-                    self.formChanged(row.tag!)
+                    //self.formChanged(row.tag!)
                 })
             <<< LocationRow(){
                 $0.title = "Ubicación"
                 $0.tag = "location"
                 $0.value = self.event.location
                 }.onChange({ (row) in
-                    self.formChanged(row.tag!)
+                    //self.formChanged(row.tag!)
                     row.updateCell()
                 })
             +++
@@ -97,7 +142,7 @@ class EventViewController: FormViewController, EventEBindable {
                 row.tag = "allDay"
                 row.value = event.isAllDay ?? false
                 }.onChange({ (row) in
-                    self.formChanged(row.tag!)
+                    //self.formChanged(row.tag!)
                 })
             <<<  DateTimeRow() { row in
                 row.title = "Inicio"
@@ -108,7 +153,7 @@ class EventViewController: FormViewController, EventEBindable {
                     return ((form.rowBy(tag: "allDay") as? SwitchRow)?.value ?? false)
                 })
                 }.onChange({ (row) in
-                    self.formChanged()
+                    //self.formChanged(row.tag!)
                     self.setinzerosdate(&row.value!)
                     if let eRow = self.form.rowBy(tag: "endDateTime") as? DateTimeRow {
                         eRow.updateCell()
@@ -129,7 +174,7 @@ class EventViewController: FormViewController, EventEBindable {
                 })
                 row.value = event.enddate == 0 ?  Date() : Date(event.enddate)
                 }.onChange({ (row) in
-                    self.formChanged()
+                    //self.formChanged(row.tag!)
                     self.setinenddate(&row.value!)
                 }).cellUpdate { (cell, row) in
                     
@@ -150,7 +195,7 @@ class EventViewController: FormViewController, EventEBindable {
                 })
                 row.value = event.startdate == 0 ?  Date() : Date(event.startdate)
                 }.onChange({ (row) in
-                    self.formChanged()
+                    //self.formChanged(row.tag!)
                     self.setinzerosdate(&row.value!)
                     if let eRow = self.form.rowBy(tag: "endDate") as? DateTimeRow {
                         eRow.updateCell()
@@ -171,7 +216,7 @@ class EventViewController: FormViewController, EventEBindable {
                 row.tag = "endDate"
                 row.value = event.enddate == 0 ?  Date() : Date(event.enddate)
                 }.onChange({ (row) in
-                    self.formChanged()
+                    //self.formChanged(row.tag!)
                     self.setinenddate(&row.value!)
                 }).cellUpdate { (cell, row) in
                     
@@ -185,6 +230,9 @@ class EventViewController: FormViewController, EventEBindable {
             }
             <<< PushRow<Frequency>() { row in
                 row.title = "Repetir"
+               
+                row.hidden = Condition(booleanLiteral: !self.event.id.isEmpty)
+                
                 row.options = [.never,.daily,.weekly, .monthly, .year]
                 row.value = self.event.repeatmodel?.frequency ?? .never
                 row.tag = "frequency"
@@ -193,7 +241,7 @@ class EventViewController: FormViewController, EventEBindable {
                 self.navigationController?.setNavigationBarHidden(false, animated: true)
                 }.onChange({ (row) in
                     if row.isValid {
-                        self.formChanged()
+                        //self.formChanged(row.tag!)
                         row.updateCell()
                     }
                 }).onPresent({ (form, to) in
@@ -205,24 +253,32 @@ class EventViewController: FormViewController, EventEBindable {
                 row.title = "Terminar"
                 row.value = Date()
                 row.tag = "endRepeat"
+                
                 row.hidden = Condition.function(["frequency"], { form in
                     
                     if let xrow = (form.rowBy(tag: "frequency") as? PushRow<Frequency>?)??.value {
                         let tag = xrow == .never
-                        self.formChanged()
+                        //self.formChanged(row.tag!)
                         if tag {
-                            row.value = Date()
+                            row.minimumDate =  Date(self.event.enddate)
+                            row.value = self.event.enddate != 0 ?  Date(self.event.enddate) : Date()
                         }
                         return tag
                     }
                     return false
                 })
+                row.hidden = Condition(booleanLiteral: !self.event.id.isEmpty)
                 }.onChange({ (row) in
                     try! rManager.realm.write {
                         self.event.repeatmodel?.end = (row.value?.toMillis())!
                     }
                 }).cellUpdate { (cell, row) in
-                    row.minimumDate = Date(self.event.enddate)
+                    if let value = row.value {
+                        row.minimumDate =  value.toMillis() < self.event.enddate ?  Date(self.event.enddate) :  value
+                    }else{
+                          row.minimumDate = Date(self.event.enddate)
+                    }
+                   
             }
             +++ Section()
             <<< PushRow<eventType>() { row in
@@ -233,7 +289,7 @@ class EventViewController: FormViewController, EventEBindable {
                 row.selectorTitle = "Escogé un tipo de evento"
                 }.onChange({ (row) in
                     if row.isValid {
-                        self.formChanged()
+                        //self.formChanged(row.tag!)
                         try! rManager.realm.write {
                             row.updateCell()
                         }
@@ -244,10 +300,10 @@ class EventViewController: FormViewController, EventEBindable {
                 })
             <<< UsersRow(){
                 $0.title = "Invitados"
-                $0.tag = "UsersRow"
+                $0.tag = "users"
                 $0.value = UserListSelected(list: self.event.members.map({$0.id}))
                 }.onChange({ (row) in
-                    self.formChanged()
+                    //self.formChanged(row.tag!)
                     row.updateCell()
                 })
         navigationOptions = RowNavigationOptions.Enabled.union(.StopDisabledRow)
@@ -257,8 +313,6 @@ class EventViewController: FormViewController, EventEBindable {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        
-        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -290,13 +344,13 @@ class EventViewController: FormViewController, EventEBindable {
         let errors = form.validate()
         
         if errors.count == 0  {
+            formSave()
             if event.id.isEmpty {
                 store.dispatch(EventSvc(.save(event: self.event)))
                 event = EventEntity()
+                self.tableView.reloadData()
             }else{
-                let father = self.event.father != nil ? self.event.father  : self.event
-                store.dispatch(EventSvc(.update(event: father!)))
-                self.back3()
+                self.saveforthis()
             }
             
             tableView.reloadData()
@@ -305,6 +359,65 @@ class EventViewController: FormViewController, EventEBindable {
             self.view.makeToast("\(errors.description)", duration: 5.0, point: self.view.center, title: "Errores", image: nil, style: t, completion: nil)
         }
         
+    }
+    
+    func saveforthis() -> Void {
+        let alertController = UIAlertController(title: "Aplicar cambios para?", message: "", preferredStyle: .actionSheet)
+        
+        let sendButton = UIAlertAction(title: "Solo Este", style: .default, handler: { (action) -> Void in
+            self.safeForAll(false)
+        })
+        let deleteButton = UIAlertAction(title: "Para todos los siguientes", style: .default, handler: { (action) -> Void in
+            self.safeForAll(true)
+        })
+        
+        
+        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in
+            print("Cancel button tapped")
+        })
+        
+        
+        alertController.addAction(sendButton)
+        alertController.addAction(deleteButton)
+        alertController.addAction(cancelButton)
+        self.present(alertController, animated: true, completion: nil)
+        
+        
+    }
+    
+    func safeForAll(_ flag: Bool) -> Void {
+        let father = self.event.getFather()
+        try! rManager.realm.write {
+            self.event.changesforAll = flag
+        }
+        if flag {
+            let events = rManager.realm.objects(EventEntity.self).filter("father = %@ AND startdate > %@",father, self.event.startdate)
+            
+            events.forEach({ (event) in
+                event.members.enumerated().forEach({ (i, member) in
+                    if self.event.members.contains(where: {$0.id == member.id}) {
+                        try! rManager.realm.write {
+                            event.members.remove(at: i)
+                        }
+                    }
+                })
+                event.update(self.event)
+            })
+            
+            
+        }
+        try! rManager.realm.write {
+            if self.event.isChild {
+                if let index = father.following.index(where: {$0.id == self.event.id}) {
+                    father.following[index] = self.event
+                }else{
+                    father.following.append(self.event)
+                }
+            }
+        }
+        
+        
+        store.dispatch(EventSvc(.update(event: father)))
     }
     
     

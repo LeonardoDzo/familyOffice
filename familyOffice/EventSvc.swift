@@ -158,7 +158,7 @@ extension EventSvc: Reducer {
                     self.valueSingleton(ref: "events/\(Id)")
                 break
                 case .delete(let event):
-                   // self.delete(event)
+                   self.delete(event)
                 break
                 default:
                     break

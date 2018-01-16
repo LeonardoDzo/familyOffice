@@ -99,10 +99,6 @@ extension PreviewEventsViewController: UIViewControllerPreviewingDelegate  {
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         self.pushToView(view: .eventDetails, sender: eventSelected)
     }
-    
-    
-    
-    
 }
 extension PreviewEventsViewController : UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {

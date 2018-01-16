@@ -92,6 +92,7 @@
 		0275ADFA1FD73BCA0048B3FB /* FamilyTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0275ADF91FD73BCA0048B3FB /* FamilyTitleView.xib */; };
 		0275ADFE1FD73CD10048B3FB /* FamilyTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0275ADFD1FD73CD10048B3FB /* FamilyTitleView.swift */; };
 		0275DBB71F27C68100E733E5 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0275DBB61F27C68100E733E5 /* UITextField.swift */; };
+		02784C83200D7AE900468203 /* Assistant.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02784C82200D7AE900468203 /* Assistant.storyboard */; };
 		027CC9C11F29390A005A48A6 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027CC9C01F29390A005A48A6 /* MainTabBarController.swift */; };
 		02802DFF1EFC36A900E12A84 /* FamilyProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02802DFE1EFC36A900E12A84 /* FamilyProtocols.swift */; };
 		02811B331F06AE9E004231BE /* GoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02811B321F06AE9E004231BE /* GoalViewController.swift */; };
@@ -230,7 +231,6 @@
 		045B648F1EFDD1F600F57BBD /* HomeGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B648E1EFDD1F600F57BBD /* HomeGalleryViewController.swift */; };
 		045F4A0F1F0DB8D000B483C9 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045F4A0E1F0DB8D000B483C9 /* AlbumViewController.swift */; };
 		04AFE38B1F01DE1600D4ECA2 /* AlbumModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AFE38A1F01DE1600D4ECA2 /* AlbumModel.swift */; };
-		04AFE38D1F03246000D4ECA2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04AFE38C1F03246000D4ECA2 /* Assets.xcassets */; };
 		04AFE38F1F05A0F500D4ECA2 /* AddAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AFE38E1F05A0F500D4ECA2 /* AddAlbumViewController.swift */; };
 		04BDB2851F19A2F6006D3A62 /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BDB2841F19A2F6006D3A62 /* AppReducer.swift */; };
 		1A54F2C4CFA581E377445DB2 /* GalleryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A54FA2A44BB2FC5448DD081 /* GalleryService.swift */; };
@@ -482,6 +482,7 @@
 		0275ADF91FD73BCA0048B3FB /* FamilyTitleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FamilyTitleView.xib; sourceTree = "<group>"; };
 		0275ADFD1FD73CD10048B3FB /* FamilyTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyTitleView.swift; sourceTree = "<group>"; };
 		0275DBB61F27C68100E733E5 /* UITextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
+		02784C82200D7AE900468203 /* Assistant.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Assistant.storyboard; sourceTree = "<group>"; };
 		027CC9C01F29390A005A48A6 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		02802DFE1EFC36A900E12A84 /* FamilyProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyProtocols.swift; sourceTree = "<group>"; };
 		02811B321F06AE9E004231BE /* GoalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalViewController.swift; sourceTree = "<group>"; };
@@ -615,7 +616,6 @@
 		045B648E1EFDD1F600F57BBD /* HomeGalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeGalleryViewController.swift; sourceTree = "<group>"; };
 		045F4A0E1F0DB8D000B483C9 /* AlbumViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		04AFE38A1F01DE1600D4ECA2 /* AlbumModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumModel.swift; sourceTree = "<group>"; };
-		04AFE38C1F03246000D4ECA2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = familyOffice/Assets.xcassets; sourceTree = "<group>"; };
 		04AFE38E1F05A0F500D4ECA2 /* AddAlbumViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAlbumViewController.swift; sourceTree = "<group>"; };
 		04BDB2841F19A2F6006D3A62 /* AppReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
 		1A54F16D92824170DA517ED5 /* ImageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
@@ -889,7 +889,6 @@
 		02382F001E1C210C0036FFC9 = {
 			isa = PBXGroup;
 			children = (
-				04AFE38C1F03246000D4ECA2 /* Assets.xcassets */,
 				840393AD1E413127008873A2 /* background.mp4 */,
 				02B46A321E52281200CC7511 /* familyOffice.entitlements */,
 				02382F0B1E1C210C0036FFC9 /* familyOffice */,
@@ -1437,6 +1436,7 @@
 				02382F151E1C210C0036FFC9 /* LaunchScreen.storyboard */,
 				A45EDE3E1FD0737A00D95A48 /* FirstAidKit.storyboard */,
 				C335EC851FE837ED00FAB884 /* Insurance.storyboard */,
+				02784C82200D7AE900468203 /* Assistant.storyboard */,
 			);
 			name = Storyboard;
 			sourceTree = "<group>";
@@ -2159,11 +2159,11 @@
 				02954C591FBA77380057F809 /* Health.storyboard in Resources */,
 				0275ADFA1FD73BCA0048B3FB /* FamilyTitleView.xib in Resources */,
 				02954C5A1FBA77380057F809 /* ToDoList.storyboard in Resources */,
+				02784C83200D7AE900468203 /* Assistant.storyboard in Resources */,
 				02954C5B1FBA77380057F809 /* LaunchScreen.storyboard in Resources */,
 				0260CF9D1FDB058B007FB6E0 /* FamilyMember1Cell.xib in Resources */,
 				C335EC861FE837ED00FAB884 /* Insurance.storyboard in Resources */,
 				02B2D3151FD22FA2009D22ED /* PreviewEvent.xib in Resources */,
-				04AFE38D1F03246000D4ECA2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

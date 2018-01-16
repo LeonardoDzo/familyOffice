@@ -61,7 +61,7 @@ class EventDetailsViewController: UIViewController, EventEBindable {
             self.deleteEvent()
         })
         self.previewActions.append(contentsOf: [accept,pending,reject])
-        if self.event.admins.contains(where: {$0.value == getUser()?.id}) {
+        if self.event.admins.contains(where: {$0.value == getUser()?.id}) || (self.event.father?.admins.contains(where: {$0.value == getUser()?.id}))! {
             self.previewActions.append(delete)
         }
         statusView.animate()
@@ -85,7 +85,9 @@ class EventDetailsViewController: UIViewController, EventEBindable {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    deinit {
+        self.mapView = nil
+    }
     @IBAction func handleEdit(_ sender: UIButton) {
         self.pushToView(view: .addEvent, sender: self.event)
     }
@@ -93,9 +95,9 @@ class EventDetailsViewController: UIViewController, EventEBindable {
     fileprivate func deleteEvent() {
          let father = self.event.getFather()
         //0 hace referencia a que jamás se repetira este evento
-        let freq = father?.repeatmodel?.frequency.rawValue ?? 0
+        let freq = father.repeatmodel?.frequency.rawValue ?? 0
         if  0 == freq {
-            store.dispatch(EventSvc(.delete(eid: father!)))
+            store.dispatch(EventSvc(.delete(eid: father)))
         }else{
             deleteJustThis()
         }
@@ -108,36 +110,37 @@ class EventDetailsViewController: UIViewController, EventEBindable {
         let alertController = UIAlertController(title: " Cuales desea eliminar?", message: "", preferredStyle: .actionSheet)
         
         let sendButton = UIAlertAction(title: "Solo Este", style: .destructive, handler: { (action) -> Void in
-//            if self.event.isChild() {
-//                try! rManager.realm.write {
-//                    self.event.isDeleted = true
-//                }
-//                rManager.save(objs: self.event)
-//               // store.dispatch(EventSvc(.update(event: father)))
-//
-//            }else{
-//                if let event = rManager.realm.objects(EventEntity.self).filter("father = %@", father).sorted(byKeyPath: "startdate").first {
-//
-//                    try! rManager.realm.write {
-//                        self.event.startdate = event.startdate
-//                        self.event.enddate = event.enddate
-//                    }
-//                    rManager.save(objs: father)
-//                   // store.dispatch(EventSvc(.update(event: father)))
-//                }
-//
-        //}
+            if self.event.isChild {
+                try! rManager.realm.write {
+                    self.event.isDeleted = true
+                }
+                rManager.save(objs: self.event)
+               store.dispatch(EventSvc(.update(event: father)))
+
+            }else{
+                if let event = rManager.realm.objects(EventEntity.self).filter("father = %@", father).sorted(byKeyPath: "startdate").first {
+
+                    try! rManager.realm.write {
+                        self.event.startdate = event.startdate
+                        self.event.enddate = event.enddate
+                    }
+                    rManager.save(objs: father)
+                    store.dispatch(EventSvc(.update(event: father)))
+                }
+        }
         })
+        
         let deleteButton = UIAlertAction(title: "Todos los siguientes", style: .destructive, handler: { (action) -> Void in
             
-//            if self.event.isChild() {
-//                try! rManager.realm.write {
-//                    father.repeatmodel?.end = self.event.enddate
-//                }
-//              //  store.dispatch(EventSvc(.update(event: father)))
-//            }else{
-//              //  store.dispatch(EventSvc(.delete(eid: father)))
-//            }
+            if self.event.isChild {
+                try! rManager.realm.write {
+                    father.repeatmodel?.end = self.event.enddate
+                }
+                store.dispatch(EventSvc(.update(event: father)))
+            }else{
+                
+                store.dispatch(EventSvc(.delete(eid: father)))
+            }
         })
         
         
@@ -213,7 +216,6 @@ class EventDetailsViewController: UIViewController, EventEBindable {
             self.safeForAll(true)
         })
         
-        
         let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in
             print("Cancel button tapped")
         })
@@ -229,18 +231,38 @@ class EventDetailsViewController: UIViewController, EventEBindable {
     }
     
     func safeForAll(_ flag: Bool) -> Void {
+        let father = self.event.getFather()
         try! rManager.realm.write {
             self.event.changesforAll = flag
-            if event.father != nil {
-                if let index = self.event.father?.following.index(where: {$0.id == self.event.id}) {
-                    event.father?.following[index] = self.event
+        }
+            if flag {
+                let events = rManager.realm.objects(EventEntity.self).filter("father = %@ AND startdate > %@",father, self.event.startdate)
+                
+                    events.forEach({ (event) in
+                        event.members.enumerated().forEach({ (i, member) in
+                            if self.event.members.contains(where: {$0.id == member.id}) {
+                                 try! rManager.realm.write {
+                                    event.members.remove(at: i)
+                                }
+                            }
+                        })
+                        event.update(self.event)
+                    })
+                  
+                
+            }
+          try! rManager.realm.write {
+            if self.event.isChild {
+                if let index = father.following.index(where: {$0.id == self.event.id}) {
+                    father.following[index] = self.event
                 }else{
-                    event.father?.following.append(self.event)
+                    father.following.append(self.event)
                 }
             }
         }
-        let father = self.event.father != nil ? self.event.father  : self.event
-        store.dispatch(EventSvc(.update(event: father!)))
+       
+        
+        store.dispatch(EventSvc(.update(event: father)))
     }
 
 }
@@ -290,11 +312,12 @@ extension EventDetailsViewController : StoreSubscriber {
         self.setupButtonback()
         
         
-        let details = event.details == nil ? event.father?.details : event.details
+        let details = event.details.isEmpty ? event.father?.details : event.details
         if  (details?.isEmpty)! {
             detailsStack.isHidden = true
         }
-        self.editBtn.isHidden = self.event.admins.contains(where: {$0.value == getUser()?.id}) ? false : true
+        let father = self.event.getFather()
+        self.editBtn.isHidden = father.admins.contains(where :{ $0.value == getUser()?.id}) ? false : true
         store.subscribe(self) {
             $0.select({ (s)  in
                 s.EventState
@@ -343,6 +366,7 @@ extension EventDetailsViewController : StoreSubscriber {
         store.unsubscribe(self)
         
     }
+    
 }
 extension EventDetailsViewController : CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

@@ -159,11 +159,9 @@ extension UserS : RequestProtocol {
                            store.dispatch(FamilyS(.getbyId(fid: fid.value)))
                         }
                         
-                        if user.events.isEmpty {
-                            let events = rManager.realm.objects(EventEntity.self)
-                            try! rManager.realm.write {
-                                  rManager.realm.delete(events)
-                            }
+                        let events = rManager.realm.objects(EventEntity.self)
+                        try! rManager.realm.write {
+                            rManager.realm.delete(events)
                         }
                         for eid in user.events {
                             store.dispatch(EventSvc(.get(byId: eid.value)))

@@ -153,6 +153,10 @@ class MainFunctions : RequestProtocol {
                 break
             case "events":
                 EventSvc().removeHandles(ref: snapshot.ref.description())
+                if let event = rManager.realm.object(ofType: EventEntity.self, forPrimaryKey:  route[6]) {
+                    store.dispatch(EventSvc(.delete(eid:event)))
+                }
+                
                 break
             default:
                 break
