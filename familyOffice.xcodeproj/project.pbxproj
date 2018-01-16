@@ -37,7 +37,7 @@
 		0233A4F71EFD8A5A00D01F5C /* Goal-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0233A4F61EFD8A5A00D01F5C /* Goal-Extension.swift */; };
 		0233A4F91EFDA33600D01F5C /* GoalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0233A4F81EFDA33600D01F5C /* GoalService.swift */; };
 		023563211FD881730088CD92 /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023563201FD881730088CD92 /* LocationSearchTable.swift */; };
-		023796CF1FD071AD007FF309 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
+		023796CF1FD071AD007FF309 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		02382F0D1E1C210C0036FFC9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02382F0C1E1C210C0036FFC9 /* AppDelegate.swift */; };
 		02382F2D1E1C210C0036FFC9 /* familyOfficeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02382F2C1E1C210C0036FFC9 /* familyOfficeUITests.swift */; };
 		023C980B1FE0B48C00070A21 /* EventBindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023C980A1FE0B48C00070A21 /* EventBindable.swift */; };
@@ -333,8 +333,6 @@
 		A4B0E1101FE07355002742E5 /* MessageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B0E10F1FE07355002742E5 /* MessageEntity.swift */; };
 		A4B0E1121FE07369002742E5 /* GroupEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B0E1111FE07369002742E5 /* GroupEntity.swift */; };
 		A4B0E1141FE0986B002742E5 /* ChatGroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B0E1131FE0986B002742E5 /* ChatGroupsTableViewController.swift */; };
-		A4B0E1161FE0A24E002742E5 /* ChatGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B0E1151FE0A24E002742E5 /* ChatGroupViewController.swift */; };
-		A4B0E1211FE1BF8E002742E5 /* ChatMessageBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B0E1201FE1BF8E002742E5 /* ChatMessageBaseCell.swift */; };
 		A4B0E1231FE1C187002742E5 /* NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B0E1221FE1C187002742E5 /* NSAttributedString.swift */; };
 		A4B0E1291FE1D7E4002742E5 /* GroupsAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B0E1281FE1D7E4002742E5 /* GroupsAction.swift */; };
 		A4B0E12D1FE20A7D002742E5 /* MessagesActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B0E12C1FE20A7D002742E5 /* MessagesActions.swift */; };
@@ -728,8 +726,6 @@
 		A4B0E10F1FE07355002742E5 /* MessageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageEntity.swift; sourceTree = "<group>"; };
 		A4B0E1111FE07369002742E5 /* GroupEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupEntity.swift; sourceTree = "<group>"; };
 		A4B0E1131FE0986B002742E5 /* ChatGroupsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGroupsTableViewController.swift; sourceTree = "<group>"; };
-		A4B0E1151FE0A24E002742E5 /* ChatGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGroupViewController.swift; sourceTree = "<group>"; };
-		A4B0E1201FE1BF8E002742E5 /* ChatMessageBaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageBaseCell.swift; sourceTree = "<group>"; };
 		A4B0E1221FE1C187002742E5 /* NSAttributedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedString.swift; sourceTree = "<group>"; };
 		A4B0E1281FE1D7E4002742E5 /* GroupsAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsAction.swift; sourceTree = "<group>"; };
 		A4B0E12C1FE20A7D002742E5 /* MessagesActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesActions.swift; sourceTree = "<group>"; };
@@ -815,7 +811,6 @@
 				A4B0E11F1FE1BF77002742E5 /* Cells */,
 				020A64F71E81A89700F473A0 /* extensions */,
 				A4B0E1131FE0986B002742E5 /* ChatGroupsTableViewController.swift */,
-				A4B0E1151FE0A24E002742E5 /* ChatGroupViewController.swift */,
 				A40F64561FE4676400837EA0 /* NewChatGroupForm.swift */,
 				021A48F31FE6233200EC8EBC /* MembersChatTableViewController.swift */,
 				A4DDE48D20094195001592C7 /* ChatTextViewController.swift */,
@@ -1872,7 +1867,6 @@
 		A4B0E11F1FE1BF77002742E5 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				A4B0E1201FE1BF8E002742E5 /* ChatMessageBaseCell.swift */,
 				A40F64541FE42A3300837EA0 /* ChatGroupCell.swift */,
 				A49216361FEAC51B0013360A /* ChatSectionHeaderView.swift */,
 				A4DDE48F2009923E001592C7 /* ChatTextMessageCell.swift */,
@@ -2452,7 +2446,7 @@
 				A48FD6DD1F143D2200832559 /* Budget.swift in Sources */,
 				02D845D21FE2FFA00086DD0C /* DesignableTextView.swift in Sources */,
 				02D845BF1FE2FFA00086DD0C /* ImageLoader.swift in Sources */,
-				023796CF1FD071AD007FF309 /* BuildFile in Sources */,
+				023796CF1FD071AD007FF309 /* (null) in Sources */,
 				02AD47E91FC4F381009E20E8 /* FamilyEntity.swift in Sources */,
 				02D8459B1FE2EF3C0086DD0C /* Collections.swift in Sources */,
 				C335EC961FEAF45E00FAB884 /* SafeboxPasswordViewController.swift in Sources */,
@@ -2614,7 +2608,6 @@
 				02AB00471E1DD0AB0098411C /* RegisterFamilyViewController.swift in Sources */,
 				C335EC941FE8E5A000FAB884 /* InsurancesPolicyViewController.swift in Sources */,
 				02ADE5471FC4957500D05893 /* UserEntity.swift in Sources */,
-				A4B0E1211FE1BF8E002742E5 /* ChatMessageBaseCell.swift in Sources */,
 				C335EC901FE8553D00FAB884 /* InsurancesViewController.swift in Sources */,
 				C335EC921FE86AEF00FAB884 /* InsuranceCell.swift in Sources */,
 				02441D9C1F16BECD00EA8202 /* GoalTableViewController.swift in Sources */,
@@ -2713,7 +2706,6 @@
 				9409641C1F28184200FB1F3A /* FaqReducer.swift in Sources */,
 				84C721231ED7697200381FB7 /* AddViewController.swift in Sources */,
 				A4B0E1141FE0986B002742E5 /* ChatGroupsTableViewController.swift in Sources */,
-				A4B0E1161FE0A24E002742E5 /* ChatGroupViewController.swift in Sources */,
 				848130161E85ECAD008B08B8 /* Styles.swift in Sources */,
 				02EABF591E312B67008A7CA9 /* FamilyCollectionViewCell.swift in Sources */,
 				02D845CC1FE2FFA00086DD0C /* DesignableView.swift in Sources */,

@@ -59,7 +59,6 @@ class ProfileUserViewController: UIViewController, UserEModelBindable{
         store.dispatch(AuthSvc(.logout))
     }
     @IBAction func msgBtnPressed(_ sender: Any) {
-        var controller = ChatGroupViewController()
         let user = getUser()
         let uid = userModel.id
         let myId = (user?.id)!
@@ -83,7 +82,9 @@ class ProfileUserViewController: UIViewController, UserEModelBindable{
             group?.isGroup = false
             store.dispatch(createGroupAction(group: group, uuid: group.id))
         }else{
-            self.pushToView(view: .chat, sender: group)
+            let controller = ChatTextViewController()
+            controller.group = group
+            self.navigationController?.pushViewController(controller, animated: true)
         }
     }
     
@@ -127,7 +128,9 @@ extension ProfileUserViewController: StoreSubscriber {
         if group != nil, !group.id.isEmpty {
             switch state.requestState.requests[group.id] {
             case .finished?:
-                self.pushToView(view: .chat, sender: group)
+                let controller = ChatTextViewController()
+                controller.group = group
+                self.navigationController?.pushViewController(controller, animated: true)
                 break
             default: break
             }
