@@ -103,8 +103,10 @@ PODS:
   - RealmSwift (3.0.2):
     - Realm (= 3.0.2)
   - ReSwift (4.0.0)
+  - SlackTextViewController (1.9.6)
   - SmileLock (3.0.0)
   - SnapKit (4.0.0)
+  - SteviaLayout (4.1.0)
   - Toast-Swift (3.0.1)
 
 DEPENDENCIES:
@@ -129,8 +131,10 @@ DEPENDENCIES:
   - MIBadgeButton-Swift (from `https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git`, branch `master`)
   - RealmSwift
   - ReSwift
+  - SlackTextViewController
   - SmileLock
   - SnapKit (~> 4.0.0)
+  - SteviaLayout
   - Toast-Swift
 
 EXTERNAL SOURCES:
@@ -178,10 +182,12 @@ SPEC CHECKSUMS:
   Realm: 6f23fd1f178a09342eac21bfa7c2bf4312a7a180
   RealmSwift: 695393add1b8f9d5fa75dd16e6355cf3935f71e2
   ReSwift: f058ef13b46ae5f463f10605ccbbb7fb04424d8d
+  SlackTextViewController: b854e62c1c156336bc4fd409c6ca79b5773e8f9d
   SmileLock: 94289220d5e1fbfd774115b605d3c0371024df59
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
+  SteviaLayout: 8a3524d4280841abf9f215145304a6cb37a54521
   Toast-Swift: ba0b01b095aada709d915f9beb1d38184a2721c3
 
-PODFILE CHECKSUM: 6de775d8ba33d970414f5609b08fb3c75bf8c402
+PODFILE CHECKSUM: 3efdf9bb40045491967c2c8713a1c52ecc178f39
 
 COCOAPODS: 1.3.1

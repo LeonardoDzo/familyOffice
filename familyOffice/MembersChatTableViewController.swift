@@ -103,7 +103,9 @@ class MembersChatTableViewController: UITableViewController {
             group?.isGroup = false
             store.dispatch(createGroupAction(group: group, uuid: group.id))
         }else{
-            self.pushToView(view: .chat, sender: group)
+            let ctrl = ChatTextViewController()
+            ctrl.group = group
+            self.navigationController?.pushViewController(ctrl, animated: true)
         }
     }
 
@@ -131,7 +133,9 @@ extension MembersChatTableViewController: StoreSubscriber {
         if group != nil, !group.id.isEmpty {
             switch state.requests[group.id] {
             case .finished?:
-                self.pushToView(view: .chat, sender: group)
+                let ctrl = ChatTextViewController()
+                ctrl.group = group
+                self.navigationController?.pushViewController(ctrl, animated: true)
                 break
             default: return
             }

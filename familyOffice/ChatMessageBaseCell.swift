@@ -38,6 +38,13 @@ class ChatMessageBaseCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    fileprivate func failedMessage() {
+        bubbleView.backgroundColor = errColor
+        userName.textColor = UIColor.white
+        msgTextLabel.textColor = UIColor.white
+        timeLabel.textColor = UIColor.white
+    }
+    
     func bind(message: MessageEntity, group: GroupEntity) {
         guard let user = rManager.realm.objects(UserEntity.self).filter("id == '\(message.remittent)'").first else {
             return
@@ -78,10 +85,7 @@ class ChatMessageBaseCell: UITableViewCell {
             bubbleView.alpha = 1
             break
         case .Failed?:
-            bubbleView.backgroundColor = errColor
-            userName.textColor = UIColor.white
-            msgTextLabel.textColor = UIColor.white
-            timeLabel.textColor = UIColor.white
+            failedMessage()
             break
         default: break
         }

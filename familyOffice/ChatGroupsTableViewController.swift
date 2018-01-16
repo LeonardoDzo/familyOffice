@@ -66,8 +66,9 @@ class ChatGroupsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let group = groups[indexPath.row]
-        self.pushToView(view: .chat, sender: group)
+        let ctrl = ChatTextViewController()
+        ctrl.group = groups[indexPath.row]
+        self.navigationController?.pushViewController(ctrl, animated: true)
     }
     
     
