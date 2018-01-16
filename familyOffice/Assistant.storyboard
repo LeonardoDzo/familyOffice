@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OMd-Td-qVm">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -25,10 +25,10 @@
             </objects>
             <point key="canvasLocation" x="-1476" y="-242"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Main Tab Bar Controller-->
         <scene sceneID="fT5-5O-88e">
             <objects>
-                <tabBarController id="qKb-kk-9AV" sceneMemberID="viewController">
+                <tabBarController id="qKb-kk-9AV" customClass="MainTabBarController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="2vV-oL-gLa"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="03u-CN-hIN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
@@ -37,13 +37,14 @@
                     </tabBar>
                     <connections>
                         <segue destination="fb7-XL-XtG" kind="relationship" relationship="viewControllers" id="bt1-7q-ITn"/>
+                        <segue destination="Jwg-OF-2yh" kind="relationship" relationship="viewControllers" id="ksb-nN-ijh"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sek-fj-Kmf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-529" y="-242"/>
         </scene>
-        <!--Item-->
+        <!--Tareas-->
         <scene sceneID="uV9-nz-q26">
             <objects>
                 <viewController id="fb7-XL-XtG" sceneMemberID="viewController">
@@ -53,11 +54,31 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="ZJX-v4-SIV"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="UAe-nT-5uc"/>
+                    <tabBarItem key="tabBarItem" title="Tareas" image="task_completed" id="UAe-nT-5uc"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="97r-4H-9hp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="434" y="-501"/>
         </scene>
+        <!--Mi asistente-->
+        <scene sceneID="0Ox-ov-jXQ">
+            <objects>
+                <viewController id="Jwg-OF-2yh" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Y4c-HR-rXX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="YuX-86-13j"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Mi asistente" image="clipboard" id="cGW-qk-LyG"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7uq-sN-SE7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="447" y="281"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="clipboard" width="32" height="32"/>
+        <image name="task_completed" width="32" height="32"/>
+    </resources>
 </document>
