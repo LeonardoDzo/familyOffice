@@ -11,12 +11,16 @@ import UIKit
 extension UITableView {
     
     func scrollToBottom(animated: Bool) {
+        if !animated {
+            self.contentOffset.y = self.contentSize.height - self.frame.height
+            return
+        }
         let lastSection = self.numberOfSections - 1
         guard lastSection >= 0 else { return; }
         let lastRow = self.numberOfRows(inSection: lastSection) - 1
         guard lastRow >= 0 else { return; }
         let indexPath = IndexPath(row: lastRow, section: lastSection)
-        self.scrollToRow(at: indexPath, at: .bottom, animated: animated)
+        self.scrollToRow(at: indexPath, at: .top, animated: animated)
     }
     
 }

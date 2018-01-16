@@ -30,6 +30,8 @@ target 'familyOffice' do
   pod 'ALCameraViewController'
   pod 'RealmSwift'
   pod 'SmileLock'
+  pod 'SlackTextViewController'
+  pod 'SteviaLayout'
   pod 'Eureka'
   pod 'ImageRow', '~> 3.0'
   pod "MIBadgeButton-Swift", :git => 'https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git', :branch => 'master'

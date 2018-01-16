@@ -25,8 +25,8 @@ class ChatGroupsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupBack()
-    
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -49,31 +49,11 @@ class ChatGroupsTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         return groups.count
     }
-    
-//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        if !hasFamilyGroups { return nil }
-//        if section == 0 {
-//            return "Mas recientes"
-//        }
-//        var famId = user.familyActive
-//        if section > 1 {
-//            let fams: [RealmString] = user.families.filter({ $0.value != famId })
-//            famId = fams[section - 2].value
-//        }
-//        return rManager.realm.objects(FamilyEntity.self).first(where: { $0.id == famId })?.name
-//    }
+
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ChatGroupCell
         let group = groups[indexPath.row]
-//        if hasFamilyGroups && indexPath.section != 0 {
-//            var fam = user.familyActive
-//            if indexPath.section > 1 {
-//                let fams: [RealmString] = user.families.filter({ $0.value != fam })
-//                fam = fams[indexPath.section - 2].value
-//            }
-//            group = groups.filter({ $0.familyId == fam })[indexPath.row]
-//        }
         cell.bind(sender: group)
         guard let msgId = group.lastMessage else {
             return cell
@@ -86,23 +66,11 @@ class ChatGroupsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let group = groups[indexPath.row]
-//        if hasFamilyGroups {
-//            var fam = user.familyActive
-//            if indexPath.section != 0 {
-//                let fams: [RealmString] = user.families.filter({ $0.value != fam })
-//                fam = fams[indexPath.section - 1].value
-//            }
-//            group = groups.filter({ $0.familyId == fam })[indexPath.row]
-//        }
-        self.pushToView(view: .chat, sender: group)
+        let ctrl = ChatTextViewController()
+        ctrl.group = groups[indexPath.row]
+        self.navigationController?.pushViewController(ctrl, animated: true)
     }
     
-    
-//    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-//        selectedGroupIndex = indexPath.row
-//        return indexPath
-//    }
     
     func queryGroups() {
         groups = rManager.realm.objects(GroupEntity.self)
@@ -114,8 +82,6 @@ class ChatGroupsTableViewController: UITableViewController {
                 } else if !group.isGroup { return false }
                 return group.members.contains(where: { $0.id == user.id })
             })
-//        tableView.reloadData()
-//        tableView.tableFooterView = UIView()
     }
     
     func groupSorter(g1: GroupEntity, g2: GroupEntity) -> Bool {
@@ -139,14 +105,6 @@ class ChatGroupsTableViewController: UITableViewController {
         return group.createdAt
     }
 
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        // Get the new view controller using segue.destinationViewController.
-//        // Pass the selected object to the new view controller.
-//        if let ctrl = segue.destination as? ChatGroupViewController {
-//            ctrl.group = groups[selectedGroupIndex!]
-//        }
-//    }
-
 }
 
 extension ChatGroupsTableViewController: StoreSubscriber {
@@ -158,7 +116,7 @@ extension ChatGroupsTableViewController: StoreSubscriber {
             store.select({ $0.requestState })
         }
         getGroupsReqId = UUID().uuidString
-        store.dispatch(getAllGroupsAction(uuid: getGroupsReqId!))
+        queryGroups()
         tableView.reloadData()
         if self.restorationIdentifier == "GroupsChat" {
             self.tabBarController?.title = "Grupos"

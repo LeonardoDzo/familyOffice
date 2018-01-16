@@ -195,7 +195,7 @@ extension UIViewController {
             }
             vc.bind(fam: family)
             break
-        case let vc as ChatGroupViewController:
+        case let vc as ChatTextViewController:
             if sender is  GroupEntity {
                 vc.group = sender as! GroupEntity
             }

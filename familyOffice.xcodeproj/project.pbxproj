@@ -334,8 +334,6 @@
 		A4B0E1101FE07355002742E5 /* MessageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B0E10F1FE07355002742E5 /* MessageEntity.swift */; };
 		A4B0E1121FE07369002742E5 /* GroupEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B0E1111FE07369002742E5 /* GroupEntity.swift */; };
 		A4B0E1141FE0986B002742E5 /* ChatGroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B0E1131FE0986B002742E5 /* ChatGroupsTableViewController.swift */; };
-		A4B0E1161FE0A24E002742E5 /* ChatGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B0E1151FE0A24E002742E5 /* ChatGroupViewController.swift */; };
-		A4B0E1211FE1BF8E002742E5 /* ChatMessageBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B0E1201FE1BF8E002742E5 /* ChatMessageBaseCell.swift */; };
 		A4B0E1231FE1C187002742E5 /* NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B0E1221FE1C187002742E5 /* NSAttributedString.swift */; };
 		A4B0E1291FE1D7E4002742E5 /* GroupsAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B0E1281FE1D7E4002742E5 /* GroupsAction.swift */; };
 		A4B0E12D1FE20A7D002742E5 /* MessagesActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B0E12C1FE20A7D002742E5 /* MessagesActions.swift */; };
@@ -343,6 +341,8 @@
 		A4CF2C211FDA1EB400B5E084 /* RequestState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CF2C201FDA1EB400B5E084 /* RequestState.swift */; };
 		A4CF2C231FDA1EFA00B5E084 /* RequestReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CF2C221FDA1EFA00B5E084 /* RequestReducer.swift */; };
 		A4D585B81E8C8468005B8F1F /* HealthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D585B71E8C8468005B8F1F /* HealthService.swift */; };
+		A4DDE48E20094195001592C7 /* ChatTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DDE48D20094195001592C7 /* ChatTextViewController.swift */; };
+		A4DDE4902009923E001592C7 /* ChatTextMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DDE48F2009923E001592C7 /* ChatTextMessageCell.swift */; };
 		A4E650CF1FD7198C00332879 /* NewIllnessFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E650CE1FD7198C00332879 /* NewIllnessFormController.swift */; };
 		A4EABA2A1E9551EA00D0D54E /* HealthOmniViewController_Members.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EABA291E9551EA00D0D54E /* HealthOmniViewController_Members.swift */; };
 		A4EABA2C1E95626500D0D54E /* HealthMemberCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EABA2B1E95626500D0D54E /* HealthMemberCollectionViewCell.swift */; };
@@ -728,8 +728,6 @@
 		A4B0E10F1FE07355002742E5 /* MessageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageEntity.swift; sourceTree = "<group>"; };
 		A4B0E1111FE07369002742E5 /* GroupEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupEntity.swift; sourceTree = "<group>"; };
 		A4B0E1131FE0986B002742E5 /* ChatGroupsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGroupsTableViewController.swift; sourceTree = "<group>"; };
-		A4B0E1151FE0A24E002742E5 /* ChatGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGroupViewController.swift; sourceTree = "<group>"; };
-		A4B0E1201FE1BF8E002742E5 /* ChatMessageBaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageBaseCell.swift; sourceTree = "<group>"; };
 		A4B0E1221FE1C187002742E5 /* NSAttributedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedString.swift; sourceTree = "<group>"; };
 		A4B0E1281FE1D7E4002742E5 /* GroupsAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsAction.swift; sourceTree = "<group>"; };
 		A4B0E12C1FE20A7D002742E5 /* MessagesActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesActions.swift; sourceTree = "<group>"; };
@@ -737,6 +735,8 @@
 		A4CF2C201FDA1EB400B5E084 /* RequestState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestState.swift; sourceTree = "<group>"; };
 		A4CF2C221FDA1EFA00B5E084 /* RequestReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestReducer.swift; sourceTree = "<group>"; };
 		A4D585B71E8C8468005B8F1F /* HealthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthService.swift; sourceTree = "<group>"; };
+		A4DDE48D20094195001592C7 /* ChatTextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTextViewController.swift; sourceTree = "<group>"; };
+		A4DDE48F2009923E001592C7 /* ChatTextMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTextMessageCell.swift; sourceTree = "<group>"; };
 		A4E650CE1FD7198C00332879 /* NewIllnessFormController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewIllnessFormController.swift; sourceTree = "<group>"; };
 		A4EABA291E9551EA00D0D54E /* HealthOmniViewController_Members.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthOmniViewController_Members.swift; sourceTree = "<group>"; };
 		A4EABA2B1E95626500D0D54E /* HealthMemberCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthMemberCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -813,9 +813,9 @@
 				A4B0E11F1FE1BF77002742E5 /* Cells */,
 				020A64F71E81A89700F473A0 /* extensions */,
 				A4B0E1131FE0986B002742E5 /* ChatGroupsTableViewController.swift */,
-				A4B0E1151FE0A24E002742E5 /* ChatGroupViewController.swift */,
 				A40F64561FE4676400837EA0 /* NewChatGroupForm.swift */,
 				021A48F31FE6233200EC8EBC /* MembersChatTableViewController.swift */,
+				A4DDE48D20094195001592C7 /* ChatTextViewController.swift */,
 			);
 			name = chat;
 			sourceTree = "<group>";
@@ -1870,9 +1870,9 @@
 		A4B0E11F1FE1BF77002742E5 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				A4B0E1201FE1BF8E002742E5 /* ChatMessageBaseCell.swift */,
 				A40F64541FE42A3300837EA0 /* ChatGroupCell.swift */,
 				A49216361FEAC51B0013360A /* ChatSectionHeaderView.swift */,
+				A4DDE48F2009923E001592C7 /* ChatTextMessageCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -2220,8 +2220,10 @@
 				"${BUILT_PRODUCTS_DIR}/ReSwift/ReSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SlackTextViewController/SlackTextViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/SmileLock/SmileLock.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SteviaLayout/Stevia.framework",
 				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -2251,8 +2253,10 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SlackTextViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SmileLock.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stevia.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
@@ -2452,6 +2456,7 @@
 				C335EC961FEAF45E00FAB884 /* SafeboxPasswordViewController.swift in Sources */,
 				042693011F1448EB004356D6 /* ImageAlbumService.swift in Sources */,
 				02D845C41FE2FFA00086DD0C /* BlurView.swift in Sources */,
+				A4DDE48E20094195001592C7 /* ChatTextViewController.swift in Sources */,
 				02B46A341E52908200CC7511 /* NotificationService.swift in Sources */,
 				C335EC7E1FE82E7D00FAB884 /* InsuranteState.swift in Sources */,
 				940964261F296E1A00FB1F3A /* CQuestionCell.swift in Sources */,
@@ -2539,6 +2544,7 @@
 				02D845DA1FE310660086DD0C /* EventDetailsViewController.swift in Sources */,
 				02DFD5591EC2810300DA7486 /* Event.swift in Sources */,
 				02F50B1B1FBF64AF00285BEE /* UserS.swift in Sources */,
+				A4DDE4902009923E001592C7 /* ChatTextMessageCell.swift in Sources */,
 				045F4A0F1F0DB8D000B483C9 /* AlbumViewController.swift in Sources */,
 				028CD36B1EFB447600DEC001 /* typeiconCollectionViewCell.swift in Sources */,
 				020993821FED8E96002F8C38 /* EventsNotificationTableViewController.swift in Sources */,
@@ -2606,7 +2612,6 @@
 				02AB00471E1DD0AB0098411C /* RegisterFamilyViewController.swift in Sources */,
 				C335EC941FE8E5A000FAB884 /* InsurancesPolicyViewController.swift in Sources */,
 				02ADE5471FC4957500D05893 /* UserEntity.swift in Sources */,
-				A4B0E1211FE1BF8E002742E5 /* ChatMessageBaseCell.swift in Sources */,
 				C335EC901FE8553D00FAB884 /* InsurancesViewController.swift in Sources */,
 				C335EC921FE86AEF00FAB884 /* InsuranceCell.swift in Sources */,
 				02441D9C1F16BECD00EA8202 /* GoalTableViewController.swift in Sources */,
@@ -2705,7 +2710,6 @@
 				9409641C1F28184200FB1F3A /* FaqReducer.swift in Sources */,
 				84C721231ED7697200381FB7 /* AddViewController.swift in Sources */,
 				A4B0E1141FE0986B002742E5 /* ChatGroupsTableViewController.swift in Sources */,
-				A4B0E1161FE0A24E002742E5 /* ChatGroupViewController.swift in Sources */,
 				848130161E85ECAD008B08B8 /* Styles.swift in Sources */,
 				02EABF591E312B67008A7CA9 /* FamilyCollectionViewCell.swift in Sources */,
 				02D845CC1FE2FFA00086DD0C /* DesignableView.swift in Sources */,

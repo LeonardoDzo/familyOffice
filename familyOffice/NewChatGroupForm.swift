@@ -19,6 +19,7 @@ class NewChatGroupForm : FormViewController {
     var group = GroupEntity()
     var createUuid: String?
     var editUuid: String?
+    var deleteUuid: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +33,8 @@ class NewChatGroupForm : FormViewController {
         button.isEnabled = !group.id.isEmpty
         self.navigationItem.rightBarButtonItem = button
         
-        form +++ Section()
+        let section = Section()
+        form +++ section
             <<< PushRow<FamilyEntity>() {
                 $0.disabled = Condition.function([], { _ in !self.group.id.isEmpty })
                 $0.title = "Familia"
@@ -80,6 +82,21 @@ class NewChatGroupForm : FormViewController {
                 }.onChange({ nameRow in
                     button.isEnabled = self.form.validate(includeHidden: true).count == 0
                 })
+        if !group.id.isEmpty {
+            section <<< ButtonRow() {
+                $0.title = "Eliminar grupo"
+            }.cellUpdate({ cell, row in
+                cell.textLabel?.textColor = UIColor.red
+            }).onCellSelection({ cell, row in
+                let ctrl = UIAlertController(title: "¿Seguro que quiere eliminar el grupo?", message: nil, preferredStyle: .alert)
+                ctrl.addAction(UIAlertAction(title: "Aceptar", style: .destructive, handler: { (_) in
+                    self.deleteUuid = UUID().uuidString
+                    store.dispatch(deleteGroupAction(group: self.group, uuid: self.deleteUuid!))
+                }))
+                ctrl.addAction(UIAlertAction(title: "Cancelar", style: .default, handler: nil))
+                self.present(ctrl, animated: true, completion: nil)
+            })
+        }
     }
     
     @objc func done(_ sender: Any) {
@@ -150,6 +167,16 @@ extension NewChatGroupForm: StoreSubscriber {
                 break
             default: return
             }
+        }
+        if let uuid = deleteUuid {
+            switch state.requests[uuid] {
+            case .finished?:
+                let ctrlArr = self.navigationController!.viewControllers
+                let ctrl = ctrlArr[ctrlArr.count - 3]
+                self.navigationController?.popToViewController(ctrl, animated: true)
+            default: return
+            }
+
         }
         
     }
