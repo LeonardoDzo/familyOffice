@@ -19,3 +19,7 @@ func ref_family(_ fid: String) -> String {
 func ref_events(_ eid: String) -> String {
     return  "events/\(eid)"
 }
+
+func ref_pending(_ pending: PendingEntity) -> String {
+    return  "pendings/\(pending.assistantId)/\(pending.id)"
+}

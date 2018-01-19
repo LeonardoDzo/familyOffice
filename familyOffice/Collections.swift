@@ -30,5 +30,15 @@ extension Dictionary  {
         }
         return values
     }
+    
+    var assistanPendings : [assistantpending] {
+        var values: [assistantpending] = []
+        forEach { (element) in
+            if let key = element.key as? String, let value = element.value as? Bool {
+                values.append(assistantpending(value, key))
+            }
+        }
+        return values
+    }
 }
 

@@ -11,6 +11,8 @@ import UIKit
 @IBDesignable
 class UIViewX: SpringView {
     
+    
+    
     // MARK: - Gradient
     
     @IBInspectable var firstColor: UIColor = UIColor.white {

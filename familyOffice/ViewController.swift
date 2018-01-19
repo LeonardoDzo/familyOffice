@@ -20,7 +20,8 @@ enum StyleNavBar  {
          firstaidkit,
          chat,
          insurance,
-         safebox
+         safebox,
+         assistant
 }
 extension StyleNavBar {
     func style() -> (UIColor, UIColor)? {
@@ -35,6 +36,8 @@ extension StyleNavBar {
             return (#colorLiteral(red: 0.1137254902, green: 0.7176470588, blue: 0.4352941176, alpha: 1),#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
         case .safebox:
             return (#colorLiteral(red: 0.9607843137, green: 0.7215686275, blue: 0.1176470588, alpha: 1),#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
+        case .assistant:
+            return (#colorLiteral(red: 0.9529411765, green: 0.5137254902, blue: 0.3529411765, alpha: 1),#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
         }
         
         
@@ -184,7 +187,11 @@ extension UIViewController {
         if  let vc = viewcontroller as? bind {
             vc.bind(sender: sender)
         }
-        
+        if let top = UIApplication.topViewController() {
+            if top.restorationIdentifier == viewcontroller.restorationIdentifier {
+                return nil
+            }
+        }
         switch viewcontroller {
         case let vc as FamilyViewController:
             var family : Family

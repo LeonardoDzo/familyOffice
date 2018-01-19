@@ -26,6 +26,7 @@ struct AppState: StateType {
     var safeBoxState: SafeBoxState
     var requestState: RequestState
     var insuranceState: InsuranceState
+    var pendingState: PendingState
     
     var notifications = [NotificationModel]()
 }

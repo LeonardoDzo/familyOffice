@@ -15,6 +15,7 @@ import ReSwift
         var famState: FamilyState!
         var authState: AuthState!
         var eventState: EventState!
+        var pendingState: PendingState!
         if let useraction =  action as? UserS {
             userState = useraction.handleAction(state: state?.UserState)
         }else{
@@ -39,6 +40,12 @@ import ReSwift
             eventState = state?.EventState != nil ? state?.EventState : EventState(status: .none)
         }
         
+        if  let pendingAction = action as? PendingSvc {
+            pendingState = pendingAction.handleAction(state: state?.pendingState)
+        }else{
+            pendingState = state?.pendingState != nil ? state?.pendingState : PendingState(state: .none)
+        }
+        
        
 
         return AppState(
@@ -57,6 +64,7 @@ import ReSwift
             safeBoxState: SafeBoxReducer().handleAction(action: action, state: state?.safeBoxState),
             requestState: requestReducer(action: action, state: state?.requestState),
             insuranceState: InsuranceReducer().handleAction(action: action, state: state?.insuranceState),
+            pendingState: pendingState,
             notifications: state?.notifications ?? []
         )
     }

@@ -18,7 +18,8 @@ enum StoryBoard: String {
     setting = "Settings",
     health = "Health",
     toDoList = "ToDoList",
-    firstaid = "FirstAidKit"
+    firstaid = "FirstAidKit",
+    assistant = "Assistant"
 }
 
 enum RoutingDestination: String {
@@ -36,6 +37,7 @@ enum RoutingDestination: String {
          mainCalendar = "mainnavCalendar",
          eventDetails = "EventDetailsViewController",
          chat = "ChatGroupViewController",
+         addEditPending = "AddEditPendingViewController",
          setSafeboxPwd = "SetSafeboxPassword"
     
     // first aid
@@ -60,6 +62,8 @@ extension RoutingDestination {
             return StoryBoard.firstaid.rawValue
         case .chat:
             return StoryBoard.chat.rawValue
+        case .addEditPending:
+            return StoryBoard.assistant.rawValue
         }
     }
     

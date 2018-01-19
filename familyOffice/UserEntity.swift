@@ -23,6 +23,17 @@ class RealmString: Object {
         self.value = id
     }
 }
+@objcMembers
+class assistantpending: Object {
+    dynamic var key = ""
+    dynamic var value = false
+   
+    convenience required init(_ value: Bool,_ key: String) {
+        self.init()
+        self.value = value
+        self.key = key
+    }
+}
 
 @objcMembers
 public class UserEntity: Object, Codable, Serializable {
@@ -42,6 +53,7 @@ public class UserEntity: Object, Codable, Serializable {
     var families = List<RealmString>()
     var tokens = List<RealmString>()
     var events = List<RealmString>()
+    var assistants = List<assistantpending>()
     // var health: Health!
     
     override public static func primaryKey() -> String? {
@@ -64,7 +76,7 @@ public class UserEntity: Object, Codable, Serializable {
     }
 
     private enum Mykeys: String, CodingKey {
-        case families, events, tokens, fcm
+        case families, events, tokens, fcm, assistants
     }
     
     convenience required public init(from decoder: Decoder) throws {
@@ -98,6 +110,12 @@ public class UserEntity: Object, Codable, Serializable {
         }
         if let val = try container.decodeIfPresent([String: Bool].self, forKey: .tokens)?.getKeysRealmString {
             self.tokens.append(objectsIn: val)
+        }
+        if let val = try container.decodeIfPresent([String: Bool].self, forKey: .tokens)?.getKeysRealmString {
+            self.tokens.append(objectsIn: val)
+        }
+        if let val = try container.decodeIfPresent([String: Bool].self, forKey: .assistants)?.assistanPendings {
+            self.assistants.append(objectsIn: val)
         }
     }
 

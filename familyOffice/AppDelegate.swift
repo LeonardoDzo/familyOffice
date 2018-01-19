@@ -63,8 +63,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
                 notificationarray.append(not)
             })
         })
+        if notificationarray.count > 0 {
+             rManager.saveObjects(objs: notificationarray)
+        }
        
-        rManager.saveObjects(objs: notificationarray)
         UNUserNotificationCenter.current().removeAllDeliveredNotifications()
         application.registerForRemoteNotifications()
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
@@ -73,19 +75,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
                                                selector: #selector(tokenRefreshNotification),
                                                name: NSNotification.Name.InstanceIDTokenRefresh,
                                                object: nil)
-        
-        if let _ = launchOptions {
-            let info = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification]
-            if (info != nil) {
-                
-                Userdefault.set(info, forKey: "notification")
-            }
-        }
-        
-        if let data = Userdefault.value(forKey: "notification") {
-            print("info",data)
-        }
-        
         
         
         return true

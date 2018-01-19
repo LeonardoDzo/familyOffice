@@ -32,7 +32,7 @@ protocol repeatProtocol {
 protocol GDL90_Enum  {
     var description: String { get }
 }
- @objc enum Frequency: Int, GDL90_Enum, CustomStringConvertible {
+ @objc enum Frequency: Int, CustomStringConvertible {
     case never
     case daily
     case weekly

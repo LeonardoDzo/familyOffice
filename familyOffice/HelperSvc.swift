@@ -43,6 +43,7 @@ func isAuth()  {
             checkUserAgainstDatabase(completion: {(success, error ) in
                 if success {
                     if !view {
+                        //rManager.deleteDatabase()
                         store.dispatch(UserS(.getbyId(uid: (user?.uid)!)))
                         view = !view
                     }
@@ -88,7 +89,7 @@ class MainFunctions : RequestProtocol {
     }
 
     func added(snapshot: DataSnapshot) {
-        let route = snapshot.ref.description().components(separatedBy: "/")
+        var route = snapshot.ref.description().components(separatedBy: "/")
         switch route[3] {
             case "users":
                 switch route[5]{
@@ -102,13 +103,18 @@ class MainFunctions : RequestProtocol {
                         break
                 }
             break
+        case "pendings":
+            if let id = route.popLast(), let aid = route.popLast() {
+                store.dispatch(PendingSvc(.getbyId(ref: "pendings/\(aid)/\(id)")))
+            }
+            break
             default:
                 break
         }
     }
     
     func updated(snapshot: DataSnapshot, id: Any) {
-        let route  = snapshot.ref.description().components(separatedBy: "/")
+        var route  = snapshot.ref.description().components(separatedBy: "/")
         switch route[3] {
         case "users":
             let id = snapshot.ref.description().components(separatedBy: "/")[4]
@@ -137,6 +143,11 @@ class MainFunctions : RequestProtocol {
             let id = snapshot.ref.description().components(separatedBy: "/")[4]
             store.dispatch(EventSvc(.get(byId: id)))
             break
+        case "pendings":
+            if let id = route.popLast(), let aid = route.popLast() {
+                store.dispatch(PendingSvc(.getbyId(ref: "pendings/\(aid)/\(id)")))
+            }
+            break
         default:
             break
         }
@@ -145,23 +156,30 @@ class MainFunctions : RequestProtocol {
     
     func removed(snapshot: DataSnapshot) {
         let route = snapshot.ref.description().components(separatedBy: "/")
-        switch route[4] {
-        case "users":
-            switch route[5]{
-            case "families":
-                store.dispatch(FamilyS(.delete(fid: route[6])))
-                break
-            case "events":
-                EventSvc().removeHandles(ref: snapshot.ref.description())
-                if let event = rManager.realm.object(ofType: EventEntity.self, forPrimaryKey:  route[6]) {
-                    store.dispatch(EventSvc(.delete(eid:event)))
+        switch route[3] {
+            case "users":
+                switch route[5]{
+                case "families":
+                    store.dispatch(FamilyS(.delete(fid: route[6])))
+                    break
+                case "events":
+                    EventSvc().removeHandles(ref: snapshot.ref.description())
+                    if let event = rManager.realm.object(ofType: EventEntity.self, forPrimaryKey:  route[6]) {
+                        store.dispatch(EventSvc(.delete(eid:event)))
+                    }
+                    
+                    break
+                default:
+                    break
                 }
-                
                 break
-            default:
+            case "pendings":
+                if let id = route.last, let pending = rManager.realm.object(ofType: PendingEntity.self, forPrimaryKey: id) {
+                    try! rManager.realm.write {
+                        rManager.realm.delete(pending)
+                    }
+                }
                 break
-            }
-            break
         default:
             break
         }

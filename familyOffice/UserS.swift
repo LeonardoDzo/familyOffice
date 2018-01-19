@@ -166,6 +166,18 @@ extension UserS : RequestProtocol {
                         for eid in user.events {
                             store.dispatch(EventSvc(.get(byId: eid.value)))
                         }
+                        for assistant in user.assistants {
+                            if assistant.value {
+                                if let pendings = rManager.getObjects(type: PendingEntity.self){
+                                    try! rManager.realm.write {
+                                        rManager.realm.delete(pendings)
+                                    }
+                                }
+                                let ref = "pendings/\(assistant.key)/"
+                                sharedMains.removeHandles(ref: ref)
+                                sharedMains.initObserves(ref:ref, actions: [.childAdded, .childRemoved, .childChanged])
+                            }
+                        }
                         
                         let ref = "\(ref_users(uid: user.id))/families"
                         sharedMains.removeHandles(ref: ref)
