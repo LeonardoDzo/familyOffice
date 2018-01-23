@@ -44,7 +44,7 @@ func isAuth()  {
                 if success {
                     if !view {
                         //rManager.deleteDatabase()
-                        store.dispatch(UserS(.getbyId(uid: (user?.uid)!)))
+                        store.dispatch(UserS(.getbyId(uid: (user?.uid)!, assistant: false)))
                         view = !view
                     }
                 }else{
@@ -80,10 +80,10 @@ class MainFunctions : RequestProtocol {
     
     private init(){
     }
-    func initObserves(ref: String, actions: [DataEventType]) -> Void {
+    func initObserves(ref: String, actions: [DataEventType], _ extra: Bool? = false) -> Void {
         for action in actions {
             if !handles.contains(where: { $0.0 == ref && $0.2 == action} ){
-                self.child_action(ref: ref, action: action)
+                self.child_action(ref: ref, action: action, extra)
             }
         }
     }
@@ -99,12 +99,20 @@ class MainFunctions : RequestProtocol {
                     case "events":
                          store.dispatch(EventSvc(.get(byId: route[6])))
                         break
+                    case "assistants":
+                        try! rManager.realm.write {
+                            getUser()?.assistants.append(assistantpending(true, route[6]))
+                        }
+                        UserS().createObserversonPendings(route[6])
+                        rManager.save(objs: getUser()!)
+                        store.dispatch(UserS(.getbyId(uid: route[6], assistant: true)))
+                        break
                     default:
                         break
                 }
             break
         case "pendings":
-            if let id = route.popLast(), let aid = route.popLast() {
+            if let id = route.popLast(), let aid = route.popLast(), rManager.realm.object(ofType: AssistantEntity.self, forPrimaryKey: aid) != nil {
                 store.dispatch(PendingSvc(.getbyId(ref: "pendings/\(aid)/\(id)")))
             }
             break
@@ -144,7 +152,7 @@ class MainFunctions : RequestProtocol {
             store.dispatch(EventSvc(.get(byId: id)))
             break
         case "pendings":
-            if let id = route.popLast(), let aid = route.popLast() {
+            if let id = route.popLast(), let aid = route.popLast(), rManager.realm.object(ofType: AssistantEntity.self, forPrimaryKey: aid) != nil {
                 store.dispatch(PendingSvc(.getbyId(ref: "pendings/\(aid)/\(id)")))
             }
             break
@@ -168,6 +176,14 @@ class MainFunctions : RequestProtocol {
                         store.dispatch(EventSvc(.delete(eid:event)))
                     }
                     
+                    break
+                case "assistants":
+                    if let assistant = rManager.realm.object(ofType: AssistantEntity.self, forPrimaryKey:  route[6]) {
+                        try! rManager.realm.write {
+                            self.removeHandles(ref: "pendings/\(assistant.id)")
+                            rManager.realm.delete(assistant)
+                        }
+                    }
                     break
                 default:
                     break

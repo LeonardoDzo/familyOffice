@@ -99,7 +99,7 @@ extension ContactsViewController: UICollectionViewDelegate, UICollectionViewData
             cell.bind(userModel: user)
         }else{
             cell.nameLabel.text = "Cargando..."
-            store.dispatch(UserS(.getbyId(uid: uid)))
+            store.dispatch(UserS(.getbyId(uid: uid, assistant: false)))
         }
     
         return cell

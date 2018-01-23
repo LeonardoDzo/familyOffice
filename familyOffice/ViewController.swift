@@ -99,7 +99,9 @@ extension UIViewController {
         
         self.dismiss(animated: true, completion: nil)
     }
-    
+    func top() -> UIViewController {
+        return UIApplication.topViewController() ?? self
+    }
     @objc func selectImage( completion: @escaping (UIImage?) -> Void) {
         let croppingEnabled = true
         let actionSheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)

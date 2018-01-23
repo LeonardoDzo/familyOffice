@@ -20,7 +20,7 @@ class MembersChatTableViewController: UITableViewController {
             if let family = rManager.realm.object(ofType: FamilyEntity.self, forPrimaryKey: famId.value) {
                 family.members.forEach({ (rs) in
                     if !membersIds.contains(rs.value) {
-                        store.dispatch(UserS(.getbyId(uid: rs.value)))
+                        store.dispatch(UserS(.getbyId(uid: rs.value, assistant: false)))
                         membersIds.insert(rs.value)
                     }
                 })

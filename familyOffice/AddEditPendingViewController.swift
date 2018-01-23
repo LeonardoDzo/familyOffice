@@ -20,7 +20,7 @@ class AddEditPendingViewController: FormViewController, PendingBindable {
                 self.pending.title = value as! String
                 break
             case "details":
-                self.pending.details = value as! String
+                self.pending.details = value as? String ?? ""
                 break
             case "priority":
                 self.pending.priority = value as? PENDING_PRIORITY ?? .Normal
@@ -86,7 +86,7 @@ class AddEditPendingViewController: FormViewController, PendingBindable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.tabBarController?.navigationItem.titleView = nil
         setupForm()
         
     }
@@ -98,7 +98,7 @@ class AddEditPendingViewController: FormViewController, PendingBindable {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        self.tabBarController?.navigationItem.titleView = nil
         if pending.id.isEmpty {
             let addBtn = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.save))
             self.tabBarController?.navigationItem.rightBarButtonItem = addBtn

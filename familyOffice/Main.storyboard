@@ -628,6 +628,24 @@
             </objects>
             <point key="canvasLocation" x="4992.8000000000002" y="993.55322338830592"/>
         </scene>
+        <!--Request For Asssistant View Controller-->
+        <scene sceneID="Gi8-Ek-iBu">
+            <objects>
+                <viewController storyboardIdentifier="RequestForAsssistantViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="J0u-PI-iun" customClass="RequestForAsssistantViewController" customModule="familyOffice" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Lh3-02-sW9"/>
+                        <viewControllerLayoutGuide type="bottom" id="lY1-aH-UOy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rqh-7p-O6s">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="X7l-oR-lKD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2226" y="2939"/>
+        </scene>
         <!--Home Bussiness View Controller-->
         <scene sceneID="Hir-ol-YZU">
             <objects>

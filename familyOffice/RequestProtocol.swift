@@ -45,16 +45,33 @@ extension RequestProtocol {
         })
     }
 
-    func child_action(ref: String, action: DataEventType) -> Void {
-        let handle = Constants.FirDatabase.REF.child(ref).observe(action, with: {(snapshot) in
-            if(snapshot.exists()){
-                self.routing(snapshot: snapshot, action: action, ref: ref)
-            }else{
-                self.notExistSnapshot(ref: ref)
-            }
-        }, withCancel: {(error) in
-            print(error.localizedDescription)
-        })
+    func child_action(ref: String, action: DataEventType, _ toMe: Bool? = false) -> Void {
+        let xref = Constants.FirDatabase.REF.child(ref)
+        print(xref.ref)
+        let handle : UInt!
+    
+        if toMe!, let id = getUser()?.id {
+          handle  = xref.queryOrdered(byChild: "boss").queryEqual(toValue: id).observe(action, with: {(snapshot) in
+                if(snapshot.exists()){
+                    self.routing(snapshot: snapshot, action: action, ref: ref)
+                }else{
+                    self.notExistSnapshot(ref: ref)
+                }
+            }, withCancel: {(error) in
+                print(error.localizedDescription)
+            })
+            
+        }else{
+           handle = xref.observe(action, with: {(snapshot) in
+                if(snapshot.exists()){
+                    self.routing(snapshot: snapshot, action: action, ref: ref)
+                }else{
+                    self.notExistSnapshot(ref: ref)
+                }
+            }, withCancel: {(error) in
+                print(error.localizedDescription)
+            })
+        }
         self.handles.append((ref,handle,action))
     }
     

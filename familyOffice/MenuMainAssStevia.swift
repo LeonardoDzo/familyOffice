@@ -53,6 +53,7 @@ class MenuMainAss: UIViewX {
         line.cornerRadius = 2
         allBtn.tag = 0
         doneBtn.tag = 1
+        doneBtn.centerHorizontally()
         pendingBtn.tag = 2
         // Content 🖋
         allBtn.text("Todas")

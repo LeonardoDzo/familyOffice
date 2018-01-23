@@ -292,7 +292,7 @@ extension UserEModelBindable  {
         if let user = rManager.realm.object(ofType: UserEntity.self, forPrimaryKey: id) {
             self.bind(userModel: user)
         }else{
-            store.dispatch(UserS(.getbyId(uid: id)))
+            store.dispatch(UserS(.getbyId(uid: id, assistant: false)))
         }
     }
     
