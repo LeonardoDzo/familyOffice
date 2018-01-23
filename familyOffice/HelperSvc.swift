@@ -103,6 +103,7 @@ class MainFunctions : RequestProtocol {
                         try! rManager.realm.write {
                             getUser()?.assistants.append(assistantpending(true, route[6]))
                         }
+                        UserS().createObserversonPendings(route[6])
                         rManager.save(objs: getUser()!)
                         store.dispatch(UserS(.getbyId(uid: route[6], assistant: true)))
                         break

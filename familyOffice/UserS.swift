@@ -174,7 +174,7 @@ extension UserS : RequestProtocol {
                                         rManager.realm.delete(pendings)
                                     }
                                 }
-                                store.dispatch(UserS(.getbyId(uid: assistant.key, assistant: true)))
+                                self.createObserversonPendings(assistant.key)
                             }
                         }
                         
@@ -236,6 +236,12 @@ extension UserS : RequestProtocol {
 extension UserS : Reducer {
     typealias StoreSubscriberStateType = UserState
     
+    func createObserversonPendings(_ assistantId: String) {
+        let ref = "pendings/\(assistantId)"
+        sharedMains.removeHandles(ref: ref)
+        sharedMains.initObserves(ref: ref, actions: [.childAdded, .childRemoved, .childChanged], true)
+    }
+    
     func searchAssistant(_ uid: String) {
         Constants.FirDatabase.REF.child("assistants/\(uid)").observeSingleEvent(of: .value, with: {(snapshot) in
             if snapshot.exists(){
@@ -244,9 +250,6 @@ extension UserS : Reducer {
                         do {
                             let assistant = try JSONDecoder().decode(AssistantEntity.self, from: data)
                             rManager.save(objs: assistant)
-                            let ref = "pendings/\(assistant.id)"
-                            sharedMains.removeHandles(ref: ref)
-                            sharedMains.initObserves(ref: ref, actions: [.childAdded, .childRemoved, .childChanged], true)
                         }catch let error {
                             print(error.localizedDescription)
                         }
