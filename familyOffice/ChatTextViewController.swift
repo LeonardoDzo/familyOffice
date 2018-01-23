@@ -25,24 +25,27 @@ class ChatTextViewController: SLKTextViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView?.register(ChatTextMessageCell.self, forCellReuseIdentifier: "cell")
-        messages = rManager.realm.objects(MessageEntity.self)
-            .filter("groupId == '\(group.id)'")
-            .sorted(byKeyPath: "timestamp", ascending: false)
-        on("INJECTION_BUNDLE_NOTIFICATION") {
-            // solo funciona por slk:
-            // "If you access this property and its value is currently nil, the view controller automatically calls the loadView()
-            // method and returns the resulting view."
-            self.view = nil
+        if group != nil {
+            messages = rManager.realm.objects(MessageEntity.self)
+                .filter("groupId == '\(group.id)'")
+                .sorted(byKeyPath: "timestamp", ascending: false)
+            on("INJECTION_BUNDLE_NOTIFICATION") {
+                // solo funciona por slk:
+                // "If you access this property and its value is currently nil, the view controller automatically calls the loadView()
+                // method and returns the resulting view."
+                self.view = nil
+            }
+            setTitle()
+            setDays()
+            tableView?.separatorStyle = .none
+            let isFamilyGroup = rManager.realm.object(ofType: FamilyEntity.self, forPrimaryKey: group.id) != nil
+            if group.isGroup && !isFamilyGroup {
+                let button = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(self.edit))
+                self.navigationItem.rightBarButtonItem = button
+            }
+            self.isKeyboardPanningEnabled = true
         }
-        setTitle()
-        setDays()
-        tableView?.separatorStyle = .none
-        let isFamilyGroup = rManager.realm.object(ofType: FamilyEntity.self, forPrimaryKey: group.id) != nil
-        if group.isGroup && !isFamilyGroup {
-            let button = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(self.edit))
-            self.navigationItem.rightBarButtonItem = button
-        }
-        self.isKeyboardPanningEnabled = true
+        
 //        self.tableView?.allowsSelection = false
     }
     
@@ -57,6 +60,17 @@ class ChatTextViewController: SLKTextViewController {
                 } else {
                     myTitleView.photo.image = #imageLiteral(resourceName: "user-default")
                 }
+            }else if let user = rManager.realm.objects(AssistantEntity.self).first {
+                myTitleView.titleLbl.text = user.name
+                if !user.photoURL.isEmpty {
+                    myTitleView.photo.loadImage(urlString: user.photoURL)
+                } else {
+                    myTitleView.photo.image = #imageLiteral(resourceName: "user-default")
+                }
+                myTitleView.titleLbl.textColor = UIColor.white
+                self.tabBarController?.navigationItem.title = nil
+                self.tabBarController?.navigationItem.rightBarButtonItem = nil
+                self.tabBarController?.navigationItem.titleView = myTitleView
             }
         } else {
             myTitleView.titleLbl.text = group.title
@@ -158,6 +172,7 @@ extension ChatTextViewController: StoreSubscriber {
         store.subscribe(self) { state in
             state.select({ $0.requestState })
         }
+        setTitle()
         getAllMessagesUuid = UUID().uuidString
         store.dispatch(getAllMessagesAction(groupId: group.id, uuid: getAllMessagesUuid!))
         store.dispatch(seenGroupAction(group: group, member: user.id, uuid: UUID().uuidString))

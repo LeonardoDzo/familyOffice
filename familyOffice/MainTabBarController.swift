@@ -27,6 +27,32 @@ class MainTabBarController: UITabBarController {
                 break
             case "tabbarAssistant":
                 self.setStyle(.assistant)
+                let chatViewController = ChatTextViewController()
+                var group : GroupEntity!
+                if let uid = getUser()?.assistants.first?.key {
+                    group = rManager.realm.objects(GroupEntity.self).first { group in
+                        if !group.isGroup {
+                            var flag = false
+                            flag = group.members.contains(where: {$0.id == getUser()?.id}) && group.members.contains(where: {$0.id == uid})
+                            return flag
+                        }
+                        return false
+                    }
+                    if group == nil {
+                        group = GroupEntity()
+                        
+                        let myId = getUser()?.id
+                        group?.id = "\(uid < myId! ? uid : myId!)-\(uid < myId! ? myId! : uid)"
+                        group?.members.append(TimestampEntity(value: [uid, Date()]))
+                        group?.members.append(TimestampEntity(value: [myId!, Date()]))
+                        group?.isGroup = false
+                        store.dispatch(createGroupAction(group: group, uuid: group.id))
+                    }else{
+                        chatViewController.group = group
+                    }
+                }
+                chatViewController.tabBarItem = UITabBarItem(title: "Chat", image: #imageLiteral(resourceName: "chat-room"), tag: 2)
+                self.viewControllers?.append(chatViewController)
                 break
             default:
                 break
@@ -36,8 +62,6 @@ class MainTabBarController: UITabBarController {
         self.setupBack()
         // Do any additional setup after loading the view.
     }
-    
-    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

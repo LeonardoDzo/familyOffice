@@ -83,6 +83,13 @@ class HomeCollectionViewController: UICollectionViewController, UICollectionView
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let btn = btnsArray[indexPath.row]
+        if btn.segue == "assistant" {
+            if getUser()?.assistants.count == 0 {
+                self.pushToView(view: .requestAssitant)
+                return
+            }
+            
+        }
         self.performSegue(withIdentifier: btn.segue, sender: nil)
     }
     

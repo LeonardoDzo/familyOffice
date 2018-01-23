@@ -19,12 +19,16 @@ class MainAssistantViewController: UIViewController {
             self.v = MainAssistantViewStevia()
             self.view = self.v
         }
-
+        setNavbar()
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
+        setNavbar()
+    }
+    fileprivate func setNavbar() {
         let editButton = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(self.showEditing))
-        
+        self.tabBarController?.navigationItem.titleView = nil
+        self.tabBarController?.navigationItem.title = nil
         self.tabBarController?.navigationItem.rightBarButtonItem = editButton
         self.tabBarController?.navigationItem.title = "Peticiones"
     }

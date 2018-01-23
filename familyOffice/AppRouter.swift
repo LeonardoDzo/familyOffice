@@ -38,7 +38,8 @@ enum RoutingDestination: String {
          eventDetails = "EventDetailsViewController",
          chat = "ChatGroupViewController",
          addEditPending = "AddEditPendingViewController",
-         setSafeboxPwd = "SetSafeboxPassword"
+         setSafeboxPwd = "SetSafeboxPassword",
+         requestAssitant = "RequestForAsssistantViewController"
     
     // first aid
     case illness = "IllnessTableViewController",
@@ -50,7 +51,7 @@ extension RoutingDestination {
 
     func getStoryBoard() -> String {
         switch self {
-        case .start, .signUp, .homeSocial, .none, .prehome:
+        case .start, .signUp, .homeSocial, .none, .prehome, .requestAssitant:
             return StoryBoard.main.rawValue
         case .profileFamily,.families,.contacts:
             return StoryBoard.families.rawValue

@@ -44,7 +44,7 @@ class UserS : Action, EventProtocol {
             if exist {
                 if let family = store.state.FamilyState.families.family(fid: (user.familyActive)!) {
                     for item in (family.members)! {
-                        store.dispatch( UserS(.getbyId(uid: item)))
+                        store.dispatch( UserS(.getbyId(uid: item, assistant: false)))
                     }
                 }
             }
@@ -122,6 +122,7 @@ class UserS : Action, EventProtocol {
     }
 }
 
+// MARK: - RequestProtocol
 extension UserS : RequestProtocol {
     func notExistSnapshot(ref: String) {
         if let user = Auth.auth().currentUser, isRegisterWithCredentials {
@@ -173,15 +174,17 @@ extension UserS : RequestProtocol {
                                         rManager.realm.delete(pendings)
                                     }
                                 }
-                                let ref = "pendings/\(assistant.key)/"
-                                sharedMains.removeHandles(ref: ref)
-                                sharedMains.initObserves(ref:ref, actions: [.childAdded, .childRemoved, .childChanged])
+                                store.dispatch(UserS(.getbyId(uid: assistant.key, assistant: true)))
                             }
                         }
                         
                         let ref = "\(ref_users(uid: user.id))/families"
                         sharedMains.removeHandles(ref: ref)
                         sharedMains.initObserves(ref:ref, actions: [.childAdded, .childRemoved])
+                        
+                        let xref = "\(ref_users(uid: user.id))/assistants"
+                        sharedMains.removeHandles(ref: xref)
+                        sharedMains.initObserves(ref:xref, actions: [.childAdded, .childRemoved])
                        
                         let refevents = "\(ref_users(uid: user.id))/events"
                         sharedMains.removeHandles(ref: refevents)
@@ -208,7 +211,7 @@ extension UserS : RequestProtocol {
     }
     func updated(snapshot: DataSnapshot, id: Any) {
         let id = snapshot.ref.description().components(separatedBy: "/")[4]
-        self.action = .getbyId(uid: id)
+        self.action = .getbyId(uid: id, assistant: false)
         self.status = .loading
         store.dispatch(self)
     }
@@ -229,8 +232,32 @@ extension UserS : RequestProtocol {
 
 }
 
+// MARK: - Reducer
 extension UserS : Reducer {
     typealias StoreSubscriberStateType = UserState
+    
+    func searchAssistant(_ uid: String) {
+        Constants.FirDatabase.REF.child("assistants/\(uid)").observeSingleEvent(of: .value, with: {(snapshot) in
+            if snapshot.exists(){
+                if let snapshotValue = snapshot.value as? NSDictionary {
+                    if let data = snapshotValue.jsonToData() {
+                        do {
+                            let assistant = try JSONDecoder().decode(AssistantEntity.self, from: data)
+                            rManager.save(objs: assistant)
+                            let ref = "pendings/\(assistant.id)"
+                            sharedMains.removeHandles(ref: ref)
+                            sharedMains.initObserves(ref: ref, actions: [.childAdded, .childRemoved, .childChanged], true)
+                        }catch let error {
+                            print(error.localizedDescription)
+                        }
+                        
+                    }
+                }
+            }
+        }, withCancel: {(error) in
+            print(error.localizedDescription)
+        })
+    }
     
     func handleAction(state: UserState?) -> UserState {
         var state = state ?? UserState(users: .none, user: .none)
@@ -240,8 +267,16 @@ extension UserS : Reducer {
            
             switch self.action {
                 
-            case .getbyId(let uid):
-                self.valueSingleton(ref: ref_users(uid: uid))
+            case .getbyId(let uid, let assistant):
+                if !assistant {
+                    self.valueSingleton(ref: ref_users(uid: uid))
+                }else{
+                    do {
+                        try self.searchAssistant(uid)
+                    }catch let error {
+                        print(error.localizedDescription)
+                    }
+                }
                 break
             case .getbyPhone(let phone):
                 self.getUser(byphone: phone)

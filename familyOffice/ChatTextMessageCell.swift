@@ -77,6 +77,49 @@ class ChatTextMessageCell: UITableViewCell {
             return
         }
         guard let user = rManager.realm.objects(UserEntity.self).first(where: { $0.id == message.remittent }) else {
+            bindWithAssistant(message: message)
+            return
+        }
+        let mine = user.id == getUser()!.id
+        let userIndex = group.members.index(matching: "id == '\(user.id)'") ?? 0
+        msgText.text = message.text
+        msgTime.text = message.timestamp.string(with: DateFormatter.hourAndMin)
+        if !mine {
+            userName.text = user.name
+            msgText.textAlignment = .left
+            userName.textColor = userColors[userIndex % userColors.count]
+            bubbleView.backgroundColor = otherColor
+            bubbleView.right(>=15).left(25)
+            if user.photoURL.isEmpty {
+                userImg.image = #imageLiteral(resourceName: "user-default")
+            } else {
+                userImg.loadImage(urlString: user.photoURL)
+            }
+        } else {
+            userName.text = ""
+            msgText.textAlignment = .right
+            bubbleView.backgroundColor = mineColor
+            bubbleView.left(>=15).right(15)
+            userImg.image = nil
+        }
+        switch MessageStatus(rawValue: message.status) {
+        case .Pending?:
+            bubbleView.alpha = 0.5
+        case .Sent?:
+            bubbleView.alpha = 1
+            break
+        case .Failed?:
+            failedMessage()
+            break
+        default: break
+        }
+        layoutIfNeeded()
+    }
+    func bindWithAssistant(message: MessageEntity) -> Void {
+        guard let group = rManager.realm.objects(GroupEntity.self).first(where: { $0.id == message.groupId}) else {
+            return
+        }
+        guard let user = rManager.realm.objects(AssistantEntity.self).first(where: { $0.id == message.remittent }) else {
             return
         }
         let mine = user.id == getUser()!.id

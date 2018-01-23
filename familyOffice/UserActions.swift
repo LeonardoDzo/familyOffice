@@ -11,7 +11,7 @@ import ReSwift
 import FirebaseAuth
 
 enum UserAction : description {
-    case getbyId(uid: String),
+    case getbyId(uid: String,assistant: Bool),
          getbyPhone(phone: String),
          set(user: User),
          update(user: UserEntity, img: UIImage?),

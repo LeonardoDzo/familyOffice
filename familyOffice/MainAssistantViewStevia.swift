@@ -39,6 +39,7 @@ class MainAssistantViewStevia: UIViewX {
             |table.height(100%)|,
             >=40
         )
+        
         menu.allBtn.addTarget(self, action: #selector(self.changeType(_:)), for: .touchUpInside)
         menu.pendingBtn.addTarget(self, action: #selector(self.changeType(_:)), for: .touchUpInside)
         menu.doneBtn.addTarget(self, action: #selector(self.changeType(_:)), for: .touchUpInside)

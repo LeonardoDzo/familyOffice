@@ -116,7 +116,7 @@ extension GroupBindible {
                     if let user = rManager.realm.object(ofType: UserEntity.self, forPrimaryKey: mid) {
                         return user
                     }else{
-                        store.dispatch(UserS(.getbyId(uid: mid)))
+                        store.dispatch(UserS(.getbyId(uid: mid, assistant: false)))
                     }
                 }
             }
@@ -161,7 +161,7 @@ extension GroupBindible {
                             msgTime.text = msg.timestamp.string(with: DateFormatter.ddMMMyyyy)
                         }
                     } else {
-                        store.dispatch(UserS(.getbyId(uid: msg.remittent)))
+                        store.dispatch(UserS(.getbyId(uid: msg.remittent, assistant: false)))
                     }
                 }else{
                     store.dispatch(getMessageAction(messageId: msgId, uuid: msgId))

@@ -207,7 +207,7 @@ public class UsersController : UIViewController, UITableViewDelegate, UITableVie
              cell.imageView?.loadImage(urlString: user.photoURL)
              cell.imageView?.circleImage()
         }else{
-            store.dispatch(UserS(.getbyId(uid: familyMemberId)))
+            store.dispatch(UserS(.getbyId(uid: familyMemberId, assistant: false)))
         }
         
         if userList.list.contains(familyMemberId){
