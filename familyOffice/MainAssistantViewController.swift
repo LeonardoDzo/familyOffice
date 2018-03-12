@@ -10,9 +10,6 @@ import UIKit
 
 class MainAssistantViewController: UIViewController {
     var v = MainAssistantViewStevia()
-    
-    override func loadView() { view = v }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         on("INJECTION_BUNDLE_NOTIFICATION") {

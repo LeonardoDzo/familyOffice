@@ -189,11 +189,7 @@ extension UIViewController {
         if  let vc = viewcontroller as? bind {
             vc.bind(sender: sender)
         }
-        if let top = UIApplication.topViewController() {
-            if top.restorationIdentifier == viewcontroller.restorationIdentifier {
-                return nil
-            }
-        }
+        
         switch viewcontroller {
         case let vc as FamilyViewController:
             var family : Family

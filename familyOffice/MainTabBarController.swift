@@ -23,7 +23,7 @@ class MainTabBarController: UITabBarController {
                 break
             case "TabBarControllerView":
                 self.tabBar.items?.last?.title = "Perfil"
-                self.tabBar.items?.last?.image = #imageLiteral(resourceName: "Setting")
+                //self.tabBar.items?.last?.image 
                 break
             case "tabbarAssistant":
                 self.setStyle(.assistant)

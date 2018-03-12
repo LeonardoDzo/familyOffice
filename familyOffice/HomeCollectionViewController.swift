@@ -34,7 +34,7 @@ class HomeCollectionViewController: UICollectionViewController, UICollectionView
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.tabBarController?.tabBar.items?.last?.title = "Perfil"
-        self.navigationController?.tabBarController?.tabBar.items?.last?.image = #imageLiteral(resourceName: "Setting")
+       //r self.navigationController?.tabBarController?.tabBar.items?.last?.image = #imageLiteral(resourceName: "Setting")
         let changeFam = UIBarButtonItem(image: #imageLiteral(resourceName: "changeFam"), style: .plain, target: self, action: #selector(self.changefam))
         self.navigationItem.rightBarButtonItem = changeFam
         navigationController?.navigationBar.prefersLargeTitles = false
