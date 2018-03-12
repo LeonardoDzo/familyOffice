@@ -10,7 +10,7 @@ import UIKit
 
 class ChatGroupCell: UITableViewCell, GroupBindible{
     var group: GroupEntity!
-    @IBOutlet weak var groupImg: UIImageView!
+    @IBOutlet weak var groupImg: UIImageViewX!
     @IBOutlet weak var groupName: UILabel!
     @IBOutlet weak var lastMsg: UILabel!
     @IBOutlet weak var msgTime: UILabel!

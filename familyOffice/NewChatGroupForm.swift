@@ -109,12 +109,14 @@ class NewChatGroupForm : FormViewController {
         _group.createdAt = Date()
         let membersArray = values["members"] as! UserListSelected
         membersArray.list.forEach({ userId in
-            _group.members.append(TimestampEntity(value: [userId, Date()]))
+            let oldMember = group.members.first(where: { $0.id == userId })
+            _group.members.append(oldMember ?? TimestampEntity(value: [userId, Date()]))
         })
         createUuid = UUID().uuidString
         if group.id.isEmpty {
             store.dispatch(createGroupAction(group: _group, uuid: createUuid!))
         } else {
+            // solo actualiza nombre, miembros y foto
             store.dispatch(editGroupAction(group: group, fields: _group, uuid: createUuid!))
         }
     }
@@ -172,7 +174,7 @@ extension NewChatGroupForm: StoreSubscriber {
             switch state.requests[uuid] {
             case .finished?:
                 let ctrlArr = self.navigationController!.viewControllers
-                let ctrl = ctrlArr[ctrlArr.count - 3]
+                let ctrl = ctrlArr[ctrlArr.count - 4]
                 self.navigationController?.popToViewController(ctrl, animated: true)
             default: return
             }

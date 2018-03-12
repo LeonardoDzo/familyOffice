@@ -85,7 +85,7 @@ class GroupEntity: Object, Serializable {
 }
 protocol GroupBindible: AnyObject, bind {
     var group: GroupEntity! {get set}
-    var groupImg: UIImageView! {get}
+    var groupImg: UIImageViewX! {get}
     var groupName: UILabel! {get}
     var lastMsg: UILabel! {get}
     var msgTime: UILabel! {get}
@@ -93,7 +93,7 @@ protocol GroupBindible: AnyObject, bind {
     var famName: UILabel! { get }
 }
 extension GroupBindible {
-    var groupImg: UIImageView! {return nil}
+    var groupImg: UIImageViewX! {return nil}
     var groupName: UILabel! {return nil}
     var lastMsg: UILabel! {return nil}
     var msgTime: UILabel! {return nil}

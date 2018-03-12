@@ -82,9 +82,7 @@ class ProfileUserViewController: UIViewController, UserEModelBindable{
             group?.isGroup = false
             store.dispatch(createGroupAction(group: group, uuid: group.id))
         }else{
-            let controller = ChatTextViewController()
-            controller.group = group
-            self.navigationController?.pushViewController(controller, animated: true)
+            self.pushToView(view: .chat, sender: group)
         }
     }
     
@@ -128,9 +126,7 @@ extension ProfileUserViewController: StoreSubscriber {
         if group != nil, !group.id.isEmpty {
             switch state.requestState.requests[group.id] {
             case .finished?:
-                let controller = ChatTextViewController()
-                controller.group = group
-                self.navigationController?.pushViewController(controller, animated: true)
+                self.pushToView(view: .chat, sender: group)
                 break
             default: break
             }

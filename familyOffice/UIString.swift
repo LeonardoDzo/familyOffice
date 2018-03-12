@@ -38,4 +38,8 @@ extension String
         return ceil(boundingBox.width)
     }
     
+    func notEmpty() -> String? {
+        return self.isEmpty ? nil : self
+    }
+    
 }

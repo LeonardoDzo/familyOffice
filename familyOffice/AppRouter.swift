@@ -35,7 +35,8 @@ enum RoutingDestination: String {
          profileView = "ProfileUserViewController",
          mainCalendar = "mainnavCalendar",
          eventDetails = "EventDetailsViewController",
-         chat = "ChatGroupViewController",
+         chat = "ChatTextViewController",
+         chatDetails = "ChatDetailsFormController",
          setSafeboxPwd = "SetSafeboxPassword"
     
     // first aid
@@ -58,7 +59,7 @@ extension RoutingDestination {
             return StoryBoard.calendar.rawValue
         case .illness, .addIllness:
             return StoryBoard.firstaid.rawValue
-        case .chat:
+        case .chat, .chatDetails:
             return StoryBoard.chat.rawValue
         }
     }

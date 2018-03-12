@@ -19,8 +19,8 @@ class ChatTextViewController: SLKTextViewController {
     let user = getUser()!
     var days: [Date] = []
     
+    var pasteBoard = UIPasteboard.general
     let myTitleView = FamilyTitleView.instanceFromNib()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,12 +38,13 @@ class ChatTextViewController: SLKTextViewController {
         setDays()
         tableView?.separatorStyle = .none
         let isFamilyGroup = rManager.realm.object(ofType: FamilyEntity.self, forPrimaryKey: group.id) != nil
-        if group.isGroup && !isFamilyGroup {
+        if group.isGroup && !isFamilyGroup && false {
             let button = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(self.edit))
             self.navigationItem.rightBarButtonItem = button
         }
         self.isKeyboardPanningEnabled = true
-//        self.tableView?.allowsSelection = false
+//        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "longPress:")
+//        self.tableView?.addGestureRecognizer(longPressRecognizer)
     }
     
     func setTitle() {
@@ -66,6 +67,9 @@ class ChatTextViewController: SLKTextViewController {
         }
         myTitleView.titleLbl.textColor = UIColor.white
         self.navigationItem.titleView = myTitleView
+        myTitleView.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(groupDetails))
+        myTitleView.addGestureRecognizer(tap)
     }
     
     func setDays() {
@@ -82,6 +86,19 @@ class ChatTextViewController: SLKTextViewController {
         let ctrl = NewChatGroupForm()
         ctrl.group = self.group
         show(ctrl, sender: self)
+    }
+    
+    @objc func groupDetails() {
+        self.pushToView(view: .chatDetails, sender: group)
+    }
+    
+    @objc func longPress(longPressGestureRecognizer: UILongPressGestureRecognizer) {
+        if longPressGestureRecognizer.state == .began {
+//            let touchPoint = longPressGestureRecognizer.location(in: self.tableView!)
+//            if let indexPath = tableView?.indexPathForRow(at: touchPoint) {
+//
+//            }
+        }
     }
     
     func messagesInSection(section: Int) -> Results<MessageEntity> {
@@ -110,10 +127,7 @@ class ChatTextViewController: SLKTextViewController {
         return cell
     }
 
-//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        let message = messagesInSection(section: indexPath.section)[indexPath.row]
-//        return ChatTextMessageCell.calcHeight(message: message, width: tableView.frame.width)
-//    }
+    
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         //        let view = UIView()
@@ -129,10 +143,24 @@ class ChatTextViewController: SLKTextViewController {
         titleView.transform = tableView.transform
         return titleView
         
-        //return ChatSectionHeaderView(tableFrame: tableView.frame, text: days[section].string(with: DateFormatter.dayMonthAndYear))
     }
     
+    override func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool
+    {
+        return true
+    }
     
+    override func tableView(_ tableView: UITableView, canPerformAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+        if (action == #selector(UIResponderStandardEditActions.copy(_:))) {
+            return true
+        }
+        return false
+    }
+    
+    override func tableView(_ tableView: UITableView, performAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? ChatTextMessageCell else { return }
+        pasteBoard.string = cell.msgText.text
+    }
     
     override func didPressRightButton(_ sender: Any?) {
         guard var text = textView.text else { return }
@@ -161,6 +189,7 @@ extension ChatTextViewController: StoreSubscriber {
         getAllMessagesUuid = UUID().uuidString
         store.dispatch(getAllMessagesAction(groupId: group.id, uuid: getAllMessagesUuid!))
         store.dispatch(seenGroupAction(group: group, member: user.id, uuid: UUID().uuidString))
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -173,6 +202,7 @@ extension ChatTextViewController: StoreSubscriber {
             switch state.requests[uuid] {
             case .finished?:
                 store.dispatch(RequestAction.Processed(uuid: uuid))
+                store.dispatch(seenGroupAction(group: group, member: user.id, uuid: UUID().uuidString))
                 setDays()
                 tableView?.reloadData()
                 tableView?.slk_scrollToTop(animated: true)

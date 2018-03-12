@@ -313,6 +313,7 @@
 		94FF53671F17E58E001D9EE4 /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FF53661F17E58E001D9EE4 /* ItemDetailViewController.swift */; };
 		A40F64551FE42A3300837EA0 /* ChatGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F64541FE42A3300837EA0 /* ChatGroupCell.swift */; };
 		A40F64571FE4676400837EA0 /* NewChatGroupForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F64561FE4676400837EA0 /* NewChatGroupForm.swift */; };
+		A410D164200E6E0B0071D12F /* ChatDetailsFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A410D163200E6E0B0071D12F /* ChatDetailsFormController.swift */; };
 		A44D91AF1E947F2700880D50 /* HealthOmniViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44D91AE1E947F2700880D50 /* HealthOmniViewController.swift */; };
 		A44F5BE71F1D421100B840F3 /* LineChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44F5BE61F1D421100B840F3 /* LineChartViewController.swift */; };
 		A44F5BE91F1D42D300B840F3 /* BudgetTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44F5BE81F1D42D300B840F3 /* BudgetTabBarController.swift */; };
@@ -705,6 +706,7 @@
 		A368C0BD312ACC29BADACF16 /* Pods-familyOffice.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-familyOffice.release.xcconfig"; path = "Pods/Target Support Files/Pods-familyOffice/Pods-familyOffice.release.xcconfig"; sourceTree = "<group>"; };
 		A40F64541FE42A3300837EA0 /* ChatGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGroupCell.swift; sourceTree = "<group>"; };
 		A40F64561FE4676400837EA0 /* NewChatGroupForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChatGroupForm.swift; sourceTree = "<group>"; };
+		A410D163200E6E0B0071D12F /* ChatDetailsFormController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDetailsFormController.swift; sourceTree = "<group>"; };
 		A44D4E5D1F0481CD00323B87 /* Budget.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Budget.storyboard; sourceTree = "<group>"; };
 		A44D91AE1E947F2700880D50 /* HealthOmniViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthOmniViewController.swift; sourceTree = "<group>"; };
 		A44F5BE61F1D421100B840F3 /* LineChartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineChartViewController.swift; sourceTree = "<group>"; };
@@ -814,6 +816,7 @@
 				A40F64561FE4676400837EA0 /* NewChatGroupForm.swift */,
 				021A48F31FE6233200EC8EBC /* MembersChatTableViewController.swift */,
 				A4DDE48D20094195001592C7 /* ChatTextViewController.swift */,
+				A410D163200E6E0B0071D12F /* ChatDetailsFormController.swift */,
 			);
 			name = chat;
 			sourceTree = "<group>";
@@ -2701,6 +2704,7 @@
 				A44F5BEB1F1D44D200B840F3 /* RadarChartViewController.swift in Sources */,
 				A4F65A291E97F06800831BFD /* NewHealthElementTableViewController.swift in Sources */,
 				8BE66E261F50902D003AC45C /* MoveFileViewController.swift in Sources */,
+				A410D164200E6E0B0071D12F /* ChatDetailsFormController.swift in Sources */,
 				946401B71F227A8700A8840E /* NewMedicineViewController.swift in Sources */,
 				021DB69D1F4B5F1A00E216BE /* AppRouter.swift in Sources */,
 				9409641C1F28184200FB1F3A /* FaqReducer.swift in Sources */,
