@@ -53,7 +53,7 @@ public class UserEntity: Object, Codable, Serializable {
     var families = List<RealmString>()
     var tokens = List<RealmString>()
     var events = List<RealmString>()
-    var assistants = List<assistantpending>()
+    dynamic var assistants = List<assistantpending>()
     // var health: Health!
     
     override public static func primaryKey() -> String? {

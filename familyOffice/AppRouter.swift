@@ -39,7 +39,8 @@ enum RoutingDestination: String {
          chat = "ChatGroupViewController",
          addEditPending = "AddEditPendingViewController",
          setSafeboxPwd = "SetSafeboxPassword",
-         requestAssitant = "RequestForAsssistantViewController"
+         requestAssitant = "RequestForAsssistantViewController",
+         chatDetails = "ChatDetailsFormController"
     
     // first aid
     case illness = "IllnessTableViewController",
@@ -61,7 +62,7 @@ extension RoutingDestination {
             return StoryBoard.calendar.rawValue
         case .illness, .addIllness:
             return StoryBoard.firstaid.rawValue
-        case .chat:
+        case .chat, .chatDetails:
             return StoryBoard.chat.rawValue
         case .addEditPending:
             return StoryBoard.assistant.rawValue

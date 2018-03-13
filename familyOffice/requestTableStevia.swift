@@ -15,7 +15,7 @@ class RequestTableview: UIViewX {
     var type = 0
     var notificationToken: NotificationToken? = nil
     var rowActions: [UITableViewRowAction]!
-    var assistants : Results<AssistantEntity>!
+    var assistants = [AssistantEntity]()
     convenience init() {
         self.init(frame:CGRect.zero)
         // This is only needed for live reload as injectionForXcode
@@ -46,38 +46,15 @@ class RequestTableview: UIViewX {
     func refreshData() -> Void {
         let backgroundnoevents = UIImageView()
         
-        assistants = rManager.realm.objects(AssistantEntity.self)
-        
         if assistants.count == 0 {
             
-            backgroundnoevents.image = #imageLiteral(resourceName: "background_no_pendings")
+            backgroundnoevents.image = #imageLiteral(resourceName: "background_no_users")
             self.tableView.backgroundView = backgroundnoevents
             backgroundnoevents.contentMode = .scaleAspectFit
         }else{
             self.tableView.backgroundView = nil
         }
-        notificationToken?.invalidate()
-        notificationToken = assistants.observe { [weak self] (changes: RealmCollectionChange) in
-            guard let tableView = self?.tableView else { return }
-            switch changes {
-            case .initial:
-                // Results are now populated and can be accessed without blocking the UI
-                tableView.reloadData()
-            case .update(_, let deletions, let insertions, let modifications):
-                // Query results have changed, so apply them to the UITableView
-                tableView.beginUpdates()
-                tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }),
-                                     with: .automatic)
-                tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}),
-                                     with: .automatic)
-                tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }),
-                                     with: .automatic)
-                tableView.endUpdates()
-            case .error(let error):
-                // An error occurred while opening the Realm file on the background worker thread
-                fatalError("\(error)")
-            }
-        }
+        self.tableView.reloadData()
         
     }
     deinit {

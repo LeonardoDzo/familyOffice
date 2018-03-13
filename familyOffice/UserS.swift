@@ -167,6 +167,13 @@ extension UserS : RequestProtocol {
                         for eid in user.events {
                             store.dispatch(EventSvc(.get(byId: eid.value)))
                         }
+                        
+                        if let assistant = rManager.getObjects(type: AssistantEntity.self) {
+                            try! rManager.realm.write {
+                                rManager.realm.delete(assistant)
+                            }
+                        }
+                        
                         for assistant in user.assistants {
                             if assistant.value {
                                 if let pendings = rManager.getObjects(type: PendingEntity.self){
@@ -175,7 +182,9 @@ extension UserS : RequestProtocol {
                                     }
                                 }
                                 self.createObserversonPendings(assistant.key)
+                                searchAssistant(assistant.key)
                             }
+                            
                         }
                         
                         let ref = "\(ref_users(uid: user.id))/families"
@@ -274,11 +283,7 @@ extension UserS : Reducer {
                 if !assistant {
                     self.valueSingleton(ref: ref_users(uid: uid))
                 }else{
-                    do {
-                        try self.searchAssistant(uid)
-                    }catch let error {
-                        print(error.localizedDescription)
-                    }
+                    self.searchAssistant(uid)
                 }
                 break
             case .getbyPhone(let phone):

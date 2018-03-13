@@ -50,6 +50,7 @@ extension RequestStorageSvc {
         let metadata = StorageMetadata()
         if value is UIImage{
             metadata.contentType = "image/jpeg"
+            metadata.contentEncoding = "gzip"
             let aux: Data = (value as! UIImage).resizeImage().jpeg(.high)!
             uploadData = try! aux.gzipped(level: .bestCompression)
         }

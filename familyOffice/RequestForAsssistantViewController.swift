@@ -35,7 +35,8 @@ class RequestForAsssistantViewController: UIViewController {
                     if let data = snapshotValue.jsonToData() {
                         do {
                             let assistant = try JSONDecoder().decode(AssistantEntity.self, from: data)
-                            rManager.save(objs: assistant)
+                            self.v.requestTable.assistants.append(assistant)
+                            self.v.requestTable.refreshData()
                         }catch let error {
                             print(error.localizedDescription)
                         }

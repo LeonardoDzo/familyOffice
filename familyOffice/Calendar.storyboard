@@ -578,7 +578,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.98432296509999995" green="0.98430186509999995" blue="0.98430591820000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="trailingMargin" secondItem="bCj-3r-v1L" secondAttribute="trailing" id="0Tk-iu-edx"/>
                                                 <constraint firstItem="Ktm-5z-YUG" firstAttribute="top" secondItem="Fn5-Ks-21H" secondAttribute="top" id="44W-bI-ocB"/>
@@ -609,22 +609,28 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="0.98432296514511108" green="0.9843018651008606" blue="0.98430591821670532" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" red="0.97929566690000003" green="0.99083313880000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="GgN-qX-pMz" firstAttribute="top" secondItem="DR3-dB-iJg" secondAttribute="bottom" constant="5" id="1f1-Aa-m6a"/>
                             <constraint firstItem="GgN-qX-pMz" firstAttribute="top" secondItem="R3x-Ov-FQ4" secondAttribute="bottom" constant="7.5" id="ADf-eX-lFs"/>
                             <constraint firstItem="DR3-dB-iJg" firstAttribute="trailing" secondItem="iLF-el-qma" secondAttribute="trailingMargin" id="BgQ-aC-sGs"/>
                             <constraint firstItem="GgN-qX-pMz" firstAttribute="bottom" secondItem="T0G-Ta-ISe" secondAttribute="top" id="CiH-G3-23l"/>
+                            <constraint firstItem="G94-eP-qng" firstAttribute="top" secondItem="o2T-Gg-oxZ" secondAttribute="bottom" id="CjO-0e-2IJ"/>
+                            <constraint firstAttribute="trailing" secondItem="G94-eP-qng" secondAttribute="trailing" id="HAE-ai-gd6"/>
                             <constraint firstItem="G94-eP-qng" firstAttribute="centerX" secondItem="3WP-CJ-fK9" secondAttribute="centerX" id="MmF-zT-KX5"/>
                             <constraint firstAttribute="trailing" secondItem="G94-eP-qng" secondAttribute="trailing" id="OlG-sf-2td"/>
                             <constraint firstItem="R3x-Ov-FQ4" firstAttribute="top" secondItem="G94-eP-qng" secondAttribute="bottom" constant="8" id="SAP-G8-oiJ"/>
                             <constraint firstItem="3WP-CJ-fK9" firstAttribute="top" secondItem="o2T-Gg-oxZ" secondAttribute="bottom" constant="219" id="UN2-6U-57m"/>
                             <constraint firstItem="G94-eP-qng" firstAttribute="top" secondItem="o2T-Gg-oxZ" secondAttribute="bottom" id="dg8-9j-Mlg"/>
                             <constraint firstAttribute="bottom" secondItem="G94-eP-qng" secondAttribute="bottom" constant="345" id="fxJ-X0-TCV"/>
+                            <constraint firstItem="G94-eP-qng" firstAttribute="top" secondItem="o2T-Gg-oxZ" secondAttribute="bottom" id="ghQ-hF-rg7"/>
                             <constraint firstItem="G94-eP-qng" firstAttribute="leading" secondItem="GgN-qX-pMz" secondAttribute="leading" id="mXf-Uy-JXI"/>
                             <constraint firstItem="DR3-dB-iJg" firstAttribute="leading" secondItem="R3x-Ov-FQ4" secondAttribute="trailing" constant="22" id="rdg-eC-AaU"/>
                             <constraint firstItem="G94-eP-qng" firstAttribute="trailing" secondItem="GgN-qX-pMz" secondAttribute="trailing" id="szt-rK-PrH"/>
+                            <constraint firstItem="G94-eP-qng" firstAttribute="leading" secondItem="iLF-el-qma" secondAttribute="leading" id="uLa-e1-gP2"/>
                             <constraint firstItem="G94-eP-qng" firstAttribute="leading" secondItem="iLF-el-qma" secondAttribute="leading" id="xui-TI-uVC"/>
+                            <constraint firstItem="G94-eP-qng" firstAttribute="leading" secondItem="iLF-el-qma" secondAttribute="leading" id="y2Q-aa-f71"/>
+                            <constraint firstAttribute="trailing" secondItem="G94-eP-qng" secondAttribute="trailing" id="zTi-jc-K2s"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="home_event" selectedImage="home_event" id="WkS-cg-nw6"/>

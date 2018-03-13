@@ -16,6 +16,8 @@ class MainAssistantViewController: UIViewController {
             self.v = MainAssistantViewStevia()
             self.view = self.v
         }
+        self.v = MainAssistantViewStevia()
+        self.view = self.v
         setNavbar()
         // Do any additional setup after loading the view.
     }

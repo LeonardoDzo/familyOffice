@@ -26,6 +26,7 @@ class ChatTextMessageCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         render()
+        self.selectionStyle = .none
     }
     
     func render() {
@@ -70,6 +71,10 @@ class ChatTextMessageCell: UITableViewCell {
             l.textAlignment = .right
             l.textColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
         }
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        self.backgroundColor = selected ? #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1) : UIColor.clear
     }
 
     func bind(message: MessageEntity) {

@@ -34,6 +34,7 @@ class HomeCollectionViewController: UICollectionViewController, UICollectionView
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.tabBarController?.tabBar.items?.last?.title = "Perfil"
+        self.navigationController?.tabBarController?.tabBar.items?.last?.image = #imageLiteral(resourceName: "icons8-user_male")
        //r self.navigationController?.tabBarController?.tabBar.items?.last?.image = #imageLiteral(resourceName: "Setting")
         let changeFam = UIBarButtonItem(image: #imageLiteral(resourceName: "changeFam"), style: .plain, target: self, action: #selector(self.changefam))
         self.navigationItem.rightBarButtonItem = changeFam
@@ -84,7 +85,7 @@ class HomeCollectionViewController: UICollectionViewController, UICollectionView
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let btn = btnsArray[indexPath.row]
         if btn.segue == "assistant" {
-            if getUser()?.assistants.count == 0 {
+            if rManager.getObjects(type: AssistantEntity.self)?.count == 0 {
                 self.pushToView(view: .requestAssitant)
                 return
             }

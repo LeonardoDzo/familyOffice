@@ -23,9 +23,9 @@ class TopViewProfileAssistant: UIViewX, AssistantBindable {
         // This is only needed for live reload as injectionForXcode
         // doesn't swizzle init methods.
         // Get injectionForXcode here : http://johnholdsworth.com/injection.html
-        if  let id = getUser()?.assistants.first?.key {
-            self.userModel = rManager.realm.object(ofType: AssistantEntity.self, forPrimaryKey: id)
-        }
+        
+        self.userModel = rManager.realm.objects(AssistantEntity.self).first
+        
         
         render()
     }

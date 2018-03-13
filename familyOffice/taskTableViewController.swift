@@ -50,9 +50,9 @@ class TaskTableview: UIViewX {
         let backgroundnoevents = UIImageView()
         if type > 0 {
             let flag = type == 1 ? true : false
-            pendings = rManager.realm.objects(PendingEntity.self).filter("done = %@", flag).sorted(byKeyPath: "created_at")
+            pendings = rManager.realm.objects(PendingEntity.self).filter("done = %@", flag).sorted(byKeyPath: "created_at", ascending: false)
         }else{
-            pendings = rManager.realm.objects(PendingEntity.self).sorted(byKeyPath: "priority", ascending: false).sorted(byKeyPath: "created_at")
+            pendings = rManager.realm.objects(PendingEntity.self).sorted(byKeyPath: "priority", ascending: false).sorted(byKeyPath: "created_at", ascending: false)
         }
         if pendings.count == 0 {
            

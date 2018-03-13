@@ -85,7 +85,7 @@ class GroupEntity: Object, Serializable {
 }
 protocol GroupBindible: AnyObject, bind {
     var group: GroupEntity! {get set}
-    var groupImg: UIImageView! {get}
+    var groupImg: UIImageViewX! {get}
     var groupName: UILabel! {get}
     var lastMsg: UILabel! {get}
     var msgTime: UILabel! {get}
@@ -93,7 +93,7 @@ protocol GroupBindible: AnyObject, bind {
     var famName: UILabel! { get }
 }
 extension GroupBindible {
-    var groupImg: UIImageView! {return nil}
+    var groupImg: UIImageViewX! {return nil}
     var groupName: UILabel! {return nil}
     var lastMsg: UILabel! {return nil}
     var msgTime: UILabel! {return nil}
@@ -117,8 +117,15 @@ extension GroupBindible {
                         return user
                     }else{
                         store.dispatch(UserS(.getbyId(uid: mid, assistant: false)))
+                       
                     }
                 }
+            }
+            return nil
+        }()
+        let assistant: AssistantEntity! = {
+            if let mid = group.members.first(where: {$0.id != getUser()?.id})?.id {
+                return rManager.realm.object(ofType: AssistantEntity.self, forPrimaryKey: mid)
             }
             return nil
         }()
@@ -130,7 +137,10 @@ extension GroupBindible {
             } else if !group.isGroup {
                 if user != nil && !user.photoURL.isEmpty {
                     groupImg.loadImage(urlString: user.photoURL)
-                } else {
+                }else if assistant != nil && !(assistant?.photoURL.isEmpty)! {
+                    groupImg.loadImage(urlString: assistant!.photoURL)
+                }
+                else {
                     groupImg.image = #imageLiteral(resourceName: "user-default")
                 }
             }
@@ -143,6 +153,8 @@ extension GroupBindible {
             }else if !group.isGroup{
                 if user != nil {
                      groupName.text = user.name
+                }else if assistant != nil {
+                    groupName.text = "\((assistant?.name)!) (Asistente)"
                 }
             }
         }

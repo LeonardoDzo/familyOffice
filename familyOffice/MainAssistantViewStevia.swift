@@ -33,7 +33,7 @@ class MainAssistantViewStevia: UIViewX {
         // Vertical + Horizontal Layout in one pass
         // With type-safe visual format
         layout(
-            60,
+            70,
             |menu|,
             2,
             |table.height(100%)|,

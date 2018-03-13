@@ -8,6 +8,8 @@
 
 import UIKit
 import ReSwift
+import PhotosUI
+import ALCameraViewController
 
 class ProfileUserViewController: UIViewController, UserEModelBindable{
  
@@ -50,11 +52,37 @@ class ProfileUserViewController: UIViewController, UserEModelBindable{
         }
         
         self.tabBarController?.tabBar.isHidden = true
-            
-        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.editImage))
+        self.photo.addGestureRecognizer(tap)
         self.setupButtonback()
     }
-    
+    @objc func editImage() -> Void {
+        let alertController = UIAlertController(title: "Qué desea hacer?", message: nil, preferredStyle: .actionSheet)
+        
+        let sendButton = UIAlertAction(title: "Cambiar foto", style: .default, handler: { (action) -> Void in
+            self.selectImage(completion: { (image) in
+                if image != nil {
+                    store.dispatch(UserS(UserAction.update(user: self.userModel, img: image)))
+                }
+            })
+        })
+        let seeButton = UIAlertAction(title: "Ver foto", style: .default, handler: { (action) -> Void in
+            if self.photo != nil, self.photo.image != nil {
+                self.showImages(images: [self.photo.image!])
+            }
+        })
+        
+        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in
+            print("Cancel button tapped")
+        })
+        
+        
+        alertController.addAction(sendButton)
+        alertController.addAction(seeButton)
+        alertController.addAction(cancelButton)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
     @IBAction func logoutBtnPressed(_ sender: Any) {
         store.dispatch(AuthSvc(.logout))
     }
@@ -82,9 +110,7 @@ class ProfileUserViewController: UIViewController, UserEModelBindable{
             group?.isGroup = false
             store.dispatch(createGroupAction(group: group, uuid: group.id))
         }else{
-            let controller = ChatTextViewController()
-            controller.group = group
-            self.navigationController?.pushViewController(controller, animated: true)
+            self.pushToView(view: .chat, sender: group)
         }
     }
     
@@ -128,9 +154,7 @@ extension ProfileUserViewController: StoreSubscriber {
         if group != nil, !group.id.isEmpty {
             switch state.requestState.requests[group.id] {
             case .finished?:
-                let controller = ChatTextViewController()
-                controller.group = group
-                self.navigationController?.pushViewController(controller, animated: true)
+                self.pushToView(view: .chat, sender: group)
                 break
             default: break
             }

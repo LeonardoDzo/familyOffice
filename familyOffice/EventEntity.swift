@@ -72,7 +72,7 @@ class EventEntity: Object, Codable, Serializable {
         self.id = try container.decode(String.self, forKey: .id)
         self.startdate = try container.decode(Int.self, forKey: .startdate)
         self.enddate = try container.decode(Int.self, forKey: .enddate)
-        self.changesforAll = try container.decode(Bool.self, forKey: .changesforAll)
+        self.changesforAll = try container.decodeIfPresent(Bool.self, forKey: .changesforAll) ?? false
         self.isDeleted = try container.decodeIfPresent(Bool.self, forKey: .isDeleted) ?? false
         //Optionals
         self.creator = try container.decodeIfPresent(String.self, forKey: .creator)

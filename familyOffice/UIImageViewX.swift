@@ -38,7 +38,7 @@ class UIImageViewX: CustomUIImageView{
     
     @IBInspectable public var filter: UIColor = UIColor.clear {
         didSet {
-            let view = UIView(frame: frame)
+            let view = UIView(frame: bounds)
             view.backgroundColor = filter
             addSubview(view)
         }

@@ -86,8 +86,6 @@ class contentPending: UIViewX, PendingBindable {
         )
         self.borderWidth = 1
         self.borderColor = pending.seen ? #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1) : UIColor.clear
-        self.cornerRadius = 4
-        self.clipsToBounds = true
         updatedAtLbl.font = updatedAtLbl.font.withSize(12)
         updatedAtLbl.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         detailsTxtV.textColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)

@@ -36,7 +36,7 @@ extension UIView {
     }
     
     func editBtn() {
-        let view = UIView(frame: CGRect(x:self.frame.width - 30, y: self.frame.height - 30, width: 30, height: 30))
+        let view = UIView(frame: CGRect(x:self.frame.size.width - 30, y: self.frame.size.height - 30, width: 30, height: 30))
         view.backgroundColor = #colorLiteral(red: 0.3621918559, green: 0.3622578681, blue: 0.3621831834, alpha: 0.5574567195)
         view.clipsToBounds = true
         view.layer.cornerRadius = 5
